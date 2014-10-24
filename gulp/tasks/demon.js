@@ -18,9 +18,9 @@ gulp.task('demon', function(cb){
     watch: [
       'server/server.js',
       'src/*',
-      'public/js/all.js',
-      'public/templates/*.html',
-      'public/index.html',
+      // 'public/js/all.js',
+      // 'public/templates/*.html',
+      // 'public/index.html',
     ],
     verbose: true,
     nodeArgs: ['--debug']

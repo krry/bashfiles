@@ -1,16 +1,14 @@
 var gulp = require('gulp');
-var changed = require('gulp-changed');
-var concat = require('gulp-concat');
+// var changed = require('gulp-changed');
 
-var scripts = [
-  'src/templates/**/*.html',
+var templates = [
+  'src/index.html',
+  'src/templates/*',
 ]
 
 gulp.task('templates', function(){
-  gulp.src('src/index.html')
-  	.pipe(changed('./public'))
-  	.pipe(gulp.dest('./public'));
-  return gulp.src(scripts)
-  	.pipe(changed('./public/templates'))
-    .pipe(gulp.dest('./public/templates'));
+
+  return gulp.src(templates)
+  	// .pipe(changed('./public/'))
+    .pipe(gulp.dest('./public/'));
 })

@@ -13,7 +13,8 @@ var watch = require('gulp-watch')
 
 var paths = {
   styles:    './src/css/**/*.css',
-  scripts:   './src/js/**/*.js'
+  scripts:   './src/js/**/*.js',
+  templates:   ['./src/templates/**/*.html','./src/index.html'],
 }
 
 global.isWatching = true;
@@ -29,6 +30,11 @@ gulp.task('watch', function(){
 
   var scriptWatcher = gulp.watch(paths.scripts, ['scripts'])
   scriptWatcher.on('change', function(e) {
-    console.log('File ' + e.path + ' was ' + e.type + ', running style tasks...')
+    console.log('File ' + e.path + ' was ' + e.type + ', running scripts tasks...')
+  })
+
+  var templateWatcher = gulp.watch(paths.templates, ['templates'])
+  templateWatcher.on('change', function(e) {
+    console.log('File ' + e.path + ' was ' + e.type + ', running templates tasks...')
   })
 })
