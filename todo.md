@@ -19,10 +19,10 @@ Generally, with a mind for not stepping on each other's toes, let's try to avoid
 
 ## Krry
 
-* style / css
+* styles
 * template layout
 
 ## Lazarus
 
-* step/states
+* steps and their states
 * template mapping
