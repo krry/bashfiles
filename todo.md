@@ -21,7 +21,7 @@ Generally, with a mind for not stepping on each other's toes, let's try to avoid
 
 * styles
     [ ] import core styles from Silkroad
-    [ ] implement Sass build in gulp
+    [x] implement Sass build in gulp
 * template layout
 
 
