@@ -1,15 +1,16 @@
 var gulp  = require('gulp')
-var clean = require('gulp-rimraf')
+var del = require('del')
 
 var laundry = [
-  './public/js/*',
-  './public/css/*',
+  './public/js/**/*',
+  './public/templates/**/*',
+  './public/css/**/*',
   './public/img/*',
   './public/fonts/*',
+  './public/index.html',
 ]
 
 gulp.task('clean', function() {
-  console.log('now cleaning dist folders')
-  return gulp.src(laundry, {read: false})
-        .pipe(clean())
+  console.log('now cleaning dist folders');
+  return del(laundry);
 })

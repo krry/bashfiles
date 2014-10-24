@@ -1,13 +1,14 @@
 {
-  "name": "EdLitR",
+  "name": "flannel",
   "version": "0.9.0",
   "main": "server/server.js",
   "homepage": "",
   "authors": [
-    "Jesse LaRue <lazaruslarue@gmail.com>"
+    "Jesse LaRue <jlarue@solarcity.com>",
+    "Kerry Snyder <ksnyder@solarcity.com>"
   ],
   "private": true,
-  "description": "EdLitR for Solarcity",
+  "description": "flannel for Solarcity",
   "dependencies": {
     "browser-sync": "^1.5.8",
     "del": "^0.1.3",
@@ -22,9 +23,16 @@
   },
   "devDependencies": {
     "bower": "^1.3.3",
+    "del": "^0.1.3",
     "gulp-util": "^2.2.14",
     "pretty-hrtime": "^0.2.2",
     "shelljs": "^0.3.0"
+  },
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "gulp reload",
+    "refresh": "gulp refresh",
+    "prod": "gulp heroku:production"
   },
   "ignore": [
     "**/.*",
