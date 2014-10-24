@@ -1,0 +1,8 @@
+ignore
+public/
+src/lib/
+node_modules
+app/config/config.js
+bower_components
+.DS_Store
+platforms
