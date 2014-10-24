@@ -1,23 +1,23 @@
-angular.module('states.plan',[]).config( function StatesPlan($stateProvider) {
+angular.module('steps.plan',[]).config( function StatesPlan($stateProvider) {
   $stateProvider.state("plan", {
     url:         "/plan",
     controller:  "PlanCtrl as plan",
-    templateUrl: "templates/states/plan/plan.html",
+    templateUrl: "templates/steps/plan/plan.html",
     abstract:    true,
   })
   .state("plan.type", {
     url:         "",
     views: {
       'planContent' :{
-        templateUrl: 'templates/states/plan/planContent.html',
+        templateUrl: 'templates/steps/plan/planContent.html',
         controller:  "",
       },
       'detailMenu' :{
-        templateUrl: 'templates/states/plan/detailMenu.html', 
+        templateUrl: 'templates/steps/plan/detailMenu.html', 
         controller: "DetailCtrl as detail",
       },
       'helpMenu' :{
-        templateUrl: 'templates/states/plan/helpMenu.html', 
+        templateUrl: 'templates/steps/plan/helpMenu.html', 
         controller: "HelpCtrl as help",
       }
     },

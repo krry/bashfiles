@@ -2,7 +2,7 @@ angular.module('flannel', [
   'ui.router',
   'ui.bootstrap',
   'ngTouch',
-  'states',
+  'steps',
   'flannel.controllers',
   'flannel.directives',
   'flannel.options',
