@@ -32,22 +32,12 @@ angular.module('steps.configure',[]).config( function ($stateProvider) {
       },
     },
   })
-  .state("configure.zip.two", {
-    url: '/2',
+  .state("configure.address", {
+    url: '/address',
+    controller: '',
     views: {
-      // 'header': {
-      //   // templateUrl: 'templates/steps/home/header.html',
-      //   template: 'header',
-      //   controller:  "",
-      // },
-      // 'main@': {
-      //   // templateUrl: 'templates/steps/plan/planContent.html',
-      //   template: 'main2asdfasdf',
-      //   controller:  "",
-      // },
-      'footer@': {
-        // templateUrl: 'templates/steps/plan/planContent.html',
-        template: 'footer2asdfasdfasdf',
+      'address@configure': {
+        templateUrl: "templates/steps/configure/main.address.html",
         controller:  "",
       },
     },

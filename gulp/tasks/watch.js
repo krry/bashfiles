@@ -9,12 +9,11 @@
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
 var gulp  = require('gulp')
-var watch = require('gulp-watch')
 
 var paths = {
   styles:    './src/css/**/*.css',
   scripts:   './src/js/**/*.js',
-  templates:   ['./src/templates/**/*.html','./src/index.html'],
+  templates: ['./src/templates/**/*.html','./src/index.html'],
 }
 
 global.isWatching = true;
