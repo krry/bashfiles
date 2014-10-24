@@ -1,4 +1,4 @@
-#popover {
+.popover {
 	position: absolute;
   width: 20px;
   height: 20px;
@@ -8,7 +8,7 @@
   opacity: 0.5;
 }
 
-.popover-content {
+.popover__content {
   min-width: 180px;
   /*color: white;*/
   background-color: white;

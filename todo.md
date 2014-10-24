@@ -17,10 +17,13 @@ Generally, with a mind for not stepping on each other's toes, let's try to avoid
     2. merge the new features into master: `git checkout master; git merge <branch>`
 
 
-## Krry
+## krry
 
 * styles
+    [ ] import core styles from Silkroad
+    [ ] implement Sass build in gulp
 * template layout
+
 
 ## Lazarus
 
