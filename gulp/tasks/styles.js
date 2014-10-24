@@ -12,6 +12,7 @@ var handleErrors = require('../util/handleErrors')
 
 var styleSrc  = [
   './src/css/**/*.scss',
+  './src/css/**/*.css',
   './lib/normalize.css'
 ]
 
