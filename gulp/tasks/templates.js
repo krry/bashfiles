@@ -4,6 +4,7 @@ var gulp = require('gulp');
 var templates = [
   'src/index.html',
   'src/templates/**',
+  'src/templates/*.html',
 ]
 
 gulp.task('templates', function(){
