@@ -18,4 +18,4 @@ function ObstructionService_ () {
 
 
 }
-angular.module('edliter').service('ObstructionService', ObstructionService_);  
+angular.module('flannel').service('ObstructionService', ObstructionService_);  

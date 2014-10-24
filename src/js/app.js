@@ -1,11 +1,11 @@
-angular.module('edliter', [
+angular.module('flannel', [
   'ui.router',
   'ui.bootstrap',
   'ngTouch',
   'states',
-  'app.controllers',
-  'app.directives',
-  'app.options',
+  'flannel.controllers',
+  'flannel.directives',
+  'flannel.options',
 ]).config(function($sceDelegateProvider, $sceProvider, $httpProvider) {
   $sceDelegateProvider.resourceUrlWhitelist([
    // Allow same origin resource loads.
@@ -22,6 +22,6 @@ angular.module('edliter', [
   
 });
 
-var controllers = angular.module('app.controllers',[]);
-var directives  = angular.module('app.directives',[]);
-var options     = angular.module('app.options',[]);
+var controllers = angular.module('flannel.controllers',[]);
+var directives  = angular.module('flannel.directives',[]);
+var options     = angular.module('flannel.options',[]);

@@ -31,4 +31,4 @@ function ApiService_ ($http, $q) {
   return ApiService;
 }
 
-angular.module('edliter').service('ApiService', ApiService_);
+angular.module('flannel').service('ApiService', ApiService_);
