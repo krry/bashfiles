@@ -16,6 +16,7 @@ angular.module('steps.home',[]).config( function ($stateProvider) {
     // 		templateUrl: 'templates/steps/plan/planContent.html',
     //     controller:  "",
     // 	},
-    },
+    // },
   });
 });
+ 
