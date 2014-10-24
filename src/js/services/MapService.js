@@ -9,22 +9,32 @@ function MapService_ ($q) {
   MapService.o = {};
 
   MapService.g.mapOptions = { 
+    // disableDefaultUI: true,
+    // keyboardShortcuts: false,
+    // draggable: true,
+    // disableDoubleClickZoom: false,
+    // scrollwheel: true,
+    // streetViewControl: false,
+    // // center: new google.maps.LatLng(37.5516671,-122.31563), //TODO: device location
+    // zoom: 20,
+    // mapTypeId: google.maps.MapTypeId.SATELLITE, 
+    // tilt: 0, 
+    // rotateControl: true,
+    // mapTypeControl: false,
+    // // zoomControl: true,
+    // zoomControlOptions: {
+    //   style: google.maps.ZoomControlStyle.SMALL
+    // }
+
+    zoom : 4,
+    minZoom : 4,
+    maxZoom : 4,
+    mapTypeId : google.maps.MapTypeId.TERRAIN,
     disableDefaultUI: true,
-    keyboardShortcuts: false,
-    draggable: true,
-    disableDoubleClickZoom: false,
-    scrollwheel: true,
-    streetViewControl: false,
-    // center: new google.maps.LatLng(37.5516671,-122.31563), //TODO: device location
-    zoom: 20,
-    mapTypeId: google.maps.MapTypeId.SATELLITE, 
-    tilt: 0, 
-    rotateControl: true,
-    mapTypeControl: false,
-    // zoomControl: true,
-    zoomControlOptions: {
-      style: google.maps.ZoomControlStyle.SMALL
-    }
+    draggable: false,
+    zoomable: false,
+    scrollwheel: false,
+    backgroundColor: "transparent"
   };
 
   // MapService.o.staticMap = null;  
