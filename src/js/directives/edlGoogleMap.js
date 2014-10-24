@@ -19,7 +19,7 @@ function edlGoogleMap($timeout, $document, $window, MapService) {
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
         var searchbox = MapService.setSearchBox(input);
         searchbox.bindTo('bounds', map);
-        debugger;
+
         // listen for the 'place_changed' trigger which is fired 
         google.maps.event.addListener(searchbox, 'place_changed', function(place){
           // get the place you clicked on
