@@ -1,0 +1,78 @@
+
+.pitchbuttoncontainer {
+  position: relative;
+  height: 60px;
+  width: 60px;
+}
+
+edl-pitch-button {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.edloutter {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.edltext {
+  z-index: 15;
+  top: 15%;
+  left: 15%;
+  color: red;
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 1em;
+}
+
+.edlupper {
+  position: absolute;
+  top: 0%;
+  width: 100%;
+  height: 100%;
+  -webkit-transform-origin: 100% 100% 0px;
+}
+
+.edlarc {
+  position: relative;
+  /*width: 100%;*/
+  height: 100%;
+  top: 100%;
+  /*transform: rotate(90deg);*/
+  -webkit-transform: rotate(90deg);
+  -webkit-transform-origin: 50% 50% 0px;
+}
+
+.edlarc > .edlcirclering {
+  position: absolute;
+  width: 49%;
+  height: 49%;
+  background: black;
+  border-bottom-right-radius:100%;
+}
+
+.edlarc > .edlcirclehole {
+  z-index: 1;
+  position: absolute;
+  width: 45%;
+  height: 45%;
+  background-color: white;
+  border-bottom-right-radius:100%;
+}
+
+.edlanglebar{
+  clear: both;
+  position: absolute;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  z-index: 19;
+  bottom: 0%;
+  right: 0%;
+  width: 100%;
+  height: 5%;
+  background-color: black;
+}
