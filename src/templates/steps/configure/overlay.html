@@ -1,0 +1,11 @@
+<span>dev selector
+  <select ng-model="configure.step" ng-options="s.step for s in configure.steps">
+  </select>
+  url of the template: <tt>{{configure.step.url}}</tt>
+  <hr/>
+</span>
+<div>
+  <div class="slide-animate-container">
+    <div class="slide-animate" ng-include="configure.step.url"></div>
+  </div>
+</div>

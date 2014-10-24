@@ -1,7 +1,6 @@
 angular.module('steps.configure',[]).config( function ($stateProvider) {
   $stateProvider.state("configure", {
     url: "",
-    controller: "",
     abstract: true,
     views: {
       'header@': {
@@ -10,7 +9,16 @@ angular.module('steps.configure',[]).config( function ($stateProvider) {
       },
       'main@': {
         templateUrl: "templates/steps/configure/main.html",
-        controller:  "",
+        controllerAs: 'configure',
+        controller: function ConfigureCtrl($scope){
+          var vm = this;
+          var baseUrl = 'templates/steps/configure/';
+          vm.steps = [ 
+            { step: 'zip-nearme',   url: baseUrl + 'main.zip.html'},
+            { step: 'address-roof', url: baseUrl + 'main.address.html'},
+          ];
+          vm.step = vm.steps[0];
+        },
       },
       'footer@': {
         templateUrl: "templates/steps/configure/footer.html",
@@ -20,7 +28,6 @@ angular.module('steps.configure',[]).config( function ($stateProvider) {
   })
   .state("configure.zip", {
     url: '/zip',
-    controller: '',
     views: {
       'overlay@configure': {
         templateUrl: "templates/steps/configure/overlay.html",
@@ -28,16 +35,6 @@ angular.module('steps.configure',[]).config( function ($stateProvider) {
       },
       'underlay@configure': {
         templateUrl: "templates/steps/configure/underlay.html",
-        controller:  "",
-      },
-    },
-  })
-  .state("configure.address", {
-    url: '/address',
-    controller: '',
-    views: {
-      'address@configure': {
-        templateUrl: "templates/steps/configure/main.address.html",
         controller:  "",
       },
     },
