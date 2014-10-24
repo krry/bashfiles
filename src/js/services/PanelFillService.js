@@ -185,4 +185,4 @@ function PanelFillService_ ($q, $window, OlService, MapService, ApiService) {
   return PanelFillService;
 }
 
-angular.module('edliter').service('PanelFillService', PanelFillService_);  
+angular.module('flannel').service('PanelFillService', PanelFillService_);  

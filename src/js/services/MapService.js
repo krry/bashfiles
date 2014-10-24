@@ -136,4 +136,4 @@ function MapService_ ($q) {
 
   return MapService;
 }
-angular.module('edliter').factory('MapService', MapService_);  
+angular.module('flannel').factory('MapService', MapService_);  

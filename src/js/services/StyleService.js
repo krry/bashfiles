@@ -210,4 +210,4 @@ function StyleService_ ($q) {
   return StyleService;
 }
 
-angular.module('edliter').factory('StyleService', StyleService_);  
+angular.module('flannel').factory('StyleService', StyleService_);  
