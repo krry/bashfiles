@@ -3,7 +3,7 @@ var changed = require('gulp-changed')
 
 var handleErrors = require('../util/handleErrors')
 
-var vndSrc = [
+var libSrc = [
   './src/lib/jquery/dist/jquery.js',
   './src/lib/openlayers3/build/ol-debug.js',
   './src/lib/openlayers3/build/ol.css',
@@ -12,13 +12,14 @@ var vndSrc = [
   './src/lib/angular/angular.js',
   './src/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
   './src/lib/angular-bootstrap/ui-bootstrap.min.js',
+  './src/lib/normalize.css/normalize.css',
 ]
 
-var publicLib = './public/lib/'
+var libPub = './public/lib/'
 
-gulp.task('vendors', function(){
-  return gulp.src(vndSrc)
-        .pipe(changed(publicLib))
+gulp.task('libs', function(){
+  return gulp.src(libSrc)
+        .pipe(changed(libPub))
         .on('error', handleErrors)
-        .pipe(gulp.dest(publicLib))
+        .pipe(gulp.dest(libPub))
 })

@@ -10,9 +10,9 @@ function edlPopOver($ionicGesture) {
 
     },
     template: [
-      '<div id="popover">',
-        '<div class="popover-content">Panel Count! {{panelCount}}</div>',
-        '<div class="popover-content">Part Deux {{savings}}</div>',
+      '<div id="popover" class="popover">',
+        '<div class="popover__content">Panel Count! {{panelCount}}</div>',
+        '<div class="popover__content">Part Deux {{savings}}</div>',
       '</div>',
     ].join(' '),
   };

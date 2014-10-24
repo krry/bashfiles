@@ -6,6 +6,7 @@ var laundry = [
   './public/templates/**/*',
   './public/css/**/*',
   './public/img/*',
+  './public/lib/*',
   './public/fonts/*',
   './public/index.html',
 ]
