@@ -22,8 +22,12 @@ angular.module('steps.configure',[]).config( function ($stateProvider) {
     url: '/zip',
     controller: '',
     views: {
-      'zip@configure': {
-        templateUrl: "templates/steps/configure/main.zip.html",
+      'overlay@configure': {
+        templateUrl: "templates/steps/configure/overlay.html",
+        controller:  "",
+      },
+      'underlay@configure': {
+        templateUrl: "templates/steps/configure/underlay.html",
         controller:  "",
       },
     },
