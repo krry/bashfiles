@@ -10,6 +10,12 @@ body {
   overflow: auto;
 }*/
 
+html, body {
+  height: 100%;
+  margin: 0px;
+  padding: 0px
+}
+
 .container {
     margin-bottom: 100px;
     padding: 10px;

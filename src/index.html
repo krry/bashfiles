@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -7,6 +7,8 @@
 
     <!-- <link href="lib/ionic/css/ionic.css" rel="stylesheet"> -->
     <link href="css/style.css" rel="stylesheet">
+    <link href="css/gmap.css" rel="stylesheet">
+    <link href="css/overunder.css" rel="stylesheet">
     <link href="css/pitchButton.css" rel="stylesheet">
     <link href="css/edl-icons-style.css" rel="stylesheet">
     <link href="css/infobox.css" rel="stylesheet">
@@ -22,8 +24,11 @@
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false&client=gme-solarcity"></script>    
   </head>
   <!-- app begins -->
-  <body ng-app="edliter">
-    <ui-view></ui-view>
+  <body ng-app="flannel">
+    <!-- <ui-view ></ui-view> -->
+    <ui-view name="header"></ui-view>
+    <ui-view name="main"></ui-view>
+    <ui-view name="footer"></ui-view>
     <script src="lib/angular.js"></script>
     <script src="lib/angular-touch.js"></script>
     <!-- angular-ui -->

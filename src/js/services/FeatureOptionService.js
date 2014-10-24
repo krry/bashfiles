@@ -77,4 +77,4 @@ function FeatureOptionService_ () {
 
 
 }
-angular.module('edliter').service('FeatureOptionService', FeatureOptionService_);  
+angular.module('flannel').service('FeatureOptionService', FeatureOptionService_);  

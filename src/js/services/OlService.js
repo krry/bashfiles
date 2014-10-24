@@ -200,4 +200,4 @@ function OlService_ ($q, $state, $window, StyleService, MapService) {
   return OlService;
 }
 
-angular.module('edliter').factory('OlService', OlService_);  
+angular.module('flannel').factory('OlService', OlService_);  
