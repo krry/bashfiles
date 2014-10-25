@@ -37,7 +37,7 @@ angular.module('steps.configure',[]).config( function ($stateProvider) {
         },
       },
       'footer@': {
-        templateUrl: "templates/steps/configure/footer.html",
+        templateUrl: baseUrl + "footer.html",
         controller:  "",
       },
     },
@@ -46,11 +46,11 @@ angular.module('steps.configure',[]).config( function ($stateProvider) {
     url: '/configure',
     views: {
       'overlay@configure': {
-        templateUrl: "templates/steps/configure/overlay.html",
+        templateUrl: baseUrl + "overlay.html",
         controller:  "",
       },
       'underlay@configure': {
-        templateUrl: "templates/steps/configure/underlay.html",
+        templateUrl: baseUrl + "underlay.html",
         controller:  "",
       },
     },
