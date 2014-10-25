@@ -17,11 +17,6 @@ angular.module('steps.home',[]).config( function ($stateProvider) {
     abstract: true,    abstract: true,
     views: {
       'header@': {
-        templateUrl: 'templates/steps/configure/header.html',
-        controller:  "",
-      },
-    views: {
-      'header@': {
         templateUrl: baseUrl + "header.html",
         controller:  "",
       },
