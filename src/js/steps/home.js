@@ -14,7 +14,12 @@ angular.module('steps.home',[]).config( function ($stateProvider) {
   // state definition
   $stateProvider.state("home", {
     url: "",
-    abstract: true,
+    abstract: true,    abstract: true,
+    views: {
+      'header@': {
+        templateUrl: 'templates/steps/configure/header.html',
+        controller:  "",
+      },
     views: {
       'header@': {
         templateUrl: baseUrl + "header.html",
@@ -22,7 +27,7 @@ angular.module('steps.home',[]).config( function ($stateProvider) {
       },
       'main@': {
         templateUrl: baseUrl + "main.html",
-        controllerAs: 'home',
+        controllerAs: stateName,
         controller: function HomeCtrl($scope, $state){
           var currentStep = 0;
           var vm = this;
@@ -42,7 +47,7 @@ angular.module('steps.home',[]).config( function ($stateProvider) {
     },
   })
   .state("home.initial", {
-    url: '/initial',
+    url: '/home',
     views: {
       'overlay@home': {
         templateUrl: baseUrl + "overlay.html",
