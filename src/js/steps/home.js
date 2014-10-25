@@ -1,24 +1,57 @@
 angular.module('steps.home',[]).config( function ($stateProvider) {
+  
+  // specifics for for this state
+  var stateName = 'home';
+  var baseUrl = 'templates/steps/' + stateName + '/';
+
+  var steps = [ 
+    { step: 'zip-nearme',   url: baseUrl + 'zip.html'},
+    { step: 'address-roof', url: baseUrl + 'address.html'},
+  ];
+
+  var destination = 'configure.initial'
+
+  // state definition
   $stateProvider.state("home", {
-    url: "/home",
-    controller: "HomeCtrl",
-    // templateUrl: "templates/steps/home/home.html",
+    url: "",
+    abstract: true,
     views: {
-      'header': {
-        templateUrl: 'templates/steps/home/home.html',
+      'header@': {
+        templateUrl: baseUrl + "header.html",
         controller:  "",
       },
       'main@': {
-        // templateUrl: 'templates/steps/plan/planContent.html',
-        // templateUrl: "templates/steps/configure/configure.html",
-        template: 'main',
-        controller:  "",
+        templateUrl: baseUrl + "main.html",
+        controllerAs: 'home',
+        controller: function HomeCtrl($scope, $state){
+          var currentStep = 0;
+          var vm = this;
+          vm.nextStep = function nextStep(cur){
+            currentStep < steps.length - 1 ? 
+              currentStep++ : $state.go(destination);
+            vm.step=vm.steps[currentStep];
+          };
+          vm.steps = steps;
+          vm.step = vm.steps[currentStep];
+        },
       },
       'footer@': {
-        // templateUrl: 'templates/steps/plan/planContent.html',
-        template: 'footer',
+        templateUrl: baseUrl + "footer.html",
         controller:  "",
       },
     },
-  });
-});
+  })
+  .state("home.initial", {
+    url: '/initial',
+    views: {
+      'overlay@home': {
+        templateUrl: baseUrl + "overlay.html",
+        controller:  "",
+      },
+      'underlay@home': {
+        templateUrl: baseUrl + "underlay.html",
+        controller:  "",
+      },
+    },
+  })
+;});
