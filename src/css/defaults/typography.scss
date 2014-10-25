@@ -1,0 +1,187 @@
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+//  TYPOGRAPHY
+
+//  myth uses the current-future spec syntax to set
+//  variables for colors, fonts, easing functions, etc.
+//  
+//  to consume these variables in another stylesheet,
+//  import this file into it using relative paths:
+//  
+//  @import url("../vars.css")
+
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+@import "../variables/fonts.css";
+@import "../variables/sizes.css";
+@import "../variables/colors.css";
+
+// mobile width type styles first
+main {
+  font-size: $width-em;
+}
+
+h1 {
+  font-size: 2em;
+  font-weight: 300;
+  line-height: 1.25em;
+}
+
+h2 {
+  font-size: 1.625em;
+  line-height: 1.2em;
+  font-weight: 500;
+}
+
+h3 {
+  font-size: 1.375em;
+  line-height: 1.15em;
+  font-weight: 500;
+}
+
+h4 {
+  font-size: 1.125em;
+  font-weight: 500;
+}
+
+h5 {
+  font-size: 1em;
+  font-weight: 600;
+}
+
+h6 {
+  font-size: 1em;
+  line-height: 1em;
+  font-weight: 600;
+}
+
+p {
+  font-size: 1em;
+  margin: 1em 0;
+}
+
+blockquote {
+  font-size: 1.25em;
+  line-height: 1.25em;
+  font-family: $serif;
+  font-style: italic;
+  margin: 2em 8em 2em 2em;
+}
+
+blockquote cite, blockquote + cite {
+  font-size: .75em;
+  font-style: normal;
+  font-family: $sans-serif;
+  text-align: right;
+  display: block;
+}
+
+blockquote cite:before, blockquote + cite:before {
+  content: "\2014";
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  max-width: 100%;
+}
+
+.center h1,
+.center h2,
+.center h3,
+.center h4,
+.center h5,
+.center h6,
+.center p {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+@media screen and (min-width: $width-min-med) {
+  // size up the text
+  h1 {
+    font-size: 2.5em;
+    line-height: 1.125;
+  }
+
+  h2 {
+    font-size: 2em;
+    line-height: 1.25;
+  }
+
+  h3 {
+    font-size: 1.5em;
+    line-height: 1.25;
+  }
+
+  h4 {
+    font-size: 1.225em;
+    line-height: 1.25;
+    font-weight: 500;
+  }
+
+  h5 {
+    font-size: 1.125em;
+    line-height: 1.25;
+    font-weight: 500;
+  }
+
+  h6 {
+    font-size: 1em;
+    line-height: 1.125;
+    font-weight: 600;
+  }
+
+  blockquote {
+    font-size: 1.5em;
+    line-height: 1.475em;
+  }
+
+}
+
+// > 900px --- big tablets/laptops
+@media screen and (min-width: $width-min-lrg) {
+  // a little bit bigger for pads
+  h1 {
+    font-size: 3em;
+    line-height: 1.125;
+  }
+
+  h2 {
+    font-size: 2.25em;
+    line-height: 1.25;
+  }
+
+  h3 {
+    font-size: 1.75em;
+    line-height: 1.25;
+  }
+
+  h4 {
+    font-size: 1.375em;
+    line-height: 1.25;
+  }
+
+  h5 {
+    font-size: 1.25em;
+    line-height: 1.25;
+    font-weight: 500;
+  }
+
+  h6 {
+    font-size: 1.125em;
+    line-height: 1.125;
+    font-weight: 500;
+  }
+
+  p {
+    font-size: 1.125em;
+    margin-top: 0;
+  }
+}
+

@@ -1,0 +1,15 @@
+// only when page is printed
+
+@media print {
+  main {
+    font-size: 12pt;
+    padding: 1in;
+    line-height: 1.25em;
+    font-weight: 400;
+  }
+
+  h1 {
+    font-size: 36pt;
+    line-height: 1.25em;
+  }
+}
