@@ -24,15 +24,15 @@ angular.module('steps.home',[]).config( function ($stateProvider) {
         templateUrl: baseUrl + "main.html",
         controllerAs: 'home',
         controller: function HomeCtrl($scope, $state){
-          var currentstep = 0;
+          var currentStep = 0;
           var vm = this;
           vm.nextStep = function nextStep(cur){
-            currentstep < steps.length - 1 ? 
-              currentstep++ : $state.go(destination);
-            vm.step=vm.steps[currentstep];
+            currentStep < steps.length - 1 ? 
+              currentStep++ : $state.go(destination);
+            vm.step=vm.steps[currentStep];
           };
           vm.steps = steps;
-          vm.step = vm.steps[currentstep];
+          vm.step = vm.steps[currentStep];
         },
       },
       'footer@': {
