@@ -10,7 +10,9 @@
 //  
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+@import "../variables/fonts";
 @import "../variables/colors";
+@import "../variables/motion";
 
 .slider-tray {
   width: 85%;
@@ -87,8 +89,8 @@
 }
 
 .slider {
-  color: $30grey;
-  background: $30grey;
+  color: $grey-light;
+  background: $grey-light;
   height: 1.5em;
   border: 2px solid;
   max-width: 50em;
@@ -96,7 +98,7 @@
   cursor: pointer;
   transition-property: background-color, border-color;
   transition-duration: 250ms;
-  transition-timing-function: $cubez;
+  transition-timing-function: $easing-quick;
   margin: 0.5em 0;
   border-radius: .125em;
   font-size: 1.25em;
@@ -128,10 +130,10 @@
   border-radius: 2px;
   outline: none;
   -ms-touch-action: none;
-  font-family: $interface;
+  font-family: $font-interface;
   transition-property: box-shadow, color, border-color;
   transition-duration: 250ms;
-  transition-timing-function: $cubez;
+  transition-timing-function: $easing-quick;
 }
 
 .noUi-base {
@@ -143,18 +145,18 @@
 }
 
 .noUi-pips {
-  font-family: $interface;
-  color: $white;
+  font-family: $font-interface;
+  color: $color-text-main;
   opacity: 0;
-  transition: opacity 200ms $cubez;
+  transition: opacity 200ms $easing-quick;
 }
 
 .noUi-marker {
-  background-color: $white;
+  background-color: $color-bkgd-main;
 }
 
 .noUi-marker-large {
-  background-color: $white;
+  background-color: $color-bkgd-main;
 }
 
 .slider:hover .noUi-pips,

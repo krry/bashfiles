@@ -12,52 +12,46 @@
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-@import "../variables/fonts.css";
-@import "../variables/sizes.css";
-@import "../variables/colors.css";
+@import "../variables/fonts";
+@import "../variables/sizes";
+@import "../variables/colors";
 
 // mobile width type styles first
 main {
-  font-size: $width-em;
+  font-size: #{($font-size)*.875}em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.25;
+  max-width: 100%;
 }
 
 h1 {
   font-size: 2em;
-  font-weight: 300;
-  line-height: 1.25em;
 }
 
 h2 {
   font-size: 1.625em;
-  line-height: 1.2em;
-  font-weight: 500;
 }
 
 h3 {
   font-size: 1.375em;
-  line-height: 1.15em;
-  font-weight: 500;
 }
 
 h4 {
   font-size: 1.125em;
-  font-weight: 500;
 }
 
 h5 {
   font-size: 1em;
-  font-weight: 600;
 }
 
 h6 {
   font-size: 1em;
-  line-height: 1em;
-  font-weight: 600;
 }
 
 p {
   font-size: 1em;
-  margin: 1em 0;
 }
 
 blockquote {
@@ -80,16 +74,6 @@ blockquote cite:before, blockquote + cite:before {
   content: "\2014";
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-  max-width: 100%;
-}
-
 .center h1,
 .center h2,
 .center h3,
@@ -103,85 +87,32 @@ p {
 }
 
 @media screen and (min-width: $width-min-med) {
-  // size up the text
-  h1 {
-    font-size: 2.5em;
-    line-height: 1.125;
+  main {
+    font-size: $font-size;
   }
-
-  h2 {
-    font-size: 2em;
-    line-height: 1.25;
-  }
-
-  h3 {
-    font-size: 1.5em;
-    line-height: 1.25;
-  }
-
-  h4 {
-    font-size: 1.225em;
-    line-height: 1.25;
-    font-weight: 500;
-  }
-
-  h5 {
-    font-size: 1.125em;
-    line-height: 1.25;
-    font-weight: 500;
-  }
-
-  h6 {
-    font-size: 1em;
-    line-height: 1.125;
-    font-weight: 600;
-  }
-
-  blockquote {
-    font-size: 1.5em;
-    line-height: 1.475em;
-  }
-
 }
 
-// > 900px --- big tablets/laptops
 @media screen and (min-width: $width-min-lrg) {
-  // a little bit bigger for pads
-  h1 {
-    font-size: 3em;
-    line-height: 1.125;
+  main {
+    font-size: #{($font-size)*1.125}em;
   }
+}
 
-  h2 {
-    font-size: 2.25em;
-    line-height: 1.25;
+@media screen and (min-width: $width-min-xlg) {
+  main {
+    font-size: #{($font-size)*1.25}em;
   }
+}
 
-  h3 {
-    font-size: 1.75em;
-    line-height: 1.25;
+@media screen and (min-width: $width-min-xxl) {
+  main {
+    font-size: #{($font-size)*1.375}em;
   }
+}
 
-  h4 {
-    font-size: 1.375em;
-    line-height: 1.25;
-  }
-
-  h5 {
-    font-size: 1.25em;
-    line-height: 1.25;
-    font-weight: 500;
-  }
-
-  h6 {
-    font-size: 1.125em;
-    line-height: 1.125;
-    font-weight: 500;
-  }
-
-  p {
-    font-size: 1.125em;
-    margin-top: 0;
+@media screen and (min-width: $width-min-hd) {
+  main {
+    font-size: #{($font-size)+1.5}em;
   }
 }
 

@@ -10,6 +10,7 @@
 //  
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+@import "../variables/sizes";
 @import "../variables/fonts";
 @import "../variables/colors";
 @import "../variables/motion";
@@ -31,7 +32,7 @@ body {
   font-size: 100%;
   min-height: 100%;
   font-size: 100%;
-  line-height: $height-line;
+  line-height: $line-height-body;
   position: relative;
   padding: 0;
   color: $color-text-main;
@@ -169,7 +170,7 @@ input[type=date] {
   margin-bottom: 1em;
   border: 1px solid $grey-light;
   padding: .125em .25em;
-  color: $grey-80;
+  color: $grey-darker;
 }
 
 select {

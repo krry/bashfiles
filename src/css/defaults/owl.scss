@@ -11,14 +11,14 @@
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
-@import "../variables/sizes"
+@import "../variables/sizes";
 
 * + * {
-  margin-top: $lineHeight;
+  margin-top: $line-height-body;
 }
 
 .compact * + * {
-  margin-top: $lineHeight/2;
+  margin-top: $line-height-body/2;
 }
 
 .margins-off > * {
