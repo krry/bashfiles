@@ -1,0 +1,11 @@
+<span>dev selector
+  <select ng-model="qualify.step" ng-options="s.step for s in qualify.steps">
+  </select>
+  url of the template: <tt>{{qualify.step.url}}</tt>
+<button ng-click="qualify.nextStep()">Next Step</button>
+  <hr/>
+</span>
+<div id="main">
+	<ui-view name="major"></ui-view>
+	<ui-view name="minor"></ui-view>
+</div>

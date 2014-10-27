@@ -1,29 +1,30 @@
-angular.module('steps.home',[]).config( function ($stateProvider) {
+// qualify.js
+angular.module('steps.qualify',[]).config( function ($stateProvider) {
   
   // specifics for for this state
-  var stateName = 'home';
-  var baseUrl = 'templates/steps/' + stateName + '/';
+  var stateName = 'qualify';
+  var templateUrl = 'templates/';
+  var stepsUrl = 'steps/';
+  var baseUrl = templateUrl + stepsUrl + stateName + '/';
 
   var steps = [ 
-    { step: 'zip-nearme',   url: baseUrl + 'zip.html'},
-    { step: 'address-roof', url: baseUrl + 'address.html'},
+    { step: 'final', url: baseUrl + 'final.html'   },
   ];
 
-  var destination = 'configure.initial'
+  var destination = null;
 
-  // state definition
-  $stateProvider.state("home", {
+  $stateProvider.state("qualify", {
     url: "",
     abstract: true,
     views: {
       'header@': {
-        templateUrl: baseUrl + "header.html",
+        templateUrl: baseUrl + "header.html", 
         controller:  "",
       },
       'main@': {
         templateUrl: baseUrl + "main.html",
         controllerAs: stateName,
-        controller: function HomeCtrl($scope, $state){
+        controller: function QualifyCtrl($scope, $state){
           var currentStep = 0;
           var vm = this;
           vm.nextStep = function nextStep(cur){
@@ -36,20 +37,20 @@ angular.module('steps.home',[]).config( function ($stateProvider) {
         },
       },
       'footer@': {
-        templateUrl: baseUrl + "footer.html",
+        templateUrl: templateUrl + "footer.html",
         controller:  "",
       },
     },
   })
-  .state("home.initial", {
-    url: '/home',
+  .state("qualify.initial", {
+    url: '/qualify',
     views: {
-      'overlay@home': {
-        templateUrl: baseUrl + "overlay.html",
+      'major@qualify': {
+        templateUrl: baseUrl + "major.html",
         controller:  "",
       },
-      'underlay@home': {
-        templateUrl: baseUrl + "underlay.html",
+      'minor@qualify': {
+        templateUrl: baseUrl + "minor.html",
         controller:  "",
       },
     },

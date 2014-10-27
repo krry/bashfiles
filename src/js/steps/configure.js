@@ -1,40 +1,58 @@
 angular.module('steps.configure',[]).config( function ($stateProvider) {
+  
+  // specifics for for this state
+  var stateName = 'configure';
+  var templateUrl = 'templates/';
+  var stepsUrl = 'steps/';
+  var baseUrl = templateUrl + stepsUrl + stateName + '/';
+
+  var steps = [ 
+    { step: 'zoom-lock-roof', url: baseUrl + 'zoom.html'   },
+    { step: 'trace-area',     url: baseUrl + 'trace.html'  },
+    { step: 'edit-area',      url: baseUrl + 'edit.html'   },
+    { step: 'define-area',    url: baseUrl + 'define.html' },
+  ];
+
+  var destination = 'qualify.initial'
+
   $stateProvider.state("configure", {
     url: "",
     abstract: true,
     views: {
       'header@': {
-        templateUrl: 'templates/steps/configure/header.html',
+        templateUrl: baseUrl + "header.html", 
         controller:  "",
       },
       'main@': {
-        templateUrl: "templates/steps/configure/main.html",
-        controllerAs: 'configure',
-        controller: function ConfigureCtrl($scope){
+        templateUrl: baseUrl + "main.html",
+        controllerAs: stateName,
+        controller: function ConfigureCtrl($scope, $state){
+          var currentStep = 0;
           var vm = this;
-          var baseUrl = 'templates/steps/configure/';
-          vm.steps = [ 
-            { step: 'zip-nearme',   url: baseUrl + 'main.zip.html'},
-            { step: 'address-roof', url: baseUrl + 'main.address.html'},
-          ];
-          vm.step = vm.steps[0];
+          vm.nextStep = function nextStep(cur){
+            currentStep < steps.length - 1 ? 
+              currentStep++ : $state.go(destination);
+            vm.step=vm.steps[currentStep];
+          };
+          vm.steps = steps;
+          vm.step = vm.steps[currentStep];
         },
       },
       'footer@': {
-        templateUrl: "templates/steps/configure/footer.html",
+        templateUrl: templateUrl + "footer.html",
         controller:  "",
       },
     },
   })
   .state("configure.initial", {
-    url: '/zipp',
+    url: '/configure',
     views: {
-      'overlay@configure': {
-        templateUrl: "templates/steps/configure/overlay.html",
+      'map@configure': {
+        templateUrl: baseUrl + "map.html",
         controller:  "",
       },
-      'underlay@configure': {
-        templateUrl: "templates/steps/configure/underlay.html",
+      'instructions@configure': {
+        templateUrl: baseUrl + "instructions.html",
         controller:  "",
       },
     },

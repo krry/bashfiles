@@ -84,9 +84,18 @@ edl-map {
 }
 
 #omap {
-  top: 0;
+  position: absolute;
+  top: 10%;
   left: 0;
-  width: 100%;
+  width: 90%;
+  height: 100%;
+}
+
+#instructions {
+  position: absolute;
+  top: 10%;
+  left: 90%;
+  width: 10%;
   height: 100%;
 }
 
