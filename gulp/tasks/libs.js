@@ -10,6 +10,7 @@ var libSrc = [
   './src/lib/angular-ui-router/release/angular-ui-router.min.js',
   './src/lib/angular-touch/angular-touch.js',
   './src/lib/angular/angular.js',
+  './src/lib/angular/angular.min.js',
   './src/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
   './src/lib/angular-bootstrap/ui-bootstrap.min.js',
   './src/lib/normalize.css/normalize.css',
