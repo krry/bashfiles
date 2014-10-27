@@ -1,0 +1,209 @@
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+//  
+//  CORE
+//  
+//  after normalize.css has had its way, the core resets
+//  some odditities and establishes default styles for
+//  raw HTML elements
+//  
+//  no classes should be used as selectors in the core
+//  
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+@import "../variables/sizes";
+@import "../variables/fonts";
+@import "../variables/colors";
+@import "../variables/motion";
+
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+// set base font
+html {
+  font-family: $font-body;
+  font-size: 16px;
+  height: 100%;
+}
+
+// basic page frame and styles
+body {
+  font-size: 100%;
+  min-height: 100%;
+  font-size: 100%;
+  line-height: $line-height-body;
+  position: relative;
+  padding: 0;
+  color: $color-text-main;
+  background: $color-bkgd-main;
+}
+
+main {
+  position: relative;
+}
+
+//  margin, padding, and border resets except for form elements
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, a, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, hgroup, nav, section, menu, time, mark, audio, video, canvas {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+// reset header text spacing and weight
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-headline;
+}
+
+// reset anchors and links
+a {
+  color: $color-link;
+  transition: all .15s $easing-quick;
+  text-decoration: none;
+  cursor: pointer;
+  border-bottom: 1px hidden;
+}
+
+a:hover {
+  color: $color-link-hover;
+  border-bottom-style: solid;
+}
+
+:target {
+  animation: highlight 1.5s $easing-quick;
+  outline: 0;
+}
+
+::selection {
+  background-color: $color-highlight;
+  color: white;
+}
+
+// horizontal dividers
+hr {
+  display: block;
+  border: none;
+  height: 1px;
+  background-color: $color-text-main;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  padding: 0;
+}
+
+pre, code {
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space: pre;
+  white-space: -moz-pre-wrap;
+  white-space: pre-wrap;
+  white-space: pre\9;
+}
+
+// image, video, multimedia content size limitations
+img, embed, object, video {
+  max-width: 100%;
+}
+
+// simple fluid media
+figure {
+  position: relative;
+}
+
+figure img,
+figure object,
+figure embed,
+figure video {
+  max-width: 100%;
+  display: block;
+}
+
+img {
+  -ms-interpolation-mode: bicubic;
+}
+
+// form fields, inputs, labels
+fieldset {
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 1em 0;
+}
+
+// form elements resets
+button,
+input,
+select,
+textarea {
+  margin: 0;
+  font-size: 100%;
+  line-height: normal;
+  font-family: inherit;
+  vertical-align: baseline;
+}
+
+label {
+  font-size: .875em;
+  display: block;
+  text-indent: 0;
+  font-weight: 600;
+}
+
+input[type=radio] + label,
+input[type=checkbox] + label {
+  display: inline-block;
+  text-indent: .5em;
+}
+
+input[type=text],
+input[type=email],
+input[type=tel],
+input[type=password],
+input[type=date] {
+  font-family: $font-interface;
+  font-size: 1.25em;
+  width: 100%;
+  margin-bottom: 1em;
+  border: 1px solid $grey-light;
+  padding: .125em .25em;
+  color: $grey-darker;
+}
+
+select {
+  border: 1px solid;
+}
+
+textarea {
+  margin: 0 0 1em;
+  width: 100%;
+  color: $grey-mid;
+  resize: vertical;
+  overflow: scroll;
+  padding: .5em 1em;
+  font-family: $font-interface;
+}
+
+input[type=text]:focus,
+input[type=email]:focus,
+input[type=tel]:focus,
+input[type=password]:focus,
+input[type=date]:focus,
+textarea:focus {
+  outline: none;
+  border-color: $blue-bright;
+}
+
+// input placeholders
+::placeholder {
+  opacity: .6;
+  color: inherit;
+  transition: opacity .2s;
+}
+
+:focus::placeholder {
+  opacity: .4;
+}

@@ -29,3 +29,8 @@ Generally, with a mind for not stepping on each other's toes, let's try to avoid
 
 * steps and their states
 * template mapping
+
+## Unclaimed
+
+* conditionally load minified versions of dependencies when `process.env.NODE_ENV !== "development"`
+* include debug and min versions of lib files in public/ for environment-conditional use

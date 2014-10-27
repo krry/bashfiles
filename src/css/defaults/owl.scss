@@ -1,0 +1,37 @@
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+   LOBOTOMIZED OWL
+
+   informed and inspired by Heydon Pickering's cry for 
+   non-prescriptive, cascading stylesheets
+
+   adds space and 
+
+   http://alistapart.com/article/axiomatic-css-and-lobotomized-owls
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+
+@import "../variables/sizes";
+
+* + * {
+  margin-top: $line-height-body;
+}
+
+.compact * + * {
+  margin-top: $line-height-body/2;
+}
+
+.margins-off > * {
+  margin-top: 0;
+}
+
+* > a {
+  font-family: inherit;
+  color: inherit;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}

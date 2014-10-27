@@ -1,0 +1,117 @@
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+//  TYPOGRAPHY
+
+//  myth uses the current-future spec syntax to set
+//  variables for colors, fonts, easing functions, etc.
+//  
+//  to consume these variables in another stylesheet,
+//  import this file into it using relative paths:
+//  
+//  @import url("../vars.css")
+
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+@import "../variables/fonts";
+@import "../variables/sizes";
+@import "../variables/colors";
+
+// mobile width type styles first
+main {
+  font-size: #{($font-size)*.875}em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.25;
+  max-width: 100%;
+}
+
+h1 {
+  font-size: 2em;
+}
+
+h2 {
+  font-size: 1.625em;
+}
+
+h3 {
+  font-size: 1.375em;
+}
+
+h4 {
+  font-size: 1.125em;
+}
+
+h5 {
+  font-size: 1em;
+}
+
+h6 {
+  font-size: 1em;
+}
+
+p {
+  font-size: 1em;
+}
+
+blockquote {
+  font-size: 1.25em;
+  line-height: 1.25em;
+  font-family: $serif;
+  font-style: italic;
+  margin: 2em 8em 2em 2em;
+}
+
+blockquote cite, blockquote + cite {
+  font-size: .75em;
+  font-style: normal;
+  font-family: $sans-serif;
+  text-align: right;
+  display: block;
+}
+
+blockquote cite:before, blockquote + cite:before {
+  content: "\2014";
+}
+
+.center h1,
+.center h2,
+.center h3,
+.center h4,
+.center h5,
+.center h6,
+.center p {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+@media screen and (min-width: $width-min-med) {
+  main {
+    font-size: $font-size;
+  }
+}
+
+@media screen and (min-width: $width-min-lrg) {
+  main {
+    font-size: #{($font-size)*1.125}em;
+  }
+}
+
+@media screen and (min-width: $width-min-xlg) {
+  main {
+    font-size: #{($font-size)*1.25}em;
+  }
+}
+
+@media screen and (min-width: $width-min-xxl) {
+  main {
+    font-size: #{($font-size)*1.375}em;
+  }
+}
+
+@media screen and (min-width: $width-min-hd) {
+  main {
+    font-size: #{($font-size)+1.5}em;
+  }
+}

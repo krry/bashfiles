@@ -1,93 +1,36 @@
-EdLiteR
+flannel
 =======
 
+## How to *dev*
 
-PRODUCITON:
-here's what's necessary to host from the installation directory on the server
-```` nohup forever start --watch server/server.js ````
+Clone the repo:
+`git clone git@github.com:SolarCity/flannel.git`
 
-DEVELOPMENT ENVIRONMENT:
-here's what's necessary to host from the installation directory on the server
-```` nohup forever start --watch server/dev-server.js ````
-
-
-This is a mobile application built from a template that uses the [Ionic Framework](http://ionicframework.com/), as well as [Angular UI Router](http://angular-ui.github.io/ui-router/), [Angular-UI-Bootstrap](http://angular-ui.github.io/), [Express JS](http://expressjs.com/). 
-
-What's missing: 
-* Testing
-* Compiled JS files instead of a new line in index for every new directive... ie. Gulp isn't working yet but it's there to help when ready
-* there's probably a lot of other stuff missing... submit issues when you find them
-
-Where'd it come from?
-* github.com/lazaruslarue/lame-ionic-app
-
-## Deploy steps
-
-set environment variables & hooks. Upload. 
-
-## Dev steps
-
-clone it. 
-
-then: 
-
+Install the dependencies:
 ```bash
-$ npm install -g ionic cordova gulp express nodemon
+$ npm install -g gulp nodemon bower #might hafta sudo
 $ npm install
 $ bower install
-$ nodemon --watch
-
-```
-Unless you have a PORT environment variable set, you'll find your app sitting at ````localhost:3000````
-
-### To build the Ionic app:
-from the root of the app run:
-
-```bash
-$ ionic platform add ios
-$ ionic build ios
-$ ionic emulate ios
 ```
 
-Substitute ios for android if not on a Mac, but if you can, the ios development toolchain is a lot easier to work with until you need to do anything custom to Android.
+Start devving:
+`npm run dev`
 
-## Issues
-Open up a new issue or comment on an existing one. PRs are graciously accepted
+You should see the gulp task logs as the app builds, then a new tab in your browser should open containing the app with a small "Connected to Browser Sync" badge in the top right corner.
 
-## everything below here is lifted from the Ionic page about their APP template
+## How to *gulp*
 
-## Using Sass (optional)
+This app features some heavy-duty `gulp`itude.
 
-This project makes it easy to use Sass (the SCSS syntax) in your projects. This enables you to override styles from Ionic, and benefit from
-Sass's great features.
+### `gulp`
 
-Just update the `./scss/ionic.app.scss` file, and run `gulp` or `gulp watch` to rebuild the CSS files for Ionic.
+Runs the default gulp tasks (build, watch, BrowserSync)
 
-Note: if you choose to use the Sass method, make sure to remove the included `ionic.css` file in `index.html`, and then uncomment
-the include to your `ionic.app.css` file which now contains all your Sass code and Ionic itself:
+### `gulp reload`
 
-```html
-<!-- IF using Sass (run gulp sass first), then remove the CSS include above
-<link href="css/ionic.app.css" rel="stylesheet">
--->
-```
+Runs the leet version of gulp, reloading gulp itself when the gulpfile is changed.
 
-## Updating Ionic
+### `gulp refresh`
 
-To update to a new version of Ionic, open bower.json and change the version listed there.
+Cleans out the static files in `public/`, then runs `gulp reload`
 
-For example, to update from version `1.0.0-beta.4` to `1.0.0-beta.5`, open bower.json and change this:
-
-```
-"ionic": "driftyco/ionic-bower#1.0.0-beta.4"
-```
-
-To this:
-
-```
-"ionic": "driftyco/ionic-bower#1.0.0-beta.5"
-```
-
-After saving the update to bower.json file, run `gulp install`.
-
-Alternatively, install bower globally with `npm install -g bower` and run `bower install`.
