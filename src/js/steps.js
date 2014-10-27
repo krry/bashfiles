@@ -3,7 +3,7 @@ angular.module('steps',[
   'steps.search',
   'steps.plan',
   'steps.configure',
-  // 'steps.qualify',
+  'steps.qualify',
   // 'steps.signup',
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
