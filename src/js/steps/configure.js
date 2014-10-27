@@ -2,7 +2,9 @@ angular.module('steps.configure',[]).config( function ($stateProvider) {
   
   // specifics for for this state
   var stateName = 'configure';
-  var baseUrl = 'templates/steps/' + stateName + '/';
+  var templateUrl = 'templates/';
+  var stepsUrl = 'steps/';
+  var baseUrl = templateUrl + stepsUrl + stateName + '/';
 
   var steps = [ 
     { step: 'zoom-lock-roof', url: baseUrl + 'zoom.html'   },
@@ -18,7 +20,7 @@ angular.module('steps.configure',[]).config( function ($stateProvider) {
     abstract: true,
     views: {
       'header@': {
-        templateUrl: baseUrl + "header.html",
+        templateUrl: baseUrl + "header.html", 
         controller:  "",
       },
       'main@': {
@@ -37,7 +39,7 @@ angular.module('steps.configure',[]).config( function ($stateProvider) {
         },
       },
       'footer@': {
-        templateUrl: baseUrl + "footer.html",
+        templateUrl: templateUrl + "footer.html",
         controller:  "",
       },
     },
@@ -45,12 +47,12 @@ angular.module('steps.configure',[]).config( function ($stateProvider) {
   .state("configure.initial", {
     url: '/configure',
     views: {
-      'overlay@configure': {
-        templateUrl: baseUrl + "overlay.html",
+      'map@configure': {
+        templateUrl: baseUrl + "map.html",
         controller:  "",
       },
-      'underlay@configure': {
-        templateUrl: baseUrl + "underlay.html",
+      'instructions@configure': {
+        templateUrl: baseUrl + "instructions.html",
         controller:  "",
       },
     },
