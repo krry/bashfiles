@@ -1,0 +1,71 @@
+@import "../variables/colors";
+
+header {
+  background: $green;
+  color: $white;
+  position: relative;
+  z-index: 10;
+}
+
+nav {
+  overflow: hidden;
+  width: 75%;
+}
+
+header > nav li {
+  display: table-cell;
+}
+
+nav li {
+  border-right: 2px solid $tinter;
+  position: relative;
+}
+
+nav li:first-child {
+  border-left: 2px solid $tinter;
+}
+
+nav li.active,
+nav li:hover {
+  background-color: $tint
+}
+
+nav .logo {
+  float: left;
+  text-indent: -9999px;
+  background: url('../img/logo-white.svg') no-repeat center center;
+  background-size: 90% auto;
+  width: 240px;
+  // padding: 0
+}
+
+nav ul {
+  float: right;
+}
+
+nav ul,
+nav li {
+  margin: 0;
+  padding: 0;
+}
+
+nav li span {
+  position: absolute;
+  top: .25em;
+  left: .75em;
+}
+
+nav a {
+  display: block;
+  padding: 3em 2em;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 500;
+  // margin-top: 4px;
+  border-bottom: 0px solid transparent;
+}
+
+nav a:hover {
+  color: $white;
+  // border-color: $gold;
+}

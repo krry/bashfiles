@@ -20,7 +20,7 @@ angular.module('steps.configure',[]).config( function ($stateProvider) {
     abstract: true,
     views: {
       'header@': {
-        templateUrl: baseUrl + "header.html", 
+        templateUrl: templateUrl + "header.html", 
         controller:  "",
       },
       'main@': {

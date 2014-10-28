@@ -7,12 +7,12 @@ var fontSrc = [
   './src/fonts/*'
 ]
 
-var publicfont = './public/fonts/'
+var fontPub = './public/fonts/'
 
 gulp.task('fonts', function(){
   return gulp.src(fontSrc)
-        .pipe(changed(publicfont))
+        .pipe(changed(fontPub))
         .on('error', handleErrors)
-        .pipe(gulp.dest(publicfont))
+        .pipe(gulp.dest(fontPub))
 })
 

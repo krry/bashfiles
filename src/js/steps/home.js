@@ -2,6 +2,7 @@ angular.module('steps.home',[]).config( function ($stateProvider) {
   
   // specifics for for this state
   var stateName = 'home';
+  var templateUrl = 'templates/';
   var baseUrl = 'templates/steps/' + stateName + '/';
 
   var steps = [ 
@@ -17,7 +18,7 @@ angular.module('steps.home',[]).config( function ($stateProvider) {
     abstract: true,
     views: {
       'header@': {
-        templateUrl: baseUrl + "header.html",
+        templateUrl: templateUrl + "header.html",
         controller:  "",
       },
       'main@': {

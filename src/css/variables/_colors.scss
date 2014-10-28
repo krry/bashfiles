@@ -33,7 +33,7 @@ $grey-darkest:  #171717;  // rgb(023, 023, 023)   hsl(0, 0%, 9%)
 $black:         #000000;  // rgb(000, 000, 000)   hsl(0, 0%, 0%)
 
 $color-text-main: $grey-dark;
-$color-bkgd-main: $white;
+$color-bkgd-main: $grey-lighter;
 
 $color-text-inverse: $white;
 $color-bkgd-inverse: $green;
@@ -43,4 +43,6 @@ $color-link-hover: $ginger;
 
 $color-highlight: $green-bright;
 
-$shade-20: rgba(0,0,0,.2);
+$shade: rgba(0,0,0,.2);
+$tint: rgba(255,255,255,.2);
+$tinter: rgba(255,255,255,.4);
