@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 function MapService_ ($q) {
   // this factory is a singleton for the Application. 
   // it provides maps, layers, collections, etc... 
@@ -7,6 +8,26 @@ function MapService_ ($q) {
   MapService.g = {};
   // the openlayer map
   MapService.o = {};
+=======
+/* ==================================================
+  this factory is a singleton for the Application. 
+  
+  it provides maps, layers, collections, etc... 
+
+  find Google Map objects on MapService.g....
+  find OpenLayer Map objects on MapService.o....
+
+
+
+================================================== */
+
+function MapService_ ($q, LayerService) {
+  var MapService = {};
+
+  MapService.g = {}; // the google map
+
+  MapService.o = {}; // the openlayer map
+>>>>>>> 8cdc045... fixup! notes about refactoring interaction control scheme
 
   MapService.g.mapOptions = { 
     // disableDefaultUI: true,
@@ -37,6 +58,7 @@ function MapService_ ($q) {
     backgroundColor: "transparent"
   };
 
+<<<<<<< HEAD
   // MapService.o.staticMap = null;  
   MapService.o.staticMap = null;  
 
@@ -47,6 +69,30 @@ function MapService_ ($q) {
   // openlayer map
   MapService.o.omap = null;
   MapService.o.view = null; 
+=======
+  MapService.g.gmap = null;   // google map
+  MapService.g.autocomplete = null;
+
+  var _ol_layers = [
+    LayerService.get('area'),
+    LayerService.get('static_map'),
+    LayerService.get('panel'),
+  ]
+
+  MapService.initOmap = function(targetEle) {
+    var olView = new ol.View({ 
+      projection: LayerService.pixelProjection,
+      center: ol.extent.getCenter(LayerService.pixelProjection.getExtent()),
+      zoom: 1,
+    });
+
+    var olMapOptions = {
+      view: olView,
+      interactions: ol.interaction.defaults(_ol_map_interaction_defaults),
+      layers: _ol_layers,
+      target: targetEle,
+    }
+>>>>>>> 8cdc045... fixup! notes about refactoring interaction control scheme
 
   MapService.o.layers = null;  
 
