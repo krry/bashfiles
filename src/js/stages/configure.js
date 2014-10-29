@@ -1,4 +1,5 @@
 angular.module('stages.configure',[]).config( function ($stateProvider) {
+
   // specifics for for this state
   var stageName = 'configure';
   // TODO: make these paths central and DRYer for all stages, changing based on stageName
