@@ -69,6 +69,9 @@ stages which now contain steps
         { step: 'sign-contract',   partial: 'contract.html' },
         { step: 'confirmation',    partial: 'confirm.html'  },
       ],
+    }, 
+    'configure': {
+
     },
   ];
   StageService.config = config_object;
