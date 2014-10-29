@@ -26,7 +26,6 @@ function StageCtrl_($scope, $state, StageService, InteractionService, LayerServi
   vm.prev = function(){
     $scope.sync().prev();
     syncWithService();
-  };
 
   function partials(obj){
     if (obj.stage === null) return;
