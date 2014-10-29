@@ -3,6 +3,7 @@ angular.module('stages',[
   'stages.configure',
   'stages.qualify',
   'stages.design_link',
+  'stage.signup',
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/home');

@@ -1,5 +1,4 @@
 angular.module('stages.configure',[]).config( function ($stateProvider) {
-
   // specifics for for this state
   var stageName = 'configure';
   var templateUrl = 'templates/';

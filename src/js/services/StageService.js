@@ -1,23 +1,29 @@
 function StageService_ ($state) {
   /* ================================
-  This is the Stage Service. It provides an object with methods & properties.
+    StageService 
 
-  service provides a SyncObject with the following methods:
+    provides an object with methods & properties. 
+
+    provides a SyncObject with the following methods:
       next() -- move forward in flow
       prev() -- move backward in flow
 
-  TODO:
-    make a private history function that keeps a record of what you've done
-    move config_object to $provider
+    structures the user flow, e.g.:
+      * Stage 1
+          * Step A
+          * Step B
+          * Step C
+      * Stage 2
+          * Step A
+          * Step B
+      etc...
 
-  Stage 1
-    Step A
-    Step B
-    Step C
-  Stage 2
-    Step A
-    etc...
+    TODO: 
+      make a private history function that keeps a record of what you've done
+      move config_object to $provider
+
   ================================ */
+
   var StageService = {};
 
   // FIREBASE THESE //
@@ -38,19 +44,31 @@ function StageService_ ($state) {
     {
       name: 'home',
       destination: 'configure',
-      steps: [
-        { step: 'zip-nearme',   partial: 'zip.html'},
-        { step: 'address-roof', partial: 'address.html'},
+      steps: [ 
+        { step: 'zip-nearme',   partial: 'zip.html'     },
+        { step: 'address-roof', partial: 'address.html' },
       ],
     },
     {
       name: 'configure',
       destination: 'qualify',
       steps: [
-        { step: 'zoom-lock-roof', partial: 'zoom.html'   },
+        { step: 'zoom-lock-roof', partial: 'roof.html'   },
         { step: 'trace-area',     partial: 'trace.html'  },
         { step: 'edit-area',      partial: 'edit.html'   },
-        { step: 'define-area',    partial: 'define.html' },
+        { step: 'detail-area',    partial: 'detail.html' },
+        { step: 'energy-usage',   partial: 'usage.html'  },
+      ],
+    },
+    {
+      name: 'signup',
+      destination: '',
+      steps: [
+        { step: 'refine-design',   partial: 'design.html'   },
+        { step: 'schedule-survey', partial: 'schedule.html' },
+        { step: 'review-proposal', partial: 'proposal.html' },
+        { step: 'sign-contract',   partial: 'contract.html' },
+        { step: 'confirmation',    partial: 'confirm.html'  },
       ],
     },
   ];
