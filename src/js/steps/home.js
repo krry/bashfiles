@@ -5,10 +5,10 @@ angular.module('stage.home',[]).config( function ($stateProvider) {
   var templateUrl = 'templates/';
   var stageUrl = 'templates/stages/' + stageName + '/';
 
-  var steps = [ 
-    { step: 'zip-nearme',   url: stageUrl + 'zip.html'},
-    { step: 'address-roof', url: stageUrl + 'address.html'},
-  ];
+  // var steps = [ 
+  //   { step: 'zip-nearme',   url: stageUrl + 'zip.html'},
+  //   { step: 'address-roof', url: stageUrl + 'address.html'},
+  // ];
 
   var destination = 'configure.initial'
 
@@ -22,7 +22,6 @@ angular.module('stage.home',[]).config( function ($stateProvider) {
       },
       'main@': {
         templateUrl: stageUrl + "main.html",
-        controller: "",
         // controllerAs: 'stage',
         // controller:  function HomeCtrl($scope, $state){
         //   var currentStep = 0;
@@ -46,7 +45,7 @@ angular.module('stage.home',[]).config( function ($stateProvider) {
       },
       'footer@': {
         templateUrl: 'templates/footer.html',
-        controller: 'FooterCtrl as foot',
+        // controller: 'FooterCtrl as foot',
       },
     },
   })

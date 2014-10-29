@@ -1,9 +1,9 @@
 <footer id="footer" class="footer">
   <span>dev selector
-    <select ng-model="step" ng-options="s.step for s in stage.steps">
+    <select ng-model="stages.partial" ng-options="s for s in stages.partials" ng-change="stages.getTemplate">
     </select>
-    url of the template: {{templateUrl}}{{step.url}}
-  <button ng-click="foot.nextStep()">Next Step</button>
+    url of the template: {{stages.partial}}
+  <button ng-click="stages.nextStep()" >Next Step</button>
     <hr/>
   </span>
 </footer>
