@@ -70,6 +70,9 @@ function StageService_ ($state) {
         { step: 'sign-contract',   partial: 'contract.html' },
         { step: 'confirmation',    partial: 'confirm.html'  },
       ],
+    }, 
+    'configure': {
+
     },
   ];
   StageService.config = config_object;
@@ -132,7 +135,7 @@ function StageService_ ($state) {
     } else {
       alert('first stage');
       return stage;
-    }
+    };
   }
 
   StageService.syncObj = function() {
