@@ -18,14 +18,14 @@
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false&client=gme-solarcity"></script>    
   </head>
   <!-- app begins -->
-  <body ng-app="flannel">
-    <!-- <ui-view ></ui-view> -->
+  <body ng-app="flannel" ng-controller="StageCtrl as stages">
+      <!-- <ui-view></ui-view> -->
     <ui-view name="header"></ui-view>
     <ui-view name="main"></ui-view>
     <ui-view name="footer"></ui-view>
     <!-- TODO: conditionally load minified versions of dependencies when not in dev environment -->
-    <!-- // <script src="lib/angular.js"></script> -->
-    <script src="lib/angular.min.js"></script>
+    <script src="lib/angular.js"></script>
+    <!-- <script src="lib/angular.min.js"></script> -->
     <script src="lib/angular-touch.js"></script>
     <!-- angular-ui -->
     <script src="lib/angular-ui-router.min.js"></script>

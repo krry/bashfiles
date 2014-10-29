@@ -41,7 +41,7 @@ function edlGoogleMap($timeout, $document, $window, MapService) {
               (place.address_components[2] && place.address_components[2].short_name || '')
             ].join(' ');
           }
-          $('#pac-input').val(place.formatted_address);
+          document.getElementById('pac-input').val(place.formatted_address);
         });
         var center =  MapService.getCenter();
         map.setCenter(center);
@@ -57,8 +57,13 @@ function edlGoogleMap($timeout, $document, $window, MapService) {
         google.maps.event.addListener(map, 'center_changed', saveCenter);
 
         // use the contents of the Autocomplete to ask Maps for the specific map location
-        $('body').on('touchend', '.pac-item', touch_or_click_callback);
-        $('body').on('mousedown', '.pac-item', touch_or_click_callback);
+        var pacItems = document.querySelectorAll('.pac-item')
+
+        if ('addEventListener' in window && pacItems.length > 0) {
+          pacItems.addEventListener('touchend', touch_or_click_callback);
+          pacItems.addEventListener('mousedown', touch_or_click_callback);
+        }
+
         function touch_or_click_callback(e){
           var service = new google.maps.places.PlacesService(MapService.getGmap());
           var request = {

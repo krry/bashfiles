@@ -1,56 +1,31 @@
-angular.module('steps.home',[]).config( function ($stateProvider) {
+angular.module('stage.home',[]).config( function ($stateProvider) {
   
   // specifics for for this state
-  var stateName = 'home';
-  var baseUrl = 'templates/steps/' + stateName + '/';
-
-  var steps = [ 
-    { step: 'zip-nearme',   url: baseUrl + 'zip.html'},
-    { step: 'address-roof', url: baseUrl + 'address.html'},
-  ];
-
-  var destination = 'configure.initial'
+  var stageName = 'home';
+  var templateUrl = 'templates/';
+  var stageUrl = 'templates/stages/' + stageName + '/';
 
   // state definition
   $stateProvider.state("home", {
-    url: "",
-    abstract: true,
+    url: "/home",
     views: {
       'header@': {
-        templateUrl: baseUrl + "header.html",
-        controller:  "",
+        templateUrl: 'templates/header.html',
+        controller:  'HeaderCtrl as head',
       },
       'main@': {
-        templateUrl: baseUrl + "main.html",
-        controllerAs: stateName,
-        controller: function HomeCtrl($scope, $state){
-          var currentStep = 0;
-          var vm = this;
-          vm.nextStep = function nextStep(cur){
-            currentStep < steps.length - 1 ? 
-              currentStep++ : $state.go(destination);
-            vm.step=vm.steps[currentStep];
-          };
-          vm.steps = steps;
-          vm.step = vm.steps[currentStep];
-        },
+        templateUrl: stageUrl + "main.html",
       },
-      'footer@': {
-        templateUrl: baseUrl + "footer.html",
-        controller:  "",
-      },
-    },
-  })
-  .state("home.initial", {
-    url: '/home',
-    views: {
       'overlay@home': {
-        templateUrl: baseUrl + "overlay.html",
+        templateUrl: stageUrl + "overlay.html",
         controller:  "",
       },
       'underlay@home': {
-        templateUrl: baseUrl + "underlay.html",
+        templateUrl: stageUrl + "underlay.html",
         controller:  "",
+      },
+      'footer@': {
+        templateUrl: 'templates/footer.html',
       },
     },
   })

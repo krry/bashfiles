@@ -5,7 +5,6 @@ var prefix  = require('gulp-autoprefixer')
 var plumber = require('gulp-plumber')
 
 var sass    = require('gulp-sass')
-var neat    = require('node-neat').includePaths
 var minCSS  = require('gulp-minify-css')
 
 var handleErrors = require('../util/handleErrors')
@@ -23,9 +22,7 @@ gulp.task('styles', function(){
         .pipe(plumber({
             errorHandler: handleErrors
         }))
-        .pipe(sass({
-            includePaths: ['styleSrc'].concat(neat)
-        }))
+        .pipe(sass())
         .pipe(prefix(['ie 9','last 2 versions', '> 5%'], { cascade: true }))
         .pipe(concat('all.css'))
         .pipe(gulp.dest(stylePub))

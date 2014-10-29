@@ -1,5 +1,5 @@
 angular.module('steps',[
-  'steps.home',
+  'stage.home',
   'steps.search',
   'steps.plan',
   'steps.configure',
@@ -7,5 +7,6 @@ angular.module('steps',[
   // 'steps.signup',
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
+
   $urlRouterProvider.otherwise('/');
 });
