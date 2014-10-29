@@ -22,7 +22,15 @@ function StageService_ ($state) {
         { step: 'address-roof', partial: 'address.html'},
       ],
     }, 
-    'configure': {
+    configure: {
+      name: 'configure',
+      destination: 'qualify',
+      steps: [ 
+        { step: 'zoom-lock-roof', url: 'zoom.html'   },
+        { step: 'trace-area',     url: 'trace.html'  },
+        { step: 'edit-area',      url: 'edit.html'   },
+        { step: 'define-area',    url: 'define.html' },
+      ],
 
     },
   };
@@ -46,7 +54,8 @@ function StageService_ ($state) {
   StageService.stepPartials = stepPartials;  
   
   function stepPartial(stage, step){
-    var partial = partialTemplate(stage, stage.steps[step])
+    console.log(stage, step)
+    var partial = partialTemplate(stage, step)
     return partial;
   }
   StageService.stepPartial = stepPartial;  
@@ -66,18 +75,19 @@ function StageService_ ($state) {
     var stage = currentStage;
     if (stepCount < stage.steps.length -1) {
       stepCount++;
-      return stage.steps[stepCount -1];
-    } else {
-      stage = nextStage()
       return stage.steps[stepCount];
+    } else {
+      currentStage = nextStage();
+      return $state.go(stage.destination);
     }
   };
   StageService.nextStep = nextStep;
 
   function nextStage(stage){
-    stepCount = 0;
     stage = stage || currentStage;
-    $state.go(stage.destination)
+    stepCount = 0;
+    stage = stages[stage.destination];
+    return stage
   }
   StageService.nextStage = nextStage;
 
