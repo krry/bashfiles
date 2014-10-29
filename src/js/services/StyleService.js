@@ -1,6 +1,6 @@
 function StyleService_ ($q) {
   // this factory provides styles, etc for edlOlMap features
-  // 
+  //
 
   var colors = {};
   var c = colors;
