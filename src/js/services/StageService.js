@@ -2,6 +2,7 @@ function StageService_ ($state) {
   /* ================================
     StageService 
 
+stages which now contain steps
     provides a SyncObject with the following methods:
       next() -- move forward in flow
       prev() -- move backward in flow
@@ -19,8 +20,6 @@ function StageService_ ($state) {
     TODO: 
       make a private history function that keeps a record of what you've done
       move config_object to $provider
-
-    TODO: flesh out the stageCtrl, see `docs/stages+states.md`
 
   ================================ */
 
@@ -44,15 +43,9 @@ function StageService_ ($state) {
     {
       name: 'home',
       destination: 'configure',
-      steps: [
-        {
-          step: 'zip-nearme',
-          partial: 'zip.html'
-        },
-        {
-          step: 'address-roof',
-          partial: 'address.html',
-        }
+      steps: [ 
+        { step: 'zip-nearme',   partial: 'zip.html'     },
+        { step: 'address-roof', partial: 'address.html' },
       ],
     },
     {

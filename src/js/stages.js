@@ -5,5 +5,5 @@ angular.module('stages',[
   'stage.signup',
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/home');
+  $urlRouterProvider.otherwise('/');
 });
