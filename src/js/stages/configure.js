@@ -4,7 +4,6 @@ angular.module('stages.configure',[]).config( function ($stateProvider) {
   var templateUrl = 'templates/';
   var stageUrl = 'templates/stages/' + stageName + '/';
 
-
   $stateProvider.state("configure", {
     url: "/configure",
     views: {
