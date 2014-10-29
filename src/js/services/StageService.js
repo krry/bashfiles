@@ -2,8 +2,6 @@ function StageService_ ($state) {
   /* ================================
     StageService 
 
-    provides an object with methods & properties. 
-
     provides a SyncObject with the following methods:
       next() -- move forward in flow
       prev() -- move backward in flow
@@ -69,16 +67,6 @@ function StageService_ ($state) {
         { step: 'review-proposal', partial: 'proposal.html' },
         { step: 'sign-contract',   partial: 'contract.html' },
         { step: 'confirmation',    partial: 'confirm.html'  },
-      ],
-    },
-    {
-      name: 'configure',
-      destination: 'qualify',
-      steps: [ 
-        { step: 'zoom-lock-roof', partial: 'zoom.html'   },
-        { step: 'trace-area',     partial: 'trace.html'  },
-        { step: 'edit-area',      partial: 'edit.html'   },
-        { step: 'define-area',    partial: 'define.html' },
       ],
     },
   ];
