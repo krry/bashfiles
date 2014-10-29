@@ -13,57 +13,87 @@ function StageService_ ($state) {
     etc...
   ================================ */
   var StageService = {};
-  var stages = [ 
-    { name: 'home',
+  var stages = { 
+    home: {
+      name: 'home',
       destination: 'configure',
       steps: [ 
-        { step: 'zip-nearme',   url: 'zip.html'},
-        { step: 'address-roof', url: 'address.html'},
+        { step: 'zip-nearme',   partial: 'zip.html'},
+        { step: 'address-roof', partial: 'address.html'},
       ],
-    },
-  ];
-  var currentStage = null;
-  var currentStep  = 0;
+    }, 
+    'configure': {
 
-  function templateUrl(stage){
+    },
+  };
+
+
+  StageService.stages = stages;
+  
+  var currentStage = stages.home;
+  console.log(currentStage)
+  var currentStep  = currentStage.steps[0];
+  var stepCount         = 0;
+
+  function stepPartials(stage, step){
+    var partials = [];
+    for (var step in stage.steps) {
+      partials.push(partialTemplate(stage, stage.steps[step]))
+    }
+    console.log(partials)
+    return partials;
+  }
+  StageService.stepPartials = stepPartials;  
+  
+  function stepPartial(stage, step){
+    var partial = partialTemplate(stage, stage.steps[step])
+    return partial;
+  }
+  StageService.stepPartial = stepPartial;  
+
+  function getStage(){
+    return currentStage
+  }
+  StageService.getStage = getStage;
+
+  function getStep(){
+    console.log('currentStep',currentStep)
+    return currentStep
+  }
+  StageService.getStep = getStep;
+
+  function nextStep(){
+    var stage = currentStage;
+    if (stepCount < stage.steps.length -1) {
+      stepCount++;
+      return stage.steps[stepCount -1];
+    } else {
+      stage = nextStage()
+      return stage.steps[stepCount];
+    }
+  };
+  StageService.nextStep = nextStep;
+
+  function nextStage(stage){
+    stepCount = 0;
+    stage = stage || currentStage;
+    $state.go(stage.destination)
+  }
+  StageService.nextStage = nextStage;
+
+  function partialTemplate(stage, step) {
+    console.log(step)
+    console.log('partial', stage.name, step.partial )
     return [
       "/templates/stages/",
       stage.name,
       '/',
-      // stage.steps[currentStep-1].url
+      step.partial
     ].join('')
   }
-  StageService.templateUrl = templateUrl;  
-
-
-  function getStage(name) {
-    var stage = stages[name];
-    currentStage = stages[name];
-    steps = currentStage.steps;
-    return currentStage;
-  };
-
-  function current(){
-    currentStage = currentStage ? stages[currentStage] : stages[0];
-    return currentStage 
-  }
-  StageService.current = current;
-
-  function nextStep(){
-    var stage = currentStage;
-    var step = currentStep;
-    if (currentStep < stage.steps.length) {
-      currentStep++
-      return stage.steps[step];
-    } else {
-      currentStep = 0;
-      currentStage = stages[stage.destination];
-      $state.go(stage.destination);
-    }
-  };
-  StageService.nextStep = nextStep;
 
   return StageService;
 }
 
 angular.module('flannel').factory('StageService', StageService_);  
+
