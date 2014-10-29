@@ -1,8 +1,14 @@
 function StageService_ ($state) {
   /* ================================
-  Move steadily through steps, according to configurations.
-  
-  $scope handles stage and step count.
+  This is the Stage Service. It provides an object with methods & properties. 
+
+  service provides a SyncObject with the following methods:
+      next() -- move forward in flow
+      prev() -- move backward in flow
+
+  TODO: 
+    make a private history function that keeps a record of what you've done
+    move config_object to $provider
 
   Stage 1
     Step A
@@ -13,94 +19,112 @@ function StageService_ ($state) {
     etc...
   ================================ */
   var StageService = {};
-  var stages = { 
-    home: {
+  
+  // FIREBASE THESE //
+  var _current = {
+    stage: 0,
+    step:  0,
+    history: _history,
+  };
+  
+  function curr_step(){
+    return _current.step;
+  }
+  function curr_stage(){
+    return _current.stage;
+  }
+
+  var config_object = [  
+    {
       name: 'home',
       destination: 'configure',
       steps: [ 
         { step: 'zip-nearme',   partial: 'zip.html'},
         { step: 'address-roof', partial: 'address.html'},
       ],
-    }, 
-    configure: {
+    },
+    {
       name: 'configure',
       destination: 'qualify',
       steps: [ 
-        { step: 'zoom-lock-roof', url: 'zoom.html'   },
-        { step: 'trace-area',     url: 'trace.html'  },
-        { step: 'edit-area',      url: 'edit.html'   },
-        { step: 'define-area',    url: 'define.html' },
+        { step: 'zoom-lock-roof', partial: 'zoom.html'   },
+        { step: 'trace-area',     partial: 'trace.html'  },
+        { step: 'edit-area',      partial: 'edit.html'   },
+        { step: 'define-area',    partial: 'define.html' },
       ],
-
     },
-  };
+  ];
+  StageService.config = config_object;
+  var _history = []; // TODO: state objects go here
 
+  // END FIREBASED OBJECTS //
 
-  StageService.stages = stages;
-  
-  var currentStage = stages.home;
-  console.log(currentStage)
-  var currentStep  = currentStage.steps[0];
-  var stepCount         = 0;
-
-  function stepPartials(stage, step){
-    var partials = [];
-    for (var step in stage.steps) {
-      partials.push(partialTemplate(stage, stage.steps[step]))
+  function next() {
+    // TODO: addHistory()
+    var step = curr_step();
+    var last = config_object[curr_stage()].steps.length - 1;
+    if ( step < last ) {
+      // bump the steps up
+      return _current.step++;
+    // or if you're at the last step
+    } else if ( step === last ) {
+      // do the stageUp function
+      return stageUp();
     }
-    console.log(partials)
-    return partials;
-  }
-  StageService.stepPartials = stepPartials;  
-  
-  function stepPartial(stage, step){
-    console.log(stage, step)
-    var partial = partialTemplate(stage, step)
-    return partial;
-  }
-  StageService.stepPartial = stepPartial;  
+  }  
 
-  function getStage(){
-    return currentStage
+  function prev() {
+    // TODO: addHistory()
+    var step = curr_step();
+    // go down a step or back to prev stage
+    if (step > 0) {
+      return _current.step--;
+    } else if ( step === 0 ) {
+      return stageDown();
+    }
   }
-  StageService.getStage = getStage;
 
-  function getStep(){
-    console.log('currentStep',currentStep)
-    return currentStep
+  function destination(stage_id) {
+    return config_object[stage_id].destination
   }
-  StageService.getStep = getStep;
 
-  function nextStep(){
-    var stage = currentStage;
-    if (stepCount < stage.steps.length -1) {
-      stepCount++;
-      return stage.steps[stepCount];
+  function stageUp() {
+    // TODO: history()
+    var stage = curr_stage();
+    var stages = config_object.length - 1;
+    if ( stage < stages ) {
+      _current.step = 0;
+      _current.stage++;
+      return $state.go(destination(stage));
     } else {
-      currentStage = nextStage();
-      return $state.go(stage.destination);
+      alert('no more stages');
+      return stage;
     }
+  }
+
+  function stageDown() {
+    // TODO: history()
+    // NOTE: this doesn't work
+    alert('stageDown doesn\'t work yet')
+    var stage = curr_stage();
+    if (stage > 0 ) {
+      _current.step = config_object[curr_stage() - 1].steps.length - 1;
+      _current.stage--
+      return $state.go(destination(stage-1)); 
+    } else {
+      alert('first stage');
+      return stage;
+    }
+  }
+
+  StageService.syncObj = function() {
+      return {
+        stage: _current.stage,
+        step:  _current.step,
+        next: next,
+        prev: prev,
+      }
   };
-  StageService.nextStep = nextStep;
-
-  function nextStage(stage){
-    stage = stage || currentStage;
-    stepCount = 0;
-    stage = stages[stage.destination];
-    return stage
-  }
-  StageService.nextStage = nextStage;
-
-  function partialTemplate(stage, step) {
-    console.log(step)
-    console.log('partial', stage.name, step.partial )
-    return [
-      "/templates/stages/",
-      stage.name,
-      '/',
-      step.partial
-    ].join('')
-  }
 
   return StageService;
 }
