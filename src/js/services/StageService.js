@@ -69,17 +69,16 @@ stages which now contain steps
         { step: 'sign-contract',   partial: 'contract.html' },
         { step: 'confirmation',    partial: 'confirm.html'  },
       ],
-    }, 
-    configure: {
+    },
+    {
       name: 'configure',
       destination: 'qualify',
       steps: [ 
-        { step: 'zoom-lock-roof', url: 'zoom.html'   },
-        { step: 'trace-area',     url: 'trace.html'  },
-        { step: 'edit-area',      url: 'edit.html'   },
-        { step: 'define-area',    url: 'define.html' },
+        { step: 'zoom-lock-roof', partial: 'zoom.html'   },
+        { step: 'trace-area',     partial: 'trace.html'  },
+        { step: 'edit-area',      partial: 'edit.html'   },
+        { step: 'define-area',    partial: 'define.html' },
       ],
-
     },
   ];
   StageService.config = config_object;
