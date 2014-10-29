@@ -4,8 +4,8 @@ angular.module('stages.qualify',[]).config( function ($stateProvider) {
   // specifics for for this state
   var stateName = 'qualify';
   var templateUrl = 'templates/';
-  var stepsUrl = 'steps/';
-  var baseUrl = templateUrl + stepsUrl + stateName + '/';
+  var stagesUrl = 'stages/';
+  var baseUrl = templateUrl + stagesUrl + stateName + '/';
 
   var steps = [ 
     { step: 'final', url: baseUrl + 'final.html'   },
