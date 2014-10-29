@@ -70,7 +70,15 @@ stages which now contain steps
         { step: 'confirmation',    partial: 'confirm.html'  },
       ],
     }, 
-    'configure': {
+    configure: {
+      name: 'configure',
+      destination: 'qualify',
+      steps: [ 
+        { step: 'zoom-lock-roof', url: 'zoom.html'   },
+        { step: 'trace-area',     url: 'trace.html'  },
+        { step: 'edit-area',      url: 'edit.html'   },
+        { step: 'define-area',    url: 'define.html' },
+      ],
 
     },
   ];
