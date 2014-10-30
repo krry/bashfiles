@@ -1,4 +1,4 @@
-function edlOlMap($stateParams, $rootScope, $state, $window, $timeout, ApiService, PanelFillService, MapService, OlService, StyleService, FeatureOptionService, InteractionService) {
+function edlOlMap($stateParams, $rootScope, $state, $window, $timeout, ApiService, PanelFillService, MapService, OlService, StyleService, FeatureOptionService, InteractionService, LayerService) {
   return {
     restrict: "A",
     transclude: false,

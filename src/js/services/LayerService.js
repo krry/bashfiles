@@ -12,7 +12,7 @@ function LayerService_ ($window, StyleService) {
   var extent = [0, 0, $window.innerWidth, $window.innerHeight ]; // TODO: listen for changes to $window and resize map accordingly.
   var pixelProjection = new ol.proj.Projection({
     units: 'pixels',
-    extent: OlService.extent
+    extent: extent
   });
 
   var service = {
