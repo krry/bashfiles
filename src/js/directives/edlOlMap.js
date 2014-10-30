@@ -1,4 +1,4 @@
-function edlOlMap($stateParams, $rootScope, $state, $window, $timeout, ApiService, PanelFillService, MapService, OlService, StyleService, FeatureOptionService) {
+function edlOlMap($stateParams, $rootScope, $state, $window, $timeout, ApiService, PanelFillService, MapService, OlService, StyleService, FeatureOptionService, InteractionService) {
   return {
     restrict: "A",
     transclude: false,
@@ -156,14 +156,10 @@ function edlOlMap($stateParams, $rootScope, $state, $window, $timeout, ApiServic
         layers: new ol.Collection([mountLayer, obstructionLayer, gutterLayer])
       });
 
+      //// presently moving interactions to InteractionService ////
+
       /* Mount interactions */
-      var drawMount = new ol.interaction.Draw({
-        source: mounts,
-        snapTolerance: 25,
-        type: 'Polygon', 
-        geometryName: 'mount',
-        style: StyleService.defaultStyleFunction,
-      });
+      var drawMount = InteractionService.get('draw');
 
       /* Obstruction interactions */
       var drawObstruction = new ol.interaction.Draw({
@@ -173,16 +169,10 @@ function edlOlMap($stateParams, $rootScope, $state, $window, $timeout, ApiServic
         style: StyleService.defaultStyleFunction,
       });
               
-      var selectInteraction = new ol.interaction.Select({
-        layers: [obstructionLayer, mountLayer],
-        style: StyleService.highlightStyleFunction,
-      });
+      var selectInteraction = InteractionService.get('select')
       Ol.selectInteraction = selectInteraction;
 
-      var modifyInteraction = new ol.interaction.Modify({
-        features: selectInteraction.getFeatures(),
-        style: StyleService.highlightStyleFunction,
-      });
+      var modifyInteraction = InteractionService.get('modify')
       Ol.modifyInteraction = modifyInteraction;
 
         /* Map Options */
