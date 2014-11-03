@@ -1,4 +1,4 @@
-function OlService_ ($q, $state, $window, StyleService, MapService) {
+function OlService_ ($q, $state, $window, StyleService, MapService, LayerService) {
   // this factory is a singleton & provides layers, styles, etc for the edl-ol-map ... 
   // 
 
@@ -107,9 +107,9 @@ function OlService_ ($q, $state, $window, StyleService, MapService) {
 
 
     if (status){ 
-      OlService.panelLayer.setOpacity(1);
+      LayerService.get('panel').setOpacity(1);
     } else {
-      OlService.panelLayer.setOpacity(0.6);
+      LayerService.get('panel').setOpacity(0.6);
     }
   };
 
