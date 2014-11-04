@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-function MapService_ ($q) {
-  // this factory is a singleton for the Application. 
-  // it provides maps, layers, collections, etc... 
-  var MapService = {};
-  
-  // the google map
-  MapService.g = {};
-  // the openlayer map
-  MapService.o = {};
-=======
 /* ==================================================
   this factory is a singleton for the Application. 
   
@@ -27,7 +16,6 @@ function MapService_ ($q, LayerService) {
   MapService.g = {}; // the google map
 
   MapService.o = {}; // the openlayer map
->>>>>>> 8cdc045... fixup! notes about refactoring interaction control scheme
 
   MapService.g.mapOptions = { 
     // disableDefaultUI: true,
@@ -58,45 +46,53 @@ function MapService_ ($q, LayerService) {
     backgroundColor: "transparent"
   };
 
-<<<<<<< HEAD
-  // MapService.o.staticMap = null;  
-  MapService.o.staticMap = null;  
+  _ol_map_interaction_defaults = {
+    DragRotate: false,
+    DoubleClickZoom: false,
+    DragPan: false,
+    PinchRotate: false,
+    PinchZoom: false,
+    KeyboardPan: false,
+    KeyboardZoom: false,
+    MouseWheelZoom: false,
+    DragZoom: false,
+  };
 
-  // google map
-  MapService.g.gmap = null;
-  MapService.g.autocomplete = null;
-
-  // openlayer map
-  MapService.o.omap = null;
-  MapService.o.view = null; 
-=======
   MapService.g.gmap = null;   // google map
   MapService.g.autocomplete = null;
 
-  var _ol_layers = [
-    LayerService.get('area'),
-    LayerService.get('static_map'),
-    LayerService.get('panel'),
-  ]
+  function setOmap (options) {  //TODO: move to OlService
 
-  MapService.initOmap = function(targetEle) {
+    console.log('setting map')
+    MapService.o.omap = new ol.Map(options);
+    return MapService.o.omap;
+  };
+
+  MapService.initOmap = function(target_element) {
     var olView = new ol.View({ 
       projection: LayerService.pixelProjection,
       center: ol.extent.getCenter(LayerService.pixelProjection.getExtent()),
       zoom: 1,
     });
+    
+    var _ol_layers = [
+      LayerService.get('area'),
+      LayerService.get('static_map'),
+      LayerService.get('panel'),
+    ];
 
     var olMapOptions = {
       view: olView,
       interactions: ol.interaction.defaults(_ol_map_interaction_defaults),
       layers: _ol_layers,
-      target: targetEle,
-    }
->>>>>>> 8cdc045... fixup! notes about refactoring interaction control scheme
+      target: target_element,
+    };
+
+    return setOmap(olMapOptions);
+  }
 
   MapService.o.layers = null;  
 
-  // group methods
   MapService.getLayer = function(layername) {    //TODO: move to OlService
     if (layername === undefined) {
       return MapService.o.layers;
@@ -131,23 +127,9 @@ function MapService_ ($q, LayerService) {
     return MapService.g.gmap;
   };
 
-  MapService.setOmap = function(options) {  //TODO: move to OlService
-
-    MapService.o.omap = new ol.Map(options);
-    return MapService.o.omap;
-  };
 
   MapService.getOmap = function(options) {  //TODO: move to OlService
     return MapService.o.omap;
-  };
-
-  MapService.setOview = function(view) {  //TODO: move to OlService
-    MapService.o.view = view;
-    return MapService.o.view;
-  };
-
-  MapService.getOview = function() {   //TODO: move to OlService
-    return MapService.o.view;
   };
 
   MapService.setCenter = function(center) {
@@ -164,32 +146,6 @@ function MapService_ ($q, LayerService) {
     }
   };
 
-  MapService.setStatic = function (ele) {    //TODO: move to OlService (maybe)
-    var element = document.getElementById('gmap'); //HACK: this should be a parameter
-    var defer = $q.defer();
-    MapService.o.staticMap = defer.promise;
-    html2canvas(element, {
-      useCORS: true,
-      onrendered: function(canvas) {
-        var dataUrl= canvas.toDataURL("image/png");
-        defer.resolve(dataUrl);
-      }
-    });
-    return MapService.o.staticMap;
-  };
-
-  MapService.getStatic = function() {    //TODO: move to OlService
-    var defer = $q.defer();
-    if (MapService.o.staticMap) {
-      console.log('staticMap');
-      defer.resolve(MapService.o.staticMap);
-    } else { // HACK: this here for development only
-      console.log('staticHack')
-      defer.resolve('img/de_haro_test_image.PNG');
-    }
-    return defer.promise;
-  };
-
   return MapService;
 }
-angular.module('flannel').factory('MapService', MapService_);  
+angular.module('flannel').factory('MapService', ['$q', 'LayerService', MapService_]);
