@@ -1,4 +1,5 @@
 /* =======================================================
+
 	flnOlMapUi is the list of directives to enable/disable interactions 
 	available on the map
 
@@ -44,7 +45,6 @@ function flnDraw_ (InteractionService, MapService) {
       })
     },
   }
-
 }
 
 function flnModify_ (InteractionService, MapService) {
