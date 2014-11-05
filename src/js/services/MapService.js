@@ -62,8 +62,6 @@ function MapService_ ($q, LayerService) {
   MapService.g.autocomplete = null;
 
   function setOmap (options) {  //TODO: move to OlService
-
-    console.log('setting map')
     MapService.o.omap = new ol.Map(options);
     return MapService.o.omap;
   };
