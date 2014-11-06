@@ -32,23 +32,23 @@ function MapService_ ($q, LayerService) {
     backgroundColor: "transparent"
   };
 
-  _ol_map_interaction_defaults = {
-    DragRotate: false,
-    DoubleClickZoom: false,
-    DragPan: false,
-    PinchRotate: false,
-    PinchZoom: false,
-    KeyboardPan: false,
-    KeyboardZoom: false,
-    MouseWheelZoom: false,
-    DragZoom: false,
-  };
+  // _ol_map_interaction_defaults = {
+  //   DragRotate: false,
+  //   DoubleClickZoom: false,
+  //   DragPan: false,
+  //   PinchRotate: false,
+  //   PinchZoom: false,
+  //   KeyboardPan: false,
+  //   KeyboardZoom: false,
+  //   MouseWheelZoom: false,
+  //   DragZoom: false,
+  // };
 
-  _ol_map_control_defaults = {
-    attribution: false, 
-    zoom:        false, 
-    rotate:      false, 
-  };
+  // _ol_map_control_defaults = {
+  //   attribution: false,
+  //   zoom:        false,
+  //   rotate:      false,
+  // };
 
   MapService.g.gmap = null;   // google map
   MapService.g.autocomplete = null;
