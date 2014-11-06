@@ -1,16 +1,18 @@
-angular.module('stages.home',[]).config( function ($stateProvider) {
+// home.js stage
+angular.module('stage.home',[]).config( function ($stateProvider) {
   
-  // specifics for for this state
+  // paths for this state
   var stageName = 'home';
-  var templateUrl = 'templates/';
-  var stageUrl = 'templates/stages/' + stageName + '/';
-
+  // TODO: make these paths central and DRYer for all stages, changing based on stageName
+  var templateUrl = $stateProvider.templateUrl;
+  var stageUrl = $stateProvider.stageTemplateUrl + stageName + '/';
+  
   // state definition
   $stateProvider.state("home", {
     url: "/home",
     views: {
       'header@': {
-        templateUrl: 'templates/header.html',
+        templateUrl: templateUrl + 'header.html',
         controller:  'HeaderCtrl as head',
       },
       'main@': {
@@ -25,7 +27,7 @@ angular.module('stages.home',[]).config( function ($stateProvider) {
         controller:  "",
       },
       'footer@': {
-        templateUrl: 'templates/footer.html',
+        templateUrl: templateUrl + 'footer.html',
       },
     },
   })
