@@ -1,4 +1,3 @@
-// qualify.js
 angular.module('stages.qualify',[]).config( function ($stateProvider) {
   
   // specifics for for this state
@@ -8,7 +7,7 @@ angular.module('stages.qualify',[]).config( function ($stateProvider) {
   var baseUrl = templateUrl + stagesUrl + stateName + '/';
 
   var steps = [ 
-    { step: 'final', url: baseUrl + 'final.html'   },
+    { step: 'final', url: stageUrl + 'final.html'   },
   ];
 
   var destination = null;
@@ -18,12 +17,12 @@ angular.module('stages.qualify',[]).config( function ($stateProvider) {
     abstract: true,
     views: {
       'header@': {
-        templateUrl: baseUrl + "header.html", 
-        controller:  "",
+        templateUrl: templateUrl + "header.html", 
+        controller:  "HeaderCtrl as header",
       },
       'main@': {
-        templateUrl: baseUrl + "main.html",
-        controllerAs: stateName,
+        templateUrl: stageUrl + "main.html",
+        controllerAs: stageName,
         controller: function QualifyCtrl($scope, $state){
           var currentStep = 0;
           var vm = this;
@@ -38,7 +37,7 @@ angular.module('stages.qualify',[]).config( function ($stateProvider) {
       },
       'footer@': {
         templateUrl: templateUrl + "footer.html",
-        controller:  "",
+        controller:  "FooterCtrl as footer",
       },
     },
   })
@@ -46,11 +45,11 @@ angular.module('stages.qualify',[]).config( function ($stateProvider) {
     url: '/qualify',
     views: {
       'major@qualify': {
-        templateUrl: baseUrl + "major.html",
+        templateUrl: stageUrl + "major.html",
         controller:  "",
       },
       'minor@qualify': {
-        templateUrl: baseUrl + "minor.html",
+        templateUrl: stageUrl + "minor.html",
         controller:  "",
       },
     },
