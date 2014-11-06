@@ -1,19 +1,20 @@
-angular.module('stages.configure',[]).config( function ($stateProvider) {
+// configure.js stage
+angular.module('stage.configure', []).config( function ($stateProvider) {
   
-  // specifics for for this state
+  // paths for this state
   var stageName = 'configure';
-  var templateUrl = 'templates/';
-  var stageUrl = 'templates/stages/' + stageName + '/';
-
+  // TODO: make these paths central and DRYer for all stages, changing based on stageName
+  var templateUrl = $stateProvider.templateUrl;
+  var stageUrl = $stateProvider.stageTemplateUrl + stageName + '/';
 
   $stateProvider.state("configure", {
     url: "/configure",
     views: {
-// replace the main ui-view @ index      
+    // replace the main ui-view @ index      
       'main@': {
         templateUrl: stageUrl + "main.html",
       },
-// modify the new named views @ configure
+    // modify the new named views @ configure
       'map@configure': {
         templateUrl: stageUrl + "map.html",
         controller:  "",
@@ -22,14 +23,14 @@ angular.module('stages.configure',[]).config( function ($stateProvider) {
         templateUrl: stageUrl + "instructions.html",
         controller:  "",
       },
-// below here, still the same target as indexso, 
+    // below here, still the same target as index, 
       'header@': {
-        templateUrl: 'templates/header.html',
-        controller:  'HeaderCtrl as head',
+        templateUrl: templateUrl + 'header.html',
+        controller:  "HeaderCtrl as header",
       },
       'footer@': {
         templateUrl: templateUrl + "footer.html",
-        controller:  "",
+        controller:  "FooterCtrl as footer",
       },
     },
   })
