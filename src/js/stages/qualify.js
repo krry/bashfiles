@@ -1,4 +1,3 @@
-// qualify.js
 angular.module('stages.qualify',[]).config( function ($stateProvider) {
   
   // specifics for for this state

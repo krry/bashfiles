@@ -5,5 +5,7 @@ angular.module('stages',[
   'stage.signup',
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
+  $stateProvider.templateUrl = "templates/"
+  $stateProvider.stageTemplateUrl = "templates/stages/"
   $urlRouterProvider.otherwise('/');
 });

@@ -22,7 +22,7 @@ angular.module('stages.configure',[]).config( function ($stateProvider) {
         templateUrl: stageUrl + "instructions.html",
         controller:  "",
       },
-      // below here, still the same target as indexso,
+      // below here, still the same target as index, 
       'header@': {
         templateUrl: templateUrl + 'header.html',
         controller:  "HeaderCtrl as header",
