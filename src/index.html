@@ -34,11 +34,9 @@
   <!-- app begins -->
   <body ng-app="flannel" ng-controller="StageCtrl as stages">
       <!-- <ui-view></ui-view> -->
-    <header ui-view name="header" id="header" class="header"></header>
-    <form novalidate ng-controller="FormCtrl as form">
-        <main ui-view name="main" id="main" class="main"></main>
-    </form>
-    <footer ui-view name="footer" id="footer" class="footer"></footer>
+    <header ui-view name="header" id="header"></header>
+    <main name="main" id="main"></main>
+    <footer ui-view name="footer" id="footer"></footer>
     <!-- TODO: conditionally load minified versions of dependencies when not in dev environment -->
     <script src="lib/angular.js"></script>
     <!-- <script src="lib/angular.min.js"></script> -->
