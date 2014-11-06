@@ -36,8 +36,7 @@
   },
   "scripts": {
     "start": "node server/server.js",
-    "dev": "gulp reload",
-    "refresh": "gulp refresh",
+    "dev": "gulp rebuild",
     "prod": "gulp heroku:production"
   },
   "ignore": [

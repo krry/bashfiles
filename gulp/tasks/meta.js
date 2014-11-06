@@ -1,7 +1,7 @@
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-   RELOAD
+   META
 
-   reloads gulp when a change is made to any gulp task
+   gulp watches changes in itself, reboots itself
 
    slightly adapted from noxoc's solution
    http://noxoc.de/2014/06/25/reload-gulpfile-js-on-change/
@@ -11,7 +11,7 @@
 var gulp = require('gulp')
 var spawn = require('child_process').spawn;
 
-gulp.task('reload', function() {
+gulp.task('meta', function() {
   var process;
 
   function restart() {
