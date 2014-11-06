@@ -35,7 +35,7 @@
   <body ng-app="flannel" ng-controller="StageCtrl as stages">
       <!-- <ui-view></ui-view> -->
     <header ui-view name="header" id="header"></header>
-    <main name="main" id="main"></main>
+    <main ui-view name="main" id="main"></main>
     <footer ui-view name="footer" id="footer"></footer>
     <!-- TODO: conditionally load minified versions of dependencies when not in dev environment -->
     <script src="lib/angular.js"></script>

@@ -1,10 +1,10 @@
 angular.module('stages.qualify',[]).config( function ($stateProvider) {
   
-  // specifics for for this state
-  var stateName = 'qualify';
-  var templateUrl = 'templates/';
-  var stagesUrl = 'stages/';
-  var baseUrl = templateUrl + stagesUrl + stateName + '/';
+  // paths for this state
+  var stageName = 'qualify';
+  // TODO: make these paths central and DRYer for all stages, changing based on stageName
+  var templateUrl = "templates/";
+  var stageUrl = templateUrl + "/stages/" + stageName + '/';
 
   var steps = [ 
     { step: 'final', url: stageUrl + 'final.html' },
