@@ -21,9 +21,9 @@
   <!-- app begins -->
   <body ng-app="flannel" ng-controller="StageCtrl as stages">
       <!-- <ui-view></ui-view> -->
-    <ui-view name="header"></ui-view>
-    <ui-view name="main"></ui-view>
-    <ui-view name="footer"></ui-view>
+    <header ui-view name="header" id="header"></header>
+    <main name="main" id="main"></main>
+    <footer ui-view name="footer" id="footer"></footer>
     <!-- TODO: conditionally load minified versions of dependencies when not in dev environment -->
     <script src="lib/angular.js"></script>
     <!-- <script src="lib/angular.min.js"></script> -->
@@ -42,7 +42,5 @@
 
     <!-- Application -->
     <script src="js/all.js"></script>
-
-
   </body>
 </html>
