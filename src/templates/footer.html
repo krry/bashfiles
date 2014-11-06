@@ -1,10 +1,8 @@
-<footer id="footer" class="footer">
-  <span>dev selector
-    <select ng-model="stages.partial" ng-options="s for s in stages.partials" >
-    </select>
-  <button ng-click="stages.next()" >Go to next step</button>
-  <button ng-click="stages.prev()" >Go to last step</button>
-    url of the template: {{stages.partial}}
-    <hr/>
-  </span>
-</footer>
+<span>dev selector
+  <select ng-model="stages.partial" ng-options="s for s in stages.partials" >
+  </select>
+<button ng-click="stages.next()" >Go to next step</button>
+<button ng-click="stages.prev()" >Go to last step</button>
+  url of the template: {{stages.partial}}
+  <hr/>
+</span>
