@@ -1,4 +1,4 @@
-function edlOlMap($stateParams, $rootScope, $state, $window, $timeout, ApiService, PanelFillService, MapService, OlService, StyleService, FeatureOptionService) {
+function edlOlMap($stateParams, $rootScope, $state, $window, $timeout, ApiService, PanelFillService, MapService, OlService, StyleService, FeatureOptionService, InteractionService, LayerService) {
   return {
     restrict: "A",
     transclude: false,
@@ -73,6 +73,7 @@ function edlOlMap($stateParams, $rootScope, $state, $window, $timeout, ApiServic
       var olMapDiv = ele[0];
       Ol.mapDiv = olMapDiv;
 
+      // get the lat/lng bounds of the google map
       var gmap = MapService.getGmap();
       var bounds;
       if (gmap) {
@@ -94,26 +95,11 @@ function edlOlMap($stateParams, $rootScope, $state, $window, $timeout, ApiServic
         })
       );
       // the picture we'll display our drawn features on
-      var mapCapture = new ol.layer.Image({ //HACK: possible solution for timeout hack 
-                                           // is to set this mapCapture inside of the OLService
-                                           // instead of in this map. 
-        source: new ol.source.ImageStatic({
-          // url: imgUrl, //commented this line because HTML2Canvas was causing us troubles. instead use the link below to our internal API
-          url: 'http://scexchange.solarcity.com/scfilefactory/TestGrab.aspx?format=jpg&center='+ MapService.getCenter().lat()+','+ MapService.getCenter().lng() +'&zoom=20&size='+ $window.innerWidth +'x'+ $window.innerHeight +'&maptype=satellite&scale=1&client=gme-solarcity',
-          imageSize: [Ol.extent[2], Ol.extent[3]],
-          projection: pixelProjection,
-          imageExtent: pixelProjection.getExtent()
-        }),
-      });
-      mapCapture.set('name', 'mapCapture');
+      var mapCapture = LayerService.get('static_map')
+
       // layer for mounts
       var mounts = Ol.mounts;
-      var mountLayer = new ol.layer.Vector({
-        source: mounts, 
-        projection: pixelProjection,
-        style:  StyleService.defaultStyleFunction,
-      });
-      mountLayer.set('name', 'mountLayer');
+      var mountLayer = LayerService.get('area')
 
       // layer for gutters
       var gutters = Ol.gutters;
@@ -135,14 +121,8 @@ function edlOlMap($stateParams, $rootScope, $state, $window, $timeout, ApiServic
 
       // layer for panels
       var panels = Ol.panels;
-      var panelLayer = new ol.layer.Vector({
-        source: panels, 
-        projection: pixelProjection,
-        style:  StyleService.defaultStyleFunction,
-        opacity: 0.6,
-      });
-      panelLayer.set('name', 'panelLayer');
-      Ol.panelLayer = panelLayer;
+      var panelLayer = LayerService.get('panel')
+
       /* pay attention to when there are panels present so the preview button can be styled: 
           this gives us scope.previewPanels -> plan.previewPanels
           there's an ng-class on the previewbutton looking for plan.previewPanels
@@ -156,16 +136,12 @@ function edlOlMap($stateParams, $rootScope, $state, $window, $timeout, ApiServic
         layers: new ol.Collection([mountLayer, obstructionLayer, gutterLayer])
       });
 
-      /* Mount interactions */
-      var drawMount = new ol.interaction.Draw({
-        source: mounts,
-        snapTolerance: 25,
-        type: 'Polygon', 
-        geometryName: 'mount',
-        style: StyleService.defaultStyleFunction,
-      });
+      //// presently moving interactions to InteractionService ////
 
-      /* Obstruction interactions */
+      /* Mount interactions */
+      var drawMount = InteractionService.get('draw');
+
+      /* Obstruction interactions */ // TODO: remove this
       var drawObstruction = new ol.interaction.Draw({
         source: obstructions,
         type: 'Point',
@@ -173,19 +149,13 @@ function edlOlMap($stateParams, $rootScope, $state, $window, $timeout, ApiServic
         style: StyleService.defaultStyleFunction,
       });
               
-      var selectInteraction = new ol.interaction.Select({
-        layers: [obstructionLayer, mountLayer],
-        style: StyleService.highlightStyleFunction,
-      });
+      var selectInteraction = InteractionService.get('select')
       Ol.selectInteraction = selectInteraction;
 
-      var modifyInteraction = new ol.interaction.Modify({
-        features: selectInteraction.getFeatures(),
-        style: StyleService.highlightStyleFunction,
-      });
+      var modifyInteraction = InteractionService.get('modify')
       Ol.modifyInteraction = modifyInteraction;
 
-        /* Map Options */
+      /* Map Options */ 
       var mapOptions = {
           layers: [mapCapture, mountLayer, obstructionLayer, panelLayer, gutterLayer],
           controls: ol.control.defaults({
