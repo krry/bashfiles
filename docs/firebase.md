@@ -17,8 +17,8 @@ We'll keep objects of various types in firebase:
   provides a quick lookup for round-robin distribution of prospects to agents
 
   routing: {
-    available_agents: [Agents....],
-    waiting_prospects: [Prospects...],
+    available_agents: [agent_id....],
+    waiting_prospects: [prospect_id...],
   }
 
 ### Users
@@ -45,8 +45,8 @@ We'll keep objects of various types in firebase:
   prospects: {
     prospect_id: {
       name:              "name",
-      prospects_designs: [Designs...],
-      prospects_calls:   [Call_sessions...]
+      prospects_designs: [design_id...],
+      prospects_calls:   [session_id...]
     },
   }
     
@@ -55,8 +55,8 @@ We'll keep objects of various types in firebase:
   agents: {
     agent_id: {
       status:       [chatting/available/hold/break/etc...],
-      current_call: "call_session_id",
-      call_history: ["call_session_id",]
+      current_call: "session_id",
+      call_history: ["session_id",]
     },
   }
 
