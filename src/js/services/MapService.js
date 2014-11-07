@@ -32,24 +32,6 @@ function MapService_ ($q, LayerService) {
     backgroundColor: "transparent"
   };
 
-  // _ol_map_interaction_defaults = {
-  //   DragRotate: false,
-  //   DoubleClickZoom: false,
-  //   DragPan: false,
-  //   PinchRotate: false,
-  //   PinchZoom: false,
-  //   KeyboardPan: false,
-  //   KeyboardZoom: false,
-  //   MouseWheelZoom: false,
-  //   DragZoom: false,
-  // };
-
-  // _ol_map_control_defaults = {
-  //   attribution: false,
-  //   zoom:        false,
-  //   rotate:      false,
-  // };
-
   MapService.g.gmap = null;   // google map
   MapService.g.autocomplete = null;
 
@@ -66,8 +48,8 @@ function MapService_ ($q, LayerService) {
     });
     
     var _ol_layers = [
-      LayerService.get('area'),
       LayerService.get('static_map'),
+      LayerService.get('area'),
       LayerService.get('panel'),
     ];
 
@@ -81,20 +63,6 @@ function MapService_ ($q, LayerService) {
 
     return setOmap(olMapOptions);
   }
-
-  MapService.o.layers = null;  
-
-  MapService.getLayer = function(layername) {    //TODO: move to OlService
-    if (layername === undefined) {
-      return MapService.o.layers;
-    } else {
-      return MapService.o.layers[layername];
-    }
-  };
-
-  MapService.getView = function() {  //TODO: move to OlService
-    return MapService.o.view;
-  };
 
   MapService.addOverlay = function(layer) {    //TODO: move to OlService
     return MapService.o.omap.addOverlay(layer);

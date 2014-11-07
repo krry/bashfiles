@@ -86,7 +86,7 @@ function StyleService_ ($q) {
     /* jshint -W069 */
     var styles = {};
 
-    styles['mount'] = [new ol.style.Style({
+    styles['area'] = [new ol.style.Style({
               fill: c.defaultMountFill,
               stroke: c.defaultMountStroke,
               image: c.defaultMountImage,
@@ -149,7 +149,7 @@ function StyleService_ ($q) {
   StyleService.highlightStyleFunction = (function() {
     /* jshint -W069 */
     var styles = {};
-    styles['mount'] = [new ol.style.Style({
+    styles['area'] = [new ol.style.Style({
               fill: c.highlightMountFill,
               stroke: c.highlightMountStroke,
               image: c.highlightMountImage,
