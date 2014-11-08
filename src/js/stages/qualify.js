@@ -1,5 +1,5 @@
 // qualify.js
-angular.module('steps.qualify',[]).config( function ($stateProvider) {
+angular.module('stages.qualify',[]).config( function ($stateProvider) {
   
   // specifics for for this state
   var stateName = 'qualify';
