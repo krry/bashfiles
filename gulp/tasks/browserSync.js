@@ -17,7 +17,7 @@ gulp.task('browserSync', ['demon'], function() {
       proxy: 'http://localhost:8100',
       files: ['./public/**/*.*'],
       port: 8100,
-      open: false,
+      // open: false,
       injectChanges: true,
     });
   }, INITIAL_SERVER_BOOT_DELAY)
