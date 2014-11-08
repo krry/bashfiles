@@ -3,7 +3,7 @@ var concat = require('gulp-concat');
 
 var scripts = [
   'src/js/*.js',
-  'src/js/steps/*.js',
+  'src/js/stages/*.js',
   'src/js/services/*.js',
   'src/js/controllers/*.js',
   'src/js/directives/**/*.js',
