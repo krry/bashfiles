@@ -1,8 +1,7 @@
-function StageCtrl_($scope, $state, StageService) {
+function StageCtrl_($scope, $state, StageService, InteractionService, LayerService) {
   // This controller should be used for anything that needs to control which partials are being used
   var vm = this;
   var config = StageService.config;
-  
   // sweet sync object
   $scope.sync  = StageService.syncObj;
   // stage & step index numbers
@@ -52,7 +51,21 @@ function StageCtrl_($scope, $state, StageService) {
       partials($scope.sync());
     }
   })
-  
+
+  /// dev code ///
+  vm.areaone = function () {
+    var interactions = InteractionService;
+    var layers = LayerService;
+    var feature = layers.get('area').getSource().getFeatures()[0];
+    interactions.get('select').getFeatures().push(feature);
+  }
+  vm.areatwo = function () {
+    var interactions = InteractionService;
+    var layers = LayerService;
+    var feature = layers.get('area').getSource().getFeatures()[1];
+    interactions.get('select').getFeatures().push(feature);
+  }
+  /// end dev code ///
 }
 
 controllers.controller("StageCtrl", StageCtrl_);
