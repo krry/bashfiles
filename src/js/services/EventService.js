@@ -3,7 +3,7 @@
   this service contains event callbacks.
 
 ================================================== */
-function EventService_ ($firebase, syncGeometry) {
+function EventService_ ($firebase, syncData) {
 
   var service = {
     syncAfterDraw: syncAfterDraw,
@@ -17,18 +17,22 @@ function EventService_ ($firebase, syncGeometry) {
     var geometry;
     if (event.feature) { // you were passed a feature after draw
       geometry = feature.getGeometry();
-      drawnGeometry = syncGeometry();
+      drawnGeometry = syncData('/designId/geometries').$asObject();
       drawnGeometry.text= wkt.writeFeature(feature)
       geometry.on('change', syncAfterDraw);
     } else {              // you were passed a modified geometry
-      drawnGeometry = syncGeometry();
+      drawnGeometry = syncData('/designId/geometries').$asObject();
       feature.on('change', syncAfterDraw);
       drawnGeometry.text= wkt.writeGeometry(feature)
     }
     drawnGeometry.$save()
-  };
+  }
+
+  function updateArea (event) {
+
+  }
 
   return service;
 }
 
-angular.module('flannel').factory('EventService',['$firebase', 'syncGeometry', EventService_]);
+angular.module('flannel').factory('EventService',['$firebase', 'syncData', EventService_]);
