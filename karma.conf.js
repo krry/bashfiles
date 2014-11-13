@@ -20,7 +20,7 @@ module.exports = function(config) {
       'public/lib/**/*.js',
       'src/js/*.js',
       'src/js/stages/**/*.js',
-      // 'src/js/controllers/*.js',
+      'src/js/controllers/*.js',
       'src/js/services/*.js',
       'test/lib/**/*.js',
       'test/spec/**/*.js'
