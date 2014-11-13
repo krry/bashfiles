@@ -9,6 +9,7 @@ var libSrc = [
   './src/lib/openlayers3/build/ol.css',
   './src/lib/angular-ui-router/release/angular-ui-router.min.js',
   './src/lib/angular-touch/angular-touch.js',
+  './src/lib/angular-mocks/angular-mocks.js',
   './src/lib/angular/angular.js',
   './src/lib/angular/angular.min.js',
   './src/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
