@@ -8,14 +8,19 @@
 ================================================== */
 function SyncService_ ($firebase) {
 
+  var _sync = {};
+  _sync.applicationState = $firebase
+
   var service = {
     get: get
   };
 
   function get (name) {
-    if (name === 'all') return sync;
-    return sync[name];
+    if (name === 'all') return _sync;
+    return _sync[name];
   }
+
+
 
   return service;
 }
