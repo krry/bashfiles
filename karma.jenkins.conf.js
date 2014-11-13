@@ -16,11 +16,22 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+    // Itemized because we include some regular and also -min frameworks in this directory
       'public/lib/angular.js',
-      'public/lib/**/*.js',
+      'public/lib/angular-mocks.js',
+      'public/lib/angular-touch.js',
+      'public/lib/angular-ui-router.min.js',
+      'public/lib/angularfire.js',
+      // 'public/lib/firebase-debug.js', not needed at this time. Conflicts with ol-debug.js
+      'public/lib/jquery.js',
+      'public/lib/ol-debug.js',
+      'public/lib/ui-bootstrap.min.js',
+      'public/lib/ui-bootstrap-tpls.min.js',
+      // 'public/lib/angular.js',
+      // 'public/lib/**/*.js',
       'src/js/*.js',
       'src/js/stages/**/*.js',
-      // 'src/js/controllers/*.js',
+      'src/js/controllers/*.js',
       'src/js/services/*.js',
       'test/lib/**/*.js',
       'test/spec/**/*.js'

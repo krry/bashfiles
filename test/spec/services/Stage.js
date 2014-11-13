@@ -1,7 +1,5 @@
-describe('Unit: StageService_', function() {
+describe('Unit: StageService', function() {
 
-  // beforeEach(module('flannel'));
-  // beforeEach(module('ui.router'));
   beforeEach(module('flannel'));
 
   var ctrl, scope;
@@ -11,7 +9,7 @@ describe('Unit: StageService_', function() {
     state = $state;
   }));
 
-  it('should create $scope.greeting when calling sayHello',
+  it("StageService' .next() should initially return 0.",
     function() {
       expect(stageService.syncObj().next()).toEqual(0);
   });
