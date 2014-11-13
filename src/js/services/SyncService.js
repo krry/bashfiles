@@ -6,13 +6,14 @@
   Every firebase object should be set on this service.
 
 ================================================== */
-function SyncService_ ($firebase) {
+function SyncService_ ($firebase, syncData) {
 
   var _sync = {};
   _sync.applicationState = $firebase
 
   var service = {
-    get: get
+    get:  get,
+    sync: sync,
   };
 
   function get (name) {
@@ -20,9 +21,12 @@ function SyncService_ ($firebase) {
     return _sync[name];
   }
 
-
+  function sync (name, urlPath) {
+    _sync[name] = syncData(urlPath).$asObject();
+    return _sync[name];
+  }
 
   return service;
 }
 
-angular.module('flannel').factory('SyncService',['$firebase', SyncService_]);
+angular.module('flannel').factory('SyncService',['$firebase', 'syncData', SyncService_]);
