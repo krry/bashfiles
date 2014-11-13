@@ -7,7 +7,7 @@ function StageCtrl_($scope, $state, StageService, InteractionService, LayerServi
   // stage & step index numbers
   var stage = $scope.sync().stage;
   var step  = $scope.sync().step;
-  
+
   // init
   vm.partials = partials($scope.sync());
   vm.partial = vm.partials[0]
@@ -37,7 +37,7 @@ function StageCtrl_($scope, $state, StageService, InteractionService, LayerServi
     var name = config[stage].name;
     function hardcode(part) {
       return template + name + '/' + part;
-    }     
+    }
     for (var i = 0; i < config[stage].steps.length; i++) {
       parts.push(hardcode(config[stage].steps[i].partial))
     }
