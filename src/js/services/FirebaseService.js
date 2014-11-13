@@ -1,20 +1,30 @@
-angular.module('flannel.firebase', ['firebase'])
-// angular.module('flannel.firebase').service('fbsvc',[])
-
+angular.module('flannel.firebase', [])
 // a simple utility to create references to Firebase paths
-   .factory('firebaseRef', ['Firebase', 'FBURL', function(Firebase, FBURL) {
-      /**
-       * @function
-       * @name firebaseRef
-       * @param {String|Array...} path
-       * @return a Firebase instance
-       */
-      return function(path) {
-        return new Firebase(pathRef([FBURL].concat(Array.prototype.slice.call(arguments))));
-      }
-   }])
+ .factory('firebaseRef', ['$firebase', 'FBURL', function ($firebase, FBURL) {
+    /**
+     * @function
+     * @name firebaseRef
+     * @param {String|Array...} path
+     * @return a Firebase instance
+     */
+    return function(path) {
+      return new Firebase(pathRef([FBURL].concat(Array.prototype.slice.call(arguments))));
+    }
+ }])
+ // a factory for sync'd geometry strings
+ .factory('syncGeometry', ['$firebase', 'FBURL', function ($firebase, url) {
 
-   // a simple utility to create $firebase objects from angularFire
+    function syncGeometry (geometry) { // TODO: get design ID
+      // create a reference to the geometry
+      var ref = new Firebase(url + '/designId/geometries'); 
+      // return it as a synchronized object
+      return $firebase(ref).$asObject();
+    }
+
+    return syncGeometry;
+  }])
+
+ // a simple utility to create $firebase objects from angularFire
    .service('syncData', ['$firebase', 'firebaseRef', function($firebase, firebaseRef) {
       /**
        * @function
@@ -31,10 +41,10 @@ angular.module('flannel.firebase', ['firebase'])
    }]);
 
 function pathRef(args) {
-   for(var i=0; i < args.length; i++) {
-      if( typeof(args[i]) === 'object' ) {
-         args[i] = pathRef(args[i]);
-      }
-   }
-   return args.join('/');
+  for(var i=0; i < args.length; i++) {
+    if( typeof(args[i]) === 'object' ) {
+      args[i] = pathRef(args[i]);
+    }
+  }
+  return args.join('/');
 }
