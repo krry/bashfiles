@@ -6,3 +6,4 @@ app/config/config.js
 bower_components
 .DS_Store
 platforms
+test-results.xml
