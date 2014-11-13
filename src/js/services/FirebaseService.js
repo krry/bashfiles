@@ -11,23 +11,18 @@ angular.module('flannel.firebase', [])
       return new Firebase(pathRef([FBURL].concat(Array.prototype.slice.call(arguments))));
     }
  }])
-
  // a factory for sync'd geometry strings
  .factory('syncGeometry', ['$firebase', 'FBURL', function ($firebase, url) {
 
-    var wkt = new ol.format.WKT();
-
-    function syncGeometry (feature) {
-      // create a reference to the WKT of the shape
-      var geometry = wkt.writeFeature(feature)
-      var ref = new Firebase(url + '/designId/geometries');
+    function syncGeometry (geometry) { // TODO: get design ID
+      // create a reference to the geometry
+      var ref = new Firebase(url + '/designId/geometries'); 
       // return it as a synchronized object
-      return $firebase(ref).$push({area: geometry });
+      return $firebase(ref).$asObject();
     }
 
     return syncGeometry;
-  }]) 
-
+  }])
 
  // a simple utility to create $firebase objects from angularFire
    .service('syncData', ['$firebase', 'firebaseRef', function($firebase, firebaseRef) {
