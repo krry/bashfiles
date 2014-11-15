@@ -11,7 +11,7 @@
       draw events in px
 
 ================================================== */
-function InteractionService_ (MapService, StyleService, LayerService) {
+function InteractionService_ (MapService, StyleService, LayerService, EventService) {
 
   var snap_tolerance = 25;
 
@@ -57,29 +57,36 @@ function InteractionService_ (MapService, StyleService, LayerService) {
   };
   
   /* Interactions */
-  var interactions    = {};
-  interactions.draw   = new ol.interaction.Draw(options.draw);
-  interactions.select = new ol.interaction.Select(options.select);
+  var draw   = new ol.interaction.Draw(options.draw);
+  var select = new ol.interaction.Select(options.select);
+  var dragpan = new ol.interaction.DragPan(options.dragpan);
+
   // hack: how else can i get the Collection of the Select interaction?
-  options.modify.features = interactions.select.getFeatures();
-  interactions.modify = new ol.interaction.Modify(options.modify);
-  interactions.dragpan = new ol.interaction.DragPan(options.dragpan);
+  options.modify.features = select.getFeatures();
+  var modify = new ol.interaction.Modify(options.modify);
   
+  var interactions = {
+    draw: draw,
+    select: select,
+    modify: modify,
+    dragpan: dragpan
+  };
+
   function addAndRemoveInteractions(add, remove){
     // clear any selected features to prevent bugs
     interactions.select.getFeatures().clear();
     // wrap in array if it's not already
     add = typeof add === 'object' ? [add] : add;
-    // remove current interactions
-    angular.forEach(remove, function (interaction) {
-      MapService.getOmap().removeInteraction(interaction);
-    });
+
     angular.forEach(add, function (interaction){
       MapService.getOmap().addInteraction(interaction);
     });
   }
 
-  return service
+  var afterDraw = EventService.syncAfterDraw;
+  draw.on('drawend', afterDraw , false );
+
+  return service;
 }
 
-angular.module('flannel').factory('InteractionService',['MapService', 'StyleService', 'LayerService', InteractionService_]);
+angular.module('flannel').factory('InteractionService',['MapService', 'StyleService', 'LayerService', 'EventService', InteractionService_]);

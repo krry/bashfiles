@@ -1,8 +1,11 @@
 angular.module('flannel', [
   'ui.router',
   'ui.bootstrap',
+  'firebase',
   'ngTouch',
   'stages',
+  'flannel.providers',
+  'flannel.firebase',
   'flannel.controllers',
   'flannel.directives',
   'flannel.options',

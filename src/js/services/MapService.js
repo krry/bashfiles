@@ -6,7 +6,10 @@
   find Google Map objects on MapService.g....
   find OpenLayer Map objects on MapService.o....
 
-
+  
+  OL Map options are set in these objects
+    _ol_control_defaults
+    _ol_map_interaction_defaults
 
 ================================================== */
 
@@ -17,24 +20,7 @@ function MapService_ ($q, LayerService) {
 
   MapService.o = {}; // the openlayer map
 
-  MapService.g.mapOptions = { 
-    // disableDefaultUI: true,
-    // keyboardShortcuts: false,
-    // draggable: true,
-    // disableDoubleClickZoom: false,
-    // scrollwheel: true,
-    // streetViewControl: false,
-    // // center: new google.maps.LatLng(37.5516671,-122.31563), //TODO: device location
-    // zoom: 20,
-    // mapTypeId: google.maps.MapTypeId.SATELLITE, 
-    // tilt: 0, 
-    // rotateControl: true,
-    // mapTypeControl: false,
-    // // zoomControl: true,
-    // zoomControlOptions: {
-    //   style: google.maps.ZoomControlStyle.SMALL
-    // }
-
+  MapService.g.mapOptions = {
     zoom : 4,
     minZoom : 4,
     maxZoom : 4,
@@ -44,18 +30,6 @@ function MapService_ ($q, LayerService) {
     zoomable: false,
     scrollwheel: false,
     backgroundColor: "transparent"
-  };
-
-  _ol_map_interaction_defaults = {
-    DragRotate: false,
-    DoubleClickZoom: false,
-    DragPan: false,
-    PinchRotate: false,
-    PinchZoom: false,
-    KeyboardPan: false,
-    KeyboardZoom: false,
-    MouseWheelZoom: false,
-    DragZoom: false,
   };
 
   MapService.g.gmap = null;   // google map
@@ -74,34 +48,21 @@ function MapService_ ($q, LayerService) {
     });
     
     var _ol_layers = [
-      LayerService.get('area'),
       LayerService.get('static_map'),
+      LayerService.get('area'),
       LayerService.get('panel'),
     ];
 
     var olMapOptions = {
+      controls:   [],
       view: olView,
-      interactions: ol.interaction.defaults(_ol_map_interaction_defaults),
+      interactions: [],
       layers: _ol_layers,
       target: target_element,
     };
 
     return setOmap(olMapOptions);
   }
-
-  MapService.o.layers = null;  
-
-  MapService.getLayer = function(layername) {    //TODO: move to OlService
-    if (layername === undefined) {
-      return MapService.o.layers;
-    } else {
-      return MapService.o.layers[layername];
-    }
-  };
-
-  MapService.getView = function() {  //TODO: move to OlService
-    return MapService.o.view;
-  };
 
   MapService.addOverlay = function(layer) {    //TODO: move to OlService
     return MapService.o.omap.addOverlay(layer);
