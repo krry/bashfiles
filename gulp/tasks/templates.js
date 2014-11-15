@@ -3,13 +3,11 @@ var gulp = require('gulp');
 
 var templates = [
   'src/index.html',
-  'src/templates/**',
-  'src/templates/*.html',
+  'src/templates/**/*',
 ]
 
 gulp.task('templates', function(){
 
   return gulp.src(templates, {base: './src/'})
-  	// .pipe(changed('./public/'))
     .pipe(gulp.dest('./public/'));
 })
