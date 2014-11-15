@@ -13,16 +13,22 @@
 
 @import "../variables/sizes";
 
-* + * {
-  margin-top: $line-height-body;
-}
+.flow {
+  * + * {
+    margin-top: $line-height-body;
+  }
 
-.compact * + * {
-  margin-top: $line-height-body/2;
-}
+  .compact * + * {
+    margin-top: $line-height-body/2;
+  }
 
-.margins-off > * {
-  margin-top: 0;
+  .nowlet > * {
+    margin-top: 0;
+  }
+
+  .nowl * {
+    margin-top: 0;
+  }
 }
 
 * > a {

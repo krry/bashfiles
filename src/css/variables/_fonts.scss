@@ -1,3 +1,174 @@
+// @font-face {
+//     font-family: 'apercu';
+//     src: url('apercu-regular.eot');
+//     src: url('apercu-regular.eot?#iefix') format('embedded-opentype'),
+//          url('apercu-regular.woff') format('woff'),
+//          url('apercu-regular.ttf') format('truetype'),
+//          url('apercu-regular.svg#svgApercu') format('svg');
+//     font-weight: normal;
+//     font-style: normal;
+// }
+
+// @font-face {
+//     font-family: 'apercu';
+//     src: url('apercu-regular-italic.eot');
+//     src: url('apercu-regular-italic.eot?#iefix') format('embedded-opentype'),
+//          url('apercu-regular-italic.woff') format('woff'),
+//          url('apercu-regular-italic.ttf') format('truetype'),
+//          url('apercu-regular-italic.svg#svgApercu') format('svg');
+//     font-weight: normal;
+//     font-style: italic;
+// }
+
+// @font-face {
+//     font-family: 'apercu';
+//     src: url('apercu-light.eot');
+//     src: url('apercu-light.eot?#iefix') format('embedded-opentype'),
+//          url('apercu-light.woff') format('woff'),
+//          url('apercu-light.ttf') format('truetype'),
+//          url('apercu-light.svg#svgApercu') format('svg');
+//     font-weight: normal;
+//     font-style: normal;
+// }
+
+// @font-face {
+//     font-family: 'apercu';
+//     src: url('apercu-light-italic.eot');
+//     src: url('apercu-light-italic.eot?#iefix') format('embedded-opentype'),
+//          url('apercu-light-italic.woff') format('woff'),
+//          url('apercu-light-italic.ttf') format('truetype'),
+//          url('apercu-light-italic.svg#svgApercu') format('svg');
+//     font-weight: normal;
+//     font-style: italic;
+// }
+
+// @font-face {
+//     font-family: 'apercu';
+//     src: url('apercu-medium.eot');
+//     src: url('apercu-medium.eot?#iefix') format('embedded-opentype'),
+//          url('apercu-medium.woff') format('woff'),
+//          url('apercu-medium.ttf') format('truetype'),
+//          url('apercu-medium.svg#svgApercu') format('svg');
+//     font-weight: normal;
+//     font-style: normal;
+// }
+
+// @font-face {
+//     font-family: 'apercu';
+//     src: url('apercu-medium-italic.eot');
+//     src: url('apercu-medium-italic.eot?#iefix') format('embedded-opentype'),
+//          url('apercu-medium-italic.woff') format('woff'),
+//          url('apercu-medium-italic.ttf') format('truetype'),
+//          url('apercu-medium-italic.svg#svgApercu') format('svg');
+//     font-weight: normal;
+//     font-style: italic;
+// }
+
+// @font-face {
+//     font-family: 'apercu';
+//     src: url('apercu-mono.eot');
+//     src: url('apercu-mono.eot?#iefix') format('embedded-opentype'),
+//          url('apercu-mono.woff') format('woff'),
+//          url('apercu-mono.ttf') format('truetype'),
+//          url('apercu-mono.svg#svgApercu') format('svg');
+//     font-weight: normal;
+//     font-style: normal;
+// }
+
+// @font-face {
+//     font-family: 'apercu';
+//     src: url('apercu-bold.eot');
+//     src: url('apercu-bold.eot?#iefix') format('embedded-opentype'),
+//          url('apercu-bold.woff') format('woff'),
+//          url('apercu-bold.ttf') format('truetype'),
+//          url('apercu-bold.svg#svgApercu') format('svg');
+//     font-weight: bold;
+//     font-style: normal;
+// }
+
+// @font-face {
+//     font-family: 'apercu';
+//     src: url('apercu-bold-italic.eot');
+//     src: url('apercu-bold-italic.eot?#iefix') format('embedded-opentype'),
+//          url('apercu-bold-italic.woff') format('woff'),
+//          url('apercu-bold-italic.ttf') format('truetype'),
+//          url('apercu-bold-italic.svg#svgApercu') format('svg');
+//     font-weight: bold;
+//     font-style: italic;
+// }
+
+@font-face {
+    font-family: 'apercu';
+    // src: url('apercu-regular.eot');
+    src: url('apercu-regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'apercu';
+    // src: url('apercu-regular-italic.eot');
+    src: url('apercu-regular-italic.otf') format('opentype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'apercu';
+    // src: url('apercu-light.eot');
+    src: url('apercu-light.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'apercu';
+    // src: url('apercu-light-italic.eot');
+    src: url('apercu-light-italic.otf') format('opentype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'apercu';
+    // src: url('apercu-medium.eot');
+    src: url('apercu-medium.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'apercu';
+    // src: url('apercu-medium-italic.eot');
+    src: url('apercu-medium-italic.otf') format('opentype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'apercu';
+    // src: url('apercu-mono.eot');
+    src: url('apercu-mono.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'apercu';
+    // src: url('apercu-bold.eot');
+    src: url('apercu-bold.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'apercu';
+    // src: url('apercu-bold-italic.eot');
+    src: url('apercu-bold-italic.otf') format('opentype');
+    font-weight: bold;
+    font-style: italic;
+}
+
 $serif: Georgia, serif;
 $sans-serif: "gudea-sans", "Helvetica Neue", serif;
 $geometric: "soleil", "Helvetica Neue", sans-serif;

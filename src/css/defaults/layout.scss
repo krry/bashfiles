@@ -10,6 +10,7 @@ main#main {
 .overlay {
 	position: relative;
 	z-index: 1;
+	margin: auto;
 }
 
 .underlay {
@@ -20,11 +21,7 @@ main#main {
 	height: 100%;
 }
 
-.tray {
-	margin: auto;
-}
-
-.side-main {
+.overlay--primary {
 	padding: 2em;
 	text-align: center;
 	width: 75%;
@@ -32,7 +29,7 @@ main#main {
 	background: $white;
 }
 
-.instructions {
+.overlay--secondary {
 	padding: 2em;
 	width: 25%;
 	float: right;
@@ -46,32 +43,32 @@ main#main {
 }
 
 @media screen and (min-width: $width-min-sml){
-	.tray {
-		width: $width-min-sml;
-	}
+	// .tray {
+	// 	width: $width-min-sml;
+	// }
 }
 
 @media screen and (min-width: $width-min-med){
-	.tray {
-		width: $width-min-med;
-	}
+	// .tray {
+	// 	width: $width-min-med;
+	// }
 }
 
 @media screen and (min-width: $width-min-lrg){
-	.tray {
-		width: $width-min-lrg;
-	}
+	// .tray {
+	// 	width: $width-min-lrg;
+	// }
 }
 
 @media screen and (min-width: $width-min-xlg){
-	.tray {
-		width: $width-min-xlg;
-	}
+	// .tray {
+	// 	width: $width-min-xlg;
+	// }
 }
 
 @media screen and (min-width: $width-min-xxl){
-	.tray {
-		width: $width-min-xxl;
-	}
+	// .tray {
+	// 	width: $width-min-xxl;
+	// }
 }
 
