@@ -292,3 +292,7 @@ input[type=text].zipcode {
     font-size: em($font-size*2);
   }
 }
+
+button {
+  @include btn;
+}

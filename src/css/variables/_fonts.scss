@@ -1,3 +1,62 @@
+@mixin apercu-light {
+  font-family: "Apercu Light", "Helvetica Neue", sans-serif;
+  font-size-adjust: 0.508;
+  font-weight: 200;
+  font-style: normal;
+}
+// @mixin apercu-light-italic {
+//   font-family: "Apercu Light Italic", "Helvetica Neue", sans-serif;
+//   font-size-adjust: 0.508;
+//   font-weight: 200;
+//   font-style: italic;
+// }
+@mixin apercu-regular {
+  font-family: "Apercu Regular", "Helvetica Neue", sans-serif;
+  font-size-adjust: 0.508;
+  font-weight: normal;
+  font-style: normal;
+}
+// @mixin apercu-italic {
+//   font-family: "Apercu Italic", "Helvetica Neue", sans-serif;
+//   font-size-adjust: 0.508;
+//   font-weight: normal;
+//   font-style: italic;
+// }
+// @mixin apercu-medium {
+//   font-family: "Apercu Medium", "Helvetica Neue", sans-serif;
+//   font-size-adjust: 0.508;
+//   font-weight: 600;
+//   font-style: normal;
+// }
+@mixin apercu-medium-italic {
+  font-family: "Apercu Medium Italic", "Helvetica Neue", sans-serif;
+  font-size-adjust: 0.508;
+  font-weight: 600;
+  font-style: italic;
+}
+@mixin apercu-bold {
+  font-family: "Apercu Bold", "Helvetica Neue", sans-serif;
+  font-size-adjust: 0.508;
+  font-weight: bold;
+  font-style: normal;
+}
+// @mixin apercu-bold-italic {
+//   font-family: "Apercu Bold Italic", "Helvetica Neue", sans-serif;
+//   font-size-adjust: 0.508;
+//   font-weight: bold;
+//   font-style: italic;
+// }
+
+$serif: Georgia, serif;
+$sans-serif: "Apercu Regular", "Helvetica Neue", serif;
+$geometric: "Apercu Bold", "Helvetica Neue", sans-serif;
+$helvetica: "Helvetica Neue", sans-serif;
+
+$font-body: $sans-serif;
+$font-headline: $geometric;
+$font-interface: $geometric;
+
+// stashing font-faces for later use serving our own font files
 // @font-face {
 //     font-family: 'apercu';
 //     // src: url('apercu-regular.eot');
@@ -68,61 +127,3 @@
 //     src: url('apercu-bold-italic.otf') format('opentype');
 //     font-weight: bold;
 //     font-style: italic;
-
-@mixin apercu-light {
-  font-family: "Apercu Light", "Helvetica Neue", sans-serif;
-  font-size-adjust: 0.508;
-  font-weight: 200;
-  font-style: normal;
-}
-// @mixin apercu-light-italic {
-//   font-family: "Apercu Light Italic", "Helvetica Neue", sans-serif;
-//   font-size-adjust: 0.508;
-//   font-weight: 200;
-//   font-style: italic;
-// }
-@mixin apercu-regular {
-  font-family: "Apercu Regular", "Helvetica Neue", sans-serif;
-  font-size-adjust: 0.508;
-  font-weight: normal;
-  font-style: normal;
-}
-// @mixin apercu-italic {
-//   font-family: "Apercu Italic", "Helvetica Neue", sans-serif;
-//   font-size-adjust: 0.508;
-//   font-weight: normal;
-//   font-style: italic;
-// }
-// @mixin apercu-medium {
-//   font-family: "Apercu Medium", "Helvetica Neue", sans-serif;
-//   font-size-adjust: 0.508;
-//   font-weight: 600;
-//   font-style: normal;
-// }
-@mixin apercu-medium-italic {
-  font-family: "Apercu Medium Italic", "Helvetica Neue", sans-serif;
-  font-size-adjust: 0.508;
-  font-weight: 600;
-  font-style: italic;
-}
-@mixin apercu-bold {
-  font-family: "Apercu Bold", "Helvetica Neue", sans-serif;
-  font-size-adjust: 0.508;
-  font-weight: bold;
-  font-style: normal;
-}
-// @mixin apercu-bold-italic {
-//   font-family: "Apercu Bold Italic", "Helvetica Neue", sans-serif;
-//   font-size-adjust: 0.508;
-//   font-weight: bold;
-//   font-style: italic;
-// }
-
-$serif: Georgia, serif;
-$sans-serif: "Apercu Regular", "Helvetica Neue", serif;
-$geometric: "Apercu Bold", "Helvetica Neue", sans-serif;
-$helvetica: "Helvetica Neue", sans-serif;
-
-$font-body: $sans-serif;
-$font-headline: $geometric;
-$font-interface: $geometric;
