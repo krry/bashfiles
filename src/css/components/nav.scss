@@ -9,7 +9,7 @@ header {
 
 nav {
   overflow: hidden;
-  width: 75%;
+  // width: 75%;
 }
 
 header > nav li {
@@ -27,7 +27,7 @@ nav li:first-child {
 
 nav li.active,
 nav li:hover {
-  background-color: $tint
+  background-color: $shade;
 }
 
 nav .logo {

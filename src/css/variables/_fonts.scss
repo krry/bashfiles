@@ -1,3 +1,74 @@
+// @font-face {
+//     font-family: 'apercu';
+//     // src: url('apercu-regular.eot');
+//     src: url('apercu-regular.otf') format('opentype');
+//     font-weight: normal;
+//     font-style: normal;
+// }
+
+// @font-face {
+//     font-family: 'apercu';
+//     // src: url('apercu-regular-italic.eot');
+//     src: url('apercu-regular-italic.otf') format('opentype');
+//     font-weight: normal;
+//     font-style: italic;
+// }
+
+// @font-face {
+//     font-family: 'apercu';
+//     // src: url('apercu-light.eot');
+//     src: url('apercu-light.otf') format('opentype');
+//     font-weight: normal;
+//     font-style: normal;
+// }
+
+// @font-face {
+//     font-family: 'apercu';
+//     // src: url('apercu-light-italic.eot');
+//     src: url('apercu-light-italic.otf') format('opentype');
+//     font-weight: normal;
+//     font-style: italic;
+// }
+
+// @font-face {
+//     font-family: 'apercu';
+//     // src: url('apercu-medium.eot');
+//     src: url('apercu-medium.otf') format('opentype');
+//     font-weight: normal;
+//     font-style: normal;
+// }
+
+// @font-face {
+//     font-family: 'apercu';
+//     // src: url('apercu-medium-italic.eot');
+//     src: url('apercu-medium-italic.otf') format('opentype');
+//     font-weight: normal;
+//     font-style: italic;
+// }
+
+// @font-face {
+//     font-family: 'apercu';
+//     // src: url('apercu-mono.eot');
+//     src: url('apercu-mono.otf') format('opentype');
+//     font-weight: normal;
+//     font-style: normal;
+// }
+
+// @font-face {
+//     font-family: 'apercu';
+//     // src: url('apercu-bold.eot');
+//     src: url('apercu-bold.otf') format('opentype');
+//     font-weight: bold;
+//     font-style: normal;
+// }
+
+// @font-face {
+//     font-family: 'apercu';
+//     // src: url('apercu-bold-italic.eot');
+//     src: url('apercu-bold-italic.otf') format('opentype');
+//     font-weight: bold;
+//     font-style: italic;
+
 @mixin apercu-light-italic {
   font-family: "Apercu Light Italic", "Helvetica Neue", sans-serif;
   font-size-adjust: 0.508;
