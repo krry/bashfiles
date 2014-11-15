@@ -5,7 +5,7 @@
    informed and inspired by Heydon Pickering's cry for 
    non-prescriptive, cascading stylesheets
 
-   adds space and 
+   wrap flow areas in `.flow` to auto-add vertical rhythm
 
    http://alistapart.com/article/axiomatic-css-and-lobotomized-owls
 
@@ -13,16 +13,23 @@
 
 @import "../variables/sizes";
 
-* + * {
-  margin-top: $line-height-body;
-}
+.flow {
+  * + * {
+    margin-top: $line-height-body;
+  }
 
-.compact * + * {
-  margin-top: $line-height-body/2;
-}
+  .compact * + * {
+    margin-top: $line-height-body/2;
+  }
 
-.margins-off > * {
-  margin-top: 0;
+  .nowlet > *,
+  .margins-off > * {
+    margin-top: 0;
+  }
+
+  .nowl * {
+    margin-top: 0;
+  }
 }
 
 * > a {
@@ -33,5 +40,6 @@
 *, *:before, *:after {
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
