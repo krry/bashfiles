@@ -1,4 +1,5 @@
 @import "../variables/colors";
+@import "../variables/buttons";
 
 input[type=tel].zipcode {
   font-size: 3em;
@@ -7,10 +8,14 @@ input[type=tel].zipcode {
   text-align: center;
   max-width: 9em;
   padding: 0.5em 2em;
-  border: 2px solid $grey-dark;
+  border: 2px solid $grey-lightest;
   border-radius: 4px
 }
 
 input::placeholder {
   color: $grey-lighter;
+}
+
+button {
+  @include btn;
 }

@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta name="viewport" content="initial-scale=1, width=device-width">
     <title>Energy Revolutionized</title>
 
     <link href="css/all.css" rel="stylesheet">
@@ -17,6 +17,37 @@
     <script src="lib/jquery.js"></script>
     <!-- google maps -->
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false&client=gme-solarcity"></script>
+    <script type="text/javascript">
+      WebFontConfig = { fontdeck: { id: '50798' } };
+      (function() {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+        '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+        s.parentNode.insertBefore(wf, s);
+      })();
+    </script>
+    <script type="text/javascript">
+      // var html = document.getElementsByTagName('html')[0];
+      // html.className += '  wf-loading';
+      // setTimeout(function() {
+      //   html.className = html.className.replace(' wf-loading', '');
+      // }, 20);
+
+      // WebFontConfig = { fontdeck: { id: '50798' } };
+
+      // (function() {
+      //   var wf = document.createElement('script');
+      //   wf.src = 'http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+      //   wf.type = 'text/javascript';
+      //   wf.async = 'true';
+      //   var s = document.getElementsByTagName('script')[0];
+      //   s.parentNode.insertBefore(wf, s);
+      // })();
+    </script>
   </head>
   <!-- app begins -->
   <body ng-app="flannel" ng-controller="StageCtrl as stages">
