@@ -22,7 +22,8 @@ html, body {
 
 // set base font
 html {
-  font-family: $font-body;
+  // font-family: $font-body;
+  @include apercu-regular;
   font-size: 16px;
   height: 100%;
 }
@@ -57,7 +58,8 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: $font-headline;
+  @include apercu-bold;
+  // font-family: $font-headline;
 }
 
 // reset anchors and links
@@ -164,7 +166,7 @@ input[type=email],
 input[type=tel],
 input[type=password],
 input[type=date] {
-  font-family: $font-interface;
+  @include apercu-bold;
   font-size: 1.25em;
   width: 100%;
   margin-bottom: 1em;

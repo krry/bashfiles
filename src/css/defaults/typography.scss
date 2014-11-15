@@ -16,6 +16,10 @@
 @import "../variables/sizes";
 @import "../variables/colors";
 
+.wf-loading body {
+  // visibility: hidden;
+}
+
 // mobile width type styles first
 main {
   font-size: #{($font-size)*.875}em;
@@ -55,17 +59,15 @@ p {
 }
 
 blockquote {
+  @include apercu-medium-italic;
   font-size: 1.25em;
   line-height: 1.25em;
-  font-family: $serif;
-  font-style: italic;
   margin: 2em 8em 2em 2em;
 }
 
 blockquote cite, blockquote + cite {
+  @include apercu-medium-italic;
   font-size: .75em;
-  font-style: normal;
-  font-family: $sans-serif;
   text-align: right;
   display: block;
 }
