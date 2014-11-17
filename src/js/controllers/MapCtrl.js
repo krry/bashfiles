@@ -10,31 +10,31 @@ function MapCtrl_($scope, $firebase, MapService, LayerService, InteractionServic
   designAreas.on('child_added', function (child) {
     console.log('child added', child.val());
 
-    var childRef = child.ref();
-    // watch the child for changes
-    childRef.on('value',function fbChangeEvent (child) {
-      debugger;
-      var area = SyncService.getAreaById(child.key());
-      if (!area) return;
-      var listen = area.get('fblisten')
-      var prevWkt = area.get('wktTxt');
-      if (listen) area.unByKey(listen);
-      var newVal = child.val()
-      if (prevWkt === newVal) {
-        return;
-      } else {
-        console.log('setting new value', newVal);
-        var newGeom = wkt.readGeometry(newVal);
-        area.setGeometry(newGeom);
-      }
-      var listen = area.on('change',function areaChangeEvent(event) {
-        var area = event.target;
-        var featureText = wkt.writeGeometry(area.getGeometry());
-        area.set('wktTxt', featureText);
-        EventService.modifyref(SyncService.getAreaById(child.key()), featureText);
-      });
-      area.set('fblisten', listen);
-    })
+    // var childRef = child.ref();
+    // // watch the child for changes
+    // childRef.on('value',function fbChangeEvent (child) {
+    //   debugger;
+    //   var area = SyncService.getAreaById(child.key());
+    //   if (!area) return;
+    //   var listen = area.get('fblisten')
+    //   var prevWkt = area.get('wktTxt');
+    //   if (listen) area.unByKey(listen);
+    //   var newVal = child.val()
+    //   if (prevWkt === newVal) {
+    //     return;
+    //   } else {
+    //     console.log('setting new value', newVal);
+    //     var newGeom = wkt.readGeometry(newVal);
+    //     area.setGeometry(newGeom);
+    //   }
+    //   var listen = area.on('change',function areaChangeEvent(event) {
+    //     var area = event.target;
+    //     var featureText = wkt.writeGeometry(area.getGeometry());
+    //     area.set('wktTxt', featureText);
+    //     EventService.modifyref(SyncService.getAreaById(child.key()), featureText);
+    //   });
+    //   area.set('fblisten', listen);
+    // })
   })
 
   // TODO: service this
@@ -55,6 +55,26 @@ function MapCtrl_($scope, $firebase, MapService, LayerService, InteractionServic
 
     SyncService.addAreaObj(area, wktRef.key());
     area.setId(wktRef.key());
+    wktRef.on('value', function syncFromFb () {
+      var listen = area.get('fblisten')
+      var prevWkt = area.get('wktTxt');
+      if (listen) area.unByKey(listen);
+      var newVal = child.val()
+      if (prevWkt === newVal) {
+        return;
+      } else {
+        console.log('setting new value', newVal);
+        var newGeom = wkt.readGeometry(newVal);
+        area.setGeometry(newGeom);
+      }
+      var listen = area.on('change',function areaChangeEvent(event) {
+        var area = event.target;
+        var featureText = wkt.writeGeometry(area.getGeometry());
+        area.set('wktTxt', featureText);
+        EventService.modifyref(SyncService.getAreaById(child.key()), featureText);
+      });
+      area.set('fblisten', listen);
+    })
 
     var listen = area.on('change', function (event) {
       var newarea = event.target;
