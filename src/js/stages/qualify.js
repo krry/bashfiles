@@ -1,5 +1,5 @@
 angular.module('stages.qualify',[]).config( function ($stateProvider) {
-  
+
   // paths for this state
   var stageName = 'qualify';
   // TODO: make these paths central and DRYer for all stages, changing based on stageName
