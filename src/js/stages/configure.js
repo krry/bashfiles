@@ -1,5 +1,4 @@
-// configure.js stage
-angular.module('stage.configure', []).config( function ($stateProvider) {
+angular.module('stage.configure',[]).config( function ($stateProvider) {
   
   // paths for this state
   var stageName = 'configure';
