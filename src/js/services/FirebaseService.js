@@ -25,6 +25,29 @@ angular.module('flannel.firebase', [])
     limit && (ref = ref.limit(limit));
     return $firebase(ref);
   }
+}])
+.service('updateArea', ['$firebase', 'firebaseRef', function ($firebase) {
+  /**
+   * @function
+   * @name setWkt
+   * @param {String}
+   * @return a Firebase Obj
+   */
+  return function updateArea (ref, newVal) {
+    var val = ref.update(newval);
+    return val;
+  }
+}]).service('addArea', ['$firebase', 'firebaseRef', function ($firebase) {
+  /**
+   * @function
+   * @name setWkt
+   * @param {String}
+   * @return a Firebase Obj
+   */
+  return function addArea (ref, id) {
+    var wkt = ref.push(id);
+    return wkt;
+  }
 }]);
 
 function pathRef(args) {

@@ -6,33 +6,44 @@
 function EventService_ ($firebase, SyncService) {
 
   var service = {
-    syncAfterDraw: syncAfterDraw,
+    syncModifyDown: syncModifyDown,
+    wktModifyUp: wktModifyUp,
   };
-  var wkt = new ol.format.WKT();
 
-  function syncAfterDraw (event) {
-    var feature = event.feature || event.target;
-
-    var drawnGeometry;
-    var geometry;
-    if (event.feature) { // you were passed a feature after draw
-      geometry = feature.getGeometry();
-      drawnGeometry = SyncService.sync('geometry','/designId/geometries');
-      drawnGeometry.text= wkt.writeFeature(feature)
-      geometry.on('change', syncAfterDraw);
-    } else {              // you were passed a modified geometry
-      drawnGeometry = SyncService.sync('geometry','/designId/geometries');
-      feature.on('change', syncAfterDraw);
-      drawnGeometry.text= wkt.writeGeometry(feature)
-    }
-    drawnGeometry.$save()
+  // remove from firebase after remove from map
+  function removeArea (areaObj) {
+    // remember to use firebase's unwatch() on any watched thing.
   }
 
-  function updateArea (event) {
+  // update ref on client modify
+  function modifyref (ref, newval) {
+    // get syncObj from SyncService
+    // make them changes
+    ref.set(newval);
+    // save changes to the obj
+    return ref
+  }
 
+  // update area on firebase modify
+  function syncModifyDown (areaObj, newString) {
+    // https://www.firebase.com/docs/web/libraries/angular/api.html#angularfire-firebaseobject-watch-callback-context
+    console.log(shapestring);
   }
 
   return service;
 }
 
 angular.module('flannel').factory('EventService',['$firebase', 'SyncService', EventService_]);
+
+
+    // var geom = new ol.Object({geom: drawnGeometry});
+
+
+
+// modifyDown
+    // var drawnGeometry = SyncService.get('area')[0]
+    // // var drawnGeometry = SyncService.get('area1');
+    // var geom = wkt.readGeometry(drawnGeometry.featureText);
+    // // SyncService.get('features').push(feature);
+    // feature.setGeometry(geom);
+    // // feature.on('change', updateArea);
