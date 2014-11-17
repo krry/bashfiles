@@ -1,4 +1,4 @@
-function MapCtrl_($scope, $firebase, MapService, LayerService, InteractionService, EventService, SyncService, syncData, updateArea, addArea, firebaseRef) {
+function MapCtrl_($scope, $firebase, MapService, LayerService, InteractionService, EventService, SyncService, syncData, updateArea, addWkt, firebaseRef) {
   var vm = this;
 
   // add areas array to the design in firebase
@@ -46,20 +46,35 @@ function MapCtrl_($scope, $firebase, MapService, LayerService, InteractionServic
   var area_source = LayerService.get('area').getSource();
   area_source.on('addfeature', function addAreaAfterDraw (event) {
     var area = event.feature
-    debugger;
     console.log('area added to source', area);
     // get area wkt as txt
     var wktTxt = wkt.writeGeometry(area.getGeometry());
     // add wkt to firebase
     var wktRef = addWkt(designAreas, wktTxt);
-
-    SyncService.addAreaObj(area, wktRef.key());
+    // add wktref to sync object
+    SyncService.addWktRef(wktRef, wktRef.key());
+    // set the area's id with the firebase key
     area.setId(wktRef.key());
-    wktRef.on('value', function syncFromFb () {
+
+    // listen for changes on the map
+    var listen = area.on('change', function (event) {
+      var newarea = event.target;
+      console.log('changing')
+      var featureText = wkt.writeGeometry(newarea.getGeometry());
+      newarea.set('wktTxt', featureText);
+      // update fb with changes from client
+      EventService.modifyref(SyncService.getAreaById(wktRef.key()), featureText);
+    });
+    area.set('fblisten', listen)
+
+    // listen for changes from firebase
+    wktRef.on('value', function syncFromFb (child) {
       var listen = area.get('fblisten')
       var prevWkt = area.get('wktTxt');
-      if (listen) area.unByKey(listen);
+      // remove listener from object to prevent loops
+      // if (listen) area.unByKey(listen);
       var newVal = child.val()
+      // test if there is a meaningful change
       if (prevWkt === newVal) {
         return;
       } else {
@@ -68,22 +83,15 @@ function MapCtrl_($scope, $firebase, MapService, LayerService, InteractionServic
         area.setGeometry(newGeom);
       }
       var listen = area.on('change',function areaChangeEvent(event) {
-        var area = event.target;
-        var featureText = wkt.writeGeometry(area.getGeometry());
-        area.set('wktTxt', featureText);
-        EventService.modifyref(SyncService.getAreaById(child.key()), featureText);
+        var newarea = event.target;
+        var featureText = wkt.writeGeometry(newarea.getGeometry());
+        newarea.set('wktTxt', featureText);
+        // update fb with changes from client
+        EventService.modifyref(SyncService.getAreaById(wktRef.key()), featureText);
       });
       area.set('fblisten', listen);
     })
 
-    var listen = area.on('change', function (event) {
-      var newarea = event.target;
-      var featureText = wkt.writeGeometry(newarea.getGeometry());
-      newarea.set('wktTxt', featureText);
-      // update fb with changes from client
-      EventService.modifyref(SyncService.getAreaById(wktRef.key()), featureText);
-    });
-    area.set('fblisten', listen)
   });
 }
 controllers.controller("MapCtrl", MapCtrl_);

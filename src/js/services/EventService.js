@@ -7,7 +7,7 @@ function EventService_ ($firebase, SyncService) {
 
   var service = {
     syncModifyDown: syncModifyDown,
-    wktModifyUp: wktModifyUp,
+    modifyref: modifyref,
   };
 
   // remove from firebase after remove from map

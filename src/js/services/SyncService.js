@@ -18,7 +18,7 @@ function SyncService_ ($scope, $firebase, syncData, firebaseRef) {
   var service = {
     set: set,
     get: get,
-    addAreaObj: addAreaObj,
+    addWktRef: addWktRef,
     getAreaById: getAreaById,
     designObj: designObj,
     addSyncArea: addSyncArea,
@@ -53,6 +53,11 @@ function SyncService_ ($scope, $firebase, syncData, firebaseRef) {
   function addSyncArea (area, id) {
     _sync.area_count++;
     _sync.areas[_sync.area_count] = area;
+    return _sync.area_count;
+  }
+
+  function addWktRef (wktRef, id) {
+    _sync.areas[id] = wktRef;
     return _sync.area_count;
   }
 

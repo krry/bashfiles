@@ -37,14 +37,14 @@ angular.module('flannel.firebase', [])
     var val = ref.update(newval);
     return val;
   }
-}]).service('addArea', ['$firebase', 'firebaseRef', function ($firebase) {
+}]).service('addWkt', ['$firebase', 'firebaseRef', function ($firebase) {
   /**
    * @function
    * @name setWkt
    * @param {String}
    * @return a Firebase Obj
    */
-  return function addArea (ref, id) {
+  return function addWkt (ref, id) {
     var wkt = ref.push(id);
     return wkt;
   }
