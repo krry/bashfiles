@@ -35,7 +35,7 @@ function MapCtrl_($scope, $firebase, MapService, LayerService, InteractionServic
     var feature = event.feature;
     console.log('drawing started getting new, empty wkt_ref');
     // get ref for feature
-    var wkt_ref = design_areas_ref.push('start_only');
+    var wkt_ref = design_areas_ref.push();
     feature.set('wkt_ref_id', wkt_ref.key());
     // save the ref in memory
     SyncService.addSyncRef('areas', wkt_ref);
@@ -70,10 +70,12 @@ function MapCtrl_($scope, $firebase, MapService, LayerService, InteractionServic
   function firebaseListener (child_ref) {
     console.log('firebaseListener heard a feature get added');
     var wkt_ref_id = child_ref.key()
-    var feature_ref = SyncService.getSyncRef('areas', wkt_ref_id);
+    var wkt_ref = SyncService.getSyncRef('areas', wkt_ref_id);
+    debugger;
     if ( child_ref.val() === 'start_only') {
       console.log('but we will not add because only start')
-    } else if (!feature_ref) {
+      wkt_ref.on('value', changeAreaFromFirebase);
+    } else if (!wkt_ref) {
       console.log('it is new, so we sent it to the map');
       // the area doesn't exist yet, should be drawn
       addAreaFromFirebase(child_ref);
@@ -104,9 +106,10 @@ function MapCtrl_($scope, $firebase, MapService, LayerService, InteractionServic
       // save the ref_key
       new_feat.set('wkt_ref_id', ref.key());
       // listen for changes on the ref
-      ref.on('value', changeAreaFromFirebase);
+      ref.ref().on('value', changeAreaFromFirebase);
       // add area to map
       LayerService.get('area').getSource().addFeature(new_feat);
+      console.log(area_source.getFeature());
     } else {
       console.log('we are still drawing')
     }
