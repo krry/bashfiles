@@ -1,77 +1,76 @@
 @import "../variables/colors";
 @import "../variables/sizes";
+@import "../variables/functions";
 
 main#main {
-	height: 50vh;
-	width: 100%;
-	position: relative;
+  height: 50vh;
+  width: 100%;
+  position: relative;
 }
 
 .overlay {
-	position: relative;
-	z-index: 1;
+  position: relative;
+  z-index: 1;
+  margin: auto;
+  overflow: hidden;
+  background-color: $color-bkgd-primary;
 }
+
+  .overlay--primary {
+    padding: 2em;
+    text-align: center;
+    width: golden-ratio(100);
+    float: left;
+    background: $color-bkgd-primary;
+  }
+
+  .overlay--secondary {
+    padding: 2em 2em 0;
+    width: 100% - golden-ratio(100);
+    float: right;
+    background: $grey-lightest;
+  }
 
 .underlay {
-	position: absolute;
-	z-index: 0;
-	top: 0; left: 0;
-	width: 100%;
-	height: 100%;
-}
-
-.tray {
-	margin: auto;
-}
-
-.side-main {
-	padding: 2em;
-	text-align: center;
-	width: 75%;
-	float: left;
-	background: $white;
-}
-
-.instructions {
-	padding: 2em;
-	width: 25%;
-	float: right;
-	background: $grey-lightest;
+  position: absolute;
+  z-index: 0;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .configure.underlay {
-	top: 0;
-	width: 100%;
-	height: 100%;
+  top: 0;
+  width: 100%;
+  height: 100%;
 }
 
 @media screen and (min-width: $width-min-sml){
-	.tray {
-		width: $width-min-sml;
-	}
+  // .tray {
+  //  width: $width-min-sml;
+  // }
 }
 
 @media screen and (min-width: $width-min-med){
-	.tray {
-		width: $width-min-med;
-	}
+  // .tray {
+  //  width: $width-min-med;
+  // }
 }
 
 @media screen and (min-width: $width-min-lrg){
-	.tray {
-		width: $width-min-lrg;
-	}
+  // .tray {
+  //  width: $width-min-lrg;
+  // }
 }
 
 @media screen and (min-width: $width-min-xlg){
-	.tray {
-		width: $width-min-xlg;
-	}
+  // .tray {
+  //  width: $width-min-xlg;
+  // }
 }
 
 @media screen and (min-width: $width-min-xxl){
-	.tray {
-		width: $width-min-xxl;
-	}
+  // .tray {
+  //  width: $width-min-xxl;
+  // }
 }
-

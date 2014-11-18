@@ -1,16 +1,245 @@
 @import "../variables/colors";
+@import "../variables/buttons";
+
+// form fields, inputs, labels
+fieldset {
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 1em 0;
+}
+
+// form elements resets
+button,
+input,
+select,
+textarea {
+  margin: 0;
+  font-size: 1em;
+  line-height: normal;
+  font-family: inherit;
+  vertical-align: baseline;
+}
+
+label {
+  font-size: .875em;
+  display: block;
+  text-indent: 0;
+  font-weight: 600;
+}
+
+select {
+  border: 1px solid;
+}
+
+textarea {
+  margin: 0 0 1em;
+  width: 100%;
+  color: $grey-mid;
+  resize: vertical;
+  overflow: scroll;
+  padding: .5em 1em;
+  font-family: $font-interface;
+}
+
+input[type=radio] + label,
+input[type=checkbox] + label {
+  text-indent: .5em;
+}
+
+// either use the indent method above or this one from Google's CSS to place checkbox and radio labels
+// input[type=radio],
+// input[type=checkbox] {
+//   margin-right: .5em;
+// }
+
+input[type=radio],
+input[type=checkbox],
+input[type=radio] + label,
+input[type=checkbox] + label {
+  display: inline;
+}
+
+textarea,
+input[type="email"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="url"],
+input[type="color"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+select[multiple=multiple] {
+  @include apercu-bold;
+  box-sizing: border-box;
+  transition: border-color;
+  background-color: transparent;
+  border-radius: 0;
+  border: none;
+  color: inherit;
+  border-bottom: 1px solid $grey-lighter;
+  font-size: 1em;
+  margin-bottom: .5em;
+  padding: .33333em;
+  width: 100%;
+  font-size: 1.25em;
+}
+
+textarea:hover,
+input[type="email"]:hover,
+input[type="number"]:hover,
+input[type="password"]:hover,
+input[type="search"]:hover,
+input[type="tel"]:hover,
+input[type="text"]:hover,
+input[type="url"]:hover,
+input[type="color"]:hover,
+input[type="date"]:hover,
+input[type="datetime"]:hover,
+input[type="datetime-local"]:hover,
+input[type="month"]:hover,
+input[type="time"]:hover,
+input[type="week"]:hover,
+select[multiple=multiple]:hover {
+  border-color: $blue-light;
+}
+
+textarea:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="text"]:focus,
+input[type="url"]:focus,
+input[type="color"]:focus,
+input[type="date"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+select[multiple=multiple]:focus {
+  border-color: $blue-bright;
+}
+
+// input placeholders
+::placeholder {
+  opacity: .6;
+  color: inherit;
+  transition: opacity .2s;
+}
+
+:focus::placeholder {
+  opacity: .4;
+}
+
+label abbr {
+  display: none;
+}
 
 input[type=tel].zipcode {
   font-size: 3em;
   text-transform: uppercase;
-  color: #EEB111;
+  color: $color-input-text;
   text-align: center;
   max-width: 9em;
   padding: 0.5em 2em;
-  border: 2px solid $grey-dark;
-  border-radius: 4px
+  border: 2px solid $grey-lightest;
+  border-radius: 4px;
+  margin: auto;
+}
+
+input[type=text].street {
+  font-size: 2em;
+  color: $color-input-text;
+  text-align: left;
+  width: 360px;
+  display: inline-block;
+}
+
+input[type=text].street,
+.combo-input {
+  border: 2px solid $grey-lightest;
+  border-radius: 4px;
+  padding: 0.5em 2em;
+}
+
+.combo-input input[type=text] {
+  border: 0;
+  padding: 0;
+  font-size: 2em;
+  display: inline;
+}
+
+.combo-input input[type=text].city:after {
+  content: ", ";
+}
+
+.combo-input input[type=text].state:after {
+  content: " ";
+}
+
+.combo-input input[type=text].city {
+  width: 4em;
+}
+
+.combo-input input[type=text].state {
+  width: 3em;
+}
+
+.combo-input input[type=text].zipcode {
+  width: 4em;
 }
 
 input::placeholder {
   color: $grey-lighter;
+}
+
+button,
+input[type='submit'],
+input[type='button'] {
+  @include btn;
+}
+
+button.text {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 1em;
+  @include apercu-regular;
+  text-transform: none;
+  letter-spacing: default;
+}
+
+button.ib {
+  display: inline-block;
+}
+
+fieldset {
+  background: $white-off;
+  border: 1px solid $grey-lighter;
+  margin: 0 0 0.5em 0;
+  padding: 1em;
+}
+
+input, label, select {
+  display: block;
+  font-family: inherit;
+  font-size: 100%;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 0.25em;
+}
+
+label.required:after {
+  content: "*";
 }

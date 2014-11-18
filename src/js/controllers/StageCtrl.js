@@ -1,3 +1,5 @@
+// TODO: flesh out the stageCtrl, see `docs/stages+states.md`
+
 function StageCtrl_($scope, $state, StageService, InteractionService, LayerService) {
   // This controller should be used for anything that needs to control which partials are being used
   var vm = this;
@@ -10,13 +12,13 @@ function StageCtrl_($scope, $state, StageService, InteractionService, LayerServi
 
   // init
   vm.partials = partials($scope.sync());
-  vm.partial = vm.partials[0]
+  vm.partial = vm.partials[0];
 
   function syncWithService() {
     stage = $scope.sync().stage;
     step  = $scope.sync().step;
     vm.partials = partials($scope.sync());
-    vm.partial = vm.partials[step]
+    vm.partial = vm.partials[step];
   }
 
   vm.next = function(){

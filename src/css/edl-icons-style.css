@@ -17,11 +17,8 @@
   font-weight: normal;
   font-variant: normal;
   text-transform: none;
+  font-size: 1em;
   line-height: 1;
-
-  /* Better Font Rendering =========== */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 .edl-preview:before {

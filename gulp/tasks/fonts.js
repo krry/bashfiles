@@ -4,7 +4,7 @@ var changed = require('gulp-changed')
 var handleErrors = require('../util/handleErrors')
 
 var fontSrc = [
-  './src/fonts/*'
+  './src/fonts/**/*'
 ]
 
 var fontPub = './public/fonts/'
@@ -15,4 +15,3 @@ gulp.task('fonts', function(){
         .on('error', handleErrors)
         .pipe(gulp.dest(fontPub))
 })
-

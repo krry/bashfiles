@@ -2,8 +2,8 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title></title>
+    <meta name="viewport" content="initial-scale=1, width=device-width">
+    <title>Energy Revolutionized</title>
 
     <link href="css/all.css" rel="stylesheet">
     <link href="lib/ol.css" rel="stylesheet">
@@ -16,14 +16,45 @@
     <!-- jquery -->
     <script src="lib/jquery.js"></script>
     <!-- google maps -->
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false&client=gme-solarcity"></script>    
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false&client=gme-solarcity"></script>
+    <script type="text/javascript">
+      WebFontConfig = { fontdeck: { id: '50798' } };
+      (function() {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+        '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+        s.parentNode.insertBefore(wf, s);
+      })();
+    </script>
+    <script type="text/javascript">
+      // var html = document.getElementsByTagName('html')[0];
+      // html.className += '  wf-loading';
+      // setTimeout(function() {
+      //   html.className = html.className.replace(' wf-loading', '');
+      // }, 20);
+
+      // WebFontConfig = { fontdeck: { id: '50798' } };
+
+      // (function() {
+      //   var wf = document.createElement('script');
+      //   wf.src = 'http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+      //   wf.type = 'text/javascript';
+      //   wf.async = 'true';
+      //   var s = document.getElementsByTagName('script')[0];
+      //   s.parentNode.insertBefore(wf, s);
+      // })();
+    </script>
   </head>
   <!-- app begins -->
   <body ng-app="flannel" ng-controller="StageCtrl as stages">
       <!-- <ui-view></ui-view> -->
-    <ui-view name="header"></ui-view>
-    <ui-view name="main"></ui-view>
-    <ui-view name="footer"></ui-view>
+    <header ui-view name="header" id="header"></header>
+    <main ui-view name="main" id="main"></main>
+    <footer ui-view name="footer" id="footer"></footer>
     <!-- TODO: conditionally load minified versions of dependencies when not in dev environment -->
     <script src="lib/angular.js"></script>
     <!-- <script src="lib/angular.min.js"></script> -->
@@ -42,7 +73,5 @@
 
     <!-- Application -->
     <script src="js/all.js"></script>
-
-
   </body>
 </html>

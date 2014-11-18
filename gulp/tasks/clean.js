@@ -12,6 +12,6 @@ var laundry = [
 ]
 
 gulp.task('clean', function() {
-  console.log('now cleaning dist folders');
+  console.log('[clean] now cleaning dist folders');
   return del(laundry);
 })

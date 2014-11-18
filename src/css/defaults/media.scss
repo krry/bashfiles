@@ -1,0 +1,23 @@
+// image, video, multimedia content size limitations
+img, embed, object, video {
+  max-width: 100%;
+}
+
+// simple fluid media
+figure {
+  position: relative;
+  margin: 1em 0;
+}
+
+figure img,
+figure object,
+figure embed,
+figure video {
+  max-width: 100%;
+  width: 100%;
+  display: block;
+}
+
+img {
+  -ms-interpolation-mode: bicubic;
+}
