@@ -47,17 +47,11 @@ function StageService_ ($state) {
       steps: [
         {
           step: 'zip-nearme',
-          partial: {
-            primary:   'zip.html',
-            secondary: 'zip-2.html'
-          }
+          partial: 'zip.html'
         },
         {
           step: 'address-roof',
-          partial: {
-            primary:   'address.html',
-            secondary: 'address-2.html'
-          }
+          partial: 'address.html',
         }
       ],
     },
