@@ -17,8 +17,8 @@
   font-weight: normal;
   font-variant: normal;
   text-transform: none;
-  font-size: 3em;
-  line-height: .33;
+  font-size: 1em;
+  line-height: 1;
 }
 
 .edl-preview:before {

@@ -15,14 +15,24 @@
 @import "../variables/colors";
 @import "../variables/motion";
 
+html {
+  font-family: $font-body;
+  overflow-x: hidden;
+}
+
 html, body {
   width: 100%;
-  overflow-x: hidden;
+  overflow: hidden;
+  color: $color-text-main;
+  background-color: $color-bkgd-main;
+  font-size: 1em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  line-height: 1em;
 }
 
 // set base font
 html {
-  // font-family: $font-body;
   @include apercu-regular;
   font-size: 16px;
   height: 100%;
@@ -59,14 +69,15 @@ h4,
 h5,
 h6 {
   @include apercu-bold;
+  text-rendering: optimizeLegibility;
   // font-family: $font-headline;
 }
 
 // reset anchors and links
 a {
   color: $color-link;
-  transition: all .15s $easing-quick;
   text-decoration: none;
+  transition: all .15s $easing-quick;
   cursor: pointer;
   border-bottom: 1px hidden;
 }
@@ -81,6 +92,10 @@ a:hover {
   outline: 0;
 }
 
+:focus {
+  outline: 0;
+}
+
 ::selection {
   background-color: $color-highlight;
   color: white;
@@ -89,12 +104,32 @@ a:hover {
 // horizontal dividers
 hr {
   display: block;
-  border: none;
-  height: 1px;
+  border-bottom: 1px solid;
+  border-right: none;
+  border-top: none;
+  border-left: none;
   background-color: $color-text-main;
   margin-top: 2em;
   margin-bottom: 2em;
   padding: 0;
+}
+
+abbr, acronym {
+  border-bottom: 1px dotted $grey-lighter;
+  cursor: help;
+}
+
+address {
+  display: block;
+  margin: 0 0 0.5em;
+}
+
+hgroup {
+  margin-bottom: 0.5em;
+}
+
+del {
+  color: $grey-dark;
 }
 
 pre, code {
@@ -142,7 +177,7 @@ input,
 select,
 textarea {
   margin: 0;
-  font-size: 100%;
+  font-size: 1em;
   line-height: normal;
   font-family: inherit;
   vertical-align: baseline;
@@ -157,22 +192,51 @@ label {
 
 input[type=radio] + label,
 input[type=checkbox] + label {
-  display: inline-block;
   text-indent: .5em;
 }
 
-input[type=text],
-input[type=email],
-input[type=tel],
-input[type=password],
-input[type=date] {
+// either use the indent method above or this one from Google's CSS to place checkbox and radio labels
+// input[type=radio],
+// input[type=checkbox] {
+//   margin-right: .5em;
+// }
+
+input[type=radio],
+input[type=checkbox],
+input[type=radio] + label,
+input[type=checkbox] + label {
+  display: inline;
+}
+
+textarea,
+input[type="email"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="url"],
+input[type="color"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+select[multiple=multiple] {
   @include apercu-bold;
-  font-size: 1.25em;
+  box-sizing: border-box;
+  transition: border-color;
+  background-color: transparent;
+  border-radius: .1875em;
+  border: none;
+  color: inherit;
+  border-bottom: 1px solid $grey-lighter;
+  font-size: 1em;
+  margin-bottom: .5em;
+  padding: .33333em;
   width: 100%;
-  margin-bottom: 1em;
-  border: 1px solid $grey-light;
-  padding: .125em .25em;
-  color: $grey-darker;
+  font-size: 1.25em;
 }
 
 select {
@@ -189,13 +253,41 @@ textarea {
   font-family: $font-interface;
 }
 
-input[type=text]:focus,
-input[type=email]:focus,
-input[type=tel]:focus,
-input[type=password]:focus,
-input[type=date]:focus,
-textarea:focus {
-  outline: none;
+textarea:hover,
+input[type="email"]:hover,
+input[type="number"]:hover,
+input[type="password"]:hover,
+input[type="search"]:hover,
+input[type="tel"]:hover,
+input[type="text"]:hover,
+input[type="url"]:hover,
+input[type="color"]:hover,
+input[type="date"]:hover,
+input[type="datetime"]:hover,
+input[type="datetime-local"]:hover,
+input[type="month"]:hover,
+input[type="time"]:hover,
+input[type="week"]:hover,
+select[multiple=multiple]:hover {
+  border-color: $blue-light;
+}
+
+textarea:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="text"]:focus,
+input[type="url"]:focus,
+input[type="color"]:focus,
+input[type="date"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+select[multiple=multiple]:focus {
   border-color: $blue-bright;
 }
 
@@ -208,4 +300,8 @@ textarea:focus {
 
 :focus::placeholder {
   opacity: .4;
+}
+
+label abbr {
+  display: none;
 }
