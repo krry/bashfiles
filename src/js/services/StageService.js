@@ -20,6 +20,8 @@ function StageService_ ($state) {
       make a private history function that keeps a record of what you've done
       move config_object to $provider
 
+    TODO: flesh out the stageCtrl, see `docs/stages+states.md`
+
   ================================ */
 
   var StageService = {};
@@ -42,9 +44,21 @@ function StageService_ ($state) {
     {
       name: 'home',
       destination: 'configure',
-      steps: [ 
-        { step: 'zip-nearme',   partial: 'zip.html'     },
-        { step: 'address-roof', partial: 'address.html' },
+      steps: [
+        {
+          step: 'zip-nearme',
+          partial: {
+            primary:   'zip.html',
+            secondary: 'zip-2.html'
+          }
+        },
+        {
+          step: 'address-roof',
+          partial: {
+            primary:   'address.html',
+            secondary: 'address-2.html'
+          }
+        }
       ],
     },
     {
