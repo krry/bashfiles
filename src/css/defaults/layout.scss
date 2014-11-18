@@ -1,5 +1,6 @@
 @import "../variables/colors";
 @import "../variables/sizes";
+@import "../variables/functions";
 
 main#main {
   height: 50vh;
@@ -11,19 +12,21 @@ main#main {
   position: relative;
   z-index: 1;
   margin: auto;
+  overflow: hidden;
+  background-color: $color-bkgd-primary;
 }
 
   .overlay--primary {
     padding: 2em;
     text-align: center;
-    width: 75%;
+    width: golden-ratio(100);
     float: left;
-    background: $white;
+    background: $color-bkgd-primary;
   }
 
   .overlay--secondary {
-    padding: 2em;
-    width: 25%;
+    padding: 2em 2em 0;
+    width: 100% - golden-ratio(100);
     float: right;
     background: $grey-lightest;
   }

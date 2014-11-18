@@ -15,6 +15,7 @@
 @import "../variables/fonts";
 @import "../variables/sizes";
 @import "../variables/colors";
+@import "../variables/functions";
 
 .wf-loading body {
   // visibility: hidden;
@@ -100,24 +101,24 @@ cite:before {
 
 @media screen and (min-width: $width-min-lrg) {
   main {
-    font-size: #{($font-size)*1.125}em;
+    font-size: em($font-size*1.125);
   }
 }
 
 @media screen and (min-width: $width-min-xlg) {
   main {
-    font-size: #{($font-size)*1.25}em;
+    font-size: em($font-size*1.25);
   }
 }
 
 @media screen and (min-width: $width-min-xxl) {
   main {
-    font-size: #{($font-size)*1.375}em;
+    font-size: em($font-size*1.375);
   }
 }
 
 @media screen and (min-width: $width-min-hd) {
   main {
-    font-size: #{($font-size)+1.5}em;
+    font-size: em($font-size*1.5);
   }
 }
