@@ -12,15 +12,13 @@ function StageCtrl_($scope, $state, StageService, InteractionService, LayerServi
 
   // init
   vm.partials = partials($scope.sync());
-  vm.partialPrimary = vm.partials[0].primary;
-  vm.partialSecondary = vm.partials[0].secondary;
+  vm.partial = vm.partials[0];
 
   function syncWithService() {
     stage = $scope.sync().stage;
     step  = $scope.sync().step;
     vm.partials = partials($scope.sync());
-    vm.partialPrimary = vm.partials[step].primary;
-    vm.partialSecondary = vm.partials[step].secondary;
+    vm.partial = vm.partials[step];
   }
 
   vm.next = function(){
