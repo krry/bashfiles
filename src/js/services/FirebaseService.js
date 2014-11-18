@@ -44,9 +44,9 @@ angular.module('flannel.firebase', [])
    * @param {String}
    * @return a Firebase Obj
    */
-  return function addWkt (ref, id) {
-    var wkt = ref.push(id);
-    return wkt;
+  return function addWkt (design_areas_ref, wkt_txt) {
+    var wkt_ref = design_areas_ref.push(wkt_txt);
+    return wkt_ref;
   }
 }]);
 
