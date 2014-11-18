@@ -45,6 +45,10 @@
   height: 0;
 }
 
+.row.bottom:after {
+  width: 0;
+}
+
 /* add this class to columns, grid blocks, child items */
 .col {
   display: inline-block;
@@ -93,19 +97,19 @@
 }
 
 .col.fifth, .col.fourth {
-  width: 48%;
+  width: 50%;
 }
 
 .col.sixth {
-  width: 32%;
+  width: 33.3333%;
 }
 
 .col.sixth.five {
-  width: 67%;
+  width: 66.6666%;
 }
 
 .col.seventh {
-  width: 14.2%;
+  width: 14.2857%;
   text-align: center;
 }
 
@@ -113,7 +117,7 @@
 @media screen and (min-width: 33.5em) {
   /* let .half .third etc. express themselves */
   .col.half, .half {
-    width: 48%;
+    width: 50%;
   }
 }
 
@@ -128,44 +132,44 @@
 /* > 831px */
 @media screen and (min-width: 52em) {
   .col.third, .third {
-    width: 31%
+    width: 33.3333%
   }
 
   .col.third.two, .third.two {
-    width: 64%
+    width: 66.6666%
   }
 /*}*/
 
 /* > 1007px */
 /*@media screen and (min-width: 63em) {*/
   .col.fourth, .fourth {
-    width: 23%
+    width: 25%
   }
 
   .col.fourth.three, .fourth.three {
-    width: 73%
+    width: 75%
   }
 /*}*/
 
 /* > 1199px */
 /*@media screen and (min-width: 75em) {*/
   .col.fifth, .fifth {
-    width: 18.5%
+    width: 20%
   }
 
   .col.fifth.two, .fifth.two {
-    width: 37%
+    width: 40%
   }
 
   .col.fifth.four, .fifth.four {
-    width: 78.5%;
+    width: 80%;
   }
 
   .col.sixth, .sixth {
-    width: 14.5%
+    width: 16.6666%
   }
 
   .col.sixth.five {
-    width: 84%;
+    width: 83.3333%;
   }
 }

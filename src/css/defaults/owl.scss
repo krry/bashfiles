@@ -30,12 +30,13 @@
   .nowl * {
     margin-top: 0;
   }
+
+  * > a {
+    font-family: inherit;
+    color: inherit;
+  }
 }
 
-* > a {
-  font-family: inherit;
-  color: inherit;
-}
 
 *, *:before, *:after {
   box-sizing: border-box;
