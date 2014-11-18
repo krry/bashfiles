@@ -293,6 +293,36 @@ input[type=text].zipcode {
   }
 }
 
-button {
+button,
+input[type='submit'],
+input[type='button'] {
   @include btn;
+}
+
+button.text {
+  background: none;
+  border: none;
+  color: inherit;
+}
+
+fieldset {
+  background: $white-off;
+  border: 1px solid $grey-lighter;
+  margin: 0 0 0.5em 0;
+  padding: 1em;
+}
+
+input, label, select {
+  display: block;
+  font-family: inherit;
+  font-size: 100%;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 0.25em;
+}
+
+label.required:after {
+  content: "*";
 }

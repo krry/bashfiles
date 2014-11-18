@@ -138,3 +138,7 @@ pre, code {
   white-space: pre-wrap;
   white-space: pre\9;
 }
+
+label abbr {
+  display: none;
+}
