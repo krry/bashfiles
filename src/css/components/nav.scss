@@ -1,4 +1,5 @@
 @import "../variables/colors";
+@import "../variables/fonts";
 
 header {
   background: $color-header-bkgd;
@@ -17,18 +18,24 @@ header > nav li {
 }
 
 nav li {
-  border-right: 2px solid $tinter;
+  // border-right: 2px solid $tinter;
   position: relative;
+  opacity: 0.6;
 }
 
 nav li:first-child {
-  border-left: 2px solid $tinter;
+  // border-left: 2px solid $tinter;
 }
 
 nav li.active,
 nav li:hover {
-  background-color: $shade;
+  opacity: 1;
 }
+
+nav li.active a,
+nav li.active span {
+    font-weight: bold;
+  }
 
 nav .logo {
   float: left;
@@ -36,7 +43,6 @@ nav .logo {
   background: url('../img/logo-white.svg') no-repeat center center;
   background-size: 90% auto;
   width: 240px;
-  // padding: 0
 }
 
 nav ul {
@@ -50,18 +56,21 @@ nav li {
 }
 
 nav li span {
-  position: absolute;
-  top: .25em;
-  left: .75em;
+  border-radius: 100%;
+  background: $shade;
+  padding: .5em 1em;
+  margin: 0 .5em 0 1em;
+  font-style: italic;
 }
 
 nav a {
-  display: block;
-  padding: 3em 2em;
+  @include apercu-light;
+  display: inline-block;
+  font-size: 1.25em;
+  padding: 1.5em 2em 1.5em 0;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   font-weight: 500;
-  // margin-top: 4px;
   border-bottom: 0px solid transparent;
 }
 
