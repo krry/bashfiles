@@ -4,8 +4,8 @@
 
 @mixin btn($color: $color-button-bkgd, $size: 1.25rem) {
 
-  font-size: $size;
   @include apercu-bold;
+  font-size: $size;
   text-transform: uppercase;
   text-align: center;
   line-height: 1.25;
@@ -18,7 +18,6 @@
 
   color: $white;
   background-color: $color;
-  text-shadow: 0 1px darken($color, 25%);
 
   padding-top: 0.75em;
   padding-bottom: 0.75em;
@@ -28,17 +27,17 @@
   outline: none;
   border-width: 0;
   border-radius: 1.5em/50%;
-  border-style: solid;
-  border-bottom-width: 3px;
-  border-color: darken($color, 25%);
 
   -webkit-appearance: none;
   -moz-appearance: none;
   -ms-appearance: none;
 
   cursor: pointer;
-  touch-callout: none;
+  -webkit-touch-callout: none;
   user-select: none;
+
+  vertical-align: middle;
+  white-space: no-wrap;
 
   transition: all .075s $easing-quick;
   transition: background-color .1s $easing-quick;
@@ -49,8 +48,6 @@
 
   &:active:not(:disabled) {
     background-color: darken(saturate($color, 10%), 10%);
-    border-bottom-width: 0px;
-    border-top: 3px solid transparent;
   }
 
   &:disabled {

@@ -1,0 +1,22 @@
+@import "../variables/colors";
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+dl {
+  line-height: 1em;
+  margin-bottom: 0.5em;
+}
+
+dl dt {
+  font-weight: bold;
+  margin-top: 0.5em;
+}
+
+dl dd {
+  margin: 0;
+}
+

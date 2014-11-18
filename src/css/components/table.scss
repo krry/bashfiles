@@ -1,0 +1,24 @@
+@import "../variables/colors";
+
+table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+th {
+  border-bottom: 1px solid $grey-light;
+  font-weight: bold;
+  padding: 0.5em 0;
+  text-align: left;
+}
+
+td {
+  border-bottom: 1px solid $grey-lighter;
+  padding: 0.5em 0;
+}
+
+tr,
+td,
+th {
+  vertical-align: middle;
+}
