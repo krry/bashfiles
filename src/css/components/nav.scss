@@ -13,31 +13,24 @@ nav {
   // width: 75%;
 }
 
-header > nav li {
-  display: table-cell;
-}
-
 nav li {
   // border-right: 2px solid $tinter;
+  display: table-cell;
   position: relative;
   opacity: 0.6;
 }
 
-nav li:first-child {
-  // border-left: 2px solid $tinter;
-}
-
-nav li.active,
-nav li:hover {
+header nav li.active,
+header nav li:hover {
   opacity: 1;
 }
 
-nav li.active a,
-nav li.active span {
-    font-weight: bold;
-  }
+header nav li.active a,
+header nav li.active span {
+  font-weight: bold;
+}
 
-nav .logo {
+header .logo {
   float: left;
   text-indent: -9999px;
   background: url('../img/logo-white.svg') no-repeat center center;
@@ -55,7 +48,7 @@ nav li {
   padding: 0;
 }
 
-nav li span {
+header nav li span {
   border-radius: 100%;
   background: $shade;
   padding: .5em 1em;
@@ -63,18 +56,51 @@ nav li span {
   font-style: italic;
 }
 
+header nav a {
+  display: inline-block;
+  padding: 1.5em 2em 1.5em 0;
+  color: white;
+  font-size: 1.25em;
+}
+
+header nav a:hover {
+  color: $white;
+}
+
 nav a {
   @include apercu-light;
-  display: inline-block;
-  font-size: 1.25em;
-  padding: 1.5em 2em 1.5em 0;
   text-transform: uppercase;
   letter-spacing: 3px;
   font-weight: 500;
   border-bottom: 0px solid transparent;
 }
 
-nav a:hover {
-  color: $white;
-  // border-color: $gold;
+nav.help {
+  margin-top: 2em;
+}
+
+nav.help ul {
+  width: 100%;
+}
+
+nav.help li {
+  float: left;
+  text-align: center;
+  width: 33%;
+  border-left: 1px solid;
+  padding-bottom: 1em;
+}
+
+nav.help li:first-of-type {
+  border-left: none;
+}
+
+nav.help a {
+  color: inherit;
+}
+
+nav.help span {
+  display: block;
+  font-size: 2em;
+  margin-bottom: .125em;
 }
