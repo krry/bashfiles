@@ -33,7 +33,6 @@
           current.zip = $zipVal;
           current.map = roofMap;
           current.geoLock = true;
-          // log("firing zip geocode for " + current.zip);
           Roofer.reverseGeocode(current.zip, current.zip);
         }
       }
