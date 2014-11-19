@@ -1,5 +1,12 @@
 (function(){
 
+  var log = function(msg) {
+    try {
+      console.log(msg);
+    }
+    catch(e) {}
+  };
+
   var goToByScroll = function(data_slide) {
     htmlbody = $('html,body');
     htmlbody.animate({
@@ -7,8 +14,12 @@
     }, 500, 'easeInOutCubic');
   };
 
-  var zipCheck = function(){
-    $("#zip").keyup(function(e){
+  var zipCheck = function(id){
+    log("zipCheck got called");
+    log('wiring up keyup event listener to element with id ' + id);
+    $("#"+id).keyup(function(e){
+      log('a key was upped while focused on the "' + id + '" element');
+      console.log('effing working');
       var $zipVal = $(this).val();
       var key = e.keyCode || e.which;
       var arrows = [9,16,37,38,39,40];
@@ -18,7 +29,7 @@
           current.zip = $zipVal;
           current.map = roofMap;
           current.geoLock = true;
-          // fst.log("firing zip geocode for " + current.zip);
+          // log("firing zip geocode for " + current.zip);
           Roofer.reverseGeocode(current.zip, current.zip);
         }
       }
@@ -28,7 +39,7 @@
   var checkTerritory = function(zip) {
     var data = 'zip='+zip.toString();
     // console.log('data is ' + data);
-    if (zip != null) {
+    if (zip !== null) {
       $.ajax({
         url: '//scexchange.solarcity.com/scfilefactory/app_handler/checkTerritory.ashx',
         // url: '//slc3web00.solarcity.com/scexchange/app_handler/checkTerritory.ashx',
@@ -43,11 +54,11 @@
           // data = {'InTerritory' : 'false/true'}
           // console.log(typeof(data));
           // console.log(data);
-          if (data['InTerritory']) {
-            fst.goodAddy('We service that area.')
+          if (data.InTerritory) {
+            fst.goodAddy('We service that area.');
           }
           else {
-            fst.badAddy('We do not yet service that area.')
+            fst.badAddy('We do not yet service that area.');
           }
           return $('#street').focus();
         }
@@ -57,7 +68,7 @@
 
   var checkZipDB = function(zip) {
     // fst.log('checking territory for ' + zip);
-    if (zip != null) {
+    if (zip !== null) {
       $.ajax({
         url: '../check/zip',
         type: 'POST',
@@ -97,7 +108,7 @@
     country: "United States"
   };
 
-  var maptions = {
+  maptions = {
     zoom : inits.zoom,
     minZoom : inits.zoom,
     maxZoom : inits.zoom,
@@ -118,7 +129,6 @@
       current.map = roofMap;
       roofMapShown = true;
     },
-
     //ask for the visitor's location from the DOM and pass it to be parsed
     getLocation: function(map) {
       if(navigator.geolocation) {
@@ -158,7 +168,7 @@
       geocoder = new google.maps.Geocoder();
       var components = {"country": "US"};
       if (zip !== "") {
-        components['postalCode'] = zip;
+        components.postalCode = zip;
       }
       geocoder.geocode({
         "address": address,
@@ -172,7 +182,7 @@
         } else if (status === google.maps.GeocoderStatus.ZERO_RESULTS) {
         return fst.badAddy("Can't find that location.");
         } else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
-          setTimeout(Roofer.reverseGeocode(address, zip), 200)
+          setTimeout(Roofer.reverseGeocode(address, zip), 200);
         } else if (status === google.maps.GeocoderStatus.REQUEST_DENIED) {
           return fst.badAddy("The geocoder needs an additional parameter.");
         } else {
@@ -254,10 +264,12 @@
           if (typeof(address[i].long_name) !== "undefined") {
             current.stno = address[i].long_name;
         }}
-        if (address[i].types[0] === "country" ? typeof address[i].short_name !== "undefined" : void 0) {
-          current.country = address[i].short_name;
-        }
+        if (address[i].types[0] === "country") {
+          if (typeof(address[i].short_name) !== "undefined") {
+            current.country = address[i].short_name;
+        }}
       }
+
       if (typeof(current.street)!=="undefined" && typeof(current.stno)!=="undefined") {
         // fst.log("updating street address");
         current.addy = current.stno + " " + current.street;
@@ -319,6 +331,9 @@
         fst.saveBingLink();
         fst.saveGmapLink();
       }
-    }
+    },
   };
-});
+
+  zipCheck("hood_check");
+
+})(this);

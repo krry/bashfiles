@@ -26,10 +26,10 @@ var zoom_options = {
   zoomOutTipLabel:  'Zoom out',       // Text label to use for the button tip. Default is Zoom out
   // delta:            '.1',              // The zoom delta applied on each click.
   // target:           '',              // Target.
-}
+};
 
 directives
-.directive('flnControlZoom', flnControlZoom_ )
+.directive('flnControlZoom', flnControlZoom_ );
 
 function flnControlZoom_ (MapService) {
   return {
@@ -42,7 +42,7 @@ function flnControlZoom_ (MapService) {
       // remove it from the map when the directive gets destroyed
       ele.on('$destroy', function (e) {
         MapService.getOmap().removeControl(zoomControl);
-      })
+      });
     },
-  }
+  };
 }
