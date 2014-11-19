@@ -60,7 +60,7 @@ header nav a {
   display: inline-block;
   padding: 1.5em 2em 1.5em 0;
   color: white;
-  font-size: 1.25em;
+  font-size: .875em;
 }
 
 header nav a:hover {
@@ -97,6 +97,8 @@ nav.help li:first-of-type {
 
 nav.help a {
   color: inherit;
+  width: 100%;
+  display: block;
 }
 
 nav.help span {
