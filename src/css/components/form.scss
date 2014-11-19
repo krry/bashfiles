@@ -1,5 +1,7 @@
+@import "../variables/sizes";
 @import "../variables/colors";
 @import "../variables/buttons";
+@import "../variables/functions";
 
 // form fields, inputs, labels
 fieldset {
@@ -76,7 +78,7 @@ input[type="month"],
 input[type="time"],
 input[type="week"],
 select[multiple=multiple] {
-  @include apercu-bold;
+  @include apercu-regular;
   box-sizing: border-box;
   transition: border-color;
   background-color: transparent;
@@ -144,62 +146,8 @@ label abbr {
   display: none;
 }
 
-input[type=tel].zipcode {
-  font-size: 3em;
-  text-transform: uppercase;
-  color: $color-input-text;
-  text-align: center;
-  max-width: 9em;
-  padding: 0.5em 2em;
-  border: 2px solid $grey-lightest;
-  border-radius: 4px;
-  margin: auto;
-}
-
-input[type=text].street {
-  font-size: 2em;
-  color: $color-input-text;
-  text-align: left;
-  width: 360px;
-  display: inline-block;
-}
-
-input[type=text].street,
-.combo-input {
-  border: 2px solid $grey-lightest;
-  border-radius: 4px;
-  padding: 0.5em 2em;
-}
-
-.combo-input input[type=text] {
-  border: 0;
-  padding: 0;
-  font-size: 2em;
-  display: inline;
-}
-
-.combo-input input[type=text].city:after {
-  content: ", ";
-}
-
-.combo-input input[type=text].state:after {
-  content: " ";
-}
-
-.combo-input input[type=text].city {
-  width: 4em;
-}
-
-.combo-input input[type=text].state {
-  width: 3em;
-}
-
-.combo-input input[type=text].zipcode {
-  width: 4em;
-}
-
 input::placeholder {
-  color: $grey-lighter;
+  color: $grey-light;
 }
 
 button,
@@ -242,4 +190,105 @@ label {
 
 label.required:after {
   content: "*";
+}
+
+// Address fields
+input[type=tel].zipcode {
+  font-size: 2em;
+  text-transform: uppercase;
+  color: $color-input-text;
+  text-align: center;
+  max-width: 9em;
+  padding: 0.5em 2em;
+  border: 2px solid $grey-lightest;
+  border-radius: 4px;
+  margin: auto;
+}
+
+input[type=text].street {
+  font-size: 2em;
+  width: 360px;
+  text-align: left;
+  display: inline-block;
+  padding: 0.5em 1em;
+}
+
+input[type=text].street,
+.combo-input {
+  border: 2px solid $grey-lightest;
+  border-radius: 4px;
+}
+
+input[type=text].street,
+input[type=text].city,
+input[type=text].state,
+input[type=text].zipcode {
+  color: $color-input-text;
+}
+
+.combo-input {
+  padding: 1em 2em;
+}
+
+.combo-input input[type=text],
+.combo-input input[type=tel] {
+  font-size: 2em;
+  border: 0;
+  padding: 0;
+  display: inline;
+  margin-bottom: 0;
+}
+
+.combo-input input[type=text].city {
+  width: 6em;
+}
+
+.combo-input input[type=text].state {
+  width: 2em;
+  text-transform: uppercase;
+}
+
+.combo-input input[type=tel].zipcode {
+  width: 3em;
+  text-align: left;
+}
+
+@media screen and (min-width: $width-min-med) {
+  input[type=text].street,
+  .combo-input input[type=text],
+  .combo-input input[type=tel] {
+    font-size: em($font-size*1.25);
+  }
+}
+
+@media screen and (min-width: $width-min-lrg) {
+  input[type=text].street,
+  .combo-input input[type=text],
+  .combo-input input[type=tel] {
+    font-size: em($font-size*1.375);
+  }
+}
+
+@media screen and (min-width: $width-min-xlg) {
+  input[type=text].street,
+  .combo-input input[type=text],
+  .combo-input input[type=tel] {
+    font-size: em($font-size*1.5);
+  }
+}
+
+@media screen and (min-width: $width-min-xxl) {
+  input[type=text].street,
+  .combo-input input[type=text],
+  .combo-input input[type=tel] {
+    font-size: em($font-size*1.75);
+  }
+}
+
+@media screen and (min-width: $width-min-hd) {
+  input[type=text].street,
+  .combo-input input[type=text],
+  .combo-input input[type=tel] {
+    font-size: em($font-size*2);
+  }
 }
