@@ -38,7 +38,7 @@ function MapService_ ($q, LayerService) {
   function setOmap (options) {  //TODO: move to OlService
     MapService.o.omap = new ol.Map(options);
     return MapService.o.omap;
-  };
+  }
 
   MapService.initOmap = function(target_element) {
     var olView = new ol.View({ 
@@ -62,7 +62,7 @@ function MapService_ ($q, LayerService) {
     };
 
     return setOmap(olMapOptions);
-  }
+  };
 
   MapService.addOverlay = function(layer) {    //TODO: move to OlService
     return MapService.o.omap.addOverlay(layer);

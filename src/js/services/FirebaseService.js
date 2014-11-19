@@ -9,7 +9,7 @@ angular.module('flannel.firebase', [])
      */
     return function(path) {
       return new Firebase(pathRef([FBURL].concat(Array.prototype.slice.call(arguments))));
-    }
+    };
  }])
  // a factory for sync'd geometry strings
  .factory('syncGeometry', ['$firebase', 'FBURL', function ($firebase, url) {
@@ -35,9 +35,9 @@ angular.module('flannel.firebase', [])
        */
       return function syncData(path, limit) {
          var ref = firebaseRef(path);
-         limit && (ref = ref.limit(limit));
+         // limit && (ref = ref.limit(limit));
          return $firebase(ref);
-      }
+      };
    }]);
 
 function pathRef(args) {

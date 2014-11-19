@@ -57,7 +57,7 @@ function edlGoogleMap($timeout, $document, $window, MapService) {
         google.maps.event.addListener(map, 'center_changed', saveCenter);
 
         // use the contents of the Autocomplete to ask Maps for the specific map location
-        var pacItems = document.querySelectorAll('.pac-item')
+        var pacItems = document.querySelectorAll('.pac-item');
 
         if ('addEventListener' in window && pacItems.length > 0) {
           pacItems.addEventListener('touchend', touch_or_click_callback);
@@ -74,7 +74,7 @@ function edlGoogleMap($timeout, $document, $window, MapService) {
 
           function callback(results, status) {
             if (status == google.maps.places.PlacesServiceStatus.OK) {
-              console.log('triggered')
+              console.log('triggered');
               google.maps.event.trigger(searchbox, 'place_changed', results[0]);
             }
 

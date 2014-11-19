@@ -21,7 +21,7 @@ directives
 .directive('flnSelect', flnSelect_ )
 .directive('flnDraw', flnDraw_ )
 .directive('flnModify', flnModify_ )
-.directive('flnDragpan', flnDragPan_ )
+.directive('flnDragpan', flnDragPan_ );
 
 function flnSelect_ (InteractionService, MapService) {
   return {
@@ -29,10 +29,10 @@ function flnSelect_ (InteractionService, MapService) {
     link: function flnSelectLink (scope, ele, attrs) {
       InteractionService.enable(InteractionService.get('select'));
       ele.on('$destroy', function selectDestroy (e) {        
-        InteractionService.disable(InteractionService.get('select'))
-      })
+        InteractionService.disable(InteractionService.get('select'));
+      });
     }, 
-  }
+  };
 }
 
 function flnDraw_ (InteractionService, MapService) {
@@ -41,10 +41,10 @@ function flnDraw_ (InteractionService, MapService) {
     link: function flnDrawLink (scope, ele, attrs) {
       InteractionService.enable(InteractionService.get('draw'));
       ele.on('$destroy', function drawDestroy (e) {        
-        InteractionService.disable(InteractionService.get('draw'))
-      })
+        InteractionService.disable(InteractionService.get('draw'));
+      });
     },
-  }
+  };
 }
 
 function flnModify_ (InteractionService, MapService) {
@@ -53,10 +53,10 @@ function flnModify_ (InteractionService, MapService) {
     link: function flnModifyLink (scope, ele, attrs) {
       InteractionService.enable(InteractionService.get('modify'));
       ele.on('$destroy', function modifyDestroy (e) {        
-        InteractionService.disable(InteractionService.get('modify'))
-      })
+        InteractionService.disable(InteractionService.get('modify'));
+      });
     },
-  }
+  };
 }
 
 function flnDragPan_ (InteractionService, MapService) {
@@ -65,8 +65,8 @@ function flnDragPan_ (InteractionService, MapService) {
     link: function flnDragPanLink (scope, ele, attrs) {
       InteractionService.enable(InteractionService.get('dragpan'));
       ele.on('$destroy', function dragPanDestroy (e) {        
-        InteractionService.disable(InteractionService.get('dragpan'))
-      })
+        InteractionService.disable(InteractionService.get('dragpan'));
+      });
     },
-  }
+  };
 }
