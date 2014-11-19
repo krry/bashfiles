@@ -1,14 +1,14 @@
-flannel
-=======
+# flannel
 
-## How to *dev*
+--------------
+## How to `git` into it
 
 Clone the repo:
 `git clone git@github.com:SolarCity/flannel.git`
 
 Install the dependencies:
 ```bash
-$ npm install -g gulp nodemon bower #might hafta sudo
+$ npm install -g gulp nodemon bower karma jshint # sudone?
 $ npm install
 $ bower install
 ```
@@ -16,11 +16,13 @@ $ bower install
 Start devving:
 `npm run dev`
 
-You should see the gulp task logs as the app builds, then a new tab in your browser should open containing the app with a small "Connected to Browser Sync" badge in the top right corner.
+You should see the gulp task logs as the app builds.
 
+Depending on whether BrowserSync is set to manhandle your tabs, a new tab in your browser might open containing the dev environment of the app with a small, dark "Connected to Browser Sync" badge in the top right corner.
+
+------------------
+## How to build via *gulp*
 For development flow, please see *How to git flow*, below.
-
-## How to *gulp*
 
 This app features some heavy-duty `gulp`itude.
 
@@ -36,9 +38,10 @@ Runs the leet version of gulp, reloading gulp itself when the gulpfile is change
 
 Cleans out the static files in `public/`, then runs `gulp reload`
 
-## How to *git flow*
+----------------
+## How to dev via [git flow](https://github.com/nvie/gitflow)
 
-Install [git flow](https://github.com/nvie/gitflow/wiki/Installation) from github.  **It does not interfere with git** and will make life easier.
+Install [git flow](https://github.com/nvie/gitflow/wiki/Installation) from github. **It does not interfere with git** and will make life easier.
 
 Clone the repo:
 `git clone git@github.com:SolarCity/flannel.git`
@@ -47,22 +50,51 @@ Clone the repo:
 Check out the develop branch:
 `git checkout origin/develop -b develop`
 
-Initialize git flow:
+Or (especially if you'd previously cloned the repo) fetch the current branches and pull the develop branch:
+`git fetch`
+`git checkout develop`
+`git pull origin develop`
+
+Initialize git flow with the usual defaults:
 `git flow init -d`
 
-The *develop* branch should always be functional and should be the latest development goodness.  You should never commit to it directly.  Instead:
-`git flow feature start "the next big feature"`
+### `develop` branch (persistent)
+    * represents the most current, working build
+    * merge only with a feature or a previously applied hotfix
+
+The *develop* branch should always be functional and should be the latest development goodness. You should never commit to it directly.
+
+### `features-*` branches
+    * `git flow feature start "FEATURE_NAME"`: should be branched from `develop`
+    * `git flow feature finish "FEATURE_NAME"`: when features are complete, `develop` should be rebased upon that `feature/FEATURE_NAME` branch
+
+Instead:
+`git flow feature start "THE_NEXT_BIG_FEATURE"`
 Do your coding on your feature.  When it's done:
 `git rebase develop`
 to make a nice clean commit to the end of the development branch. and then:
-`git flow feature finish "the next big feature"`
+`git flow feature finish "THE_NEXT_BIG_FEATURE"`
 
-Production is always what is on the *master* branch.  Commits should never happen to master.  When getting ready to release:
-`git flow release start "the next release name"`
+### `master` branch (persistent)
+    * represents the most stable, most recent build
+    * merge only with a release or a hotfix
+
+Production is always what is on the *master* branch. Commits should never happen to master.
+
+### `releases-*` branches
+    * should replicate `develop` when it is quite stable
+    * after testing they should be merged with master for automatic deploy via hooks
+
+When getting ready to release:
+`git flow release start "THE_NEXT_RELEASE_NAME"`
 Fixes get done to the release branch.  When done:
-`git flow release finish "the next release name"`
+`git flow release finish "THE_NEXT_RELEASE_NAME"`
+
+### `hotfix-*` branches
+    * should replicate `master` soon after a release
+    * then `develop` should be rebased upon them to preserve the hotfixes
 
 For production hotfixes:
-`git flow hotfix start "fix the bug"`
+`git flow hotfix start "THE_BUG_FIX_NAME"`
 Do the fix.  Then:
-`git flow hotfix finish "fix the bug"`
+`git flow hotfix finish "THE_BUG_FIX_NAME"`
