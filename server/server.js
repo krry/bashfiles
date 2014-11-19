@@ -1,4 +1,6 @@
 // external modules
+var newrelic = require('newrelic');
+
 var express  = require('express');
 
 // internal modules
