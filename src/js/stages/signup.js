@@ -23,4 +23,4 @@ angular.module('stage.signup', []).config( function ($stateProvider){
       },
     }
   })
-;})
+;});

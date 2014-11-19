@@ -1,5 +1,5 @@
-angular.module('stages.qualify',[]).config( function ($stateProvider) {
-  
+// qualify.js stage
+angular.module('stage.qualify',[]).config( function ($stateProvider) {
   // paths for this state
   var stageName = 'qualify';
   // TODO: make these paths central and DRYer for all stages, changing based on stageName
@@ -27,8 +27,11 @@ angular.module('stages.qualify',[]).config( function ($stateProvider) {
           var currentStep = 0;
           var vm = this;
           vm.nextStep = function nextStep(cur){
-            currentStep < steps.length - 1 ? 
-              currentStep++ : $state.go(destination);
+            if (currentStep < steps.length - 1) {
+              currentStep++;
+            } else {
+              $state.go(destination);
+            }
             vm.step=vm.steps[currentStep];
           };
           vm.steps = steps;
