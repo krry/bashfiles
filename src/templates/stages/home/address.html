@@ -3,13 +3,13 @@
   <h4>Let’s take a closer look at your house...</h4>
   <div class="row">
     <div class="col half center">
-      <input type="text" class="street" placeholder="Street address"/>
+      <input ng-model="user.street" type="text" class="street" placeholder="Street address"/>
     </div>
     <div class="col half center">
       <div class="combo-input">
-        <input type="text" class="city" placeholder="Example"/>,&nbsp;
-        <input type="text" class="state" placeholder="CA" minlength="2" maxlength="2" pattern="[a-z]*">&nbsp;
-        <input type="tel" class="zipcode" placeholder="ZIP" pattern="[\d]*" minlength="0" maxlength="5">
+        <input ng-model="user.city" type="text" class="city" placeholder="Example"/>,&nbsp;
+        <input ng-model="user.state" type="text" class="state" placeholder="CA" minlength="2" maxlength="2" pattern="[a-z]*">&nbsp;
+        <input ng-model="user.zip" type="tel" class="zipcode" placeholder="ZIP" pattern="[\d]*" minlength="0" maxlength="5">
       </div>
     </div>
   </div>
