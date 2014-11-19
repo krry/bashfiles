@@ -19,9 +19,7 @@
   var zipCheck = function(id){
     log("zipCheck got called");
     log('wiring up keyup event listener to element with id ' + id);
-    $('#'+id).on("focus", function(){
-    });
-    $("#"+id).on("keyup", function(e){
+    $("#"+id).keyup(function(e){
       log('a key was upped while focused on the "' + id + '" element');
       console.log('effing working');
       var $zipVal = $(this).val();
@@ -33,6 +31,7 @@
           current.zip = $zipVal;
           current.map = roofMap;
           current.geoLock = true;
+          // log("firing zip geocode for " + current.zip);
           Roofer.reverseGeocode(current.zip, current.zip);
         }
       }
