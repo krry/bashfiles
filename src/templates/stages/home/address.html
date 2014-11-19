@@ -1,19 +1,20 @@
-<section class="overlay--primary">
-  <h2>We service 1,287 homes within 10 miles of you. Let’s take a closer look at your house...</h2>
+<section class="overlay primary short">
+  <h2>We service 1,287 homes within 10 miles of you.</h2>
+  <h4>Let’s take a closer look at your house...</h4>
   <div class="row">
-    <div class="col half">
+    <div class="col half center">
       <input type="text" class="street" placeholder="Street address"/>
     </div>
-    <div class="col half">
+    <div class="col half center">
       <div class="combo-input">
-        <input type="text" class="city" placeholder="Example"/>
-        <input type="text" class="state" placeholder="CA"/>
-        <input type="text" class="zipcode" placeholder="ZIP"/>
+        <input type="text" class="city" placeholder="Example"/>,&nbsp;
+        <input type="text" class="state" placeholder="CA" minlength="2" maxlength="2" pattern="[a-z]*">&nbsp;
+        <input type="tel" class="zipcode" placeholder="ZIP" pattern="[\d]*" minlength="0" maxlength="5">
       </div>
     </div>
   </div>
 </section>
-<aside class="overlay--secondary">
+<aside class="overlay secondary short">
   <p>Our customers in your area save an average of <strong>20%</strong> on their utility bill and reduces an average of <strong>2.5 tons of CO<sub>2</sub></strong> every month.</p>
   <nav class="help">
     <ul class="row bottom full">

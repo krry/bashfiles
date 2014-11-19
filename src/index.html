@@ -8,63 +8,69 @@
     <link href="css/all.css" rel="stylesheet">
     <link href="lib/ol.css" rel="stylesheet">
 
-  <!-- Libraries -->
-  <!-- openlayers v3 -->
-  <!-- this is the current stable version with whitespace -->
-  <script src="lib/ol-debug.js"></script> 
-  <!-- jquery -->
-  <script src="lib/jquery.js"></script>
-  <!-- google maps -->
-  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false&client=gme-solarcity"></script>
-  <script type="text/javascript">
-    WebFontConfig = { fontdeck: { id: '50798' } };
-    (function() {
-      var wf = document.createElement('script');
-      wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
-      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-      wf.type = 'text/javascript';
-      wf.async = 'true';
-      var s = document.getElementsByTagName('script')[0];
-      s.parentNode.insertBefore(wf, s);
-      s.parentNode.insertBefore(wf, s);
-    })();
-  </script>
-  <script type="text/javascript">
-    // var html = document.getElementsByTagName('html')[0];
-    // html.className += '  wf-loading';
-    // setTimeout(function() {
-    //   html.className = html.className.replace(' wf-loading', '');
-    // }, 20);
+    <!-- Libraries -->
+    <!-- openlayers v3 -->
+    <!-- this is the current stable version with whitespace -->
+    <script src="lib/ol-debug.js"></script> 
+    <!-- jquery -->
+    <script src="lib/jquery.js"></script>
+    <!-- google maps -->
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false&client=gme-solarcity"></script>
+    <script type="text/javascript">
+      WebFontConfig = { fontdeck: { id: '50798' } };
+      (function() {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+        '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+        s.parentNode.insertBefore(wf, s);
+      })();
+    </script>
+    <script type="text/javascript">
+      // var html = document.getElementsByTagName('html')[0];
+      // html.className += '  wf-loading';
+      // setTimeout(function() {
+      //   html.className = html.className.replace(' wf-loading', '');
+      // }, 20);
 
-    // WebFontConfig = { fontdeck: { id: '50798' } };
+      // WebFontConfig = { fontdeck: { id: '50798' } };
 
-    // (function() {
-    //   var wf = document.createElement('script');
-    //   wf.src = 'http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-    //   wf.type = 'text/javascript';
-    //   wf.async = 'true';
-    //   var s = document.getElementsByTagName('script')[0];
-    //   s.parentNode.insertBefore(wf, s);
-    // })();
-  </script>
-</head>
-<!-- app begins -->
-<body ng-app="flannel" ng-controller="StageCtrl as stages">
-  <!-- <ui-view></ui-view> -->
-  <header ui-view name="header" id="header"></header>
-  <main ui-view name="main" id="main"></main>
-  <footer ui-view name="footer" id="footer"></footer>
-  <!-- TODO: conditionally load minified versions of dependencies when not in dev environment -->
-  <script src="lib/angular.js"></script>
-  <!-- <script src="lib/angular.min.js"></script> -->
-  <script src="lib/angular-touch.js"></script>
-  <!-- angular-ui -->
-  <script src="lib/angular-ui-router.min.js"></script>
-  <!-- <script src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script> -->
-  <script src="lib/ui-bootstrap-tpls.min.js"></script>
-  <!-- <script src="lib/angular-bootstrap/ui-bootstrap.js"></script> -->
-  <script src="lib/ui-bootstrap.min.js"></script>
-  <!-- Application -->
-  <script src="js/all.js"></script>
-</body>
+      // (function() {
+      //   var wf = document.createElement('script');
+      //   wf.src = 'http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+      //   wf.type = 'text/javascript';
+      //   wf.async = 'true';
+      //   var s = document.getElementsByTagName('script')[0];
+      //   s.parentNode.insertBefore(wf, s);
+      // })();
+    </script>
+  </head>
+  <!-- app begins -->
+  <body ng-app="flannel" ng-controller="StageCtrl as stages">
+      <!-- <ui-view></ui-view> -->
+    <header ui-view name="header" id="header" class="header"></header>
+    <main ui-view name="main" id="main" class="main"></main>
+    <footer ui-view name="footer" id="footer" class="footer"></footer>
+    <!-- TODO: conditionally load minified versions of dependencies when not in dev environment -->
+    <script src="lib/angular.js"></script>
+    <!-- <script src="lib/angular.min.js"></script> -->
+    <script src="lib/angular-touch.js"></script>
+    <!-- angular-ui -->
+    <script src="lib/angular-ui-router.min.js"></script>
+    <!-- <script src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script> -->
+    <script src="lib/ui-bootstrap-tpls.min.js"></script>
+    <!-- <script src="lib/angular-bootstrap/ui-bootstrap.js"></script> -->
+    <script src="lib/ui-bootstrap.min.js"></script>
+    <!-- firebase related -->
+    <script src="lib/firebase-debug.js"></script>
+    <!-- <script src="lib/firebase.js"></script> -->
+    <script src="lib/angularfire.js"></script>
+    <!-- <script src="lib/angularfire.min.js"></script> -->
+
+    <!-- Application -->
+    <script src="js/all.js"></script>
+  </body>
 </html>

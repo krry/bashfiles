@@ -22,13 +22,15 @@
 }
 
 // mobile width type styles first
-main {
-  font-size: #{($font-size)*.875}em;
+body {
+  font-size: em($font-size*.875)
 }
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.25;
-  max-width: 100%;
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 h1 {
@@ -94,31 +96,31 @@ cite:before {
 }
 
 @media screen and (min-width: $width-min-med) {
-  main {
+  body {
     font-size: $font-size;
   }
 }
 
 @media screen and (min-width: $width-min-lrg) {
-  main {
+  body {
     font-size: em($font-size*1.125);
   }
 }
 
 @media screen and (min-width: $width-min-xlg) {
-  main {
+  body {
     font-size: em($font-size*1.25);
   }
 }
 
 @media screen and (min-width: $width-min-xxl) {
-  main {
+  body {
     font-size: em($font-size*1.375);
   }
 }
 
 @media screen and (min-width: $width-min-hd) {
-  main {
+  body {
     font-size: em($font-size*1.5);
   }
 }

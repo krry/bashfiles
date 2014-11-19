@@ -2,13 +2,13 @@
 @import "../variables/sizes";
 @import "../variables/functions";
 
-main#main {
-  height: 50vh;
+main.main {
+  height: 100vh;
   width: 100%;
   position: relative;
 }
 
-.overlay {
+.overlayer {
   position: relative;
   z-index: 1;
   margin: auto;
@@ -16,22 +16,33 @@ main#main {
   background-color: $color-bkgd-primary;
 }
 
-  .overlay--primary {
-    padding: 2em;
-    text-align: center;
-    width: golden-ratio(100);
-    float: left;
-    background: $color-bkgd-primary;
-  }
+.overlay {
+  display: table-cell;
+}
 
-  .overlay--secondary {
-    padding: 2em 2em 0;
-    width: 100% - golden-ratio(100);
-    float: right;
-    background: $grey-lightest;
-  }
+.overlay.primary {
+  padding: 3em 2em;
+  text-align: center;
+  width: golden-ratio(100);
+  background: $color-bkgd-primary;
+}
 
-.underlay {
+.overlay.secondary {
+  padding: 3em 2em;
+  padding-bottom: 0;
+  width: 100% - golden-ratio(100);
+  background: $grey-lightest;
+}
+
+.overlay.short {
+  padding: 1em 2em;
+}
+
+.overlay.secondary.short {
+  margin-bottom: -1em;
+}
+
+.underlayer {
   position: absolute;
   z-index: 0;
   top: 0; left: 0;
