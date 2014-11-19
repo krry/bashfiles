@@ -1,5 +1,7 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
+var jshint = require('gulp-jshint');
+var stylish = require('jshint-stylish');
 
 var scripts = [
   'src/js/*.js',
@@ -11,6 +13,8 @@ var scripts = [
 
 gulp.task('scripts', function(stuff){
   return gulp.src(scripts)
+    .pipe(jshint())
+    .pipe(jshint.reporter(stylish))
     .pipe(concat('all.js'))
     .pipe(gulp.dest('./public/js'))
 })
