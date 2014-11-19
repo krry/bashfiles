@@ -3,32 +3,27 @@
   this service contains event callbacks.
 
 ================================================== */
-function EventService_ ($firebase, syncGeometry) {
+function EventService_ ($firebase, SyncService) {
 
   var service = {
-    syncAfterDraw: syncAfterDraw,
+    modifyref: modifyref,
   };
-  var wkt = new ol.format.WKT();
 
-  function syncAfterDraw (event) {
-    var feature = event.feature || event.target;
+  // remove from firebase after remove from map
+  function removeArea (areaObj) {
+    // remember to use firebase's unwatch() on any watched thing.
+  }
 
-    var drawnGeometry;
-    var geometry;
-    if (event.feature) { // you were passed a feature after draw
-      geometry = feature.getGeometry();
-      drawnGeometry = syncGeometry();
-      drawnGeometry.text= wkt.writeFeature(feature)
-      geometry.on('change', syncAfterDraw);
-    } else {              // you were passed a modified geometry
-      drawnGeometry = syncGeometry();
-      feature.on('change', syncAfterDraw);
-      drawnGeometry.text= wkt.writeGeometry(feature)
-    }
-    drawnGeometry.$save()
-  };
+  // update ref on client modify
+  function modifyref (ref, newval) {
+    // get syncObj from SyncService
+    // make them changes
+    ref.set(newval);
+    // save changes to the obj
+    return ref
+  }
 
   return service;
 }
 
-angular.module('flannel').factory('EventService',['$firebase', 'syncGeometry', EventService_]);
+angular.module('flannel').factory('EventService',['$firebase', 'SyncService', EventService_]);
