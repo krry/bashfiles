@@ -1,12 +1,12 @@
 function StageService_ ($state) {
   /* ================================
-  This is the Stage Service. It provides an object with methods & properties. 
+  This is the Stage Service. It provides an object with methods & properties.
 
   service provides a SyncObject with the following methods:
       next() -- move forward in flow
       prev() -- move backward in flow
 
-  TODO: 
+  TODO:
     make a private history function that keeps a record of what you've done
     move config_object to $provider
 
@@ -19,14 +19,14 @@ function StageService_ ($state) {
     etc...
   ================================ */
   var StageService = {};
-  
+
   // FIREBASE THESE //
   var _current = {
     stage: 0,
     step:  0,
     history: _history,
   };
-  
+
   function curr_step(){
     return _current.step;
   }
@@ -34,11 +34,11 @@ function StageService_ ($state) {
     return _current.stage;
   }
 
-  var config_object = [  
+  var config_object = [
     {
       name: 'home',
       destination: 'configure',
-      steps: [ 
+      steps: [
         { step: 'zip-nearme',   partial: 'zip.html'},
         { step: 'address-roof', partial: 'address.html'},
       ],
@@ -46,7 +46,7 @@ function StageService_ ($state) {
     {
       name: 'configure',
       destination: 'qualify',
-      steps: [ 
+      steps: [
         { step: 'zoom-lock-roof', partial: 'zoom.html'   },
         { step: 'trace-area',     partial: 'trace.html'  },
         { step: 'edit-area',      partial: 'edit.html'   },
@@ -71,7 +71,7 @@ function StageService_ ($state) {
       // do the stageUp function
       return stageUp();
     }
-  }  
+  }
 
   function prev() {
     // TODO: addHistory()
@@ -110,7 +110,7 @@ function StageService_ ($state) {
     if (stage > 0 ) {
       _current.step = config_object[curr_stage() - 1].steps.length - 1;
       _current.stage--
-      return $state.go(destination(stage-1)); 
+      return $state.go(destination(stage-1));
     } else {
       alert('first stage');
       return stage;
@@ -129,5 +129,5 @@ function StageService_ ($state) {
   return StageService;
 }
 
-angular.module('flannel').factory('StageService', StageService_);  
+angular.module('flannel').factory('StageService', StageService_);
 

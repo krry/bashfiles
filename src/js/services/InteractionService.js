@@ -29,7 +29,7 @@ function InteractionService_ (MapService, StyleService, LayerService, EventServi
   function disable (interaction) {
     MapService.getOmap().removeInteraction(interaction);
   }
-  
+
   function get (name) {
     if (name === 'all') return interactions;
     return interactions[name];
@@ -55,7 +55,7 @@ function InteractionService_ (MapService, StyleService, LayerService, EventServi
       kinetic: null,
     }
   };
-  
+
   /* Interactions */
   var draw   = new ol.interaction.Draw(options.draw);
   var select = new ol.interaction.Select(options.select);
@@ -64,7 +64,7 @@ function InteractionService_ (MapService, StyleService, LayerService, EventServi
   // hack: how else can i get the Collection of the Select interaction?
   options.modify.features = select.getFeatures();
   var modify = new ol.interaction.Modify(options.modify);
-  
+
   var interactions = {
     draw: draw,
     select: select,
@@ -82,9 +82,6 @@ function InteractionService_ (MapService, StyleService, LayerService, EventServi
       MapService.getOmap().addInteraction(interaction);
     });
   }
-
-  var afterDraw = EventService.syncAfterDraw;
-  draw.on('drawend', afterDraw , false );
 
   return service;
 }
