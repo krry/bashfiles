@@ -19,10 +19,9 @@
   var zipCheck = function(id){
     log("zipCheck got called");
     log('wiring up keyup event listener to element with id ' + id);
-    $('#'+id).focus(function(){
-      log("focused on the " + id);
+    $('#'+id).on("focus", function(){
     });
-    $("#"+id).keyup(function(e){
+    $("#"+id).on("keyup", function(e){
       log('a key was upped while focused on the "' + id + '" element');
       console.log('effing working');
       var $zipVal = $(this).val();
