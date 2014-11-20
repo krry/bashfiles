@@ -5,7 +5,7 @@ var handleErrors = require('../util/handleErrors')
 
 var libSrc = [
   './src/lib/jquery/dist/jquery.js',
-  // './src/lib/openlayers3/build/ol-debug.js',
+  './src/lib/openlayers3/build/ol-debug.js',
   './src/lib/openlayers3/build/ol.js',
   './src/lib/openlayers3/build/ol.css',
   './src/lib/angular-ui-router/release/angular-ui-router.min.js',
@@ -16,8 +16,10 @@ var libSrc = [
   './src/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
   './src/lib/angular-bootstrap/ui-bootstrap.min.js',
   './src/lib/normalize.css/normalize.css',
+  './src/lib/firebase/firebase.js',
   './src/lib/firebase/firebase-debug.js',
   './src/lib/angularfire/dist/angularfire.js',
+  './src/lib/angularfire/dist/angularfire.min.js',
 ]
 
 var libPub = './public/lib/'

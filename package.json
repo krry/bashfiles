@@ -10,6 +10,7 @@
   "private": true,
   "description": "flannel for Solarcity",
   "dependencies": {
+    "nconf": "~0.6.9",
     "browser-sync": "^1.5.8",
     "del": "^0.1.3",
     "express": "^4.4.4",
