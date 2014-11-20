@@ -14,7 +14,7 @@
     "venturocket-angular-slider": "~0.3.2",
     "angular-bootstrap": "~0.11.2",
     "jquery": "~2.1.1",
-    "firebase": "~2.0.2",
+    "firebase": "~2.0.4",
     "angularfire": "~0.8.2"
   },
   "resolutions": {
