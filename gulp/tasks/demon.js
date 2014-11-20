@@ -13,7 +13,7 @@ gulp.task('demon', function(cb){
   return nodemon({
     script: 'server/server.js',
     env: {
-      'NODE_ENV': 'development'
+      'NODE_ENV': process.env.NODE_ENV || 'development'
     },
     watch: [
       'server/server.js',

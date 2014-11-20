@@ -4,7 +4,8 @@ var database = function() {
 	return {}
 }
 
-var dbURL = process.env.dbURL || "example"
+// var dbURL = nconf.get('dbURL') || "example" // Can't see nconf.  Fix when needed.
+var dbURL = process.env.dbURL || "example" // use nconf instead of just env
 var db = new database;
 
 module.exports = {
