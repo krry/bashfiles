@@ -10,10 +10,10 @@ function StageCtrl_($scope, $state, StageService, InteractionService, LayerServi
   // set the current state
   // DEV HACK: only for testing sync'd objects. return to $push when we're
   // ready to test multiple users
-  // .$push({'state': 'test_state'})
-  .$set('ace', {'state': 'test_state'})
+  .$push()
   .then( function (data) {
     // store FirebaseRef to syncObj
+    console.log('your design id is: ', data.key())
     SyncService.set('designRef', data);
   });
 
