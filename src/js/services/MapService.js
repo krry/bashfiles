@@ -24,10 +24,10 @@ function MapService_ ($q, LayerService) {
     zoom : 4,
     minZoom : 4,
     maxZoom : 4,
-    mapTypeId : google.maps.MapTypeId.TERRAIN,
+    mapTypeId : google.maps.MapTypeId.SATELLITE,
     disableDefaultUI: true,
-    draggable: false,
-    zoomable: false,
+    // draggable: false,
+    // zoomable: false,
     scrollwheel: false,
     backgroundColor: "transparent"
   };
