@@ -1,5 +1,5 @@
 angular.module('stages.home',[]).config( function ($stateProvider) {
-  
+
   // specifics for for this state
   var stageName = 'home';
   var templateUrl = 'templates/';
@@ -15,14 +15,20 @@ angular.module('stages.home',[]).config( function ($stateProvider) {
       },
       'main@': {
         templateUrl: stageUrl + "main.html",
+        controller:  function home_ctrl ($scope, syncData, SyncService, firebaseRef) {
+          // the design_ref may be set by arriving from a share link, or should be generated new
+          $scope.designRef = SyncService.get('design_ref') || firebaseRef('/designs').push()
+          .once( 'value', function (dataSnapshot) {
+            SyncService.set('design_ref', dataSnapshot);
+            console.log('your design id is new: ', dataSnapshot.key());
+          });
+        },
       },
       'overlay@home': {
         templateUrl: stageUrl + "overlay.html",
-        controller:  "",
       },
       'underlay@home': {
         templateUrl: stageUrl + "underlay.html",
-        controller:  "",
       },
       'footer@': {
         templateUrl: 'templates/footer.html',

@@ -3,20 +3,6 @@ function StageCtrl_($scope, $state, StageService, InteractionService, LayerServi
   var vm = this;
   var config = StageService.config;
 
-  // TODO: this should set the state on the FB object, and we can watch that later
-  // get a FirebaseRef for this design
-  $scope.designRef = syncData('/designs')
-
-  // set the current state
-  // DEV HACK: only for testing sync'd objects. return to $push when we're
-  // ready to test multiple users
-  .$push()
-  .then( function (data) {
-    // store FirebaseRef to syncObj
-    console.log('your design id is: ', data.key())
-    SyncService.set('designRef', data);
-  });
-
   $scope.sync  = StageService.syncObj;
   // stage & step index numbers
   var stage = $scope.sync().stage;
