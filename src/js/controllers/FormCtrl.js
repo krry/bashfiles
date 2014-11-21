@@ -1,11 +1,17 @@
-function FormCtrl_($scope, FormService) {
+/* ==================================================
+  User Controller
+
+================================================== */
+
+controllers.controller("UserCtrl", ["$scope", "UserService", UserCtrl_]);
+
+function UserCtrl_($scope, UserService) {
   var vm = this;
-
-  $scope.user = FormService.userObj;
-
+  debugger;
   vm.checkZip = function(){
-    console.log("zipCheck called");
+    console.log("checkZip called");
     // check to see if there are 5 digits
+    debugger;
       // if not, show gentle validation
       // if so, check if valid US ZIP
         // if not, show error state and message
@@ -24,5 +30,3 @@ function FormCtrl_($scope, FormService) {
       // if so, drop map marker on this location
   }
 };
-
-controllers.controller("FormCtrl", FormCtrl_);

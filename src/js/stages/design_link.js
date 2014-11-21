@@ -16,6 +16,7 @@ angular.module('stages.design_link',[]).config( function ($stateProvider) {
             SyncService.set('design_ref', dataSnapshot);
             console.log('your shared design id is: ', dataSnapshot.key());
             // $state.go('home');
+            $scope.designRef = dataSnapshot;
           })
 
         },

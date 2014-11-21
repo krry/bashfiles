@@ -67,4 +67,4 @@ function StageCtrl_($scope, $state, StageService, InteractionService, LayerServi
   /// end dev code ///
 }
 
-controllers.controller("StageCtrl", StageCtrl_);
+controllers.controller("StageCtrl", ["$scope", "$state", "StageService", "InteractionService", "LayerService", "SyncService", "syncData", StageCtrl_]);

@@ -22,14 +22,14 @@ function edlGoogleMap($timeout, $document, $window, MapService) {
       map = MapService.setGmap(ele[0], mapOptions);
 
       // create an Autocompleting search box on the map
-      input = document.getElementById('hood_check');
+      input = document.getElementById('pac-input');
 
       map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(input);
 
       searchbox = MapService.setSearchBox(input);
       searchbox.bindTo('bounds', map);
 
-      // listen for the 'place_changed' trigger which is fired 
+      // listen for the 'place_changed' trigger which is fired
       google.maps.event.addListener(searchbox, 'place_changed', function(place){
         // get the place you clicked on
         if (!place.geometry) {
@@ -56,7 +56,7 @@ function edlGoogleMap($timeout, $document, $window, MapService) {
       map.setCenter(center);
       map.setZoom(20);
 
-      // always save the mapcenter when it's changed. 
+      // always save the mapcenter when it's changed.
       saveCenter = function saveCenter () {
         var center = map.getCenter();
         if (center) {
@@ -81,7 +81,7 @@ function edlGoogleMap($timeout, $document, $window, MapService) {
       function touch_or_click_callback(e){
         var service = new google.maps.places.PlacesService(MapService.getGmap());
         var request = {
-            location: MapService.getGmap().getCenter(), 
+            location: MapService.getGmap().getCenter(),
             query: e.currentTarget.children[1].innerText + ' ' + e.currentTarget.children[2].innerText,
             radius: 500,
           };
@@ -93,7 +93,7 @@ function edlGoogleMap($timeout, $document, $window, MapService) {
           }
 
         }
-        
+
         service.textSearch(request, callback);
       }
     }

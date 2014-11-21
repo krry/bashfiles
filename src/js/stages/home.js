@@ -16,14 +16,50 @@ angular.module('stage.home',[]).config( function ($stateProvider) {
         controller:  'HeaderCtrl as head',
       },
       'main@': {
+        resolve: {
+          design_ref: function ($q, SyncService, firebaseRef) {
+            var defer = $q.defer()
+            SyncService.get('design_ref') || firebaseRef('/designs').push()
+            .once( 'value', function (dataSnapshot) {
+              defer.resolve(SyncService.set('design_ref', dataSnapshot));
+              console.log('your design id is new: ', dataSnapshot.key());
+            });
+            return defer.promise;
+          },
+        },
         templateUrl: stageUrl + "main.html",
-        controller:  function home_ctrl ($scope, syncData, SyncService, firebaseRef) {
+        controllerAs: 'homer',
+        controller:  function home_ctrl ($scope, $firebase, SyncService, firebaseRef, design_ref) {
           // the design_ref may be set by arriving from a share link, or should be generated new
-          $scope.designRef = SyncService.get('design_ref') || firebaseRef('/designs').push()
-          .once( 'value', function (dataSnapshot) {
-            SyncService.set('design_ref', dataSnapshot);
-            console.log('your design id is new: ', dataSnapshot.key());
-          });
+          var vm = this;
+          vm.user = $firebase(design_ref).$set('user',{
+            "zip": "",
+            state: "",
+            city: "",
+            address: "",
+            design_id: "",
+            name: {
+              first_name: "",
+              last_name: ""
+            },
+            is_homeowner: null, // boolean
+            phone: "",
+            email: "",
+            dob: {
+              month: "",
+              day: "",
+              year: ""
+            },
+          }).then(function(data){
+            debugger;
+            // TODO: get that promise resolved!!!
+            return $firebase(data).$asObject()});
+          vm.checkZip = checkZip;
+          function checkZip () {
+            debugger;
+          }
+
+
         },
       },
       'overlay@home': {

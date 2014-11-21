@@ -1,7 +1,7 @@
 function FormService_ () {
   var FormService = {};
 
-  var _current = {};
+  FormService.user = {};
 
   return FormService;
 }
