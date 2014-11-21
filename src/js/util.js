@@ -17,7 +17,7 @@
   };
 
   var zipCheck = function(id){
-    log("zipCheck got called");
+    log("fart got called");
     log('wiring up keyup event listener to element with id ' + id);
     $('#'+id).on("focus", function(){
     });
@@ -338,6 +338,6 @@
     },
   };
 
-  zipCheck("hood_check");
+  // zipCheck("hood_check");
 
-})(this);
+});

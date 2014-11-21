@@ -1,4 +1,4 @@
-angular.module('stage.qualify',[]).config( function ($stateProvider) {
+angular.module('stages.qualify',[]).config( function ($stateProvider) {
 
   // paths for this state
   var stageName = 'qualify';
@@ -6,7 +6,7 @@ angular.module('stage.qualify',[]).config( function ($stateProvider) {
   var templateUrl = "templates/";
   var stageUrl = templateUrl + "stages/" + stageName + '/';
 
-  var steps = [ 
+  var steps = [
     { step: 'final', url: stageUrl + 'final.html' },
   ];
 
@@ -17,13 +17,13 @@ angular.module('stage.qualify',[]).config( function ($stateProvider) {
     abstract: true,
     views: {
       'header@': {
-        templateUrl: templateUrl + "header.html", 
+        templateUrl: templateUrl + "header.html",
         controller:  "HeaderCtrl as header",
       },
       'main@': {
         templateUrl: stageUrl + "main.html",
         controllerAs: stageName,
-        controller: function QualifyCtrl($scope, $state){
+        controller: function QualifyCtrl ($scope, $state) {
           var currentStep = 0;
           var vm = this;
           vm.nextStep = function nextStep(cur){
