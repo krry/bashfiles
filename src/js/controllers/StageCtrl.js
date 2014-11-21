@@ -1,10 +1,24 @@
-// TODO: flesh out the stageCtrl, see `docs/stages+states.md`
+function StageCtrl_($scope, $state, StageService, InteractionService, LayerService, SyncService, syncData) {
 
-function StageCtrl_($scope, $state, StageService, InteractionService, LayerService) {
+  // TODO: flesh out the stageCtrl, see `docs/stages+states.md`
   // This controller should be used for anything that needs to control which partials are being used
   var vm = this;
   var config = StageService.config;
-  // sweet sync object
+
+  // TODO: this should set the state on the FB object, and we can watch that later
+  // get a FirebaseRef for this design
+  $scope.designRef = syncData('/designs')
+
+  // set the current state
+  // DEV HACK: only for testing sync'd objects. return to $push when we're
+  // ready to test multiple users
+  // .$push({'state': 'test_state'})
+  .$set('ace', {'state': 'test_state'})
+  .then( function (data) {
+    // store FirebaseRef to syncObj
+    SyncService.set('designRef', data);
+  });
+
   $scope.sync  = StageService.syncObj;
   // stage & step index numbers
   var stage = $scope.sync().stage;

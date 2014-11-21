@@ -9,15 +9,20 @@
     <link href="lib/ol.css" rel="stylesheet">
 
     <!-- Libraries -->
+
     <!-- openlayers v3 -->
-    <!-- this is the current stable version with whitespace -->
-    <script src="lib/ol.js"></script>
-    <!-- <script src="lib/ol-debug.js"></script>  -->
+    <!-- <script src="lib/ol.js"></script> -->
+    <script src="lib/ol-debug.js"></script>
+
     <!-- jquery -->
     <script src="lib/jquery.js"></script>
+
     <!-- google maps -->
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false&client=gme-solarcity"></script>
-    <!-- loading Apercu fonts from FontDeck, not yet protecting for FOUT or optimized to be non-disruptive to first-time visitors; lags upwards of 2s still  -->
+
+    <!-- Apercu fonts from FontDeck -->
+    <!-- TODO: prevent a FOUT -->
+    <!-- TODO: lessen 2s load lags -->
     <script type="text/javascript">
       WebFontConfig = { fontdeck: { id: '50798' } };
       (function() {

@@ -1,10 +1,6 @@
 function StageService_ ($state) {
-
-/* ================================
-
+  /* ================================
     StageService 
-
-    provides an object with methods & properties. 
 
     provides a SyncObject with the following methods:
       next() -- move forward in flow
@@ -29,14 +25,14 @@ function StageService_ ($state) {
   ================================ */
 
   var StageService = {};
-  
+
   // FIREBASE THESE //
   var _current = {
     stage: 0,
     step:  0,
     history: _history,
   };
-  
+
   function curr_step(){
     return _current.step;
   }
@@ -44,7 +40,6 @@ function StageService_ ($state) {
     return _current.stage;
   }
 
-  // 
   var config_object = [
     {
       name: 'home',
@@ -64,11 +59,11 @@ function StageService_ ($state) {
       name: 'configure',
       destination: 'qualify',
       steps: [
-        { step: 'energy-usage',   partial: 'usage.html'  },
         { step: 'zoom-lock-roof', partial: 'roof.html'   },
         { step: 'trace-area',     partial: 'trace.html'  },
         { step: 'edit-area',      partial: 'edit.html'   },
         { step: 'detail-area',    partial: 'detail.html' },
+        { step: 'energy-usage',   partial: 'usage.html'  },
       ],
     },
     {
@@ -100,7 +95,7 @@ function StageService_ ($state) {
       // do the stageUp function
       return stageUp();
     }
-  }  
+  }
 
   function prev() {
     // TODO: addHistory()
@@ -143,7 +138,7 @@ function StageService_ ($state) {
     } else {
       alert('first stage');
       return stage;
-    }
+    };
   }
 
   StageService.syncObj = function() {

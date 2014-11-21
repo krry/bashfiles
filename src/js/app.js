@@ -20,7 +20,6 @@ angular.module('flannel', [
   $sceProvider.enabled(false);
   $httpProvider.defaults.useXDomain = true;
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
-    
 }).run(function() {
   
 });
