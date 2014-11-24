@@ -1,5 +1,7 @@
 // external modules
 
+var newrelic = require('newrelic');
+
 // https://github.com/flatiron/nconf
 var nconf = require('nconf');
 var environment =  process.env.NODE_ENV || 'development'; // set port with $PORT environment variable
