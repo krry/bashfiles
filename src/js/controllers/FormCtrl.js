@@ -1,17 +1,39 @@
 /* ==================================================
-  User Controller
-
+  FormCtrl
+  the form controller
 ================================================== */
 
-controllers.controller("UserCtrl", ["$scope", "UserService", UserCtrl_]);
+controllers.controller("FormCtrl", ["$scope", "UserService", "StageService", FormCtrl_]);
 
-function UserCtrl_($scope, UserService) {
+function FormCtrl_($scope, UserService, StageService, $firebase, SyncService, firebaseRef, design_ref) {
   var vm = this;
-  debugger;
-  vm.checkZip = function(){
-    console.log("checkZip called");
+  vm.user = {
+    zip: "",
+    state: "",
+    city: "",
+    address: "",
+    design_id: "",
+    name: {
+      first_name: "",
+      last_name: ""
+    },
+    is_homeowner: null, // boolean
+    phone: "",
+    email: "",
+    dob: {
+      month: "",
+      day: "",
+      year: ""
+    },
+  }
+  vm.checkZip = checkZip;
+  vm.parseAddress = parseAddress;
+
+  function checkZip (zip) {
+    console.log("checking ZIP");
+    console.log(zip);
     // check to see if there are 5 digits
-    debugger;
+    // debugger;
       // if not, show gentle validation
       // if so, check if valid US ZIP
         // if not, show error state and message
@@ -21,12 +43,12 @@ function UserCtrl_($scope, UserService) {
             // return mapService.initNearMe()
   };
 
-  vm.parseAddress = function(){
+  function parseAddress () {
     console.log('parsing address');
     // package and send full address to Google Maps API for sanitation
     // populate sanitized address in the address fields
     // center map on latlng of address
     // check if street address present in sanitized address
       // if so, drop map marker on this location
-  }
+  };
 };

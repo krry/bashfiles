@@ -28,7 +28,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.25;
-  max-width: 80%;
+  max-width: 85%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -81,6 +81,10 @@ cite {
 
 cite:before {
   content: "\2014\00A0";
+}
+
+code, kbd, pre, samp {
+  font-family: $font-monospace;
 }
 
 .center h1,

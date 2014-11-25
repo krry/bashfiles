@@ -2,13 +2,17 @@
 <div fln-modify></div>
 <div class="siderail right">
   <div ui-view name="instructions">
-    <h3>Trace one area of your roof.</h3>
-    <p>Draw a simple outline to trace the edge of the sunniest flat area of your roof by clicking on each of the corners until you complete the entire shape.</p>
+    <h3>Edit the shape if needed.</h3>
+    <p>You've completed the shape.</p>
+    <ul>
+      <li>Drag to move any points that are misaligned.</li>
+      <li>Click on a point to modify it.</li>
+      <li>Add a point by clicking on the line.</li>
+    </ul>
     <figure>
       <img src="" alt="">
     </figure>
-    <p>Don't worry about missing a spot, you can edit the shape later.</p>
-
+    <p>You can <a href="#erase">erase this shape</a> to start over, or just <a href="#save">save it for now</a>.</p>
     <button class="ib" ng-click="stages.next()">Next</button>
 
     <span>areas = {{map.areas}}</span>
@@ -16,3 +20,4 @@
     <button ng-click="stages.areatwo()">dev select 2</button>
   </div>
 </div>
+<div fln-help></div>

@@ -1,3 +1,4 @@
+// TODO: deprecate in favor of a global form controller with no directive
 angular.module('flnForm', [])
 .controller('FormCtrl', ['$scope', function($scope) {
   $scope.user = {};

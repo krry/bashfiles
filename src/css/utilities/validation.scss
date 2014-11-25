@@ -1,0 +1,25 @@
+@import "../variables/colors";
+
+label.required:after {
+  content: "*";
+}
+
+input.ng-invalid {
+  background-color: $color-error-bkgd;
+  color: $color-error-text;
+}
+
+input.ng-pristine {}
+input.ng-untouched {}
+input.ng-valid {}
+input.ng-invalid {}
+input.ng-valid-pattern {}
+input.ng-valid-minlength {}
+input.ng-valid-maxlength {}
+
+form.ng-pristine {}
+form.ng-valid {}
+form.ng-invalid {}
+form.ng-valid-pattern {}
+form.ng-valid-minlength {}
+form.ng-valid-maxlength {}

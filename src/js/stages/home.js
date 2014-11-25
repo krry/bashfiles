@@ -5,7 +5,6 @@ angular.module('stages.home',[]).config( function ($stateProvider) {
   // TODO: make these paths central and DRYer for all stages, changing based on stageName
   var templateUrl = "templates/";
   var stageUrl = templateUrl + "/stages/" + stageName + '/';
-
   // state definition
   $stateProvider.state("home", {
     url: "/home",
@@ -27,39 +26,42 @@ angular.module('stages.home',[]).config( function ($stateProvider) {
           },
         },
         templateUrl: stageUrl + "main.html",
-        controllerAs: 'homer',
-        controller:  function home_ctrl ($scope, $firebase, SyncService, firebaseRef, design_ref) {
-          // the design_ref may be set by arriving from a share link, or should be generated new
-          var vm = this;
-          vm.user = $firebase(design_ref).$set('user',{
-            "zip": "",
-            state: "",
-            city: "",
-            address: "",
-            design_id: "",
-            name: {
-              first_name: "",
-              last_name: ""
-            },
-            is_homeowner: null, // boolean
-            phone: "",
-            email: "",
-            dob: {
-              month: "",
-              day: "",
-              year: ""
-            },
-          }).then(function(data){
-            debugger;
-            // TODO: get that promise resolved!!!
-            return $firebase(data).$asObject()});
-          vm.checkZip = checkZip;
-          function checkZip () {
-            debugger;
-          }
-
-
-        },
+        // controllerAs: 'form',
+        // controller:  function form_ctrl ($scope, $firebase, SyncService, firebaseRef, design_ref) {
+        //   // the design_ref may be set by arriving from a share link, or should be generated new
+        //   var vm = this;
+        //   vm.user = $firebase(design_ref).$set('user',{
+        //     zip: "",
+        //     state: "",
+        //     city: "",
+        //     address: "",
+        //     design_id: "",
+        //     name: {
+        //       first_name: "",
+        //       last_name: ""
+        //     },
+        //     is_homeowner: null, // boolean
+        //     phone: "",
+        //     email: "",
+        //     dob: {
+        //       month: "",
+        //       day: "",
+        //       year: ""
+        //     },
+        //   }).then(function(data){
+        //     // TODO: get that promise resolved!!!
+        //     return $firebase(data).$asObject()});
+        //   vm.checkZip = checkZip;
+        //   function checkZip (zip) {
+        //     // debugger;
+        //     console.log("checking zip");
+        //     console.log(zip);
+        //   };
+        //   function parseAddress (address) {
+        //     console.log("parsing address");
+        //     console.log(address);
+        //   }
+        // },
       },
       'overlay@home': {
         templateUrl: stageUrl + "overlay.html",

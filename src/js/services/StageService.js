@@ -59,8 +59,9 @@ function StageService_ ($state) {
       name: 'configure',
       destination: 'qualify',
       steps: [
-        { step: 'zoom-lock-roof', partial: 'roof.html'   },
+        { step: 'zoom-lock-roof', partial: 'zoom.html'   },
         { step: 'trace-area',     partial: 'trace.html'  },
+        { step: 'complete-area',  partial: 'complete.html'   },
         { step: 'edit-area',      partial: 'edit.html'   },
         { step: 'detail-area',    partial: 'detail.html' },
         { step: 'energy-usage',   partial: 'usage.html'  },

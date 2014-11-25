@@ -1,5 +1,18 @@
 <div fln-select></div>
 <div fln-modify></div>
-<button ng-click="stages.areaone()">dev select 1</button>
-<button ng-click="stages.areatwo()">dev select 2</button>
-edit.html
+<div class="siderail right">
+  <div ui-view name="instructions">
+    <h3>Trace one area of your roof.</h3>
+    <p>Draw a simple outline to trace the edge of the sunniest flat area of your roof by clicking on each of the corners until you complete the entire shape.</p>
+    <figure>
+      <img src="" alt="">
+    </figure>
+    <p>Don't worry about missing a spot, you can edit the shape later.</p>
+
+    <button class="ib" ng-click="stages.next()">Next</button>
+
+    <span>areas = {{map.areas}}</span>
+    <button ng-click="stages.areaone()">dev select 1</button>
+    <button ng-click="stages.areatwo()">dev select 2</button>
+  </div>
+</div>

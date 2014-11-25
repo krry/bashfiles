@@ -91,6 +91,7 @@ select[multiple=multiple] {
   padding: .33333em;
   width: 100%;
   font-size: 1.25em;
+  font-weight: 700;
 }
 
 textarea:hover,
@@ -188,10 +189,6 @@ label {
   margin-bottom: 0.25em;
 }
 
-label.required:after {
-  content: "*";
-}
-
 // Address fields
 input[type=tel].zipcode {
   font-size: 2em;
@@ -207,7 +204,7 @@ input[type=tel].zipcode {
 
 input[type=text].street {
   font-size: 2em;
-  width: 360px;
+  width: 14em;
   text-align: left;
   display: inline-block;
   padding: 0.5em 1em;
@@ -228,6 +225,7 @@ input[type=text].zipcode {
 
 .combo-input {
   padding: 1em 2em;
+  text-align: justify;
 }
 
 .combo-input input[type=text],
@@ -240,7 +238,7 @@ input[type=text].zipcode {
 }
 
 .combo-input input[type=text].city {
-  width: 5em;
+  width: 7.5em;
 }
 
 .combo-input input[type=text].state {

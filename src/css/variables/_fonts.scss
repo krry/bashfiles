@@ -121,8 +121,10 @@
 $serif: Georgia, serif;
 $sans-serif: "Apercu Regular", "Helvetica Neue", serif;
 $geometric: "Apercu Bold", "Helvetica Neue", sans-serif;
+$monospace: "Apercu Mono", "Consolas", monospace;
 $helvetica: "Helvetica Neue", sans-serif;
 
 $font-body: $sans-serif;
 $font-headline: $geometric;
 $font-interface: $geometric;
+$font-monospace: $monospace;

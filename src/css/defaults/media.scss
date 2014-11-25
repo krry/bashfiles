@@ -1,3 +1,5 @@
+@import "../variables/colors";
+
 // image, video, multimedia content size limitations
 img, embed, object, video {
   max-width: 100%;
@@ -16,6 +18,8 @@ figure video {
   max-width: 100%;
   width: 100%;
   display: block;
+  min-height: 10em;
+  background: $black;
 }
 
 img {
