@@ -1,3 +1,15 @@
 <div fln-draw></div>
-areas = {{map.areas}}
-trace.html
+<div class="siderail right">
+  <div ui-view name="instructions">
+    <h3>Trace one area of your roof.</h3>
+    <p>Draw a simple outline to trace the edge of the sunniest flat area of your roof by clicking on each of the corners until you complete the entire shape.</p>
+    <figure>
+      <img src="" alt="">
+    </figure>
+    <p>Don't worry about missing a spot, you can edit the shape later.</p>
+
+    <button class="ib" ng-click="stages.next()">Next</button>
+
+    <span>areas = {{map.areas}}</span>
+  </div>
+</div>

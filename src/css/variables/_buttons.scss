@@ -43,11 +43,11 @@
   transition: background-color .1s $easing-quick;
 
   &:hover {
-    background-color: lighten(saturate($color, 10%), 10%);
+    background-color: lighten($color, 10%);
   }
 
   &:active:not(:disabled) {
-    background-color: darken(saturate($color, 10%), 10%);
+    background-color: darken($color, 10%);
   }
 
   &:disabled {

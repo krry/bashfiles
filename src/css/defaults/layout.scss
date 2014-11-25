@@ -28,6 +28,20 @@ main.main {
   background: $color-bkgd-primary;
 }
 
+.siderail {
+  padding: 2em;
+  width: 25%;
+  background: $white;
+}
+
+.siderail.left {
+  float: left;
+}
+
+.siderail.right {
+  float: right;
+}
+
 .overlay.secondary {
   padding: 3em 2em;
   padding-bottom: 0;
@@ -36,7 +50,7 @@ main.main {
 }
 
 .overlay.short {
-  padding: 1em 2em;
+  padding: 2em;
 }
 
 .overlay.secondary.short {

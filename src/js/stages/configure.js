@@ -18,11 +18,7 @@ angular.module('stage.configure',[]).config( function ($stateProvider) {
         templateUrl: stageUrl + "map.html",
         controller:  "MapCtrl as map",
       },
-      'instructions@configure': {
-        templateUrl: stageUrl + "instructions.html",
-        controller:  "",
-      },
-      // below here, still the same target as index, 
+      // below here, still the same target as index,
       'header@': {
         templateUrl: templateUrl + 'header.html',
         controller:  "HeaderCtrl as header",

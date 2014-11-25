@@ -1,4 +1,5 @@
-function UserService_ (SyncService, firebaseRef) {
+function UserService_ ($firebase, SyncService, firebaseRef) {
+// function UserService_ ($firebase, SyncService, firebaseRef, design_ref) {
   /* ================================
     UserService
 
@@ -32,8 +33,6 @@ function UserService_ (SyncService, firebaseRef) {
   function set_zip (zip) {
     user.zip = zip;
   }
-
-
 
   return service;
 }

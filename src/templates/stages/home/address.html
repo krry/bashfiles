@@ -1,18 +1,66 @@
 <section class="overlay primary short">
   <h2>We service 1,287 homes within 10 miles of you.</h2>
   <p>Let’s take a closer look at your house...</p>
+  <form novalidate></form>
   <div class="row">
     <div class="col half center">
-      <input ng-model="user.street" type="text" class="street" placeholder="Street address" ng-blur="form.parseAddress()">
+      <auto-size-input></auto-size-input>
+      <input
+        ng-model="form.user.street"
+        type="text"
+        class="street"
+        placeholder="Your street address"
+        minlength="4"
+        ng-minlength="4"
+        ng-pattern="/^[a-z]\d$/"
+        ng-valid="form.parseAddress(form.user)"
+        ng-keypress="form.resizeInput()"></input>
     </div>
     <div class="col half center">
       <div class="combo-input">
-        <input ng-model="user.city" type="text" class="city" placeholder="Example" ng->,&nbsp;
-        <input ng-model="user.state" type="text" class="state" placeholder="CA" minlength="2" maxlength="2" pattern="[a-z]*">&nbsp;
-        <input ng-model="user.zip" type="tel" class="zipcode" placeholder="ZIP" pattern="[\d]*" minlength="0" maxlength="5">
+        <input
+          ng-model="form.user.city"
+          type="text"
+          class="city"
+          placeholder="Exampletown"
+          name="city"
+          required="true"
+          ng-required="true"
+          ng-pattern="/^[a-z]$/"
+          ng-valid="form.parseAddress(form.user)">
+        </input>
+        <input
+          ng-model="form.user.state"
+          type="text"
+          id="state"
+          placeholder="CA"
+          class="state"
+          name="state"
+          required="true"
+          ng-required="true"
+          maxlength="2"
+          ng-maxlength="2"
+          ng-pattern="/^[a-z]{2}$/"
+          ng-valid="form.parseAddress(form.user)">
+        </input>
+        <input
+          ng-model="form.user.zip"
+          type="tel"
+          id="zip"
+          placeholder="ZIP"
+          class="zipcode"
+          name="zipcode"
+          required="true"
+          ng-required="true"
+          maxlength="5"
+          ng-maxlength="5"
+          ng-pattern="/^\d{5}(?:[-\s]\d{4})?$/"
+          ng-valid="form.parseAddress(form.user)">
+        </input>
       </div>
     </div>
   </div>
+  <button class="ib" ng-click="stages.next()">Next</button>
 </section>
 <aside class="overlay secondary short">
   <p>Our customers in your area save an average of <strong>20%</strong> on their utility bill and reduces an average of <strong>2.5 tons of CO<sub>2</sub></strong> every month.</p>

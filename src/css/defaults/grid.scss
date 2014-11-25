@@ -97,7 +97,7 @@
 }
 
 .col.fifth, .col.fourth {
-  width: 50%;
+  width: 49.9%;
 }
 
 .col.sixth {
@@ -117,7 +117,7 @@
 @media screen and (min-width: 33.5em) {
   /* let .half .third etc. express themselves */
   .col.half, .half {
-    width: 50%;
+    width: 49.9%;
   }
 }
 
