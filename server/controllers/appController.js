@@ -39,6 +39,7 @@ module.exports = function(app) {
   }
 
   return {
-    index: index
+    index: index,
+    jwt: jwt
   };
 };
