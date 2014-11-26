@@ -16,6 +16,18 @@ html, body {
   padding: 0px
 }
 
+/*.dev_map {
+  position: absolute;
+  top: 10%;
+  left: 0;
+  width: 90%;
+  height: 100%;
+}
+
+.dev_overlay {
+  background-color: white;
+}
+*/
 .container {
     margin-bottom: 100px;
     padding: 10px;
@@ -140,7 +152,7 @@ input[type="range"]::-webkit-slider-thumb:after {
 
 #edl-control-box > * {
   background-color: #00a6b7;
-  
+
 }
 
 .bar > .button + .edl-icons.button:last-child {
@@ -235,7 +247,7 @@ form.ng-invalid {
 
 /* EDL angle icon styling */
 
-/* detail menu */ 
+/* detail menu */
 .row.detailmenu {
   position: absolute;
   overflow: auto;

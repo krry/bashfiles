@@ -39,7 +39,7 @@ function StageService_ ($state) {
       name: 'home',
       destination: 'configure',
       steps: [
-        { step: 'zip-nearme',   partial: 'zip.html'},
+        // { step: 'zip-nearme',   partial: 'zip.html'},
         { step: 'address-roof', partial: 'address.html'},
       ],
     },
@@ -47,9 +47,9 @@ function StageService_ ($state) {
       name: 'configure',
       destination: 'qualify',
       steps: [
-        { step: 'zoom-lock-roof', partial: 'zoom.html'   },
+        // { step: 'zoom-lock-roof', partial: 'zoom.html'   },
         { step: 'trace-area',     partial: 'trace.html'  },
-        { step: 'edit-area',      partial: 'edit.html'   },
+        // { step: 'edit-area',      partial: 'edit.html'   },
         { step: 'define-area',    partial: 'define.html' },
       ],
     },
