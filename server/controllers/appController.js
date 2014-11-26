@@ -1,12 +1,12 @@
 var UUID = require('node-uuid');
 var FirebaseTokenGenerator = require("firebase-token-generator");
-var firebaseSecret = app.settings.nconf.get('FIREBASE_SECRET');
-var tokenGenerator = new FirebaseTokenGenerator(firebaseSecret);
 
 module.exports = function(app) {
 
   function generateJwt(uuid) {
-    return tokenGenerator.createToken({uuid: uuid, edit: true});
+    var firebaseSecret = app.settings.nconf.get('FIREBASE_SECRET');
+    var tokenGenerator = new FirebaseTokenGenerator(firebaseSecret);
+    return tokenGenerator.createToken({uid: uuid, edit: true});
   }
 
   function index(req, res) {

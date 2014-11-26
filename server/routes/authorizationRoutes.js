@@ -5,5 +5,5 @@ module.exports = function(app) {
   console.log(authorizationController);
 
   app.get('/encodedURLs', authorizationController.encodedURLs);
-  app.get('/decodeURL', authorizationController.decodeURL)
+  app.get('/decodeURL', authorizationController.decodeURL);
 };

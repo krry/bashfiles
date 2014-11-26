@@ -1,4 +1,5 @@
 {
   "PORT": 8100,
-  "FLANNEL_SECRET": "sekret"
+  "FLANNEL_SECRET": "sekret",
+  "FIREBASE_SECRET": "hSKlMlUuwpcowWFyS3UjmSqlZQTPTmeEz62OXta9"
 }
