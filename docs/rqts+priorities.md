@@ -12,7 +12,6 @@
         * whether we can offer a proposal prior to contact with a sales personnel - what safeguards and fallbacks do we need in place?
     2. Push live video call functionality to later release, in favor of live chat and phone calls about designs through Twilio
 
-
 ### Software priorities
     - focus on broad functionality before deep functionality - a working app means more in the short term
     - observe lots of system designs on the fly - output images of designs

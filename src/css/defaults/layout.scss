@@ -22,9 +22,10 @@ main.main {
 }
 
 .overlay.primary {
-  padding: 3em 2em;
+  padding: 4em 2em;
   text-align: center;
-  width: golden-ratio(100);
+  // width: golden-ratio(100);
+  width: 71%;
   background: $color-bkgd-primary;
 }
 
@@ -45,7 +46,8 @@ main.main {
 .overlay.secondary {
   padding: 3em 2em;
   padding-bottom: 0;
-  width: 100% - golden-ratio(100);
+  // width: 100% - golden-ratio(100);
+  width: 29%;
   background: $grey-lightest;
 }
 

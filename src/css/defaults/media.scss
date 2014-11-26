@@ -13,6 +13,7 @@ figure {
 
 figure img,
 figure object,
+figure iframe,
 figure embed,
 figure video {
   max-width: 100%;
@@ -20,6 +21,11 @@ figure video {
   display: block;
   min-height: 10em;
   background: $black;
+}
+
+.video-tray {
+  padding-bottom: 56.25%;
+  height: 0;
 }
 
 img {

@@ -1,5 +1,6 @@
 var gulp = require('gulp')
 var changed = require('gulp-changed')
+var concat = require('gulp-concat');
 
 var handleErrors = require('../util/handleErrors')
 
@@ -20,6 +21,8 @@ var libSrc = [
   './src/lib/firebase/firebase-debug.js',
   './src/lib/angularfire/dist/angularfire.js',
   './src/lib/angularfire/dist/angularfire.min.js',
+  './src/lib/matthewlein-jQuery-widowFix/js/jquery.widowFix-1.3.2.js',
+  './src/lib/matthewlein-jQuery-widowFix/js/jquery.widowFix-1.3.2.min.js',
 ]
 
 var libPub = './public/lib/'
@@ -29,4 +32,5 @@ gulp.task('libs', ['bower'], function(){
         .pipe(changed(libPub))
         .on('error', handleErrors)
         .pipe(gulp.dest(libPub))
+        .pipe
 })

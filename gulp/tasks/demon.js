@@ -20,8 +20,8 @@ gulp.task('demon', function(cb){
       'src/**/*.js',
     ],
     ignore: [
-      'public/**/*.css',
-      '*.scss'
+      '*.scss',
+      '*.css'
     ],
     verbose: true,
     nodeArgs: ['--debug']

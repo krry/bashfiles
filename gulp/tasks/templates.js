@@ -1,13 +1,15 @@
 var gulp = require('gulp');
-// var changed = require('gulp-changed');
+var changed = require('gulp-changed');
 
-var templates = [
+var tmplSrc = [
   'src/index.html',
   'src/templates/**/*',
-]
+];
+
+var tmplPub = 'public/templates/**/*';
 
 gulp.task('templates', function(){
-
-  return gulp.src(templates, {base: './src/'})
+  return gulp.src(tmplSrc, {base: './src/'})
+    .pipe(changed(tmplPub))
     .pipe(gulp.dest('./public/'));
-})
+});

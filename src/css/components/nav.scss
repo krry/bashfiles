@@ -34,7 +34,7 @@ header .logo {
   float: left;
   text-indent: -9999px;
   background: url('../img/logo-white.svg') no-repeat center center;
-  background-size: 90% auto;
+  background-size: 80% auto;
   width: 240px;
 }
 
@@ -51,14 +51,15 @@ nav li {
 header nav li span {
   border-radius: 100%;
   background: $shade;
-  padding: .5em 1em;
+  text-align: left;
+  padding: .375em .75em;
   margin: 0 .5em 0 1em;
   font-style: italic;
 }
 
 header nav a {
   display: inline-block;
-  padding: 1.5em 2em 1.5em 0;
+  padding: 2em 2em 1.625em 0;
   color: white;
   font-size: .875em;
 }
@@ -70,8 +71,8 @@ header nav a:hover {
 nav a {
   @include apercu-light;
   text-transform: uppercase;
-  letter-spacing: 3px;
-  font-weight: 500;
+  letter-spacing: 2.25;
+  // font-weight: 500;
   border-bottom: 0px solid transparent;
 }
 
@@ -91,8 +92,8 @@ nav.help li {
   float: left;
   text-align: center;
   width: 33%;
-  border-left: 1px solid;
-  padding-bottom: 1em;
+  border-left: 1px solid $grey-light;
+  padding-bottom: .75em;
 }
 
 nav.help li:first-of-type {
@@ -100,13 +101,17 @@ nav.help li:first-of-type {
 }
 
 nav.help a {
+  @include apercu-regular;
+  text-transform: none;
+  letter-spacing: 1;
   color: inherit;
+  font-size: .75em;
   width: 100%;
   display: block;
 }
 
 nav.help span {
   display: block;
-  font-size: 2em;
+  font-size: 2.5em;
   margin-bottom: .125em;
 }

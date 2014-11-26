@@ -11,7 +11,7 @@ function FormCtrl_($scope, UserService, StageService, $firebase, SyncService, fi
     zip: "",
     state: "",
     city: "",
-    address: "",
+    street: "",
     design_id: "",
     name: {
       first_name: "",

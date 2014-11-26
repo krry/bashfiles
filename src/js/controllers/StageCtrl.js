@@ -2,8 +2,8 @@ function StageCtrl_($scope, $state, StageService, InteractionService, LayerServi
   // This controller should be used for anything that needs to control which partials are being used
   var vm = this;
   var config = StageService.config;
-
   $scope.sync  = StageService.syncObj;
+
   // stage & step index numbers
   var stage = $scope.sync().stage;
   var step  = $scope.sync().step;
