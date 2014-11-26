@@ -13,6 +13,7 @@ var express  = require('express');
 var db       = require('./config/db.js'); // for the db config, this is ignored by git
 
 var app = express();
+app.publicRoot = __dirname + '/public'; // useful for serving files.
 app.settings.nconf = nconf
 var port =  app.settings.nconf.get('PORT') || 8100; // set port with $PORT environment variable
 
