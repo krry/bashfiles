@@ -27,7 +27,9 @@ function LayerService_ ($window, StyleService) {
   //     *** It's used to convert positions of clicks to positions on a real map. ***
   //         It should update as the screen is resized
   //        In EDLTR, it was always fullscreen.
+
   var REMOVEMEcenter = new google.maps.LatLng(37.483443610459965, -122.2673599891102);
+
   //hack: dev
 
   var _sources = {
@@ -68,7 +70,11 @@ function LayerService_ ($window, StyleService) {
     if (Array.isArray(layer_array)) {
       layer_array.forEach(function (layer) {
         layer.setVisible(true);
+<<<<<<< HEAD
       });
+=======
+      })
+>>>>>>> directive to provide mouseover interaction on a new map
     } else if (typeof(layer_array) === 'string') {
       // else, show the single layer
       layer.setVisible(true);
@@ -79,7 +85,11 @@ function LayerService_ ($window, StyleService) {
     if (Array.isArray(layer_array)) {
       layer_array.forEach(function (layer) {
         layer.setVisible(false);
+<<<<<<< HEAD
       });
+=======
+      })
+>>>>>>> directive to provide mouseover interaction on a new map
     } else if (typeof(layer_array)=== 'string') {
       // else, hide the single layer
       layer.setVisible(false);
