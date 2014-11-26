@@ -10,7 +10,7 @@ module.exports = function(app) {
   }
 
   function index(req, res) {
-    var uuid, jwt;
+    var uuid;
 
     uuid = req.signedCookies.uuid;
     if (uuid != null) {
@@ -21,10 +21,21 @@ module.exports = function(app) {
       res.cookie('uuid', uuid, { maxAge: 1*365*24*60*60*1000, signed: true });
     }
 
-    jwt = generateJwt(uuid);
+    res.sendFile('index.html', {root: app.publicRoot});
+  }
+
+  function jwt(req, res) {
+    var uuid, jwt;
+
+    uuid = req.signedCookies.uuid;
+    if (uuid != null) {
+      jwt = generateJwt(uuid);
+    } else {
+      jwt = 'you lying so and so';
+    }
     // now we need to pass the jwt to the client
 
-    res.sendFile('index.html', {root: app.publicRoot});
+    res.send(jwt);
   }
 
   return {
