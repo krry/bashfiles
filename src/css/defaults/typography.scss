@@ -4,10 +4,10 @@
 
 //  myth uses the current-future spec syntax to set
 //  variables for colors, fonts, easing functions, etc.
-//  
+//
 //  to consume these variables in another stylesheet,
 //  import this file into it using relative paths:
-//  
+//
 //  @import url("../vars.css")
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -27,14 +27,22 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  line-height: 1.25;
-  max-width: 85%;
+  // line-height: 1.25;
+  color: $color-headline-text;
+  max-width: 90%;
   margin-left: auto;
   margin-right: auto;
 }
 
 h1 {
   font-size: 2em;
+}
+
+h1 small {
+  @include apercu-light;
+  font-size: 75%;
+  // display: block;
+  // font-weight: normal;
 }
 
 h2 {
@@ -107,24 +115,25 @@ code, kbd, pre, samp {
 
 @media screen and (min-width: $width-min-lrg) {
   body {
-    font-size: em($font-size*1.125);
+    font-size: $font-size;
   }
 }
 
 @media screen and (min-width: $width-min-xlg) {
   body {
-    font-size: em($font-size*1.25);
+    font-size: $font-size;
   }
 }
 
 @media screen and (min-width: $width-min-xxl) {
   body {
-    font-size: em($font-size*1.375);
   }
 }
 
 @media screen and (min-width: $width-min-hd) {
   body {
-    font-size: em($font-size*1.5);
+    font-size: em($font-size*1.125);
+    // font-size: em($font-size*1.25);
+    // font-size: em($font-size*1.375);
   }
 }

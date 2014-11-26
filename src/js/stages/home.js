@@ -15,15 +15,15 @@ angular.module('stages.home',[]).config( function ($stateProvider) {
       },
       'main@': {
         resolve: {
-          design_ref: function ($q, SyncService, firebaseRef) {
-            var defer = $q.defer()
-            SyncService.get('design_ref') || firebaseRef('/designs').push()
-            .once( 'value', function (dataSnapshot) {
-              defer.resolve(SyncService.set('design_ref', dataSnapshot));
-              console.log('your design id is new: ', dataSnapshot.key());
-            });
-            return defer.promise;
-          },
+          // design_ref: function ($q, SyncService, firebaseRef) {
+          //   var defer = $q.defer();
+          //   SyncService.get('design_ref') || firebaseRef('/designs').push()
+          //   .once( 'value', function (dataSnapshot) {
+          //     defer.resolve(SyncService.set('design_ref', dataSnapshot));
+          //     console.log('your design id is new: ', dataSnapshot.key());
+          //   });
+          //   return defer.promise;
+          // },
         },
         templateUrl: stageUrl + "main.html",
         // controllerAs: 'form',

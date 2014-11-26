@@ -1,3 +1,12 @@
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+//
+//  FORM
+//
+//  styles for forms, form fields, labels, inputs, and
+//  other user interface controls
+//
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
 @import "../variables/sizes";
 @import "../variables/colors";
 @import "../variables/buttons";
@@ -78,7 +87,7 @@ input[type="month"],
 input[type="time"],
 input[type="week"],
 select[multiple=multiple] {
-  @include apercu-regular;
+  @include apercu-light;
   box-sizing: border-box;
   transition: border-color;
   background-color: transparent;
@@ -86,7 +95,6 @@ select[multiple=multiple] {
   border: none;
   color: inherit;
   border-bottom: 1px solid $grey-lighter;
-  font-size: 1em;
   margin-bottom: .5em;
   padding: .33333em;
   width: 100%;
@@ -148,7 +156,7 @@ label abbr {
 }
 
 input::placeholder {
-  color: $grey-light;
+  color: $grey-mid;
 }
 
 button,
@@ -171,6 +179,10 @@ button.ib {
   display: inline-block;
 }
 
+button.small {
+  font-size: 1em;
+}
+
 fieldset {
   background: $white-off;
   border: 1px solid $grey-lighter;
@@ -191,15 +203,15 @@ label {
 
 // Address fields
 input[type=tel].zipcode {
-  font-size: 2em;
+  font-size: 3em;
   text-transform: uppercase;
   color: $color-input-text;
   text-align: center;
-  max-width: 9em;
-  padding: 0.5em 2em;
+  max-width: 8em;
+  padding: 0.5em 1em;
   border: 2px solid $grey-lightest;
   border-radius: 4px;
-  margin: auto;
+  margin: .75em auto -.25em;
 }
 
 input[type=text].street {
@@ -224,7 +236,7 @@ input[type=text].zipcode {
 }
 
 .combo-input {
-  padding: 1em 2em;
+  padding: .875em 1em;
   text-align: justify;
 }
 
@@ -238,11 +250,11 @@ input[type=text].zipcode {
 }
 
 .combo-input input[type=text].city {
-  width: 7.5em;
+  width: 7em;
 }
 
 .combo-input input[type=text].state {
-  width: 2em;
+  width: 1.5em;
   text-transform: uppercase;
 }
 

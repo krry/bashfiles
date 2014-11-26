@@ -1,6 +1,6 @@
 function StageService_ ($state) {
   /* ================================
-    StageService 
+    StageService
 
     provides a SyncObject with the following methods:
       next() -- move forward in flow
@@ -16,7 +16,7 @@ function StageService_ ($state) {
           * Step B
       etc...
 
-    TODO: 
+    TODO:
       make a private history function that keeps a record of what you've done
       move config_object to $provider
 
@@ -135,7 +135,7 @@ function StageService_ ($state) {
     if (stage > 0 ) {
       _current.step = config_object[curr_stage() - 1].steps.length - 1;
       _current.stage--;
-      return $state.go(destination(stage-1)); 
+      return $state.go(destination(stage-1));
     } else {
       alert('first stage');
       return stage;

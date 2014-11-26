@@ -1,3 +1,15 @@
+.hide,
 .display-none {
   display: none;
+}
+
+.invisible {
+  visibility: hidden;
+  position: absolute;
+  left: -1000px;
+  top: -1000px;
+}
+
+.align-center {
+  text-align: center;
 }

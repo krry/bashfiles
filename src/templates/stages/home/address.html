@@ -1,10 +1,9 @@
-<section class="overlay primary short">
-  <h2>We service 1,287 homes within 10 miles of you.</h2>
-  <p>Let’s take a closer look at your house...</p>
+<section class="overlay primary short" fln-show-google-map>
+  <h4>Wow, <span id="neighbor_count">1,234</span> of your neighbors have gone solar.</h4>
+  <h4>Let's get you started.</h4>
   <form novalidate></form>
   <div class="row">
     <div class="col half center">
-      <auto-size-input></auto-size-input>
       <input
         ng-model="form.user.street"
         type="text"
@@ -12,7 +11,6 @@
         placeholder="Your street address"
         minlength="4"
         ng-minlength="4"
-        ng-pattern="/^[a-z]\d$/"
         ng-valid="form.parseAddress(form.user)"
         ng-keypress="form.resizeInput()"></input>
     </div>
@@ -24,9 +22,7 @@
           class="city"
           placeholder="Exampletown"
           name="city"
-          required="true"
           ng-required="true"
-          ng-pattern="/^[a-z]$/"
           ng-valid="form.parseAddress(form.user)">
         </input>
         <input
@@ -36,11 +32,9 @@
           placeholder="CA"
           class="state"
           name="state"
-          required="true"
           ng-required="true"
           maxlength="2"
           ng-maxlength="2"
-          ng-pattern="/^[a-z]{2}$/"
           ng-valid="form.parseAddress(form.user)">
         </input>
         <input
@@ -50,7 +44,6 @@
           placeholder="ZIP"
           class="zipcode"
           name="zipcode"
-          required="true"
           ng-required="true"
           maxlength="5"
           ng-maxlength="5"
@@ -64,17 +57,5 @@
 </section>
 <aside class="overlay secondary short">
   <p>Our customers in your area save an average of <strong>20%</strong> on their utility bill and reduces an average of <strong>2.5 tons of CO<sub>2</sub></strong> every month.</p>
-  <nav class="help">
-    <ul class="row bottom full">
-      <li class="col third">
-        <a href=""><span class="edl-icons edl-draw"></span>FAQ</a>
-      </li>
-      <li class="col third">
-        <a href=""><span class="edl-icons edl-property"></span>Call</a>
-      </li>
-      <li class="col third">
-        <a href=""><span class="edl-icons edl-home"></span>Chat</a>
-      </li>
-    </ul>
-  </nav>
+  <div fln-help></div>
 </aside>

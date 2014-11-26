@@ -1,0 +1,35 @@
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+//
+//  AUTO SIZE INPUT
+//
+//  enables an input to resize according to its contents
+//
+//  styles for the 'autoSizeInput' directive
+//
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+@import "../variables/fonts";
+
+span.auto-size-input-ghost {
+  @include apercu-regular;
+  box-sizing: border-box;
+  font-size: 1.25em;
+  font-weight: 700;
+}
+
+input[type="email"].auto-size-input,
+input[type="number"].auto-size-input,
+input[type="password"].auto-size-input,
+input[type="search"].auto-size-input,
+input[type="tel"].auto-size-input,
+input[type="text"].auto-size-input,
+input[type="url"].auto-size-input,
+input[type="color"].auto-size-input,
+input[type="date"].auto-size-input,
+input[type="datetime"].auto-size-input,
+input[type="datetime-local"].auto-size-input,
+input[type="month"].auto-size-input,
+input[type="time"].auto-size-input,
+input[type="week"].auto-size-input {
+  width: auto;
+}
