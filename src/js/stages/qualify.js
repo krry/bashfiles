@@ -28,8 +28,9 @@ angular.module('stages.qualify',[]).config( function ($stateProvider) {
           var currentStep = 0;
           var vm = this;
           vm.nextStep = function nextStep(cur){
-            currentStep < steps.length - 1 ?
-              currentStep++ : $state.go(destination);
+            /* jshint -W030 */
+            currentStep < steps.length - 1 ? currentStep++ : $state.go(destination);
+            /* jshint +W030 */
             vm.step=vm.steps[currentStep];
           };
           vm.steps = steps;

@@ -22,7 +22,9 @@ angular.module('flannel.firebase', [])
    */
   return function syncData(path, limit) {
     var ref = firebaseRef(path);
+    /* jshint -W030 */
     limit && (ref = ref.limit(limit));
+    /* jshint +W030 */
     return $firebase(ref);
   };
 }])
