@@ -23,17 +23,13 @@ module.exports = function(app) {
     return JSON.parse(decrypted);
   }
 
+  // This is really a test funciton.  The real functionality would be to send email with these URLs.
   function encodedURLs(req, res) {
     var uuid         = req.signedCookies.uuid;
     var email        = req.query.email;
     var readOnlyPath = '/read_only?key=' + encodeHash({uuid: uuid, email: email});
     var editPath = '/editable?key=' + encodeHash({uuid: uuid, email: email, edit: true});
     res.send({readOnly: readOnlyPath, edit: editPath});
-  }
-
-  function decodeURL(req, res) {
-    var response = decodeHash(req.query.key);
-    return response;
   }
 
   function readOnly(req, res) {
@@ -56,7 +52,6 @@ module.exports = function(app) {
 
   return {
     encodedURLs: encodedURLs,
-    // decodeURL: decodeURL,
     read_only: readOnly,
     editable: editable,
   }

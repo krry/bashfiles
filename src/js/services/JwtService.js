@@ -1,6 +1,5 @@
 /* ==================================================
   JwtService
-  this service contains event callbacks.
 
 ================================================== */
 function JwtService_ ($http, $firebase, FBURL) {
@@ -9,12 +8,11 @@ function JwtService_ ($http, $firebase, FBURL) {
     jwt: jwt,
   };
 
+  // Get /jwt.  Use the resulting data (a jwt) and pass it to FireBase for authentication
   function jwt() {
     var ref = $firebase;
 
-    $http.get('/jwt').success(function (data, a, b, c) {
-      debugger;
-
+    $http.get('/jwt').success(function (data) {
       var ref = new Firebase(FBURL);
       ref.authWithCustomToken(data, function(error, authData) {
         if (error) {
