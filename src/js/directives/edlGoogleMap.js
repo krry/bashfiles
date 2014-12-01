@@ -73,6 +73,13 @@ function edlGoogleMap($timeout, $document, $window, MapService) {
         pacItems.addEventListener('mousedown', touch_or_click_callback);
       }
 
+      function callback(results, status) {
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+          console.log('triggered');
+          google.maps.event.trigger(searchbox, 'place_changed', results[0]);
+        }
+      }
+      
       function touch_or_click_callback(e){
         var service = new google.maps.places.PlacesService(MapService.getGmap());
         var request = {
@@ -80,17 +87,9 @@ function edlGoogleMap($timeout, $document, $window, MapService) {
             query: e.currentTarget.children[1].innerText + ' ' + e.currentTarget.children[2].innerText,
             radius: 500,
           };
+
+        service.textSearch(request, callback);
       }
-
-      function callback(results, status) {
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-          console.log('triggered');
-          google.maps.event.trigger(searchbox, 'place_changed', results[0]);
-        }
-
-      }
-
-      service.textSearch(request, callback);
     }
   };
 }

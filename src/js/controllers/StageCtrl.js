@@ -50,7 +50,7 @@ function StageCtrl_($scope, $state, StageService, InteractionService, LayerServi
     if (newVal !== oldVal){
       partials($scope.sync());
     }
-  })
+  });
 
   /// dev code ///
   vm.areaone = function () {

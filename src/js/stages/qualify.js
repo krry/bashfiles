@@ -1,4 +1,4 @@
-angular.module('stages.qualify',[]).config( function ($stateProvider) {
+angular.module('stage.qualify',[]).config( function ($stateProvider) {
 
   // paths for this state
   var stageName = 'qualify';
@@ -16,6 +16,10 @@ angular.module('stages.qualify',[]).config( function ($stateProvider) {
     url: "",
     abstract: true,
     views: {
+      'dev@': {
+        templateUrl: templateUrl + 'dev.html',
+        controller:  'DevCtrl as dev',
+      },
       'header@': {
         templateUrl: templateUrl + "header.html",
         controller:  "HeaderCtrl as header",

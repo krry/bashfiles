@@ -10,6 +10,10 @@ angular.module('stage.signup', []).config( function ($stateProvider){
   $stateProvider.state('signup', {
     url: "/signup",
     views: {
+      'dev@': {
+        templateUrl: templateUrl + 'dev.html',
+        controller:  'DevCtrl as dev',
+      },
       'header@': {
         templateUrl: templateUrl + 'header.html',
         controller: 'HeaderCtrl as header',

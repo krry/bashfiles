@@ -28,6 +28,14 @@ function FormCtrl_($scope, UserService, StageService, $firebase, SyncService, fi
   }
   vm.checkZip = checkZip;
   vm.parseAddress = parseAddress;
+  vm.toggleUserObject = toggleUserObject;
+  vm.userShown = false;
+  vm.userShownTriggerText = "show";
+
+  function toggleUserObject() {
+    vm.userShown = !vm.userShown;
+    vm.userShownTriggerText = (vm.userShown) ? "hide" : "show"
+  }
 
   function checkZip (zip) {
     console.log("checking ZIP");

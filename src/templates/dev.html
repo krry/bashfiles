@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col half">
+    <h4>active template: {{stages.partial}}</h4>
+    <label for="stageSelector">Jump to a stage</label>
+    <select id="stageSelector" ng-model="stages.partial" ng-options="s for s in stages.partials" >
+    </select>
+    <button class="ib small" ng-click="stages.prev()">Back</button>
+    <button class="ib small" ng-click="stages.next()">Next</button>
+  </div>
+  <div class="col half">
+    <h4>active user info: <small><a ng-click="dev.toggleUserObject()">{{dev.userShownTriggerText}}</a></small></h4>
+    <!-- TODO: log out user object to footer for dev purposes -->
+    <pre ng-show="dev.userShown">formInfo = {{ form.user | json }}</pre>
+    <!-- <ul>
+      <li><label for="userName">user.name</label><span>{{user.name}}</span></li>
+      <li><label for="userZip">user.zip</label><span>{{user.zip}}</span></li>
+      <li><label for="userAddress">user.address</label><span>{{user.address}}</span></li>
+      <li><label for="userCity">user.city</label><span>{{user.city}}</span></li>
+      <li><label for="userState">user.state</label><span>{{user.state}}</span></li>
+      <li><label for="userEmail">user.email</label><span>{{user.email}}</span></li>
+      <li><label for="userPhone">user.phone</label><span>{{user.phone}}</span></li>
+      <li><label for="userUsage">user.usage</label><span>{{user.usage}}</span></li>
+      <li><label for="userDesign">user.design</label><span>{{user.design}}</span></li>
+      <li><label for="userAppt">user.appt</label><span>{{user.appt}}</span></li>
+    </ul> -->
+  </div>
+</div>
