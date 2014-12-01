@@ -10,7 +10,7 @@ function StageCtrl_($scope, $state, StageService, InteractionService, LayerServi
 
   // init
   vm.partials = partials($scope.sync());
-  vm.partial = vm.partials[0]
+  vm.partial = vm.partials[0];
 
   function syncWithService() {
     stage = $scope.sync().stage;
@@ -26,6 +26,7 @@ function StageCtrl_($scope, $state, StageService, InteractionService, LayerServi
   vm.prev = function(){
     $scope.sync().prev();
     syncWithService();
+  }
 
   function partials(obj){
     if (obj.stage === null) return;

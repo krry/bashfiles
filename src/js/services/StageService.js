@@ -139,7 +139,7 @@ function StageService_ ($state) {
     } else {
       alert('first stage');
       return stage;
-    };
+    }
   }
 
   StageService.syncObj = function() {

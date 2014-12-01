@@ -30,7 +30,7 @@ function autoSizeInput() {
       // set the font-size of the span to match the input's font-size
       elSpan.css('font-size', fontSize);
       // initialize the span to contain the contents of the input
-      debugger;
+      // debugger;
       console.log(attrs);
       elSpan.html(elInput.val());
       elInput.css('width', fontSize);

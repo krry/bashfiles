@@ -41,7 +41,7 @@ function FormCtrl_($scope, UserService, StageService, $firebase, SyncService, fi
           // if not, show out of territory state
           // if so, advance to address step
             // return mapService.initNearMe()
-  };
+  }
 
   function parseAddress () {
     console.log('parsing address');
@@ -50,5 +50,5 @@ function FormCtrl_($scope, UserService, StageService, $firebase, SyncService, fi
     // center map on latlng of address
     // check if street address present in sanitized address
       // if so, drop map marker on this location
-  };
-};
+  }
+}
