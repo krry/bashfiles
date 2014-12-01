@@ -26,8 +26,8 @@ function LayerService_ ($window, StyleService) {
   // TODO:  Extent relates to the size of the map on the user's screen.
   //     *** It's used to convert positions of clicks to positions on a real map. ***
   //         It should update as the screen is resized
-  //        In EDLTR, it was always fullscreen. 
-  var REMOVEMEcenter = new google.maps.LatLng(37.483443610459965, -122.2673599891102)
+  //        In EDLTR, it was always fullscreen.
+  var REMOVEMEcenter = new google.maps.LatLng(37.483443610459965, -122.2673599891102);
   //hack: dev
 
   var _sources = {
@@ -45,7 +45,7 @@ function LayerService_ ($window, StyleService) {
 
   var layers = {
     area: new ol.layer.Vector({
-      source: _sources.area, 
+      source: _sources.area,
       projection: pixelProjection,
       style:  StyleService.defaultStyleFunction,
       name: 'area_layer',
@@ -61,14 +61,14 @@ function LayerService_ ($window, StyleService) {
       // opacity: 0.6,
       name: 'panel_layer',
     }),
-  }
+  };
 
   function show (layer_array) {
     // if array, loop on layer_array
     if (Array.isArray(layer_array)) {
       layer_array.forEach(function (layer) {
         layer.setVisible(true);
-      })    
+      });
     } else if (typeof(layer_array) === 'string') {
       // else, show the single layer
       layer.setVisible(true);
@@ -79,7 +79,7 @@ function LayerService_ ($window, StyleService) {
     if (Array.isArray(layer_array)) {
       layer_array.forEach(function (layer) {
         layer.setVisible(false);
-      })    
+      });
     } else if (typeof(layer_array)=== 'string') {
       // else, hide the single layer
       layer.setVisible(false);

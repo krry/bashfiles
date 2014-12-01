@@ -85,7 +85,7 @@ function StageService_ ($state) {
   }
 
   function destination(stage_id) {
-    return config_object[stage_id].destination
+    return config_object[stage_id].destination;
   }
 
   function stageUp() {
@@ -105,11 +105,11 @@ function StageService_ ($state) {
   function stageDown() {
     // TODO: history()
     // NOTE: this doesn't work
-    alert('stageDown doesn\'t work yet')
+    alert('stageDown doesn\'t work yet');
     var stage = curr_stage();
     if (stage > 0 ) {
       _current.step = config_object[curr_stage() - 1].steps.length - 1;
-      _current.stage--
+      _current.stage--;
       return $state.go(destination(stage-1));
     } else {
       alert('first stage');
@@ -123,11 +123,10 @@ function StageService_ ($state) {
         step:  _current.step,
         next: next,
         prev: prev,
-      }
+      };
   };
 
   return StageService;
 }
 
 angular.module('flannel').factory('StageService', StageService_);
-

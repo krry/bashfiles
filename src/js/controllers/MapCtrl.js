@@ -21,15 +21,15 @@ function MapCtrl_($scope, $firebase, MapService, LayerService, InteractionServic
   ********************************************/
 
   // listen to firebase for added areas
-  design_areas_ref.on('child_added', firebaseListener)
+  design_areas_ref.on('child_added', firebaseListener);
   // listen to map for added areas
   var area_source = LayerService.get('area').getSource();
   // area_source.on('addfeature', sourceListener)
 
   // listen to draw event
-  var draw_interaction = InteractionService.get('draw')
-  draw_interaction.on('drawstart', drawStartListen )
-  draw_interaction.on('drawend',   drawEndListen )
+  var draw_interaction = InteractionService.get('draw');
+  draw_interaction.on('drawstart', drawStartListen );
+  draw_interaction.on('drawend',   drawEndListen );
 
   function drawStartListen (event) {
     var feature = event.feature;
@@ -59,20 +59,20 @@ function MapCtrl_($scope, $firebase, MapService, LayerService, InteractionServic
     var feature = event.feature;
     console.log('we finished drawing');
     // get ref for feature
-    var wkt_ref_id = feature.get('wkt_ref_id')
-    var wkt_ref = SyncService.getSyncRef('areas', wkt_ref_id)
-    addToFirebaseAfterDraw(feature)
+    var wkt_ref_id = feature.get('wkt_ref_id');
+    var wkt_ref = SyncService.getSyncRef('areas', wkt_ref_id);
+    addToFirebaseAfterDraw(feature);
     // listen for changes later
-    feature.on('change', updateWhileModify )
+    feature.on('change', updateWhileModify );
   }
 
   // handle areas added to firebase
   function firebaseListener (child_ref) {
     console.log('firebaseListener heard a feature get added');
-    var wkt_ref_id = child_ref.key()
+    var wkt_ref_id = child_ref.key();
     var wkt_ref = SyncService.getSyncRef('areas', wkt_ref_id);
     if ( child_ref.val() === 'start_only') {
-      console.log('but we will not add because only start')
+      console.log('but we will not add because only start');
       wkt_ref.ref().on('value', changeAreaFromFirebase);
     } else if (!wkt_ref) {
       console.log('it is new, so we sent it to the map');
@@ -92,8 +92,8 @@ function MapCtrl_($scope, $firebase, MapService, LayerService, InteractionServic
   function addAreaFromFirebase (ref) {
     var new_geom;
     var new_feat;
-    console.log('now adding area from firebase')
-    var new_wkt = ref.val()
+    console.log('now adding area from firebase');
+    var new_wkt = ref.val();
     console.log('new_wkt', new_wkt);
     if (new_wkt !== 'start_only') {
       new_geom = wkt.readGeometry(new_wkt);
@@ -108,21 +108,21 @@ function MapCtrl_($scope, $firebase, MapService, LayerService, InteractionServic
       LayerService.get('area').getSource().addFeature(new_feat);
       // listen for changes on the ref
       ref.ref().on('value', changeAreaFromFirebase);
-      new_feat.on('change', updateWhileModify )
+      new_feat.on('change', updateWhileModify );
       SyncService.addSyncRef('areas', ref.ref());
     } else {
-      console.log('we are still drawing')
+      console.log('we are still drawing');
     }
   }
 
   function changeAreaFromFirebase (wkt_ref) {
     var new_wkt    = wkt_ref.val();
-    var wkt_ref_id = wkt_ref.key()
+    var wkt_ref_id = wkt_ref.key();
     var area       = findFeatureByWktId(wkt_ref_id);
     var curr_wkt   = wkt.writeGeometry(area.getGeometry());
     // meaningful change?
     if (new_wkt === 'start_only') {
-      console.log("we're still drawing")
+      console.log("we're still drawing");
     } else if (curr_wkt === new_wkt) {
       console.log('this area has not changed');
     } else {
@@ -134,7 +134,7 @@ function MapCtrl_($scope, $firebase, MapService, LayerService, InteractionServic
   }
 
   function findFeatureByWktId (wkt_ref_id) {
-    var areas = area_source.getFeatures()
+    var areas = area_source.getFeatures();
     var result;
     for (var i = 0; i < areas.length; i++) {
       if (areas[i].get('wkt_ref_id') === wkt_ref_id) {
@@ -156,13 +156,13 @@ function MapCtrl_($scope, $firebase, MapService, LayerService, InteractionServic
     // send the new wkt_txt to firebase
     var wkt_ref = SyncService.getSyncRef('areas', area.get('wkt_ref_id'));
     wkt_ref.set(wkt_txt);
-    wkt_ref.on('value', changeAreaFromFirebase )
+    wkt_ref.on('value', changeAreaFromFirebase );
   }
 
   function addFeatureIfNecessary (area, wkt_ref) {
     // get current wkt_txt
     var wkt_txt = wkt.writeGeometry(area.getGeometry());
-    var new_wkt = wkt_ref.val()
+    var new_wkt = wkt_ref.val();
     var new_geom;
     if (new_wkt !== wkt_txt ) {
       // changed feature, update it

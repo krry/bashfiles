@@ -9,7 +9,7 @@ angular.module('flannel.firebase', [])
    */
   return function(path) {
     return new Firebase(pathRef([FBURL].concat(Array.prototype.slice.call(arguments))));
-  }
+  };
 }])
 // a simple utility to create $firebase objects from angularFire
 .service('syncData', ['$firebase', 'firebaseRef', function ($firebase, firebaseRef) {
@@ -24,7 +24,7 @@ angular.module('flannel.firebase', [])
     var ref = firebaseRef(path);
     limit && (ref = ref.limit(limit));
     return $firebase(ref);
-  }
+  };
 }])
 .service('updateArea', ['$firebase', 'firebaseRef', function ($firebase) {
   /**
@@ -36,7 +36,7 @@ angular.module('flannel.firebase', [])
   return function updateArea (ref, newVal) {
     var val = ref.update(newval);
     return val;
-  }
+  };
 }]).service('addWkt', ['$firebase', 'firebaseRef', function ($firebase) {
   /**
    * @function
@@ -47,7 +47,7 @@ angular.module('flannel.firebase', [])
   return function addWkt (design_areas_ref, wkt_txt) {
     var wkt_ref = design_areas_ref.push(wkt_txt);
     return wkt_ref;
-  }
+  };
 }]);
 
 function pathRef(args) {
