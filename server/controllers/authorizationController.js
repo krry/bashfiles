@@ -23,19 +23,41 @@ module.exports = function(app) {
     return JSON.parse(decrypted);
   }
 
-  return {
-    encodedURLs: function(req, res) {
-      var documentId =   req.query.documentId;
-      var email =        req.query.email;
-      var readOnlyPath = '/read_only?key=' + encodeHash({documentId: documentId, email: email});
-      var readWritePath = '/editable?key=' + encodeHash({documentId: documentId, email: email, readWrite: true});
-      res.send({readOnly: readOnlyPath, readWrite: readWritePath});
-      // res.sendfile('index.html', {root: __dirname + '/../../www/'});
-    },
+  function encodedURLs(req, res) {
+    var uuid         = req.signedCookies.uuid;
+    var email        = req.query.email;
+    var readOnlyPath = '/read_only?key=' + encodeHash({uuid: uuid, email: email});
+    var editPath = '/editable?key=' + encodeHash({uuid: uuid, email: email, edit: true});
+    res.send({readOnly: readOnlyPath, edit: editPath});
+  }
 
-    decodeURL: function(req, res) {
-      var response = decodeHash(req.query.key);
-      res.send(response);
-    },
+  function decodeURL(req, res) {
+    var response = decodeHash(req.query.key);
+    return response;
+  }
+
+  function readOnly(req, res) {
+    var uuid, edit;
+    if (req.query.key != null) {
+      var hash, uuid, edit;
+      hash = decodeHash(req.query.key);
+      // console.log(hash);
+      uuid = hash.uuid;
+      edit = hash.edit || 0;
+      res.cookie('uuid', uuid, { maxAge: 1*365*24*60*60*1000, signed: true });
+      res.cookie('edit', edit, { maxAge: 1*365*24*60*60*1000, signed: true });
+    }
+    res.redirect(302, '/')
+  }
+
+  function editable(req, res) {
+    return readOnly(req, res); // It's all in the key
+  }
+
+  return {
+    encodedURLs: encodedURLs,
+    // decodeURL: decodeURL,
+    read_only: readOnly,
+    editable: editable,
   }
 };
