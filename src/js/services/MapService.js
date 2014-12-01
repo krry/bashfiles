@@ -1,12 +1,12 @@
 /* ==================================================
-  this factory is a singleton for the Application. 
-  
-  it provides maps, layers, collections, etc... 
+  this factory is a singleton for the Application.
+
+  it provides maps, layers, collections, etc...
 
   find Google Map objects on MapService.g....
   find OpenLayer Map objects on MapService.o....
 
-  
+
   OL Map options are set in these objects
     _ol_control_defaults
     _ol_map_interaction_defaults
@@ -38,15 +38,15 @@ function MapService_ ($q, LayerService) {
   function setOmap (options) {  //TODO: move to OlService
     MapService.o.omap = new ol.Map(options);
     return MapService.o.omap;
-  };
+  }
 
   MapService.initOmap = function(target_element) {
-    var olView = new ol.View({ 
+    var olView = new ol.View({
       projection: LayerService.pixelProjection,
       center: ol.extent.getCenter(LayerService.pixelProjection.getExtent()),
       zoom: 1,
     });
-    
+
     var _ol_layers = [
       LayerService.get('static_map'),
       LayerService.get('area'),
@@ -62,7 +62,7 @@ function MapService_ ($q, LayerService) {
     };
 
     return setOmap(olMapOptions);
-  }
+  };
 
   MapService.addOverlay = function(layer) {    //TODO: move to OlService
     return MapService.o.omap.addOverlay(layer);

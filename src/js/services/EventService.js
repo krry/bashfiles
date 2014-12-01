@@ -20,7 +20,7 @@ function EventService_ ($firebase, SyncService) {
     // make them changes
     ref.set(newval);
     // save changes to the obj
-    return ref
+    return ref;
   }
 
   return service;

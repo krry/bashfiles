@@ -10,7 +10,7 @@ function edlGoogleMap($timeout, $document, $window, MapService) {
     },
     link: function edlGoogleMapLink(scope, ele, attrs) {
       var mapOptions = MapService.g.mapOptions;
-      // $timeout(timer_init, 1); //HACK: biggest hack evar. 
+      // $timeout(timer_init, 1); //HACK: biggest hack evar.
       // function timer_init() {
         var map =  MapService.setGmap(ele[0], mapOptions);
 
@@ -20,7 +20,7 @@ function edlGoogleMap($timeout, $document, $window, MapService) {
         var searchbox = MapService.setSearchBox(input);
         searchbox.bindTo('bounds', map);
 
-        // listen for the 'place_changed' trigger which is fired 
+        // listen for the 'place_changed' trigger which is fired
         google.maps.event.addListener(searchbox, 'place_changed', function(place){
           // get the place you clicked on
           if (!place.geometry) {
@@ -47,7 +47,7 @@ function edlGoogleMap($timeout, $document, $window, MapService) {
         map.setCenter(center);
         map.setZoom(20);
 
-        // always save the mapcenter when it's changed. 
+        // always save the mapcenter when it's changed.
         var saveCenter = function saveCenter () {
           var center = map.getCenter();
           if (center) {
@@ -57,7 +57,7 @@ function edlGoogleMap($timeout, $document, $window, MapService) {
         google.maps.event.addListener(map, 'center_changed', saveCenter);
 
         // use the contents of the Autocomplete to ask Maps for the specific map location
-        var pacItems = document.querySelectorAll('.pac-item')
+        var pacItems = document.querySelectorAll('.pac-item');
 
         if ('addEventListener' in window && pacItems.length > 0) {
           pacItems.addEventListener('touchend', touch_or_click_callback);
@@ -67,19 +67,19 @@ function edlGoogleMap($timeout, $document, $window, MapService) {
         function touch_or_click_callback(e){
           var service = new google.maps.places.PlacesService(MapService.getGmap());
           var request = {
-              location: MapService.getGmap().getCenter(), 
+              location: MapService.getGmap().getCenter(),
               query: e.currentTarget.children[1].innerText + ' ' + e.currentTarget.children[2].innerText,
               radius: 500,
             };
 
           function callback(results, status) {
             if (status == google.maps.places.PlacesServiceStatus.OK) {
-              console.log('triggered')
+              console.log('triggered');
               google.maps.event.trigger(searchbox, 'place_changed', results[0]);
             }
 
           }
-          
+
           service.textSearch(request, callback);
         }
       // } /* end init */

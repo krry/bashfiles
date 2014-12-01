@@ -11,13 +11,13 @@ function StageCtrl_($scope, $state, StageService, InteractionService, LayerServi
   // init
   JwtService.jwt();
   vm.partials = partials($scope.sync());
-  vm.partial = vm.partials[0]
+  vm.partial = vm.partials[0];
 
   function syncWithService() {
     stage = $scope.sync().stage;
     step  = $scope.sync().step;
     vm.partials = partials($scope.sync());
-    vm.partial = vm.partials[step]
+    vm.partial = vm.partials[step];
   }
 
   vm.next = function(){
@@ -40,7 +40,7 @@ function StageCtrl_($scope, $state, StageService, InteractionService, LayerServi
       return template + name + '/' + part;
     }
     for (var i = 0; i < config[stage].steps.length; i++) {
-      parts.push(hardcode(config[stage].steps[i].partial))
+      parts.push(hardcode(config[stage].steps[i].partial));
     }
     return parts;
   }
@@ -51,7 +51,7 @@ function StageCtrl_($scope, $state, StageService, InteractionService, LayerServi
     if (newVal !== oldVal){
       partials($scope.sync());
     }
-  })
+  });
 
   /// dev code ///
   vm.areaone = function () {
@@ -59,13 +59,13 @@ function StageCtrl_($scope, $state, StageService, InteractionService, LayerServi
     var layers = LayerService;
     var feature = layers.get('area').getSource().getFeatures()[0];
     interactions.get('select').getFeatures().push(feature);
-  }
+  };
   vm.areatwo = function () {
     var interactions = InteractionService;
     var layers = LayerService;
     var feature = layers.get('area').getSource().getFeatures()[1];
     interactions.get('select').getFeatures().push(feature);
-  }
+  };
   /// end dev code ///
 }
 

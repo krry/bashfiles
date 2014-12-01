@@ -46,7 +46,7 @@ function SyncService_ ($scope, $firebase, syncData, firebaseRef) {
   }
 
   function getSyncRef (obj_type, ref_id) {
-    return _sync[obj_type][ref_id]
+    return _sync[obj_type][ref_id];
   }
 
   function addSyncRef (obj_type, ref) {

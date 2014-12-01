@@ -69,7 +69,7 @@ function edlOlMap($stateParams, $rootScope, $state, $window, $timeout, ApiServic
         });
       };
       ol.inherits(DrawControlButton , ol.control.Control);
-      
+
       var olMapDiv = ele[0];
       Ol.mapDiv = olMapDiv;
 
@@ -85,9 +85,9 @@ function edlOlMap($stateParams, $rootScope, $state, $window, $timeout, ApiServic
         units: 'pixels',
         extent: Ol.extent
       });
-      
+
       Ol.pixelProjection = pixelProjection;
-      var view =  MapService.setOview( 
+      var view =  MapService.setOview(
         new ol.View({
           projection: pixelProjection,
           center: ol.extent.getCenter(pixelProjection.getExtent()),
@@ -95,11 +95,11 @@ function edlOlMap($stateParams, $rootScope, $state, $window, $timeout, ApiServic
         })
       );
       // the picture we'll display our drawn features on
-      var mapCapture = LayerService.get('static_map')
+      var mapCapture = LayerService.get('static_map');
 
       // layer for mounts
       var mounts = Ol.mounts;
-      var mountLayer = LayerService.get('area')
+      var mountLayer = LayerService.get('area');
 
       // layer for gutters
       var gutters = Ol.gutters;
@@ -113,7 +113,7 @@ function edlOlMap($stateParams, $rootScope, $state, $window, $timeout, ApiServic
       // layer for obstructions
       var obstructions = Ol.obstructions;
       var obstructionLayer = new ol.layer.Vector({
-        source: obstructions, 
+        source: obstructions,
         projection: pixelProjection,
         style:  StyleService.defaultStyleFunction,
       });
@@ -121,9 +121,9 @@ function edlOlMap($stateParams, $rootScope, $state, $window, $timeout, ApiServic
 
       // layer for panels
       var panels = Ol.panels;
-      var panelLayer = LayerService.get('panel')
+      var panelLayer = LayerService.get('panel');
 
-      /* pay attention to when there are panels present so the preview button can be styled: 
+      /* pay attention to when there are panels present so the preview button can be styled:
           this gives us scope.previewPanels -> plan.previewPanels
           there's an ng-class on the previewbutton looking for plan.previewPanels
       */
@@ -148,14 +148,14 @@ function edlOlMap($stateParams, $rootScope, $state, $window, $timeout, ApiServic
         geometryName: 'obstruction',
         style: StyleService.defaultStyleFunction,
       });
-              
-      var selectInteraction = InteractionService.get('select')
+
+      var selectInteraction = InteractionService.get('select');
       Ol.selectInteraction = selectInteraction;
 
-      var modifyInteraction = InteractionService.get('modify')
+      var modifyInteraction = InteractionService.get('modify');
       Ol.modifyInteraction = modifyInteraction;
 
-      /* Map Options */ 
+      /* Map Options */
       var mapOptions = {
           layers: [mapCapture, mountLayer, obstructionLayer, panelLayer, gutterLayer],
           controls: ol.control.defaults({
@@ -172,7 +172,7 @@ function edlOlMap($stateParams, $rootScope, $state, $window, $timeout, ApiServic
         target: olMapDiv,
         view: view
       };
-    
+
       var map = MapService.setOmap(mapOptions);
       map.on('dblclick', function(evt) {
         // if you're currently drawing, ignore the click
@@ -212,7 +212,7 @@ function edlOlMap($stateParams, $rootScope, $state, $window, $timeout, ApiServic
         }
       });
 
-      
+
       /* left controls callbacks */
       function addAndRemoveInteractions(arrayToAdd, arrayToRemove){
         selectInteraction.getFeatures().clear();
@@ -286,7 +286,7 @@ function edlOlMap($stateParams, $rootScope, $state, $window, $timeout, ApiServic
           }
           handleSelectButton();
       };
-      
+
       var handleToggleButton = function handleToggleButton (e) {
         if (e) {
           e.preventDefault();
@@ -372,8 +372,8 @@ function edlOlMap($stateParams, $rootScope, $state, $window, $timeout, ApiServic
         var featureId = obstructions.getFeatures().length;
 
         feature.setId(featureId);
-        
-        // set default radius if we don't have one already          
+
+        // set default radius if we don't have one already
         scope.radius = scope.radius || PanelFillService.obstructionDefaultRadius();
 
         feature.set('radius', scope.radius);

@@ -43,7 +43,9 @@
     "karma-jasmine": "^0.2.3",
     "karma-junit-reporter": "^0.2.2",
     "karma-chrome-launcher": "^0.1.5",
-    "karma-phantomjs-launcher": ""
+    "karma-phantomjs-launcher": "",
+    "jshint": "^2.5.10",
+    "karma-jshint": "^0.1.0"
   },
   "scripts": {
     "start": "node server/server.js",
