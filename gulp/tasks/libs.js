@@ -24,7 +24,7 @@ var libSrc = [
 
 var libPub = './public/lib/'
 
-gulp.task('libs', function(){
+gulp.task('libs', ['bower'], function(){
   return gulp.src(libSrc)
         .pipe(changed(libPub))
         .on('error', handleErrors)
