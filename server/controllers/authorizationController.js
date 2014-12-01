@@ -33,8 +33,7 @@ module.exports = function(app) {
   }
 
   function readOnly(req, res) {
-    var uuid, edit;
-    if (req.query.key != null) {
+    if (req.query.key !== null) {
       var hash, uuid, edit;
       hash = decodeHash(req.query.key);
       // console.log(hash);
@@ -43,7 +42,7 @@ module.exports = function(app) {
       res.cookie('uuid', uuid, { maxAge: 1*365*24*60*60*1000, signed: true });
       res.cookie('edit', edit, { maxAge: 1*365*24*60*60*1000, signed: true });
     }
-    res.redirect(302, '/')
+    res.redirect(302, '/');
   }
 
   function editable(req, res) {
@@ -54,5 +53,5 @@ module.exports = function(app) {
     encodedURLs: encodedURLs,
     read_only: readOnly,
     editable: editable,
-  }
+  };
 };

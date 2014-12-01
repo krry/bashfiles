@@ -4,7 +4,7 @@ var FirebaseTokenGenerator = require("firebase-token-generator");
 module.exports = function(app) {
 
   function generateJwt(uuid, edit) {
-    if (edit == null) {
+    if (edit === null) {
       edit = false;
     }
     var firebaseSecret = app.settings.nconf.get('FIREBASE_SECRET');
@@ -16,9 +16,9 @@ module.exports = function(app) {
     var uuid;
 
     uuid = req.signedCookies.uuid;
-    if (uuid != null) {
+    if (uuid !== null) {
       // Look up the document by uuid and return that one
-      1/0;
+      var i = 1/0;
     } else {
       uuid = UUID.v1();
       res.cookie('uuid', uuid, { maxAge: 1*365*24*60*60*1000, signed: true });
@@ -31,17 +31,17 @@ module.exports = function(app) {
   // Return the jwt (auth token) for this session
   // Uses the signed cookie uuid
   function jwt(req, res) {
-    var uuid, edit, jwt;
+    var uuid, edit, _jwt;
 
     uuid = req.signedCookies.uuid;
     edit = req.signedCookies.edit;
-    if (uuid != null) {
-      jwt = generateJwt(uuid, edit);
+    if (uuid !== null) {
+      _jwt = generateJwt(uuid, edit);
     } else {
-      jwt = 'you lying so and so';
+      _jwt = 'you lying so and so';
     }
-    // now we need to pass the jwt to the client
-    res.send(jwt);
+    // now we need to pass the _jwt to the client
+    res.send(_jwt);
   }
 
   return {

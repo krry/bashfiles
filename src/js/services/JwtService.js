@@ -23,7 +23,7 @@ function JwtService_ ($http, $firebase, FBURL) {
       });
 
     }).error(function (a,b,c,d) {
-      console.log("There was an error getting the jwt.")
+      console.log("There was an error getting the jwt.");
     });
   }
 
