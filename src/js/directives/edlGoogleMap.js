@@ -74,7 +74,7 @@ function edlGoogleMap($timeout, $document, $window, MapService) {
       }
 
       function callback(results, status) {
-        if (status == google.maps.places.PlacesServiceStatus.OK) {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
           console.log('triggered');
           google.maps.event.trigger(searchbox, 'place_changed', results[0]);
         }

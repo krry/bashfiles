@@ -3,9 +3,16 @@ angular.module('stages.design_link',[]).config( function ($stateProvider) {
   // specifics for for this state
   var stageName = 'design_link';
   // state definition
+  var templateUrl = "templates/";
+  // var stageUrl = templateUrl + "/stages/" + stageName + '/';
+
   $stateProvider.state("design_link", {
     url: "/design_link/:saved_design_id",
     views: {
+      'dev@': {
+        templateUrl: templateUrl + 'dev.html',
+        controller:  'DevCtrl as dev',
+      },
       'main@': {
         template: '<h1>landing at design page</h1><a ui-sref="home">home</a>',
         controller: function design_link_ctrl ($scope, $stateParams, $state, firebaseRef, SyncService) {
@@ -16,9 +23,7 @@ angular.module('stages.design_link',[]).config( function ($stateProvider) {
             SyncService.set('design_ref', dataSnapshot);
             console.log('your shared design id is: ', dataSnapshot.key());
             // $state.go('home');
-            $scope.designRef = dataSnapshot;
           })
-
         },
       },
     },

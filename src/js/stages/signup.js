@@ -1,5 +1,5 @@
 // signup.js - the final stage
-angular.module('stage.signup', []).config( function ($stateProvider){
+angular.module('stages.signup', []).config( function ($stateProvider){
 
   // paths for this stage
   var stageName = 'signup';

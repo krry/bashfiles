@@ -1,4 +1,4 @@
-angular.module('stage.qualify',[]).config( function ($stateProvider) {
+angular.module('stages.qualify',[]).config( function ($stateProvider) {
 
   // paths for this state
   var stageName = 'qualify';
