@@ -2,7 +2,7 @@
   JwtService
 
 ================================================== */
-function JwtService_ ($http, $firebase, FBURL) {
+function JwtService_ ($http, FBURL) {
 
   var service = {
     jwt: jwt,
@@ -10,8 +10,6 @@ function JwtService_ ($http, $firebase, FBURL) {
 
   // Get /jwt.  Use the resulting data (a jwt) and pass it to FireBase for authentication
   function jwt() {
-    var ref = $firebase;
-
     $http.get('/jwt').success(function (data) {
       var ref = new Firebase(FBURL);
       ref.authWithCustomToken(data, function(error, authData) {
@@ -30,4 +28,4 @@ function JwtService_ ($http, $firebase, FBURL) {
   return service;
 }
 
-angular.module('flannel').factory('JwtService',['$http', '$firebase', 'FBURL', JwtService_]);
+angular.module('flannel').factory('JwtService',['$http', 'FBURL', JwtService_]);
