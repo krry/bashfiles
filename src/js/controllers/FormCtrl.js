@@ -31,7 +31,9 @@ function FormCtrl_($scope, UserService, StageService, $firebase, SyncService, fi
 
   function checkZip (zip) {
     console.log("checking ZIP");
-    console.log(zip);
+    if (typeof(zip) !== "undefined") {
+      console.log(zip);
+    }
     // check to see if there are 5 digits
     // debugger;
       // if not, show gentle validation
@@ -41,7 +43,7 @@ function FormCtrl_($scope, UserService, StageService, $firebase, SyncService, fi
           // if not, show out of territory state
           // if so, advance to address step
             // return mapService.initNearMe()
-  };
+  }
 
   function parseAddress () {
     console.log('parsing address');
@@ -50,5 +52,5 @@ function FormCtrl_($scope, UserService, StageService, $firebase, SyncService, fi
     // center map on latlng of address
     // check if street address present in sanitized address
       // if so, drop map marker on this location
-  };
-};
+  }
+}

@@ -16,6 +16,10 @@ angular.module('stages.qualify',[]).config( function ($stateProvider) {
     url: "",
     abstract: true,
     views: {
+      'dev@': {
+        templateUrl: templateUrl + 'dev.html',
+        controller:  'DevCtrl as dev',
+      },
       'header@': {
         templateUrl: templateUrl + "header.html",
         controller:  "HeaderCtrl as header",

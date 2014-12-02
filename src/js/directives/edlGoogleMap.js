@@ -52,6 +52,7 @@ function edlGoogleMap($timeout, $document, $window, MapService) {
         }
         document.getElementById('pac-input').val(place.formatted_address);
       });
+
       center =  MapService.getCenter();
       map.setCenter(center);
       map.setZoom(20);
@@ -86,7 +87,6 @@ function edlGoogleMap($timeout, $document, $window, MapService) {
             console.log('triggered');
             google.maps.event.trigger(searchbox, 'place_changed', results[0]);
           }
-
         }
 
         service.textSearch(request, callback);

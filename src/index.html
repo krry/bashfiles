@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, width=device-width">
-    <title>The Future is now</title>
+    <title>The Future is Now</title>
 
     <link href="css/all.css" rel="stylesheet">
     <link href="lib/ol.css" rel="stylesheet">
@@ -11,8 +11,9 @@
     <!-- Libraries -->
 
     <!-- openlayers v3 -->
+    <!-- this is the current stable version with whitespace -->
     <script src="lib/ol.js"></script>
-    <!-- <script src="lib/ol-debug.js"></script> -->
+    <!-- <script src="lib/ol-debug.js"></script>  -->
 
     <!-- jQuery -->
     <script src="lib/jquery.js"></script>
@@ -40,62 +41,32 @@
         s.parentNode.insertBefore(wf, s);
       })();
     </script>
-  </head>
-  <!-- app begins -->
-  <body ng-app="flannel" ng-controller="StageCtrl as stages">
-    <div class="dev-controls">
-      <div class="row">
-        <div class="col half">
-          <h4>active template: {{stages.partial}}</h4>
-          <label for="stageSelector">Jump to a stage</label>
-          <select id="stageSelector" ng-model="stages.partial" ng-options="s for s in stages.partials" >
-          </select>
-          <button class="ib small" ng-click="stages.prev()">Back</button>
-          <button class="ib small" ng-click="stages.next()">Next</button>
-        </div>
-        <div class="col half">
-          <h4>active user info:</h4>
-          <!-- TODO: log out user object to footer for dev purposes -->
-          <pre>formInfo = {{ form.user | json }}</pre>
-          <!-- <ul>
-            <li><label for="userName">user.name</label><span>{{user.name}}</span></li>
-            <li><label for="userZip">user.zip</label><span>{{user.zip}}</span></li>
-            <li><label for="userAddress">user.address</label><span>{{user.address}}</span></li>
-            <li><label for="userCity">user.city</label><span>{{user.city}}</span></li>
-            <li><label for="userState">user.state</label><span>{{user.state}}</span></li>
-            <li><label for="userEmail">user.email</label><span>{{user.email}}</span></li>
-            <li><label for="userPhone">user.phone</label><span>{{user.phone}}</span></li>
-            <li><label for="userUsage">user.usage</label><span>{{user.usage}}</span></li>
-            <li><label for="userDesign">user.design</label><span>{{user.design}}</span></li>
-            <li><label for="userAppt">user.appt</label><span>{{user.appt}}</span></li>
-          </ul> -->
-        </div>
-      </div>
+</head>
+<!-- app begins -->
+<body ng-app="flannel" ng-controller="StageCtrl as stages">
+  <div ng-controller="FormCtrl as form">
+    <div ui-view name="dev" class="dev-controls"></div>
+    <header ui-view name="header" id="header" class="header"></header>
+    <main ui-view name="main" id="main" class="main"></main>
+    <footer ui-view name="footer" id="footer" class="footer"></footer>
+  </div>
 
-    </div>
-    <div ng-controller="FormCtrl as form">
-        <!-- TODO: reconsider whether we need to wrap all the things in a form controller -->
-        <header ui-view name="header" id="header" class="header"></header>
-        <main ui-view name="main" id="main" class="main"></main>
-        <footer ui-view novalidate name="footer" id="footer" class="footer"></footer>
-    </div>
-    <!-- TODO: conditionally load minified versions of dependencies when not in dev environment -->
-    <script src="lib/angular.js"></script>
-    <!-- <script src="lib/angular.min.js"></script> -->
-    <script src="lib/angular-touch.js"></script>
-    <!-- angular-ui -->
-    <script src="lib/angular-ui-router.min.js"></script>
-    <!-- <script src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script> -->
-    <script src="lib/ui-bootstrap-tpls.min.js"></script>
-    <!-- <script src="lib/angular-bootstrap/ui-bootstrap.js"></script> -->
-    <script src="lib/ui-bootstrap.min.js"></script>
-    <!-- firebase related -->
-    <script src="lib/firebase-debug.js"></script>
-    <!-- <script src="lib/firebase.js"></script> -->
-    <script src="lib/angularfire.js"></script>
-    <!-- <script src="lib/angularfire.min.js"></script> -->
-
-    <!-- Application -->
-    <script src="js/all.js"></script>
-  </body>
+  <!-- TODO: conditionally load minified versions of dependencies when not in dev environment -->
+  <script src="lib/angular.js"></script>
+  <!-- <script src="lib/angular.min.js"></script> -->
+  <script src="lib/angular-touch.js"></script>
+  <!-- angular-ui -->
+  <script src="lib/angular-ui-router.min.js"></script>
+  <!-- <script src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script> -->
+  <script src="lib/ui-bootstrap-tpls.min.js"></script>
+  <!-- <script src="lib/angular-bootstrap/ui-bootstrap.js"></script> -->
+  <script src="lib/ui-bootstrap.min.js"></script>
+  <!-- firebase related -->
+  <script src="lib/firebase-debug.js"></script>
+  <!-- <script src="lib/firebase.js"></script> -->
+  <script src="lib/angularfire.js"></script>
+  <!-- <script src="lib/angularfire.min.js"></script> -->
+  <!-- Application -->
+  <script src="js/all.js"></script>
+</body>
 </html>

@@ -5,13 +5,17 @@ function flnShowGoogleMap_ () {
 
     controller: function($scope, $element, $attrs){
       // debugger;
-      console.log("$element");
+      $scope.mapShown = !$scope.mapShown;
+      console.log("turning on flnShowGoogleMap ");
       console.log($element);
-      $scope.mapShown = true;
+      // $scope.mapShown = true;
+      console.log($scope.mapShown);
 
       $element.on("$destroy", function(){
+        console.log("destroying on flnShowGoogleMap ");
         console.log($scope.mapShown);
-        $scope.mapShown = false;
+        // $scope.mapShown = false;
+        $scope.mapShown = !$scope.mapShown;
       });
     },
   };

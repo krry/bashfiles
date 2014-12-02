@@ -72,7 +72,8 @@ nav a {
   @include apercu-light;
   text-transform: uppercase;
   letter-spacing: 2.25;
-  // font-weight: 500;
+  text-shadow: none;
+  background: none;
   border-bottom: 0px solid transparent;
 }
 
