@@ -14,15 +14,14 @@ module.exports = function(app) {
 
   function index(req, res) {
     var uuid;
-
     uuid = req.signedCookies.uuid;
-    if (uuid !== null) {
+    // console.log("UUID: " + uuid + ".");
+    if (uuid !== null && uuid !== undefined) {
       // Look up the document by uuid and return that one
-      var i = 1/0;
     } else {
       uuid = UUID.v1();
       res.cookie('uuid', uuid, { maxAge: 1*365*24*60*60*1000, signed: true });
-      res.cookie('edit', true, { maxAge: 1*365*24*60*60*1000, signed: true });
+      res.cookie('edit', 1, { maxAge: 1*365*24*60*60*1000, signed: true });
     }
 
     res.sendFile('index.html', {root: app.publicRoot});
@@ -33,9 +32,11 @@ module.exports = function(app) {
   function jwt(req, res) {
     var uuid, edit, _jwt;
 
+    // console.log(req.signedCookies);
     uuid = req.signedCookies.uuid;
     edit = req.signedCookies.edit;
-    if (uuid !== null) {
+    if (uuid !== null && uuid !== undefined) {
+      // console.log("About to set uuid: " + uuid + ".");
       _jwt = generateJwt(uuid, edit);
     } else {
       _jwt = 'you lying so and so';
