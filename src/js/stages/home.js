@@ -1,6 +1,6 @@
 // home.js stage
 angular.module('stages.home',[]).config( function ($stateProvider) {
-  
+
   // paths for this state
   var stageName = 'home';
   // TODO: make these paths central and DRYer for all stages, changing based on stageName
@@ -33,6 +33,14 @@ angular.module('stages.home',[]).config( function ($stateProvider) {
         },
         templateUrl: stageUrl + "main.html",
         // controllerAs: 'form',
+         controller:  function home_ctrl ($scope, syncData, SyncService, firebaseRef) {
+          // the design_ref may be set by arriving from a share link, or should be generated new
+          $scope.designRef = SyncService.get('design_ref') || firebaseRef('/designs').push()
+          .once( 'value', function (dataSnapshot) {
+            SyncService.set('design_ref', dataSnapshot);
+            console.log('your design id is new: ', dataSnapshot.key());
+          });
+        },
         // controller:  function form_ctrl ($scope, $firebase, SyncService, firebaseRef, design_ref) {
         //   // the design_ref may be set by arriving from a share link, or should be generated new
         //   var vm = this;
@@ -74,6 +82,13 @@ angular.module('stages.home',[]).config( function ($stateProvider) {
       },
       'underlay@home': {
         templateUrl: stageUrl + "underlay.html",
+        controllerAs: "underlay",
+        controller: function($scope){
+          // debugger;
+          console.log("turnon underlay");
+
+          $scope.mapShown = true
+        },
       },
       'footer@': {
         templateUrl: templateUrl + 'footer.html',
