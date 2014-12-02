@@ -1,13 +1,13 @@
 function OlService_ ($q, $state, $window, StyleService, MapService) {
-  // this factory is a singleton & provides layers, styles, etc for the edl-ol-map ... 
-  // 
+  // this factory is a singleton & provides layers, styles, etc for the edl-ol-map ...
+  //
 
   var OlService = {};
   OlService.idSeed = 0;
 
-  // HACK: dev 
+  // HACK: dev
   var mapDiv = {};
-  mapDiv.clientHeight = 725; //HACK: why is this hardcoded? 
+  mapDiv.clientHeight = 725; //HACK: why is this hardcoded?
   OlService.mapDiv = mapDiv;
   OlService.extent = [0, 0, $window.innerWidth, OlService.mapDiv.clientHeight ];
   OlService.defaultZoom = 2;
@@ -34,8 +34,10 @@ function OlService_ ($q, $state, $window, StyleService, MapService) {
 
   OlService.setIdsOfFeaturearray = function(featurearray, id) { // utility for setting id. allow to later remove by id(??)
     for (var key in featurearray) {
-      var f = featurearray[key];
-      f.setId(id);
+      if (featurearray.hasOwnProperty(key)){
+        var f = featurearray[key];
+        f.setId(id);
+      }
     }
   };
 
@@ -52,7 +54,9 @@ function OlService_ ($q, $state, $window, StyleService, MapService) {
     }
     source.forEachFeature(findforremove);
     for (var a in removeus) {
-      source.removeFeature(removeus[a]);
+      if (removeus.hasOwnProperty(a)) {
+        source.removeFeature(removeus[a]);
+      }
     }
   };
 
@@ -85,7 +89,7 @@ function OlService_ ($q, $state, $window, StyleService, MapService) {
   OlService.layers = {
     mount: OlService.mounts,
     gutter: OlService.gutters,
-    obstruction: OlService.obstructions, 
+    obstruction: OlService.obstructions,
     panel: OlService.panels,
   };
   OlService._previewing = false;
@@ -105,16 +109,16 @@ function OlService_ ($q, $state, $window, StyleService, MapService) {
       }
     });
 
-    if (status){ 
+    // if (status){
       // LayerService.get('panel').setOpacity(1);
-    } else {
+    // } else {
       // LayerService.get('panel').setOpacity(0.6);
-    }
+    // }
   };
 
 
   OlService.fillMessageForSingleMount = function(mount){
-    if (mount.getGeometryName() !== "mount") throw 'err must be a mount'; 
+    if (mount.getGeometryName() !== "mount") throw 'err must be a mount';
     var wkt = OlService.wkt;
     var msg = {};
     // get all obstructions on page
@@ -125,7 +129,7 @@ function OlService_ ($q, $state, $window, StyleService, MapService) {
     msg.m[id] = wkt.writeFeature(mount).split(',');
     msg.m[id][0] = msg.m[id][0].split('((')[1];
     msg.m[id].splice(-1); // remove the last point, it's a dupe of the 1st
-    // add obstruction points object 
+    // add obstruction points object
     msg.o = {};
     obstructions.forEach(function(feat, idx, col){
       if (feat.getGeometryName() === "obstruction") {
@@ -147,7 +151,7 @@ function OlService_ ($q, $state, $window, StyleService, MapService) {
     var feature = event.feature || event.target;
     var mounts  = OlService.mounts; //HACK: make this a parameter?
     var gutters = OlService.gutters; //HACK: make this a parameter?
-    
+
     var featureId = feature.getId();
     if (featureId !== undefined) {
 
@@ -199,4 +203,4 @@ function OlService_ ($q, $state, $window, StyleService, MapService) {
   return OlService;
 }
 
-angular.module('flannel').factory('OlService', OlService_);  
+angular.module('flannel').factory('OlService', OlService_);
