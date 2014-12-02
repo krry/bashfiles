@@ -189,7 +189,6 @@ function MapFactory_( MapService, StyleService, LayerService ) {
       var pt = wkt_string[i].split(' ')
       pts_arr.push(pt);
     }
-    console.log(pts_arr);
 
     return pts_arr;
   }
@@ -207,7 +206,7 @@ function MapFactory_( MapService, StyleService, LayerService ) {
       }
       segments.push(segment);
     }
-    console.log(segments);
+
     return segments;
   }
 

@@ -70,11 +70,7 @@ function LayerService_ ($window, StyleService) {
     if (Array.isArray(layer_array)) {
       layer_array.forEach(function (layer) {
         layer.setVisible(true);
-<<<<<<< HEAD
       });
-=======
-      })
->>>>>>> directive to provide mouseover interaction on a new map
     } else if (typeof(layer_array) === 'string') {
       // else, show the single layer
       layer.setVisible(true);
@@ -85,11 +81,7 @@ function LayerService_ ($window, StyleService) {
     if (Array.isArray(layer_array)) {
       layer_array.forEach(function (layer) {
         layer.setVisible(false);
-<<<<<<< HEAD
       });
-=======
-      })
->>>>>>> directive to provide mouseover interaction on a new map
     } else if (typeof(layer_array)=== 'string') {
       // else, hide the single layer
       layer.setVisible(false);
