@@ -183,6 +183,10 @@ button.small {
   font-size: 1em;
 }
 
+button.tiny {
+  font-size: .75em;
+}
+
 fieldset {
   background: $white-off;
   border: 1px solid $grey-lighter;
@@ -238,6 +242,7 @@ input[type=text].zipcode {
 .combo-input {
   padding: .875em 1em;
   text-align: justify;
+  max-width: 27em;
 }
 
 .combo-input input[type=text],
@@ -261,6 +266,7 @@ input[type=text].zipcode {
 .combo-input input[type=tel].zipcode {
   width: 3em;
   text-align: left;
+  margin: 0;
 }
 
 @media screen and (min-width: $width-min-med) {

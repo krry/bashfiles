@@ -127,13 +127,13 @@ code, kbd, pre, samp {
 
 @media screen and (min-width: $width-min-xxl) {
   body {
+    font-size: em($font-size*1.125);
   }
 }
 
 @media screen and (min-width: $width-min-hd) {
   body {
-    font-size: em($font-size*1.125);
-    // font-size: em($font-size*1.25);
+    font-size: em($font-size*1.25);
     // font-size: em($font-size*1.375);
   }
 }
