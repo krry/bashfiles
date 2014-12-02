@@ -26,7 +26,7 @@ require('./routes/appRoutes.js')(app);
 // require('./routes/pathRoutes.js')(app);
 require('./routes/authorizationRoutes.js')(app);
 
-app.use(express.static(__dirname + '/../public'));
+app.use(express.static(app.publicRoot));
 
 module.exports = app;
 console.log('now serving on port: ', port);
