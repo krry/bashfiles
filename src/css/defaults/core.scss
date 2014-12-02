@@ -77,21 +77,21 @@ a {
   text-decoration: none;
   transition: all .15s $easing-quick;
   cursor: pointer;
-  // border-bottom: 1px hidden;
+  border-bottom: 1px hidden;
 
-  // trying out the descender-conscious link underline
-  text-shadow: 2px 0 0 $color-bkgd-main, -2px 0 0 $color-bkgd-main;
-  background-image: -webkit-linear-gradient( left, currentColor 0%, currentColor 100% );
-  background-image: linear-gradient( to right, currentColor 0%, currentColor 100% );
-  background-repeat: repeat-x;
-  background-position: 0 95%;
-  -webkit-background-size: 100% 1px;
-  background-size: 100% 1px;
+  // not liking the descender-conscious link underline hack
+  // text-shadow: 2px 0 0 $color-bkgd-main, -2px 0 0 $color-bkgd-main;
+  // background-image: -webkit-linear-gradient( left, currentColor 0%, currentColor 100% );
+  // background-image: linear-gradient( to right, currentColor 0%, currentColor 100% );
+  // background-repeat: repeat-x;
+  // background-position: 0 95%;
+  // -webkit-background-size: 100% 1px;
+  // background-size: 100% 1px;
 }
 
 a:hover {
   color: $color-link-hover;
-  // border-bottom-style: solid;
+  border-bottom-style: solid;
 }
 
 :target {

@@ -44,7 +44,7 @@ function MapService_ ($q, LayerService) {
     var olView = new ol.View({
       projection: LayerService.pixelProjection,
       center: ol.extent.getCenter(LayerService.pixelProjection.getExtent()),
-      zoom: 1,
+      zoom: 20,
     });
 
     var _ol_layers = [
@@ -97,10 +97,16 @@ function MapService_ ($q, LayerService) {
   };
 
   MapService.getCenter = function() {
+    var latlng = new google.maps.LatLng(30, -123);
     if (MapService.g.center) {
       return MapService.g.center;
     } else {
-      return new google.maps.LatLng(37.483443610459965, -122.2673599891102); //HACK: should only return current map center
+      console.log('returning default map loc');
+      console.log(latlng);
+      MapService.setCenter(latlng);
+      return latlng;
+      // return new google.maps.LatLng(37.483443610459965, -122.2673599891102);
+      // HACK: should only return current map center
       // return null;
     }
   };

@@ -5,10 +5,8 @@ function edlGoogleMap($timeout, $document, $window, MapService) {
     scope: {
     	onCreate: "&"
     },
-    controller: function edlGoogleMapController($scope, $element, $attrs) {
-
-    },
-    link: function edlGoogleMapLink(scope, ele, attrs) {
+    controller:{},
+    link: function edlGoogleMapController(scope, element, attrs) {
       var mapOptions,
           map,
           input,
@@ -19,7 +17,7 @@ function edlGoogleMap($timeout, $document, $window, MapService) {
 
       mapOptions = MapService.g.mapOptions;
 
-      map = MapService.setGmap(ele[0], mapOptions);
+      map = MapService.setGmap(element[0], mapOptions);
 
       // create an Autocompleting search box on the map
       input = document.getElementById('pac-input');
@@ -55,7 +53,7 @@ function edlGoogleMap($timeout, $document, $window, MapService) {
 
       center =  MapService.getCenter();
       map.setCenter(center);
-      map.setZoom(20);
+      map.setZoom(14);
 
       // always save the mapcenter when it's changed.
       saveCenter = function saveCenter () {

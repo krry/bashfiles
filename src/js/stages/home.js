@@ -39,6 +39,10 @@ angular.module('stages.home',[]).config( function ($stateProvider) {
             SyncService.set('design_ref', dataSnapshot);
             console.log('your design id is new: ', dataSnapshot.key());
           });
+          $scope.toggleMap = function toggleMap() {
+            $scope.mapShown = !$scope.mapShown;
+          };
+          $scope.mapShown = false;
         },
       },
       'overlay@home': {
@@ -46,14 +50,6 @@ angular.module('stages.home',[]).config( function ($stateProvider) {
       },
       'underlay@home': {
         templateUrl: stageUrl + "underlay.html",
-        controllerAs: "underlay",
-        controller: function underlay_ctrl($scope){
-          console.log("adding underlay");
-          debugger;
-          console.log('before underlay_ctrl sets mapShown:', $scope.mapShown);
-          $scope.mapShown = false;
-          console.log('after underlay_ctrl mapShown is:', $scope.mapShown);
-        },
       },
       'footer@': {
         templateUrl: templateUrl + 'footer.html',
