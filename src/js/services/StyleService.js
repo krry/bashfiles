@@ -89,7 +89,7 @@ function StyleService_ ($q) {
     styles['segment'] =  [new ol.style.Style({
               stroke: new ol.style.Stroke({
                 color: 'black',
-                width: 20
+                width: 25
               })}),new ol.style.Style({ stroke: new ol.style.Stroke({
                 color: 'yellow',
                 width: 15
@@ -98,14 +98,14 @@ function StyleService_ ($q) {
 
     styles['corner'] =  [new ol.style.Style({
               image: new ol.style.Circle({
-                radius: 70,
+                radius: 45,
                 fill: new ol.style.Fill({
                   color: 'black'
                 })
               })
             }), new ol.style.Style({
               image: new ol.style.Circle({
-                radius: 60,
+                radius: 40,
                 fill: new ol.style.Fill({
                   color: 'yellow'
                 })
@@ -128,13 +128,13 @@ function StyleService_ ($q) {
         styles['segment'] =  [new ol.style.Style({
               stroke: new ol.style.Stroke({
                 color: 'black',
-                width: 20
+                width: 25
               })})]
 
 
     styles['corner'] =  [new ol.style.Style({
               image: new ol.style.Circle({
-                radius: 70,
+                radius: 45,
                 fill: new ol.style.Fill({
                   color: 'black'
                 })
