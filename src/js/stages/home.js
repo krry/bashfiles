@@ -47,11 +47,12 @@ angular.module('stages.home',[]).config( function ($stateProvider) {
       'underlay@home': {
         templateUrl: stageUrl + "underlay.html",
         controllerAs: "underlay",
-        controller: function($scope){
-          // debugger;
+        controller: function underlay_ctrl($scope){
           console.log("adding underlay");
+          debugger;
+          console.log('before underlay_ctrl sets mapShown:', $scope.mapShown);
           $scope.mapShown = false;
-          console.log('mapShown is:', $scope.mapShown);
+          console.log('after underlay_ctrl mapShown is:', $scope.mapShown);
         },
       },
       'footer@': {
