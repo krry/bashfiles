@@ -50,7 +50,8 @@ angular.module('stages.home',[]).config( function ($stateProvider) {
         controller: function($scope){
           // debugger;
           console.log("adding underlay");
-          $scope.mapShown = true
+          $scope.mapShown = false;
+          console.log('mapShown is:', $scope.mapShown);
         },
       },
       'footer@': {
