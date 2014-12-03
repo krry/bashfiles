@@ -3,9 +3,9 @@
   the form controller
 ================================================== */
 
-controllers.controller("FormCtrl", ["$scope", "UserService", "StageService", FormCtrl_]);
+controllers.controller("FormCtrl", ["$scope", "UserService", "StageService", "MapService", FormCtrl_]);
 
-function FormCtrl_($scope, UserService, StageService, $firebase, SyncService, firebaseRef, design_ref) {
+function FormCtrl_($scope, UserService, StageService, MapService) {
   var vm = this;
   vm.user = {
     zip: "",
@@ -29,11 +29,29 @@ function FormCtrl_($scope, UserService, StageService, $firebase, SyncService, fi
   vm.checkZip = checkZip;
   vm.parseAddress = parseAddress;
 
+  vm.gmapShown = getGmapShown;
+  vm.toggleGmapShown = toggleGmapShown;
+  vm.setGmapShown = setGmapShown;
+
+  function getGmapShown(){
+    return MapService.getGmapShown();
+  }
+
+  function toggleGmapShown(){
+    MapService.setGmapShown(!vm.gmapShown);
+  }
+
+  function setGmapShown(value){
+    MapService.setGmapShown(value);
+  }
+
   function checkZip (zip) {
     console.log("checking ZIP");
     if (typeof(zip) !== "undefined") {
       console.log(zip);
+      setGmapShown(true);
     }
+
     // check to see if there are 5 digits
     // debugger;
       // if not, show gentle validation

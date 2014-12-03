@@ -14,11 +14,22 @@
 ================================================== */
 
 function MapService_ ($q, LayerService) {
-  var MapService = {};
 
+  var gmapShown = false;
+  var omapShown = false;
+
+  var MapService = {};
   MapService.g = {}; // the google map
 
   MapService.o = {}; // the openlayer map
+
+  MapService.getGmapShown = getGmapShown;
+  MapService.setGmapShown = setGmapShown;
+
+  MapService.getOmapShown = getOmapShown;
+  MapService.setOmapShown = setOmapShown;
+
+  MapService.geocodeAddress = geocodeAddress;
 
   MapService.g.mapOptions = {
     zoom : 4,
@@ -26,8 +37,8 @@ function MapService_ ($q, LayerService) {
     maxZoom : 4,
     mapTypeId : google.maps.MapTypeId.TERRAIN,
     disableDefaultUI: true,
-    // draggable: false,
-    // zoomable: false,
+    draggable: false,
+    zoomable: false,
     scrollwheel: false,
     backgroundColor: "transparent"
   };
@@ -38,6 +49,61 @@ function MapService_ ($q, LayerService) {
   function setOmap (options) {  //TODO: move to OlService
     MapService.o.omap = new ol.Map(options);
     return MapService.o.omap;
+  }
+
+  function getGmapShown () {
+    console.log("getting gmapShown");
+    return gmapShown;
+  }
+
+  function setGmapShown (value){
+    console.log("setting gmapShown to", value);
+    gmapShown = value;
+    if (value) {
+      // HACK: get map to redraw when map shows without a hacky timeout
+      setTimeout(function(){
+        google.maps.event.trigger(MapService.g.gmap,'resize');
+      },500);
+    }
+  }
+
+  function getOmapShown () {
+    return omapShown;
+  }
+
+  function setOmapShown (value){
+    omapShown = value;
+  }
+
+  function getGeocoder() {
+    var geocoder = new google.maps.Geocoder();
+    return geocoder;
+  }
+
+  function geocodeAddress(address) {
+    var geocoder = getGeocoder();
+    geocoder.geocode({'address': address}, function(results, status){
+      if (status == google.maps.GeocoderStatus.OK) {
+        if (results[0]) {
+          // console.log('results of geocode are')
+          // console.log(results[0])
+          var latlng = results[0].geometry.location;
+          return latlng;
+        }
+        else { 
+          console.error("Error: No known domiciles nearby.");
+          return false;
+        }
+      }
+      else {
+        console.error("Geocoder failed due to: ", status);
+        return false;
+      }
+    });
+  }
+
+  function getMaxZoom(latlng) {
+
   }
 
   MapService.initOmap = function(target_element) {
@@ -91,19 +157,19 @@ function MapService_ ($q, LayerService) {
     return MapService.o.omap;
   };
 
-  MapService.setCenter = function(center) {
+  MapService.setGmapCenter = function(center) {
     MapService.g.center = center;
     return MapService.g.center;
   };
 
-  MapService.getCenter = function() {
+  MapService.getGmapCenter = function() {
     var latlng = new google.maps.LatLng(30, -123);
     if (MapService.g.center) {
       return MapService.g.center;
     } else {
       console.log('returning default map loc');
       console.log(latlng);
-      MapService.setCenter(latlng);
+      MapService.setGmapCenter(latlng);
       return latlng;
       // return new google.maps.LatLng(37.483443610459965, -122.2673599891102);
       // HACK: should only return current map center

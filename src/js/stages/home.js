@@ -32,6 +32,7 @@ angular.module('stages.home',[]).config( function ($stateProvider) {
           // },
         },
         templateUrl: stageUrl + "main.html",
+        controllerAs: "home",
         controller:  function home_ctrl ($scope, syncData, SyncService, firebaseRef) {
           // the design_ref may be set by arriving from a share link, or should be generated new
           $scope.designRef = SyncService.get('design_ref') || firebaseRef('/designs').push()
@@ -39,10 +40,6 @@ angular.module('stages.home',[]).config( function ($stateProvider) {
             SyncService.set('design_ref', dataSnapshot);
             console.log('your design id is new: ', dataSnapshot.key());
           });
-          $scope.toggleMap = function toggleMap() {
-            $scope.mapShown = !$scope.mapShown;
-          };
-          $scope.mapShown = false;
         },
       },
       'overlay@home': {
