@@ -15,7 +15,7 @@ function MapFactory_( MapService, StyleService, LayerService ) {
   var wkt = new ol.format.WKT();
 
   // end hacks //
-
+  var map;
   var f_collection = new ol.Collection([]);
 
   var f_source = new ol.source.Vector({
@@ -39,7 +39,7 @@ function MapFactory_( MapService, StyleService, LayerService ) {
       });
 
   function roofArea (ol_map, target_element, feature) {
-    var map = new ol.Map({
+    map = new ol.Map({
       view: new ol.View({
         projection: LayerService.pixelProjection,
         center: ol.extent.getCenter(LayerService.pixelProjection.getExtent()),

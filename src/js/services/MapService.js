@@ -247,7 +247,7 @@ function MapService_ ($q, LayerService) {
     };
 
     return setOmap(olMapOptions);
-  };
+  }
 
   function getOmap(options) {  //TODO: move to OlService
     return service.o.omap;

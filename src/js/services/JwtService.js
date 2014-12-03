@@ -2,6 +2,9 @@
   JwtService
 
 ================================================== */
+
+angular.module('flannel').factory('JwtService',['$http', 'FBURL', JwtService_]);
+
 function JwtService_ ($http, FBURL) {
 
   var service = {
@@ -27,5 +30,3 @@ function JwtService_ ($http, FBURL) {
 
   return service;
 }
-
-angular.module('flannel').factory('JwtService',['$http', 'FBURL', JwtService_]);

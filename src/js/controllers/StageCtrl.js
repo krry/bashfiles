@@ -1,3 +1,5 @@
+controllers.controller("StageCtrl", ["$scope", "$state", "StageService", "InteractionService", "LayerService", "SyncService", "JwtService", "syncData", StageCtrl_]);
+
 function StageCtrl_($scope, $state, StageService, InteractionService, LayerService, SyncService, JwtService, syncData) {
   // This controller should be used for anything that needs to control which partials are being used
   var vm = this;
@@ -68,5 +70,3 @@ function StageCtrl_($scope, $state, StageService, InteractionService, LayerServi
   };
   /// end dev code ///
 }
-
-controllers.controller("StageCtrl", ["$scope", "$state", "StageService", "InteractionService", "LayerService", "SyncService", "syncData", StageCtrl_]);
