@@ -1,11 +1,11 @@
 function StyleService_ ($q) {
   // this factory provides styles, etc for edlOlMap features
-  // 
+  //
 
   var colors = {};
   var c = colors;
 
-  /*********************** common colors ***********************/ 
+  /*********************** common colors ***********************/
   c.highlightOpaque         = "rgba(251, 127, 61, 1)"; // main orange
   c.highlightFill           = "rgba(251, 127, 61, 0.3)"; // 30% orange
   c.defaultOpaque           = "rgba(0, 166, 183, 1)"; // main blue
@@ -13,11 +13,11 @@ function StyleService_ ($q) {
   c.defaultGutter           = "rgba(0, 146, 161, 1)"; // gutter blue
   c.highlightGutter         = "rgba(184, 61, 22, 1)";  // gutter orange
 
-  /*********************** obstruction ***********************/ 
+  /*********************** obstruction ***********************/
   c.defaultObstruction    = "rgba(184, 61, 22, 1)";
   c.highlightObstruction  = c.highlightOpaque;
 
-  /*********************** panel fill ***********************/ 
+  /*********************** panel fill ***********************/
   c.defaultPanelFill        = new ol.style.Fill({
                                 color: "rgba(33, 22, 45, 1)",
                               });
@@ -57,7 +57,7 @@ function StyleService_ ($q) {
                             fill: c.highlightMountFill
                           });
 
-  /*********************** gutter ***********************/ 
+  /*********************** gutter ***********************/
   c.defaultGutterStroke = new ol.style.Stroke({
                             color: c.defaultGutter,
                             width: 7
@@ -82,6 +82,75 @@ function StyleService_ ($q) {
 
   var StyleService = {};
   StyleService.colors = c;
+  StyleService.remapHighlight = (function() {
+    /* jshint -W069 */
+    var styles = {};
+
+    styles['segment'] =  [new ol.style.Style({
+              stroke: new ol.style.Stroke({
+                color: 'black',
+                width: 25
+              })}),new ol.style.Style({ stroke: new ol.style.Stroke({
+                color: 'yellow',
+                width: 15
+              })})]
+
+
+    styles['corner'] =  [new ol.style.Style({
+              image: new ol.style.Circle({
+                radius: 45,
+                fill: new ol.style.Fill({
+                  color: 'black'
+                })
+              })
+            }), new ol.style.Style({
+              image: new ol.style.Circle({
+                radius: 40,
+                fill: new ol.style.Fill({
+                  color: 'yellow'
+                })
+              })
+            })];
+
+    return function(feature, resolution) {
+      // var radius = feature.get('radius');
+      // if (feature.getGeometryName()==='obstruction') {
+      //   return styles[feature.getGeometryName()](radius, resolution);
+      // }
+      return styles[feature.getGeometryName()];
+    };
+    /* jshint +W069 */
+  })();
+  StyleService.remap = (function() {
+    /* jshint -W069 */
+    var styles = {};
+
+        styles['segment'] =  [new ol.style.Style({
+              stroke: new ol.style.Stroke({
+                color: 'black',
+                width: 25
+              })})]
+
+
+    styles['corner'] =  [new ol.style.Style({
+              image: new ol.style.Circle({
+                radius: 45,
+                fill: new ol.style.Fill({
+                  color: 'black'
+                })
+              })
+            })];
+
+    return function(feature, resolution) {
+      // var radius = feature.get('radius');
+      // if (feature.getGeometryName()==='obstruction') {
+      //   return styles[feature.getGeometryName()](radius, resolution);
+      // }
+      return styles[feature.getGeometryName()];
+    };
+    /* jshint +W069 */
+  })();
+
   StyleService.defaultStyleFunction = (function() {
     /* jshint -W069 */
     var styles = {};
@@ -96,7 +165,7 @@ function StyleService_ ($q) {
               stroke: c.defaultGutterStroke,
               image:  c.defaultGutterImage,
             })];
-    
+
     styles['geometry'] =  [new ol.style.Style({
               fill: new ol.style.Fill({
                 color: 'pink'
@@ -123,7 +192,7 @@ function StyleService_ ($q) {
         })
       })];
 
-    // create a separate style function to work with changing radius of obstructions: 
+    // create a separate style function to work with changing radius of obstructions:
     styles['obstruction'] = function(rad, res) {
       return [new ol.style.Style({
               stroke: c.defaultPanelStroke,
@@ -157,7 +226,7 @@ function StyleService_ ($q) {
     styles['gutter'] =  [new ol.style.Style({
               stroke: c.highlightGutterStroke,
               image:  c.highlightGutterImage,
-            })];    
+            })];
     styles['geometry'] =  [new ol.style.Style({
               fill: new ol.style.Fill({
                 color: c.highlightFill,
@@ -183,7 +252,7 @@ function StyleService_ ($q) {
               })
             })
           })];
-    // create a separate style function to work with changing radius of obstructions: 
+    // create a separate style function to work with changing radius of obstructions:
     styles['obstruction'] = function(rad, res) {
       return [new ol.style.Style({
               stroke: c.highlightPanelStroke,
@@ -210,4 +279,4 @@ function StyleService_ ($q) {
   return StyleService;
 }
 
-angular.module('flannel').factory('StyleService', StyleService_);  
+angular.module('flannel').factory('StyleService', StyleService_);

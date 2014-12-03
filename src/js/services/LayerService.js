@@ -27,7 +27,9 @@ function LayerService_ ($window, StyleService) {
   //     *** It's used to convert positions of clicks to positions on a real map. ***
   //         It should update as the screen is resized
   //        In EDLTR, it was always fullscreen.
+
   var REMOVEMEcenter = new google.maps.LatLng(37.483443610459965, -122.2673599891102);
+
   //hack: dev
 
   var _sources = {
