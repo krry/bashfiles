@@ -1,8 +1,7 @@
 angular.module('stages',[
+  'stages.design_link',
   'stages.home',
   'stages.configure',
-  'stages.qualify',
-  'stages.design_link',
   'stages.signup',
 ])
 .config(function ($stateProvider, $urlRouterProvider) {

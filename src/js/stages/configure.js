@@ -4,7 +4,7 @@ angular.module('stages.configure',[]).config( function ($stateProvider) {
   var stageName = 'configure';
   // TODO: make these paths central and DRYer for all stages, changing based on stageName
   var templateUrl = "templates/";
-  var stageUrl = templateUrl + "/stages/" + stageName + '/';
+  var stageUrl = templateUrl + "stages/" + stageName + '/';
 
   $stateProvider.state("configure", {
     url: "/configure",

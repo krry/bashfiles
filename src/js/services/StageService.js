@@ -57,25 +57,24 @@ function StageService_ ($state) {
     },
     {
       name: 'configure',
-      destination: 'qualify',
+      destination: 'signup',
       steps: [
         { step: 'zoom-lock-roof', partial: 'zoom.html'   },
         { step: 'trace-area',     partial: 'trace.html'  },
-        { step: 'complete-area',  partial: 'complete.html'   },
         { step: 'edit-area',      partial: 'edit.html'   },
         { step: 'detail-area',    partial: 'detail.html' },
-        { step: 'energy-usage',   partial: 'usage.html'  },
+        { step: 'area-slope',     partial: 'slope.html' },
+        { step: 'complete-area',  partial: 'complete.html' },
       ],
     },
     {
       name: 'signup',
       destination: '',
       steps: [
-        { step: 'refine-design',   partial: 'design.html'   },
-        { step: 'schedule-survey', partial: 'schedule.html' },
+        { step: 'credit-check',    partial: 'credit.html'   },
         { step: 'review-proposal', partial: 'proposal.html' },
-        { step: 'sign-contract',   partial: 'contract.html' },
-        { step: 'confirmation',    partial: 'confirm.html'  },
+        // { step: 'schedule-survey', partial: 'schedule.html' },
+        { step: 'congrats',   partial: 'congrats.html' },
       ],
     },
   ];

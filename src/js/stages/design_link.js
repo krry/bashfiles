@@ -11,10 +11,15 @@ angular.module('stages.design_link',[]).config( function ($stateProvider) {
     views: {
       'dev@': {
         templateUrl: templateUrl + 'dev.html',
-        controller:  'DevCtrl as dev',
+        controller: 'DevCtrl as dev',
+      },
+      'header@': {
+        templateUrl: templateUrl + 'header.html',
+        controller:  'HeaderCtrl as head',
       },
       'main@': {
-        template: '<h1>landing at design page</h1><a ui-sref="home">home</a>',
+        templateUrl: templateUrl +'design_link.html',
+        // template: '<h1>landing at design page</h1><a ui-sref="home">home</a>',
         controller: function design_link_ctrl ($scope, $stateParams, $state, firebaseRef, SyncService) {
           // look up the design id:
           $scope.designRef = firebaseRef('/designs/'+ $stateParams.saved_design_id)
