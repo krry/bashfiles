@@ -183,6 +183,10 @@ button.small {
   font-size: 1em;
 }
 
+button.tiny {
+  font-size: .75em;
+}
+
 fieldset {
   background: $white-off;
   border: 1px solid $grey-lighter;

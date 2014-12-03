@@ -7,25 +7,9 @@ controllers.controller("FormCtrl", ["$scope", "UserService", "StageService", "Ma
 
 function FormCtrl_($scope, UserService, StageService, MapService) {
   var vm = this;
-  vm.user = {
-    zip: "",
-    state: "",
-    city: "",
-    street: "",
-    design_id: "",
-    name: {
-      first_name: "",
-      last_name: ""
-    },
-    is_homeowner: null, // boolean
-    phone: "",
-    email: "",
-    dob: {
-      month: "",
-      day: "",
-      year: ""
-    },
-  }
+
+  vm.user = UserService.user;
+
   vm.checkZip = checkZip;
   vm.parseAddress = parseAddress;
 

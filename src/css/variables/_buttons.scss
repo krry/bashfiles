@@ -4,9 +4,10 @@
 
 @mixin btn($color: $color-button-bkgd, $size: 1.25rem) {
 
-  @include apercu-bold;
+  @include apercu-medium;
   font-size: $size;
   text-transform: uppercase;
+  letter-spacing: 2px;
   text-align: center;
   line-height: 1.25;
 
