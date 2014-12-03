@@ -19,8 +19,6 @@ gulp.task('browserSync', ['demon'], function() {
       port: 8100,
       open: false,
       injectChanges: true,
-      browser: ['google chrome'],
-      
     });
   }, INITIAL_SERVER_BOOT_DELAY)
 });

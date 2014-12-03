@@ -6,9 +6,11 @@
   Every firebase object should be set on this service.
 
 ================================================== */
+
 function SyncService_ ($scope, $firebase, syncData, firebaseRef) {
 
   var _sync = {
+    user: {},
     area_count: 0,
     areas: {},
     designRef: null,
@@ -37,7 +39,7 @@ function SyncService_ ($scope, $firebase, syncData, firebaseRef) {
 
   function get (name) {
     if (name === 'all') return _sync;
-    return _sync[name];
+    return _sync[name] ;
   }
 
   function set (key, val) {

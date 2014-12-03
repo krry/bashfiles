@@ -4,10 +4,10 @@
 
 //  myth uses the current-future spec syntax to set
 //  variables for colors, fonts, easing functions, etc.
-//  
+//
 //  to consume these variables in another stylesheet,
 //  import this file into it using relative paths:
-//  
+//
 //  @import url("../vars.css")
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -15,19 +15,34 @@
 @import "../variables/fonts";
 @import "../variables/sizes";
 @import "../variables/colors";
+@import "../variables/functions";
+
+.wf-loading body {
+  // visibility: hidden;
+}
 
 // mobile width type styles first
-main {
-  font-size: #{($font-size)*.875}em;
+body {
+  font-size: em($font-size*.875)
 }
 
 h1, h2, h3, h4, h5, h6 {
-  line-height: 1.25;
-  max-width: 100%;
+  // line-height: 1.25;
+  color: $color-headline-text;
+  // max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 h1 {
   font-size: 2em;
+}
+
+h1 small {
+  @include apercu-light;
+  font-size: 75%;
+  // display: block;
+  // font-weight: normal;
 }
 
 h2 {
@@ -55,23 +70,29 @@ p {
 }
 
 blockquote {
+  @include apercu-medium-italic;
   font-size: 1.25em;
+  border-left: 2px solid $grey-lighter;
+  color: $grey-dark;
   line-height: 1.25em;
-  font-family: $serif;
-  font-style: italic;
-  margin: 2em 8em 2em 2em;
+  margin: 1em 0;
+  padding-left: 0.5em;
 }
 
-blockquote cite, blockquote + cite {
+cite {
+  @include apercu-medium-italic;
+  color: $grey-mid;
   font-size: .75em;
-  font-style: normal;
-  font-family: $sans-serif;
   text-align: right;
   display: block;
 }
 
-blockquote cite:before, blockquote + cite:before {
-  content: "\2014";
+cite:before {
+  content: "\2014\00A0";
+}
+
+code, kbd, pre, samp {
+  font-family: $font-monospace;
 }
 
 .center h1,
@@ -87,31 +108,32 @@ blockquote cite:before, blockquote + cite:before {
 }
 
 @media screen and (min-width: $width-min-med) {
-  main {
+  body {
     font-size: $font-size;
   }
 }
 
 @media screen and (min-width: $width-min-lrg) {
-  main {
-    font-size: #{($font-size)*1.125}em;
+  body {
+    font-size: $font-size;
   }
 }
 
 @media screen and (min-width: $width-min-xlg) {
-  main {
-    font-size: #{($font-size)*1.25}em;
+  body {
+    font-size: $font-size;
   }
 }
 
 @media screen and (min-width: $width-min-xxl) {
-  main {
-    font-size: #{($font-size)*1.375}em;
+  body {
+    font-size: em($font-size*1.125);
   }
 }
 
 @media screen and (min-width: $width-min-hd) {
-  main {
-    font-size: #{($font-size)+1.5}em;
+  body {
+    font-size: em($font-size*1.25);
+    // font-size: em($font-size*1.375);
   }
 }

@@ -1,13 +1,13 @@
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-//  
+//
 //  CORE
-//  
+//
 //  after normalize.css has had its way, the core resets
 //  some odditities and establishes default styles for
 //  raw HTML elements
-//  
+//
 //  no classes should be used as selectors in the core
-//  
+//
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 @import "../variables/sizes";
@@ -15,14 +15,25 @@
 @import "../variables/colors";
 @import "../variables/motion";
 
+html {
+  font-family: $font-body;
+  overflow-x: hidden;
+}
+
 html, body {
   width: 100%;
-  overflow-x: hidden;
+  // overflow: hidden;
+  color: $color-text-main;
+  background-color: $color-bkgd-main;
+  font-size: 1em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  line-height: 1em;
 }
 
 // set base font
 html {
-  font-family: $font-body;
+  @include apercu-light;
   font-size: 16px;
   height: 100%;
 }
@@ -31,7 +42,6 @@ html {
 body {
   font-size: 100%;
   min-height: 100%;
-  font-size: 100%;
   line-height: $line-height-body;
   position: relative;
   padding: 0;
@@ -57,42 +67,39 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: $font-headline;
-}
-
-// reset anchors and links
-a {
-  color: $color-link;
-  transition: all .15s $easing-quick;
-  text-decoration: none;
-  cursor: pointer;
-  border-bottom: 1px hidden;
-}
-
-a:hover {
-  color: $color-link-hover;
-  border-bottom-style: solid;
-}
-
-:target {
-  animation: highlight 1.5s $easing-quick;
-  outline: 0;
-}
-
-::selection {
-  background-color: $color-highlight;
-  color: white;
+  @include apercu-bold;
+  text-rendering: optimizeLegibility;
 }
 
 // horizontal dividers
 hr {
   display: block;
-  border: none;
-  height: 1px;
+  border-bottom: 1px solid;
+  border-right: none;
+  border-top: none;
+  border-left: none;
   background-color: $color-text-main;
   margin-top: 2em;
   margin-bottom: 2em;
   padding: 0;
+}
+
+abbr, acronym {
+  border-bottom: 1px dotted $grey-lighter;
+  cursor: help;
+}
+
+address {
+  display: block;
+  margin: 0 0 0.5em;
+}
+
+hgroup {
+  margin-bottom: 0.5em;
+}
+
+del {
+  color: $grey-dark;
 }
 
 pre, code {
@@ -104,106 +111,6 @@ pre, code {
   white-space: pre\9;
 }
 
-// image, video, multimedia content size limitations
-img, embed, object, video {
-  max-width: 100%;
-}
-
-// simple fluid media
-figure {
-  position: relative;
-}
-
-figure img,
-figure object,
-figure embed,
-figure video {
-  max-width: 100%;
-  display: block;
-}
-
-img {
-  -ms-interpolation-mode: bicubic;
-}
-
-// form fields, inputs, labels
-fieldset {
-  border: none;
-  outline: none;
-  padding: 0;
-  margin: 1em 0;
-}
-
-// form elements resets
-button,
-input,
-select,
-textarea {
-  margin: 0;
-  font-size: 100%;
-  line-height: normal;
-  font-family: inherit;
-  vertical-align: baseline;
-}
-
-label {
-  font-size: .875em;
-  display: block;
-  text-indent: 0;
-  font-weight: 600;
-}
-
-input[type=radio] + label,
-input[type=checkbox] + label {
-  display: inline-block;
-  text-indent: .5em;
-}
-
-input[type=text],
-input[type=email],
-input[type=tel],
-input[type=password],
-input[type=date] {
-  font-family: $font-interface;
-  font-size: 1.25em;
-  width: 100%;
-  margin-bottom: 1em;
-  border: 1px solid $grey-light;
-  padding: .125em .25em;
-  color: $grey-darker;
-}
-
-select {
-  border: 1px solid;
-}
-
-textarea {
-  margin: 0 0 1em;
-  width: 100%;
-  color: $grey-mid;
-  resize: vertical;
-  overflow: scroll;
-  padding: .5em 1em;
-  font-family: $font-interface;
-}
-
-input[type=text]:focus,
-input[type=email]:focus,
-input[type=tel]:focus,
-input[type=password]:focus,
-input[type=date]:focus,
-textarea:focus {
-  outline: none;
-  border-color: $blue-bright;
-}
-
-// input placeholders
-::placeholder {
-  opacity: .6;
-  color: inherit;
-  transition: opacity .2s;
-}
-
-:focus::placeholder {
-  opacity: .4;
+label abbr {
+  display: none;
 }

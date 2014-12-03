@@ -23,6 +23,23 @@ function EventService_ ($firebase, SyncService) {
     return ref;
   }
 
+  function syncAfterDraw (event) {
+    var drawnGeometry,
+        geometry,
+        feature = event.feature || event.target;
+
+    if (event.feature) { // you were passed a feature after draw
+      geometry = feature.getGeometry();
+      drawnGeometry = syncGeometry();
+      drawnGeometry.text= wkt.writeFeature(feature);
+      geometry.on('change', syncAfterDraw);
+    } else {              // you were passed a modified geometry
+      drawnGeometry = syncGeometry();
+      feature.on('change', syncAfterDraw);
+      drawnGeometry.text= wkt.writeGeometry(feature);
+    }
+    drawnGeometry.$save();
+  }
   return service;
 }
 

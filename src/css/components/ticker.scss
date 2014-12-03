@@ -1,0 +1,22 @@
+@import "../variables/fonts";
+
+.ticker {
+  @include apercu-bold;
+  font-size: 3em;
+  line-height: 1;
+  // margin-bottom: .25em;
+  text-align: center;
+}
+
+.ticker:after {
+  @include apercu-regular;
+  font-size: .33em;
+}
+
+.ticker.kwh:after {
+  content: "\00a0kWh"
+}
+
+.count {
+  @include apercu-bold;
+}

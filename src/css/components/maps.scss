@@ -1,0 +1,49 @@
+@import "../variables/fonts";
+@import "../variables/colors";
+@import "../variables/motion";
+@import "../variables/sizes";
+
+.omap {
+  position: relative;
+  height: 100%;
+  z-index: 1;
+}
+
+.instructions {
+  padding: 2em;
+}
+
+.controls {
+  position: absolute;
+  top: 1em;
+  left: 1em;
+  background: $blue-bright;
+  z-index: 100;
+  width: 5em;
+  height: 3em;
+  padding: 3em;
+  border: 1px solid white;
+}
+
+.controls:after {
+  @include apercu-bold;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  top: 1em; left: 0; right: 0;
+  content: "map controls";
+  color: white;
+}
+
+.ol-viewport {
+  background: $green-dark;
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  transition: opacity 150ms $easing-quick;
+}

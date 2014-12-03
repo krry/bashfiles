@@ -10,9 +10,12 @@ var minCSS  = require('gulp-minify-css')
 var handleErrors = require('../util/handleErrors')
 
 var styleSrc  = [
-  './src/css/**/*.scss',
+  './src/lib/normalize.css/normalize.css',
+  './src/css/defaults/*.scss',
+  './src/css/utilities/*.scss',
+  './src/css/components/*.scss',
+  './src/css/app/*.scss',
   './src/css/**/*.css',
-  './lib/normalize.css'
 ]
 
 var stylePub = './public/css/'

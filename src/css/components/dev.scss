@@ -1,0 +1,11 @@
+@import "../variables/colors";
+
+.dev-controls {
+  height: auto;
+  position: relative;
+  background: $blue-light;
+}
+
+.dev-controls a {
+  color: $blue-dark;
+}

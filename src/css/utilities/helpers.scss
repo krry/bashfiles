@@ -1,3 +1,33 @@
+.hide,
 .display-none {
   display: none;
+}
+
+.display-inline {
+  display: inline;
+}
+
+.display-block {
+  display: block;
+}
+
+.invisible {
+  visibility: hidden;
+  position: absolute;
+  left: -1000px;
+  top: -1000px;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.float.right {
+  float: right;
+}
+
+.caps,
+.text.caps {
+  text-transform: uppercase;
+  letter-spacing: 0.0625em;
 }

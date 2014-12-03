@@ -49,8 +49,12 @@ function flnMapPan_ () {
       size: '=mapSize',
     },
     link: function flnMapPanLink (scope, ele, attrs) {
-      ele.on('click', function () {return panCenter(scope.view, scope.direction, scope.size);});
-      ele.on('$destroy', function () { console.log('no more pan control for ', scope.direction);});
+      ele.on('click', function() { 
+        return panCenter(scope.view, scope.direction, scope.size);
+      });
+      ele.on('$destroy', function () {
+        console.log('no more pan control for ', scope.direction);
+      });
       function panCenter (view, direction, size) {
         var newCenter;
         var currentCenter = view.getCenter();

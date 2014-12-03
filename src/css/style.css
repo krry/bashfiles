@@ -1,33 +1,9 @@
-/*html {
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-}
-
-body {
-  height: 100%;
-  width: 100%;
-  overflow: auto;
-}*/
-
 html, body {
   height: 100%;
   margin: 0px;
   padding: 0px
 }
 
-/*.dev_map {
-  position: absolute;
-  top: 10%;
-  left: 0;
-  width: 90%;
-  height: 100%;
-}
-
-.dev_overlay {
-  background-color: white;
-}
-*/
 .container {
     margin-bottom: 100px;
     padding: 10px;
@@ -46,11 +22,6 @@ html, body {
 .item-radio input:checked ~ .radio-icon {
   /* don't show the checkmark icon when its checked */
   visibility: hidden; }
-
-
-ion-side-menu {
-  padding-top:7%;
-}
 
 div.fill {
   width: 100%;
@@ -79,8 +50,6 @@ label > .item-content i.ion-ios7-circle-outline {
   display: inline;
 }
 
-
-
 ul.issues, li {
     list-style: square;
 }
@@ -96,19 +65,19 @@ edl-map {
 }
 
 #omap {
-  position: absolute;
+  /*position: absolute;
   top: 10%;
   left: 0;
   width: 90%;
-  height: 100%;
+  height: 100%;*/
 }
 
 #instructions {
-  position: absolute;
+  /*position: absolute;
   top: 10%;
   left: 90%;
   width: 10%;
-  height: 100%;
+  height: 100%;*/
 }
 
 #obstruction-range-label > div{
@@ -224,9 +193,10 @@ input[type="range"]::-webkit-slider-thumb:after {
 }
 
 #pac-input {
+  /*display: none;*/
   width: 80%;
   background-color: #fff;
-  padding: 0 11px 0 13px;
+  padding: 0 12px;
   margin-left: 10%;
   margin-right: 10%;
   font-family: Roboto;
@@ -238,12 +208,6 @@ input[type="range"]::-webkit-slider-thumb:after {
 .pac-container {
   font-family: Roboto;
 }
-
-form.ng-invalid {
-  background: red;
-}
-
-
 
 /* EDL angle icon styling */
 

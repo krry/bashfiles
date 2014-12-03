@@ -1,0 +1,74 @@
+@import "../variables/colors";
+@import "../variables/fonts";
+
+.proposal {
+
+}
+
+.block {
+  background: $grey-lighter;
+  color: $grey-darker;
+  padding: 1em;
+  // border-bottom: 1px solid $grey-light;
+}
+
+.block hr {
+  width: 90%;
+  margin: auto;
+  color: $grey-light;
+}
+
+.block.top {
+  border-radius: 8px;
+  background: $grey-darker;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.block:nth-of-type(2) {
+  border-radius: 8px 8px 0 0;
+}
+
+.block:last-of-type {
+  border-radius: 0 0 8px 8px;
+  // border-bottom: none;
+}
+
+.block .left {
+  text-align: center;
+  padding: 1em;
+}
+
+.block .right {
+  text-align: left;
+  padding: 1em;
+}
+
+.block.center {
+  padding: 3rem;
+}
+
+.block .number {
+  color: $aqua-dark;
+  font-size: 4em;
+}
+
+.block .unit {
+  @include apercu-light;
+  color: $grey-dark;
+  font-size: 1em;
+}
+
+.cents:after {
+  content: "¢";
+  font-size: .33em;
+  position: relative;
+  bottom: 0;
+}
+
+.dollars:before {
+  content: "$";
+  position: relative;
+  vertical-align: 1.5em;
+  font-size: .33em;
+}

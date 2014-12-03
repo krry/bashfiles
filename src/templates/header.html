@@ -1,13 +1,17 @@
-<header>
-  <nav>
-    <a ui-sref="home.initial" class="logo">SolarCity</a>
-    <div class="tray">
-      <div class="address display-none"></div>
-      <ul>
-        <li class="margins-off"><span>1</span><a ui-sref="configure.initial">Configure</a></li>
-        <li class="margins-off"><span>2</span><a ui-sref="qualify.initial">Qualify</a></li>
-        <li class="margins-off"><span>3</span><a ui-sref="schedule.initial">Schedule</a></li>
-      </ul>
+<nav>
+  <a ui-sref="home.initial" class="logo">SolarCity</a>
+  <div class="tray">
+    <div class="address" ng-show="user.hasAddress">
+      <output>45 Alvarado Row Stanford CA 94305</output>
+      <div class="links">
+        <a class="display-inline float right caps">Edit</a>
+        <a class="display-inline float right caps">Share</a>
+      </div>
     </div>
-  </nav>
-</header>
+    <ul>
+      <li class="active"><span>1</span><a class="white" ui-sref="configure.initial">Configure</a></li>
+      <li><span>2</span><a class="white" ui-sref="qualify.initial">Qualify</a></li>
+      <li><span>3</span><a class="white" ui-sref="schedule.initial">Schedule</a></li>
+    </ul>
+  </div>
+</nav>

@@ -1,23 +1,29 @@
 function StageService_ ($state) {
   /* ================================
-  This is the Stage Service. It provides an object with methods & properties.
+    StageService
 
-  service provides a SyncObject with the following methods:
+    provides a SyncObject with the following methods:
       next() -- move forward in flow
       prev() -- move backward in flow
 
-  TODO:
-    make a private history function that keeps a record of what you've done
-    move config_object to $provider
+    structures the user flow, e.g.:
+      * Stage 1
+          * Step A
+          * Step B
+          * Step C
+      * Stage 2
+          * Step A
+          * Step B
+      etc...
 
-  Stage 1
-    Step A
-    Step B
-    Step C
-  Stage 2
-    Step A
-    etc...
+    TODO:
+      make a private history function that keeps a record of what you've done
+      move config_object to $provider
+
+    TODO: flesh out the stageCtrl, see `docs/stages+states.md`
+
   ================================ */
+
   var StageService = {};
 
   // FIREBASE THESE //
@@ -39,18 +45,36 @@ function StageService_ ($state) {
       name: 'home',
       destination: 'configure',
       steps: [
-        { step: 'zip-nearme',   partial: 'zip.html'},
-        { step: 'address-roof', partial: 'address.html'},
+        {
+          step: 'zip-nearme',
+          partial: 'zip.html'
+        },
+        {
+          step: 'address-roof',
+          partial: 'address.html',
+        }
       ],
     },
     {
       name: 'configure',
-      destination: 'qualify',
+      destination: 'signup',
       steps: [
         { step: 'zoom-lock-roof', partial: 'zoom.html'   },
         { step: 'trace-area',     partial: 'trace.html'  },
         { step: 'edit-area',      partial: 'edit.html'   },
-        { step: 'define-area',    partial: 'define.html' },
+        { step: 'detail-area',    partial: 'detail.html' },
+        { step: 'area-slope',     partial: 'slope.html' },
+        { step: 'complete-area',  partial: 'complete.html' },
+      ],
+    },
+    {
+      name: 'signup',
+      destination: '',
+      steps: [
+        { step: 'credit-check',    partial: 'credit.html'   },
+        { step: 'review-proposal', partial: 'proposal.html' },
+        // { step: 'schedule-survey', partial: 'schedule.html' },
+        { step: 'congrats',   partial: 'congrats.html' },
       ],
     },
   ];
@@ -118,12 +142,12 @@ function StageService_ ($state) {
   }
 
   StageService.syncObj = function() {
-      return {
-        stage: _current.stage,
-        step:  _current.step,
-        next: next,
-        prev: prev,
-      };
+    return {
+      stage: _current.stage,
+      step:  _current.step,
+      next: next,
+      prev: prev,
+    };
   };
 
   return StageService;

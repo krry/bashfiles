@@ -1,5 +1,12 @@
 <div fln-select></div>
 <div fln-modify></div>
-<button ng-click="stages.areaone()">dev select 1</button>
-<button ng-click="stages.areatwo()">dev select 2</button>
-edit.html
+<div>
+  <div ui-view name="instructions" class="instructions">
+    <h3>Tune it up.</h3>
+    <p>Looking good! You picked a nice space for your panels. If you want to fine-tune it, click on any point to remove it. Or click along any line to add more points for more detail. If you want, you can <a>erase this shape</a> to start over, or <a>save it for later</a>.</p>
+    <figure>
+      <img src="" alt="">
+    </figure>
+    <button class="ib aqua" ng-click="stages.next()">Next</button>
+  </div>
+</div>

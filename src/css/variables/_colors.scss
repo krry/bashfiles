@@ -1,45 +1,60 @@
 // =-=-=-=-=-=-=-=-=-
 // SCTY COLOR PALETTE
 
-$gold:          #EEB111;  // rgb(238, 177, 017)   hsl(43.4, 86.7%, 50%)
-$green:         #008752;  // rgb(000, 135, 082)   hsl(156.4, 100%, 26.5%)
-$green-bright:  #13AB4A;  // rgb(019, 171, 074)   hsl(141.7, 80%, 37.3%)
-$green-dark:    #009C5D;  // rgb(000, 156, 093)   hsl(156.4, 100%, 30.5%)
-$green-apple:   #67BD57;  // rgb(103, 189, 087)   hsl(110.6, 43.6%, 54.1%)
-$green-lime:    #C7DD7B;  // rgb(199, 221, 123)   hsl(73, 59%, 67%)
-$green-pale:    #D3E8C9;  // rgb(211, 232, 201)   hsl(100.6, 40.3%, 84.9%)
-$aqua-dark:     #1BA47D;  // rgb(027, 164, 125)   hsl(162.9, 71.7%, 37.5%)
-$aqua-light:    #5AC1A5;  // rgb(090, 193, 165)   hsl(163.7, 45.4%, 55.5%)
-$blue-bright:   #59B0E0;  // rgb(089, 176, 224)   hsl(203, 76%, 51%)
-$blue-dark:     #054C6B;  // rgb(031, 092, 129)   hsl(203, 61%, 31%)
-$blue-mid:      #6A9EBE;  // rgb(106, 158, 190)   hsl(203, 39%, 58%)
-$blue-light:    #59B1E0;  // rgb(089, 177, 224)   hsl(201.3, 68.5%, 61.4%)
-$blue-pale:     #E7F3FC;  // rgb(231, 243, 252)   hsl(205.7, 77.8%, 94.7%)
-$blue-grey:     #98A7B7;  // rgb(152, 167, 183)   hsl(211, 17.7%, 65.7%)
-$red-dark:      #8A212A;  // rgb(138, 033, 042)   hsl(354.9, 61.4%, 33.5%)
-$red:           #C22026;  // rgb(194, 032, 038)   hsl(357.8, 71.7%, 44.3%)
-$ginger:        #D94A26;  // rgb(217, 074, 038)   hsl(12.1, 70.2%, 50%)
-$orange:        #ED8022;  // rgb(237, 128, 034)   hsl(27.8, 84.9%, 53.1%)
-$flesh:         #F1D0B3;  // rgb(241, 208, 179)   hsl(28.1, 68.9%, 82.4%)
-$cream:         #FCF2E8;  // rgb(252, 242, 232)   hsl(30, 76.9%, 94.9%)
-$white:         #FFFFFF;  // rgb(255, 255, 255)   hsl(0, 0%, 100%)
-$grey-lightest: #E6E6E6;  // rgb(230, 230, 230)   hsl(0, 0%, 90%)
-$grey-lighter:  #D9D9D9;  // rgb(217, 217, 217)   hsl(0, 0%, 85%)
-$grey-light:    #B3B3B3;  // rgb(179, 179, 179)   hsl(0, 0%, 70%)
-$grey-mid:      #808080;  // rgb(128, 128, 128)   hsl(0, 0%, 50%)
-$grey-dark:     #5F5F5F;  // rgb(095, 095, 095)   hsl(0, 0%, 37%)
-$grey-darker:   #333333;  // rgb(051, 051, 051)   hsl(0, 0%, 20%)
-$grey-darkest:  #171717;  // rgb(023, 023, 023)   hsl(0, 0%, 9%)
-$black:         #000000;  // rgb(000, 000, 000)   hsl(0, 0%, 0%)
+$gold:          #EEB111;  // rgb(238, 177, 017)  hsl(43.4, 86.7%, 50%)
+$green:         #008752;  // rgb(000, 135, 082)  hsl(156.4, 100%, 26.5%)
+$green-bright:  #13AB4A;  // rgb(019, 171, 074)  hsl(141.7, 80%, 37.3%)
+$green-dark:    #009C5D;  // rgb(000, 156, 093)  hsl(156.4, 100%, 30.5%)
+$green-apple:   #67BD57;  // rgb(103, 189, 087)  hsl(110.6, 43.6%, 54.1%)
+$green-lime:    #C7DD7B;  // rgb(199, 221, 123)  hsl(73, 59%, 67%)
+$green-pale:    #D3E8C9;  // rgb(211, 232, 201)  hsl(100.6, 40.3%, 84.9%)
+$aqua-dark:     #1BA47D;  // rgb(027, 164, 125)  hsl(162.9, 71.7%, 37.5%)
+$aqua-light:    #5AC1A5;  // rgb(090, 193, 165)  hsl(163.7, 45.4%, 55.5%)
+$blue-bright:   #59B0E0;  // rgb(089, 176, 224)  hsl(203, 76%, 51%)
+$blue-dark:     #054C6B;  // rgb(031, 092, 129)  hsl(203, 61%, 31%)
+$blue-mid:      #6A9EBE;  // rgb(106, 158, 190)  hsl(203, 39%, 58%)
+$blue-light:    #59B1E0;  // rgb(089, 177, 224)  hsl(201.3, 68.5%, 61.4%)
+$blue-pale:     #E7F3FC;  // rgb(231, 243, 252)  hsl(205.7, 77.8%, 94.7%)
+$blue-grey:     #98A7B7;  // rgb(152, 167, 183)  hsl(211, 17.7%, 65.7%)
+$red-dark:      #8A212A;  // rgb(138, 033, 042)  hsl(354.9, 61.4%, 33.5%)
+$red:           #C22026;  // rgb(194, 032, 038)  hsl(357.8, 71.7%, 44.3%)
+$ginger:        #D94A26;  // rgb(217, 074, 038)  hsl(12.1, 70.2%, 50%)
+$orange:        #ED8022;  // rgb(237, 128, 034)  hsl(27.8, 84.9%, 53.1%)
+$flesh:         #F1D0B3;  // rgb(241, 208, 179)  hsl(28.1, 68.9%, 82.4%)
+$cream:         #FCF2E8;  // rgb(252, 242, 232)  hsl(30, 76.9%, 94.9%)
+$white:         #FFFFFF;  // rgb(255, 255, 255)  hsl(0, 0%, 100%)
+$white-off:     #F7F7F7;  // rgb(255, 255, 255)  hsl(0, 0%, 100%)
+$grey-lightest: #E6E6E6;  // rgb(230, 230, 230)  hsl(0, 0%, 90%)
+$grey-lighter:  #D9D9D9;  // rgb(217, 217, 217)  hsl(0, 0%, 85%)
+$grey-light:    #B3B3B3;  // rgb(179, 179, 179)  hsl(0, 0%, 70%)
+$grey-mid:      #808080;  // rgb(128, 128, 128)  hsl(0, 0%, 50%)
+$grey-dark:     #5F5F5F;  // rgb(095, 095, 095)  hsl(0, 0%, 37%)
+$grey-darker:   #333333;  // rgb(051, 051, 051)  hsl(0, 0%, 20%)
+$grey-darkest:  #171717;  // rgb(023, 023, 023)  hsl(0, 0%, 9%)
+$black:         #000000;  // rgb(000, 000, 000)  hsl(0, 0%, 0%)
 
-$color-text-main: $grey-dark;
+$grey-zep:      $grey-darker;
+
+$color-text-main: $grey-darker;
 $color-bkgd-main: $grey-lighter;
+$color-bkgd-primary: $white;
+
+$color-input-text: $aqua-dark;
+$color-headline-text: $grey-darker;
 
 $color-text-inverse: $white;
 $color-bkgd-inverse: $green;
 
-$color-link: $orange;
-$color-link-hover: $ginger;
+$color-error-text: $red;
+$color-error-bkgd: $flesh;
+
+$color-button-bkgd: $grey-mid;
+
+$color-link: $aqua-dark;
+$color-link-hover: $aqua-light;
+
+$color-header-bkgd: $grey-darker;
+$color-header-bkgd: $grey-zep;
 
 $color-highlight: $green-bright;
 

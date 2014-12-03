@@ -1,21 +1,29 @@
+// home.js stage
 angular.module('stages.home',[]).config( function ($stateProvider) {
 
-  // specifics for for this state
+  // paths for this state
   var stageName = 'home';
-  var templateUrl = 'templates/';
-  var stageUrl = 'templates/stages/' + stageName + '/';
+  // TODO: make these paths central and DRYer for all stages, changing based on stageName
+  var templateUrl = "templates/";
+  var stageUrl = templateUrl + "stages/" + stageName + '/';
 
   // state definition
   $stateProvider.state("home", {
     url: "/home",
     views: {
+      'dev@': {
+        templateUrl: templateUrl + 'dev.html',
+        controller:  'DevCtrl as dev',
+      },
       'header@': {
-        templateUrl: 'templates/header.html',
+        templateUrl: templateUrl + 'header.html',
         controller:  'HeaderCtrl as head',
       },
       'main@': {
+        resolve: {},
         templateUrl: stageUrl + "main.html",
-        controller:  function home_ctrl ($scope, syncData, SyncService, firebaseRef) {
+        controllerAs: "home",
+        controller:  function home_ctrl ($scope, SyncService, firebaseRef) {
           // the design_ref may be set by arriving from a share link, or should be generated new
           $scope.designRef = SyncService.get('design_ref') || firebaseRef('/designs').push()
           .once( 'value', function (dataSnapshot) {
@@ -31,7 +39,7 @@ angular.module('stages.home',[]).config( function ($stateProvider) {
         templateUrl: stageUrl + "underlay.html",
       },
       'footer@': {
-        templateUrl: 'templates/footer.html',
+        templateUrl: templateUrl + 'footer.html',
       },
     },
   })

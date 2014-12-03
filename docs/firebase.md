@@ -1,10 +1,10 @@
-# firebase 
+# firebase
 
 ## Outline
-We'll keep objects of various types in firebase: 
+We'll keep objects of various types in firebase:
 
   * Routing (an always up-to-date array of available agents)
-  * Users: 
+  * Users:
     * Prospects
     * Agents
   * Designs
@@ -13,7 +13,7 @@ We'll keep objects of various types in firebase:
 ## Storage Objects
 
 ### Routing
-  
+
   provides a quick lookup for round-robin distribution of prospects to agents
 
   routing: {
@@ -23,7 +23,7 @@ We'll keep objects of various types in firebase:
 
 ### Users
 
-  two types of users: 
+  two types of users:
     prospects, who use the online sales tool to estimate their home's production
     agents, who are standing by
 
@@ -49,7 +49,7 @@ We'll keep objects of various types in firebase:
       prospects_calls:   [session_id...]
     },
   }
-    
+
 #### Agents
 
   agents: {
@@ -73,12 +73,12 @@ We'll keep objects of various types in firebase:
         city:     "city",
         state:    "state",
         zip:      "11111",
-        areas: {
-          area_id: {
-            geometry:     "polygon((blahblablhablh))",
-            slope:        "10",
-            obstrucitons: [{point},{point},{point}...]
-          },
+      },
+      areas: {
+        area_id: {
+          geometry:     "polygon((blahblablhablh))",
+          slope:        "10",
+          obstructions: [{point},{point},{point}...]
         },
       },
       owner:          "prospect_id",
@@ -104,7 +104,7 @@ We'll keep objects of various types in firebase:
 
 
 
-## how do we sync? 
+## how do we sync?
 
 var test = new Firebase('https://scty.firebaseio.com/features')
 var wkt = new ol.format.WKT();
@@ -113,7 +113,7 @@ test.push(wkt.writeFeature(feature))
 
 
 after mount draw: (rather than getting the pixel data, we should get the LatLng data)
- 
+
 get all the feature's relevant keys
     event.feature.getKeys()
     - id

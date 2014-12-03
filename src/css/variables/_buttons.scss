@@ -1,0 +1,64 @@
+@import "colors";
+@import "fonts";
+@import "motion";
+
+@mixin btn($color: $color-button-bkgd, $size: 1.25rem) {
+
+  @include apercu-medium;
+  font-size: $size;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+  line-height: 1.25;
+
+  display: block;
+  width: auto;
+  min-width: 7.5em;
+  height: auto;
+  margin: 1em auto;
+
+  color: $white;
+  background-color: $color;
+
+  padding-top: 0.75em;
+  padding-bottom: 0.75em;
+  padding-left: 2em;
+  padding-right: 2em;
+
+  outline: none;
+  border-width: 0;
+  border-radius: 1.5em/50%;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  user-select: none;
+
+  vertical-align: middle;
+  white-space: no-wrap;
+
+  transition: all .075s $easing-quick;
+  transition: background-color .1s $easing-quick;
+
+  &:hover {
+    background-color: lighten($color, 10%);
+  }
+
+  &:active:not(:disabled) {
+    background-color: darken($color, 10%);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: $grey-mid;
+    border-color: darken($grey-mid, 25%);
+    color: $grey-lightest;
+  }
+
+  &.doubledecker {
+    border-radius: 2.125em/50%;
+  }
+}
