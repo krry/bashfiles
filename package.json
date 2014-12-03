@@ -8,7 +8,7 @@
     "Kerry Snyder <ksnyder@solarcity.com>"
   ],
   "private": true,
-  "description": "flannel for Solarcity",
+  "description": "flannel for SolarCity",
   "dependencies": {
     "nconf": "~0.6.9",
     "browser-sync": "^1.5.8",
@@ -52,7 +52,7 @@
   },
   "scripts": {
     "start": "node server/server.js",
-    "dev": "gulp rebuild",
+    "dev": "npm install && gulp rebuild",
     "prod": "gulp heroku:production"
   },
   "ignore": [
