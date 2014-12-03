@@ -1,7 +1,13 @@
 <nav>
   <a ui-sref="home.initial" class="logo">SolarCity</a>
   <div class="tray">
-    <div class="address display-none"></div>
+    <div class="address" ng-show="user.hasAddress">
+      <output>45 Alvarado Row Stanford CA 94305</output>
+      <div class="links">
+        <a class="display-inline float right caps">Edit</a>
+        <a class="display-inline float right caps">Share</a>
+      </div>
+    </div>
     <ul>
       <li class="active"><span>1</span><a class="white" ui-sref="configure.initial">Configure</a></li>
       <li><span>2</span><a class="white" ui-sref="qualify.initial">Qualify</a></li>

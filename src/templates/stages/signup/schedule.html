@@ -1,0 +1,50 @@
+<!-- main.html for qualify stage -->
+<div class="overlay primary col fourth three">
+  <h1>You've made great strides.</h1>
+  <h3>We need a few seconds to see if you qualify.</h3>
+  <form name="prospectForm" novalidate>
+    <div class="row">
+      <div class="col half padded">
+        <label for="">Full name</label>
+        <input type="text" name="name" placeholder="first and last please">
+      </div>
+      <div class="col half padded">
+        <label for="">Email address</label>
+        <input type="text" name="email" placeholder="you@domain.com">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col half padded">
+        <label for="">Date of birth</label>
+        <div class="combo-input">
+          <input type="text" name="month" class="month" placeholder="MM" ng-minlength="2" ng-maxlength="2">
+          <input type="text" name="day" class="day" placeholder="DD" ng-minlength="2" ng-maxlength="2">
+          <input type="text" name="year" class="year" placeholder="YYYY" ng-minlength="4" ng-maxlength="4">
+        </div>
+      </div>
+      <div class="col half padded">
+        <label for="">Phone number</label>
+        <input type="text" name="phone" placeholder="(---) --- ----">
+      </div>
+    </div>
+    <div class="row center">
+      <div class="col half padded center">
+        <!-- implant NoUIslider -->
+        <label for="bill">Your average monthly electric bill: <h1 class="display-inline">$100</h1></label>
+        <button class="ib aqua" ng-click="stages.next()">Next</button>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="overlay secondary col fourth">
+  <p>We need your consent to a quick credit check so we can determine what kind of savings we can offer you.</p>
+  <p>This is solely for the purpose of providing you with a solar system. We won't share your information with anyone else.</p>
+  <figure><img src="" alt=""></figure>
+  <p>
+    <a>What happens if I don't qualify?</a>
+  </p>
+  <p>
+    <a>Will this credit check appear in my credit report?</a>
+  </p>
+  <div fln-help></div>
+</div>

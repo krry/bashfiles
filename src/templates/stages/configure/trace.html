@@ -1,15 +1,10 @@
 <div fln-draw></div>
 <div>
   <div ui-view name="instructions" class="instructions">
-    <h3>Trace one area of your roof.</h3>
-    <p>Draw a simple outline to trace the edge of the sunniest flat area of your roof by clicking on each of the corners until you complete the entire shape.</p>
-    <figure>
-      <img src="" alt="">
-    </figure>
-    <p>Don't worry about missing a spot, you can edit the shape later.</p>
-
-    <button class="ib" ng-click="stages.next()">Next</button>
-
-    <span>areas = {{map.areas}}</span>
+    <h3>Pick a place for your panels.</h3>
+    <p>We've oriented the map so that south is at the bottom of your screen. And that southern sunlight is the best and brightest, so put your panels there.</p>
+    <p>Each click will place points. The design tool will connect the dots for you. You can adjust them later if necessary.</p>
+    <figure><img src="" alt=""></figure>
+    <button class="ib aqua" ng-click="stages.next()">Next</button>
   </div>
 </div>

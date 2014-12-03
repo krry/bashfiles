@@ -1,23 +1,11 @@
-<div fln-select></div>
-<div fln-modify></div>
 <div>
   <div ui-view name="instructions" class="instructions">
-    <h3>Edit the shape if needed.</h3>
-    <p>You've completed the shape.</p>
-    <ul>
-      <li>Drag to move any points that are misaligned.</li>
-      <li>Click on a point to modify it.</li>
-      <li>Add a point by clicking on the line.</li>
-    </ul>
-    <figure>
-      <img src="" alt="">
-    </figure>
-    <p>You can <a href="#erase">erase this shape</a> to start over, or just <a href="#save">save it for now</a>.</p>
-    <button class="ib" ng-click="stages.next()">Next</button>
-
-    <span>areas = {{map.areas}}</span>
-    <button ng-click="stages.areaone()">dev select 1</button>
-    <button ng-click="stages.areatwo()">dev select 2</button>
+    <h3>Area one is done.</h3>
+    <p>You can choose to trace another sunny area of your roof or click finished to submit this to our design advisors for review.</p>
+    <p>Remember: solar panels harvest a lot of energy, so there's no need to overdo it.</p>
+    <p>If you want, you can <a>erase this shape</a> to start over, or <a>save it for later</a>.</p>
+    <figure><img src="" alt=""></figure>
+    <button class="ib gold">Another area</button>
+    <button class="ib aqua" ng-click="stages.next()">Finished</button>
   </div>
 </div>
-<div fln-help></div>
