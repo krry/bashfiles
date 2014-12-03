@@ -13,27 +13,15 @@ function FormCtrl_($scope, UserService, StageService, MapService) {
   vm.checkZip = checkZip;
   vm.parseAddress = parseAddress;
 
-  vm.gmapShown = getGmapShown;
-  vm.toggleGmapShown = toggleGmapShown;
-  vm.setGmapShown = setGmapShown;
-
-  function getGmapShown(){
-    return MapService.getGmapShown();
-  }
-
-  function toggleGmapShown(){
-    MapService.setGmapShown(!vm.gmapShown);
-  }
-
-  function setGmapShown(value){
-    MapService.setGmapShown(value);
-  }
+  vm.gmapShown = MapService.getGmapShown;
 
   function checkZip (zip) {
     console.log("checking ZIP");
     if (typeof(zip) !== "undefined") {
       console.log(zip);
-      setGmapShown(true);
+      MapService.setGmapShown(true);
+      MapService.updateGmap({"postalCode": zip});
+      // MapService.setGmap(MapService.g.gmap, MapService.g.mapOptions);
     }
 
     // check to see if there are 5 digits
@@ -47,8 +35,9 @@ function FormCtrl_($scope, UserService, StageService, MapService) {
             // return mapService.initNearMe()
   }
 
-  function parseAddress () {
+  function populateAddress () {
     console.log('parsing address');
+    // TODO: use zip code to fill in city and state
     // package and send full address to Google Maps API for sanitation
     // populate sanitized address in the address fields
     // center map on latlng of address

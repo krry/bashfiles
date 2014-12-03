@@ -5,8 +5,7 @@ function edlGoogleMap($timeout, $document, $window, MapService) {
     scope: {
     	onCreate: "&"
     },
-    controller:{},
-    link: function edlGoogleMapController(scope, element, attrs) {
+    controller: function edlGoogleMapController($scope, $element, $attrs) {
       var mapOptions,
           map,
           input,
@@ -17,7 +16,7 @@ function edlGoogleMap($timeout, $document, $window, MapService) {
 
       mapOptions = MapService.g.mapOptions;
 
-      map = MapService.setGmap(element[0], mapOptions);
+      map = MapService.setGmap($element[0], mapOptions);
 
       // create an Autocompleting search box on the map
       input = document.getElementById('pac-input');
@@ -89,7 +88,8 @@ function edlGoogleMap($timeout, $document, $window, MapService) {
 
         service.textSearch(request, callback);
       }
-    }
+    },
+    // link: function edlGoogleMapLink(scope, ele, attrs) {}
   };
 }
 directives.directive('edlGoogleMap', edlGoogleMap);
