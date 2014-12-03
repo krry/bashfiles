@@ -3,7 +3,7 @@
 @import "../variables/functions";
 
 main.main {
-  // height: 100vh;
+  height: 100%;
   width: 100%;
   position: relative;
 }
@@ -11,6 +11,7 @@ main.main {
 .overlayer {
   position: absolute;
   top: 0; left: 0;
+  width: 100%;
   z-index: 1;
   margin: auto;
   overflow: hidden;
@@ -25,29 +26,36 @@ main.main {
   padding: 4em 2em;
   text-align: center;
   // width: golden-ratio(100);
-  width: 71%;
+  // width: 71%;
   background: $color-bkgd-primary;
 }
 
-.siderail {
-  padding: 2em;
-  width: 25%;
-  background: $white;
-}
+// .rail {
+//   padding: 2em;
+// }
 
-.siderail.left {
-  float: left;
-}
+// .rail.left.main {
+//   width: 75%;
+// }
 
-.siderail.right {
-  float: right;
-}
+// .rail.side {
+//   width: 25%;
+//   background: $white;
+// }
+
+// .rail.side.left {
+//   float: left;
+// }
+
+// .rail.side.right {
+//   float: right;
+// }
 
 .overlay.secondary {
   padding: 3em 2em;
   padding-bottom: 0;
   // width: 100% - golden-ratio(100);
-  width: 29%;
+  // width: 29%;
   background: $grey-lightest;
 }
 
