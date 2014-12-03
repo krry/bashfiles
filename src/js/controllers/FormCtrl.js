@@ -11,7 +11,7 @@ function FormCtrl_($scope, UserService, StageService, MapService) {
   vm.user = UserService.user;
 
   vm.checkZip = checkZip;
-  vm.parseAddress = parseAddress;
+  vm.populateAddress = populateAddress;
 
   vm.gmapShown = MapService.getGmapShown;
 

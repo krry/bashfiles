@@ -21,7 +21,7 @@ function MapService_ ($q, LayerService) {
   var DEFAULT_LNG = -123;
 
   var gmapShown = false;
-  var omapShown = false;
+  // var omapShown = false;
 
   var service = {
     // the google maps object literal
@@ -91,7 +91,7 @@ function MapService_ ($q, LayerService) {
     geocoder.geocode({'location': latlng}, function(results, status){
       if (status === google.maps.GeocoderStatus.OK) {
         if (results[0]) {
-          outcome = results[0].geometry.location;;
+          outcome = results[0].geometry.location;
         }
         else { 
           console.error("Error: No known domiciles nearby.");
@@ -111,7 +111,6 @@ function MapService_ ($q, LayerService) {
     var addy = "";
     var geocoder = new google.maps.Geocoder();
     var components = {"country": "US"};
-    ;
     for (var key in obj) {
       if (obj.hasOwnProperty(key)){
         console.log(key);
@@ -124,7 +123,7 @@ function MapService_ ($q, LayerService) {
       "address": addy,
       "componentRestrictions": components,
     }, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
+      if (status === google.maps.GeocoderStatus.OK) {
         if (results[0]) {
           outcome = results[0].geometry.location;
         }
@@ -164,7 +163,6 @@ function MapService_ ($q, LayerService) {
     console.log("updating map, centering on ", center);
     service.g.gmap.setCenter(center);
     console.log(center);
-    ;
     service.g.gmap.setZoom(getGmapMaxZoom(center));
   }
 
@@ -220,11 +218,11 @@ function MapService_ ($q, LayerService) {
 
   // OL map functions
   function getOmapShown () {
-    return omapShown;
+    // return omapShown;
   }
 
   function setOmapShown (value){
-    omapShown = value;
+    // omapShown = value;
   }
 
   function initOmap(target_element) {
