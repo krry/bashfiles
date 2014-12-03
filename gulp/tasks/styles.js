@@ -14,6 +14,7 @@ var styleSrc  = [
   './src/css/defaults/*.scss',
   './src/css/utilities/*.scss',
   './src/css/components/*.scss',
+  './src/css/app/*.scss',
   './src/css/**/*.css',
 ]
 
