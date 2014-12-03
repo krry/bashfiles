@@ -1,3 +1,5 @@
+@import "../variables/fonts";
+@import "../variables/colors";
 @import "../variables/motion";
 @import "../variables/sizes";
 
@@ -15,13 +17,27 @@
   position: absolute;
   top: 1em;
   left: 1em;
-  background: pink;
-  width: 3em;
+  background: $blue-bright;
+  z-index: 100;
+  width: 5em;
   height: 3em;
+  padding: 3em;
+  border: 1px solid white;
+}
+
+.controls:after {
+  @include apercu-bold;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  top: 1em; left: 0; right: 0;
+  content: "map controls";
+  color: white;
 }
 
 .ol-viewport {
-  background: green;
+  background: $green-dark;
 }
 
 .map {

@@ -3,5 +3,9 @@
 .dev-controls {
   height: auto;
   position: relative;
-  background: lightblue;
+  background: $blue-light;
+}
+
+.dev-controls a {
+  color: $blue-dark;
 }

@@ -18,10 +18,6 @@ main.main {
   background-color: $color-bkgd-primary;
 }
 
-.overlay {
-  display: table-cell;
-}
-
 .overlay.primary {
   padding: 4em 2em;
   text-align: center;
@@ -29,27 +25,6 @@ main.main {
   // width: 71%;
   background: $color-bkgd-primary;
 }
-
-// .rail {
-//   padding: 2em;
-// }
-
-// .rail.left.main {
-//   width: 75%;
-// }
-
-// .rail.side {
-//   width: 25%;
-//   background: $white;
-// }
-
-// .rail.side.left {
-//   float: left;
-// }
-
-// .rail.side.right {
-//   float: right;
-// }
 
 .overlay.secondary {
   padding: 3em 2em;

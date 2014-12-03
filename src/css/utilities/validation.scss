@@ -1,12 +1,14 @@
 @import "../variables/colors";
 
+// TODO: style these like the designs
+
 label.required:after {
   content: "*";
 }
 
 input.ng-invalid {
-  background-color: $color-error-bkgd;
-  color: $color-error-text;
+  // background-color: $color-error-bkgd;
+  // color: $color-error-text;
 }
 
 input.ng-pristine {}

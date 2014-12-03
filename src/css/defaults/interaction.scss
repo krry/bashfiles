@@ -1,0 +1,258 @@
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+//
+//  INTERACTION
+//
+//  links, buttons, inputs, forms, selects
+//  styles for anything the user interacts with
+//  besides media, figures, or map controls
+//
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+@import "../variables/sizes";
+@import "../variables/colors";
+@import "../variables/buttons";
+@import "../variables/functions";
+
+
+// reset anchors and links
+a {
+  color: $color-link;
+  text-decoration: none;
+  transition: all .15s $easing-quick;
+  cursor: pointer;
+  border-bottom: 1px hidden;
+
+  // not liking the descender-conscious link underline hack
+  // text-shadow: 2px 0 0 $color-bkgd-main, -2px 0 0 $color-bkgd-main;
+  // background-image: -webkit-linear-gradient( left, currentColor 0%, currentColor 100% );
+  // background-image: linear-gradient( to right, currentColor 0%, currentColor 100% );
+  // background-repeat: repeat-x;
+  // background-position: 0 95%;
+  // -webkit-background-size: 100% 1px;
+  // background-size: 100% 1px;
+}
+
+a:hover {
+  color: $color-link-hover;
+  border-bottom-style: solid;
+}
+
+:target {
+  animation: highlight 1.5s $easing-quick;
+  outline: 0;
+}
+
+:focus {
+  outline: 0;
+}
+
+::selection {
+  background-color: $color-highlight;
+  color: white;
+}
+
+button,
+input,
+select,
+textarea {
+  margin: 0;
+  font-size: 1em;
+  line-height: normal;
+  font-family: inherit;
+  vertical-align: baseline;
+}
+
+button,
+input[type='submit'],
+input[type='button'] {
+  @include btn;
+}
+
+button.text {
+  @include apercu-light;
+  background: none;
+  border: none;
+  color: $grey-mid;
+  font-size: .875em;
+  text-transform: none;
+  letter-spacing: .5px;
+  padding: 1em .75em;
+  margin: 0 auto;
+}
+
+button.text:active {
+  background: none;
+  color: $aqua-dark;
+}
+
+button.ib {
+  display: inline-block;
+}
+
+button.small {
+  font-size: 1em;
+}
+
+button.tiny {
+  font-size: .75em;
+}
+
+button.gold {
+  @include btn($gold);
+}
+
+button.aqua {
+  @include btn($aqua-dark);
+}
+
+// form fields, inputs, labels
+fieldset {
+  border: 1px solid $grey-lighter;
+  outline: none;
+  background: $white-off;
+  margin: 0 0 0.5em 0;
+  padding: 1em;
+}
+
+// form elements resets
+input,
+label,
+select {
+  display: block;
+  font-family: inherit;
+  font-size: 100%;
+}
+
+label {
+  font-size: .875em;
+  display: block;
+  text-indent: 0;
+  font-weight: 600;
+  margin-bottom: 0.5em;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+label abbr {
+  display: none;
+}
+
+select {
+  border: 1px solid;
+}
+
+textarea {
+  margin: 0 0 1em;
+  width: 100%;
+  color: $grey-mid;
+  resize: vertical;
+  overflow: scroll;
+  padding: .5em 1em;
+  font-family: $font-interface;
+}
+
+input[type=radio] + label,
+input[type=checkbox] + label {
+  text-indent: .5em;
+}
+
+// either use the indent method above or this one from Google's CSS to place checkbox and radio labels
+// input[type=radio],
+// input[type=checkbox] {
+//   margin-right: .5em;
+// }
+
+input[type=radio],
+input[type=checkbox],
+input[type=radio] + label,
+input[type=checkbox] + label {
+  display: inline;
+}
+
+textarea,
+input[type="email"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="url"],
+input[type="color"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+select[multiple=multiple] {
+  @include apercu-light;
+  box-sizing: border-box;
+  transition: border-color;
+  background-color: transparent;
+  color: inherit;
+  // border: none;
+  // border-bottom: 1px solid $grey-lighter;
+  // border-radius: 0;
+  // padding: .33333em;
+  padding: .5em .75em;
+  border-radius: 4px;
+  border: 1px solid $grey-lighter;
+  margin-bottom: .5em;
+  width: 100%;
+  font-size: 1.75em;
+  font-weight: 700;
+}
+
+textarea:hover,
+input[type="email"]:hover,
+input[type="number"]:hover,
+input[type="password"]:hover,
+input[type="search"]:hover,
+input[type="tel"]:hover,
+input[type="text"]:hover,
+input[type="url"]:hover,
+input[type="color"]:hover,
+input[type="date"]:hover,
+input[type="datetime"]:hover,
+input[type="datetime-local"]:hover,
+input[type="month"]:hover,
+input[type="time"]:hover,
+input[type="week"]:hover,
+select[multiple=multiple]:hover {
+  border-color: $blue-light;
+}
+
+textarea:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="text"]:focus,
+input[type="url"]:focus,
+input[type="color"]:focus,
+input[type="date"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+select[multiple=multiple]:focus {
+  border-color: $blue-bright;
+}
+
+// input placeholders
+::placeholder {
+  opacity: .6;
+  color: inherit;
+  transition: opacity .2s;
+}
+
+:focus::placeholder {
+  opacity: .4;
+}
+
+input::placeholder {
+  color: $grey-mid;
+}
+
