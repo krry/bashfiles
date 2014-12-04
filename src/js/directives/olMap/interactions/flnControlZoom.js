@@ -33,13 +33,14 @@ directives
 
 function flnControlZoom_ (MapService) {
   return {
-    restrict: 'E',
+    restrict: 'EA',
     link: function flnControlZoomLink (scope, ele, attrs) {
       // create a new zoom controller
       var zoomControl = new ol.control.Zoom(zoom_options);
       // add it to the map
       MapService.getOmap().addControl(zoomControl);
       // remove it from the map when the directive gets destroyed
+      debugger;
       ele.on('$destroy', function (e) {
         MapService.getOmap().removeControl(zoomControl);
       });
