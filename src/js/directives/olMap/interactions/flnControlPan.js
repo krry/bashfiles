@@ -31,12 +31,7 @@ function flnControlPan_ (MapService) {
       vm.size = MapService.getOmap().getSize();
       vm.view = MapService.getOmap().getView();
     },
-    template: [
-      '<button fln-map-pan map-view="PanCtrl.view" map-size="PanCtrl.size" pan-direction="up">up</button>',
-      '<button fln-map-pan map-view="PanCtrl.view" map-size="PanCtrl.size" pan-direction="down">down</button>',
-      '<button fln-map-pan map-view="PanCtrl.view" map-size="PanCtrl.size" pan-direction="right">right</button>',
-      '<button fln-map-pan map-view="PanCtrl.view" map-size="PanCtrl.size" pan-direction="left">left</button>',
-    ].join(''),
+    templateUrl: "templates/directives/flnControlPan.html",
   };
 }
 
@@ -49,7 +44,7 @@ function flnMapPan_ () {
       size: '=mapSize',
     },
     link: function flnMapPanLink (scope, ele, attrs) {
-      ele.on('click', function() { 
+      ele.on('click', function() {
         return panCenter(scope.view, scope.direction, scope.size);
       });
       ele.on('$destroy', function () {
