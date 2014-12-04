@@ -1,5 +1,5 @@
 /* ==================================================
-  
+
   MAPSERVICE
 
   this factory produces maps, layers, collections
@@ -93,7 +93,7 @@ function MapService_ ($q, LayerService) {
         if (results[0]) {
           outcome = results[0].geometry.location;
         }
-        else { 
+        else {
           console.error("Error: No known domiciles nearby.");
           outcome = false;
         }
@@ -229,13 +229,13 @@ function MapService_ ($q, LayerService) {
     var olView = new ol.View({
       projection: LayerService.pixelProjection,
       center: ol.extent.getCenter(LayerService.pixelProjection.getExtent()),
-      zoom: 20,
+      zoom: 1,
     });
 
     var _ol_layers = [
       LayerService.get('static_map'),
       LayerService.get('area'),
-      LayerService.get('panel'),
+      // LayerService.get('panel'),
     ];
 
     var olMapOptions = {
