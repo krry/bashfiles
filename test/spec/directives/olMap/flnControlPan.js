@@ -2,12 +2,11 @@
 
 describe('Directive: flnControlPan', function() {
 
-
   beforeEach(module('flannel.directives'));
 
-	var element, scope;
+  var element, scope;
 
-	// beforeEach(module('views/templates/albums.html')); // See the note in the URL at top about compiling html to js.
+  // beforeEach(module('views/templates/albums.html')); // See the note in the URL at top about compiling html to js.
 
   beforeEach(module("flannel.directives", function ($provide) {
       mockMapService = {
@@ -22,17 +21,17 @@ describe('Directive: flnControlPan', function() {
   }));
 
 
-	beforeEach(inject(function($rootScope, $compile) {
-		element = angular.element('<fln-control-pan></fln-control-pan>');
+  beforeEach(inject(function($rootScope, $compile) {
+    element = angular.element('<fln-control-pan></fln-control-pan>');
 
-		scope = $rootScope.$new();
+    scope = $rootScope.$new();
 
-		$compile(element)(scope);
-		scope.$digest();
-	}));
+    $compile(element)(scope);
+    scope.$digest();
+  }));
 
-	it("should insert 4 buttons", function() {
-		var list = element.find('button');
-		expect(list.length).toBe(4);
-	});
+  it("should insert 4 buttons", function() {
+    var list = element.find('button');
+    expect(list.length).toBe(4);
+  });
 });

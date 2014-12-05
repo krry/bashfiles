@@ -41,14 +41,14 @@ function LayerService_ ($window, StyleService) {
   }
 
   function getSourcesKhak (element) {
-    var header = window.getComputedStyle(document.getElementById('header'), null);
-    var el_height = element.innerHeight - parseInt(header.getPropertyValue("height"));
+    var windowWidth = $window.innerWidth;
+    var windowHeight = $window.innerHeight;
     var sources = {
       area: new ol.source.Vector({features: new ol.Collection([])}),
       static_map: new ol.source.ImageStatic({
         // TODO: URL constructor for this
-        url: 'http://scexchange.solarcity.com/scfilefactory/TestGrab.aspx?format=jpg&center='+ REMOVEMEcenter.lat()+','+ REMOVEMEcenter.lng() +'&zoom=20&size='+ element.innerWidth +'x'+ el_height +'&maptype=satellite&scale=1&client=gme-solarcity',
-        imageSize: [extent[2], extent[3]],
+        url: 'http://scexchange.solarcity.com/scfilefactory/TestGrab.aspx?format=jpg&center='+ REMOVEMEcenter.lat()+','+ REMOVEMEcenter.lng() +'&zoom=20&size='+ windowWidth +'x'+ windowWidth +'&maptype=satellite&scale=1&client=gme-solarcity',
+        imageSize: [windowWidth, windowHeight],
         projection: pixelProjection,
         imageExtent: pixelProjection.getExtent(),
         visible: true,
@@ -93,7 +93,7 @@ function LayerService_ ($window, StyleService) {
     var el = (!element) ? $window : element;
     var header = window.getComputedStyle(document.getElementById('header'), null);
     var el_height = el.innerHeight - parseInt(header.getPropertyValue("height"));
-    extent = [0, 0, element.innerWidth, el_height ];
+    extent = [0, 0, el.innerWidth, el_height ];
     pixelProjection = new ol.proj.Projection({
       units: 'pixels',
       extent: extent
