@@ -25,7 +25,7 @@ function flnRoofpeak_ (MapFactory, MapService, LayerService) {
       // scope.area = scope.design_element.getLayers()
       var base_map = MapService.getOmap();
       var old_view = base_map.getView();
-      var f_layer = LayerService.get('area');
+      var f_layer = LayerService.getLayer('area');
 
       var f_source = f_layer.getSource();
       var f_area = f_source.getFeatures()[0];

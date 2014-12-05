@@ -70,7 +70,7 @@ function MapService_ ($q, LayerService) {
   // google maps methods defined
 
   function getGmapShown () {
-    console.log("getting gmapShown");
+    // console.log("getting gmapShown");
     return gmapShown;
   }
 
@@ -161,6 +161,7 @@ function MapService_ ($q, LayerService) {
       return false;
     }
     console.log("updating map, centering on ", center);
+    // TODO: figure out why center is not a LatLng object...
     service.g.gmap.setCenter(center);
     console.log(center);
     service.g.gmap.setZoom(getGmapMaxZoom(center));
@@ -226,23 +227,11 @@ function MapService_ ($q, LayerService) {
   }
 
   function initOmap(target_element) {
-    var olView = new ol.View({
-      projection: LayerService.pixelProjection,
-      center: ol.extent.getCenter(LayerService.pixelProjection.getExtent()),
-      zoom: 1,
-    });
-
-    var _ol_layers = [
-      LayerService.get('static_map'),
-      LayerService.get('area'),
-      // LayerService.get('panel'),
-    ];
-
     var olMapOptions = {
       controls: [],
-      view: olView,
+      view: LayerService.initOlView(),
       interactions: [],
-      layers: _ol_layers,
+      layers: LayerService.init(target_element),
       target: target_element,
     };
 

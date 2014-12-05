@@ -110,9 +110,9 @@ function OlService_ ($q, $state, $window, StyleService, MapService) {
     });
 
     // if (status){
-      // LayerService.get('panel').setOpacity(1);
+      // LayerService.getLayer('panel').setOpacity(1);
     // } else {
-      // LayerService.get('panel').setOpacity(0.6);
+      // LayerService.getLayer('panel').setOpacity(0.6);
     // }
   };
 
