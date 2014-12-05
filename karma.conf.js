@@ -2,6 +2,8 @@
 // Generated on Wed Nov 12 2014 14:18:02 GMT-0800 (PST)
 // Use:
 // karma start karma.conf.js
+// where this conf file should be named `karma.conf.js` and kept at the root
+
 module.exports = function(config) {
   config.set({
 
@@ -50,7 +52,9 @@ module.exports = function(config) {
       './src/js/**/*': ['jshint']
     },
 
-
+    jshintPreprocessor: {
+      jshintrc: './.jshintrc'
+    },
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
