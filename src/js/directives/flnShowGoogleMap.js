@@ -6,7 +6,6 @@ function flnShowGoogleMap_ () {
       shown: "=flnShowGoogleMap",
     },
     controller: function controller ($scope, $element, $attrs){
-      // debugger;
       $scope.$parent.toggleMap();
     },
     // link: function(scope, element, attrs){

@@ -25,7 +25,7 @@ var zoom_options = {
   zoomOutLabel:     '-',        // Text label to use for the zoom-out button. Default is -
   zoomInTipLabel:   'Zoom in',  // Text label to use for the button tip. Default is Zoom in
   zoomOutTipLabel:  'Zoom out', // Text label to use for the button tip. Default is Zoom out
-  delta:            '.01',              // The zoom delta applied on each click.
+  delta:            '.05',              // The zoom delta applied on each click.
   // target:           '',              // Target.
 };
 
@@ -41,7 +41,6 @@ function flnControlZoom_ (MapService) {
       // add it to the map
       MapService.getOmap().addControl(zoomControl);
       // remove it from the map when the directive gets destroyed
-      debugger;
       ele.on('$destroy', function (e) {
         MapService.getOmap().removeControl(zoomControl);
       });

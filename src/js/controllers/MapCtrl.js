@@ -1,3 +1,5 @@
+controllers.controller("MapCtrl", ["$scope", "$firebase", "MapService", "LayerService", "InteractionService", "StyleService", "EventService", "SyncService", "syncData", "updateArea", "addWkt", "firebaseRef", MapCtrl_]);
+
 function MapCtrl_($scope, $firebase, MapService, LayerService, InteractionService, StyleService, EventService, SyncService, syncData, updateArea, addWkt, firebaseRef) {
   var vm = this;
 
@@ -20,10 +22,13 @@ function MapCtrl_($scope, $firebase, MapService, LayerService, InteractionServic
    listeners on the map
   ********************************************/
 
+  // init the layers for the map
+  LayerService.init();
+
   // listen to firebase for added areas
   design_areas_ref.on('child_added', firebaseListener);
   // listen to map for added areas
-  var area_source = LayerService.get('area').getSource();
+  var area_source = LayerService.getLayer('area').getSource();
   // area_source.on('addfeature', sourceListener)
 
   // listen to draw event
@@ -105,7 +110,7 @@ function MapCtrl_($scope, $firebase, MapService, LayerService, InteractionServic
       // save the ref_key
       new_feat.set('wkt_ref_id', ref.key());
       // add area to map
-      LayerService.get('area').getSource().addFeature(new_feat);
+      LayerService.getLayer('area').getSource().addFeature(new_feat);
       // listen for changes on the ref
       ref.ref().on('value', changeAreaFromFirebase);
       new_feat.on('change', updateWhileModify );
@@ -175,4 +180,3 @@ function MapCtrl_($scope, $firebase, MapService, LayerService, InteractionServic
     }
   }
 }
-controllers.controller("MapCtrl", MapCtrl_);

@@ -10,13 +10,15 @@
 //
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+directives.directive('autoSizeInput', autoSizeInput);
 
 function autoSizeInput() {
   return {
     replace: true,
     transclude: 'element',
     scope: {
-      value: '=inputValue'
+      value: '=inputValue',
+      width: '=autoSizeWidth',
     },
     templateUrl: 'templates/directives/autoSizeInput.html',
     link: function(scope, element, attrs) {
@@ -30,10 +32,7 @@ function autoSizeInput() {
       // set the font-size of the span to match the input's font-size
       elSpan.css('font-size', fontSize);
       // initialize the span to contain the contents of the input
-      // debugger;
-      console.log(attrs);
       elSpan.html(elInput.val());
-      elInput.css('width', fontSize);
       // watch the directive for changes to the 'value' parameter
       scope.$watch('value', function(value) {
         // check the font-size of the input and the wrapper
@@ -57,5 +56,3 @@ function autoSizeInput() {
     }
   };
 }
-
-directives.directive('autoSizeInput', autoSizeInput);
