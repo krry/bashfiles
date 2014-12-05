@@ -25,7 +25,7 @@ directives
 
 function flnSelect_ (InteractionService, MapService) {
   return {
-    restrict: "A",
+    restrict: "EA",
     link: function flnSelectLink (scope, ele, attrs) {
       InteractionService.enable(InteractionService.get('select'));
       ele.on('$destroy', function selectDestroy (e) {
@@ -37,7 +37,7 @@ function flnSelect_ (InteractionService, MapService) {
 
 function flnDraw_ (InteractionService, MapService) {
   return {
-    restrict: "A",
+    restrict: "EA",
     link: function flnDrawLink (scope, ele, attrs) {
       InteractionService.enable(InteractionService.get('draw'));
       ele.on('$destroy', function drawDestroy (e) {
@@ -49,7 +49,7 @@ function flnDraw_ (InteractionService, MapService) {
 
 function flnModify_ (InteractionService, MapService) {
   return {
-    restrict: "A",
+    restrict: "EA",
     link: function flnModifyLink (scope, ele, attrs) {
       InteractionService.enable(InteractionService.get('modify'));
       ele.on('$destroy', function modifyDestroy (e) {
@@ -61,7 +61,7 @@ function flnModify_ (InteractionService, MapService) {
 
 function flnDragPan_ (InteractionService, MapService) {
   return {
-    restrict: "A",
+    restrict: "EA",
     link: function flnDragPanLink (scope, ele, attrs) {
       InteractionService.enable(InteractionService.get('dragpan'));
       ele.on('$destroy', function dragPanDestroy (e) {

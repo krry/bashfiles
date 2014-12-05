@@ -95,11 +95,11 @@ function edlOlMap($stateParams, $rootScope, $state, $window, $timeout, ApiServic
         })
       );
       // the picture we'll display our drawn features on
-      var mapCapture = LayerService.get('static_map');
+      var mapCapture = LayerService.getLayer('static_map');
 
       // layer for mounts
       var mounts = Ol.mounts;
-      var mountLayer = LayerService.get('area');
+      var mountLayer = LayerService.getLayer('area');
 
       // layer for gutters
       var gutters = Ol.gutters;
@@ -121,7 +121,7 @@ function edlOlMap($stateParams, $rootScope, $state, $window, $timeout, ApiServic
 
       // layer for panels
       var panels = Ol.panels;
-      var panelLayer = LayerService.get('panel');
+      var panelLayer = LayerService.getLayer('panel');
 
       /* pay attention to when there are panels present so the preview button can be styled:
           this gives us scope.previewPanels -> plan.previewPanels

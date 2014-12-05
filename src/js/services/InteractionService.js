@@ -11,14 +11,21 @@
       draw events in px
 
 ================================================== */
+
+angular.module('flannel').factory('InteractionService',['MapService', 'StyleService', 'LayerService', 'EventService', InteractionService_]);
+
 function InteractionService_ (MapService, StyleService, LayerService, EventService) {
+
+  var options,
+      interactions;
 
   var snap_tolerance = 25;
 
   var service = {
-    enable   : enable,
-    disable  : disable,
-    get      : get,
+    enable  : enable,
+    disable : disable,
+    get     : get,
+    init    : init,
   };
 
   function enable (interactions) {
@@ -31,46 +38,46 @@ function InteractionService_ (MapService, StyleService, LayerService, EventServi
   }
 
   function get (name) {
+    if (!interactions) {
+      init();
+    }
     if (name === 'all') return interactions;
     return interactions[name];
   }
 
-  // interaction options //
-  var options = {
-    draw: {
-      source: LayerService.get('area').getSource(), // destination for new features
-      snapTolerance: snap_tolerance,                // snap tolerance
-      type: 'Polygon',                              // target geometry
-      geometryName: 'area',                         // name used for getting the correct style
-      style: StyleService.defaultStyleFunction,     // styleFunction returns styles
-    },
-    select: {
-      layers: [LayerService.get('area')],           // what layers can you select?
-      style: StyleService.highlightStyleFunction,   // style function for selected features
-    },
-    modify: {
-      style: StyleService.highlightStyleFunction,
-    },
-    dragpan: {
-      kinetic: null,
-    }
-  };
+  function init(){
+    // interaction options //
+    options = {
+      draw: {
+        source: LayerService.getLayer('area').getSource(), // destination for new features
+        snapTolerance: snap_tolerance,                // snap tolerance
+        type: 'Polygon',                              // target geometry
+        geometryName: 'area',                         // name used for getting the correct style
+        style: StyleService.defaultStyleFunction,     // styleFunction returns styles
+      },
+      select: {
+        layers: [LayerService.getLayer('area')],           // what layers can you select?
+        style: StyleService.highlightStyleFunction,   // style function for selected features
+      },
+      modify: {
+          style: StyleService.highlightStyleFunction,
+      },
+      dragpan: {
+        enableKinetic: true,
+      }
+    };
 
-  /* Interactions */
-  var draw   = new ol.interaction.Draw(options.draw);
-  var select = new ol.interaction.Select(options.select);
-  var dragpan = new ol.interaction.DragPan(options.dragpan);
+    // hack: how else can i get the Collection of the Select interaction?
 
-  // hack: how else can i get the Collection of the Select interaction?
-  options.modify.features = select.getFeatures();
-  var modify = new ol.interaction.Modify(options.modify);
+    interactions = {
+      draw: new ol.interaction.Draw(options.draw),
+      select: new ol.interaction.Select(options.select),
+      dragpan: new ol.interaction.DragPan(options.dragpan),
+    };
 
-  var interactions = {
-    draw: draw,
-    select: select,
-    modify: modify,
-    dragpan: dragpan
-  };
+    options.modify.features = interactions.select.getFeatures();
+    interactions.modify = new ol.interaction.Modify(options.modify);
+  }
 
   function addAndRemoveInteractions(add, remove){
     // clear any selected features to prevent bugs
@@ -85,5 +92,3 @@ function InteractionService_ (MapService, StyleService, LayerService, EventServi
 
   return service;
 }
-
-angular.module('flannel').factory('InteractionService',['MapService', 'StyleService', 'LayerService', 'EventService', InteractionService_]);
