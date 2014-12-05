@@ -1,11 +1,31 @@
 @import "../variables/colors";
+@import "../variables/motion";
 
 .dev-controls {
   height: auto;
-  position: relative;
-  background: $blue-light;
+  position: fixed;
+  z-index: 12;
+  width: 100%;
+  padding: 1em 4em 2em;
+  transition: transform 250ms $easing-quick;
+  transform: translate3d(0, -100%, 0);
+  &.shown {
+    transform: translate3d(0, 0, 0);
+  }
 }
 
-.dev-controls a {
-  color: $blue-dark;
+.dev-trigger {
+  position: absolute;
+  margin: auto;
+  overflow: auto;
+  top: 100%;
+  // right: 0;
+  left: 20%;
+  height: 2em;
+  border-radius: 0 0 .5em .5em;
+  width: 10em;
+  font-size: .75em;
+  padding: .25em .75em;
+  text-align: center;
+  background: $black;
 }

@@ -1,0 +1,39 @@
+@import "../variables/colors";
+@import "../variables/motion";
+
+@mixin link($type: "default") {
+  color: $color-link-main;
+  text-decoration: none;
+  transition: all .15s $easing-quick;
+  cursor: pointer;
+  border-bottom: 1px hidden;
+
+  &:hover {
+    color: lighten($color-link-main, 10%);
+  }
+
+  &:active {
+    color: darken($color-link-main, 10%);
+  }
+
+  &:visited {
+    color: $color-link-visited-main;
+  }
+
+  @if $type == "inverse" {
+    color: $color-link-inverse;
+    font-weight: bold;
+    &:hover {
+      color: lighten($color-link-inverse, 10%);
+    }
+    &:active {
+      color: darken($color-link-inverse, 10%);
+    }
+    &:visited {
+      color: $color-link-visited-inverse;
+    }
+    &:hover {
+      color: lighten($color-link-inverse, 10%);
+    }
+  }
+}

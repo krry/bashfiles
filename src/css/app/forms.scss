@@ -16,6 +16,7 @@ input[type=tel].zipcode {
   text-transform: uppercase;
   color: $color-input-text;
   text-align: center;
+  width: 5em;
   max-width: 8em;
   padding: 0.5em 1em;
   border: 2px solid $grey-lightest;

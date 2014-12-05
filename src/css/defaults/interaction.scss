@@ -10,31 +10,14 @@
 
 @import "../variables/sizes";
 @import "../variables/colors";
+@import "../variables/links";
 @import "../variables/buttons";
 @import "../variables/functions";
 
 
 // reset anchors and links
 a {
-  color: $color-link;
-  text-decoration: none;
-  transition: all .15s $easing-quick;
-  cursor: pointer;
-  border-bottom: 1px hidden;
-
-  // not liking the descender-conscious link underline hack
-  // text-shadow: 2px 0 0 $color-bkgd-main, -2px 0 0 $color-bkgd-main;
-  // background-image: -webkit-linear-gradient( left, currentColor 0%, currentColor 100% );
-  // background-image: linear-gradient( to right, currentColor 0%, currentColor 100% );
-  // background-repeat: repeat-x;
-  // background-position: 0 95%;
-  // -webkit-background-size: 100% 1px;
-  // background-size: 100% 1px;
-}
-
-a:hover {
-  color: $color-link-hover;
-  border-bottom-style: solid;
+  @include link;
 }
 
 :target {
@@ -64,8 +47,37 @@ textarea {
 
 button,
 input[type='submit'],
-input[type='button'] {
-  @include btn;
+input[type='button'],
+a.btn {
+  // @include btn;
+  &.gold {
+    @include btn($gold);
+  }
+
+  &.aqua {
+    @include btn($aqua-dark);
+  }
+
+  &.aqua {
+    @include btn($aqua-dark);
+  }
+
+  &.red {
+    @include btn($red);
+  }
+
+  &.white {
+    @include btn($white);
+  }
+
+  &.large {
+    @include btn($size: 1.25em);
+  }
+
+  &.tiny {
+    @include btn($size: .75em);
+  }
+
 }
 
 button.text {
@@ -78,32 +90,13 @@ button.text {
   letter-spacing: .5px;
   padding: 1em .75em;
   margin: 0 auto;
+
+  &:active {
+    background: none;
+    color: $aqua-dark;
+  }
 }
 
-button.text:active {
-  background: none;
-  color: $aqua-dark;
-}
-
-button.ib {
-  display: inline-block;
-}
-
-button.small {
-  font-size: 1em;
-}
-
-button.tiny {
-  font-size: .75em;
-}
-
-button.gold {
-  @include btn($gold);
-}
-
-button.aqua {
-  @include btn($aqua-dark);
-}
 
 // form fields, inputs, labels
 fieldset {
@@ -130,7 +123,7 @@ label {
   font-weight: 600;
   margin-bottom: 0.5em;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: .125em;
 }
 
 label abbr {

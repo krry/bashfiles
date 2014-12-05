@@ -38,26 +38,33 @@ $grey-zep:      $grey-darker;
 $color-text-main: $grey-darker;
 $color-bkgd-main: $grey-lighter;
 $color-bkgd-primary: $white;
+$color-link-main: $aqua-dark;
+$color-link-visited-main: $blue-dark;
 
 $color-input-text: $aqua-dark;
 $color-headline-text: $grey-darker;
 
 $color-text-inverse: $white;
-$color-bkgd-inverse: $green;
+$color-bkgd-inverse: $grey-darkest;
+$color-link-inverse: $green-lime;
+$color-link-visited-inverse: $green-apple;
 
 $color-error-text: $red;
 $color-error-bkgd: $flesh;
 
 $color-button-bkgd: $grey-mid;
 
-$color-link: $aqua-dark;
-$color-link-hover: $aqua-light;
 
 $color-header-bkgd: $grey-darker;
 $color-header-bkgd: $grey-zep;
 
 $color-highlight: $green-bright;
 
-$shade: rgba(0,0,0,.2);
-$tint: rgba(255,255,255,.2);
-$tinter: rgba(255,255,255,.4);
+$shade:    rgba(0,0,0,.2);
+$shady:    rgba(0,0,0,.4);
+$shadier:  rgba(0,0,0,.6);
+$shadiest: rgba(0,0,0,.8);
+$tint:     rgba(255,255,255,.2);
+$tinty:    rgba(255,255,255,.4);
+$tintier:  rgba(255,255,255,.6);
+$tintiest: rgba(255,255,255,.8);

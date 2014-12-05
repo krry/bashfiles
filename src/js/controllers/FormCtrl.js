@@ -25,7 +25,6 @@ function FormCtrl_($scope, UserService, StageService, MapService) {
     }
 
     // check to see if there are 5 digits
-    // debugger;
       // if not, show gentle validation
       // if so, check if valid US ZIP
         // if not, show error state and message

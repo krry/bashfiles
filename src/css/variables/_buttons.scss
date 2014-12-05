@@ -1,15 +1,15 @@
 @import "colors";
 @import "fonts";
 @import "motion";
+@import "typography";
 
-@mixin btn($color: $color-button-bkgd, $size: 1.25rem) {
+@mixin btn($color: $color-button-bkgd, $size: 1rem) {
 
   @include apercu-medium;
+  @include caps;
   font-size: $size;
-  text-transform: uppercase;
-  letter-spacing: 2px;
   text-align: center;
-  line-height: 1.25;
+  line-height: 1;
 
   display: block;
   width: auto;
@@ -20,7 +20,12 @@
   color: $white;
   background-color: $color;
 
-  padding-top: 0.75em;
+  @if $color == $white {
+    color: $grey-darker;
+    background-color: $color;
+  }
+
+  padding-top: .875em;
   padding-bottom: 0.75em;
   padding-left: 2em;
   padding-right: 2em;
@@ -44,11 +49,23 @@
   transition: background-color .1s $easing-quick;
 
   &:hover {
+    color: $white;
     background-color: lighten($color, 10%);
+
+    @if $color == $white {
+      color: $grey-darker;
+      background-color: darken($color, 5%);
+    }
   }
 
   &:active:not(:disabled) {
-    background-color: darken($color, 10%);
+    color: $white;
+    background-color: lighten($color, 10%);
+
+    @if $color == $white {
+      color: $grey-darker;
+      background-color: lighten($color, 10%);
+    }
   }
 
   &:disabled {
