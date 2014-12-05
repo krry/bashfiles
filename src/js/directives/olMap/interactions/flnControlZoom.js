@@ -10,6 +10,7 @@ Zoom Control Template
 Usage: <fln-control-zoom></fln-control-zoom>
  - add buttons on to a map
 
+// TODO - build a fln-map-zoom directive
 usage: <button fln-map-zoom scalar="[in/out]">
  - turn any element into a map control
 
@@ -18,13 +19,13 @@ see: http://openlayers.org/en/v3.0.0/apidoc/ol.control.Zoom.html
 ================================================== */
 
 var zoom_options = {
-  duration:         '100',            // Animation duration in milliseconds. Default is 250.
-  className:        'fln-zoom',       // CSS class name. Default is ol-zoom.
-  zoomInLabel:      '+',              // Text label to use for the zoom-in button. Default is +
-  zoomOutLabel:     '-',              // Text label to use for the zoom-out button. Default is -
-  zoomInTipLabel:   'Zoom in',        // Text label to use for the button tip. Default is Zoom in
-  zoomOutTipLabel:  'Zoom out',       // Text label to use for the button tip. Default is Zoom out
-  // delta:            '.1',              // The zoom delta applied on each click.
+  duration:         '100',      // Animation duration in milliseconds. Default is 250.
+  className:        'fln-zoom', // CSS class name. Default is ol-zoom.
+  zoomInLabel:      '+',        // Text label to use for the zoom-in button. Default is +
+  zoomOutLabel:     '-',        // Text label to use for the zoom-out button. Default is -
+  zoomInTipLabel:   'Zoom in',  // Text label to use for the button tip. Default is Zoom in
+  zoomOutTipLabel:  'Zoom out', // Text label to use for the button tip. Default is Zoom out
+  delta:            '.01',              // The zoom delta applied on each click.
   // target:           '',              // Target.
 };
 

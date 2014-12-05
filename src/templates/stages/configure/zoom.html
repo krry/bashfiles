@@ -1,5 +1,6 @@
-<div class="controls dragpan" fln-dragpan></div>
-<div class="controls zoom" fln-control-zoom></div>
+<fln-dragpan></fln-dragpan>
+<fln-control-pan></fln-control-pan>
+<fln-control-zoom></fln-control-zoom>
 <div>
   <div ui-view name="instructions" class="instructions">
     <h3>Is this your home?</h3>
@@ -8,4 +9,5 @@
     <figure><img src="" alt=""></figure>
     <button class="ib aqua" ng-click="stages.next()">Next</button>
   </div>
+  <div fln-help></div>
 </div>

@@ -14,7 +14,7 @@ directives
 
 function flnRoofpeak_ (MapFactory, MapService, LayerService) {
   return {
-    restrict: 'E',
+    restrict: 'EA',
     controllerAs: 'Roofpeak',
     scope: {
       // area: "=", // pass this object, the area we're focused on

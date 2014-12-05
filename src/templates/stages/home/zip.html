@@ -17,11 +17,14 @@
   </ul>
   <form novalidate ng-submit="form.checkZip(form.user.zip)">
     <label for="zipcode">
+      <!-- TODO: convert this into an auto-size-input for auto-complete glory -->
       <input
+        auto-size-input
+        auto-size-width="5"
         ng-model="form.user.zip"
         type="tel"
         id="hood_check"
-        placeholder="ZIP CODE"
+        placeholder="ZIP"
         class="zipcode"
         name="zip-check"
         required="true"
