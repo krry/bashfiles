@@ -2,6 +2,7 @@
 @import "../variables/colors";
 @import "../variables/motion";
 @import "../variables/sizes";
+@import "../variables/buttons";
 
 .map {
   width: 100%;
@@ -22,7 +23,7 @@
 }
 
 .ol-viewport {
-  background: $cream;
+  background: $grey-mid;
 
   .ol-overlaycontainer-stopevent {
     position: absolute;
@@ -35,23 +36,23 @@
   }
 
   .fln-zoom {
-    margin-bottom: .25em;
 
     .fln-zoom-in,
     .fln-zoom-out {
       @include apercu-bold;
       font-size: 1.25em;
       position: relative;
-      background: $tint;
-      color: $shade;
-      padding: .5em .75em;
-      box-shadow: 0px 2px 4px -2px $shade;
+      background: $tinty;
+      color: $shady;
+      padding: .375em .75em;
+      box-shadow: 0px 2px 4px -2px $shady;
       height: auto;
       width: auto;
       border: 3px solid;
       border-radius: 50%;
       line-height: inherit;
       min-width: 0;
+      margin-bottom: .25em;
 
       &:hover {
         color: $grey-mid;
@@ -63,12 +64,58 @@
       }
     }
   }
-  .fln-control-pan {}
-  .fln-pan-up {}
-  .fln-pan-down {}
-  .fln-pan-right {}
-  .fln-pan-left {}
 }
 
+.fln-control-pan {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  pointer-events: none;
+  // background: $shade;
+  text-align: center;
+  height: 100%;
 
+  button {
+    @include btn($white, .75em);
+    pointer-events: auto;
+    position: absolute;
+    margin: auto;
+    width: 7em;
+    height: 3em;
+    overflow: auto;
+    opacity: .5;
 
+    &.pan-up {
+      top: 1em;
+      right: 0;
+      left: 0;
+    }
+    &.pan-down {
+      right: 0;
+      bottom: 1em;
+      left: 0;
+    }
+    &.pan-right {
+      top: 0;
+      bottom: 0;
+      right: 1em;
+    }
+    &.pan-left {
+      top: 0;
+      left: 1em;
+      bottom: 0;
+    }
+    &:hover,
+    &:active {
+      opacity: 1;
+    }
+  }
+}
+
+.area-detail {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  background: $tintier;
+}

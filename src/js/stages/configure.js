@@ -12,6 +12,9 @@ angular.module('stages.configure',[]).config( function ($stateProvider) {
       // replace the main ui-view @ index
       'main@': {
         templateUrl: stageUrl + "main.html",
+        // controller: function configure_ctrl () {
+          
+        // },
       },
       // modify the new named views @ configure
       'map@configure': {

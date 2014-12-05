@@ -1,3 +1,4 @@
+<h5>dev tools</h5>
 <div class="row">
   <div class="col half">
     <h4>active template: {{stages.partial}}</h4>
@@ -10,8 +11,18 @@
     </div>
     <div class="row">
       <div class="half col">
-        <button class="ib tiny" ng-click="stages.prev()">Back</button>
-        <button class="ib tiny" ng-click="stages.next()">Next</button>
+        <div class="row">
+          <div class="col half">
+            <button class="tiny" ng-click="stages.prev()">Back</button>
+          </div>
+          <div class="col half">
+            <button class="tiny" ng-click="stages.next()">Next</button>
+          </div>
+          <div class="col full">
+            <a class="btn red" onclick="location.hash = '#/home'; location.reload(true);">Reload app</a>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -33,3 +44,4 @@
     </ul> -->
   </div>
 </div>
+<a class="dev-trigger" ng-click="dev.toggleDevPanel()">{{dev.panelShownTriggerText}}</a>
