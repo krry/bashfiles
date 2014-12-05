@@ -90,11 +90,9 @@ function LayerService_ ($window, StyleService) {
   }
 
   function init (element) {
-    if (!element) {
-      var element = $window;
-    }
+    var el = (!element) ? $window : element;
     var header = window.getComputedStyle(document.getElementById('header'), null);
-    var el_height = element.innerHeight - parseInt(header.getPropertyValue("height"));
+    var el_height = el.innerHeight - parseInt(header.getPropertyValue("height"));
     extent = [0, 0, element.innerWidth, el_height ];
     pixelProjection = new ol.proj.Projection({
       units: 'pixels',
