@@ -34,12 +34,7 @@ directives
 
 function flnControlZoom_ (MapService) {
   return {
-<<<<<<< HEAD
     restrict: 'EA',
-=======
-    restrict: 'E',
-    // templateUrl: "templates/directives/flnControlZoom.html",
->>>>>>> using element directives for controls, overwriting open layers styles, trimming obsolete stuff from dev panel
     link: function flnControlZoomLink (scope, ele, attrs) {
       // create a new zoom controller
       var zoomControl = new ol.control.Zoom(zoom_options);
