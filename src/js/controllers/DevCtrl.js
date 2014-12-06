@@ -17,7 +17,7 @@ function DevCtrl_() {
 
   function toggleUserObject() {
     vm.userShown = !vm.userShown;
-    vm.userShownTriggerText = (vm.userShown) ? "hide" : "show"
+    vm.userShownTriggerText = (vm.userShown) ? "hide" : "show";
   }
 
   function toggleDevPanel() {

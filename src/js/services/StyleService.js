@@ -93,7 +93,7 @@ function StyleService_ ($q) {
               })}),new ol.style.Style({ stroke: new ol.style.Stroke({
                 color: 'yellow',
                 width: 15
-              })})]
+              })})];
 
 
     styles['corner'] =  [new ol.style.Style({
@@ -129,7 +129,7 @@ function StyleService_ ($q) {
               stroke: new ol.style.Stroke({
                 color: 'black',
                 width: 25
-              })})]
+              })})];
 
 
     styles['corner'] =  [new ol.style.Style({

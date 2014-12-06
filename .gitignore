@@ -2,6 +2,7 @@ ignore
 public/
 src/lib/
 node_modules
+npm-debug.*
 app/config/config.js
 bower_components
 .DS_Store

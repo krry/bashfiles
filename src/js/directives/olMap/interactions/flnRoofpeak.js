@@ -9,8 +9,7 @@ this directive enables opens a layer that:
 
 ================================================== */
 
-directives
-.directive('flnRoofpeak', flnRoofpeak_ )
+directives.directive('flnRoofpeak', ["MapFactory", "MapService", "LayerService", flnRoofpeak_]);
 
 function flnRoofpeak_ (MapFactory, MapService, LayerService) {
   return {
@@ -68,5 +67,5 @@ function flnRoofpeak_ (MapFactory, MapService, LayerService) {
         // save any details to firebase?
       });
     }
-  }
+  };
 }

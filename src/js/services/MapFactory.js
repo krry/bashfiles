@@ -169,25 +169,23 @@ function MapFactory_( MapService, StyleService, LayerService ) {
       return result;
     }
 
-
-
     return {
       point: points,
       segment: segments,
-    }
+    };
   }
 
   function polygonToPoints (wkt_txt) {
     // split & remove element "))"
-    wkt_txt = wkt_txt.split('))')[0]
+    wkt_txt = wkt_txt.split('))')[0];
     // split & remove element before "(("
-    wkt_txt = wkt_txt.split('((')[1]
+    wkt_txt = wkt_txt.split('((')[1];
     // new array split on ","
-    var wkt_string = wkt_txt.split(',')
+    var wkt_string = wkt_txt.split(',');
     // create points
-    var pts_arr = []
-    for (var i = 0; i < wkt_string.length; i++ ){
-      var pt = wkt_string[i].split(' ')
+    var pts_arr = [];
+    for (var i = 0; i < wkt_string.length; i++ ) {
+      var pt = wkt_string[i].split(' ');
       pts_arr.push(pt);
     }
     return pts_arr;
@@ -209,9 +207,8 @@ function MapFactory_( MapService, StyleService, LayerService ) {
     return segments;
   }
 
-
   return {
     roofArea: roofArea,
-  }
+  };
 
 }

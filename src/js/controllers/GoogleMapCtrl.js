@@ -13,7 +13,7 @@ function GoogleMapCtrl_($scope, $element, MapService, UserService) {
 
   setTimeout(function(){
     activate();
-  }, 500)
+  }, 500);
 
   // $scope.$on('mapUpdate', function(event, location) {
   //   console.log(event);
