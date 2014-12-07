@@ -99,7 +99,7 @@ function LayerService_ ($window, StyleService) {
       extent: extent
     });
     sources = getSourcesKhak(element);
-    layers = getLayersKhak(sources);
+    layers = (layers) ? layers : getLayersKhak(sources);
 
     var _ol_layers = [
       getLayer('static_map'),
