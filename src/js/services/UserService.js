@@ -28,7 +28,7 @@ function UserService_ ($firebase, SyncService, firebaseRef) {
       day: "",
       year: ""
     },
-  }
+  };
 
   function set_zip (zip) {
     user.zip = zip;

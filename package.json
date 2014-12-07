@@ -51,7 +51,7 @@
   },
   "scripts": {
     "start": "node server/server.js",
-    "dev": "npm install && gulp rebuild && npm run test",
+    "dev": "npm install && gulp rebuild",
     "prod": "gulp heroku:production",
     "test": "karma start karma.conf.js"
   },

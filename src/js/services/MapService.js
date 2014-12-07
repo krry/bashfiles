@@ -128,10 +128,10 @@ function MapService_ ($q, LayerService) {
           outcome = results[0].geometry.location;
         }
       } else if (status === google.maps.GeocoderStatus.ZERO_RESULTS) {
-          console.error("Can't find that location.")
+          console.error("Can't find that location.");
           outcome = false;
       } else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
-          setTimeout(function(){ geocodeAddress(obj) }, 200)
+          setTimeout(function(){ geocodeAddress(obj); }, 200);
       } else if (status === google.maps.GeocoderStatus.REQUEST_DENIED) {
           console.error("The geocoder needs an additional parameter.");
           outcome = false;
@@ -168,7 +168,7 @@ function MapService_ ($q, LayerService) {
   }
 
   function getGmapMaxZoom(latlng) {
-    var maxZoomService = new google.maps.MaxZoomService()
+    var maxZoomService = new google.maps.MaxZoomService();
     var zoom = service.g.mapOptions.zoom;
 
     maxZoomService.getMaxZoomAtLatLng(latlng, function(response) {
