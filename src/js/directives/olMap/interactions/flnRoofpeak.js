@@ -17,15 +17,12 @@ function flnRoofpeak_ (MapFactory, MapService, LayerService) {
     controllerAs: 'Roofpeak',
     scope: {
       // area: "=", // pass this object, the area we're focused on
-      // design_element: "=", // the element of the design we're looking at
     },
     link: function flnRoofpeakLink (scope, element, attrs) {
-      // scope.design_element = MapService.getOmap();
       // scope.area = scope.design_element.getLayers()
       var base_map = MapService.getOmap();
       var old_view = base_map.getView();
       var f_layer = LayerService.getLayer('area');
-
       var f_source = f_layer.getSource();
       var f_area = f_source.getFeatures()[0];
 

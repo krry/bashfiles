@@ -22,8 +22,16 @@
   padding: 2em;
 }
 
+.area-detail {
+  position: absolute;
+  // top: 0;
+  height: 100%;
+  z-index: 2;
+  background: $tintier;
+}
+
 .ol-viewport {
-  background: $grey-mid;
+  // background: $grey-mid;
 
   .ol-overlaycontainer-stopevent {
     position: absolute;
@@ -111,11 +119,4 @@
       opacity: 1;
     }
   }
-}
-
-.area-detail {
-  position: absolute;
-  z-index: 2;
-  top: 0;
-  background: $tintier;
 }
