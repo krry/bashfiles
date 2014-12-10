@@ -55,6 +55,7 @@ function flnRoofpeak_ (MapFactory, MapService, LayerService) {
       }
 
       roof_peak_map.setTarget(lay_over_element[0]);
+      lay_over_element.width(ol_map.getSize()[0]);
       roof_peak_map.updateSize();
       element.on('$destroy', function () {
         console.log('should remove the roofpeak now');
