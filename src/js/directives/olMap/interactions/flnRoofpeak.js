@@ -26,6 +26,7 @@ function flnRoofpeak_ (MapFactory, MapService, LayerService) {
       var f_source = f_layer.getSource();
       var f_area = f_source.getFeatures()[0];
       var lay_over_element = $('#roof_peak');
+      lay_over_element.show();
       var ol_map = MapService.getOmap();
       var roof_peak_map = MapFactory.roofArea(ol_map, lay_over_element, f_area);
 
@@ -55,12 +56,13 @@ function flnRoofpeak_ (MapFactory, MapService, LayerService) {
       }
 
       roof_peak_map.setTarget(lay_over_element[0]);
-      lay_over_element.width(ol_map.getSize()[0]);
+      lay_over_element.width(ol_map.getSize()[0]); // (jesse) HACK: we shouldn't have to do this... but we do.
       roof_peak_map.updateSize();
       element.on('$destroy', function () {
         console.log('should remove the roofpeak now');
         base_map.setView(old_view);
-        lay_over_element.html('')
+        lay_over_element.html('');
+        lay_over_element.hide();
         // remove the map
         // save any details to firebase?
       });
