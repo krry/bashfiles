@@ -65,8 +65,8 @@ function MapFactory_( MapService, StyleService, LayerService ) {
       });
     }
 
-    remapFeature(map, feature);
     map.setSize(ol_map.getSize());
+    remapFeature(map, feature);
 
     return map;
   }
