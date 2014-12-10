@@ -25,8 +25,7 @@ function flnRoofpeak_ (MapFactory, MapService, LayerService) {
       var f_layer = LayerService.getLayer('area');
       var f_source = f_layer.getSource();
       var f_area = f_source.getFeatures()[0];
-
-      var lay_over_element = $('#roof_peak')[0];
+      var lay_over_element = $('#roof_peak');
       var ol_map = MapService.getOmap();
       var roof_peak_map = MapFactory.roofArea(ol_map, lay_over_element, f_area);
 
@@ -55,11 +54,12 @@ function flnRoofpeak_ (MapFactory, MapService, LayerService) {
         }
       }
 
-      roof_peak_map.setTarget(lay_over_element);
+      roof_peak_map.setTarget(lay_over_element[0]);
+      roof_peak_map.updateSize();
       element.on('$destroy', function () {
         console.log('should remove the roofpeak now');
-        $('#roof_peak').remove();
         base_map.setView(old_view);
+        lay_over_element.html('')
         // remove the map
         // save any details to firebase?
       });

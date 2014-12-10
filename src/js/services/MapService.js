@@ -62,6 +62,8 @@ function MapService_ ($q, LayerService) {
     addOverlay: addOverlay,
     getOmap: getOmap,
     setOmap: setOmap,
+    setRoofmap: setRoofmap,
+    getRoofmap: getRoofmap,
   };
 
   return service;
@@ -244,6 +246,13 @@ function MapService_ ($q, LayerService) {
   function setOmap (options) {  //TODO: move to OlService
     service.o.omap = new ol.Map(options);
     return service.o.omap;
+  }
+  function getRoofmap() {  //TODO: move to OlService
+    return service.o.roofmap;
+  }
+  function setRoofmap (options) {  //TODO: move to OlService
+    service.o.roofmap = new ol.Map(options);
+    return service.o.roofmap;
   }
 
   function addOverlay(layer) {    //TODO: move to OlService

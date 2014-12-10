@@ -29,8 +29,7 @@ function InteractionService_ (MapService, StyleService, LayerService, EventServi
   };
 
   function enable (interactions) {
-    var curr = MapService.getOmap().getInteractions().getArray();
-    addAndRemoveInteractions(interactions, curr);
+    addInteractions(interactions);
   }
 
   function disable (interaction) {
@@ -60,28 +59,31 @@ function InteractionService_ (MapService, StyleService, LayerService, EventServi
         style: StyleService.highlightStyleFunction,   // style function for selected features
       },
       modify: {
-          style: StyleService.highlightStyleFunction,
+        style: StyleService.highlightStyleFunction,
+        features: new ol.Collection([]),
       },
       dragpan: {
         enableKinetic: true,
       }
     };
 
-    // hack: how else can i get the Collection of the Select interaction?
-
     interactions = {
       draw: new ol.interaction.Draw(options.draw),
       select: new ol.interaction.Select(options.select),
       dragpan: new ol.interaction.DragPan(options.dragpan),
+      modify: new ol.interaction.Modify(options.modify), // (jesse) HACK: with more than one area, this doesn't work well
     };
 
-    options.modify.features = interactions.select.getFeatures();
-    interactions.modify = new ol.interaction.Modify(options.modify);
+    // options.modify.features = interactions.select.getFeatures();    // (Jesse) HACK: don't need to do this for one area
+    // interactions.modify = new ol.interaction.Modify(options.modify);// see above line
+    // this is suitable for only one area
+    interactions.draw.on('drawend', function saveDrawn (event) {
+      var feature = event.feature;
+      options.modify.features.push(feature);
+    })
   }
 
-  function addAndRemoveInteractions(add, remove){
-    // clear any selected features to prevent bugs
-    interactions.select.getFeatures().clear();
+  function addInteractions(add){
     // wrap in array if it's not already
     add = typeof add === 'object' ? [add] : add;
 

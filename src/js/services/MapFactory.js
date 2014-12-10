@@ -40,7 +40,17 @@ function MapFactory_( MapService, StyleService, LayerService ) {
 
   function roofArea (ol_map, target_element, feature) {
     var projection = ol_map.getView().getProjection();
-    map = new ol.Map({
+    if (MapService.getRoofmap()) {
+      map = MapService.getRoofmap()
+      var v = new ol.View({
+        projection: projection,
+        center: ol.extent.getCenter(projection.getExtent()),
+        zoom: 1,
+      });
+      map.setView(v);
+      map.setTarget(target_element[0]);
+    } else {
+      map = MapService.setRoofmap({
       view: new ol.View({
         projection: projection,
         center: ol.extent.getCenter(projection.getExtent()),
@@ -49,20 +59,11 @@ function MapFactory_( MapService, StyleService, LayerService ) {
       extent: projection.getExtent(),
       layers: [f_layer],
       overlays: [f_overlay],
-      target: target_element,
+      target: target_element[0],
       interactions: [],
       controls: [],
-    });
-    console.log({
-      ol_map: ol_map.getView().getProjection(),
-      map_projection: map.getView().getProjection(),
-      extent: projection.getExtent(),
-      layers: [f_layer],
-      overlays: [f_overlay],
-      target: target_element,
-      interactions: [],
-      controls: [],
-    })
+      });
+    }
 
     remapFeature(map, feature);
 
@@ -76,12 +77,8 @@ function MapFactory_( MapService, StyleService, LayerService ) {
     var view = map.getView();
     // turn feature into constituent parts
     var feature_parts = deconstructFeat(feature);
-
-
     f_source.addFeatures(feature_parts.point);
-
     f_source.addFeatures(feature_parts.segment);
-
     map.getView().fitGeometry(
       feature.getGeometry(),
       // get mapsize
@@ -150,9 +147,6 @@ function MapFactory_( MapService, StyleService, LayerService ) {
 
     var pts_txt_arr = polygonToPoints(wkt_txt);
     var seg_txt_arr = pointsToSegments(pts_txt_arr);
-
-
-
 
     var points = /* process points */ [];
     var segments = /* process segments */ [];

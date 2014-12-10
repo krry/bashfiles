@@ -47,13 +47,15 @@ function flnDraw_ (InteractionService, MapService) {
   };
 }
 
-function flnModify_ (InteractionService, MapService) {
+function flnModify_ (InteractionService, MapService, LayerService, StyleService) {
   return {
     restrict: "EA",
     link: function flnModifyLink (scope, ele, attrs) {
       InteractionService.enable(InteractionService.get('modify'));
+      LayerService.getLayer('area').setStyle(StyleService.highlightStyleFunction);
       ele.on('$destroy', function modifyDestroy (e) {
         InteractionService.disable(InteractionService.get('modify'));
+        LayerService.getLayer('area').setStyle(StyleService.defaultStyleFunction);
       });
     },
   };
