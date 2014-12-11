@@ -34,7 +34,7 @@ function LayerService_ ($window, StyleService) {
   //         It should update as the screen is resized
   //         In EDLTR, it was always fullscreen.
 
-  REMOVEMEcenter = new google.maps.LatLng(37.483443610459965, -122.2673599891102);
+  REMOVEMEcenter = new google.maps.LatLng(37.4834436, -122.267538);
 
   function getProjection () {
     return pixelProjection;
@@ -84,7 +84,7 @@ function LayerService_ ($window, StyleService) {
     var olView = new ol.View({
       projection: pixelProjection,
       center: ol.extent.getCenter(pixelProjection.getExtent()),
-      zoom: 1,
+      zoom: 4,
     });
     return olView;
   }
