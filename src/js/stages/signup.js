@@ -13,10 +13,6 @@ angular.module('stages.signup', []).config( function ($stateProvider){
       'main@': {
         templateUrl: stageUrl + "main.html",
       },
-      'dev@': {
-        templateUrl: templateUrl + 'dev.html',
-        controller:  'DevCtrl as dev',
-      },
       'header@': {
         templateUrl: templateUrl + 'header.html',
         controller: 'HeaderCtrl as header',

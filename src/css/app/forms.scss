@@ -16,7 +16,7 @@ input[type=tel].zipcode {
   text-transform: uppercase;
   color: $color-input-text;
   text-align: center;
-  width: 5em;
+  width: 12em;
   max-width: 8em;
   padding: 0.5em 1em;
   border: 2px solid $grey-lightest;
@@ -119,7 +119,7 @@ input[type=text].zipcode {
   }
 }
 
-@media screen and (min-width: $width-min-hd) {
+@media screen and (min-width: $width-min-uhd) {
   input[type=text].street,
   .combo-input input[type=text],
   .combo-input input[type=tel] {

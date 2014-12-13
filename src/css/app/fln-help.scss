@@ -1,0 +1,47 @@
+@import "../variables/colors";
+@import "../variables/fonts";
+@import "../variables/motion";
+
+.help {
+  margin-top: 2em;
+
+  ul {
+    width: 100%;
+  }
+
+  li {
+    text-align: center;
+    border-left: 1px solid $grey-light;
+    transition: background-color .15s $easing-quick;
+
+    &:first-of-type {
+      border-left: none;
+    }
+
+    &:hover {
+      background-color: $grey-mid;
+      color: $white;
+    }
+  }
+
+  a {
+    @include apercu-regular;
+    padding: 1em 0;
+    display: block;
+    width: 100%;
+    color: inherit;
+    font-size: .75em;
+    text-transform: none;
+    letter-spacing: 1;
+  }
+
+  span {
+    display: block;
+    font-size: 2.5em;
+    margin-bottom: .125em;
+  }
+}
+
+.short .help {
+  margin-top: 8em;
+}

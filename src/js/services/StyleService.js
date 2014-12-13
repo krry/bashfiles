@@ -125,21 +125,21 @@ function StyleService_ ($q) {
     /* jshint -W069 */
     var styles = {};
 
-        styles['segment'] =  [new ol.style.Style({
-              stroke: new ol.style.Stroke({
-                color: 'black',
-                width: 25
-              })})];
+    styles['segment'] = [new ol.style.Style({
+      stroke: new ol.style.Stroke({
+        color: 'black',
+        width: 12
+      })
+    })];
 
-
-    styles['corner'] =  [new ol.style.Style({
-              image: new ol.style.Circle({
-                radius: 45,
-                fill: new ol.style.Fill({
-                  color: 'black'
-                })
-              })
-            })];
+    styles['corner'] = [new ol.style.Style({
+      image: new ol.style.Circle({
+        radius: 24,
+        fill: new ol.style.Fill({
+          color: 'black'
+        })
+      })
+    })];
 
     return function(feature, resolution) {
       // var radius = feature.get('radius');

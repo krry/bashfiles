@@ -6,6 +6,8 @@ main.main {
   height: 100%;
   width: 100%;
   position: relative;
+  // HACK: to pull the footer up into view
+  margin-bottom: -10em;
 }
 
 .overlayer {
@@ -31,6 +33,8 @@ main.main {
   padding-bottom: 0;
   // width: 100% - golden-ratio(100);
   // width: 29%;
+  position: relative;
+  min-height: 30em;
   background: $grey-lightest;
 }
 

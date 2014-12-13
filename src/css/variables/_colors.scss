@@ -36,6 +36,7 @@ $black:         #000000;  // rgb(000, 000, 000)  hsl(0, 0%, 0%)
 $grey-zep:      $grey-darker;
 
 $color-text-main: $grey-darker;
+$color-border-main: $grey-light;
 $color-bkgd-main: $grey-lighter;
 $color-bkgd-primary: $white;
 $color-link-main: $aqua-dark;
@@ -45,6 +46,7 @@ $color-input-text: $aqua-dark;
 $color-headline-text: $grey-darker;
 
 $color-text-inverse: $white;
+$color-border-inverse: $white;
 $color-bkgd-inverse: $grey-darkest;
 $color-link-inverse: $green-lime;
 $color-link-visited-inverse: $green-apple;
