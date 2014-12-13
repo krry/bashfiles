@@ -113,32 +113,31 @@ code, kbd, pre, samp {
 }
 
 @media screen and (min-width: $width-min-med) {
-  body {
+  html {
     font-size: $font-size;
   }
 }
 
 @media screen and (min-width: $width-min-lrg) {
-  body {
+  html {
     font-size: $font-size;
   }
 }
 
 @media screen and (min-width: $width-min-xlg) {
-  body {
-    font-size: $font-size;
-  }
-}
-
-@media screen and (min-width: $width-min-xxl) {
-  body {
+  html {
     font-size: em($font-size*1.125);
   }
 }
 
-@media screen and (min-width: $width-min-hd) {
-  body {
+@media screen and (min-width: $width-min-xxl) {
+  html {
     font-size: em($font-size*1.25);
-    // font-size: em($font-size*1.375);
+  }
+}
+
+@media screen and (min-width: $width-min-uhd) {
+  html {
+    font-size: em($font-size*1.375);
   }
 }

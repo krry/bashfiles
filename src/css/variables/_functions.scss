@@ -10,3 +10,7 @@ $phi: 1.61803398875;
 @function golden-ratio($target) {
   @return $target / $phi + 0%;
 }
+
+@function trim-unit($size) {
+  @return $size / ($size * 0 + 1);
+}
