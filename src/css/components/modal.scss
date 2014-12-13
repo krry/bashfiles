@@ -31,6 +31,8 @@
 @media screen and (min-width: $width-min-med) {
   .modal .dialog {
     margin: 2em;
+    width: auto;
+    height: auto;
   }
 }
 
