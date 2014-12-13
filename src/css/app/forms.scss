@@ -26,8 +26,7 @@ input[type=tel].zipcode {
 }
 
 input[type=text].street {
-  font-size: 1.75em;
-  // width: 14em;
+  font-size: 1em;
   text-align: left;
   display: inline-block;
   padding: 16px 1em;
@@ -54,7 +53,7 @@ input[type=text].zipcode {
 
 .combo-input input[type=text],
 .combo-input input[type=tel] {
-  font-size: 1.75em;
+  font-size: 1em;
   border: 0;
   padding: 0;
   display: inline;
@@ -92,7 +91,7 @@ input[type=text].zipcode {
   input[type=text].street,
   .combo-input input[type=text],
   .combo-input input[type=tel] {
-    font-size: em($font-size*1.25);
+    // font-size: em($font-size*1.25);
   }
 }
 
@@ -100,7 +99,7 @@ input[type=text].zipcode {
   input[type=text].street,
   .combo-input input[type=text],
   .combo-input input[type=tel] {
-    font-size: em($font-size*1.375);
+    // font-size: em($font-size*1.375);
   }
 }
 
@@ -108,7 +107,7 @@ input[type=text].zipcode {
   input[type=text].street,
   .combo-input input[type=text],
   .combo-input input[type=tel] {
-    font-size: em($font-size*1.5);
+    // font-size: em($font-size*1.5);
   }
 }
 
@@ -116,7 +115,7 @@ input[type=text].zipcode {
   input[type=text].street,
   .combo-input input[type=text],
   .combo-input input[type=tel] {
-    font-size: em($font-size*1.75);
+    // font-size: em($font-size*1.75);
   }
 }
 
