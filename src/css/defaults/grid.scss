@@ -57,18 +57,6 @@
   font-size: 1rem;
 }
 
-.col.padded {
-  padding: 0 2em;
-}
-
-.col.padded:first-of-type {
-  padding-left: 0;
-}
-
-.col.padded:last-of-type {
-  padding-right: 0;
-}
-
 .row.half {
   width: 50%;
   margin-left: auto;
@@ -138,6 +126,9 @@
 
 .col.sml-full {
   width: 100%;
+  &.padded {
+    padding: 0;
+  }
 }
 
 /* > 536px --- bigger than iPhone portrait */
@@ -147,8 +138,23 @@
     width: 49.9%;
   }
 
+  .col.padded.sml-full {
+    padding: 0 1em;
+  }
+
+  .col.padded:first-of-type.sml-full {
+    padding-left: 0;
+  }
+
+  .col.padded:last-of-type.sml-full {
+    padding-right: 0;
+  }
+
   .col.med-full {
     width: 100%;
+    &.padded {
+      padding: 0;
+    }
   }
 }
 
@@ -158,13 +164,41 @@
     margin: 0;
     padding: 0;
   }
+
+  .col.padded.med-full {
+    padding: 0 1em;
+  }
+
+  .col.padded:first-of-type.med-full {
+    padding-left: 0;
+  }
+
+  .col.padded:last-of-type.med-full {
+    padding-right: 0;
+  }
+
   .col.lrg-full {
     width: 100%;
+    &.padded {
+      padding: 0;
+    }
   }
 }
 
 /* > 1024px */
 @media screen and (min-width: $width-min-xlg) {
+  .col.padded.lrg-full {
+    padding: 0 2em;
+  }
+
+  .col.padded:first-of-type.lrg-full {
+    padding-left: 0;
+  }
+
+  .col.padded:last-of-type.lrg-full {
+    padding-right: 0;
+  }
+
   .col.third, .third {
     width: 33.3%;
   }

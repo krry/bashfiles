@@ -1,34 +1,27 @@
-<h5>dev tools</h5>
+<h2>dev tools</h2>
 <div class="row">
-  <div class="col half">
-    <h4>active template: {{stages.partial}}</h4>
+  <div class="col half padded sml-full">
     <div class="row">
-      <div class="half col">
+      <div class="full col">
         <label for="stageSelector">Jump to a stage</label>
         <select id="stageSelector" ng-model="stages.partial" ng-options="s for s in stages.partials" >
         </select>
       </div>
     </div>
     <div class="row">
-      <div class="half col">
-        <div class="row">
-          <div class="col half">
-            <button class="tiny" ng-click="stages.prev()">Back</button>
-          </div>
-          <div class="col half">
-            <button class="tiny" ng-click="stages.next()">Next</button>
-          </div>
-          <div class="col full">
-            <a class="btn red" onclick="location.hash = '#/home'; location.reload(true);">Reload app</a>
-          </div>
-        </div>
+      <div class="col half">
+        <button class="tiny" ng-click="stages.prev()">Back</button>
+      </div>
+      <div class="col half">
+        <button class="tiny" ng-click="stages.next()">Next</button>
       </div>
     </div>
   </div>
-  <div class="col half">
+  <div class="col half padded sml-full">
     <h4>active user info: <small><a ng-click="dev.toggleUserObject()">{{dev.userShownTriggerText}}</a></small></h4>
     <!-- TODO: log out user object to footer for dev purposes -->
     <pre ng-show="dev.userShown">formInfo = {{ form.user | json }}</pre>
+    <a class="btn red" onclick="location.hash = '#/home'; location.reload(true);">Reload app</a>
     <!-- <ul>
       <li><label for="userName">user.name</label><span>{{user.name}}</span></li>
       <li><label for="userZip">user.zip</label><span>{{user.zip}}</span></li>
