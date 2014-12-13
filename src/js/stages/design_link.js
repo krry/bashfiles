@@ -9,10 +9,6 @@ angular.module('stages.design_link',[]).config( function ($stateProvider) {
   $stateProvider.state("design_link", {
     url: "/design_link/:saved_design_id",
     views: {
-      'dev@': {
-        templateUrl: templateUrl + 'dev.html',
-        controller: 'DevCtrl as dev',
-      },
       'header@': {
         templateUrl: templateUrl + 'header.html',
         controller:  'HeaderCtrl as head',
