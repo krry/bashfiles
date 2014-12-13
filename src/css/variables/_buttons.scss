@@ -1,9 +1,10 @@
 @import "colors";
 @import "fonts";
 @import "motion";
+@import "functions";
 @import "typography";
 
-@mixin btn($color: $color-button-bkgd, $size: 1rem) {
+@mixin btn($color: $color-button-bkgd, $size: 1rem, $corners: #{1.5em/50%}, $pad: #{.875em 2em .75em}) {
 
   @include apercu-medium;
   @include caps;
@@ -21,18 +22,20 @@
   background-color: $color;
 
   @if $color == $white {
-    color: $grey-darker;
+    // @include apercu-light;
+    color: $grey-dark;
     background-color: $color;
   }
 
-  padding-top: .875em;
-  padding-bottom: 0.75em;
-  padding-left: 2em;
-  padding-right: 2em;
+  @if trim-unit($size) < 1 {
+    letter-spacing: 1px;
+  }
+
+  padding: $pad;
 
   outline: none;
   border-width: 0;
-  border-radius: 1.5em/50%;
+  border-radius: $corners;
 
   -webkit-appearance: none;
   -moz-appearance: none;

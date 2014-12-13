@@ -4,7 +4,7 @@
   <h4>Let's get you started.</h4>
   <form novalidate></form>
   <div class="row">
-    <div class="col half center">
+    <div class="col half center padded">
       <input
         ng-model="form.user.street"
         type="text"
@@ -15,7 +15,7 @@
         ng-valid="form.parseAddress(form.user)"
         ng-keypress="form.resizeInput()"></input>
     </div>
-    <div class="col half center">
+    <div class="col half center padded">
       <div class="combo-input">
         <input
           ng-model="form.user.city"
@@ -56,8 +56,8 @@
   </div>
   <button class="ib aqua" ng-click="stages.next()">Next</button>
 </section>
-<aside class="overlay secondary short col fourth">
+<aside class="overlay secondary short col fourth med-full">
   <p>Our customers in your area save an average of <strong>20%</strong> on their utility bill and reduces an average of <strong>2.5 tons of CO<sub>2</sub></strong> every month.</p>
   <figure><img src="" alt=""></figure>
-  <div fln-help></div>
+  <div fln-help class="fln-help"></div>
 </aside>

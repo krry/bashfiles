@@ -6,6 +6,8 @@ main.main {
   height: 100%;
   width: 100%;
   position: relative;
+  // HACK: to pull the footer up into view
+  margin-bottom: -10em;
 }
 
 .overlayer {
@@ -31,6 +33,8 @@ main.main {
   padding-bottom: 0;
   // width: 100% - golden-ratio(100);
   // width: 29%;
+  min-height: 16em;
+  position: relative;
   background: $grey-lightest;
 }
 
@@ -58,27 +62,27 @@ main.main {
 }
 
 @media screen and (min-width: $width-min-sml){
-  // .tray {
-  //  width: $width-min-sml;
-  // }
+  .overlay.secondary {
+    min-height: 20em;
+  }
 }
 
 @media screen and (min-width: $width-min-med){
-  // .tray {
-  //  width: $width-min-med;
-  // }
+  .overlay.secondary {
+    // min-height: 24em;
+  }
 }
 
 @media screen and (min-width: $width-min-lrg){
-  // .tray {
-  //  width: $width-min-lrg;
-  // }
+  .overlay.secondary {
+    min-height: 24em;
+  }
 }
 
 @media screen and (min-width: $width-min-xlg){
-  // .tray {
-  //  width: $width-min-xlg;
-  // }
+  .overlay.secondary {
+    min-height: 32em;
+  }
 }
 
 @media screen and (min-width: $width-min-xxl){

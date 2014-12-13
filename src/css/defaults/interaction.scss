@@ -49,13 +49,27 @@ button,
 input[type='submit'],
 input[type='button'],
 a.btn {
-  // @include btn;
-  &.gold {
-    @include btn($gold);
+  &.std {
+    @include btn();
+  }
+  &.huge {
+    @include btn($size: 1.5em);
   }
 
-  &.aqua {
-    @include btn($aqua-dark);
+  &.large {
+    @include btn($size: 1.25em);
+  }
+
+  &.small {
+    @include btn($size: .875em);
+  }
+
+  &.tiny {
+    @include btn($size: .75em);
+  }
+
+  &.gold {
+    @include btn($gold);
   }
 
   &.aqua {
@@ -70,12 +84,12 @@ a.btn {
     @include btn($white);
   }
 
-  &.large {
-    @include btn($size: 1.25em);
+  &.aqua.large {
+    @include btn($aqua-dark, $size: 1.25em);
   }
 
-  &.tiny {
-    @include btn($size: .75em);
+  &.white.square.small.padded {
+    @include btn($color: $white, $size: .875em, $corners: .25em, $pad: #{1.5em 3em});
   }
 
 }
@@ -95,6 +109,10 @@ button.text {
     background: none;
     color: $aqua-dark;
   }
+}
+
+button.close {
+  float: right;
 }
 
 

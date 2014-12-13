@@ -1,3 +1,5 @@
+@import "../variables/colors";
+
 .hide,
 .display-none {
   display: none;
@@ -34,4 +36,24 @@
 .text.caps {
   text-transform: uppercase;
   letter-spacing: 0.0625em;
+}
+
+.border-left {
+  border-left: 1px solid $color-border-main;
+}
+
+.center-vertical {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+
+.push.bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }

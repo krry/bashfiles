@@ -1,0 +1,52 @@
+@import "../variables/colors";
+@import "../variables/fonts";
+@import "../variables/motion";
+
+.help {
+  margin-top: 2em;
+
+  ul {
+    width: 100%;
+  }
+
+  li {
+    text-align: center;
+    padding: 1em;
+    transition: background-color .15s $easing-quick;
+
+    &:first-of-type {
+      // border-left: none;
+    }
+
+  }
+
+  a {
+    @include apercu-regular;
+    background: $white;
+    padding: 1em 0;
+    display: block;
+    // width: 100%;
+    color: inherit;
+    font-size: .75em;
+    text-transform: none;
+    letter-spacing: 1;
+    border-radius: 50%;
+    margin: 0 auto;
+    width: 6.5em;
+
+    &:hover {
+      background-color: $grey-mid;
+      color: $white;
+    }
+  }
+
+  span {
+    display: block;
+    font-size: 2.5em;
+    margin-bottom: .125em;
+  }
+}
+
+.short .help {
+  margin-top: 8em;
+}

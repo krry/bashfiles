@@ -1,6 +1,6 @@
 /* ==================================================
   DevCtrl
-  the form controller
+  the dev tools controller
 ================================================== */
 
 controllers.controller("DevCtrl", [DevCtrl_]);
@@ -14,6 +14,8 @@ function DevCtrl_() {
   vm.userShownTriggerText = "hide";
   vm.panelShown = false;
   vm.panelShownTriggerText = "show dev tools";
+
+  // TODO: register a dev tools service so directives outside the dev panel can interact with it. see the ModalService and ModalCtrl
 
   function toggleUserObject() {
     vm.userShown = !vm.userShown;

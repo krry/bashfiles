@@ -1,12 +1,16 @@
+/* ================================
+  UserService
+
+
+
+================================ */
+
+angular.module('flannel').factory('UserService', ["$firebase", "SyncService", "firebaseRef", UserService_]);
+
 function UserService_ ($firebase, SyncService, firebaseRef) {
-// function UserService_ ($firebase, SyncService, firebaseRef, design_ref) {
-  /* ================================
-    UserService
 
-
-
-  ================================ */
   var service = {
+    user: user,
     set_zip: set_zip,
   };
 
@@ -37,4 +41,3 @@ function UserService_ ($firebase, SyncService, firebaseRef) {
   return service;
 }
 
-angular.module('flannel').factory('UserService', UserService_);
