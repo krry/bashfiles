@@ -26,6 +26,7 @@ function MapService_ ($q, LayerService) {
   var service = {
     // the google maps object literal
     g: {
+      center: "",
       gmap: null,
       autocomplete: null,
       mapOptions: {
@@ -151,11 +152,16 @@ function MapService_ ($q, LayerService) {
     var center;
     // TODO: handle these async calls to Google Maps API with promises
     if (typeof(obj)==="object") {
-      if (obj.k && obj.B) {
+      console.log('object passed to updateGmap');
+      // TODO: never mix up these indexes again, this was broken because I thought it was obj.B for lng
+      if (obj.k && obj.D) {
         // TODO: async promise time
         center = obj;
+        console.log('location contains lat', obj.k, 
+          'and lng:', obj.D);
       } else {
         // TODO: async promise time
+        console.log('location being geocoded');
         center = geocodeAddress(obj);
       }
     } else {
@@ -198,6 +204,7 @@ function MapService_ ($q, LayerService) {
     if (!service.g.center) {
       // HACK: should only return current map center
       var center = new google.maps.LatLng(DEFAULT_LAT, DEFAULT_LNG);
+      console.log("no center, so centering the app on:", center);
       service.setGmapCenter(center);
       return center;
     } else {

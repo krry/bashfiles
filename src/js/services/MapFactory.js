@@ -82,9 +82,9 @@ function MapFactory_( MapService, StyleService, LayerService ) {
     f_source.addFeatures(feature_parts.segment);
     map.getView().fitGeometry(
       feature.getGeometry(),
-      // get mapsize
       map.getSize(),
       // pad the edges, this is a target for interface optimization
+      // TODO: pass the `font-size` of the `<body>` as an argument to this function; use it to set the padding to achieve a responsive layout for the remapFeature
       {
         padding: [35, 35, 35, 35],
       }

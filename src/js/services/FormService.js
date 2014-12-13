@@ -1,9 +1,9 @@
-function FormService_ () {
-  var FormService = {};
+// function FormService_ () {
+//   var FormService = {};
 
-  FormService.user = {};
+//   FormService.user = {};
 
-  return FormService;
-}
+//   return FormService;
+// }
 
-angular.module('flannel').factory('FormService', FormService_);
+// angular.module('flannel').factory('FormService', FormService_);
