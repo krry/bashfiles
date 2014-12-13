@@ -1,5 +1,6 @@
 @import "../variables/colors";
 @import "../variables/fonts";
+@import "../variables/sizes";
 
 header {
   background: $color-header-bkgd;
@@ -59,7 +60,7 @@ header nav li span {
 
 header nav a {
   display: inline-block;
-  padding: 2em 2em 1.625em 0;
+  padding: 2.5em 2em 2em 0;
   color: white;
   font-size: .875em;
 }
@@ -75,4 +76,14 @@ nav a {
   text-shadow: none;
   background: none;
   border-bottom: 0px solid transparent;
+}
+
+.stage-nav {
+  display: none;
+}
+
+@media screen and (min-width: $width-min-lrg) {
+  .stage-nav {
+    display: block;
+  }
 }

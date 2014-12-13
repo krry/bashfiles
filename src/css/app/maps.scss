@@ -16,6 +16,7 @@
   position: relative;
   height: 100%;
   z-index: 1;
+  background: $grey-dark;
 }
 
 .instructions {
@@ -95,13 +96,13 @@
     opacity: .5;
 
     &.pan-up {
-      top: 1em;
+      top: 1.5em;
       right: 0;
       left: 0;
     }
     &.pan-down {
       right: 0;
-      bottom: 1em;
+      bottom: 1.5em;
       left: 0;
     }
     &.pan-right {
