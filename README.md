@@ -1,7 +1,7 @@
 # flannel
 
 --------------
-## How to `git` into it
+## How to `git` into it really fast
 
 Clone the repo:
 `git clone git@github.com:SolarCity/flannel.git`
