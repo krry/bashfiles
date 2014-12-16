@@ -11,23 +11,23 @@ function ModalCtrl_(ModalService) {
 
   vm.isOn        = ModalService.get;
   vm.dialogShown = ModalService.dialogShown;
-  vm.open        = open;
-  vm.close       = close;
-  vm.toggle      = toggle;
+  vm.open        = openModal;
+  vm.close       = closeModal;
+  vm.toggle      = toggleModal;
   vm.showDialog  = showDialog;
 
   // turn modal state on
-  function open() {
+  function openModal() {
     ModalService.set(true);
   }
 
   // turn modal state off
-  function close() {
+  function closeModal() {
     ModalService.set(false);
   }
 
   // switch modal state on and off
-  function toggle() {
+  function toggleModal() {
     var shown = ModalService.get();
     ModalService.set(!shown);
   }
