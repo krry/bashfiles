@@ -61,7 +61,7 @@ input[type=text].zipcode {
 }
 
 .combo-input input[type=text].city {
-  width: 6em;
+  width: 7em;
 }
 
 .combo-input input[type=text].state {
@@ -123,6 +123,6 @@ input[type=text].zipcode {
   input[type=text].street,
   .combo-input input[type=text],
   .combo-input input[type=tel] {
-    font-size: em($font-size*2);
+    font-size: em($font-size*1.25);
   }
 }

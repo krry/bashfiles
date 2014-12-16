@@ -1,20 +1,9 @@
-// TODO: deprecate in favor of a global form controller with no directive
-angular.module('flnForm', [])
-.controller('FormCtrl', ['$scope', function($scope) {
-  $scope.user = {};
-  $scope.master = {};
+angular.module('flnForm', flnForm);
 
-  $scope.update = function(user) {
-    $scope.master = angular.copy(user);
+function flnForm () {
+  return {
+    restrict: "A",
+    controller: 'FormCtrl',
+    controllerAs: 'form',
   };
-
-  $scope.reset = function() {
-    $scope.user = angular.copy($scope.master);
-  };
-
-  $scope.isUnchanged = function(user) {
-    return angular.equals(user, $scope.master);
-  };
-
-  $scope.reset();
-}]);
+}
