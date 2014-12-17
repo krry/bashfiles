@@ -20,7 +20,7 @@ function MapService_ ($q, LayerService) {
   var DEFAULT_LAT = 30;
   var DEFAULT_LNG = -123;
 
-  var gmapShown = false;
+  var gmapShown = true;
   // var omapShown = false;
 
   var service = {
@@ -157,7 +157,7 @@ function MapService_ ($q, LayerService) {
       if (obj.k && obj.D) {
         // TODO: async promise time
         center = obj;
-        console.log('location contains lat', obj.k, 
+        console.log('location contains lat', obj.k,
           'and lng:', obj.D);
       } else {
         // TODO: async promise time
@@ -237,7 +237,11 @@ function MapService_ ($q, LayerService) {
 
   function initOmap(target_element) {
     var olMapOptions = {
-      controls: [],
+      controls: ol.control.defaults({
+            zoom: true,
+            attribution: false,
+            rotate: false,
+          }),
       view: LayerService.initOlView(),
       interactions: [],
       layers: LayerService.init(target_element),
