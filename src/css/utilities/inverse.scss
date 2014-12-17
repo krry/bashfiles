@@ -17,3 +17,9 @@
 .inverse a {
   @include link("inverse");
 }
+
+.inverse select {
+  background-color: $grey-darker;
+  color: white;
+  border-color: $grey-dark;
+}

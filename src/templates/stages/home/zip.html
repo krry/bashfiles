@@ -21,9 +21,9 @@
   <form novalidate fln-form ng-submit="form.checkZip()">
     <label for="zipcode">
       <!-- TODO: convert this into an auto-size-input for auto-complete glory -->
+      <!-- auto-size-input
+      auto-size-width="5" -->
       <input
-        auto-size-input
-        auto-size-width="5"
         ng-model="form.user.zip"
         type="tel"
         id="hood_check"
@@ -35,12 +35,12 @@
         maxlength="5"
         ng-maxlength="5"
         ng-pattern="/^\d{5}(?:[-\s]\d{4})?$/"
-        ng-change="form.checkZip(form.user.zip)">
+        ng-change="form.checkZip()">
       </input>
     </label>
+    <button class="ib aqua" ng-click="form.checkZip()">Next</button>
   </form>
   <fln-autolocate></fln-autolocate>
-  <button class="ib aqua" ng-click="stages.next()">Next</button>
 </section>
 <aside class="overlay secondary col fourth full lrg med sml">
   <div class="ticker kwh" fln-ticker unit="kWh">5,123,456</div>
