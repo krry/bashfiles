@@ -1,6 +1,6 @@
 /* ==================================================
 
-  MAPSERVICE
+  MapService
 
   this factory produces maps, layers, collections
 
@@ -192,8 +192,10 @@ function MapService_ ($q, LayerService) {
     console.log("updating map, centering on ", center);
     // TODO: figure out why center is not a LatLng object...
     service.g.gmap.setCenter(center);
-    console.log(center);
-    service.g.gmap.setZoom(getGmapMaxZoom(center));
+    getGmapMaxZoom(center, function (zoom) {
+      service.g.gmap.setZoom(zoom);
+    })
+    
   }
 
   function getGmapMaxZoom(latLng, cb) {
@@ -203,12 +205,14 @@ function MapService_ ($q, LayerService) {
       if (response.status !== google.maps.MaxZoomStatus.OK) {
         console.log("max zoom status failed");
         zoom = 17;
+        return cb(zoom);
       } else {
         console.log("max zoom response is " + response.zoom);
         zoom = response.zoom;
+        return cb(zoom);
       }
     });
-    return zoom;
+    // return zoom;
   }
 
   function setGmap(element, options) {

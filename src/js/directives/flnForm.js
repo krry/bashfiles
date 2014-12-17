@@ -1,4 +1,4 @@
-angular.module('flnForm', flnForm);
+directives.directive('flnForm', flnForm);
 
 function flnForm () {
   return {
