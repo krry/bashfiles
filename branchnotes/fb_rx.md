@@ -41,7 +41,7 @@ return {
 ## stream it
 create a stream from the app_sync ref
 ```
-  var _base_ref = new firebaseRef(['designs', design_id])
+  var _base_ref = new firebaseRef(['designs', design_id]) || new firebaseRef(['designs', design_id]).push()
 ```
 
 ### wkt
