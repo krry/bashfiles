@@ -2,6 +2,7 @@ angular.module('flannel', [
   'ui.router',
   'ui.bootstrap',
   'firebase',
+  'rx',
   'ngTouch',
   'stages',
   'flannel.providers',
@@ -21,7 +22,7 @@ angular.module('flannel', [
   $httpProvider.defaults.useXDomain = true;
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
 }).run(function() {
-  
+
 });
 
 var controllers = angular.module('flannel.controllers',[]);
