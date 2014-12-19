@@ -23,6 +23,10 @@ var libSrc = [
   './src/lib/angularfire/dist/angularfire.min.js',
   './src/lib/matthewlein-jQuery-widowFix/js/jquery.widowFix-1.3.2.js',
   './src/lib/matthewlein-jQuery-widowFix/js/jquery.widowFix-1.3.2.min.js',
+  './src/lib/rxjs/dist/rx.all.js',
+  './src/lib/rxjs/dist/rx.all.min.js',
+  './src/js/rxjs-firebase/rx.firebase.js',
+  './src/lib/angular-rx/dist/rx.angular.js',
 ]
 
 var libPub = './public/lib/'
