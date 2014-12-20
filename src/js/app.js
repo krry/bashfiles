@@ -25,6 +25,7 @@ angular.module('flannel', [
 
 });
 
+var providers = angular.module('flannel.providers',[]);
 var controllers = angular.module('flannel.controllers',[]);
 var directives  = angular.module('flannel.directives',[]);
 var options     = angular.module('flannel.options',[]);

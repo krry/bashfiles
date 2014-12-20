@@ -1,6 +1,6 @@
-controllers.controller("StageCtrl", ["$scope", "$state", "StageService", "InteractionService", "LayerService", "SyncService", "JwtService", "syncData", StageCtrl_]);
+controllers.controller("StageCtrl", ["$scope", "$state", "StageService", "InteractionService", "LayerService", "SyncService", "JwtService", "syncData", "rx_ref", "FBURL", StageCtrl_]);
 
-function StageCtrl_($scope, $state, StageService, InteractionService, LayerService, SyncService, JwtService, syncData) {
+function StageCtrl_($scope, $state, StageService, InteractionService, LayerService, SyncService, JwtService, syncData, rx_ref, FBURL) {
   // This controller should be used for anything that needs to control which partials are being used
   var vm = this;
   var config = StageService.config;
@@ -9,7 +9,8 @@ function StageCtrl_($scope, $state, StageService, InteractionService, LayerServi
   // stage & step index numbers
   var stage = $scope.sync().stage;
   var step  = $scope.sync().step;
-
+  $scope.ref_rx_getter = rx_ref(FBURL)
+  console.log($scope.ref_rx_getter('diesing_id'))
   // init
   JwtService.jwt();
   vm.partials = partials($scope.sync());

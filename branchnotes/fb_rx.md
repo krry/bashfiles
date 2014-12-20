@@ -1,3 +1,21 @@
+
+# masterplan #
+
+done - create a ref provider that runs at startup
+
+make that ref provider give us a unique design
+ - later, we'll make it give us a correct design
+
+set the unique to a $scope object
+
+... 
+
+
+
+
+
+
+
 # creating streams for stuff
 
 ## what streams do i need?
