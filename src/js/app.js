@@ -10,7 +10,7 @@ angular.module('flannel', [
   'flannel.controllers',
   'flannel.directives',
   'flannel.options',
-]).config(function($sceDelegateProvider, $sceProvider, $httpProvider) {
+]).config(function($sceDelegateProvider, $sceProvider, $httpProvider, rx_refProvider) {
   $sceDelegateProvider.resourceUrlWhitelist([
    // Allow same origin resource loads.
    'self',

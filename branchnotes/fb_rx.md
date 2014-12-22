@@ -1,10 +1,18 @@
+# useful later #
+subscribe to form changes:
+https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/events.md
+
+
+
 
 # masterplan #
 
 done - create a ref provider that runs at startup
 
-make that ref provider give us a unique design
- - later, we'll make it give us a correct design
+return partials multidimensional array
+
+make that ref provider that can set special design ids
+  - later, we'll make it give us a correct design
 
 set the unique to a $scope object
 
@@ -13,12 +21,27 @@ set the unique to a $scope object
 
 
 
-
-
-
 # creating streams for stuff
 
 ## what streams do i need?
+
+-state
+-area
+-user
+-agent
+
+StateStreamService
+
+var requestStream = Rx.Observable.just('https://api.github.com/users');
+
+var responseStream = requestStream
+  .flatMap(function(requestUrl) {
+    return Rx.Observable.fromPromise(jQuery.getJSON(requestUrl));
+  });
+
+responseStream.subscribe(function(response) {
+  // render `response` to the DOM however you wish
+});
 
 firebase
 

@@ -1,4 +1,4 @@
-function StageService_ ($state) {
+function StageService_ ($state, rx_ref, FBURL) {
   /* ================================
     StageService
 
@@ -25,21 +25,6 @@ function StageService_ ($state) {
   ================================ */
 
   var StageService = {};
-
-  // FIREBASE THESE //
-  var _current = {
-    stage: 0,
-    step:  0,
-    history: _history,
-  };
-
-  function curr_step(){
-    return _current.step;
-  }
-  function curr_stage(){
-    return _current.stage;
-  }
-
   var config_object = [
     {
       name: 'home',
@@ -78,10 +63,122 @@ function StageService_ ($state) {
       ],
     },
   ];
+
+  // FIREBASE THESE //
+  var _current = {
+    stage: 0,
+    step:  0,
+    history: _history,
+  };
+
+  var __design_stream = rx_ref.map(function(e){
+    return e.val();
+  });
+
+  __design_stream.subscribe(function function_name (e) {
+    console.log('updating state from fb change')
+    console.log('previous current', _current)
+    _current = e.state;
+    console.log('new current', _current)
+  })
+
+  var fb_stage_stream = __design_stream.filter(function stage_filter (e) {
+    console.log('stage_filter _current')
+    console.log(_current.stage)
+    return e.state.stage;
+  })
+
+  var fb_step_stream = __design_stream.filter(function step_filter (e) {
+    console.log('step_filter _current')
+    console.log(_current.step)
+    return e.state.step;
+  })
+
+  // var _stage_stream = StageService.stage_stream.subscribe(stage_handler);
+  // var _step_stream  = StageService.step_stream.subscribe(step_handler);
+
+  var client_stage_stream = Rx.Observable.create(
+    0,
+    function (x) { return x < 3; },
+    function (x) { return x + 1; },
+    function (x) { return x; }
+  );
+  var client_step_stream = Rx.Observable.create(
+    0,
+    function (x) { return x < 3; },
+    function (x) { return x + 1; },
+    function (x) { return x; }
+  );
+
+  var stage_merge_stream = client_stage_stream.merge(fb_stage_stream);
+  var step_merge_stream = client_step_stream.merge(fb_step_stream);
+
+
+  var stage_subscription = stage_merge_stream.subscribe(
+      function (x) {
+        console.log('************* Next stage: ' + x);
+      },
+      function (err) {
+        console.log('Error: ' + err);
+      },
+      function () {
+        console.log('Completed');
+      });
+
+  var step_subscription = step_merge_stream.subscribe(
+      function (x) {
+        console.log('************* Next step: ' + x);
+      },
+      function (err) {
+        console.log('Error: ' + err);
+      },
+      function () {
+        console.log('Completed');
+      });
+
+  function stage_handler (e){
+    console.log('stage', e.state.stage, "current", _current.stage)
+    _current.stage = e.state.stage;
+    // syncWithService()
+  }
+
+  function step_handler (e) {
+    console.log('step', e.state.step, "current", _current.step)
+    _current.step = e.state.step;
+    // syncWithService()
+  }
+
   StageService.config = config_object;
   var _history = []; // TODO: state objects go here
 
   // END FIREBASED OBJECTS //
+
+  function curr_step(){
+    return _current.step;
+  }
+  function curr_stage(){
+    return _current.stage;
+  }
+
+  function partial_constructor (config) {
+    var partials = [];
+    // TODO: make this an injectable angular constant
+    var template = 'templates/stages/';
+    var name;
+    function hardcode(part) {
+      return template + name + '/' + part;
+    }
+    for (var i = 0; i < config.length; i++) {
+      partials.push([]);
+      name = config[i].name;
+      for (var j = 0; j< config[i].steps.length; j++) {
+        stage = partials[i];
+        stage.push(hardcode(config[i].steps[j].partial))
+      };
+    }
+    console.log('partials: ',partials)
+    return partials;
+  }
 
   function next() {
     // TODO: addHistory()
@@ -141,15 +238,23 @@ function StageService_ ($state) {
     }
   }
 
+  var _partials = partial_constructor(config_object);
+  StageService.partials = _partials;
+
   StageService.syncObj = function() {
+    console.log('syncobj')
     return {
+      partials: _partials,
       stage: _current.stage,
       step:  _current.step,
+      _step_stream:  _current._step_stream,
+      _stage_stream: _current._stage_stream,
       next: next,
       prev: prev,
     };
   };
 
+  StageService.state_stream = __design_stream;
   return StageService;
 }
 
