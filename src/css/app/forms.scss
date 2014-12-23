@@ -7,9 +7,9 @@
 //
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-@import "../variables/sizes";
-@import "../variables/colors";
-@import "../variables/functions";
+@import "../imports/sizes";
+@import "../imports/colors";
+@import "../imports/functions";
 
 // Address fields
 input[type=tel].zipcode {

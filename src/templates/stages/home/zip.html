@@ -5,7 +5,7 @@
       <p>Do we cover your neighborhood?</p>
     </li>
     <li class="active initial">
-      <h1>Every minute, someone new is switching to solar.<br><small>Are we in your neighborhood?</small></h1>
+      <h1 class="tooltip top" alt="tick tock">Every minute, someone switches to solar.<br><small>Are we in your neighborhood?</small></h1>
       <!-- <h3>Will you be next?</h3> -->
     </li>
     <li class="error">
@@ -52,6 +52,6 @@
     <li><a>What happens if I decide to sell my house?</a></li>
   </ul> -->
   <div class="push bottom align center" ng-controller="ModalCtrl as modal">
-    <button ng-click="modal.showDialog('faq')" class="btn white small padded square">Top 5 Questions</button>
+    <button ng-click="modal.showDialog('faq')" class="modal-trigger btn white small padded square">Top 5 Questions</button>
   </div>
 </aside>
