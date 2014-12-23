@@ -1,0 +1,16 @@
+@import "../imports/tooltip";
+
+.tooltip {
+  &.bottom {
+    @include tooltip();
+  }
+  &.top {
+    @include tooltip($position: "top");
+  }
+  &.right {
+    @include tooltip($position: "right");
+  }
+  &.left {
+    @include tooltip($position: "left");
+  }
+}
