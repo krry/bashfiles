@@ -3,21 +3,76 @@ subscribe to form changes:
 https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/events.md
 
 
+stream (ref) -> 
+  this.client_change
+    ref.update(msg)
+  this.server_change
+    ref.observe('value')
+
+
+
+
+streams/
+  session/
+    client
+    server
+  home_form/
+    zipsearch
+    geocode
+    mapcenter
+  design/
+    area(s)
+
+
+      session_object_stream
+
+        client_stream: 
+        - client_state_up
+        - client_state_dn
+
+        server_stream: 
+        - server_state_up
+        - server_state_dn
+
+
 
 
 # masterplan #
 
 done - create a ref provider that runs at startup
 
-return partials multidimensional array
+done - return partials multidimensional array
 
-make that ref provider that can set special design ids
-  - later, we'll make it give us a correct design
+session service
+  get
+    new -> 
+      {0,0}
+    existing (auth) ->
+      state obj
 
-set the unique to a $scope object
 
-... 
+design service
+  get a design object
 
+  set the unique to a $scope object
+
+
+firebase
+
+    state
+      step_change
+      stage_change
+
+    home/form
+      address, etc
+
+    designs: 
+      areas
+        add
+        remove
+        change
+
+    
 
 
 
@@ -26,6 +81,7 @@ set the unique to a $scope object
 ## what streams do i need?
 
 -state
+  scty.
 -area
 -user
 -agent
@@ -42,21 +98,6 @@ var responseStream = requestStream
 responseStream.subscribe(function(response) {
   // render `response` to the DOM however you wish
 });
-
-firebase
-
-  state
-    step_change
-    stage_change
-
-  home/form
-    address, etc
-
-
-  areas
-    add
-    remove
-    change
 
 
 ## app_sync provider
