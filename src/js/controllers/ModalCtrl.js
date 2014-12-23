@@ -18,17 +18,24 @@ function ModalCtrl_(ModalService) {
 
   // turn modal state on
   function openModal() {
+    $('body').css('overflow', 'hidden');
     ModalService.set(true);
   }
 
   // turn modal state off
   function closeModal() {
+    $('body').css('overflow-y', 'scroll');
     ModalService.set(false);
   }
 
   // switch modal state on and off
   function toggleModal() {
     var shown = ModalService.get();
+    if ($('body').css('overflow') === 'hidden') {
+      $('body').css('overflow-y', 'scroll');
+    } else {
+      $('body').css('overflow', 'hidden');
+    }
     ModalService.set(!shown);
   }
 
