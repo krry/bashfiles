@@ -1,5 +1,5 @@
 <!-- <!DOCTYPE html> -->
-<html>
+<html ng-app="flannel" ng-controller="AppCtrl as app">
   <head>
     <meta charset="utf-8">
     <!-- <meta name="viewport" content="initial-scale=1, width=device-width"> -->
@@ -26,7 +26,8 @@
     <!-- <script src="lib/jquery.widowFix-1.3.2.min.js"></script> -->
 
     <!-- google maps -->
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false"></script>
+    <!-- TODO: hinge gme-client value on server environment -->
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false&client=#{app.gmapClient}"></script>
 
     <!-- Apercu fonts from FontDeck -->
     <!-- TODO: prevent a FOUT -->
@@ -46,7 +47,7 @@
     </script>
 </head>
 <!-- app begins -->
-<body ng-app="flannel" ng-controller="StageCtrl as stages">
+<body>
   <div ng-controller="FormCtrl as form">
     <div fln-dev-tools ng-class="{shown: dev.panelShown}" class="dev-controls inverse"></div>
     <header ui-view name="header" id="header" class="header"></header>

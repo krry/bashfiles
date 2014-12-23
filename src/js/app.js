@@ -14,7 +14,7 @@ angular.module('flannel', [
    // Allow same origin resource loads.
    'self',
    'http://localhost:8100/**',
-   // Allow loading from our assets domain.  Notice the difference between * and **.
+   // Allow loading from our assets domain. Notice the difference between * and **.
    'http://scexchange.solarcity.com/scfilefactory/testfill.aspx'
   ]);
   $sceProvider.enabled(false);
@@ -27,3 +27,4 @@ angular.module('flannel', [
 var controllers = angular.module('flannel.controllers',[]);
 var directives  = angular.module('flannel.directives',[]);
 var options     = angular.module('flannel.options',[]);
+var providers   = angular.module('flannel.providers', []);
