@@ -13,30 +13,9 @@ providers.provider('rx_ref',
   }
 
   this.$get = ['FBURL',
-    // function rx_ref_factory (FBURL) {
-      function rx_rf(FBURL) {
-        console.log('args',arguments);
-        return new Firebase('https://scty.firebaseio.com/designs/1234/').observe('value');
-      }
-    // }
-  ]
-
-    // function rx_ref_factory (FBURL) {
-    //   var root_ref_url = FBURL + 'designs'
-    //   return function rx_rf(path) {
-    //     console.log(pathRef([root_ref_url].concat(Array.prototype.slice.call(arguments))));
-    //     return new Firebase(pathRef([root_ref_url].concat(Array.prototype.slice.call(arguments)))).observe();
-    //   };
-    // }
-
+    function rx_rf(FBURL) {
+      console.log('args',arguments);
+      return new Firebase('https://scty.firebaseio.com/designs/1234/').observe('value');
+    } ]
   }
 )
-
-function pathRef(args) {
-  for(var i=0; i < args.length; i++) {
-    if( typeof(args[i]) === 'object' ) {
-      args[i] = pathRef(args[i]);
-    }
-  }
-  return args.join('/');
-}
