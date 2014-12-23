@@ -6,7 +6,7 @@ function TemplateConfig_ () {
 
   ================================ */
 
-  return [
+  var config = [
     {
       name: 'home',
       destination: 'configure',
@@ -45,6 +45,31 @@ function TemplateConfig_ () {
     },
   ];
 
+  function partial_constructor (config) {
+    var partials = [];
+    // TODO: make this an injectable angular constant
+    var template = 'templates/stages/';
+    var name;
+    function hardcode(part) {
+      return template + name + '/' + part;
+    }
+    for (var i = 0; i < config.length; i++) {
+      partials.push([]);
+      name = config[i].name;
+      for (var j = 0; j< config[i].steps.length; j++) {
+        stage = partials[i];
+        stage.push(hardcode(config[i].steps[j].partial))
+      };
+    }
+    console.log('partials: ',partials)
+    return partials;
+  }
+
+
+  return {
+    partials: partial_constructor(config),
+    config: config,
+  }
 }
 
 angular.module('flannel').factory('TemplateConfig', TemplateConfig_);
