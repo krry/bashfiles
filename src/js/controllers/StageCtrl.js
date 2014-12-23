@@ -23,14 +23,17 @@ function StageCtrl_($scope, $state, StageService, InteractionService, LayerServi
 
   var session_stream = Session.subscribe(function handle_session_stream (data) {
     var session = data.val();
+    var target_state;
     console.log('session in session stream subscription: ', session);
     if (session.stage !== stage) {
       $scope.partial_sync = false;
+      target_state = vm.partials[session.stage][0].split('/')[2];
+      // debugger;
       // update the stage on the client
       // go to new state
         // TODO: figure out state name
         // TODO: refactor state to accept step&stage params
-        // $state.go(state_name, session);
+        $state.go(target_state, session);
     } else if (session.step !== step) {
       $scope.partial_sync = false;
       console.log('step was updated by server: ', session);
