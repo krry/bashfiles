@@ -1,8 +1,9 @@
+angular.module('flannel').factory('TemplateConfig', TemplateConfig_);
 function TemplateConfig_ () {
   /* ================================
     TemplateConfig
 
-   The order and organization of template partials used by StageService
+    The order and organization of template partials used by StageService
 
   ================================ */
 
@@ -66,4 +67,3 @@ function TemplateConfig_ () {
   }
 }
 
-angular.module('flannel').factory('TemplateConfig', TemplateConfig_);
