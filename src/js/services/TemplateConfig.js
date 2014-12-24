@@ -11,14 +11,8 @@ function TemplateConfig_ () {
       name: 'home',
       destination: 'configure',
       steps: [
-        {
-          step: 'zip-nearme',
-          partial: 'zip.html'
-        },
-        {
-          step: 'address-roof',
-          partial: 'address.html',
-        }
+        { step: 'zip-nearme',   partial: 'zip.html'         },
+        { step: 'address-roof', partial: 'address.html'     },
       ],
     },
     {
