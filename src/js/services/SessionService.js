@@ -28,15 +28,12 @@ function SessionProvider_ () {
   console.log("session_ref", session_ref)
   var fb_observable = session_ref.observe('value');
 
+  // debugger;
+
   this.$get = [ "JwtService", "SyncService", function SessionProviderFactory(jwt, sync) { // TODO: provide auth object to this
     console.log('Session Provider Loads Here: *************************************************** ',arguments);
     // TODO: pass arguments to this $get method to change the fb_observable's_ref
-    console.log('Provides: ', fb_observable);
-    sync.set('session_ref', session_ref)
-    console.l
+    sync.set('session_ref', session_ref);
     return fb_observable
   } ]
-
-  this.session_stream = fb_observable;
-  this.ref = session_ref;
 }

@@ -43,44 +43,42 @@ function StageCtrl_($scope, $state, StageService, InteractionService, LayerServi
     }
     if (!$scope.session_synchronized) {
       console.log('calling sync: *************** ');
-      syncWithService();
+      updatePartials(stage, step);
     }
   });
-
-
-  function syncWithService() {
-    updateUi();
-    console.log('sync with service: stage,step', stage, step)
-    updatePartials(stage, step);
-  }
-
-  function updateUi () {
-    // stage = $scope.sync().stage;
-    // step  = $scope.sync().step;
-  }
 
   function updatePartials (stg, stp) {
     stp = stp || step;
     vm.partial = StageService.partials[stg][stp];
     $scope.partial_sync = true;
-    $scope.$apply();
+    // $scope.$apply();
   }
 
   var client_stream = new stream()
   client_stream.listen('change', function handle_server_diff (data) {
-    console.log(' (((((((((((((((((((((((((( handle server step, data: ', data);
     session_ref.update(data);
   });
 
-// /////////////////////////////////////////////////
   vm.next = function(){
-    $scope.sync().next();
-    syncWithService();
+    step++;
+    client_stream.emit('change', {
+      stage: stage,
+      step:  step,
+    })
   };
+
   vm.prev = function(){
-    $scope.sync().prev();
-    syncWithService();
+    step--;
+    client_stream.emit('change', {
+      stage: stage,
+      step:  step,
+    })
   };
+
+
+
+
+// /////////////////////////////////////////////////
 
   // /// dev code ///
   // vm.areaone = function () {
