@@ -2,6 +2,7 @@ controllers.controller("StageCtrl", ["$scope", "$state", "StageService", "Intera
 
 function StageCtrl_($scope, $state, StageService, InteractionService, LayerService, SyncService, JwtService, syncData, stream, Session) {
   // This controller should be used for anything that needs to control which partials are being used
+  console.log('*(***************************************************** STAGECTRL LOADING')
   var vm = this;
   var config = StageService.config;
   $scope.sync  = StageService.syncObj;
@@ -28,21 +29,18 @@ function StageCtrl_($scope, $state, StageService, InteractionService, LayerServi
     if (session.stage !== stage) {
       $scope.partial_sync = false;
       target_state = vm.partials[session.stage][0].split('/')[2];
-      // debugger;
       // update the stage on the client
+      stage = session.stage;
       // go to new state
-        // TODO: figure out state name
-        // TODO: refactor state to accept step&stage params
-        $state.go(target_state, session);
-    } else if (session.step !== step) {
+      updatePartials(stage);
+      $state.go(target_state)
+    }
+    if (session.step !== step) {
       $scope.partial_sync = false;
       console.log('step was updated by server: ', session);
       // update the step
       step = session.step;
     }
-    // after making changes, sync with the service.
-      // send 'updateview' event
-
     if (!$scope.session_synchronized) {
       console.log('calling sync: *************** ');
       syncWithService();
@@ -57,12 +55,12 @@ function StageCtrl_($scope, $state, StageService, InteractionService, LayerServi
   }
 
   function updateUi () {
-    stage = $scope.sync().stage;
+    // stage = $scope.sync().stage;
     // step  = $scope.sync().step;
   }
 
   function updatePartials (stg, stp) {
-    console.log('updating partials', stg, stp);
+    stp = stp || step;
     vm.partial = StageService.partials[stg][stp];
     $scope.partial_sync = true;
     $scope.$apply();
@@ -84,51 +82,18 @@ function StageCtrl_($scope, $state, StageService, InteractionService, LayerServi
     syncWithService();
   };
 
-  // function partials(obj){
-  //   console.log(obj)
-  //   if (obj.stage === null) return;
-  //   var parts = [];
-  //   var stage = obj.stage;
-  //   // TODO: make this an injectable angular constant
-  //   var template = 'templates/stages/';
-  //   var name = config[stage].name;
-  //   function hardcode(part) {
-  //     return template + name + '/' + part;
-  //   }
-  //   for (var i = 0; i < config[stage].steps.length; i++) {
-  //     parts.push(hardcode(config[stage].steps[i].partial));
-  //   }
-
-  //   return parts;
-  // }
-
-  // $scope.$watch(
-  //   function(){ return $scope.sync().stage; },
-  //   function(newVal, oldVal){
-  //   if (newVal !== oldVal){
-  //     updatePartials($scope.sync().stage, $scope.sync().step);
-  //   }
-  // });
-  // $scope.$watch(
-  //   function(){ return $scope.sync().step; },
-  //   function(newVal, oldVal){
-  //   if (newVal !== oldVal){
-  //     updatePartials($scope.sync().stage, $scope.sync().step);
-  //   }
-  // });
-
-  /// dev code ///
-  vm.areaone = function () {
-    var interactions = InteractionService;
-    var layers = LayerService;
-    var feature = layers.get('area').getSource().getFeatures()[0];
-    interactions.get('select').getFeatures().push(feature);
-  };
-  vm.areatwo = function () {
-    var interactions = InteractionService;
-    var layers = LayerService;
-    var feature = layers.get('area').getSource().getFeatures()[1];
-    interactions.get('select').getFeatures().push(feature);
-  };
-  /// end dev code ///
+  // /// dev code ///
+  // vm.areaone = function () {
+  //   var interactions = InteractionService;
+  //   var layers = LayerService;
+  //   var feature = layers.get('area').getSource().getFeatures()[0];
+  //   interactions.get('select').getFeatures().push(feature);
+  // };
+  // vm.areatwo = function () {
+  //   var interactions = InteractionService;
+  //   var layers = LayerService;
+  //   var feature = layers.get('area').getSource().getFeatures()[1];
+  //   interactions.get('select').getFeatures().push(feature);
+  // };
+  // /// end dev code ///
 }
