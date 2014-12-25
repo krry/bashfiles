@@ -13,7 +13,6 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Stream) {
 
   // get Session info
   var session_ref = Session.ref()
-  var session_stream = Session.stream()
 
   // HACK: setup
   var stage = 0;
@@ -25,6 +24,15 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Stream) {
                    stage: stage,
                    step:  step,
                  });
+  $timeout(function() {
+      state_stream.emit('step',{
+                   stage: 0,
+                   step:  Templates.config[stage].steps.length -1,
+                 });
+  }, 200);
+  $timeout(function() {
+    vm.next();
+  }, 500);
   // end dev: //////////////////////////////
 
   // and partials
@@ -62,7 +70,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Stream) {
     });
   });
   // listen for step changes
-  state_stream.listen('step', function stage_listen (target_step) {
+  state_stream.listen('step', function step_listen (target_step) {
     step = target_step;
     $timeout(function(){
       // update the view
@@ -101,4 +109,5 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Stream) {
       })
     }
   };
+
 }
