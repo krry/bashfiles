@@ -25,6 +25,7 @@ function SessionProvider_ () {
   ================================ */
 
   var session_ref = new Firebase('https://scty.firebaseio.com/states/1234/state');
+// <<<<<<< HEAD
   var fb_observable = session_ref.observe('value');
 
   // TODO: pass arguments to this $get method to change the fb_observable's_ref
@@ -37,12 +38,12 @@ function SessionProvider_ () {
 
   this.$get = [  "JwtService", "SyncService", function SessionProviderFactory(jwt, sync) {
 
+    // auth with firebase
+    jwt.jwt();
 
     // HACK: sync service probably isn't necessary
     sync.set('session_ref', session_ref);
 
-    // auth with firebase
-    jwt.jwt();
     function awesome_design_builder_brah() {
       return {
         stream: function(){return fb_observable},
@@ -55,4 +56,18 @@ function SessionProvider_ () {
   } ]
 
 
+// =======
+//   console.log("session_ref", session_ref)
+//   var fb_observable = session_ref.observe('value');
+
+//   // debugger;
+
+//   this.$get = [ "JwtService", "SyncService", function SessionProviderFactory(jwt, sync) { // TODO: provide auth object to this
+//     console.log('Session Provider Loads Here: *************************************************** ',arguments);
+//     jwt.jwt();
+//     // TODO: pass arguments to this $get method to change the fb_observable's_ref
+//     sync.set('session_ref', session_ref);
+//     return fb_observable
+//   } ]
+// >>>>>>> feature/firebase_rx
 }

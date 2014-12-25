@@ -17,30 +17,39 @@ function TemplateConfig_ () {
       ],
     },
     {
-      name: 'configure',
-      destination: 'signup',
+      name: 'test',
+      destination: 'configure',
       steps: [
-        { step: 'zoom-lock-roof', partial: 'zoom.html'     },
-        { step: 'trace-area',     partial: 'trace.html'    },
-        { step: 'edit-area',      partial: 'edit.html'     },
-        { step: 'detail-area',    partial: 'detail.html'   },
-        { step: 'area-slope',     partial: 'slope.html'    },
-        { step: 'complete-area',  partial: 'complete.html' },
+        { step: 'zip-nearme',   partial: '../home/zip.html'         },
+        { step: 'address-roof', partial: '../home/address.html'     },
       ],
     },
-    {
-      name: 'signup',
-      destination: '',
-      steps: [
-        { step: 'credit-check',    partial: 'credit.html'   },
-        { step: 'review-proposal', partial: 'proposal.html' },
-        // { step: 'schedule-survey', partial: 'schedule.html' },
-        { step: 'congrats',   partial: 'congrats.html' },
-      ],
-    },
+    // {
+    //   name: 'configure',
+    //   destination: 'signup',
+    //   steps: [
+    //     { step: 'zoom-lock-roof', partial: 'zoom.html'     },
+    //     { step: 'trace-area',     partial: 'trace.html'    },
+    //     { step: 'edit-area',      partial: 'edit.html'     },
+    //     { step: 'detail-area',    partial: 'detail.html'   },
+    //     { step: 'area-slope',     partial: 'slope.html'    },
+    //     { step: 'complete-area',  partial: 'complete.html' },
+    //   ],
+    // },
+    // {
+    //   name: 'signup',
+    //   destination: '',
+    //   steps: [
+    //     { step: 'credit-check',    partial: 'credit.html'   },
+    //     { step: 'review-proposal', partial: 'proposal.html' },
+    //     // { step: 'schedule-survey', partial: 'schedule.html' },
+    //     { step: 'congrats',   partial: 'congrats.html' },
+    //   ],
+    // },
   ];
 
   var partials = partial_constructor(config);
+
   function partial_constructor (config) {
     var partials = [];
     // TODO: make this an injectable angular constant
@@ -60,6 +69,7 @@ function TemplateConfig_ () {
     console.log('partials: ',partials)
     return partials;
   }
+
 
   function partial (stg, stp) {
     return partials[stg][stp];

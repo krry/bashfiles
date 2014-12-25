@@ -2,6 +2,7 @@ angular.module('flannel', [
   'ui.router',
   'ui.bootstrap',
   'firebase',
+  'rx',
   'ngTouch',
   'stages',
   'flannel.providers',
@@ -9,7 +10,7 @@ angular.module('flannel', [
   'flannel.controllers',
   'flannel.directives',
   'flannel.options',
-]).config(function($sceDelegateProvider, $sceProvider, $httpProvider) {
+]).config(function($sceDelegateProvider, $sceProvider, $httpProvider, rx_refProvider) {
   $sceDelegateProvider.resourceUrlWhitelist([
    // Allow same origin resource loads.
    'self',
@@ -21,9 +22,10 @@ angular.module('flannel', [
   $httpProvider.defaults.useXDomain = true;
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
 }).run(function() {
-  
+
 });
 
+var providers = angular.module('flannel.providers',[]);
 var controllers = angular.module('flannel.controllers',[]);
 var directives  = angular.module('flannel.directives',[]);
 var options     = angular.module('flannel.options',[]);

@@ -24,6 +24,7 @@ function DesignProvider_ () {
 
   ================================ */
 
+// <<<<<<< HEAD
   var design_ref = new Firebase('https://scty.firebaseio.com/designs/1234/design');
   var fb_observable = design_ref.observe('value');
 
@@ -45,4 +46,22 @@ function DesignProvider_ () {
 
 
 
+// =======
+// // HACK: bugfix:
+//   var design_ref = new Firebase('https://scty.firebaseio.com/designs/1234/design');
+//   var fb_observable = design_ref.observe('value');
+
+//   // TODO: pass arguments to this $get method to change the fb_observable's_ref
+//   this.$get = [ "SyncService", function designProviderFactory(sync) { // TODO: provide auth object to this
+//     // auth with firebase
+
+//     // always save your firebase references when you create them
+//     sync.set('design_ref', design_ref);
+//     return fb_observable
+//   } ]
+
+//   this.ref = function() {
+//     return design_ref;
+//   }
+// >>>>>>> feature/firebase_rx
 }

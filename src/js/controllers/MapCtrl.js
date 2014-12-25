@@ -8,39 +8,43 @@ function MapCtrl_($scope, $firebase, MapService, LayerService, InteractionServic
   // use with feature.setGeometry()
   var wkt = new ol.format.WKT();
 
-// <<<<<<< Updated upstream
-//   // add areas array to the design in firebase
-//   var designKey = SyncService.get('design_ref').key();
-//   $scope.areasUrl = SyncService.designObj(designKey).$ref().path + '/areas';
+// <<<<<<< HEAD
+// // <<<<<<< Updated upstream
+// //   // add areas array to the design in firebase
+// //   var designKey = SyncService.get('design_ref').key();
+// //   $scope.areasUrl = SyncService.designObj(designKey).$ref().path + '/areas';
 
-//   // firebase ref for all areas
-//   var design_areas_ref = firebaseRef($scope.areasUrl);
+// //   // firebase ref for all areas
+// //   var design_areas_ref = firebaseRef($scope.areasUrl);
+// // =======
+//  // HACK: bugfix
+//   // TODO: DesignService
+//   //   should return the Design.ref(). MapCtrl probably doesn't need to know much about the session.
+//   //   add areas array to the design in firebase
+//   var session_ref = Sync.get('session_ref');
+
 // =======
  // HACK: bugfix
   // TODO: DesignService
-  //   should return the Design.ref(). MapCtrl probably doesn't need to know much about the session.
+  //   should return the design_ref. MapCtrl probably doesn't need to know much about the session.
   //   add areas array to the design in firebase
-  var session_ref = Sync.get('session_ref');
-
-
+  var session_ref = SyncService.get('session_ref');
+  var design_ref = session_ref.ref().parent().child('designs/1234').ref();
 
   // unused: --> // $scope.areasUrl = session_ref.ref().parent().child('designs/1234').ref().path.toString() + '/areas'; // hack:
 
   // firebase ref for all areas
-  var design_areas_ref = Design.ref().child('areas')
-// >>>>>>> Stashed changes
+  var design_areas_ref = design_ref.child('areas')
 
   // save the areas for later reference.... but?
   Sync.set('areas', design_areas_ref); // is this necessary?
+
 
   /********************************************
    listeners on the map
   ********************************************/
 
-// <<<<<<< Updated upstream
-// =======
 
-  // listen to firebase for added areas
   Design.ref().child('areas').on('child_added', firebaseListener);
 
 // bugfix end /////////////////////////
@@ -50,7 +54,8 @@ function MapCtrl_($scope, $firebase, MapService, LayerService, InteractionServic
   InteractionService.init();
 
   // listen to firebase for added areas
-  design_areas_ref.on('child_added', firebaseListener);
+  // duplicated // design_areas_ref.on('child_added', firebaseListener);
+
   // listen to map for added areas
   var area_source = LayerService.getLayer('area').getSource();
   // area_source.on('addfeature', sourceListener)
