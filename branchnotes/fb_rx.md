@@ -1,3 +1,32 @@
+
+
+
+
+
+
+
+
+
+maek a new value - template 
+use TEMPLATE in 
+  stage 
+  templateconfig
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # useful later #
 subscribe to form changes:
 https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/events.md
