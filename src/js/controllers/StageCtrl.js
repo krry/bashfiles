@@ -1,7 +1,7 @@
 // controllers.controller("StageCtrl", ["$scope", "$state", "StageService", "InteractionService", "LayerService", "SyncService", "JwtService", "syncData", StageCtrl_]);
-controllers.controller("StageCtrl", ["$scope", "$state", "$timeout", "TemplateConfig", "SyncService", "Session", "StreamService", StageCtrl_]);
+controllers.controller("StageCtrl", ["$scope", "$state", "$timeout", "TemplateConfig", "Session", "StreamService", StageCtrl_]);
 
-function StageCtrl_($scope, $state, $timeout, Templates, Sync, Session, Stream) {
+function StageCtrl_($scope, $state, $timeout, Templates, Session, Stream) {
 
   var vm = this;
   /* ================================
@@ -33,52 +33,58 @@ function StageCtrl_($scope, $state, $timeout, Templates, Sync, Session, Stream) 
   // view_sync helps flow control for async // TODO: more stream-like
   $scope.view_sync = true;
 
-  // now streams ////////
-  var stage_stream = new Stream();
-  stage_stream.listen('stage', function stage_listen (target_state) {
-    stage = target_state.stage;
-    var name = Templates.config[stage].name
-    $state.go(name).then(function(){
-      step_stream.emit('step', target_state.step)
-    });
-  });
-
-  var step_stream = new Stream();
-  step_stream.listen('step', function stage_listen (target_step) {
-    step = target_step;
-    $timeout(function(){
-      vm.partial = Templates.partials[stage][step];
-      $scope.$apply();
-      session_ref.update({
-        stage: stage,
-        step:  step
-      })
-      $scope.view_sync = true;
-    }, 1)
-  });
-
+  // now a stream from firebase
   var session_stream = Session.stream()
   .map(function(x){
     return x.val() || x;
   })
   .subscribe(function handle_session_stream (data) {
     if ($scope.view_sync) {
+      // lock the view if you're making changes
+      $scope.view_sync = false;
       if (data.stage !== stage) {
-        stage_stream.emit('stage', data);
-        $scope.view_sync = false;
+        state_stream.emit('stage', data);
       } else if (data.step !== step) {
-        step_stream.emit('step', data.step);
-        $scope.view_sync = false;
+        state_stream.emit('step', data.step);
       }
     }
   });
 
+  // and a stream from the client
+  var state_stream = new Stream();
+  // listen for stage changes
+  state_stream.listen('stage', function stage_listen (target_state) {
+    stage = target_state.stage;
+    var name = Templates.config[stage].name
+    $state.go(name).then(function(){
+      // trigger step changes afterwards
+      state_stream.emit('step', target_state.step)
+    });
+  });
+  // listen for step changes
+  state_stream.listen('step', function stage_listen (target_step) {
+    step = target_step;
+    $timeout(function(){
+      // update the view
+      vm.partial = Templates.partials[stage][step];
+      $scope.$apply();
+      // update firebase
+      session_ref.update({
+        stage: stage,
+        step:  step
+      })
+      // unlock the view
+      $scope.view_sync = true;
+    }, 1)
+  });
+
+
   // user flow controls
   vm.next = function(){
     if ( step + 1 < Templates.config[stage].steps.length ) {
-      step_stream.emit('step', step + 1);
+      state_stream.emit('step', step + 1);
     } else if (stage + 1 < Templates.config.length ) {
-      stage_stream.emit('stage', {
+      state_stream.emit('stage', {
         stage: stage + 1,
         step:  0,
       })
@@ -87,9 +93,9 @@ function StageCtrl_($scope, $state, $timeout, Templates, Sync, Session, Stream) 
 
   vm.prev = function(){
     if ( step - 1 >= 0 ) {
-      step_stream.emit('step', step - 1);
+      state_stream.emit('step', step - 1);
     } else if (stage - 1 >= 0 ) {
-      stage_stream.emit('stage', {
+      state_stream.emit('stage', {
         stage: stage - 1,
         step:  Templates.config[stage - 1].steps.length -1,
       })

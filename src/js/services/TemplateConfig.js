@@ -14,17 +14,8 @@ function TemplateConfig_ () {
       steps: [
         { step: 'zip-nearme',   partial: 'zip.html'         },
         { step: 'address-roof', partial: 'address.html'     },
-        { step: 'address-roof', partial: 'address.html'     },
       ],
     },
-    // {
-    //   name: 'home',
-    //   destination: 'configure',
-    //   steps: [
-    //     { step: 'zip-nearme',   partial: 'zip.html'         },
-    //     { step: 'address-roof', partial: 'address.html'     },
-    //   ],
-    // },
     {
       name: 'configure',
       destination: 'signup',
@@ -44,7 +35,7 @@ function TemplateConfig_ () {
         { step: 'credit-check',    partial: 'credit.html'   },
         { step: 'review-proposal', partial: 'proposal.html' },
         { step: 'schedule-survey', partial: 'schedule.html' },
-        { step: 'congrats',   partial: 'congrats.html' },
+        { step: 'congrats',        partial: 'congrats.html' },
       ],
     },
   ];
