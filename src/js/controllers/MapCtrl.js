@@ -9,8 +9,8 @@ function MapCtrl_($scope, $firebase, MapService, LayerService, InteractionServic
   var wkt = new ol.format.WKT();
 
   // add areas array to the design in firebase
-  var designKey = SyncService.get('design_ref').key();
-  $scope.areasUrl = SyncService.designObj(designKey).$ref().path + '/areas';
+  var designKey = SyncService.get('session_ref').key();
+  $scope.areasUrl = SyncService.designObj(designKey).$ref().$parent().path + '/areas'; // hack:
 
   // firebase ref for all areas
   var design_areas_ref = firebaseRef($scope.areasUrl);
