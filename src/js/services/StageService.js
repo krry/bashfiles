@@ -1,4 +1,8 @@
-function StageService_ ($state) {
+// <<<<<<< Updated upstream
+// function StageService_ ($state) {
+// =======
+function StageService_ ($state, FBURL, StreamService, TemplateConfig) {
+// >>>>>>> Stashed changes
   /* ================================
     StageService
 
@@ -26,13 +30,17 @@ function StageService_ ($state) {
 
   var StageService = {};
 
-  // FIREBASE THESE //
-  var _current = {
-    stage: 0,
-    step:  0,
-    history: _history,
-  };
+// <<<<<<< Updated upstream
+//   // FIREBASE THESE //
+//   var _current = {
+//     stage: 0,
+//     step:  0,
+//     history: _history,
+//   };
 
+// =======
+  var _history = []; // TODO: state objects go here
+// >>>>>>> Stashed changes
   function curr_step(){
     return _current.step;
   }
