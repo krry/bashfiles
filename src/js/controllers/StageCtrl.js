@@ -1,72 +1,98 @@
-controllers.controller("StageCtrl", ["$scope", "$state", "StageService", "InteractionService", "LayerService", "SyncService", "JwtService", "syncData", StageCtrl_]);
+// controllers.controller("StageCtrl", ["$scope", "$state", "StageService", "InteractionService", "LayerService", "SyncService", "JwtService", "syncData", StageCtrl_]);
+controllers.controller("StageCtrl", ["$scope", "$state", "$timeout", "TemplateConfig", "SyncService", "Session", "StreamService", StageCtrl_]);
 
-function StageCtrl_($scope, $state, StageService, InteractionService, LayerService, SyncService, JwtService, syncData) {
-  // This controller should be used for anything that needs to control which partials are being used
+function StageCtrl_($scope, $state, $timeout, Templates, Sync, Session, Stream) {
+
   var vm = this;
-  var config = StageService.config;
-  $scope.sync  = StageService.syncObj;
+  /* ================================
 
-  // stage & step index numbers
-  var stage = $scope.sync().stage;
-  var step  = $scope.sync().step;
+  This controller keeps the view in sync with the Stage object on Firebase and exposes controls to let you change the Stage on firebase
 
-  // init
-  JwtService.jwt();
-  vm.partials = partials($scope.sync());
-  vm.partial = vm.partials[0];
+  "next" & "prev" - step forward or backward in the flow.
+  ================================ */
 
-  function syncWithService() {
-    stage = $scope.sync().stage;
-    step  = $scope.sync().step;
-    vm.partials = partials($scope.sync());
-    vm.partial = vm.partials[step];
-  }
+  // get Session info
+  var session_ref = Session.ref()
+  var session_stream = Session.stream()
 
-  vm.next = function(){
-    $scope.sync().next();
-    syncWithService();
-  };
-  vm.prev = function(){
-    $scope.sync().prev();
-    syncWithService();
-  };
+  // HACK: setup
+  var stage = 0;
+  var step  = 0;
 
-  function partials(obj){
-    if (obj.stage === null) return;
-    var parts = [];
-    var stage = obj.stage;
-    // TODO: make this an injectable angular constant
-    var template = 'templates/stages/';
-    var name = config[stage].name;
-    function hardcode(part) {
-      return template + name + '/' + part;
-    }
-    for (var i = 0; i < config[stage].steps.length; i++) {
-      parts.push(hardcode(config[stage].steps[i].partial));
-    }
-    return parts;
-  }
+  // for dev: //////////////////////////////
+  var new_session = true;
+  new_session && session_ref.update({
+                   stage: stage,
+                   step:  step,
+                 });
+  // end dev: //////////////////////////////
 
-  $scope.$watch(
-    function(){ return $scope.sync().stage; },
-    function(newVal, oldVal){
-    if (newVal !== oldVal){
-      partials($scope.sync());
+  // and partials
+  vm.partial = Templates.partial(stage,step);
+
+  // view_sync helps flow control for async // TODO: more stream-like
+  $scope.view_sync = true;
+
+  // now streams ////////
+  var stage_stream = new Stream();
+  stage_stream.listen('stage', function stage_listen (target_state) {
+    stage = target_state.stage;
+    var name = Templates.config[stage].name
+    $state.go(name).then(function(){
+      step_stream.emit('step', target_state.step)
+    });
+  });
+
+  var step_stream = new Stream();
+  step_stream.listen('step', function stage_listen (target_step) {
+    step = target_step;
+    $timeout(function(){
+      vm.partial = Templates.partials[stage][step];
+      $scope.$apply();
+      session_ref.update({
+        stage: stage,
+        step:  step
+      })
+      $scope.view_sync = true;
+    }, 1)
+  });
+
+  var session_stream = Session.stream()
+  .map(function(x){
+    return x.val() || x;
+  })
+  .subscribe(function handle_session_stream (data) {
+    if ($scope.view_sync) {
+      if (data.stage !== stage) {
+        stage_stream.emit('stage', data);
+        $scope.view_sync = false;
+      } else if (data.step !== step) {
+        step_stream.emit('step', data.step);
+        $scope.view_sync = false;
+      }
     }
   });
 
-  /// dev code ///
-  vm.areaone = function () {
-    var interactions = InteractionService;
-    var layers = LayerService;
-    var feature = layers.get('area').getSource().getFeatures()[0];
-    interactions.get('select').getFeatures().push(feature);
+  // user flow controls
+  vm.next = function(){
+    if ( step + 1 < Templates.config[stage].steps.length ) {
+      step_stream.emit('step', step + 1);
+    } else if (stage + 1 < Templates.config.length ) {
+      stage_stream.emit('stage', {
+        stage: stage + 1,
+        step:  0,
+      })
+    }
   };
-  vm.areatwo = function () {
-    var interactions = InteractionService;
-    var layers = LayerService;
-    var feature = layers.get('area').getSource().getFeatures()[1];
-    interactions.get('select').getFeatures().push(feature);
+
+  vm.prev = function(){
+    if ( step - 1 >= 0 ) {
+      step_stream.emit('step', step - 1);
+    } else if (stage - 1 >= 0 ) {
+      stage_stream.emit('stage', {
+        stage: stage - 1,
+        step:  Templates.config[stage - 1].steps.length -1,
+      })
+    }
   };
-  /// end dev code ///
 }
