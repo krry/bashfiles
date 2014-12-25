@@ -8,25 +8,35 @@ function MapCtrl_($scope, $firebase, MapService, LayerService, InteractionServic
   // use with feature.setGeometry()
   var wkt = new ol.format.WKT();
 
-  // add areas array to the design in firebase
-  var designKey = SyncService.get('session_ref').key();
-  $scope.areasUrl = SyncService.designObj(designKey).$ref().$parent().path + '/areas'; // hack:
+ // HACK: bugfix
+  // TODO: DesignService
+  //   should return the design_ref. MapCtrl probably doesn't need to know much about the session.
+  //   add areas array to the design in firebase
+  var session_ref = SyncService.get('session_ref');
+  var design_ref = session_ref.ref().parent().child('designs/1234').ref();
+
+
+  // unused: --> // $scope.areasUrl = session_ref.ref().parent().child('designs/1234').ref().path.toString() + '/areas'; // hack:
 
   // firebase ref for all areas
-  var design_areas_ref = firebaseRef($scope.areasUrl);
+  var design_areas_ref = design_ref.child('areas')
 
   // save the areas for later reference.... but?
   SyncService.set('areas', design_areas_ref); // is this necessary?
+
 
   /********************************************
    listeners on the map
   ********************************************/
 
-  // init the layers for the map
-  LayerService.init();
 
   // listen to firebase for added areas
   design_areas_ref.on('child_added', firebaseListener);
+
+// bugfix end /////////////////////////
+  // init the layers for the map
+  LayerService.init();
+
   // listen to map for added areas
   var area_source = LayerService.getLayer('area').getSource();
   // area_source.on('addfeature', sourceListener)
