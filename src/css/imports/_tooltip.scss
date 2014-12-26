@@ -28,7 +28,7 @@
   }
 
   &:after {
-    content: attr(alt); // grab content from `alt` tag
+    content: attr(title); // grab content from `title` tag
     color: white;
     white-space: nowrap; // don't let it wrap
     background: $grey-darkest; // fallback for anti-opacity browsers

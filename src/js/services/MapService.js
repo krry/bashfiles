@@ -228,7 +228,7 @@ function MapService_ ($q, LayerService) {
     if (!service.g.center) {
       // HACK: should only return current map center
       var center = new google.maps.LatLng(DEFAULT_LAT, DEFAULT_LNG);
-      console.log("no center, so centering the app on:", center);
+      console.log("map center not set, defaulting to:", center);
       service.setGmapCenter(center);
       return center;
     } else {
