@@ -17,17 +17,16 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
     // Itemized because we include some regular and also -min frameworks in this directory
+      'public/lib/rx.all.js',
+      'public/lib/firebase.js',
       'public/lib/angular.js',
+      'public/lib/rx.angular.js',
       'public/lib/angular-mocks.js',
       'public/lib/angular-touch.js',
       'public/lib/angular-ui-router.min.js',
-      'public/lib/angularfire.js',
-      'src/lib/angular-rx/dist/rx.all.js',
-      'src/lib/angular-rx/dist/rx.angular.js',
-      'src/js/rxjs-firebase/rx.firebase.js',
-      // 'public/lib/firebase-debug.js', not needed at this time. Conflicts with ol-debug.js
       'public/lib/jquery.js',
       'public/lib/ol-debug.js',
+      'public/lib/rxjs/dist/rx.all.js',
       'public/lib/ui-bootstrap.min.js',
       'public/lib/ui-bootstrap-tpls.min.js',
       // 'public/lib/angular.js',
@@ -38,6 +37,9 @@ module.exports = function(config) {
       'src/js/directives/**/*.js',
       'src/js/services/*.js',
       'test/lib/**/*.js',
+      'src/js/rxjs-firebase/rx.firebase.js',
+      'public/lib/angularfire.js',
+      // 'public/lib/firebase-debug.js', not needed at this time. Conflicts with ol-debug.js
       'test/spec/**/*.js'
     ],
 
