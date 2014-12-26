@@ -14,3 +14,23 @@
     @include tooltip($position: "left");
   }
 }
+
+.testy {
+  height: 100vh;
+  background: pink;
+}
+
+.followtip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: red;
+  padding: 1em;
+  color: white;
+  z-index: 20;
+  display: block;
+}
+
+.followtipped {
+  position: relative;
+}
