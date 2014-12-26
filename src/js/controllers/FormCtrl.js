@@ -11,11 +11,11 @@ function FormCtrl_($scope, UserService, StageService, MapService) {
   vm.user = UserService.user;
 
   vm.checkZip = checkZip;
-  vm.populateAddress = populateAddress;
 
   vm.gmapShown = MapService.getGmapShown;
 
-  function checkZip (zip) {
+  function checkZip () {
+    var zip = vm.user.zip;
     console.log("checking ZIP");
     if (typeof(zip) !== "undefined") {
       console.log(zip);

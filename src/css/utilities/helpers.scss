@@ -1,4 +1,4 @@
-@import "../variables/colors";
+@import "../imports/colors";
 
 .hide,
 .display-none {
@@ -28,8 +28,10 @@
   text-align: center;
 }
 
-.float.right {
-  float: right;
+.float {
+  &.right {
+    float: right;
+  }
 }
 
 .caps,
@@ -38,8 +40,13 @@
   letter-spacing: 0.0625em;
 }
 
-.border-left {
-  border-left: 1px solid $color-border-main;
+.border {
+  &.left {
+    border-left: 1px solid $color-border-main;
+  }
+  &.right {
+    border-right: 1px solid $color-border-main;
+  }
 }
 
 .center-vertical {
