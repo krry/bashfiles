@@ -34,6 +34,7 @@ function DesignProvider_ () {
     function awesome_design_builder_brah() {
       return {
         stream: function(){return fb_observable},
+        id:     function(){return design_ref.id()},
         ref:    function(){return design_ref},
         area_stream: function(arg) {
           (arg && area_ref.set(arg))
