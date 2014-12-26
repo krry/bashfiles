@@ -24,23 +24,23 @@ function DesignProvider_ () {
 
   var design_ref = new Firebase('https://scty.firebaseio.com/designs/1234/design');
   var fb_observable = design_ref.observe('value');
-  var area_ref = design_ref.child('area');
+  var areas_ref = design_ref.child('areas').push();
 
   // TODO: it's possible pass arguments to this $get method to change the fb_observable's_ref
-  this.$get = [ "SyncService", function designProviderFactory(sync) {
+  this.$get = [ "Session", function designProviderFactory(Session) {
     // HACK: sync service probably isn't necessary
-    sync.set('design_ref', design_ref);
+    Session.ref().child('design').set(design_ref.parent().key());
 
     function awesome_design_builder_brah() {
       return {
         stream: function(){return fb_observable},
         id:     function(){return design_ref.id()},
         ref:    function(){return design_ref},
-        area_stream: function(arg) {
-          (arg && area_ref.set(arg))
-          return area_ref.observe('value');
+        areas_stream: function(arg) {
+          (arg && areas_ref.set(arg))
+          return areas_ref.observe();
         },
-        area_ref: function(){ return area_ref; }
+        areas_ref: function(){ return areas_ref; },
       }
     }
 
