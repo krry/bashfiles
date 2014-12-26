@@ -22,6 +22,7 @@ module.exports = function(config) {
       'public/lib/angular-touch.js',
       'public/lib/angular-ui-router.min.js',
       'public/lib/angularfire.js',
+      'src/lib/angular-rx/dist/rx.all.js',
       'src/lib/angular-rx/dist/rx.angular.js',
       'src/js/rxjs-firebase/rx.firebase.js',
       // 'public/lib/firebase-debug.js', not needed at this time. Conflicts with ol-debug.js
