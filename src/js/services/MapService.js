@@ -167,8 +167,11 @@ function MapService_ ($q, LayerService) {
       // TODO: never mix up these indexes again, this was broken because I thought it was obj.B for lng instead of obj.D
       if (obj.k && obj.D) {
         center = obj;
-        console.log('location contains lat', obj.k,
-          'and lng:', obj.D);
+        console.log('lat:', obj.k, ', lng:', obj.D);
+        service.g.gmap.setCenter(center);
+        service.g.gmap.setZoom(getGmapMaxZoom(center, function(zoom) {
+            service.g.gmap.setZoom(zoom);
+          }));
       } else {
         console.log('location being geocoded');
         geocodeAddress(obj, function(latLng) {
