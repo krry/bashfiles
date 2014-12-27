@@ -29,15 +29,16 @@ function StageCtrl_($scope, $state, $timeout, Templates, Sync, Session, Stream) 
 
   // for dev: //////////////////////////////
   new_session = true;
+  /* jshint +W030 */
   new_session && session_ref.update({
                    stage: stage,
                    step:  step,
                  });
+  /* jshint -W030 */
   // end dev: //////////////////////////////
 
   // and partials
   vm.partial = Templates.partial(stage,step);
-
   // view_sync helps flow control for async // TODO: more stream-like
   $scope.view_sync = true;
 

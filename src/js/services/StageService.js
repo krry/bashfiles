@@ -104,7 +104,6 @@ function StageService_ ($state, FBURL, StreamService, TemplateConfig) {
 
   // END FIREBASED OBJECTS //
 
-  var _history = []; // TODO: state objects go here
 // >>>>>>> feature/firebase_rx
 //   function curr_step(){
 //     return _current.step;

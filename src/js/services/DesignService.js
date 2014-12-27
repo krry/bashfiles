@@ -1,4 +1,5 @@
 providers.provider('Design', DesignProvider_);
+
 function DesignProvider_ () {
   /* ================================
     Design
