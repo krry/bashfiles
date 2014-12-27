@@ -4,11 +4,12 @@
 .dev-controls {
   height: auto;
   position: fixed;
+  bottom: 0;
+  transform: translate3d(0, 100%, 0);
   z-index: 12;
   width: 100%;
   padding: 1em 4em 2em;
   transition: transform 250ms $easing-quick;
-  transform: translate3d(0, -100%, 0);
   &.shown {
     transform: translate3d(0, 0, 0);
   }
@@ -18,11 +19,11 @@
   position: absolute;
   margin: auto;
   overflow: auto;
-  top: 100%;
+  bottom: 100%;
   // right: 0;
-  left: 20%;
+  right: 50%;
   height: 2em;
-  border-radius: 0 0 .5em .5em;
+  border-radius: .5em .5em 0 0;
   width: 10em;
   font-size: .75em;
   padding: .25em .75em;
