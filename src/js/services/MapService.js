@@ -127,7 +127,7 @@ function MapService_ ($q, LayerService) {
         components[key] = obj[key];
       }
     }
-    console.log("components are", components)
+    console.log("components are", components);
 
     geocoder.geocode({
       "address": addy,
@@ -136,7 +136,7 @@ function MapService_ ($q, LayerService) {
       if (status === google.maps.GeocoderStatus.OK) {
         if (results[0]) {
           outcome = results[0].geometry.location;
-          console.log('geocode successful', results)
+          console.log('geocode successful', results);
           return cb(outcome);
         }
       } else if (status === google.maps.GeocoderStatus.ZERO_RESULTS) {
@@ -144,7 +144,7 @@ function MapService_ ($q, LayerService) {
           outcome = false;
       } else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
           console.error("over query limit, retrying...");
-          setTimeout(function(){ geocodeAddress(obj, cb)}, 200);
+          setTimeout(function(){ geocodeAddress(obj, cb); }, 200);
       } else if (status === google.maps.GeocoderStatus.REQUEST_DENIED) {
           console.error("The geocoder needs an additional parameter.");
           outcome = false;
@@ -182,7 +182,7 @@ function MapService_ ($q, LayerService) {
           service.g.gmap.setCenter(center);
           getGmapMaxZoom(center, function(zoom) {
             service.g.gmap.setZoom(zoom);
-          })
+          });
         });
       }
     } else {
@@ -194,8 +194,7 @@ function MapService_ ($q, LayerService) {
     service.g.gmap.setCenter(center);
     getGmapMaxZoom(center, function (zoom) {
       service.g.gmap.setZoom(zoom);
-    })
-    
+    });
   }
 
   function getGmapMaxZoom(latLng, cb) {

@@ -36,14 +36,14 @@ function DesignProvider_ () {
 
     function awesome_design_builder_brah() {
       return {
-        stream: function(){return fb_observable},
-        ref:    function(){return design_ref},
-      }
+        stream: function(){return fb_observable;},
+        ref:    function(){return design_ref;},
+      };
     }
 
     // always save your firebase references when you create them
     return new awesome_design_builder_brah();
-  } ]
+  } ];
 
 
 

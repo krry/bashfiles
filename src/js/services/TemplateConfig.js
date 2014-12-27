@@ -67,7 +67,7 @@ function TemplateConfig_ () {
       name = config[i].name;
       for (var j = 0; j< config[i].steps.length; j++) {
         stage = partials[i];
-        stage.push(hardcode(config[i].steps[j].partial))
+        stage.push(hardcode(config[i].steps[j].partial));
       }
     }
     console.log('partials: ', partials);
@@ -83,6 +83,6 @@ function TemplateConfig_ () {
     partials: partials,
     partial: partial,
     config: config,
-  }
+  };
 }
 

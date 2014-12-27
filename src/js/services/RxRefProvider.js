@@ -8,14 +8,15 @@ providers.provider('rx_ref',
    */
 
   var existing_user = null;
+
   this.existing_user = function(user_id) {
     existing_user = user_id;
-  }
+  };
 
   this.$get = ['FBURL',
     function rx_rf(FBURL) {
       console.log('args',arguments);
       return new Firebase('https://scty.firebaseio.com/designs/1234/').observe('value');
-    } ]
+    } ];
   }
-)
+);

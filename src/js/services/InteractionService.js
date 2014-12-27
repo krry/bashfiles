@@ -80,7 +80,7 @@ function InteractionService_ (MapService, StyleService, LayerService, EventServi
     interactions.draw.on('drawend', function saveDrawn (event) {
       var feature = event.feature;
       options.modify.features.push(feature);
-    })
+    });
   }
 
   function addInteractions(add){

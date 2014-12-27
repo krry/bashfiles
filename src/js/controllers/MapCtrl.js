@@ -34,7 +34,7 @@ function MapCtrl_($scope, $firebase, MapService, LayerService, InteractionServic
   // unused: --> // $scope.areasUrl = session_ref.ref().parent().child('designs/1234').ref().path.toString() + '/areas'; // hack:
 
   // firebase ref for all areas
-  var design_areas_ref = design_ref.child('areas')
+  var design_areas_ref = design_ref.child('areas');
 
   // save the areas for later reference.... but?
   SyncService.set('areas', design_areas_ref); // is this necessary?

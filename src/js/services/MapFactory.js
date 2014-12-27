@@ -41,7 +41,7 @@ function MapFactory_( MapService, StyleService, LayerService ) {
   function roofArea (ol_map, target_element, feature) {
     var projection = ol_map.getView().getProjection();
     if (MapService.getRoofmap()) {
-      map = MapService.getRoofmap()
+      map = MapService.getRoofmap();
       var v = new ol.View({
         projection: projection,
         center: ol.extent.getCenter(projection.getExtent()),

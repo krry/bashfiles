@@ -41,10 +41,11 @@ function flnFollowTip_ () {
       // only show the followtip when the mouse is over the proper div
       $(el).on('mouseover', function(){
         tip.css('visibility', 'visible');
-      })
+      });
+
       $(el).on('mouseout', function(){
         tip.css('visibility', 'hidden');
-      })
+      });
 
       // TODO: enable the mouse following tip to be positioned on other sides of the cursor
       // TODO: apply position to the follow-tip with a function that changes offsetX and offsetY
@@ -59,5 +60,5 @@ function flnFollowTip_ () {
           tip.css("top", (y - offsetY - 40));
       };
     }
-  }
+  };
 }

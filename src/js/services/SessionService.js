@@ -34,11 +34,11 @@ function SessionProvider_ () {
 
     function awesome_design_builder_brah() {
       return {
-        ref:    function(){return session_ref},
-        id:     function(){return session_ref.key()},
-        stream: function(){return fb_observable},
+        ref:    function(){ return session_ref; },
+        id:     function(){ return session_ref.key(); },
+        stream: function(){ return fb_observable; },
         state_stream: function(){ return state_stream; },
-      }
+      };
     }
 
     // always save your firebase references when you create them

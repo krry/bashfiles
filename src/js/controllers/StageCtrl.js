@@ -20,8 +20,8 @@ function StageCtrl_($scope, $state, $timeout, Templates, Sync, Session, Stream) 
       stage_stream,
       step_stream;
 
-  session_ref = Session.ref()
-  session_stream = Session.stream()
+  session_ref = Session.ref();
+  session_stream = Session.stream();
 
   // HACK: setup
   stage = 0;
@@ -29,12 +29,9 @@ function StageCtrl_($scope, $state, $timeout, Templates, Sync, Session, Stream) 
 
   // for dev: //////////////////////////////
   new_session = true;
-  /* jshint +W030 */
-  new_session && session_ref.update({
-                   stage: stage,
-                   step:  step,
-                 });
   /* jshint -W030 */
+  new_session && session_ref.update({ stage: stage, step: step });
+  /* jshint +W030 */
   // end dev: //////////////////////////////
 
   // and partials
@@ -46,9 +43,9 @@ function StageCtrl_($scope, $state, $timeout, Templates, Sync, Session, Stream) 
   stage_stream = new Stream();
   stage_stream.listen('stage', function stage_listen (target_state) {
     stage = target_state.stage;
-    var name = Templates.config[stage].name
+    var name = Templates.config[stage].name;
     $state.go(name).then(function(){
-      step_stream.emit('step', target_state.step)
+      step_stream.emit('step', target_state.step);
     });
   });
 
@@ -61,9 +58,9 @@ function StageCtrl_($scope, $state, $timeout, Templates, Sync, Session, Stream) 
       session_ref.update({
         stage: stage,
         step:  step
-      })
+      });
       $scope.view_sync = true;
-    }, 1)
+    }, 1);
   });
 
   session_stream = Session.stream()
@@ -90,7 +87,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Sync, Session, Stream) 
       stage_stream.emit('stage', {
         stage: stage + 1,
         step:  0,
-      })
+      });
     }
   };
 
@@ -101,7 +98,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Sync, Session, Stream) 
       stage_stream.emit('stage', {
         stage: stage - 1,
         step:  Templates.config[stage - 1].steps.length -1,
-      })
+      });
     }
   };
 }
