@@ -10,9 +10,11 @@
     </div>
     <div class="row">
       <div class="col half">
+        <h3>{{view_sync}}</h3>
         <button class="tiny" ng-click="stages.prev()">Back</button>
       </div>
       <div class="col half">
+        <h3>{{view_sync}}</h3>
         <button class="tiny" ng-click="stages.next()">Next</button>
       </div>
     </div>
@@ -20,7 +22,7 @@
   <div class="col half padded sml-full">
     <h4>active user info: <small><a ng-click="dev.toggleUserObject()">{{dev.userShownTriggerText}}</a></small></h4>
     <!-- TODO: log out user object to footer for dev purposes -->
-    <pre ng-show="dev.userShown">formInfo = {{ form.user | json }}</pre>
+    <pre ng-show="dev.userShown" fln-form>formInfo = {{ form.user | json }}</pre>
     <a class="btn red" onclick="location.hash = '#/home'; location.reload(true);">Reload app</a>
     <!-- <ul>
       <li><label for="userName">user.name</label><span>{{user.name}}</span></li>

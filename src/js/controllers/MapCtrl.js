@@ -1,6 +1,6 @@
-controllers.controller("MapCtrl", ["$scope", "$firebase", "MapService", "LayerService", "InteractionService", "StyleService", "EventService", "SyncService", "syncData", "updateArea", "addWkt", "firebaseRef", MapCtrl_]);
+controllers.controller("MapCtrl", ["$scope", "$firebase", "MapService", "LayerService", "InteractionService", "StyleService", "EventService", "SyncService", "Session", "Design", "updateArea", "addWkt", "firebaseRef", MapCtrl_]);
 
-function MapCtrl_($scope, $firebase, MapService, LayerService, InteractionService, StyleService, EventService, SyncService, syncData, updateArea, addWkt, firebaseRef) {
+function MapCtrl_($scope, $firebase, MapService, LayerService, InteractionService, StyleService, EventService, SyncService, Session, Design, updateArea, addWkt, firebaseRef) {
   var vm = this;
 
   // TODO: service this
@@ -8,25 +8,54 @@ function MapCtrl_($scope, $firebase, MapService, LayerService, InteractionServic
   // use with feature.setGeometry()
   var wkt = new ol.format.WKT();
 
-  // add areas array to the design in firebase
-  var designKey = SyncService.get('design_ref').key();
-  $scope.areasUrl = SyncService.designObj(designKey).$ref().path + '/areas';
+// <<<<<<< HEAD
+// // <<<<<<< Updated upstream
+// //   // add areas array to the design in firebase
+// //   var designKey = SyncService.get('design_ref').key();
+// //   $scope.areasUrl = SyncService.designObj(designKey).$ref().path + '/areas';
+
+// //   // firebase ref for all areas
+// //   var design_areas_ref = firebaseRef($scope.areasUrl);
+// // =======
+//  // HACK: bugfix
+//   // TODO: DesignService
+//   //   should return the Design.ref(). MapCtrl probably doesn't need to know much about the session.
+//   //   add areas array to the design in firebase
+//   var session_ref = SyncService.get('session_ref');
+
+// =======
+ // HACK: bugfix
+  // TODO: DesignService
+  //   should return the design_ref. MapCtrl probably doesn't need to know much about the session.
+  //   add areas array to the design in firebase
+  var session_ref = SyncService.get('session_ref');
+  var design_ref = session_ref.ref().parent().child('designs/1234').ref();
+
+  // unused: --> // $scope.areasUrl = session_ref.ref().parent().child('designs/1234').ref().path.toString() + '/areas'; // hack:
 
   // firebase ref for all areas
-  var design_areas_ref = firebaseRef($scope.areasUrl);
+  var design_areas_ref = design_ref.child('areas')
 
   // save the areas for later reference.... but?
   SyncService.set('areas', design_areas_ref); // is this necessary?
+
 
   /********************************************
    listeners on the map
   ********************************************/
 
+
+  Design.ref().child('areas').on('child_added', firebaseListener);
+
+// bugfix end /////////////////////////
+// >>>>>>> Stashed changes
   // init the layers for the map
   LayerService.init();
+  InteractionService.init();
 
   // listen to firebase for added areas
-  design_areas_ref.on('child_added', firebaseListener);
+  // duplicated // design_areas_ref.on('child_added', firebaseListener);
+
   // listen to map for added areas
   var area_source = LayerService.getLayer('area').getSource();
   // area_source.on('addfeature', sourceListener)
@@ -40,10 +69,11 @@ function MapCtrl_($scope, $firebase, MapService, LayerService, InteractionServic
     var feature = event.feature;
     console.log('drawing started getting new, empty wkt_ref');
     // get ref for feature
-    var wkt_ref = design_areas_ref.push();
+    var wkt_ref = Design.ref().child('areas').push();
     feature.set('wkt_ref_id', wkt_ref.key());
     // save the ref in memory
     SyncService.addSyncRef('areas', wkt_ref);
+    Design.ref().child('areas').key();
   }
 
   function updateWhileModify (event) {
@@ -157,6 +187,7 @@ function MapCtrl_($scope, $firebase, MapService, LayerService, InteractionServic
   function addToFirebaseAfterDraw (area) {
     console.log('now adding to firebase with new area');
     // get the area's wkt_txt
+    // debugger;
     var wkt_txt = wkt.writeGeometry(area.getGeometry());
     // send the new wkt_txt to firebase
     var wkt_ref = SyncService.getSyncRef('areas', area.get('wkt_ref_id'));

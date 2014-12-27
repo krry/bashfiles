@@ -12,11 +12,11 @@
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-@import "../variables/fonts";
-@import "../variables/sizes";
-@import "../variables/colors";
-@import "../variables/functions";
-@import "../variables/typography";
+@import "../imports/fonts";
+@import "../imports/sizes";
+@import "../imports/colors";
+@import "../imports/functions";
+@import "../imports/typography";
 
 .wf-loading body {
   // visibility: hidden;

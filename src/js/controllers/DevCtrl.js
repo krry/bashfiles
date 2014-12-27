@@ -3,16 +3,16 @@
   the dev tools controller
 ================================================== */
 
-controllers.controller("DevCtrl", [DevCtrl_]);
+controllers.controller("DevCtrl", ["$scope",DevCtrl_]);
 
-function DevCtrl_() {
+function DevCtrl_($scope) {
   var vm = this;
 
   vm.toggleUserObject = toggleUserObject;
   vm.toggleDevPanel = toggleDevPanel;
   vm.userShown = true;
   vm.userShownTriggerText = "hide";
-  vm.panelShown = false;
+  vm.panelShown = true;
   vm.panelShownTriggerText = "show dev tools";
 
   // TODO: register a dev tools service so directives outside the dev panel can interact with it. see the ModalService and ModalCtrl

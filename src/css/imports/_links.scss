@@ -1,5 +1,5 @@
-@import "../variables/colors";
-@import "../variables/motion";
+@import "../imports/colors";
+@import "../imports/motion";
 
 @mixin link($type: "default") {
   color: $color-link-main;

@@ -11,24 +11,31 @@ function ModalCtrl_(ModalService) {
 
   vm.isOn        = ModalService.get;
   vm.dialogShown = ModalService.dialogShown;
-  vm.open        = open;
-  vm.close       = close;
-  vm.toggle      = toggle;
+  vm.open        = openModal;
+  vm.close       = closeModal;
+  vm.toggle      = toggleModal;
   vm.showDialog  = showDialog;
 
   // turn modal state on
-  function open() {
+  function openModal() {
+    $('body').css('overflow', 'hidden');
     ModalService.set(true);
   }
 
   // turn modal state off
-  function close() {
+  function closeModal() {
+    $('body').css('overflow-y', 'scroll');
     ModalService.set(false);
   }
 
   // switch modal state on and off
-  function toggle() {
+  function toggleModal() {
     var shown = ModalService.get();
+    if ($('body').css('overflow') === 'hidden') {
+      $('body').css('overflow-y', 'scroll');
+    } else {
+      $('body').css('overflow', 'hidden');
+    }
     ModalService.set(!shown);
   }
 

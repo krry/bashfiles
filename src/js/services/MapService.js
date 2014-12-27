@@ -1,6 +1,6 @@
 /* ==================================================
 
-  MAPSERVICE
+  MapService
 
   this factory produces maps, layers, collections
 
@@ -20,8 +20,20 @@ function MapService_ ($q, LayerService) {
   var DEFAULT_LAT = 30;
   var DEFAULT_LNG = -123;
 
-  var gmapShown = true;
+  var gmapShown = false;
+  var maxZoomService = new google.maps.MaxZoomService();
   // var omapShown = false;
+
+  var gmapOptions = {
+    zoom: 4,
+    minZoom: 4,
+    mapTypeId: google.maps.MapTypeId.TERRAIN,
+    disableDefaultUI: true,
+    // draggable: false,
+    // zoomable: false,
+    // scrollwheel: false,
+    backgroundColor: "transparent"
+  };
 
   var service = {
     // the google maps object literal
@@ -29,17 +41,7 @@ function MapService_ ($q, LayerService) {
       center: "",
       gmap: null,
       autocomplete: null,
-      mapOptions: {
-          zoom: 4,
-          minZoom: 4,
-          maxZoom: 4,
-          mapTypeId: google.maps.MapTypeId.TERRAIN,
-          disableDefaultUI: true,
-          draggable: false,
-          zoomable: false,
-          scrollwheel: false,
-          backgroundColor: "transparent"
-      },
+      mapOptions: gmapOptions,
     },
     // google map methods
     getGmapShown: getGmapShown,
@@ -73,7 +75,7 @@ function MapService_ ($q, LayerService) {
   // google maps methods defined
 
   function getGmapShown () {
-    // console.log("getting gmapShown");
+    console.log("getting gmapShown", gmapShown);
     return gmapShown;
   }
 
@@ -88,10 +90,10 @@ function MapService_ ($q, LayerService) {
     }
   }
 
-  function reverseGeocode(latlng) {
+  function reverseGeocode(latLng) {
     var outcome;
     var geocoder = new google.maps.Geocoder();
-    geocoder.geocode({'location': latlng}, function(results, status){
+    geocoder.geocode({'location': latLng}, function(results, status){
       if (status === google.maps.GeocoderStatus.OK) {
         if (results[0]) {
           outcome = results[0].geometry.location;
@@ -109,18 +111,23 @@ function MapService_ ($q, LayerService) {
     return outcome;
   }
 
-  function geocodeAddress(obj) {
+  function geocodeAddress(obj, cb) {
     var outcome;
     var addy = "";
     var geocoder = new google.maps.Geocoder();
     var components = {"country": "US"};
     for (var key in obj) {
       if (obj.hasOwnProperty(key)){
-        console.log(key);
-        addy = addy + " " + obj[key];
+        console.log("appending", key,"to addy string");
+        if (addy.length === 0) {
+          addy = obj[key];
+        } else {
+          addy = addy + " " + obj[key];
+        }
         components[key] = obj[key];
       }
     }
+    console.log("components are", components)
 
     geocoder.geocode({
       "address": addy,
@@ -129,18 +136,21 @@ function MapService_ ($q, LayerService) {
       if (status === google.maps.GeocoderStatus.OK) {
         if (results[0]) {
           outcome = results[0].geometry.location;
+          console.log('geocode successful', results)
+          return cb(outcome);
         }
       } else if (status === google.maps.GeocoderStatus.ZERO_RESULTS) {
           console.error("Can't find that location.");
           outcome = false;
       } else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
-          setTimeout(function(){ geocodeAddress(obj); }, 200);
+          console.error("over query limit, retrying...");
+          setTimeout(function(){ geocodeAddress(obj, cb)}, 200);
       } else if (status === google.maps.GeocoderStatus.REQUEST_DENIED) {
           console.error("The geocoder needs an additional parameter.");
           outcome = false;
       } else {
           if (status === google.maps.GeocoderStatus.INVALID_REQUEST) {
-            console.error("The geocode request was invalid. Address or latlng may be missing.");
+            console.error("The geocode request was invalid. Address or latLng may be missing.");
             outcome = false;
           }
       }
@@ -151,18 +161,29 @@ function MapService_ ($q, LayerService) {
   function updateGmap(obj) {
     var center;
     // TODO: handle these async calls to Google Maps API with promises
+    console.log('updating gmap', obj);
     if (typeof(obj)==="object") {
       console.log('object passed to updateGmap');
-      // TODO: never mix up these indexes again, this was broken because I thought it was obj.B for lng
+      // TODO: never mix up these indexes again, this was broken because I thought it was obj.B for lng instead of obj.D
       if (obj.k && obj.D) {
-        // TODO: async promise time
         center = obj;
-        console.log('location contains lat', obj.k,
-          'and lng:', obj.D);
+        console.log('lat:', obj.k, ', lng:', obj.D);
+        service.g.gmap.setCenter(center);
+        service.g.gmap.setZoom(getGmapMaxZoom(center, function(zoom) {
+            service.g.gmap.setZoom(zoom);
+          }));
       } else {
-        // TODO: async promise time
         console.log('location being geocoded');
-        center = geocodeAddress(obj);
+        geocodeAddress(obj, function(latLng) {
+          center = {
+            lat: latLng.k,
+            lng: latLng.D
+          };
+          service.g.gmap.setCenter(center);
+          getGmapMaxZoom(center, function(zoom) {
+            service.g.gmap.setZoom(zoom);
+          })
+        });
       }
     } else {
       console.error("this is not a location object: ", obj);
@@ -171,24 +192,27 @@ function MapService_ ($q, LayerService) {
     console.log("updating map, centering on ", center);
     // TODO: figure out why center is not a LatLng object...
     service.g.gmap.setCenter(center);
-    console.log(center);
-    service.g.gmap.setZoom(getGmapMaxZoom(center));
+    getGmapMaxZoom(center, function (zoom) {
+      service.g.gmap.setZoom(zoom);
+    })
+    
   }
 
-  function getGmapMaxZoom(latlng) {
-    var maxZoomService = new google.maps.MaxZoomService();
+  function getGmapMaxZoom(latLng, cb) {
     var zoom = service.g.mapOptions.zoom;
-
-    maxZoomService.getMaxZoomAtLatLng(latlng, function(response) {
+    console.log('max zooming', zoom);
+    maxZoomService.getMaxZoomAtLatLng(latLng, function(response) {
       if (response.status !== google.maps.MaxZoomStatus.OK) {
         console.log("max zoom status failed");
         zoom = 17;
+        return cb(zoom);
       } else {
         console.log("max zoom response is " + response.zoom);
         zoom = response.zoom;
+        return cb(zoom);
       }
     });
-    return zoom;
+    // return zoom;
   }
 
   function setGmap(element, options) {
@@ -204,7 +228,7 @@ function MapService_ ($q, LayerService) {
     if (!service.g.center) {
       // HACK: should only return current map center
       var center = new google.maps.LatLng(DEFAULT_LAT, DEFAULT_LNG);
-      console.log("no center, so centering the app on:", center);
+      console.log("map center not set, defaulting to:", center);
       service.setGmapCenter(center);
       return center;
     } else {
