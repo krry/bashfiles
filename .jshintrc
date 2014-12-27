@@ -77,7 +77,7 @@
     "prototypejs"   : false,    // Prototype and Scriptaculous
     "qunit"         : false,    // QUnit
     "rhino"         : false,    // Rhino
-    "shelljs"       : false,     // ShellJS
+    "shelljs"       : false,    // ShellJS
     "worker"        : false,    // Web Workers
     "wsh"           : false,    // Windows Scripting Host
     "yui"           : false,    // Yahoo User Interface
@@ -88,6 +88,7 @@
         "angular"     : true,
         "jquery"      : true,
         "$"           : true,
+        "providers"   : true,
         "directives"  : true,
         "controllers" : true,
         "service"     : true,
@@ -98,5 +99,5 @@
         "newval"      : true,
         "wkt"         : true,
         "syncGeometry": true
-    }        // additional predefined global variables
+    } // additional predefined global variables
 }

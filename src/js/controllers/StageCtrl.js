@@ -12,15 +12,23 @@ function StageCtrl_($scope, $state, $timeout, Templates, Sync, Session, Stream) 
   ================================ */
 
   // get Session info
-  var session_ref = Session.ref()
-  var session_stream = Session.stream()
+  var session_ref,
+      session_stream,
+      new_session,
+      stage,
+      step,
+      stage_stream,
+      step_stream;
+
+  session_ref = Session.ref()
+  session_stream = Session.stream()
 
   // HACK: setup
-  var stage = 0;
-  var step  = 0;
+  stage = 0;
+  step  = 0;
 
   // for dev: //////////////////////////////
-  var new_session = true;
+  new_session = true;
   new_session && session_ref.update({
                    stage: stage,
                    step:  step,
@@ -34,7 +42,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Sync, Session, Stream) 
   $scope.view_sync = true;
 
   // now streams ////////
-  var stage_stream = new Stream();
+  stage_stream = new Stream();
   stage_stream.listen('stage', function stage_listen (target_state) {
     stage = target_state.stage;
     var name = Templates.config[stage].name
@@ -43,7 +51,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Sync, Session, Stream) 
     });
   });
 
-  var step_stream = new Stream();
+  step_stream = new Stream();
   step_stream.listen('step', function stage_listen (target_step) {
     step = target_step;
     $timeout(function(){
@@ -57,7 +65,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Sync, Session, Stream) 
     }, 1)
   });
 
-  var session_stream = Session.stream()
+  session_stream = Session.stream()
   .map(function(x){
     return x.val() || x;
   })
