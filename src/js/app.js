@@ -1,4 +1,5 @@
 angular.module('flannel', [
+  'flannel.config',
   'ui.router',
   'ui.bootstrap',
   'firebase',
@@ -9,8 +10,7 @@ angular.module('flannel', [
   'flannel.firebase',
   'flannel.controllers',
   'flannel.directives',
-  'flannel.options',
-]).config(function($sceDelegateProvider, $sceProvider, $httpProvider, rx_refProvider) {
+]).config(function($sceDelegateProvider, $sceProvider, $httpProvider) {
   $sceDelegateProvider.resourceUrlWhitelist([
    // Allow same origin resource loads.
    'self',
@@ -25,8 +25,7 @@ angular.module('flannel', [
 
 });
 
-var providers = angular.module('flannel.providers',[]);
+var providers   = angular.module('flannel.providers',[]);
 var controllers = angular.module('flannel.controllers',[]);
 var directives  = angular.module('flannel.directives',[]);
 var options     = angular.module('flannel.options',[]);
-var providers   = angular.module('flannel.providers', []);

@@ -1,61 +1,62 @@
 <!-- <!DOCTYPE html> -->
 <html ng-app="flannel" ng-controller="AppCtrl as app">
-  <head>
-    <meta charset="utf-8">
-    <!-- <meta name="viewport" content="initial-scale=1, width=device-width"> -->
-    <title>The Future is Now</title>
 
-    <link href="css/all.css" rel="stylesheet">
-    <link href="lib/ol.css" rel="stylesheet">
+<head>
+  <meta charset="utf-8">
+  <!-- <meta name="viewport" content="initial-scale=1, width=device-width"> -->
+  <title>The Future is Now</title>
 
-    <!-- Libraries -->
+  <link href="css/all.css" rel="stylesheet">
+  <link href="lib/ol.css" rel="stylesheet">
 
-    <!-- RXjs -->
-    <script src="lib/rx.all.js"></script>
-    <!-- <script src="lib/rx.all.min.js"></script> -->
+  <!-- Libraries -->
 
-    <!-- openlayers v3 -->
-    <script src="lib/ol.js"></script>
-    <!-- <script src="lib/ol-debug.js"></script> -->
+  <!-- RXjs -->
+  <script src="lib/rx.all.js"></script>
+  <!-- <script src="lib/rx.all.min.js"></script> -->
 
-    <!-- jQuery -->
-    <script src="lib/jquery.js"></script>
+  <!-- openlayers v3 -->
+  <script src="lib/ol.js"></script>
+  <!-- <script src="lib/ol-debug.js"></script> -->
 
-    <!-- jQuery dependent libs -->
-    <script src="lib/jquery.widowFix-1.3.2.js"></script>
-    <!-- <script src="lib/jquery.widowFix-1.3.2.min.js"></script> -->
+  <!-- jQuery -->
+  <script src="lib/jquery.js"></script>
 
-    <!-- Mapbox script -->
-    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script>
-    <!-- Mapbox styles -->
-    <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' />
-    <!-- Mapbox access token -->
-    <script>
-    L.mapbox.accessToken = 'pk.eyJ1Ijoic29sYXJjaXR5IiwiYSI6IkVnZ3AtbTgifQ.LxtRfmX2J0qJ-Lf7QihSIg';
-    </script>
-    <!-- google maps -->
-    <!-- TODO: hinge gme-client value on server environment -->
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false&client=#{app.gmapClient}"></script>
+  <!-- jQuery dependent libs -->
+  <!-- <script src="lib/jquery.widowFix-1.3.2.js"></script> -->
+  <!-- <script src="lib/jquery.widowFix-1.3.2.min.js"></script> -->
 
-    <!-- Apercu fonts from FontDeck -->
-    <!-- TODO: prevent a FOUT -->
-    <!-- TODO: lessen 2s load lags -->
-    <script type="text/javascript">
-      WebFontConfig = { fontdeck: { id: '50798' } };
-      (function() {
-        var wf = document.createElement('script');
-        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
-        '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-        wf.type = 'text/javascript';
-        wf.async = 'true';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(wf, s);
-        s.parentNode.insertBefore(wf, s);
-      })();
-    </script>
+  <!-- MapBox -->
+  <!-- Mapbox script -->
+  <!-- <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script> -->
+  <!-- Mapbox styles -->
+  <!-- <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' /> -->
+  <!-- Mapbox access token -->
+  <!-- <script>L.mapbox.accessToken = 'pk.eyJ1Ijoic29sYXJjaXR5IiwiYSI6IkVnZ3AtbTgifQ.LxtRfmX2J0qJ-Lf7QihSIg';</script> -->
+
+  <!-- google maps -->
+  <!-- TODO: hinge gme-client value on server environment -->
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false&client=#{app.gmapClient}"></script>
+
+  <!-- Apercu fonts from FontDeck -->
+  <!-- TODO: prevent a FOUT -->
+  <!-- TODO: lessen 2s load lags -->
+  <script type="text/javascript">
+    WebFontConfig = { fontdeck: { id: '50798' } };
+    (function() {
+      var wf = document.createElement('script');
+      wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+      wf.type = 'text/javascript';
+      wf.async = 'true';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(wf, s);
+      s.parentNode.insertBefore(wf, s);
+    })();
+  </script>
 </head>
+
 <!-- app begins -->
-<body ng-app="flannel" ng-controller="StageCtrl as stages">
+<body ng-controller="StageCtrl as stages">
   <div fln-dev-tools ng-class="{shown: dev.panelShown}" class="dev-controls inverse"></div>
   <header ui-view name="header" id="header" class="header"></header>
   <main ui-view name="main" id="main" class="main"></main>
@@ -82,7 +83,9 @@
   <script src="lib/rx.firebase.js"></script>
 
   <!-- Application -->
+  <script src="js/config.js"></script>
   <script src="js/all.js"></script>
+
   <!-- begin olark code -->
   <script data-cfasync="false" type='text/javascript'>/*<![CDATA[*/window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){
     f[z]=function(){

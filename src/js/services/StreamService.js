@@ -1,4 +1,6 @@
-function StreamService_ () {
+angular.module('flannel').service('StreamService', ["rx", StreamService_]);
+
+function StreamService_ (Rx) {
   /* ================================
     StreamService
 
@@ -41,5 +43,3 @@ function StreamService_ () {
 
   return Emitter;
 }
-
-angular.module('flannel').service('StreamService', StreamService_);

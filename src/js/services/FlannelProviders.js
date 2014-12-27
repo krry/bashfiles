@@ -6,7 +6,5 @@ $inject these wherever you want to, because that's what you can do with them
 
 ================================================== */
 
-angular.module('flannel.providers', [])
-.value('FBURL', 'https://scty.firebaseio.com/')
-// TODO: incorporate environment variables or not
-.value('', '');
+angular.module('flannel.providers')
+.value('FBURL', 'https://scty.firebaseio.com/');
