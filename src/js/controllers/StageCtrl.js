@@ -1,4 +1,4 @@
-controllers.controller("StageCtrl", ["$scope", "$state", "$timeout", "TemplateConfig", "Session", "Clienstream", StageCtrl_]);
+controllers.controller("StageCtrl", ["$scope", "$state", "$timeout", "TemplateConfig", "Session", "Clientstream", StageCtrl_]);
 function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) {
 
   var vm = this;
@@ -50,29 +50,27 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
   // stage listen
   Clientstream.listen('stage', function stage_listen (target_state) {
     target_state = !!target_state.state ? target_state.state : target_state;
-    stage = target_state.stage;
-    var name = Templates.config[stage].name
-    $state.go(name).then(function(){
-      // trigger step changes afterwards
-      console.log('step after state: emitting:', target_state.step);
-      // debugger;
-      Clientstream.emit('step', target_state.step)
-    });
+    if ($scope.view_sync) {
+      stage = target_state.stage;
+      var name = Templates.config[stage].name
+      $state.go(name).then(function(){
+        // trigger step changes afterwards
+        Clientstream.emit('step', target_state.step)
+      });
+    }
   });
   // step listen
   Clientstream.listen('step', function step_listen (target_step) {
-    console.log('cur step',step)
-    console.log(target_step)
     step = target_step
     $timeout(function(){
-      $scope.$apply();
       // unlock the view
       $scope.view_sync = true;
+      $scope.$apply();
     }, 1)
     // update the view
     vm.partial = Templates.partials[stage][step];
     // update firebase
-    state_ref.update({
+    $scope.view_sync && state_ref.update({
       stage: stage,
       step:  step
     })

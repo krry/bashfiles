@@ -1,4 +1,4 @@
-providers.provider('Clienstream', Clientstream_);
+providers.provider('Clientstream', Clientstream_);
 function Clientstream_ () {
   /* ================================
     Clientstream
