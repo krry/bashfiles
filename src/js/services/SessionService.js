@@ -24,10 +24,9 @@ function SessionProvider_ () {
 
   ================================ */
 
-
-  var session_ref = new Firebase('https://scty.firebaseio.com/states/1234/state');  // TODO: pass arguments to this $get method to change the fb_observable's_ref
-  var fb_observable = session_ref.observe('value');
-
+  var session_ref = new Firebase('https://scty.firebaseio.com/sessions/').push();  // TODO: pass arguments to this $get method to change the fb_observable's_ref
+  var fb_observable = session_ref.observe('value').skip(1);
+  var state_stream = session_ref.child('state').observe('value').skip(2);
   this.$get = [  "JwtService", function SessionProviderFactory(jwt) {
 
     // auth with firebase
@@ -38,9 +37,11 @@ function SessionProvider_ () {
         ref:    function(){return session_ref},
         id:     function(){return session_ref.id()},
         stream: function(){return fb_observable},
+        state_stream: function(){ return state_stream; },
       }
     }
 
     // always save your firebase references when you create them
     return new awesome_design_builder_brah();
   } ];
+}
