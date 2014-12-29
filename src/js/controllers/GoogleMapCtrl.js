@@ -23,8 +23,12 @@ function GoogleMapCtrl_($scope, $element, MapService, UserService) {
     // searchbox.bindTo('bounds', map);
     // listen for the 'place_changed' trigger which is fired
     google.maps.event.addListener(searchbox, 'place_changed', parsePlace);
-    MapService.updateGmap(MapService.getGmapCenter());
+    MapService.updateGmap(MapService.getGmapCenter(), catchMapActivationResult);
     google.maps.event.addListener(map, 'center_changed', saveCenter);
+  }
+
+  function catchMapActivationResult (result) {
+    return result;
   }
 
   function parsePlace(place){

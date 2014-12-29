@@ -10,8 +10,8 @@ angular.module('flannel').factory('UserService', ["$firebase", "SyncService", "f
 function UserService_ ($firebase, SyncService, firebaseRef) {
 
   var service = {
-    user: user,
-    set_zip: set_zip,
+    getUser: get,
+    setUser: set,
   };
 
   var user = {
@@ -34,8 +34,12 @@ function UserService_ ($firebase, SyncService, firebaseRef) {
     },
   };
 
-  function set_zip (zip) {
-    user.zip = zip;
+  function get() {
+    return user;
+  }
+
+  function set (key, value) {
+    user['key'] = value;
   }
 
   return service;
