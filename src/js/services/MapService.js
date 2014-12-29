@@ -142,50 +142,68 @@ function MapService_ ($q, LayerService, StyleService, Configurator) {
       } else if (status === google.maps.GeocoderStatus.ZERO_RESULTS) {
           console.error("Can't find that location.");
           outcome = false;
+          return cb(outcome);
       } else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
           console.error("over query limit, retrying...");
           setTimeout(function(){ geocodeAddress(obj, cb); }, 200);
       } else if (status === google.maps.GeocoderStatus.REQUEST_DENIED) {
           console.error("The geocoder needs an additional parameter.");
           outcome = false;
+          return cb(outcome);
       } else {
           if (status === google.maps.GeocoderStatus.INVALID_REQUEST) {
             console.error("The geocode request was invalid. Address or latLng may be missing.");
             outcome = false;
+            return cb(outcome);
           }
       }
     });
-    return outcome;
+    // return cb(outcome);
   }
 
-  function updateGmap(obj) {
+  function updateGmap(obj, cb) {
     var center;
     console.log('updating gmap', obj);
     if (typeof(obj)==="object") {
       if (obj.lat() && obj.lng()) {
-        center = obj;
-        console.log('lat:', obj.lat(), ', lng:', obj.lng());
-        service.g.gmap.setCenter(center);
-        service.g.gmap.setZoom(getGmapMaxZoom(center, function(zoom) {
-            service.g.gmap.setZoom(zoom);
-          }));
-      } else {
-        console.log('location being geocoded');
-        geocodeAddress(obj, function(latLng) {
-          center = {
-            lat: latLng.k,
-            lng: latLng.D
-          };
-          service.g.gmap.setCenter(center);
-          getGmapMaxZoom(center, function(zoom) {
-            service.g.gmap.setZoom(zoom);
+        console.log('object passed to updateGmap');
+        if ( typeof obj.lat !== "function" ) {
+          console.log('location being geocoded');
+          geocodeAddress(obj, function(response) {
+            if (typeof response.lat !== "function") {
+              return response;
+            } else {
+              center = {
+                lat: response.lat(),
+                lng: response.lng()
+              };
+              service.g.gmap.setCenter(center);
+              getGmapMaxZoom(center, function(zoom) {
+                service.g.gmap.setZoom(zoom);
+                recenterMap(center);
+                return cb(true);
+              });
+            }
           });
-        });
+        } else {
+          center = obj;
+          console.log('lat:', obj.lat(), ', lng:', obj.lng());
+          service.g.gmap.setCenter(center);
+          service.g.gmap.setZoom(getGmapMaxZoom(center, function(zoom) {
+            service.g.gmap.setZoom(zoom);
+            recenterMap(center);
+            return cb(true);
+          }));
+        }
+      } else {
+        console.error("this is not a location object: ", obj);
+        return cb(false);
       }
-    } else {
-      console.error("this is not a location object: ", obj);
-      return false;
     }
+  }
+
+  function recenterMap(center) {
+    console.log("updating map, centering on ", center);
     service.g.gmap.setCenter(center);
     // update the OL MAP view's center.
     getGmapMaxZoom(center, function (zoom) {

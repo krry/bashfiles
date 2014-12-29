@@ -11,8 +11,12 @@
 @import "../imports/colors";
 @import "../imports/functions";
 
+label + button {
+  margin-top: 2em !important;
+}
+
 // Address fields
-input[type=tel].zipcode {
+input.zipcode {
   font-size: 3em;
   text-transform: uppercase;
   color: $color-input-text;
@@ -24,25 +28,26 @@ input[type=tel].zipcode {
   border-radius: 4px;
   margin: .75em auto -.25em;
   background-color: #fafafa;
+  // margin: 0 auto;
 }
 
-input[type=text].street {
+input.street {
   font-size: 1em;
   text-align: left;
   display: inline-block;
   padding: 16px 1em;
 }
 
-input[type=text].street,
+input.street,
 .combo-input {
   border: 2px solid $grey-lightest;
   border-radius: 4px;
 }
 
-input[type=text].street,
-input[type=text].city,
-input[type=text].state,
-input[type=text].zipcode {
+input.street,
+input.city,
+input.state,
+input.zipcode {
   color: $color-input-text;
 }
 
@@ -52,8 +57,7 @@ input[type=text].zipcode {
   max-width: 27em;
 }
 
-.combo-input input[type=text],
-.combo-input input[type=tel] {
+.combo-input input {
   font-size: 1em;
   border: 0;
   padding: 0;
@@ -61,69 +65,64 @@ input[type=text].zipcode {
   margin-bottom: 0;
 }
 
-.combo-input input[type=text].city {
+.combo-input input.city {
   width: 7em;
 }
 
-.combo-input input[type=text].state {
+.combo-input input.state {
   width: 1.5em;
   text-transform: uppercase;
 }
 
-.combo-input input[type=tel].zipcode {
+.combo-input input.zipcode {
   width: 3em;
   text-align: left;
   margin: 0;
 }
 
-.combo-input input[type=text].month {
+.combo-input input.month {
   width: 1.5em;
 }
 
-.combo-input input[type=text].day {
+.combo-input input.day {
   width: 1.5em;
 }
 
-.combo-input input[type=text].year {
+.combo-input input.year {
   width: 3em;
 }
 
 @media screen and (min-width: $width-min-med) {
-  input[type=text].street,
-  .combo-input input[type=text],
-  .combo-input input[type=tel] {
+  input.street,
+  .combo-input input {
     // font-size: em($font-size*1.25);
   }
 }
 
 @media screen and (min-width: $width-min-lrg) {
-  input[type=text].street,
-  .combo-input input[type=text],
-  .combo-input input[type=tel] {
+  input.street,
+  .combo-input input {
     // font-size: em($font-size*1.375);
   }
 }
 
 @media screen and (min-width: $width-min-xlg) {
-  input[type=text].street,
-  .combo-input input[type=text],
-  .combo-input input[type=tel] {
+  input.street,
+  .combo-input input {
     // font-size: em($font-size*1.5);
   }
 }
 
 @media screen and (min-width: $width-min-xxl) {
-  input[type=text].street,
-  .combo-input input[type=text],
-  .combo-input input[type=tel] {
+  input.street,
+  .combo-input input {
     // font-size: em($font-size*1.75);
   }
 }
 
 @media screen and (min-width: $width-min-uhd) {
-  input[type=text].street,
-  .combo-input input[type=text],
-  .combo-input input[type=tel] {
+  input.street,
+  .combo-input input {
     font-size: em($font-size*1.25);
   }
 }
