@@ -21,30 +21,37 @@ function DesignProvider_ () {
       make a private history function that keeps a record of what you've done
 
   ================================ */
-
-  var design_ref = new Firebase('https://scty.firebaseio.com/designs/1234/design');
-  var fb_observable = design_ref.observe('value');
-  var areas_ref = design_ref.child('areas').push();
-
-  // TODO: it's possible pass arguments to this $get method to change the fb_observable's_ref
   this.$get = [ "Session", function designProviderFactory(Session) {
     // HACK: sync service probably isn't necessary
-    Session.ref().child('design').set(design_ref.parent().key());
-
+    Session.ref().update({design:  design_ref.key()});
+    design_ref.update({session: Session.ref().key()});
+    areas_ref = design_ref.child('areas');
+    areas_stream = areas_ref.observe('value').skip(1);
+    var feature;
     function awesome_design_builder_brah() {
       return {
         stream: function(){return fb_observable},
         id:     function(){return design_ref.id()},
         ref:    function(){return design_ref},
-        areas_stream: function(arg) {
-          (arg && areas_ref.set(arg))
-          return areas_ref.observe();
-        },
         areas_ref: function(){ return areas_ref; },
+        areas_stream: function() { return areas_stream;},
+        feature:      function(arg) {
+          if (arg) {
+            feature = arg;
+          }
+          return feature;
+        },
       }
     }
 
     // always save your firebase references when you create them
     return new awesome_design_builder_brah();
   } ]
+
+  var design_ref = new Firebase('https://scty.firebaseio.com/designs/').push();
+  var fb_observable = design_ref.observe('value').skip(1);
+  var areas_ref;
+  var areas_stream;
+
+  // TODO: it's possible pass arguments to this $get method to change the fb_observable's_ref
 }
