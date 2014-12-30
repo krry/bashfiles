@@ -12,6 +12,7 @@ function ConfiguratorFactory_() {
   this.$get = ["Session", "StyleService", "LayerService", function (Session, Styles, Layers) {
 
     var map,
+        REMOVEMEcenter,
         view,
         layers,
         features,
@@ -20,6 +21,7 @@ function ConfiguratorFactory_() {
         dragpan_opt;
 
     // defaults
+    REMOVEMEcenter = new google.maps.LatLng(37.4834436, -122.267538); // hack:
     var default_controls = ol.control.defaults({
       zoom: true,
       attribution: false,
@@ -45,7 +47,14 @@ function ConfiguratorFactory_() {
       view: view,
       target: null,
       interactions: [],
-      layers: [Layers.staticmap],
+      layers: [new ol.layer.Image({source:new ol.source.ImageStatic({
+        // TODO: URL constructor for this
+        url: 'http://scexchange.solarcity.com/scfilefactory/TestGrab.aspx?format=jpg&center='+ REMOVEMEcenter.lat()+','+ REMOVEMEcenter.lng() +'&zoom=20&size='+ 2048 +'x'+ 2048 +'&maptype=satellite&scale=1&client=gme-solarcity',
+        imageSize: [2048, 2048],
+        // projection: pixelProjection, // needed later for converting sizes
+        imageExtent: [0,0,2048,2048],
+        visible: true,
+      })})],
       overlays: [feature_overlay],
     }
 
@@ -64,6 +73,7 @@ function ConfiguratorFactory_() {
     draw = new ol.interaction.Draw({
       features: feature_overlay.getFeatures(),
       type: 'Polygon',
+      geometryName: 'area',
     });
     // convenience for enable/disable
     var interactions = {
@@ -76,7 +86,7 @@ function ConfiguratorFactory_() {
 
       return {
         map: function(target){
-          setElement(target);
+          target && setElement(target);
           return map || (map = new ol.Map(configurator_options));
         },
         view: function(){ return view;},
