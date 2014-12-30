@@ -6,7 +6,7 @@ var newrelic     = require('newrelic'),
     environment = process.env.NODE_ENV || 'development';
 
 nconf.argv().env().file({file: './server/config/environments/' + environment + '.json'});
-
+console.log('Node_Env', process.env.NODE_ENV);
 // internal modules
 var db, app, port;
 
