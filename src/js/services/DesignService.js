@@ -1,4 +1,5 @@
 providers.provider('Design', DesignProvider_);
+
 function DesignProvider_ () {
   /* ================================
     Design
@@ -43,10 +44,9 @@ function DesignProvider_ () {
         },
       }
     }
-
     // always save your firebase references when you create them
     return new awesome_design_builder_brah();
-  } ]
+  } ];
 
   var design_ref = new Firebase('https://scty.firebaseio.com/designs/').push();
   var fb_observable = design_ref.observe('value').skip(1);

@@ -37,58 +37,11 @@ function InteractionService_ (MapService, StyleService, LayerService, EventServi
 
   function get (name) {
     if (!interactions) {
-      init();
+        init();
+      }
+      if (name === 'all') return interactions;
+      return interactions[name];
     }
-    if (name === 'all') return interactions;
-    return interactions[name];
-  }
-
-var test_overlay = new ol.FeatureOverlay({
-      style: StyleService.defaultStyleFunction,
-      features: new ol.Collection([]),
-    })
-
-
-  // function init(){
-    // interaction options //
-    // options = {
-    //   draw: {
-    //     features: LayerService.drawn_features,
-    //     // source: LayerService.getLayer('area').getSource(), // destination for new features
-    //     // snapTolerance: snap_tolerance,                // snap tolerance
-    //     type: 'Polygon',                              // target geometry
-    //     geometryName: 'area',                         // name used for getting the correct style
-    //     style: StyleService.defaultStyleFunction,     // styleFunction returns styles
-    //   },
-    //   select: {
-    //     // layers: [features: LayerService.area],           // what layers can you select?
-    //     style: StyleService.highlightStyleFunction,   // style function for selected features
-    //   },
-    //   modify: {
-    //     features: LayerService.drawn_features,
-    //     style: StyleService.highlightStyleFunction,
-    //     // features: new ol.Collection([]),
-    //   },
-    //   dragpan: {
-    //     enableKinetic: true,
-    //   }
-    // };
-
-    // interactions = {
-    //   draw: new ol.interaction.Draw(options.draw),
-    //   // select: new ol.interaction.Select(options.select),
-    //   dragpan: new ol.interaction.DragPan(options.dragpan),
-    //   // modify: new ol.interaction.Modify(options.modify), // (jesse) HACK: with more than one area, this doesn't work well
-    // };
-
-    // options.modify.features = interactions.select.getFeatures();    // (Jesse) HACK: don't need to do this for one area
-    // interactions.modify = new ol.interaction.Modify(options.modify);// see above line
-    // this is suitable for only one area
-    // interactions.draw.on('drawend', function saveDrawn (event) {
-    //   var feature = event.feature;
-    //   features_collection.push(feature);
-    // })
-  // }
 
 
   function addInteractions(add){

@@ -1,3 +1,5 @@
+controllers.controller("FooterCtrl", FooterCtrl_);
+
 function FooterCtrl_($scope, StageService) {
   var vm = this;
 
@@ -18,5 +20,3 @@ function FooterCtrl_($scope, StageService) {
   // }
   // templateUrl();
 }
-
-controllers.controller("FooterCtrl", FooterCtrl_);

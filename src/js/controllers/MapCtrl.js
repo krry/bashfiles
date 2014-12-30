@@ -29,11 +29,6 @@ function MapCtrl_($scope, $timeout, Client, Sync, MapService, LayerService, Inte
       }
 
   // end helpers
-  $scope.$watch(function(){
-    return $scope.draw_busy}, function (oval, nval) {
-      console.log('$scope busy', $scope.draw_busy);
-      // console.log('oval', oval, 'nval', nval);
-    } )
   var vm = this;
   var live_feature;
   // for dev: //////////////////////////////

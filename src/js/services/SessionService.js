@@ -1,4 +1,5 @@
-providers.provider('Session', SessionProvider_);
+providers.provider("Session", SessionProvider_);
+
 function SessionProvider_ () {
   /* ================================
     Session
@@ -28,17 +29,16 @@ function SessionProvider_ () {
   var fb_observable = session_ref.observe('value').skip(1);
   var state_stream = session_ref.child('state').observe('value').skip(2);
   this.$get = [  "JwtService", function SessionProviderFactory(jwt) {
-
     // auth with firebase
     jwt.jwt();
 
     function awesome_design_builder_brah() {
       return {
-        ref:    function(){return session_ref},
-        id:     function(){return session_ref.id()},
-        stream: function(){return fb_observable},
+        ref:    function(){ return session_ref; },
+        id:     function(){ return session_ref.key(); },
+        stream: function(){ return fb_observable; },
         state_stream: function(){ return state_stream; },
-      }
+      };
     }
 
     // always save your firebase references when you create them

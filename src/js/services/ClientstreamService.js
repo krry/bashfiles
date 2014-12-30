@@ -27,13 +27,17 @@ function Clientstream_ () {
 
   Emitter.prototype.emit = function (name, data) {
       var fnName = createName(name);
+      /* jshint -W030 */
       this.subjects[fnName] || (this.subjects[fnName] = new Rx.Subject());
+      /* jshint +W030 */
       this.subjects[fnName].onNext(data);
   };
 
   Emitter.prototype.listen = function (name, handler) {
       var fnName = createName(name);
+      /* jshint -W030 */
       this.subjects[fnName] || (this.subjects[fnName] = new Rx.Subject());
+      /* jshint +W030 */
       return this.subjects[fnName].subscribe(handler);
   };
 

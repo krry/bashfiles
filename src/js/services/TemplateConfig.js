@@ -43,22 +43,25 @@ function TemplateConfig_ () {
   var partials = partial_constructor(config);
 
   function partial_constructor (config) {
-    var partials = [];
+    var stage,
+        name,
+        template = 'templates/stages/',
+        partials = [];
     // TODO: make this an injectable angular constant
-    var template = 'templates/stages/';
-    var name;
+
     function hardcode(part) {
       return template + name + '/' + part;
     }
+
     for (var i = 0; i < config.length; i++) {
       partials.push([]);
       name = config[i].name;
       for (var j = 0; j< config[i].steps.length; j++) {
         stage = partials[i];
-        stage.push(hardcode(config[i].steps[j].partial))
-      };
+        stage.push(hardcode(config[i].steps[j].partial));
+      }
     }
-    console.log('partials: ',partials)
+    console.log('partials: ', partials);
     return partials;
   }
 
@@ -71,6 +74,6 @@ function TemplateConfig_ () {
     partials: partials,
     partial: partial,
     config: config,
-  }
+  };
 }
 

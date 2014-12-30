@@ -1,6 +1,6 @@
-directives.directive('flnDevTools', flnDevTools);
+directives.directive('flnDevTools', [flnDevTools_]);
 
-function flnDevTools () {
+function flnDevTools_ () {
   return {
     // scope: {},
     templateUrl: 'templates/directives/flnDevTools.html',
