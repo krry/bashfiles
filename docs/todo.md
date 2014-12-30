@@ -16,9 +16,9 @@ Generally, let's define a common system for resolving merge conflicts. They will
 
 * template layouts
     [x] home stage
-    [ ] configure stage
-    [ ] qualify stage
-    [ ] signup stage
+    [x] configure stage
+    [x] qualify stage
+    [x] signup stage
 
 * form service
     [ ] location/address
@@ -34,20 +34,22 @@ Generally, let's define a common system for resolving merge conflicts. They will
     [ ] depleting
     [ ] excreting
 
-
 ## Lazarus
 
-* button service
-    [ ] zoom controls
-    [ ] pan controls
-    [ ] area focus controls
+* directives
+    
+* angular.providers
+    [x] Design
+    [x] Session
+    [ ] Form
+    [ ] 
 
-* layer service
+
+* layers
     [x] area
-    [ ] static map
+    [x] static map
     [ ] panels
-    [?] gutters
-    [?] listeners
+    [ ] setbacks
 
 * angular.constants
     [ ] firebase base constant url
@@ -57,16 +59,15 @@ Generally, let's define a common system for resolving merge conflicts. They will
         [ ] static map URL
         [ ] tenhands
         [ ] design id from firebase
+    [?] listeners
 
-* directives
-    [ ] see todo
-        [ ] buttons
-        [ ] interactions
+
+
 
 * ui states
     [x] home
     [x] config
-    [ ] qualify
+    [x] qualify
 
 * firebase
     [ ] init service

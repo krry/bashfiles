@@ -1,4 +1,26 @@
 
+#  bootstrapping  #
+
+var ui_lock,
+    ui_lock,
+
+// what tools you need
+
+  rcv_update_callback, 
+    accept message string from firebase message receive event
+    do not run while "lock" (may queue messages?)
+    turn on lock mode
+    emit('rcv', msg )
+    unlock
+
+  
+
+// which streams do you need?
+  'send_ui'
+  'rcv_upt'
+
+// 
+
 
 
 
