@@ -24,6 +24,14 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
     step:  step,
   })
 
+  // $timeout(function(){
+  //   Clientstream.emit('stage', {
+  //       stage: 1,
+  //       step:  0,
+  //     })
+  // }, 200)
+
+
   vm.partial = Templates.partial(stage,step);
 
   // view_sync helps flow control for async // TODO: more stream-like

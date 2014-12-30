@@ -1,5 +1,5 @@
-controllers.controller("MapCtrl", ["$scope", "$timeout", "StreamService", "SyncService", "MapService", "LayerService", "InteractionService", "Session", "Design", "updateArea", "addWkt", MapCtrl_]);
-function MapCtrl_($scope, $timeout, Stream, Sync, MapService, LayerService, InteractionService, Session, Design, updateArea, addWkt) {
+controllers.controller("MapCtrl", ["$scope", "$timeout", "Clientstream", "SyncService", "MapService", "LayerService", "InteractionService", "StyleService", "Session", "Design", "updateArea", "addWkt", "Configurator", MapCtrl_]);
+function MapCtrl_($scope, $timeout, Client, Sync, MapService, LayerService, InteractionService, StyleService, Session, Design, updateArea, addWkt, Configurator) {
   /* ===============================
   TODO:
     * this name is unhelpful
@@ -24,75 +24,98 @@ function MapCtrl_($scope, $timeout, Stream, Sync, MapService, LayerService, Inte
       function getWkt(f) {
         return wkt.writeGeometry(f.getGeometry());
       }
+      function getGeom(txt) {
+        return wkt.readGeometry(txt);
+      }
+
   // end helpers
+  $scope.$watch(function(){
+    return $scope.draw_busy}, function (oval, nval) {
+      console.log('$scope busy', $scope.draw_busy);
+      // console.log('oval', oval, 'nval', nval);
+    } )
   var vm = this;
   var live_feature;
-
   // for dev: //////////////////////////////
-  Design.ref().set({
-      area: "POLYGON((783.9111328125 480.6137878857553,729.95361328125 379.82623117417097,632.21923828125 476.5415222607553,650.54443359375 397.1323425732553,792.0556640625 403.2407410107553,783.9111328125 480.6137878857553))",
+  Design.ref().update({
       owner: "owner_id",
-      session: Session.ref().parent().key(),
+      session: Session.ref().key(),
       data: "data_id",
-      sync: "true",
     })
-
-  // todo: these should be turned into providers
-  LayerService.init();
-  InteractionService.init();
   // end dev: //////////////////////////////
 
   // state of the interface
   $scope.draw_busy = false;
   // client_stream
-  var client_stream = new Stream();
-  client_stream.listen('update_client', update_client); // messages from remote
-  client_stream.listen('update_remote', update_remote); // messages from the feature
+  Client.listen('update_client', update_client); // messages from remote
+  Client.listen('update_remote', update_remote); // messages from the feature
 
   function update_remote (geom) {
-    try {
-      geom.extent && Design.ref().update({area: wkt.writeGeometry(geom)});
-    } catch (er){
-      return console.log('err in update_remote', er);
-    }
+    // $scope.draw_busy = true;
+    Design.areas_ref().child('area').set(wkt.writeGeometry(geom));
+    $scope.$apply();
   }
 
   function update_client (txt) {
-    !$scope.draw_busy && live_feature.setGeometry(wkt.readGeometry(txt));
+    if (!diff_client(txt)) { // remote and local are the same
+      $scope.draw_busy = false;
+      $scope.$apply();
+    } else if (diff_client(txt) && !$scope.draw_busy) { // remote different from local, and local sync'd
+      Design.feature().setGeometry(getGeom(txt));
+    } else if (!$scope.draw_busy) { // you're sync'd but you should do something with new data
+      console.log('==================== what should i do now, boss? ================')
+      // make a new feature
+      // add it to the map
+      // make sure it works right.
+    }
+  }
+
+  function diff_client(txt) { // test helper
+    var result;
+    try {
+      result = txt !== Design.feature().get('wkt');
+    } catch (err) {
+      console.error('dummy', err)
+    }
+    return result;
   }
 
   // remote evt stream
-  Design.area_stream().skip(1).map( remote_map ).subscribe( fb_sub );
-  function remote_map (x, idx, observable){
-    return !$scope.draw_busy && (x.exportVal() || x);
+  var remote_stream = Design.areas_stream().map( remote_map );
+  remote_stream.delay(500).subscribe( fb_sub )
+  function remote_map (x){
+    return x.exportVal().area;
   }
   function fb_sub (txt) {
-    client_stream.emit('update_client', txt);
+    Client.emit('update_client', txt);
   }
 
   // openlayers connection
-  // ( hack: bwah... why's it gotta be this way?)
-  var draw_interaction = InteractionService.get('draw');
-  draw_interaction.once('drawstart', feature_added );
-  draw_interaction.on('drawstart', draw_busy );
-  draw_interaction.on('drawend',   draw_end );
+  Configurator.draw().once('drawstart', draw_start );
+  Configurator.draw().once('drawend',   draw_end );
 
-  function draw_busy (evt) {
+  function draw_start (evt) {
+    console.log('draw_start');
     $scope.draw_busy = true;
+    $scope.$apply();
+    Design.feature(evt.feature);
+  }
+  function update_wkt_while_modify (f) {
+    $scope.draw_busy = true;
+    $scope.$apply();
+    Design.feature().set('wkt', getWkt(Design.feature()));
   }
   function draw_end (evt) {
     $scope.draw_busy = false;
+    $scope.$apply();
+    console.log('draw_end');
+    Design.feature().set('wkt', getWkt(Design.feature()));
+    Design.feature().on('change:wkt', wkt_update_notification);
+    Design.feature().getGeometry().on('change', update_wkt_while_modify);
+    Client.emit('update_remote', Design.feature().getGeometry());
   }
-  function feature_added (f) {
-    f = f.feature;
-    console.log('feature_added', f)
-    live_feature = f;
-    // bind feature's geometry to a key "wkt"
-    f.set('wkt', getWkt(f) )
-    f.getGeometry().on('change',  function (geom) {
-      $scope.draw_busy = true;
-      geom = geom.target;
-      client_stream.emit('update_remote', geom);
-    })
+
+  function wkt_update_notification (ft) {
+    Client.emit('update_remote', Design.feature().getGeometry());
   }
 }
