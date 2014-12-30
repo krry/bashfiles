@@ -32,5 +32,5 @@ gulp.task('config', function () {
   gulp.src(confile)
   .pipe(ngConstant(config))
   .pipe(rename('config.js'))
-  .pipe(gulp.dest('./public/js'))
+  .pipe(gulp.dest('./src/js'))
 });
