@@ -13,7 +13,7 @@ function flnOlMap_(Configurator) {
     scope: {
     },
     link: function flnOlMapLink(scope, ele, attrs) {
-      var map = Configurator.map(ele[0]);
+      var map = Configurator.map(ele);
       ele.on('$destroy', function (e) {
       	// make sure we sync whatever is going on with firebase
       	// what else?
