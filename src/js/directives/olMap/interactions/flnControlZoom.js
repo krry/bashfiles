@@ -32,21 +32,21 @@ var zoom_options = {
 directives
 .directive('flnControlZoom', flnControlZoom_ );
 
-function flnControlZoom_ (MapService) {
+function flnControlZoom_ (Configurator) {
   return {
     restrict: 'E',
     link: function flnControlZoomLink (scope, ele, attrs) {
       // create a new zoom controller
       var zoomControl = new ol.control.Zoom(zoom_options);
       // add it to the map
-      var controls = MapService.getOmap().getControls();
+      var controls = Configurator.map().getControls();
       if (controls.getArray().length > 0 ){ // hack: directive fires twice, prevent double controls
         controls.pop();
       }
-      MapService.getOmap().addControl(zoomControl);
+      Configurator.map().addControl(zoomControl);
       // remove it from the map when the directive gets destroyed
       ele.on('$destroy', function (e) {
-        MapService.getOmap().removeControl(zoomControl);
+        Configurator.map().removeControl(zoomControl);
       });
     },
   };
