@@ -18,14 +18,31 @@ function LayerService_ ($window, StyleService) {
       sources,
       layers;
 
+  REMOVEMEcenter = new google.maps.LatLng(37.4834436, -122.267538);
+
   service = {
-    init          : init,
-    show          : show,
-    hide          : hide,
+
+    // show          : show,
+    // hide          : hide,
     getLayer      : getLayer,
     initOlView    : initOlView,
     getProjection : getProjection,
+    getDrawLayer  : getDrawLayer,
+
+    // DEV:
+
+    staticmap: new ol.layer.Image({source:new ol.source.ImageStatic({
+        // TODO: URL constructor for this
+        url: 'http://scexchange.solarcity.com/scfilefactory/TestGrab.aspx?format=jpg&center='+ REMOVEMEcenter.lat()+','+ REMOVEMEcenter.lng() +'&zoom=20&size='+ 2048 +'x'+ 2048 +'&maptype=satellite&scale=1&client=gme-solarcity',
+        imageSize: [2048, 2048],
+        // projection: pixelProjection, // needed later for converting sizes
+        imageExtent: [0,0,2048,2048],
+        visible: true,
+      })})
+    // ENDDEV:
   };
+
+  console.log(service.staticmap.getSource());
 
   // TODO: size map according to the div in which it is loaded, then resize when that div changes size
   // HACK:   dev related
@@ -35,104 +52,24 @@ function LayerService_ ($window, StyleService) {
   //         In EDLTR, it was always fullscreen.
 
   REMOVEMEcenter = new google.maps.LatLng(37.4834436, -122.267538);
+  var drawLayer
+  function getDrawLayer () {
+    // !drawLayer && (drawLayer = )
+    console.log('getDrawLayer', drawLayer);
+    return drawLayer
+  }
 
   function getProjection () {
     return pixelProjection;
   }
 
-  function getSourcesKhak (element) {
-    var windowWidth = $window.innerWidth;
-    var windowHeight = $window.innerHeight;
-    var sources = {
-      area: new ol.source.Vector({features: new ol.Collection([])}),
-      static_map: new ol.source.ImageStatic({
-        // TODO: URL constructor for this
-        url: 'http://scexchange.solarcity.com/scfilefactory/TestGrab.aspx?format=jpg&center='+ REMOVEMEcenter.lat()+','+ REMOVEMEcenter.lng() +'&zoom=20&size='+ windowWidth +'x'+ windowWidth +'&maptype=satellite&scale=1&client=gme-solarcity',
-        imageSize: [windowWidth, windowHeight],
-        projection: pixelProjection,
-        imageExtent: pixelProjection.getExtent(),
-        visible: true,
-      }),
-      panel: new ol.source.Vector({features: new ol.Collection([])}),
-    };
-    return sources;
-  }
-
-  function getLayersKhak (sources) {
-    var layers = {
-      area: new ol.layer.Vector({
-        source: sources.area,
-        projection: pixelProjection,
-        style:  StyleService.defaultStyleFunction,
-        name: 'area_layer',
-      }),
-      static_map: new ol.layer.Image({
-        source: sources.static_map,
-        name: 'static_map',
-      }),
-      panel: new ol.layer.Vector({
-        source: sources.panel,
-        projection: pixelProjection,
-        style:  StyleService.defaultStyleFunction,
-        name: 'panel_layer',
-      }),
-    };
-    return layers;
-  }
-
   function initOlView (){
-    var olView = new ol.View({
-      projection: pixelProjection,
-      center: ol.extent.getCenter(pixelProjection.getExtent()),
-      zoom: 4,
-    });
-    return olView;
+    return new ol.View({
+      center: [REMOVEMEcenter.lat(), REMOVEMEcenter.lng()],
+      zoom: 4
+    })
   }
 
-  function init (element) {
-    var el = (!element) ? $window : element;
-    var header = window.getComputedStyle(document.getElementById('header'), null);
-    var el_height = el.innerHeight - parseInt(header.getPropertyValue("height"));
-    extent = [0, 0, el.innerWidth, el_height ];
-    pixelProjection = new ol.proj.Projection({
-      units: 'pixels',
-      extent: extent
-    });
-    sources = getSourcesKhak(element);
-    layers = (layers) ? layers : getLayersKhak(sources);
-
-    var _ol_layers = [
-      getLayer('static_map'),
-      getLayer('area'),
-      // getLayer('panel'),
-    ];
-
-    return _ol_layers;
-  }
-
-  function show (layer_array) {
-    // if array, loop on layer_array
-    if (Array.isArray(layer_array)) {
-      layer_array.forEach(function (layer) {
-        layer.setVisible(true);
-      });
-    } else if (typeof(layer_array) === 'string') {
-      // else, show the single layer
-      layer.setVisible(true);
-    }
-  }
-
-  function hide (layer_array) {
-    // if array, loop on layer_array
-    if (Array.isArray(layer_array)) {
-      layer_array.forEach(function (layer) {
-        layer.setVisible(false);
-      });
-    } else if (typeof(layer_array)=== 'string') {
-      // else, hide the single layer
-      layer.setVisible(false);
-    }
-  }
 
   function getLayer (name) {
     if (name === 'all') return layers;
