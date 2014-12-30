@@ -1,5 +1,4 @@
 # firebase
-
 ## Outline
 We'll keep objects of various types in firebase:
 
@@ -8,7 +7,7 @@ We'll keep objects of various types in firebase:
     * Prospects
     * Agents
   * Designs
-  * Call_sessions
+  * Sessions
 
 ## Storage Objects
 
@@ -91,7 +90,6 @@ We'll keep objects of various types in firebase:
         agent:      "agent_id",
         prospect:   "prospect_id",
         design:     "design_id",
-        tenhands:   "tenhandsIdentifyer???",
         start_time: "timetimetime",
         end_time:   "timetimetime",
       }
@@ -101,7 +99,7 @@ We'll keep objects of various types in firebase:
 
   homes: {
     home_id: {
-      owner
+      owner:    "owner_id", // ???
       address1: "address1",
       address2: "address2",
       city:     "city",

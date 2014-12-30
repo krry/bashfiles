@@ -1,11 +1,20 @@
-function StreamService_ () {
+providers.provider('Clientstream', Clientstream_);
+function Clientstream_ () {
   /* ================================
-    StreamService
+    Clientstream
 
    Create an emitter to handle pub/sub.
 
   ================================ */
+  this.$get = [function ClientStreamProviderFactory () {
 
+    function buts () {
+      return client_stream
+    }
+    return buts()
+  }];
+
+  var Stream = Emitter();
   var hasOwnProp = {}.hasOwnProperty;
 
   function createName (name) {
@@ -39,7 +48,5 @@ function StreamService_ () {
       this.subjects = {};
   };
 
-  return Emitter;
+  var client_stream = new Emitter();
 }
-
-angular.module('flannel').service('StreamService', StreamService_);

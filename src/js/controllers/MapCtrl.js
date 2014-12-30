@@ -1,213 +1,121 @@
-controllers.controller("MapCtrl", ["$scope", "$firebase", "MapService", "LayerService", "InteractionService", "StyleService", "EventService", "SyncService", "Session", "Design", "updateArea", "addWkt", "firebaseRef", MapCtrl_]);
+controllers.controller("MapCtrl", ["$scope", "$timeout", "Clientstream", "SyncService", "MapService", "LayerService", "InteractionService", "StyleService", "Session", "Design", "updateArea", "addWkt", "Configurator", MapCtrl_]);
+function MapCtrl_($scope, $timeout, Client, Sync, MapService, LayerService, InteractionService, StyleService, Session, Design, updateArea, addWkt, Configurator) {
+  /* ===============================
+  TODO:
+    * this name is unhelpful
+    * too many services loaded in here
 
-function MapCtrl_($scope, $firebase, MapService, LayerService, InteractionService, StyleService, EventService, Sync, Session, Design, updateArea, addWkt, firebaseRef) {
-  var vm = this;
+  MapCtrl is responsible for establishing connections with, and monitoring streams between Firebase and the client
+    important events:
+    Map Center
 
-  // TODO: service this
-  // wkt allows us to turn feature.getGeometry() into text, text into geometry for
-  // use with feature.setGeometry()
-  var wkt = new ol.format.WKT();
+    Zoom Level
+    Area Add
+    Modify Area
+    Slope
+    Peak
 
-// <<<<<<< HEAD
-// // <<<<<<< Updated upstream
-// //   // add areas array to the design in firebase
-// //   var designKey = SyncService.get('design_ref').key();
-// //   $scope.areasUrl = SyncService.designObj(designKey).$ref().path + '/areas';
+  =============================== */
+  // helper functions TODO: service these --
+      // wkt allows us to turn feature.getGeometry() into text, text into geometry for
+      // use with feature.setGeometry()
 
-// //   // firebase ref for all areas
-// //   var design_areas_ref = firebaseRef($scope.areasUrl);
-// // =======
-//  // HACK: bugfix
-//   // TODO: DesignService
-//   //   should return the Design.ref(). MapCtrl probably doesn't need to know much about the session.
-//   //   add areas array to the design in firebase
-//   var session_ref = Sync.get('session_ref');
-
-// =======
- // HACK: bugfix
-  // TODO: DesignService
-  //   should return the design_ref. MapCtrl probably doesn't need to know much about the session.
-  //   add areas array to the design in firebase
-  var session_ref = SyncService.get('session_ref');
-  var design_ref = session_ref.ref().parent().child('designs/1234').ref();
-
-  // unused: --> // $scope.areasUrl = session_ref.ref().parent().child('designs/1234').ref().path.toString() + '/areas'; // hack:
-
-  // firebase ref for all areas
-  var design_areas_ref = design_ref.child('areas')
-
-  // save the areas for later reference.... but?
-  Sync.set('areas', design_areas_ref); // is this necessary?
-
-
-  /********************************************
-   listeners on the map
-  ********************************************/
-
-
-  Design.ref().child('areas').on('child_added', firebaseListener);
-
-// bugfix end /////////////////////////
-// >>>>>>> Stashed changes
-  // init the layers for the map
-  LayerService.init();
-  InteractionService.init();
-
-  // listen to firebase for added areas
-  // duplicated // design_areas_ref.on('child_added', firebaseListener);
-
-  // listen to map for added areas
-  var area_source = LayerService.getLayer('area').getSource();
-  // area_source.on('addfeature', sourceListener)
-
-  // listen to draw event
-  var draw_interaction = InteractionService.get('draw');
-  draw_interaction.on('drawstart', drawStartListen );
-  draw_interaction.on('drawend',   drawEndListen );
-
-  function drawStartListen (event) {
-    var feature = event.feature;
-    console.log('drawing started getting new, empty wkt_ref');
-    // get ref for feature
-    var wkt_ref = Design.ref().child('areas').push();
-    feature.set('wkt_ref_id', wkt_ref.key());
-    // save the ref in memory
-    Sync.addSyncRef('areas', wkt_ref);
-    Design.ref().child('areas').key()
-  }
-
-  function updateWhileModify (event) {
-    var feature = event.target;
-    var wkt_txt = wkt.writeGeometry(feature.getGeometry());
-    var wkt_ref_id = feature.get('wkt_ref_id');
-    var wkt_ref = Sync.getSyncRef('areas', wkt_ref_id);
-    wkt_ref.set(wkt_txt);
-    // if (wkt_ref.val() !== wkt_txt) {
-    //   console.log('updating area after draw')
-    //   wkt_ref.set(wkt_txt);
-    // }
-  }
-
-  // handle added areas on the map
-  function drawEndListen (event) {
-    // get the added feature
-    var feature = event.feature;
-    console.log('we finished drawing');
-    // get ref for feature
-    var wkt_ref_id = feature.get('wkt_ref_id');
-    var wkt_ref = Sync.getSyncRef('areas', wkt_ref_id);
-    addToFirebaseAfterDraw(feature);
-    // listen for changes later
-    feature.on('change', updateWhileModify );
-  }
-
-  // handle areas added to firebase
-  function firebaseListener (child_ref) {
-    console.log('firebaseListener heard a feature get added');
-    var wkt_ref_id = child_ref.key();
-    var wkt_ref = Sync.getSyncRef('areas', wkt_ref_id);
-    if ( child_ref.val() === 'start_only') {
-      console.log('but we will not add because only start');
-      wkt_ref.ref().on('value', changeAreaFromFirebase);
-    } else if (!wkt_ref) {
-      console.log('it is new, so we sent it to the map');
-      // the area doesn't exist yet, should be drawn
-      addAreaFromFirebase(child_ref);
-    } else {
-      // the area exists, don't do shit
-      console.log('that area exists already');
-    }
-  }
-
-  /********************************************
-   handle firebase updates
-  ********************************************/
-
-  // add feature to source
-  function addAreaFromFirebase (ref) {
-    var new_geom;
-    var new_feat;
-    console.log('now adding area from firebase');
-    var new_wkt = ref.val();
-    console.log('new_wkt', new_wkt);
-    if (new_wkt !== 'start_only') {
-      new_geom = wkt.readGeometry(new_wkt);
-      new_feat = wkt.readFeature(new_wkt);
-
-      // set the feature's area property, which are read later by the Style function
-      new_feat.set('area', new_geom);
-      new_feat.setGeometryName('area');
-      // save the ref_key
-      new_feat.set('wkt_ref_id', ref.key());
-      // add area to map
-      LayerService.getLayer('area').getSource().addFeature(new_feat);
-      // listen for changes on the ref
-      ref.ref().on('value', changeAreaFromFirebase);
-      new_feat.on('change', updateWhileModify );
-      Sync.addSyncRef('areas', ref.ref());
-    } else {
-      console.log('we are still drawing');
-    }
-  }
-
-  function changeAreaFromFirebase (wkt_ref) {
-    var new_wkt    = wkt_ref.val();
-    var wkt_ref_id = wkt_ref.key();
-    var area       = findFeatureByWktId(wkt_ref_id);
-    var curr_wkt   = wkt.writeGeometry(area.getGeometry());
-    // meaningful change?
-    if (new_wkt === 'start_only') {
-      console.log("we're still drawing");
-    } else if (curr_wkt === new_wkt) {
-      console.log('this area has not changed');
-    } else {
-      // change feature
-      console.log('this area was changed by firebase');
-      var new_geom = wkt.readGeometry(new_wkt);
-      area.setGeometry(new_geom);
-    }
-  }
-
-  function findFeatureByWktId (wkt_ref_id) {
-    var areas = area_source.getFeatures();
-    var result;
-    for (var i = 0; i < areas.length; i++) {
-      if (areas[i].get('wkt_ref_id') === wkt_ref_id) {
-        result = areas[i];
+      var wkt = new ol.format.WKT();
+      function getWkt(f) {
+        return wkt.writeGeometry(f.getGeometry());
       }
+      function getGeom(txt) {
+        return wkt.readGeometry(txt);
+      }
+
+  // end helpers
+  $scope.$watch(function(){
+    return $scope.draw_busy}, function (oval, nval) {
+      console.log('$scope busy', $scope.draw_busy);
+      // console.log('oval', oval, 'nval', nval);
+    } )
+  var vm = this;
+  var live_feature;
+  // for dev: //////////////////////////////
+  Design.ref().update({
+      owner: "owner_id",
+      session: Session.ref().key(),
+      data: "data_id",
+    })
+  // end dev: //////////////////////////////
+
+  // state of the interface
+  $scope.draw_busy = false;
+  // client_stream
+  Client.listen('update_client', update_client); // messages from remote
+  Client.listen('update_remote', update_remote); // messages from the feature
+
+  function update_remote (geom) {
+    // $scope.draw_busy = true;
+    Design.areas_ref().child('area').set(wkt.writeGeometry(geom));
+    $scope.$apply();
+  }
+
+  function update_client (txt) {
+    if (!diff_client(txt)) { // remote and local are the same
+      $scope.draw_busy = false;
+      $scope.$apply();
+    } else if (diff_client(txt) && !$scope.draw_busy) { // remote different from local, and local sync'd
+      Design.feature().setGeometry(getGeom(txt));
+    } else if (!$scope.draw_busy) { // you're sync'd but you should do something with new data
+      console.log('==================== what should i do now, boss? ================')
+      // make a new feature
+      // add it to the map
+      // make sure it works right.
+    }
+  }
+
+  function diff_client(txt) { // test helper
+    var result;
+    try {
+      result = txt !== Design.feature().get('wkt');
+    } catch (err) {
+      console.error('dummy', err)
     }
     return result;
   }
 
-  /********************************************
-   handle source updates
-  ********************************************/
-
-  // update from client
-  function addToFirebaseAfterDraw (area) {
-    console.log('now adding to firebase with new area');
-    // get the area's wkt_txt
-    debugger
-    var wkt_txt = wkt.writeGeometry(area.getGeometry());
-    // send the new wkt_txt to firebase
-    var wkt_ref = Sync.getSyncRef('areas', area.get('wkt_ref_id'));
-    wkt_ref.set(wkt_txt);
-    wkt_ref.on('value', changeAreaFromFirebase );
+  // remote evt stream
+  var remote_stream = Design.areas_stream().map( remote_map );
+  remote_stream.delay(500).subscribe( fb_sub )
+  function remote_map (x){
+    return x.exportVal().area;
+  }
+  function fb_sub (txt) {
+    Client.emit('update_client', txt);
   }
 
-  function addFeatureIfNecessary (area, wkt_ref) {
-    // get current wkt_txt
-    var wkt_txt = wkt.writeGeometry(area.getGeometry());
-    var new_wkt = wkt_ref.val();
-    var new_geom;
-    if (new_wkt !== wkt_txt ) {
-      // changed feature, update it
-      console.log('changeing feature to match update from firebase');
-      new_geom = wkt.readGeometry(new_wkt);
-      area.setGeometry(new_geom);
-    } else {
-      // no change, don't do shit
-      console.log('feature matches firebase');
-    }
+  // openlayers connection
+  Configurator.draw().once('drawstart', draw_start );
+  Configurator.draw().once('drawend',   draw_end );
+
+  function draw_start (evt) {
+    console.log('draw_start');
+    $scope.draw_busy = true;
+    $scope.$apply();
+    Design.feature(evt.feature);
+  }
+  function update_wkt_while_modify (f) {
+    $scope.draw_busy = true;
+    $scope.$apply();
+    Design.feature().set('wkt', getWkt(Design.feature()));
+  }
+  function draw_end (evt) {
+    $scope.draw_busy = false;
+    $scope.$apply();
+    console.log('draw_end');
+    Design.feature().set('wkt', getWkt(Design.feature()));
+    Design.feature().on('change:wkt', wkt_update_notification);
+    Design.feature().getGeometry().on('change', update_wkt_while_modify);
+    Client.emit('update_remote', Design.feature().getGeometry());
+  }
+
+  function wkt_update_notification (ft) {
+    Client.emit('update_remote', Design.feature().getGeometry());
   }
 }

@@ -6,16 +6,14 @@ function DesignProvider_ () {
 
     designs: {
       design_id:{
-        areas: {
-          area_id: {
-            geometry:     "polygon((blahblablhablh))",
-            slope:        "10",
-            obstructions: [{point},{point},{point}...]
-          },
+        area: {
+          area_id:     "polygon((blahblablhablh))",
+          slope:        "10",
+          obstructions: [{point},{point},{point}...]
         },
         owner:          "prospect_id",
         session:        "session_id",
-        agent_history:  ["agent_id","agent_id","agent_id",...]
+        agent_history:  ["agent_id","agent_id","agent_id"]
       }
     }
 
@@ -23,20 +21,26 @@ function DesignProvider_ () {
       make a private history function that keeps a record of what you've done
 
   ================================ */
-
-// <<<<<<< HEAD
-  var design_ref = new Firebase('https://scty.firebaseio.com/designs/1234/design');
-  var fb_observable = design_ref.observe('value');
-
-  // TODO: it's possible pass arguments to this $get method to change the fb_observable's_ref
-  this.$get = [ "SyncService", function designProviderFactory(sync) {
+  this.$get = [ "Session", function designProviderFactory(Session) {
     // HACK: sync service probably isn't necessary
-    sync.set('design_ref', design_ref);
-
+    Session.ref().update({design:  design_ref.key()});
+    design_ref.update({session: Session.ref().key()});
+    areas_ref = design_ref.child('areas');
+    areas_stream = areas_ref.observe('value').skip(1);
+    var feature;
     function awesome_design_builder_brah() {
       return {
         stream: function(){return fb_observable},
+        id:     function(){return design_ref.id()},
         ref:    function(){return design_ref},
+        areas_ref: function(){ return areas_ref; },
+        areas_stream: function() { return areas_stream;},
+        feature:      function(arg) {
+          if (arg) {
+            feature = arg;
+          }
+          return feature;
+        },
       }
     }
 
@@ -44,24 +48,10 @@ function DesignProvider_ () {
     return new awesome_design_builder_brah();
   } ]
 
+  var design_ref = new Firebase('https://scty.firebaseio.com/designs/').push();
+  var fb_observable = design_ref.observe('value').skip(1);
+  var areas_ref;
+  var areas_stream;
 
-
-// =======
-// // HACK: bugfix:
-//   var design_ref = new Firebase('https://scty.firebaseio.com/designs/1234/design');
-//   var fb_observable = design_ref.observe('value');
-
-//   // TODO: pass arguments to this $get method to change the fb_observable's_ref
-//   this.$get = [ "SyncService", function designProviderFactory(sync) { // TODO: provide auth object to this
-//     // auth with firebase
-
-//     // always save your firebase references when you create them
-//     sync.set('design_ref', design_ref);
-//     return fb_observable
-//   } ]
-
-//   this.ref = function() {
-//     return design_ref;
-//   }
-// >>>>>>> feature/firebase_rx
+  // TODO: it's possible pass arguments to this $get method to change the fb_observable's_ref
 }

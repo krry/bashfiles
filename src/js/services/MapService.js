@@ -13,16 +13,15 @@
 
 ================================================== */
 
-angular.module('flannel').factory('MapService', ['$q', 'LayerService', MapService_]);
+angular.module('flannel').factory('MapService', ['$q', 'LayerService', 'StyleService', 'Configurator', MapService_]);
 
-function MapService_ ($q, LayerService) {
+function MapService_ ($q, LayerService, StyleService, Configurator) {
 
   var DEFAULT_LAT = 30;
   var DEFAULT_LNG = -123;
 
   var gmapShown = true;
   // var omapShown = false;
-
   var service = {
     // the google maps object literal
     g: {
@@ -243,12 +242,17 @@ function MapService_ ($q, LayerService) {
             rotate: false,
           }),
       view: LayerService.initOlView(),
-      interactions: [],
-      layers: LayerService.init(target_element),
+      // interactions: ol.interaction.defaults,
+      // layers: LayerService.init(target_element),
+      // overlays: [new ol.FeatureOverlay({
+      //         style: StyleService.defaultStyleFunction,
+      //         name: 'area_layer',
+      //       })],
       target: target_element,
     };
 
-    return setOmap(olMapOptions);
+    return setOmap(Configurator.map(target_element));
+    // return setOmap(olMapOptions);
   }
 
   function getOmap(options) {  //TODO: move to OlService
@@ -256,6 +260,8 @@ function MapService_ ($q, LayerService) {
   }
   function setOmap (options) {  //TODO: move to OlService
     service.o.omap = new ol.Map(options);
+
+    // LayerService.getDrawLayer().setMap(service.o.omap);
     return service.o.omap;
   }
   function getRoofmap() {  //TODO: move to OlService

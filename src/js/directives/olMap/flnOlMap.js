@@ -2,24 +2,24 @@
 fln-ol-map directive
 * use this to create an OpenLayers map
 
-TODO: 
+TODO:
 * sync itself with firebase on '$destroy'
 
 
 ================================================== */
-function flnOlMap_(MapService) {
+function flnOlMap_(Configurator) {
   return {
     restrict: "A",
     scope: {
     },
     link: function flnOlMapLink(scope, ele, attrs) {
-      var map = MapService.initOmap(ele[0]);
+      var map = Configurator.map(ele);
       ele.on('$destroy', function (e) {
       	// make sure we sync whatever is going on with firebase
-      	// what else? 
+      	// what else?
       	console.log("check it brah, i'm syncing with firebase!");
       });
     },
   };
 }
-directives.directive('flnOlMap',['MapService', flnOlMap_]);
+directives.directive('flnOlMap',['Configurator', flnOlMap_]);
