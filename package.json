@@ -53,7 +53,8 @@
   "scripts": {
     "start": "node server/server.js",
     "dev": "npm install && gulp rebuild",
-    "prod": "gulp heroku:production",
+    "staging": "npm install && bower install -F",
+    "prod": "npm install && bower install -F",
     "test": "karma start karma.conf.js"
   },
   "ignore": [

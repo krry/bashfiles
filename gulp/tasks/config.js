@@ -1,7 +1,7 @@
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
    CONFIG
 
-   gulp pulls in environment-specific JSON, 
+   gulp pulls in environment-specific JSON,
    then writes it to a public file
    to be consumed in `index.html`
 
@@ -15,6 +15,8 @@ var rename = require('gulp-rename');
 var ngConstant = require('gulp-ng-constant');
 
 var env = process.env.NODE_ENV || 'development';
+console.log('process.node_env is:', process.env.NODE_ENV );
+console.log('process.env is:', process.env.ENV );
 console.log("env is:",env);
 
 var config = {
