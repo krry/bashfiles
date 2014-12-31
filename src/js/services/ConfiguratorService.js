@@ -69,7 +69,7 @@ function ConfiguratorFactory_() {
       var layers = new ol.layer.Image({source:new ol.source.ImageStatic({
                 url: [ // TODO: URL constructor for this
                   'http://scexchange.solarcity.com/scfilefactory/TestGrab.aspx?format=jpg&center=',
-                  REMOVEMEcenter.lat()+','+ REMOVEMEcenter.lng(),  //TODO: connect to the google map center here
+                  view.getCenter()[1]+','+ view.getCenter()[0],  //TODO: connect to the google map center here
                   '&zoom=20&size=',
                   windowWidth +'x'+ windowHeight,
                   '&maptype=satellite&scale=1&client=gme-solarcity'
@@ -132,7 +132,7 @@ function ConfiguratorFactory_() {
         features: function(){ return draw_modify_features.getArray(); },
         enable: function (name) { map.addInteraction(interactions[name]); },
         disable: function (name) { map.removeInteraction(interactions[name]); },
-        // features: 'butts',
+
       }
     }
 

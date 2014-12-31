@@ -160,14 +160,11 @@ function MapService_ ($q, LayerService, StyleService, Configurator) {
 
   function updateGmap(obj) {
     var center;
-    // TODO: handle these async calls to Google Maps API with promises
     console.log('updating gmap', obj);
     if (typeof(obj)==="object") {
-      console.log('object passed to updateGmap');
-      // TODO: never mix up these indexes again, this was broken because I thought it was obj.B for lng instead of obj.D
-      if (obj.k && obj.D) {
+      if (obj.lat() && obj.lng()) {
         center = obj;
-        console.log('lat:', obj.k, ', lng:', obj.D);
+        console.log('lat:', obj.lat(), ', lng:', obj.lng());
         service.g.gmap.setCenter(center);
         service.g.gmap.setZoom(getGmapMaxZoom(center, function(zoom) {
             service.g.gmap.setZoom(zoom);
@@ -189,9 +186,9 @@ function MapService_ ($q, LayerService, StyleService, Configurator) {
       console.error("this is not a location object: ", obj);
       return false;
     }
-    console.log("updating map, centering on ", center);
-    // TODO: figure out why center is not a LatLng object...
     service.g.gmap.setCenter(center);
+    // update the OL MAP view's center.
+    Configurator.view().setCenter([center.lat(), center.lng()]); // hack: this should be on a stream.
     getGmapMaxZoom(center, function (zoom) {
       service.g.gmap.setZoom(zoom);
     });
