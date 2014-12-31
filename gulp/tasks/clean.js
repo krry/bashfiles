@@ -2,6 +2,7 @@ var gulp  = require('gulp')
 var del = require('del')
 
 var laundry = [
+  './src/js/config.js',
   './public/js/**/*',
   './public/templates/**/*',
   './public/css/**/*',
