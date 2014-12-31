@@ -25,6 +25,7 @@ var scripts = [
   'src/js/services/*.js',
   'src/js/controllers/*.js',
   'src/js/directives/**/*.js',
+  'src/js/rxjs-firebase/**/*.js',
 ];
 
 gulp.task('scripts', function(stuff){
