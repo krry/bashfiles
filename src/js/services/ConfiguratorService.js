@@ -60,8 +60,8 @@ function ConfiguratorFactory_() {
     function setElement(target_element) {
       var el = (!target_element) ? $window : target_element;
       var header = window.getComputedStyle(document.getElementById('header'), null);
-      var el_height = el.innerHeight() - parseInt(header.getPropertyValue("height"));
-      var extent = [0, 0, el.innerWidth(), el_height];
+      var el_height = $(el).innerHeight() - parseInt(header.getPropertyValue("height"));
+      var extent = [0, 0, $(el).innerWidth(), el_height];
       pixelProjection = new ol.proj.Projection({
         units: 'pixels',
         extent: extent
