@@ -3,10 +3,12 @@
   the form controller
 ================================================== */
 
-controllers.controller("FormCtrl", ["$scope", "UserService", "StageService", "MapService", FormCtrl_]);
+controllers.controller("FormCtrl", ["$scope", "UserService", "Session", "MapService", FormCtrl_]);
 
-function FormCtrl_($scope, UserService, StageService, MapService) {
+function FormCtrl_($scope, UserService, Session, MapService) {
   var vm = this;
+
+  var valid = false;
 
   vm.user = UserService.user;
 
@@ -14,10 +16,19 @@ function FormCtrl_($scope, UserService, StageService, MapService) {
 
   vm.gmapShown = MapService.getGmapShown;
 
+  function next () { // TODO: currently not checking if valid
+    valid && Session.next();
+  }
+
   function checkZip () {
-    var zip = vm.user.zip;
+
     console.log("checking ZIP");
-    if (typeof(zip) !== "undefined") {
+    var zip = vm.user.zip;
+
+    if (zip.length === 5) {
+      valid = true;
+      next();
+    } else if (typeof(zip) !== "undefined") {
       console.log(zip);
       MapService.setGmapShown(true);
       MapService.updateGmap({"postalCode": zip});
@@ -43,4 +54,5 @@ function FormCtrl_($scope, UserService, StageService, MapService) {
     // check if street address present in sanitized address
       // if so, drop map marker on this location
   }
+
 }
