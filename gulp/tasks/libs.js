@@ -1,3 +1,16 @@
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+  LIBS
+  supports BUILD task, depends on BOWER task
+
+  concatentates third-party libs (JS and CSS mostly) and 
+  copies them to `public` for use in the DOM
+
+  TODO: concatentate them in the proper order to minimize
+  HTTP calls for the production app
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+
 var gulp = require('gulp')
 var changed = require('gulp-changed')
 var concat = require('gulp-concat');
@@ -36,5 +49,4 @@ gulp.task('libs', ['bower'], function(){
         .pipe(changed(libPub))
         .on('error', handleErrors)
         .pipe(gulp.dest(libPub))
-        .pipe
 })

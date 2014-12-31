@@ -1,16 +1,15 @@
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-  STAGING
+  PROD
   root task
-
-  a simplified build process for the staging server
-  run with `npm run staging` --- see `package.json`
+  
+  like STAGING, only more buttoned up
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
 var gulp = require('gulp');
 var runSeq = require('run-sequence').use(gulp);
 
-gulp.task('staging', function() {
+gulp.task('prod', function() {
   runSeq('clean', 'config', 'build');
 });

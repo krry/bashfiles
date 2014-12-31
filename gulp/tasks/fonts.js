@@ -1,7 +1,16 @@
-var gulp = require('gulp')
-var changed = require('gulp-changed')
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-var handleErrors = require('../util/handleErrors')
+  FONTS
+  supports BUILD task
+  
+  copies, formats, and minifies custom fonts into `public`
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+
+var gulp = require('gulp');
+var changed = require('gulp-changed');
+
+var handleErrors = require('../util/handleErrors');
 
 var fontSrc = [
   './src/fonts/**/*'

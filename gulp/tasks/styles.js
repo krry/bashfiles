@@ -1,3 +1,15 @@
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+  STYLES
+  supports BUILD task
+
+  compiles `.scss` to `.css`
+  auto-prefixes the CSS rules with vendor prefixes
+  concatenates the stylesheets into one file
+  creates a minified `all.min.css` as well
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+
 var gulp    = require('gulp')
 var concat  = require('gulp-concat')
 var rename  = require('gulp-rename')

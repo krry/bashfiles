@@ -1,3 +1,14 @@
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+  SCRIPTS
+  supports BUILD task
+  
+  lints the scripts with jsHint, outputs to the dev console
+  concatenates all our `src/js`, uglifies it and produces
+  a minified `all.min.js` and the debuggable `all.js`
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var rename = require('gulp-rename');

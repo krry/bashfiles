@@ -1,10 +1,12 @@
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-   META
 
-   gulp watches changes in itself, reboots itself
+  META
+  supports DEV task
 
-   slightly adapted from noxoc's solution
-   http://noxoc.de/2014/06/25/reload-gulpfile-js-on-change/
+  gulp watches changes in itself, reboots itself
+
+  slightly adapted from noxoc's solution
+  http://noxoc.de/2014/06/25/reload-gulpfile-js-on-change/
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
