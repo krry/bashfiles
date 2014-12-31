@@ -57,14 +57,17 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
   // listen for change requests
   // stage listen
   Clientstream.listen('stage', function stage_listen (target_state) {
-    target_state = !!target_state.state ? target_state.state : target_state;
-    if ($scope.view_sync) {
-      stage = target_state.stage;
-      var name = Templates.config[stage].name
-      $state.go(name).then(function(){
-        // trigger step changes afterwards
-        Clientstream.emit('step', target_state.step)
-      });
+    if (target_state === "next") {
+      vm.next();
+    } else if ($scope.view_sync) {
+      target_state = !!target_state.state ? target_state.state : target_state;
+        stage = target_state.stage;
+        var name = Templates.config[stage].name
+        $state.go(name).then(function(){
+          // trigger step changes afterwards
+          Clientstream.emit('step', target_state.step)
+        });
+
     }
   });
   // step listen
