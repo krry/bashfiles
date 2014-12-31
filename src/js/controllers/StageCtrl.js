@@ -69,19 +69,21 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
   });
   // step listen
   Clientstream.listen('step', function step_listen (target_step) {
-    step = target_step
-    $timeout(function(){
+    step = target_step;
+    $timeout( function () {
       // unlock the view
       $scope.view_sync = true;
       $scope.$apply();
-    }, 1)
+    }, 1);
     // update the view
     vm.partial = Templates.partials[stage][step];
     // update firebase
+    /* jshint -W030 */
     $scope.view_sync && state_ref.update({
       stage: stage,
-      step:  step
-    })
+      step: step
+    });
+    /* jshint +W030 */
   });
 
   // user flow controls

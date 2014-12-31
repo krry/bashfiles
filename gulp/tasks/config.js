@@ -28,7 +28,7 @@ var config = {
 var confile = './server/config/environments/'+env+'.json';
 
 gulp.task('config', function () {
-  console.log("[config] using:" , confile, "as environment config file");
+  console.log("[config  ] using:" , confile, "as environment config file");
   gulp.src(confile)
   .pipe(ngConstant(config))
   .pipe(rename('config.js'))
