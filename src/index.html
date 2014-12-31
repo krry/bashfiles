@@ -3,16 +3,18 @@
 
 <head>
   <meta charset="utf-8">
+  <!-- this viewport locking approach is useful sometimes, just not for our universally responsive app -->
   <!-- <meta name="viewport" content="initial-scale=1, width=device-width"> -->
   <title>The Future is Now</title>
 
-  <link href="lib/ol.css" rel="stylesheet">
-  <link href="css/all.css" rel="stylesheet">
+  <!-- angular -->
+  <script src="lib/angular.js"></script>
 
   <!-- Dependencies & libraries -->
   <link href="css/all.css" rel="stylesheet">
   <!-- <link href="css/all.min.css" rel="stylesheet"> -->
   <link href="lib/ol.css" rel="stylesheet">
+  <!-- <link href="lib/ol.min.css" rel="stylesheet"> -->
 
   <!-- RXjs -->
   <script src="lib/rx.all.js"></script>
@@ -28,6 +30,32 @@
   <script src="lib/jquery.widowFix-1.3.2.js"></script>
   <!-- <script src="lib/jquery.widowFix-1.3.2.min.js"></script> -->
 
+  <!-- Dependencies & libraries if you want environmental conditionals -->
+
+  <!-- <script ng-switch-when="false" src="lib/angular.js"></script> -->
+  <!-- <script ng-switch-when="true" src="lib/angular.min.js"></script> -->
+
+  <!-- <switch ng-switch="app.minified"> -->
+    <!-- <link ng-switch-when="false" href="css/all.css" rel="stylesheet"> -->
+    <!-- <link ng-switch-when="true" href="css/all.min.css" rel="stylesheet"> -->
+    <!-- <link ng-switch-when="false" href="lib/ol.css" rel="stylesheet"> -->
+    <!-- <link ng-switch-when="true" href="lib/ol.min.css" rel="stylesheet"> -->
+
+    <!-- RXjs -->
+    <!-- <script ng-switch-when="false" src="lib/rx.all.js"></script> -->
+    <!-- <script ng-switch-when="true" src="lib/rx.all.min.js"></script> -->
+
+    <!-- openlayers v3 -->
+    <!-- <script ng-switch-when="false" src="lib/ol.js"></script> -->
+    <!-- <script ng-switch-when="true" src="lib/ol-debug.js"></script> -->
+
+    <!-- jQuery -->
+    <!-- <script ng-switch-when="false" src="lib/jquery.js"></script> -->
+    <!-- <script ng-switch-when="true" src="lib/jquery.min.js"></script> -->
+    <!-- <script ng-switch-when="false" src="lib/jquery.widowFix-1.3.2.js"></script> -->
+    <!-- <script ng-switch-when="true" src="lib/jquery.widowFix-1.3.2.min.js"></script> -->
+
+  <!-- </switch> -->
   <!-- MapBox -->
   <!-- Mapbox script -->
   <!-- <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script> -->
@@ -37,7 +65,6 @@
   <!-- <script>L.mapbox.accessToken = 'pk.eyJ1Ijoic29sYXJjaXR5IiwiYSI6IkVnZ3AtbTgifQ.LxtRfmX2J0qJ-Lf7QihSIg';</script> -->
 
   <!-- google maps -->
-  <!-- TODO: hinge gme-client value on server environment -->
   <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false&client=#{app.gmapClient}"></script>
 
   <!-- Apercu fonts from FontDeck -->
@@ -59,22 +86,28 @@
 
 <!-- app begins -->
 <body ng-controller="StageCtrl as stages">
-  <h1>{{app.minified}}</h1>
+
   <div fln-dev-tools ng-class="{shown: dev.panelShown}" class="dev-controls inverse"></div>
+
   <header ui-view name="header" id="header" class="header"></header>
+
   <main ui-view name="main" id="main" class="main"></main>
+
   <footer ui-view name="footer" id="footer" class="footer"></footer>
+
   <div fln-chat class="chat" ng-controller="ChatCtrl as chat" ng-show="chat.shown"></div>
+
   <div fln-modal class="modal" ng-show="modal.isOn()" ng-click=""></div>
 
-  <!-- angular-ui -->
-  <script src="lib/angular.js"></script>
-  <!-- <script src="lib/angular.min.js"></script> -->
+  <!-- TAIL of the body -->
   <script src="lib/angular-touch.js"></script>
+
   <script src="lib/angular-ui-router.min.js"></script>
+
   <script src="lib/ui-bootstrap-tpls.min.js"></script>
-  <!-- <script src="lib/angular-bootstrap/ui-bootstrap.js"></script> -->
-  <script src="lib/ui-bootstrap.min.js"></script>
+
+  <script src="lib/ui-bootstrap.js"></script>
+  <!-- <script src="lib/ui-bootstrap.min.js"></script> -->
 
   <!-- firebase related -->
   <script src="lib/firebase-debug.js"></script>
@@ -84,10 +117,31 @@
   <!-- <script src="lib/angularfire.min.js"></script> -->
 
   <script src="lib/rx.angular.js"></script>
+  <!-- <script src="lib/rx.angular.min.js"></script> -->
+
   <script src="lib/rx.firebase.js"></script>
+  <!-- <script src="lib/rx.firebase.min.js"></script> -->
 
   <!-- Application -->
+  <!-- NOTE TO KERRY: you need to prefix script paths with `js/` or you will brim with frothing, stupid rage foam -->
   <script src="js/all.js"></script>
+
+  <!-- <switch ng-switch="app.minified">
+    <script ng-switch-when="false" src="lib/ui-bootstrap.js"></script>
+    <script ng-switch-when="true" src="lib/ui-bootstrap.min.js"></script>
+
+    <script ng-switch-when="false" src="lib/firebase-debug.js"></script>
+    <script ng-switch-when="true" src="lib/firebase.js"></script>
+
+    <script ng-switch-when="false" src="lib/angularfire.js"></script>
+    <script ng-switch-when="true" src="lib/angularfire.min.js"></script>
+
+    <script ng-switch-when="false" src="lib/rx.angular.js"></script>
+    <script ng-switch-when="true" src="lib/rx.angular.min.js"></script>
+
+    <script ng-switch-when="false" src="lib/rx.firebase.js"></script>
+    <script ng-switch-when="true" src="lib/rx.firebase.min.js"></script>
+  </switch> -->
 
   <!-- begin olark code -->
   <script data-cfasync="false" type='text/javascript'>/*<![CDATA[*/window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){
