@@ -12,11 +12,11 @@
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-@import "../variables/fonts";
-@import "../variables/sizes";
-@import "../variables/colors";
-@import "../variables/functions";
-@import "../variables/typography";
+@import "../imports/fonts";
+@import "../imports/sizes";
+@import "../imports/colors";
+@import "../imports/functions";
+@import "../imports/typography";
 
 .wf-loading body {
   // visibility: hidden;
@@ -28,11 +28,18 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  // line-height: 1.25;
   color: $color-headline-text;
-  // max-width: 90%;
   margin-left: auto;
   margin-right: auto;
+}
+
+.col > h1:first-child,
+.col > h2:first-child,
+.col > h3:first-child,
+.col > h4:first-child,
+.col > h5:first-child,
+.col > h6:first-child {
+  margin-top: 0;
 }
 
 h1 {

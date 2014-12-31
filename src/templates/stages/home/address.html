@@ -1,62 +1,61 @@
 <section class="overlay primary short col fourth three">
-<!-- <div>{{mapShown}}</div> -->
-  <h2>Wow, <span id="neighbor_count">1,234</span> of your neighbors have gone solar.</h2>
-  <h4>Let's get you started.</h4>
-  <form novalidate></form>
-  <div class="row">
-    <div class="col half center padded">
-      <input
-        ng-model="form.user.street"
-        type="text"
-        class="street"
-        placeholder="Street address"
-        minlength="4"
-        ng-minlength="4"
-        ng-valid="form.parseAddress(form.user)"
-        ng-keypress="form.resizeInput()"></input>
-    </div>
-    <div class="col half center padded">
-      <div class="combo-input">
+  <h2>Wow, <span id="neighbor_count">1,234</span> of your neighbors have gone solar.<br><small>Let's get you started</small></h2>
+  <form fln-form novalidate ng-submit="">
+    <div class="row">
+      <div class="col half center padded sml-full">
         <input
-          ng-model="form.user.city"
+          ng-model="user.street"
           type="text"
-          class="city"
-          placeholder="Exampletown"
-          name="city"
-          ng-required="true"
-          ng-valid="form.parseAddress(form.user)">
-        </input>
-        <input
-          ng-model="form.user.state"
-          type="text"
-          id="state"
-          placeholder="CA"
-          class="state"
-          name="state"
-          ng-required="true"
-          maxlength="2"
-          ng-maxlength="2"
-          ng-valid="form.parseAddress(form.user)">
-        </input>
-        <input
-          ng-model="form.user.zip"
-          type="tel"
-          id="zip"
-          placeholder="ZIP"
-          class="zipcode"
-          name="zipcode"
-          ng-required="true"
-          maxlength="5"
-          ng-maxlength="5"
-          ng-pattern="/^\d{5}(?:[-\s]\d{4})?$/"
-          ng-valid="form.parseAddress(form.user)">
-        </input>
+          class="street"
+          placeholder="Street address"
+          minlength="4"
+          ng-minlength="4"
+          ng-valid="form.parseAddress(user)"
+          ng-keypress="form.resizeInput()"></input>
+      </div>
+      <div class="col half center padded sml-full">
+        <div class="combo-input">
+          <input
+            ng-model="user.city"
+            type="text"
+            class="city"
+            placeholder="Exampletown"
+            name="city"
+            ng-required="true"
+            ng-valid="form.parseAddress(user)">
+          </input>
+          <input
+            ng-model="user.state"
+            type="text"
+            id="state"
+            placeholder="CA"
+            class="state"
+            name="state"
+            ng-required="true"
+            maxlength="2"
+            ng-maxlength="2"
+            ng-valid="form.parseAddress(user)">
+          </input>
+          <input
+            ng-model="user.zip"
+            type="tel"
+            id="zip"
+            placeholder="ZIP"
+            class="zipcode"
+            name="zipcode"
+            ng-required="true"
+            maxlength="5"
+            ng-maxlength="5"
+            ng-pattern="/^\d{5}(?:[-\s]\d{4})?$/"
+            ng-valid="form.parseAddress(user)">
+          </input>
+        </div>
       </div>
     </div>
-  </div>
+  </form>
   <button class="ib aqua" ng-click="stages.next()">Next</button>
 </section>
-<aside class="overlay secondary short col fourth med-full">
+<aside class="overlay secondary short col fourth sml-full med-full">
   <p>Our customers in your area save an average of <strong>20%</strong> on their utility bill and reduces an average of <strong>2.5 tons of CO<sub>2</sub></strong> every month.</p>
   <figure><img src="" alt=""></figure>
   <div fln-help class="fln-help"></div>

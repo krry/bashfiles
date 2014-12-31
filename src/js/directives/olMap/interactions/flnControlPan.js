@@ -22,30 +22,30 @@ directives
 .directive('flnControlPan', flnControlPan_ )
 .directive('flnMapPan', flnMapPan_ );
 
-function flnControlPan_ (MapService) {
+function flnControlPan_ (Configurator) {
   return {
     restrict: 'E',
     controllerAs: 'PanCtrl',
     controller: function flnControlPanControl () {
       var vm = this;
-      vm.size = MapService.getOmap().getSize();
-      vm.view = MapService.getOmap().getView();
+      vm.size = Configurator.map().getSize();
+      vm.view = Configurator.map().getView();
     },
     templateUrl: "templates/directives/flnControlPan.html",
   };
 }
 
-function flnMapPan_ () {
+function flnMapPan_ (Configurator) {
   return {
     restrict: 'A',
     scope: {
-      view: '=mapView',
+      // view: '=mapView',
       direction: '@panDirection',
-      size: '=mapSize',
+      // size: '=mapSize',
     },
     link: function flnMapPanLink (scope, ele, attrs) {
       ele.on('click', function() {
-        return panCenter(scope.view, scope.direction, scope.size);
+        return panCenter(Configurator.map().getView(), scope.direction, Configurator.map().getSize());
       });
       ele.on('$destroy', function () {
         console.log('no more pan control for ', scope.direction);
@@ -71,6 +71,7 @@ function flnMapPan_ () {
             newCenter = currentCenter;
             break;
         }
+        console.log(newCenter)
         return view.setCenter(newCenter);
       }
     },

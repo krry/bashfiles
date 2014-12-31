@@ -1,5 +1,4 @@
 # firebase
-
 ## Outline
 We'll keep objects of various types in firebase:
 
@@ -8,7 +7,7 @@ We'll keep objects of various types in firebase:
     * Prospects
     * Agents
   * Designs
-  * Call_sessions
+  * Sessions
 
 ## Storage Objects
 
@@ -64,44 +63,50 @@ We'll keep objects of various types in firebase:
 
   designs are the objects that will enable the application to stay in sync.
 
-  designs: {
-    design_id:{
-      event_log:  [{event},{event},{event},...],
-      home: {
-        address1: "address1",
-        address2: "address2",
-        city:     "city",
-        state:    "state",
-        zip:      "11111",
-      },
-      areas: {
-        area_id: {
-          geometry:     "polygon((blahblablhablh))",
-          slope:        "10",
-          obstructions: [{point},{point},{point}...]
+    designs: {
+      design_id:{
+        areas: {
+          area_id: {
+            geometry:     "polygon((blahblablhablh))",
+            slope:        "10",
+            obstructions: [{point},{point},{point}...]
+          },
         },
-      },
-      owner:          "prospect_id",
-      agent_history:  ["agent_id","agent_id","agent_id",...]
+        owner:          "prospect_id",
+        session:        "session_id",
+        agent_history:  ["agent_id","agent_id","agent_id",...]
+      }
     }
-  }
 
-### Call_sessions
+### sessions
 
-  tenhands calls may be built by th, or they may be built by SC. TBD.
-
-  calls: {
-    session_id: {
-      agent:      "agent_id",
-      prospect:   "prospect_id",
-      design:     "design_id",
-      tenhands:   "tenhandsIdentifyer???",
-      start_time: "timetimetime",
-      end_time:   "timetimetime",
+    sessions: {
+      session_id: {
+        state: {
+          stage: 0,
+          step:  0,
+        },
+        event_log:  [{event},{event},{event},...],
+        agent:      "agent_id",
+        prospect:   "prospect_id",
+        design:     "design_id",
+        start_time: "timetimetime",
+        end_time:   "timetimetime",
+      }
     }
+
+### homes
+
+  homes: {
+    home_id: {
+      owner:    "owner_id", // ???
+      address1: "address1",
+      address2: "address2",
+      city:     "city",
+      state:    "state",
+      zip:      "11111",
+    },
   }
-
-
 
 
 ## how do we sync?

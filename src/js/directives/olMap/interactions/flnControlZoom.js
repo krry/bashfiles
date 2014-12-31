@@ -19,30 +19,34 @@ see: http://openlayers.org/en/v3.0.0/apidoc/ol.control.Zoom.html
 ================================================== */
 
 var zoom_options = {
-  duration:         '100',      // Animation duration in milliseconds. Default is 250.
+  // duration:         '',      // Animation duration in milliseconds. Default is 250.
   className:        'fln-zoom', // CSS class name. Default is ol-zoom.
   zoomInLabel:      '+',        // Text label to use for the zoom-in button. Default is +
   zoomOutLabel:     '-',        // Text label to use for the zoom-out button. Default is -
   zoomInTipLabel:   'Zoom in',  // Text label to use for the button tip. Default is Zoom in
   zoomOutTipLabel:  'Zoom out', // Text label to use for the button tip. Default is Zoom out
-  delta:            '.05',              // The zoom delta applied on each click.
+  // delta:            '2',              // The zoom delta applied on each click.
   // target:           '',              // Target.
 };
 
 directives
 .directive('flnControlZoom', flnControlZoom_ );
 
-function flnControlZoom_ (MapService) {
+function flnControlZoom_ (Configurator) {
   return {
-    restrict: 'EA',
+    restrict: 'E',
     link: function flnControlZoomLink (scope, ele, attrs) {
       // create a new zoom controller
       var zoomControl = new ol.control.Zoom(zoom_options);
       // add it to the map
-      MapService.getOmap().addControl(zoomControl);
+      var controls = Configurator.map().getControls();
+      if (controls.getArray().length > 0 ){ // hack: directive fires twice, prevent double controls
+        controls.pop();
+      }
+      Configurator.map().addControl(zoomControl);
       // remove it from the map when the directive gets destroyed
       ele.on('$destroy', function (e) {
-        MapService.getOmap().removeControl(zoomControl);
+        Configurator.map().removeControl(zoomControl);
       });
     },
   };

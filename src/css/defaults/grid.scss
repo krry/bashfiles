@@ -1,36 +1,36 @@
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-//  
+//
 //  GRID
-//  
+//
 //  defines a responsive, proportional grid of columns
 //  within rows
-//  
+//
 //  this grid uses justified inline-blocks divided into
 //  proportions of the full width
-//  
+//
 //  cozy gutters are created by leaving some percentage
 //  points laying around when deciding the column widths
-//  
+//
 //  layouts are responsive by default: when the proportional
 //  columns are too wide for the viewport width, they size
 //  up. halves become wholes, thirds become halves, fourths
 //  becomes halves, and so
-//  
+//
 //  e.g.,
-//  
+//
 //  <div class="row">
 //    <div class="col half"></div>
 //    <div class="col half"></div>
 //  </div>
-//  
+//
 //  <div class="row">
 //    <div class="col third two"></div>
 //    <div class="col third"></div>
 //  </div>
-//  
+//
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-@import "../variables/sizes";
+@import "../imports/sizes";
 
 /* justified inline-blocks: to make even columns, grid, etc., add this class to the parent */
 .row {
@@ -49,24 +49,20 @@
   width: 0;
 }
 
+.row.padded {
+  padding-bottom: 1rem;
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+}
+
 /* add this class to columns, grid blocks, child items */
 .col {
   display: inline-block;
   vertical-align: top;
   text-align: left;
   font-size: 1rem;
-}
-
-.col.padded {
-  padding: 0 2em;
-}
-
-.col.padded:first-of-type {
-  padding-left: 0;
-}
-
-.col.padded:last-of-type {
-  padding-right: 0;
 }
 
 .row.half {
@@ -138,6 +134,9 @@
 
 .col.sml-full {
   width: 100%;
+  &.padded {
+    padding: 0;
+  }
 }
 
 /* > 536px --- bigger than iPhone portrait */
@@ -147,8 +146,23 @@
     width: 49.9%;
   }
 
+  .col.padded.padded {
+    padding: 0 1em;
+
+    &:first-of-type {
+      padding-left: 0;
+    }
+
+    &:last-of-type {
+      padding-right: 0;
+    }
+  }
+
   .col.med-full {
     width: 100%;
+    &.padded {
+      padding: 0;
+    }
   }
 }
 
@@ -158,13 +172,41 @@
     margin: 0;
     padding: 0;
   }
+
+  .col.padded.padded {
+    padding: 0 1em;
+
+    &:first-of-type {
+      padding-left: 0;
+    }
+
+    &:last-of-type {
+      padding-right: 0;
+    }
+  }
+
   .col.lrg-full {
     width: 100%;
+    &.padded {
+      padding: 0;
+    }
   }
 }
 
 /* > 1024px */
 @media screen and (min-width: $width-min-xlg) {
+  .col.padded.padded {
+    padding: 0 2em;
+
+    &:first-of-type {
+      padding-left: 0;
+    }
+
+    &:last-of-type {
+      padding-right: 0;
+    }
+  }
+
   .col.third, .third {
     width: 33.3%;
   }

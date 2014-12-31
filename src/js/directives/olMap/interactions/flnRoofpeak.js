@@ -9,9 +9,9 @@ this directive enables opens a layer that:
 
 ================================================== */
 
-directives.directive('flnRoofpeak', ["MapFactory", "MapService", "LayerService", flnRoofpeak_]);
+directives.directive('flnRoofpeak', ["MapFactory", "LayerService", "Configurator", flnRoofpeak_]);
 
-function flnRoofpeak_ (MapFactory, MapService, LayerService) {
+function flnRoofpeak_ (MapFactory, LayerService, Configurator) {
   return {
     restrict: 'EA',
     controllerAs: 'Roofpeak',
@@ -20,15 +20,13 @@ function flnRoofpeak_ (MapFactory, MapService, LayerService) {
     },
     link: function flnRoofpeakLink (scope, element, attrs) {
       // scope.area = scope.design_element.getLayers()
-      var base_map = MapService.getOmap();
+      var base_map = Configurator.map();
       var old_view = base_map.getView();
-      var f_layer = LayerService.getLayer('area');
-      var f_source = f_layer.getSource();
-      var f_area = f_source.getFeatures()[0];
+      var feature = Configurator.features()[0];
       var lay_over_element = $('#roof_peak');
       lay_over_element.show();
-      var ol_map = MapService.getOmap();
-      var roof_peak_map = MapFactory.roofArea(ol_map, lay_over_element, f_area);
+      var ol_map = Configurator.map();
+      var roof_peak_map = MapFactory.roofArea(ol_map, lay_over_element, feature);
 
       $(roof_peak_map.getViewport()).on('mousemove', function(evt) {
         var pixel = roof_peak_map.getEventPixel(evt.originalEvent);
@@ -39,7 +37,6 @@ function flnRoofpeak_ (MapFactory, MapService, LayerService) {
       var featureOverlay = roof_peak_map.getOverlays().getArray()[0];
 
       function mouseover (pixel) {
-
         var feature = roof_peak_map.forEachFeatureAtPixel(pixel, function(feature, layer) {
           return feature;
         });

@@ -5,9 +5,9 @@
  *Ï
  */
 
-angular.module('flannel').factory('MapFactory', ['MapService','StyleService', 'LayerService', MapFactory_]);
+angular.module('flannel').factory('MapFactory', ['MapService','StyleService', 'LayerService', 'Configurator', MapFactory_]);
 
-function MapFactory_( MapService, StyleService, LayerService ) {
+function MapFactory_( MapService, StyleService, LayerService, Configurator ) {
 
   // TODO:
 
@@ -24,7 +24,7 @@ function MapFactory_( MapService, StyleService, LayerService ) {
 
   var f_layer = new ol.layer.Vector({
     source: f_source,
-    projection: MapService.getOmap().getView().getProjection(),
+    projection: Configurator.map().getView().getProjection(),
     style:  StyleService.remap,
     name: 'roof_area_layer',
   });
@@ -39,9 +39,9 @@ function MapFactory_( MapService, StyleService, LayerService ) {
       });
 
   function roofArea (ol_map, target_element, feature) {
-    var projection = ol_map.getView().getProjection();
+    var projection = Configurator.map().getView().getProjection();
     if (MapService.getRoofmap()) {
-      map = MapService.getRoofmap()
+      map = MapService.getRoofmap();
       var v = new ol.View({
         projection: projection,
         center: ol.extent.getCenter(projection.getExtent()),

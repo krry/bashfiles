@@ -9,15 +9,15 @@ function ChatCtrl_() {
   var vm = this;
 
   vm.shown = false;
-  vm.open = open;
-  vm.close = close;
+  vm.open = openChat;
+  vm.close = closeChat;
 
-  function open() {
+  function openChat() {
     console.log('modal opening because shown is: ', vm.shown);
     vm.shown = true;
   }
 
-  function close() {
+  function closeChat() {
     console.log('modal closing because shown is: ', vm.shown);
     vm.shown = false;
   }

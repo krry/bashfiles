@@ -1,6 +1,6 @@
-@import "../variables/colors";
-@import "../variables/fonts";
-@import "../variables/motion";
+@import "../imports/colors";
+@import "../imports/fonts";
+@import "../imports/motion";
 
 .help {
   margin-top: 2em;
@@ -17,7 +17,6 @@
     &:first-of-type {
       // border-left: none;
     }
-
   }
 
   a {

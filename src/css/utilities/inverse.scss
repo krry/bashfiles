@@ -1,21 +1,25 @@
-@import "../variables/fonts";
-@import "../variables/colors";
-@import "../variables/links";
+@import "../imports/fonts";
+@import "../imports/colors";
+@import "../imports/links";
 
 .inverse {
   background-color: $color-bkgd-inverse;
-}
-
-.inverse * {
   color: $color-text-inverse;
 }
 
 .inverse {
   h1, h2, h3, h4, h5, h6 {
     @include apercu-regular;
+    color: $color-text-inverse;
   }
 }
 
 .inverse a {
   @include link("inverse");
+}
+
+.inverse select {
+  background-color: $grey-darker;
+  color: white;
+  border-color: $grey-dark;
 }

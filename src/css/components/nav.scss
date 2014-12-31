@@ -1,6 +1,6 @@
-@import "../variables/colors";
-@import "../variables/fonts";
-@import "../variables/sizes";
+@import "../imports/colors";
+@import "../imports/fonts";
+@import "../imports/sizes";
 
 header {
   background: $color-header-bkgd;
@@ -11,11 +11,9 @@ header {
 
 nav {
   overflow: hidden;
-  // width: 75%;
 }
 
 nav li {
-  // border-right: 2px solid $tinter;
   display: table-cell;
   position: relative;
   opacity: 0.6;
@@ -32,11 +30,10 @@ header nav li.active span {
 }
 
 header .logo {
-  float: left;
   text-indent: -9999px;
-  background: url('../img/logo-white.svg') no-repeat center center;
-  background-size: 80% auto;
-  width: 240px;
+  background: url('../img/logo-white.svg') no-repeat left center;
+  background-size: auto 100%;
+  width: 100%;
 }
 
 nav ul {
@@ -85,5 +82,10 @@ nav a {
 @media screen and (min-width: $width-min-lrg) {
   .stage-nav {
     display: block;
+  }
+  header .logo {
+    float: left;
+    background-size: 80% auto;
+    width: 240px;
   }
 }

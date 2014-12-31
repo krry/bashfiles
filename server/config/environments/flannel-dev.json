@@ -1,5 +1,6 @@
 {
   "PORT": 7100,
   "FLANNEL_SECRET": "sekret",
-  "FIREBASE_SECRET": "hSKlMlUuwpcowWFyS3UjmSqlZQTPTmeEz62OXta9"
+  "FIREBASE_SECRET": "hSKlMlUuwpcowWFyS3UjmSqlZQTPTmeEz62OXta9",
+  "GMAP_CLIENT": "gme-solarcity"
 }

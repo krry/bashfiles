@@ -1,27 +1,26 @@
 // external modules
+var newrelic     = require('newrelic'),
+    nconf        = require('nconf'), // https://github.com/flatiron/nconf
+    express      = require('express'),
+    cookieParser = require('cookie-parser'),
+    environment = process.env.NODE_ENV || 'development';
 
-var newrelic = require('newrelic');
-
-// https://github.com/flatiron/nconf
-var nconf = require('nconf');
-var environment =  process.env.NODE_ENV || 'development'; // set port with $PORT environment variable
 nconf.argv().env().file({file: './server/config/environments/' + environment + '.json'});
-
-var express  = require('express');
-var cookieParser = require('cookie-parser');
-
+console.log('Node_Env', process.env.NODE_ENV);
 // internal modules
-var db       = require('./config/db.js'); // for the db config, this is ignored by git
+var db, app, port;
 
-var app = express();
+db = require('./config/db.js'); // for the db config, this is ignored by git
+app = express(); // the app used throughout the server
+
 app.use(cookieParser(nconf.get('FLANNEL_SECRET')));
-
 app.publicRoot = __dirname + '/../public'; // useful for serving files.
-app.settings.nconf = nconf;
-var port =  app.settings.nconf.get('PORT') || 8100; // set port with $PORT environment variable
 
+app.settings.nconf = nconf;
+port = app.settings.nconf.get('PORT') || 8100; // set port with $PORT environment variable
 app.listen(port);
 
+// load the express routes
 require('./routes/appRoutes.js')(app);
 // require('./routes/pathRoutes.js')(app);
 require('./routes/authorizationRoutes.js')(app);

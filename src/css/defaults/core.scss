@@ -10,10 +10,10 @@
 //
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-@import "../variables/sizes";
-@import "../variables/fonts";
-@import "../variables/colors";
-@import "../variables/motion";
+@import "../imports/sizes";
+@import "../imports/fonts";
+@import "../imports/colors";
+@import "../imports/motion";
 
 html {
   font-family: $font-body;

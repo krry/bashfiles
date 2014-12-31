@@ -1,5 +1,5 @@
-var exampleController = require('../controllers/exampleController.js');
+// var exampleController = require('../controllers/exampleController.js');
 
-module.exports = function(app) {
-  app.get('/example',      exampleController.example );
-};
+// module.exports = function(app) {
+//   app.get('/example', exampleController.example);
+// };

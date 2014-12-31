@@ -1,12 +1,10 @@
 function flnGoogleMap($timeout, $document, $window, MapService) {
   return {
     restrict: "A",
-    transclude: true,
-    scope: {
-      onCreate: "&"
-    },
-    controllerAs: "gmap",
     controller: "GoogleMapCtrl",
+    controllerAs: "gmap",
+    // transclude: true,
+    // scope: { onCreate: "&" },
     // link: function flnGoogleMapLink(scope, ele, attrs) {}
   };
 }
