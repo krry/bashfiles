@@ -18,6 +18,7 @@ var rename = require('gulp-rename');
 var ngConstant = require('gulp-ng-constant');
 
 var env = process.env.NODE_ENV || 'development';
+console.log("[config  ] env is:", env);
 
 var config = {
   name: 'flannel.config',
@@ -26,7 +27,6 @@ var config = {
 };
 
 var confile = './server/config/environments/'+env+'.json';
-
 gulp.task('config', function () {
   console.log("[config  ] using:" , confile, "as environment config file");
   gulp.src(confile)
