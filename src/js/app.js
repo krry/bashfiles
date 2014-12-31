@@ -1,7 +1,7 @@
 angular.module('flannel', [
   'flannel.config',
   'ui.router',
-  'ui.bootstrap',
+  // 'ui.bootstrap',
   'firebase',
   'rx',
   'ngTouch',

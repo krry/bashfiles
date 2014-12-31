@@ -9,9 +9,10 @@
 
 ================================================== */
 
-controllers.controller("AppCtrl", ['GMAP_CLIENT', AppCtrl_]);
+controllers.controller("AppCtrl", ['GMAP_CLIENT', 'MINIFIED', AppCtrl_]);
 
-function AppCtrl_(GMAP_CLIENT) {
+function AppCtrl_(GMAP_CLIENT, MINIFIED) {
   var vm = this;
   vm.gmapClient = GMAP_CLIENT;
+  vm.minified = MINIFIED;
 }

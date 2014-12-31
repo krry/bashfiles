@@ -1,5 +1,7 @@
 angular.module("flannel.config", [])
 
+.constant("MINIFIED", "false")
+
 .constant("PORT", 8100)
 
 .constant("FLANNEL_SECRET", "sekret")

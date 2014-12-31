@@ -23,7 +23,7 @@ var paths = {
 // global.isWatching = true;
 
 gulp.task('watch', function(){
-  console.log("[watch] watching switch is on");
+  console.log("[watch   ] watching switch is on");
   // if (global.isWatching) {}
   var styleWatcher = gulp.watch(paths.styles, ['styles']);
   styleWatcher.on('change', function(e) {

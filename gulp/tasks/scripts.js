@@ -21,14 +21,14 @@ var handleErrors = require('../util/handleErrors');
 
 var scripts = [
   'src/js/*.js',
-  'src/js/stages/*.js',
   'src/js/services/*.js',
   'src/js/controllers/*.js',
   'src/js/directives/**/*.js',
   'src/js/rxjs-firebase/**/*.js',
+  'src/js/stages/*.js',
 ];
 
-gulp.task('scripts', function(stuff){
+gulp.task('scripts', function(){
   return gulp.src(scripts)
     .pipe(plumber(handleErrors))
     .pipe(jshint('./.jshintrc'))

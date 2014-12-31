@@ -37,11 +37,15 @@ function InteractionService_ (MapService, StyleService, LayerService, EventServi
 
   function get (name) {
     if (!interactions) {
-        init();
-      }
-      if (name === 'all') return interactions;
-      return interactions[name];
-    }
+      init();
+    } 
+    if (name === 'all') return interactions;
+    return interactions[name];
+  }
+
+  function init() {
+    return true;
+  }
 
 
   function addInteractions(add){
