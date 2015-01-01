@@ -8,7 +8,7 @@ controllers.controller("FormCtrl", ["$scope", "UserService", "Session", "MapServ
 function FormCtrl_($scope, UserService, Session, MapService) {
   var vm = this;
   var valid = false; // use ng-valid from form
-  vm.home = UserService.getHome;
+  vm.home = UserService.getHome();
   vm.prospect = UserService.getProspect;
   vm.monitorZip = monitorZip;
   vm.validZip = true;

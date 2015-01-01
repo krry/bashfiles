@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col half center padded sml-full">
         <input
-          ng-model="form.home().street"
+          ng-model="form.home.street"
           type="text"
           class="street"
           placeholder="Street address"
@@ -16,7 +16,7 @@
       <div class="col half center padded sml-full">
         <div class="combo-input">
           <input
-            ng-model="form.home().city"
+            ng-model="form.home.city"
             type="text"
             class="city"
             placeholder="Exampletown"
@@ -25,7 +25,7 @@
             ng-valid="form.parseAddress(user)">
           </input>
           <input
-            ng-model="form.home().state"
+            ng-model="form.home.state"
             type="text"
             id="state"
             placeholder="CA"
@@ -37,7 +37,7 @@
             ng-valid="form.parseAddress(user)">
           </input>
           <input
-            ng-model="form.home().zip"
+            ng-model="form.home.zip"
             type="tel"
             id="zip"
             placeholder="ZIP"
