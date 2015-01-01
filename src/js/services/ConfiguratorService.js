@@ -21,6 +21,7 @@ function ConfiguratorFactory_() {
         modify,
         dragpan_opt,
         default_controls,
+        interactions,
         windowWidth,
         windowHeight,
         draw_modify_features,
@@ -116,6 +117,7 @@ function ConfiguratorFactory_() {
       draw: draw,
       modify: modify,
       dragpan: new ol.interaction.DragPan(dragpan_opt),
+      scroll_zoom: new ol.interaction.MouseWheelZoom(),
     }
     function ConfiguratorBuilder() {
       Layers.drawn_features = feature_overlay.getFeatures(); // hack: this shouldn't be assigned this way
@@ -131,6 +133,7 @@ function ConfiguratorFactory_() {
         draw: function(){ return draw; },
         modify: function(){ return modify; },
         features: function(){ return draw_modify_features.getArray(); },
+        interactions: function(){ return interactions; },
         enable: function (name) { map.addInteraction(interactions[name]); },
         disable: function (name) { map.removeInteraction(interactions[name]); },
 
