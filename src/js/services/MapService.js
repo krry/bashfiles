@@ -190,7 +190,6 @@ function MapService_ ($q, Client, LayerService, StyleService, UserService, Confi
           if (addy.zip) UserService.setHome('zip', addy.zip);
           if (addy.street) {
             Client.emit('valid address', addy);
-            // UserService.setHome('street', addy.street);
           }
           return cb(outcome);
         }
@@ -293,11 +292,12 @@ function MapService_ ($q, Client, LayerService, StyleService, UserService, Confi
     }
   }
 
-
   function getGmapMaxZoom(latLng, cb) {
-    var zoom = service.g.mapOptions.zoom;
+    var zoom = service.g.gmap.getZoom();
+    var location = new google.maps.LatLng(latLng.lat, latLng.lng);
     console.log('max zooming', zoom);
-    maxZoomService.getMaxZoomAtLatLng(latLng, function(response) {
+    console.log('latlng', location);
+    maxZoomService.getMaxZoomAtLatLng(location, function(response) {
       if (response.status !== google.maps.MaxZoomStatus.OK) {
         console.log("max zoom status failed");
         zoom = 17;
