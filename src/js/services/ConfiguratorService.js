@@ -52,7 +52,7 @@ function ConfiguratorFactory_() {
     // what part of the map we see?
     view = new ol.View({
       center: [REMOVEMEcenter.lat(), REMOVEMEcenter.lng()],
-      zoom: 15
+      zoom: 18
     }); // TODO: move in to this provider
 
     // the DOM target, not the map center
@@ -60,18 +60,24 @@ function ConfiguratorFactory_() {
     // the static map layer
     function setElement(target_element) {
       var el = (!target_element) ? $window : target_element;
-      var header = window.getComputedStyle(document.getElementById('header'), null);
-      var el_height = $(el).innerHeight() - parseInt(header.getPropertyValue("height"));
+      // var header = window.getComputedStyle(document.getElementById('header'), null);
+      var el_height = $(el).innerHeight() - $('#header').height();
       var extent = [0, 0, $(el).innerWidth(), el_height];
+      console.log('header height is:', $('#header').height());
+      $('.fln-control-pan').css('height', el_height);
+      setTimeout(function(){
+        console.log('header height is:', $('#header').height());
+      }, 1000);
+      console.log('el_height is:', el_height);
       pixelProjection = new ol.proj.Projection({
         units: 'pixels',
         extent: extent
       });
-      console.log('center!',view.getCenter())
+      console.log('center!', view.getCenter())
       var layers = new ol.layer.Image({source:new ol.source.ImageStatic({
                 url: [ // TODO: URL constructor for this
                   'http://scexchange.solarcity.com/scfilefactory/TestGrab.aspx?format=jpg&center=',
-                  view.getCenter()[1]+','+ view.getCenter()[0],  //TODO: connect to the google map center here
+                  view.getCenter()[0]+','+ view.getCenter()[1],  //TODO: connect to the google map center here
                   '&zoom=20&size=',
                   windowWidth +'x'+ windowHeight,
                   '&maptype=satellite&scale=1&client=gme-solarcity'
@@ -113,12 +119,14 @@ function ConfiguratorFactory_() {
       geometryName: 'area',
     });
     // convenience for enable/disable
-    var interactions = {
+
+    interactions = {
       draw: draw,
       modify: modify,
       dragpan: new ol.interaction.DragPan(dragpan_opt),
       scroll_zoom: new ol.interaction.MouseWheelZoom(),
     }
+
     function ConfiguratorBuilder() {
       Layers.drawn_features = feature_overlay.getFeatures(); // hack: this shouldn't be assigned this way
 

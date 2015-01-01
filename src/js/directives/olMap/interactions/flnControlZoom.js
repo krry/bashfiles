@@ -39,7 +39,7 @@ function flnControlZoom_ (Configurator) {
       // create a new zoom controller
       var zoomControl = new ol.control.Zoom(zoom_options);
       // get the scroll zoom interaction
-      var scroll_zoom = Configurator.interactions()['scroll_zoom'];
+      var scroll_zoom = Configurator.interactions().scroll_zoom;
       // add it to the map
       var controls = Configurator.map().getControls();
       while (controls.getArray().length > 0 ){ // hack: directive fires twice, prevent double controls

@@ -8,7 +8,7 @@ $green-dark:    #009C5D;  // rgb(000, 156, 093)  hsl(156.4, 100%, 30.5%)
 $green-apple:   #67BD57;  // rgb(103, 189, 087)  hsl(110.6, 43.6%, 54.1%)
 $green-lime:    #C7DD7B;  // rgb(199, 221, 123)  hsl(73, 59%, 67%)
 $green-pale:    #D3E8C9;  // rgb(211, 232, 201)  hsl(100.6, 40.3%, 84.9%)
-$aqua-dark:     #1BA47D;  // rgb(027, 164, 125)  hsl(162.9, 71.7%, 37.5%)
+$aqua-dark:     #007F70;  // rgba(16,127,112,1)
 $aqua-light:    #5AC1A5;  // rgb(090, 193, 165)  hsl(163.7, 45.4%, 55.5%)
 $blue-bright:   #59B0E0;  // rgb(089, 176, 224)  hsl(203, 76%, 51%)
 $blue-dark:     #054C6B;  // rgb(031, 092, 129)  hsl(203, 61%, 31%)
@@ -24,7 +24,8 @@ $flesh:         #F1D0B3;  // rgb(241, 208, 179)  hsl(28.1, 68.9%, 82.4%)
 $cream:         #FCF2E8;  // rgb(252, 242, 232)  hsl(30, 76.9%, 94.9%)
 $white:         #FFFFFF;  // rgb(255, 255, 255)  hsl(0, 0%, 100%)
 $white-off:     #F7F7F7;  // rgb(255, 255, 255)  hsl(0, 0%, 100%)
-$grey-lightest: #E6E6E6;  // rgb(230, 230, 230)  hsl(0, 0%, 90%)
+$white-dark:    #FAFAFA;  // for Ericson :)
+$grey-lightest: #ECF0F1;
 $grey-lighter:  #D9D9D9;  // rgb(217, 217, 217)  hsl(0, 0%, 85%)
 $grey-light:    #B3B3B3;  // rgb(179, 179, 179)  hsl(0, 0%, 70%)
 $grey-mid:      #808080;  // rgb(128, 128, 128)  hsl(0, 0%, 50%)
@@ -32,6 +33,9 @@ $grey-dark:     #5F5F5F;  // rgb(095, 095, 095)  hsl(0, 0%, 37%)
 $grey-darker:   #333333;  // rgb(051, 051, 051)  hsl(0, 0%, 20%)
 $grey-darkest:  #171717;  // rgb(023, 023, 023)  hsl(0, 0%, 9%)
 $black:         #000000;  // rgb(000, 000, 000)  hsl(0, 0%, 0%)
+
+$color-input-invalid-text: rgb(171,32,52);
+$color-input-invalid-bkgd: rgb(248,243,213);
 
 $grey-zep:      $grey-darker;
 
@@ -59,6 +63,7 @@ $color-button-bkgd: $grey-mid;
 
 $color-header-bkgd: $grey-darker;
 $color-header-bkgd: $grey-zep;
+$color-header-bkgd: rgba(42,54,59,0.9);
 
 $color-highlight: $green-bright;
 

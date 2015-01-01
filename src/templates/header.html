@@ -1,17 +1,18 @@
 <nav>
   <a ui-sref="home.initial" class="logo">SolarCity</a>
   <div class="tray">
-    <div class="address" ng-show="user.hasAddress">
-      <output>45 Alvarado Row Stanford CA 94305</output>
-      <div class="links">
-        <a class="display-inline float right caps">Edit</a>
-        <a class="display-inline float right caps">Share</a>
-      </div>
-    </div>
+    <!-- <div fln-headdress address="address"></div> -->
+    <!-- ericson hiding this for now
     <ul class="stage-nav">
-      <li class="active"><span>1</span><a class="white" ui-sref="configure.initial">Configure</a></li>
-      <li><span>2</span><a class="white" ui-sref="qualify.initial">Qualify</a></li>
-      <li><span>3</span><a class="white" ui-sref="schedule.initial">Schedule</a></li>
+      <li class="active"><a class="white" ui-sref="configure.initial">&rsaquo;&nbsp;Configure</a></li>
+      <li><a class="white" ui-sref="qualify.initial">&rsaquo;&nbsp;Qualify</a></li>
+      <li><a class="white" ui-sref="schedule.initial">&rsaquo;&nbsp;Schedule</a></li>
+    </ul> -->
+
+    <ul class="stage-nav">
+      <li class="active">&rsaquo;&nbsp;Configure</li>
+      <li>&rsaquo;&nbsp;Qualify</li>
+      <li>&rsaquo;&nbsp;Schedule</li>
     </ul>
   </div>
 </nav>

@@ -12,5 +12,5 @@ var gulp = require('gulp');
 var runSeq = require('run-sequence').use(gulp);
 
 gulp.task('staging', function() {
-  runSeq('clean', 'config', 'build');
+  runSeq('config', 'build');
 });

@@ -1,4 +1,4 @@
+controllers.controller("HeaderCtrl", HeaderCtrl_);
+
 function HeaderCtrl_() {
 }
-
-controllers.controller("HeaderCtrl", HeaderCtrl_);
