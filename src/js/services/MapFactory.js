@@ -40,30 +40,20 @@ function MapFactory_( MapService, StyleService, LayerService, Configurator ) {
 
   function roofArea (ol_map, target_element, feature) {
     var projection = Configurator.map().getView().getProjection();
-    if (MapService.getRoofmap()) {
-      map = MapService.getRoofmap();
-      var v = new ol.View({
-        projection: projection,
-        center: ol.extent.getCenter(projection.getExtent()),
-        zoom: 1,
-      });
-      map.setView(v);
-      map.setTarget(target_element[0]);
-    } else {
-      map = MapService.setRoofmap({
-      view: new ol.View({
-        projection: projection,
-        center: ol.extent.getCenter(projection.getExtent()),
-        zoom: 1,
-      }),
-      extent: projection.getExtent(),
-      layers: [f_layer],
-      overlays: [f_overlay],
-      target: target_element[0],
-      interactions: [],
-      controls: [],
-      });
-    }
+
+    map = MapService.setRoofmap({
+    view: new ol.View({
+      projection: projection,
+      center: ol.extent.getCenter(projection.getExtent()),
+      zoom: 1,
+    }),
+    extent: projection.getExtent(),
+    layers: [f_layer],
+    overlays: [f_overlay],
+    target: target_element[0],
+    interactions: [],
+    controls: [],
+    });
 
     map.setSize(ol_map.getSize());
     remapFeature(map, feature);
