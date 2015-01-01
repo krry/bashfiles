@@ -46,6 +46,15 @@ header nav li {
   padding: 0;
 }
 
+header nav li span {
+  border-radius: 100%;
+  background: $shade;
+  text-align: left;
+  padding: .375em .75em;
+  margin: 0 .5em 0 1em;
+  font-style: italic;
+}
+
 header a {
   display: inline-block;
   padding: 2.5em 2em 2em 0;
