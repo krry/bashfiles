@@ -13,9 +13,9 @@
 
 ================================================== */
 
-angular.module('flannel').factory('MapService', ['$q', 'LayerService', 'StyleService', 'UserService', 'Configurator', MapService_]);
+angular.module('flannel').factory('MapService', ['$q', 'Clientstream', 'LayerService', 'StyleService', 'UserService', 'Configurator', MapService_]);
 
-function MapService_ ($q, LayerService, StyleService, UserService, Configurator) {
+function MapService_ ($q, Client, LayerService, StyleService, UserService, Configurator) {
 
   var DEFAULT_LAT = 30;
   var DEFAULT_LNG = -123;
@@ -51,6 +51,7 @@ function MapService_ ($q, LayerService, StyleService, UserService, Configurator)
     getGmapCenter: getGmapCenter,
     setGmapCenter: setGmapCenter,
     updateGmap: updateGmap,
+    recenterMap: recenterMap,
     geocodeZip: geocodeZip,
     geocodeAddress: geocodeAddress,
     getGmapMaxZoom: getGmapMaxZoom,
@@ -76,7 +77,6 @@ function MapService_ ($q, LayerService, StyleService, UserService, Configurator)
   // google maps methods defined
 
   function getGmapShown () {
-    console.log("getting gmapShown", gmapShown);
     return gmapShown;
   }
 
@@ -171,23 +171,27 @@ function MapService_ ($q, LayerService, StyleService, UserService, Configurator)
         } else {
           addy = addy + " " + obj[key];
         }
-        components[key] = obj[key];
+        // components[key] = obj[key];
       }
     }
-    console.log("components are", components);
+    // console.log("components are", components);
 
     geocoder.geocode({
       "address": addy,
-      "componentRestrictions": components,
+      // "componentRestrictions": components,
     }, function(results, status) {
       if (status === google.maps.GeocoderStatus.OK) {
         if (results[0]) {
           outcome = results[0].geometry.location;
           console.log('geocode successful', results);
           var addy = parseLocation(results[0]);
-          UserService.setHome('city', addy.city);
-          UserService.setHome('state', addy.state);
-          UserService.setHome('zip', addy.zip);
+          if (addy.city) UserService.setHome('city', addy.city);
+          if (addy.state) UserService.setHome('state', addy.state);
+          if (addy.zip) UserService.setHome('zip', addy.zip);
+          if (addy.street) {
+            Client.emit('valid address', addy);
+            // UserService.setHome('street', addy.street);
+          }
           return cb(outcome);
         }
       } else if (status === google.maps.GeocoderStatus.ZERO_RESULTS) {
@@ -268,6 +272,27 @@ function MapService_ ($q, LayerService, StyleService, UserService, Configurator)
       service.g.gmap.setZoom(zoom);
     });
   }
+
+  function dropPin(addy, res) {
+    var marker;
+
+    if(typeof(marker)!=="undefined") {
+      console.log('already a pin')
+      marker.setMap(null);
+      marker = null;
+    }
+    if (addy.street !== ""){
+      console.log("dropping new pin on addy " + addy);
+      marker = new google.maps.Marker({
+        position: addy.latlng,
+        map: service.g.gmap,
+        zoom: addy.zoom,
+        draggable: true,
+        icon: 'img/burstpin.png'
+      });
+    }
+  }
+
 
   function getGmapMaxZoom(latLng, cb) {
     var zoom = service.g.mapOptions.zoom;

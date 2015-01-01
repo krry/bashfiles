@@ -52,8 +52,9 @@
         </div>
       </div>
     </div>
+    <button class="ib aqua" ng-hide="form.valid" ng-click="form.geocodeAddress(form.home, form.recenterMap)">Go</button>
+    <button class="aqua" ng-show="form.valid" ng-click="form.nextStep()">That's my house</button>
   </form>
-  <button class="ib aqua" ng-click="form.geocodeAddress(form.home());">Go</button>
 </section>
 <!-- <aside class="overlay secondary short col fourth sml-full med-full">
   <p>Our customers in your area save an average of <strong>20%</strong> on their utility bill and reduces an average of <strong>2.5 tons of CO<sub>2</sub></strong> every month.</p>
