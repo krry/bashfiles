@@ -1,5 +1,5 @@
 <section class="overlay primary short col fourth three">
-  <h1>Wow, <span id="neighbor_count">1,234</span> of your neighbors have gone solar.<br><small>Let's get you started</small></h1>
+  <h1>Wow! <span id="neighbor_count">1,234</span>  of your neighbors have gone solar.<br><small>Let’s take a closer look at your house.</small></h1>
   <form fln-form novalidate ng-submit="">
     <div class="row">
       <div class="col half center padded sml-full">
@@ -7,7 +7,7 @@
           ng-model="user.street"
           type="text"
           class="street"
-          placeholder="Street address"
+          placeholder="Street Address"
           minlength="4"
           ng-minlength="4"
           ng-valid="form.parseAddress(user)"
@@ -19,7 +19,7 @@
             ng-model="user.city"
             type="text"
             class="city"
-            placeholder="Exampletown"
+            placeholder="City"
             name="city"
             ng-required="true"
             ng-valid="form.parseAddress(user)">
@@ -28,7 +28,7 @@
             ng-model="user.state"
             type="text"
             id="state"
-            placeholder="CA"
+            placeholder="State"
             class="state"
             name="state"
             ng-required="true"
@@ -40,7 +40,7 @@
             ng-model="user.zip"
             type="tel"
             id="zip"
-            placeholder="ZIP"
+            placeholder="Zip"
             class="zipcode"
             name="zipcode"
             ng-required="true"
@@ -55,8 +55,8 @@
   </form>
   <button class="ib aqua" ng-click="stages.next()">Next</button>
 </section>
-<aside class="overlay secondary short col fourth sml-full med-full">
+<!-- <aside class="overlay secondary short col fourth sml-full med-full">
   <p>Our customers in your area save an average of <strong>20%</strong> on their utility bill and reduces an average of <strong>2.5 tons of CO<sub>2</sub></strong> every month.</p>
   <figure><img src="" alt=""></figure>
   <div fln-help class="fln-help"></div>
-</aside>
+</aside> -->
