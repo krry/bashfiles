@@ -263,10 +263,6 @@ function MapService_ ($q, LayerService, StyleService, UserService, Configurator)
   function recenterMap(center) {
     console.log("updating map, centering on ", center);
     service.g.gmap.setCenter(center);
-<<<<<<< HEAD
-    // update the OL MAP view's center.
-=======
->>>>>>> 477b16adfcb69cad5331cc498f3f6850476c79f1
     console.log('setting center to', center);
     getGmapMaxZoom(center, function (zoom) {
       service.g.gmap.setZoom(zoom);
