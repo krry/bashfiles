@@ -16,8 +16,9 @@ label + button {
 }
 
 // Address fields
+<<<<<<< HEAD
 input.zipcode {
-  font-size: 3em;
+  font-size: 2.7em;
   text-transform: uppercase;
   color: $color-input-text;
   text-align: center;
@@ -31,10 +32,11 @@ input.zipcode {
 }
 
 input.street {
-  font-size: 1em;
+  font-size: 1.5em;
   text-align: left;
   display: inline-block;
-  padding: 16px 1em;
+  background-color: #fafafa;
+  // padding: 12px 1em;
 }
 
 input.street,
@@ -51,13 +53,14 @@ input.zipcode {
 }
 
 .combo-input {
-  padding: 16px 1em;
+  padding: 12px 1em;
   text-align: justify;
   max-width: 27em;
+  background-color: #fafafa;
 }
 
 .combo-input input {
-  font-size: 1em;
+  font-size: 1.5em;
   border: 0;
   padding: 0;
   display: inline;
@@ -70,7 +73,7 @@ input.zipcode {
 
 .combo-input input.state {
   width: 1.5em;
-  text-transform: uppercase;
+  // text-transform: uppercase;
 }
 
 .combo-input input.zipcode {
