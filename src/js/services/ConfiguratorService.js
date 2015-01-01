@@ -66,6 +66,7 @@ function ConfiguratorFactory_() {
         units: 'pixels',
         extent: extent
       });
+      console.log('center!',view.getCenter())
       var layers = new ol.layer.Image({source:new ol.source.ImageStatic({
                 url: [ // TODO: URL constructor for this
                   'http://scexchange.solarcity.com/scfilefactory/TestGrab.aspx?format=jpg&center=',

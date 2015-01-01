@@ -188,7 +188,6 @@ function MapService_ ($q, LayerService, StyleService, Configurator) {
     }
     service.g.gmap.setCenter(center);
     // update the OL MAP view's center.
-    Configurator.view().setCenter([center.lat(), center.lng()]); // hack: this should be on a stream.
     getGmapMaxZoom(center, function (zoom) {
       service.g.gmap.setZoom(zoom);
     });
@@ -234,6 +233,8 @@ function MapService_ ($q, LayerService, StyleService, Configurator) {
 
   function setGmapCenter(center) {
     service.g.center = center;
+    Configurator.view().setCenter([center.lat(), center.lng()])
+    console.log('setting center', Configurator.view().getCenter());
     return service.g.center;
   }
 
