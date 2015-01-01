@@ -21,14 +21,17 @@
 }
 
 .followtip {
+  display: block;
   position: absolute;
+  z-index: 20;
   top: 0;
   left: 0;
-  background: red;
-  padding: 1em;
   color: white;
-  z-index: 20;
-  display: block;
+  background: $shadiest;
+  border-radius: .5em;
+  border: 1px solid $tintier;
+  font-size: .875em;
+  padding: .25em .75em;
 }
 
 .followtipped {
