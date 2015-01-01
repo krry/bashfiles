@@ -2,7 +2,7 @@
 
   SCRIPTS
   supports BUILD task
-  
+
   lints the scripts with jsHint, outputs to the dev console
   concatenates all our `src/js`, uglifies it and produces
   a minified `all.min.js` and the debuggable `all.js`
@@ -21,6 +21,7 @@ var handleErrors = require('../util/handleErrors');
 
 var scripts = [
   'src/js/*.js',
+  'src/js/providers/*.js',
   'src/js/services/*.js',
   'src/js/controllers/*.js',
   'src/js/directives/**/*.js',
