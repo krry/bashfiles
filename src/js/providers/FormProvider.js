@@ -27,7 +27,9 @@ function FormProvider_ () {
 
   var form_ref = new Firebase('https://scty.firebaseio.com/forms/').push();  // TODO: pass arguments to this $get method to change the fb_observable's_ref
   var fb_observable = form_ref.observe('value').skip(1);
-  this.$get = [function formProviderFactory() {
+  this.$get = ["Clientstream",function formProviderFactory(Client) {
+
+    Client.emit('form key', form_ref.key());
 
     function awesome_form_builder_brah() {
       return {
