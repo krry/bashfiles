@@ -30,9 +30,9 @@ function ConfiguratorFactory_() {
         target, // This is set by flnOlMap directive link
         view;
 
+    var header = window.getComputedStyle(document.getElementById('header'), null);
     windowWidth = $window.innerWidth;
-    windowHeight = $window.innerHeight;
-    REMOVEMEcenter = new google.maps.LatLng(37.4834436, -122.267538); // hack:
+    windowHeight = $window.innerHeight - parseInt(header.getPropertyValue("height"));
 
     // defaults
     default_controls = ol.control.defaults({
@@ -51,7 +51,7 @@ function ConfiguratorFactory_() {
 
     // what part of the map we see?
     view = new ol.View({
-      center: [REMOVEMEcenter.lat(), REMOVEMEcenter.lng()],
+      center: [0, 0],
       zoom: 18
     }); // TODO: move in to this provider
 
