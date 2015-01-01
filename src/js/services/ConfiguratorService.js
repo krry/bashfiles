@@ -11,7 +11,7 @@ providers.provider("Configurator", ConfiguratorFactory_);
 
 function ConfiguratorFactory_() {
 
-  this.$get = ["$window", "Session", "StyleService", "LayerService", function ($window, Session, Styles, Layers) {
+  this.$get = ["$window", "Session", "StyleService", "LayerService", "Clientstream", function ($window, Session, Styles, Layers, Client) {
 
     var map,
         REMOVEMEcenter,
@@ -126,6 +126,11 @@ function ConfiguratorFactory_() {
       dragpan: new ol.interaction.DragPan(dragpan_opt),
       scroll_zoom: new ol.interaction.MouseWheelZoom(),
     }
+
+    Client.listen('erase area', function area_pop (data) {
+      console.log('heard that erase area', data);
+      draw_modify_features.pop();
+    })
 
     function ConfiguratorBuilder() {
       Layers.drawn_features = feature_overlay.getFeatures(); // hack: this shouldn't be assigned this way

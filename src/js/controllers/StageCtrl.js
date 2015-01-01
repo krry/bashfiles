@@ -91,6 +91,20 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
     /* jshint +W030 */
   });
 
+  vm.startOver = function () {
+    Clientstream.emit('start over', 'butts');
+  }
+  // listen for start over
+  Clientstream.listen('start over', function start_over (data) {
+    console.log('heard that startover', data)
+    Clientstream.emit('erase area', data);
+    $scope.view_sync && Clientstream.emit('stage', {
+      stage: 1,
+      step: 0
+    });
+    /* jshint +W030 */
+  });
+
   // user flow controls
   vm.next = function(){
     if ( step + 1 < Templates.config[stage].steps.length ) {
