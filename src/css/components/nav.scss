@@ -1,6 +1,7 @@
 @import "../imports/colors";
 @import "../imports/fonts";
 @import "../imports/sizes";
+@import "../imports/typography";
 
 header {
   background: $color-header-bkgd;
@@ -55,21 +56,20 @@ header nav li span {
   font-style: italic;
 }
 
-header nav a {
+header a {
   display: inline-block;
   padding: 2.5em 2em 2em 0;
   color: white;
   font-size: .875em;
 }
 
-header nav a:hover {
+header a:hover {
   color: $white;
 }
 
 nav a {
   @include apercu-light;
-  text-transform: uppercase;
-  letter-spacing: 2.25;
+  @include caps;
   text-shadow: none;
   background: none;
   border-bottom: 0px solid transparent;
@@ -77,6 +77,26 @@ nav a {
 
 .stage-nav {
   display: none;
+}
+
+nav.short a {
+  padding: 1.5em 2em;
+  font-size: .75em;
+  white-space: nowrap;
+  &:not(.logo):hover {
+    background-color: $tint;
+  }
+}
+
+nav.short .logo {
+  background-size: auto 120%;
+  font-size: 1em;
+  padding: 0;
+  height: 3em;
+}
+
+.alternav {
+  margin: 2em 4em;
 }
 
 @media screen and (min-width: $width-min-lrg) {

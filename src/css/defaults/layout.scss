@@ -21,7 +21,7 @@ main.main {
 }
 
 .overlay.primary {
-  padding: 4em 2em;
+  padding: 2em;
   text-align: center;
   // width: golden-ratio(100);
   // width: 71%;
@@ -29,7 +29,7 @@ main.main {
 }
 
 .overlay.secondary {
-  padding: 3em 2em;
+  padding: 4em 2em;
   padding-bottom: 0;
   // width: 100% - golden-ratio(100);
   // width: 29%;
@@ -39,7 +39,7 @@ main.main {
 }
 
 .overlay.short {
-  padding: 2em;
+  padding: 1em 2em .5em;
 }
 
 .overlay.secondary.short {
@@ -63,25 +63,25 @@ main.main {
 
 @media screen and (min-width: $width-min-sml){
   .overlay.secondary {
-    min-height: 20em;
+    min-height: 16em;
   }
 }
 
 @media screen and (min-width: $width-min-med){
   .overlay.secondary {
-    // min-height: 24em;
+    // min-height: 18em;
   }
 }
 
 @media screen and (min-width: $width-min-lrg){
   .overlay.secondary {
-    min-height: 24em;
+    min-height: 20em;
   }
 }
 
 @media screen and (min-width: $width-min-xlg){
   .overlay.secondary {
-    min-height: 32em;
+    min-height: 24em;
   }
 }
 
