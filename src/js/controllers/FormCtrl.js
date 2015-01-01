@@ -35,7 +35,8 @@ function FormCtrl_($scope, UserService, Session, MapService) {
     if (typeof(zip) !== "undefined") {
       console.log(zip);
       MapService.setGmapShown(true);
-      MapService.updateGmap({ "postalCode": zip }, validateZip);
+      MapService.geocodeZip(zip, validateZip);
+      // MapService.updateGmap({ "postalCode": zip }, validateZip);
       // pass to checkTerritory API
         // if false, show out of territory state
         // if true, advance to address step

@@ -113,12 +113,14 @@ function ConfiguratorFactory_() {
       geometryName: 'area',
     });
     // convenience for enable/disable
-    var interactions = {
+
+    interactions = {
       draw: draw,
       modify: modify,
       dragpan: new ol.interaction.DragPan(dragpan_opt),
       scroll_zoom: new ol.interaction.MouseWheelZoom(),
     }
+
     function ConfiguratorBuilder() {
       Layers.drawn_features = feature_overlay.getFeatures(); // hack: this shouldn't be assigned this way
 

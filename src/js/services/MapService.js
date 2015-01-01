@@ -51,6 +51,7 @@ function MapService_ ($q, LayerService, StyleService, UserService, Configurator)
     getGmapCenter: getGmapCenter,
     setGmapCenter: setGmapCenter,
     updateGmap: updateGmap,
+    geocodeZip: geocodeZip,
     geocodeAddress: geocodeAddress,
     getGmapMaxZoom: getGmapMaxZoom,
     setAutocomplete: setAutocomplete,
@@ -111,44 +112,51 @@ function MapService_ ($q, LayerService, StyleService, UserService, Configurator)
     return outcome;
   }
 
-    function updateGmap(obj, cb) {
-      var center;
-      console.log('updating gmap', obj);
-      if (typeof(obj)==="object") {
-        if (obj.lat() && obj.lng()) {
-          console.log('object passed to updateGmap');
-          if ( typeof obj.lat !== "function" ) {
-            console.log('location being geocoded');
-            geocodeAddress(obj, function(response) {
-              if (typeof response.lat !== "function") {
-                return response;
-              } else {
-                center = {
-                  lat: response.lat(),
-                  lng: response.lng()
-                };
-                service.g.gmap.setCenter(center);
-                getGmapMaxZoom(center, function(zoom) {
-                  service.g.gmap.setZoom(zoom);
-                  recenterMap(center);
-                  return cb(true);
-                });
-              }
-            });
-          } else {
-            center = obj;
-            console.log('lat:', obj.lat(), ', lng:', obj.lng());
-            service.g.gmap.setCenter(center);
-            service.g.gmap.setZoom(getGmapMaxZoom(center, function(zoom) {
-              service.g.gmap.setZoom(zoom);
-              recenterMap(center);
-              return cb(true);
-            }));
-          }
-        } else {
-          console.error("this is not a location object: ", obj);
-          return cb(false);
-        }
+  function geocodeZip(zip, cb) {
+    // TODO: use streams for this later
+    var center,
+        obj;
+
+    obj = { postalCode: zip };
+
+    geocodeAddress(obj, function(response) {
+      if (typeof response.lat !== "function") {
+        return response;
+      } else {
+        center = {
+          lat: response.lat(),
+          lng: response.lng()
+        };
+        service.g.gmap.setCenter(center);
+        getGmapMaxZoom(center, function(zoom) {
+          service.g.gmap.setZoom(zoom);
+          recenterMap(center);
+          return cb(true);
+        });
+      }
+    })
+  }
+
+  function updateGmap(obj, cb) {
+    var center;
+    console.log('updating gmap', obj);
+    if (typeof(obj)==="object") {
+      if (obj.lat() && obj.lng()) {
+      console.log('object passed to updateGmap');
+      center = obj;
+      console.log('lat:', obj.lat(), ', lng:', obj.lng());
+      service.g.gmap.setCenter(center);
+      service.g.gmap.setZoom(getGmapMaxZoom(center, function(zoom) {
+        service.g.gmap.setZoom(zoom);
+        recenterMap(center);
+        return cb(true);
+      }));
+      } else {
+        console.error("this is not a location object: ", obj);
+        return cb(false);
+      }
+    }
+  }
 
   function geocodeAddress(obj, cb) {
     var outcome;
@@ -366,4 +374,5 @@ function MapService_ ($q, LayerService, StyleService, UserService, Configurator)
   function addOverlay(layer) {    //TODO: move to OlService
     return service.o.omap.addOverlay(layer);
   }
+
 }
