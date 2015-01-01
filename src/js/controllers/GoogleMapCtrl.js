@@ -3,26 +3,26 @@ controllers.controller("GoogleMapCtrl", ["$scope", "$element", "MapService", "Us
 function GoogleMapCtrl_($scope, $element, MapService, UserService) {
   var vm = this;
 
-  vm.gmapShown = MapService.getGmapShown;
-
   var mapOptions,
       map,
       input,
       searchbox;
 
+  vm.gmapShown = MapService.getGmapShown;
   mapOptions = MapService.g.mapOptions;
   map = MapService.setGmap($element[0], mapOptions);
 
+  // TODO: remove searchbox functionality from zip field
   google.maps.event.addDomListener(window, "load", activate);
 
   function activate(){
     // create an Autocompleting search box on the map
-    input = document.getElementById('hood_check');
+    // input = document.getElementById('hood_check');
     // map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(input);
-    searchbox = MapService.setGmapSearchBox(input);
+    // searchbox = MapService.setGmapSearchBox(input);
     // searchbox.bindTo('bounds', map);
     // listen for the 'place_changed' trigger which is fired
-    google.maps.event.addListener(searchbox, 'place_changed', parsePlace);
+    // google.maps.event.addListener(searchbox, 'place_changed', parsePlace);
     MapService.updateGmap(MapService.getGmapCenter(), catchMapActivationResult);
     google.maps.event.addListener(map, 'center_changed', saveCenter);
   }
@@ -56,6 +56,23 @@ function GoogleMapCtrl_($scope, $element, MapService, UserService) {
     ].join(' ');
     UserService.setAddress(place.formatted_address);
   }
+
+  // TODO: decide whether map should adjust its center based on the DOM
+  // function map_recenter(latlng) {
+  //   var offsetX = 0;
+  //   var offsetY = $('.overlayer').height() / 2;
+  //   var point1 = map.getProjection().fromLatLngToPoint(
+  //       (latlng instanceof google.maps.LatLng) ? latlng : map.getCenter()
+  //   );
+  //   var point2 = new google.maps.Point(
+  //       ( (typeof(offsetx) == 'number' ? offsetX : 0) / Math.pow(2, map.getZoom()) ) || 0,
+  //       ( (typeof(offsety) == 'number' ? offsetY : 0) / Math.pow(2, map.getZoom()) ) || 0
+  //   );
+  //   map.setCenter(map.getProjection().fromPointToLatLng(new google.maps.Point(
+  //       point1.x - point2.x,
+  //       point1.y + point2.y
+  //   )));
+  // }
 
   // always save the mapcenter when it's changed.
   function saveCenter () {
