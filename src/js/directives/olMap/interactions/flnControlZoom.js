@@ -42,7 +42,7 @@ function flnControlZoom_ (Configurator) {
       var scroll_zoom = Configurator.interactions()['scroll_zoom'];
       // add it to the map
       var controls = Configurator.map().getControls();
-      if (controls.getArray().length > 0 ){ // hack: directive fires twice, prevent double controls
+      while (controls.getArray().length > 0 ){ // hack: directive fires twice, prevent double controls
         controls.pop();
       }
       Configurator.map().addControl(zoomControl);
