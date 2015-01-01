@@ -108,6 +108,7 @@ function MapCtrl_($scope, $timeout, Client, Sync, MapService, LayerService, Inte
     Design.feature().on('change:wkt', wkt_update_notification);
     Design.feature().getGeometry().on('change', update_wkt_while_modify);
     Client.emit('update_remote', Design.feature().getGeometry());
+    Session.next();
   }
 
   function wkt_update_notification (ft) {
