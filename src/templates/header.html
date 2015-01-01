@@ -1,16 +1,8 @@
 <nav>
   <a ui-sref="home.initial" class="logo">SolarCity</a>
   <div class="tray">
-
-    <div class="address" ng-show="user.hasAddress">
-      <output>45 Alvarado Row Stanford CA 94305</output>
-      <div class="links">
-        <a class="display-inline float right caps">Edit</a>
-        <a class="display-inline float right caps">Share</a>
-      </div>
-    </div>
-
-<!--     ericson hiding this for now
+    <div fln-header-address></div>
+<!-- ericson hiding this for now
     <ul class="stage-nav">
       <li class="active"><a class="white" ui-sref="configure.initial">&rsaquo;&nbsp;Configure</a></li>
       <li><a class="white" ui-sref="qualify.initial">&rsaquo;&nbsp;Qualify</a></li>
@@ -22,14 +14,5 @@
       <li>&rsaquo;&nbsp;Qualify</li>
       <li>&rsaquo;&nbsp;Schedule</li>
     </ul>
-    
-    <a>
-    <ul class="stage-nav">
-      <li class="top-five">
-        <span class="bold">Top 5 questions</span> people ask
-      </li>
-    </ul>
-    </a>
-
   </div>
 </nav>
