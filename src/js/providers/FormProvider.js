@@ -29,6 +29,16 @@ function FormProvider_ () {
   var fb_observable = form_ref.observe('value').skip(1);
   this.$get = ["Clientstream",function formProviderFactory(Client) {
 
+    Client.listen('add session to form', function (key) {
+      return form_ref.update({session: key});
+    })
+    Client.listen('valid zip', function (zip) {
+      return form_ref.update({zip: zip});
+    })
+    Client.listen('address found', function (addy) {
+      return form_ref.update({address: addy});
+    })
+
     Client.emit('form key', form_ref.key());
 
     function awesome_form_builder_brah() {

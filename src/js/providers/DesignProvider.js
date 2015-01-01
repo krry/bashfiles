@@ -22,10 +22,11 @@ function DesignProvider_ () {
       make a private history function that keeps a record of what you've done
 
   ================================ */
-  this.$get = [ "Session", function designProviderFactory(Session) {
+  this.$get = [ "Session", "Clientstream", function designProviderFactory(Session, Client) {
     // HACK: sync service probably isn't necessary
-    Session.ref().update({design:  design_ref.key()});
-    design_ref.update({session: Session.ref().key()});
+    Client.listen('session key', function (key){return design_ref.update({session: key});});
+    Client.emit('design key', design_ref.key());
+
     areas_ref = design_ref.child('areas');
     areas_stream = areas_ref.observe('value').skip(1);
     var feature;
