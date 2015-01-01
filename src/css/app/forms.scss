@@ -16,7 +16,6 @@ label + button {
 }
 
 // Address fields
-<<<<<<< HEAD
 input.zipcode {
   font-size: 2.7em;
   text-transform: uppercase;
@@ -35,8 +34,7 @@ input.street {
   font-size: 1.5em;
   text-align: left;
   display: inline-block;
-  background-color: #fafafa;
-  // padding: 12px 1em;
+  background-color: $white-dark;
 }
 
 input.street,
@@ -53,10 +51,10 @@ input.zipcode {
 }
 
 .combo-input {
-  padding: 12px 1em;
+  padding: .75em 1em;
   text-align: justify;
   max-width: 27em;
-  background-color: #fafafa;
+  background-color: $white-dark;
 }
 
 .combo-input input {

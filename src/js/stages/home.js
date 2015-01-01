@@ -13,7 +13,7 @@ angular.module('stages.home',[]).config( function ($stateProvider) {
     views: {
       'header@': {
         templateUrl: templateUrl + 'header-short.html',
-        controller:  'HeaderCtrl as head',
+        controller:  'HeaderCtrl as header',
       },
       'main@': {
         resolve: {},

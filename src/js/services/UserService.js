@@ -21,8 +21,8 @@ function UserService_ ($firebase, SyncService, firebaseRef) {
   };
 
   home = {
-    owner_id: "",
-    "zip": "",
+    // owner_id: "",
+    zip: "",
     state: "",
     city: "",
     address: "",

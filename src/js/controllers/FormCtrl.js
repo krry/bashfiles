@@ -3,20 +3,33 @@
   the form controller
 ================================================== */
 
-controllers.controller("FormCtrl", ["$scope", "UserService", "Session", "MapService", FormCtrl_]);
+controllers.controller("FormCtrl", ["$scope", "Form", "Clientstream", "UserService", "Session", "MapService", FormCtrl_]);
 
-function FormCtrl_($scope, UserService, Session, MapService) {
+function FormCtrl_($scope, Form, Client, UserService, Session, MapService) {
   var vm = this;
-  var valid = false; // use ng-valid from form
   vm.home = UserService.getHome();
-  vm.prospect = UserService.getProspect;
+  vm.prospect = UserService.getProspect();
   vm.monitorZip = monitorZip;
+  vm.valid = false; // use ng-valid from form
   vm.validZip = true;
   vm.validTerritory = true;
+  vm.validAddress = false;
   vm.gmapShown = MapService.getGmapShown;
   vm.prevStep = prev;
   vm.nextStep = next;
+  vm.recenterMap = MapService.recenterMap;
   vm.geocodeAddress = MapService.geocodeAddress;
+
+  Client.listen('valid address', validateAddress);
+
+  function validateAddress(data){
+    console.log('validateAddress data is:', data);
+    if (data) {
+      vm.valid = true;
+      Form.ref().update(data);
+      $scope.$apply();
+    }
+  }
 
   function prev () {
     Session.prev();
@@ -24,7 +37,7 @@ function FormCtrl_($scope, UserService, Session, MapService) {
 
   function next () { // TODO: currently not checking if valid
     /* jshint -W030 */
-    valid && Session.next();
+    vm.valid && Session.next();
     /* jshint +W030 */
   }
 
@@ -44,7 +57,7 @@ function FormCtrl_($scope, UserService, Session, MapService) {
   }
 
   function validateZip(result) {
-    vm.validZip = result;
+    vm.valid = result;
     console.log('validZip is', vm.validZip);
     checkTerritory(vm.user.zip, validateTerritory);
   }
@@ -88,7 +101,8 @@ function FormCtrl_($scope, UserService, Session, MapService) {
   function validateTerritory(result) {
     vm.validTerritory = result;
     console.log('inTerritory is', vm.validTerritory);
-    valid = true;
+    vm.valid = true;
     next();
   }
+
 }
