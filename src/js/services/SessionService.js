@@ -38,7 +38,8 @@ function SessionProvider_ () {
         id:     function(){ return session_ref.key(); },
         stream: function(){ return fb_observable; },
         state_stream: function(){ return state_stream; },
-        next:   function() { Clientstream.emit('stage', "next");}
+        next:   function() { Clientstream.emit('stage', "next");},
+        back:   function() { Clientstream.emit('stage', "back");},
       };
     }
 

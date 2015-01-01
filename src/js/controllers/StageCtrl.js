@@ -59,6 +59,8 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
   Clientstream.listen('stage', function stage_listen (target_state) {
     if (target_state === "next") {
       vm.next();
+    } else if (target_state === "back") {
+      vm.back();
     } else if ($scope.view_sync) {
       target_state = !!target_state.state ? target_state.state : target_state;
         stage = target_state.stage;
