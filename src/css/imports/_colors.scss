@@ -24,7 +24,8 @@ $flesh:         #F1D0B3;  // rgb(241, 208, 179)  hsl(28.1, 68.9%, 82.4%)
 $cream:         #FCF2E8;  // rgb(252, 242, 232)  hsl(30, 76.9%, 94.9%)
 $white:         #FFFFFF;  // rgb(255, 255, 255)  hsl(0, 0%, 100%)
 $white-off:     #F7F7F7;  // rgb(255, 255, 255)  hsl(0, 0%, 100%)
-$grey-lightest: #ECF0F1;  
+$white-dark:    #FAFAFA;  // for Ericson :)
+$grey-lightest: #ECF0F1;
 $grey-lighter:  #D9D9D9;  // rgb(217, 217, 217)  hsl(0, 0%, 85%)
 $grey-light:    #B3B3B3;  // rgb(179, 179, 179)  hsl(0, 0%, 70%)
 $grey-mid:      #808080;  // rgb(128, 128, 128)  hsl(0, 0%, 50%)
@@ -62,6 +63,7 @@ $color-button-bkgd: $grey-mid;
 
 $color-header-bkgd: $grey-darker;
 $color-header-bkgd: $grey-zep;
+$color-header-bkgd: rgba(42,54,59,0.9);
 
 $color-highlight: $green-bright;
 
