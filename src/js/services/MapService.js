@@ -13,9 +13,9 @@
 
 ================================================== */
 
-angular.module('flannel').factory('MapService', ['$q', 'LayerService', 'StyleService', 'Configurator', MapService_]);
+angular.module('flannel').factory('MapService', ['$q', 'LayerService', 'StyleService', 'UserService', 'Configurator', MapService_]);
 
-function MapService_ ($q, LayerService, StyleService, Configurator) {
+function MapService_ ($q, LayerService, StyleService, UserService, Configurator) {
 
   var DEFAULT_LAT = 30;
   var DEFAULT_LNG = -123;
@@ -111,6 +111,45 @@ function MapService_ ($q, LayerService, StyleService, Configurator) {
     return outcome;
   }
 
+    function updateGmap(obj, cb) {
+      var center;
+      console.log('updating gmap', obj);
+      if (typeof(obj)==="object") {
+        if (obj.lat() && obj.lng()) {
+          console.log('object passed to updateGmap');
+          if ( typeof obj.lat !== "function" ) {
+            console.log('location being geocoded');
+            geocodeAddress(obj, function(response) {
+              if (typeof response.lat !== "function") {
+                return response;
+              } else {
+                center = {
+                  lat: response.lat(),
+                  lng: response.lng()
+                };
+                service.g.gmap.setCenter(center);
+                getGmapMaxZoom(center, function(zoom) {
+                  service.g.gmap.setZoom(zoom);
+                  recenterMap(center);
+                  return cb(true);
+                });
+              }
+            });
+          } else {
+            center = obj;
+            console.log('lat:', obj.lat(), ', lng:', obj.lng());
+            service.g.gmap.setCenter(center);
+            service.g.gmap.setZoom(getGmapMaxZoom(center, function(zoom) {
+              service.g.gmap.setZoom(zoom);
+              recenterMap(center);
+              return cb(true);
+            }));
+          }
+        } else {
+          console.error("this is not a location object: ", obj);
+          return cb(false);
+        }
+
   function geocodeAddress(obj, cb) {
     var outcome;
     var addy = "";
@@ -137,6 +176,10 @@ function MapService_ ($q, LayerService, StyleService, Configurator) {
         if (results[0]) {
           outcome = results[0].geometry.location;
           console.log('geocode successful', results);
+          var addy = parseLocation(results[0]);
+          UserService.setHome('city', addy.city);
+          UserService.setHome('state', addy.state);
+          UserService.setHome('zip', addy.zip);
           return cb(outcome);
         }
       } else if (status === google.maps.GeocoderStatus.ZERO_RESULTS) {
@@ -161,44 +204,51 @@ function MapService_ ($q, LayerService, StyleService, Configurator) {
     // return cb(outcome);
   }
 
-  function updateGmap(obj, cb) {
-    var center;
-    console.log('updating gmap', obj);
-    if (typeof(obj)==="object") {
-      if (obj.lat() && obj.lng()) {
-        console.log('object passed to updateGmap');
-        if ( typeof obj.lat !== "function" ) {
-          console.log('location being geocoded');
-          geocodeAddress(obj, function(response) {
-            if (typeof response.lat !== "function") {
-              return response;
-            } else {
-              center = {
-                lat: response.lat(),
-                lng: response.lng()
-              };
-              service.g.gmap.setCenter(center);
-              getGmapMaxZoom(center, function(zoom) {
-                service.g.gmap.setZoom(zoom);
-                recenterMap(center);
-                return cb(true);
-              });
-            }
-          });
-        } else {
-          center = obj;
-          console.log('lat:', obj.lat(), ', lng:', obj.lng());
-          service.g.gmap.setCenter(center);
-          service.g.gmap.setZoom(getGmapMaxZoom(center, function(zoom) {
-            service.g.gmap.setZoom(zoom);
-            recenterMap(center);
-            return cb(true);
-          }));
-        }
-      } else {
-        console.error("this is not a location object: ", obj);
-        return cb(false);
+  // send results to parseLocation from geocodeAddress
+  function parseLocation(results, response) {
+    var addy = {};
+    console.log('parsing address', results.address_components);
+    var parsedress = results.address_components
+    // iterate through the array of address_components
+    for (var i=0; i<parsedress.length; i++) {
+      if (parsedress[i].types[0]==="postal_code") {
+        if (typeof(parsedress[i].long_name) !== "undefined") {
+          addy.zip = parsedress[i].long_name
+      }}
+      if (parsedress[i].types[0]==="administrative_area_level_1") {
+        if (typeof(parsedress[i].short_name) !== "undefined") {
+          addy.state = parsedress[i].short_name
+      }}
+      if (parsedress[i].types[0]==="locality") {
+        if (typeof(parsedress[i].long_name) !== "undefined") {
+          addy.city = parsedress[i].long_name
+      }}
+      if (parsedress[i].types[0]==="route") {
+        if (typeof(parsedress[i].short_name) !== "undefined") {
+          addy.street = parsedress[i].short_name
+      }}
+      if (parsedress[i].types[0]==="street_number") {
+        if (typeof(parsedress[i].long_name) !== "undefined") {
+          addy.stno = parsedress[i].long_name
+      }}
+      if (parsedress[i].types[0] === "country" ? typeof parsedress[i].short_name !== "undefined" : void 0) {
+        addy.country = parsedress[i].short_name
       }
+    }
+    if (typeof(addy.street)!=="undefined" && typeof(addy.stno)!=="undefined") {
+      addy.home = addy.stno + " " + addy.street
+      console.log("street address is: ")
+      console.log(addy.home)
+    }
+
+    // return values of address components to be saved in form fields
+    if (addy.country !== 'US') {
+      return response(false, "Invalid ZIP code")
+    } else if (addy.zip) {
+      console.log("returning addy: ")
+      console.log(addy)
+      // return response(true, "Address found", addy)
+      return addy;
     }
   }
 
@@ -206,6 +256,7 @@ function MapService_ ($q, LayerService, StyleService, Configurator) {
     console.log("updating map, centering on ", center);
     service.g.gmap.setCenter(center);
     // update the OL MAP view's center.
+    console.log('setting center to', center);
     getGmapMaxZoom(center, function (zoom) {
       service.g.gmap.setZoom(zoom);
     });

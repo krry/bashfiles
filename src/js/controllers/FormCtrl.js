@@ -7,27 +7,32 @@ controllers.controller("FormCtrl", ["$scope", "UserService", "Session", "MapServ
 
 function FormCtrl_($scope, UserService, Session, MapService) {
   var vm = this;
-
-  vm.user = UserService.get;
-
+  var valid = false; // use ng-valid from form
+  vm.home = UserService.getHome;
+  vm.prospect = UserService.getProspect;
   vm.monitorZip = monitorZip;
-
   vm.validZip = true;
   vm.validTerritory = true;
   vm.gmapShown = MapService.getGmapShown;
+  vm.prevStep = prev;
+  vm.nextStep = next;
+  vm.geocodeAddress = MapService.geocodeAddress;
+
+  function prev () {
+    Session.prev();
+  }
 
   function next () { // TODO: currently not checking if valid
+    /* jshint -W030 */
     valid && Session.next();
+    /* jshint +W030 */
   }
 
   function monitorZip () {
     console.log('monitoring zip field');
     var zip = vm.user.zip;
 
-    if (zip.length === 5) {
-      valid = true;
-      next();
-    } else if (typeof(zip) !== "undefined") {
+    if (typeof(zip) !== "undefined") {
       console.log(zip);
       MapService.setGmapShown(true);
       MapService.updateGmap({ "postalCode": zip }, validateZip);
@@ -83,16 +88,7 @@ function FormCtrl_($scope, UserService, Session, MapService) {
   function validateTerritory(result) {
     vm.validTerritory = result;
     console.log('inTerritory is', vm.validTerritory);
+    valid = true;
+    next();
   }
-
-  function populateAddress () {
-    console.log('parsing address');
-    // TODO: use zip code to fill in city and state
-    // package and send full address to Google Maps API for sanitation
-    // populate sanitized address in the address fields
-    // center map on latlng of address
-    // check if street address present in sanitized address
-      // if so, drop map marker on this location
-  }
-
 }
