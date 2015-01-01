@@ -12,7 +12,7 @@ function DevCtrl_($scope) {
   vm.toggleDevPanel = toggleDevPanel;
   vm.userShown = true;
   vm.userShownTriggerText = "hide";
-  vm.panelShown = true;
+  vm.panelShown = false;
   vm.panelShownTriggerText = "show dev tools";
 
   // TODO: register a dev tools service so directives outside the dev panel can interact with it. see the ModalService and ModalCtrl

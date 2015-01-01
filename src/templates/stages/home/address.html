@@ -1,10 +1,10 @@
-<section class="overlay primary short col fourth three">
+<section class="overlay primary short col full">
   <h2>Wow, <span id="neighbor_count">1,234</span> of your neighbors have gone solar.<br><small>Let's get you started</small></h2>
   <form fln-form novalidate ng-submit="">
     <div class="row">
       <div class="col half center padded sml-full">
         <input
-          ng-model="user.street"
+          ng-model="form.home.street"
           type="text"
           class="street"
           placeholder="Street address"
@@ -16,7 +16,7 @@
       <div class="col half center padded sml-full">
         <div class="combo-input">
           <input
-            ng-model="user.city"
+            ng-model="form.home.city"
             type="text"
             class="city"
             placeholder="Exampletown"
@@ -25,7 +25,7 @@
             ng-valid="form.parseAddress(user)">
           </input>
           <input
-            ng-model="user.state"
+            ng-model="form.home.state"
             type="text"
             id="state"
             placeholder="CA"
@@ -37,7 +37,7 @@
             ng-valid="form.parseAddress(user)">
           </input>
           <input
-            ng-model="user.zip"
+            ng-model="form.home.zip"
             type="tel"
             id="zip"
             placeholder="ZIP"
@@ -53,10 +53,5 @@
       </div>
     </div>
   </form>
-  <button class="ib aqua" ng-click="stages.next()">Next</button>
+  <button class="ib aqua" ng-click="form.geocodeAddress(form.home());">Go</button>
 </section>
-<aside class="overlay secondary short col fourth sml-full med-full">
-  <p>Our customers in your area save an average of <strong>20%</strong> on their utility bill and reduces an average of <strong>2.5 tons of CO<sub>2</sub></strong> every month.</p>
-  <figure><img src="" alt=""></figure>
-  <div fln-help class="fln-help"></div>
-</aside>

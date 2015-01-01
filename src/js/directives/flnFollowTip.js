@@ -4,7 +4,7 @@
 //
 //  a directive that attaches a hover-activated followtip to
 //  the element to which it is applied
-//  
+//
 //  the followtip follows the mouse as it moves within
 //  the element
 //
@@ -32,11 +32,12 @@ function flnFollowTip_ () {
           offsetY;
 
       tip = $(el[0]).find('span');
-      console.log("parent div starts at top:", el.offset().top, "and left:", el.offset().left);
-      offsetX = tip.offset().left;
+      console.log("parent div starts at top:", $(el).offset().top, "and left:", $(el).offset().left);
+      offsetX = tip.offset().left + 20;
       offsetY = tip.offset().top;
+      console.log(offsetX);
 
-      el.addClass('followtipped');
+      $(el).addClass('followtipped');
 
       // only show the followtip when the mouse is over the proper div
       $(el).on('mouseover', function(){

@@ -80,6 +80,10 @@ a.btn {
     @include btn($red);
   }
 
+  &.red.tiny {
+    @include btn($red, $size: .75em);
+  }
+
   &.white {
     @include btn($white);
   }

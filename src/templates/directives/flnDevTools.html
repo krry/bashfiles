@@ -22,7 +22,7 @@
   <div class="col half padded sml-full">
     <h4>active user info: <small><a ng-click="dev.toggleUserObject()">{{dev.userShownTriggerText}}</a></small></h4>
     <!-- TODO: log out user object to footer for dev purposes -->
-    <pre ng-show="dev.userShown" fln-form>formInfo = {{ form.user | json }}</pre>
+    <pre ng-show="dev.userShown" fln-form>formInfo = {{ form.home | json }}</pre>
     <a class="btn red" onclick="location.hash = '#/home'; location.reload(true);">Reload app</a>
     <!-- <ul>
       <li><label for="userName">user.name</label><span>{{user.name}}</span></li>
