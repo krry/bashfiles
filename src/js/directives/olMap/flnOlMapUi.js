@@ -35,12 +35,13 @@ directives
 //   };
 // }
 
-function flnDraw_ ($timeout, Configurator, Clientstream) {
+function flnDraw_ ($timeout, $compile, Configurator, Clientstream) {
   return {
     restrict: "EA",
-    link: function flnDrawLink (scope, ele, attrs) {
+    template: "<div fln-follow-tip tip-text='{{tip_text}}'></div>",
+    controller: function flnDrawCtrl ($scope, $element, $attrs) {
 
-      var tips, tip_step, tip_text, listener_key;
+      var tips, tip_step, listener_key;
       // dev //
       var map_div = $('#omap');
       // end:dev //
@@ -54,23 +55,24 @@ function flnDraw_ ($timeout, Configurator, Clientstream) {
         "keep clickin', brah",
         "close that shape up, brah",
       ]
-      tip_text = tips[tip_step];
+      $scope.tip_text = tips[tip_step];
 
-      // prep the omap_div
-      map_div.attr('tip-text', tip_text);
-      map_div.attr('position', 'right');
-      // add a tooltip
-      map_div.attr('fln-follow-tip', 'butts')
       // listen for clicks on the map...
+
       listener_key = Configurator.map().on('click',  function() { // save the listener for $destroy
-        console.log(tip_text);
+        console.log($scope.tip_text);
         tip_step < tips.length -1 && tip_step++;
-        tip_text = tips[tip_step]
-        map_div.attr('tip-text', tip_text);
-        scope.$apply();
+        $scope.tip_text = tips[tip_step]
+        map_div.attr('tip-text', $scope.tip_text);
+        $scope.$apply();
       });
 
-      ele.on('$destroy', function drawDestroy (e) {
+      // compile && add that beastly tooltip div
+      map_div.addClass('fln-follow-tip')
+      map_div.attr('tip-text', '{{tip_text}}');
+      $compile(map_div)($scope);
+
+      $element.on('$destroy', function drawDestroy (e) {
         Configurator.disable('draw');
         Configurator.map().unByKey(listener_key) // remove the listener afterwards
       });
