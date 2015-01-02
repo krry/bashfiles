@@ -3,16 +3,19 @@
 @import "../imports/motion";
 
 .help {
-  margin-top: 2em;
+  margin: 2em auto;
+  width: 200px;
+  border: 1px red;
 
   ul {
     width: 100%;
   }
 
   li {
-    text-align: center;
-    padding: 1em;
+    text-align: left;
+    padding: 0 0 0 1em;
     transition: background-color .15s $easing-quick;
+    border: 1px solid lime;
 
     &:first-of-type {
       // border-left: none;
@@ -21,7 +24,7 @@
 
   a {
     @include apercu-regular;
-    background: $white;
+    // background: $white;
     padding: 1em 0;
     display: block;
     // width: 100%;
@@ -29,9 +32,11 @@
     font-size: .75em;
     text-transform: none;
     letter-spacing: 1;
-    border-radius: 50%;
-    margin: 0 auto;
-    width: 6.5em;
+    // border-radius: 50%;
+    margin: 0;
+    width: 7.3em;
+    line-height: 40px;
+    border: 1px solid blue;
 
     &:hover {
       background-color: $grey-mid;
@@ -40,9 +45,24 @@
   }
 
   span {
-    display: block;
-    font-size: 2.5em;
-    margin-bottom: .125em;
+    display: inline-block;
+    float: left;
+    width: 40px;
+    height: 40px;
+    border: 1px solid red;
+    margin-right: 4px;
+    // font-size: 2.5em;
+    // margin-bottom: .125em;
+  }
+
+  span.icon-call {
+    background: url('../img/help-call.svg') no-repeat center center;
+    background-size: 40px 40px;
+  }
+
+  span.icon-chat {
+    background: url('../img/help-chat.svg') no-repeat center center;
+    background-size: 40px 40px;
   }
 }
 
