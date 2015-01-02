@@ -1,5 +1,5 @@
 <section class="overlay primary short col full">
-  <h1>Wow! <span id="neighbor_count">9,999</span> of your neighbors have gone solar.<br><small>Let’s take a closer look at your house.</small></h1>
+  <h1 ng-hide="form.valid">Wow! <span id="neighbor_count">9,999</span> of your neighbors have gone solar.<br><small>Let’s take a closer look at your house.</small></h1>
   <form fln-form novalidate ng-submit="">
     <div class="row">
       <div class="col half center padded sml-full">
@@ -54,8 +54,11 @@
       </div>
     </div>
     
-    <button class="aqua" ng-show="form.valid" ng-click="form.nextStep()">YES</button>
-    <button class="aqua" ng-show="form.valid" ng-click="form.nextStep()">NO</button>
+    <div class="answer-container center" ng-show="form.valid" >
+      <h3>Do you own your house?</h3>
+      <button class="answer-yes aqua" ng-click="form.nextStep()">YES</button>
+      <button class="answer-no aqua" ng-click="form.nextStep()">NO</button>
+    </div>
   </form>
 </section>
 <!-- <aside class="overlay secondary short col fourth sml-full med-full">

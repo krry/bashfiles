@@ -125,6 +125,24 @@ button.address-search {
   border: 1px solid pink;
 }
 
+.answer-container {
+}
+.answer-container h3 {
+  display: inline-block;
+  margin: 1em 1em 0 0;
+}
+button.answer-yes,
+button.answer-no {
+  display: inline-block;
+  opacity: 1;
+  margin: 0.15em;
+  padding: 0.75em 1.25em;
+  min-width: 5em;
+  border-radius:50% / 100%;
+}
+
+
+
 @media screen and (min-width: $width-min-med) {
   input.street,
   .combo-input input {
