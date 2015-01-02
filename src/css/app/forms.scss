@@ -24,7 +24,7 @@ input.zipcode {
   width: 12em;
   max-width: 8em;
   padding: 0.5em 1em;
-  border: 2px solid $grey-lightest;
+  border: 1px solid $grey-medium;
   border-radius: 4px;
   margin: 0 auto -.25em;
   background-color: $white-dark;
@@ -39,7 +39,7 @@ input.street {
 
 input.street,
 .combo-input {
-  border: 2px solid $grey-lightest;
+  border: 1px solid $grey-medium;
   border-radius: 4px;
 }
 
