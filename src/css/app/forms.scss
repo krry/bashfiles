@@ -53,7 +53,8 @@ input.zipcode {
 .combo-input {
   padding: .75em 1em;
   text-align: justify;
-  max-width: 27em;
+  position: relative;
+  // max-width: 27em;
 
   border-color: $grey-mid;
   background-color: $white;
@@ -95,6 +96,22 @@ input.zipcode {
 
 .combo-input input.year {
   width: 3em;
+}
+
+button.address-search {
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 1;
+  background: url('../img/address-search.svg') no-repeat center center;
+  background-size: 40px 40px;
+  background-color: none;
+  width: 40px;
+  height: 40px;
+  margin: 0.5em;
+  padding: 0em;
+  border-radius: 0em; 
+  border: 1px solid pink;
 }
 
 @media screen and (min-width: $width-min-med) {

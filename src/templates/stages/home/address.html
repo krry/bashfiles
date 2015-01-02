@@ -49,10 +49,11 @@
             ng-pattern="/^\d{5}(?:[-\s]\d{4})?$/"
             ng-valid="form.parseAddress(user)">
           </input>
+          <button class="address-search ib" ng-hide="form.valid" ng-click="form.geocodeAddress(form.home, form.recenterMap)">&nbsp;</button>
         </div>
       </div>
     </div>
-    <button class="ib aqua" ng-hide="form.valid" ng-click="form.geocodeAddress(form.home, form.recenterMap)">Go</button>
+    
     <button class="aqua" ng-show="form.valid" ng-click="form.nextStep()">That's my house</button>
   </form>
 </section>
