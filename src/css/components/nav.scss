@@ -116,18 +116,24 @@ header nav li:last-child {
   display: none;
 }
 
-nav.short a {
+nav.short .top-five-container {
+  width: 24.9%;
   position: relative;
+}
+
+nav.short .top-five-container a {
   text-transform: uppercase;
   padding: 1.5em 4.4em 1.5em 0;
   font-size: .75em;
+  width: 100%;
+  text-align: right;
   white-space: nowrap;
   &:not(.logo):hover {
-    background-color: $tint;
+    background-color: $shade;
   }
 }
 
-nav.short span.top-five-icon {
+nav.short .top-five-container a span.top-five-icon {
   position: absolute;
   top: 1.25em;
   right: 2em;
