@@ -89,8 +89,6 @@ header nav li:last-child {
   padding-right: 1.7em;
 }
 
-
-
 // header nav li span {
 //   border-radius: 100%;
 //   background: $shade;
@@ -131,6 +129,8 @@ nav.short span.top-five {
   background-size: contain;
   width: 20px;
   height: 20px;
+  display: inline-block;
+  border: 1px solid pink;
 }
 
 // nav.short .logo {
