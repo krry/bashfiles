@@ -4,7 +4,7 @@
 @import "functions";
 @import "typography";
 
-@mixin btn($color: $color-button-bkgd, $size: 1rem, $corners: #{1.5em/50%}, $pad: #{.875em 2em .75em}) {
+@mixin btn($color: $color-button-bkgd, $size: 0.9rem, $corners: #{1.5em/50%}, $pad: #{1em 2em 1em}) {
 
   @include apercu-medium;
   @include caps;
@@ -53,21 +53,21 @@
 
   &:hover {
     color: $white;
-    background-color: lighten($color, 10%);
+    background-color: lighten($color, 3%);
 
     @if $color == $white {
       color: $grey-darker;
-      background-color: darken($color, 5%);
+      background-color: darken($color, 3%);
     }
   }
 
   &:active:not(:disabled) {
     color: $white;
-    background-color: lighten($color, 10%);
+    background-color: lighten($color, 3%);
 
     @if $color == $white {
       color: $grey-darker;
-      background-color: lighten($color, 10%);
+      background-color: darken($color, 3%);
     }
   }
 
