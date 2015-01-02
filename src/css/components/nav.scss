@@ -120,7 +120,7 @@ header nav li:last-child {
 
 nav.short a {
   text-transform: uppercase;
-  padding: 1.5em 2em;
+  padding: 1.5em 4.3em 1.5em 0;
   font-size: .75em;
   white-space: nowrap;
   &:not(.logo):hover {
@@ -129,13 +129,16 @@ nav.short a {
 }
 
 nav.short span.top-five {
-  opacity: 1;
+  position: absolute;
+  top: 1.25em;
+  right: 2em;
+  opacity: 0.8;
   background: url('../img/question-mark-white.svg') no-repeat center center;
   background-size: 20px 20px;
   width: 20px;
   height: 20px;
-  display: inline-block;
-  border: 1px solid pink;
+  border: 1px solid $white;
+  border-radius: 50%;
 }
 
 // nav.short .logo {
