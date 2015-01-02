@@ -34,4 +34,4 @@
   //   var list = element.find('button');
   //   expect(list.length).toBe(4);
   // });
-});
+// });
