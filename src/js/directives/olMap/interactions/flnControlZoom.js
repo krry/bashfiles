@@ -23,8 +23,8 @@ var zoom_options = {
   className:        'fln-zoom', // CSS class name. Default is ol-zoom.
   zoomInLabel:      '+',        // Text label to use for the zoom-in button. Default is +
   zoomOutLabel:     '-',        // Text label to use for the zoom-out button. Default is -
-  zoomInTipLabel:   'Zoom in',  // Text label to use for the button tip. Default is Zoom in
-  zoomOutTipLabel:  'Zoom out', // Text label to use for the button tip. Default is Zoom out
+  zoomInTipLabel:   '',  // Text label to use for the button tip. Default is Zoom in
+  zoomOutTipLabel:  '', // Text label to use for the button tip. Default is Zoom out
   // delta:            '2',              // The zoom delta applied on each click.
   // target:           '',              // Target.
 };
@@ -38,12 +38,15 @@ function flnControlZoom_ (Configurator) {
     link: function flnControlZoomLink (scope, ele, attrs) {
       // create a new zoom controller
       var zoomControl = new ol.control.Zoom(zoom_options);
+      // get the scroll zoom interaction
+      var scroll_zoom = Configurator.interactions().scroll_zoom;
       // add it to the map
       var controls = Configurator.map().getControls();
-      if (controls.getArray().length > 0 ){ // hack: directive fires twice, prevent double controls
+      while (controls.getArray().length > 0 ){ // hack: directive fires twice, prevent double controls
         controls.pop();
       }
       Configurator.map().addControl(zoomControl);
+      Configurator.map().addInteraction(scroll_zoom);
       // remove it from the map when the directive gets destroyed
       ele.on('$destroy', function (e) {
         Configurator.map().removeControl(zoomControl);

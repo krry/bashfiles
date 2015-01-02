@@ -1,12 +1,22 @@
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+  SERVER
+  defines and runs the app on the server
+
+  determines the environment, the port, the database, 
+  the routes, cookies, the root directory (public)
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+
 // external modules
 var newrelic     = require('newrelic'),
     nconf        = require('nconf'), // https://github.com/flatiron/nconf
     express      = require('express'),
     cookieParser = require('cookie-parser'),
-    environment = process.env.NODE_ENV || 'development';
+    environment  = process.env.NODE_ENV || 'development';
 
 nconf.argv().env().file({file: './server/config/environments/' + environment + '.json'});
-console.log('Node_Env', process.env.NODE_ENV);
+
 // internal modules
 var db, app, port;
 

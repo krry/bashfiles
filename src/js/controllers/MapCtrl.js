@@ -31,13 +31,6 @@ function MapCtrl_($scope, $timeout, Client, Sync, MapService, LayerService, Inte
   // end helpers
   var vm = this;
   var live_feature;
-  // for dev: //////////////////////////////
-  Design.ref().update({
-      owner: "owner_id",
-      session: Session.ref().key(),
-      data: "data_id",
-    })
-  // end dev: //////////////////////////////
 
   // state of the interface
   $scope.draw_busy = false;
@@ -108,6 +101,7 @@ function MapCtrl_($scope, $timeout, Client, Sync, MapService, LayerService, Inte
     Design.feature().on('change:wkt', wkt_update_notification);
     Design.feature().getGeometry().on('change', update_wkt_while_modify);
     Client.emit('update_remote', Design.feature().getGeometry());
+    Session.next();
   }
 
   function wkt_update_notification (ft) {

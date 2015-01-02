@@ -1,3 +1,14 @@
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+  SCRIPTS
+  supports BUILD task
+
+  lints the scripts with jsHint, outputs to the dev console
+  concatenates all our `src/js`, uglifies it and produces
+  a minified `all.min.js` and the debuggable `all.js`
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var rename = require('gulp-rename');
@@ -10,13 +21,15 @@ var handleErrors = require('../util/handleErrors');
 
 var scripts = [
   'src/js/*.js',
-  'src/js/stages/*.js',
+  'src/js/providers/*.js',
   'src/js/services/*.js',
   'src/js/controllers/*.js',
   'src/js/directives/**/*.js',
+  'src/js/rxjs-firebase/**/*.js',
+  'src/js/stages/*.js',
 ];
 
-gulp.task('scripts', function(stuff){
+gulp.task('scripts', function(){
   return gulp.src(scripts)
     .pipe(plumber(handleErrors))
     .pipe(jshint('./.jshintrc'))

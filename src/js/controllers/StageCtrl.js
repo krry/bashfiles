@@ -57,31 +57,52 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
   // listen for change requests
   // stage listen
   Clientstream.listen('stage', function stage_listen (target_state) {
-    target_state = !!target_state.state ? target_state.state : target_state;
-    if ($scope.view_sync) {
-      stage = target_state.stage;
-      var name = Templates.config[stage].name
-      $state.go(name).then(function(){
-        // trigger step changes afterwards
-        Clientstream.emit('step', target_state.step)
-      });
+    if (target_state === "next") {
+      vm.next();
+    } else if (target_state === "back") {
+      vm.back();
+    } else if ($scope.view_sync) {
+      target_state = !!target_state.state ? target_state.state : target_state;
+        stage = target_state.stage;
+        var name = Templates.config[stage].name
+        $state.go(name).then(function(){
+          // trigger step changes afterwards
+          Clientstream.emit('step', target_state.step)
+        });
+
     }
   });
   // step listen
   Clientstream.listen('step', function step_listen (target_step) {
-    step = target_step
-    $timeout(function(){
+    step = target_step;
+    $timeout( function () {
       // unlock the view
       $scope.view_sync = true;
       $scope.$apply();
-    }, 1)
+    }, 1);
     // update the view
     vm.partial = Templates.partials[stage][step];
     // update firebase
+    /* jshint -W030 */
     $scope.view_sync && state_ref.update({
       stage: stage,
-      step:  step
-    })
+      step: step
+    });
+    /* jshint +W030 */
+  });
+
+  vm.startOver = function () {
+    Clientstream.emit('start over', 'butts');
+  }
+  // listen for start over
+  Clientstream.listen('start over', function start_over (data) {
+    console.log('heard that startover', data)
+    Clientstream.emit('erase area', data);
+    $scope.view_sync && Clientstream.emit('stage', {
+      stage: 1,
+      step: 0
+    });
+    /* jshint +W030 */
   });
 
   // user flow controls

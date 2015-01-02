@@ -1,5 +1,5 @@
 {
-  "ENV": "production",
+  "MINIFIED": "true",
   "PORT": 7100,
   "FLANNEL_SECRET": "sekret",
   "FIREBASE_SECRET": "hSKlMlUuwpcowWFyS3UjmSqlZQTPTmeEz62OXta9",

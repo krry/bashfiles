@@ -1,3 +1,12 @@
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+  BOWER
+  supports LIBS task
+
+  runs `bower install` before the libs are concatenated
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+
 var gulp = require('gulp');
 var bower = require('bower');
 

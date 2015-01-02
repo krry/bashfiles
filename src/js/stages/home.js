@@ -1,4 +1,4 @@
- // home.js stage
+// home.js stage
 angular.module('stages.home',[]).config( function ($stateProvider) {
 
   // paths for this state
@@ -12,8 +12,8 @@ angular.module('stages.home',[]).config( function ($stateProvider) {
     url: "/home",
     views: {
       'header@': {
-        templateUrl: templateUrl + 'header.html',
-        controller:  'HeaderCtrl as head',
+        templateUrl: templateUrl + 'header-short.html',
+        controller:  'HeaderCtrl as header',
       },
       'main@': {
         resolve: {},

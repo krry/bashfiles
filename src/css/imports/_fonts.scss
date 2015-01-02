@@ -1,5 +1,5 @@
 @mixin apercu-light {
-  font-family: "Apercu Light", "Helvetica Neue", sans-serif;
+  font-family: $sans-serif-light;
   font-size-adjust: 0.508;
   font-weight: 200;
   font-style: normal;
@@ -49,6 +49,7 @@
 
 $serif: Georgia, serif;
 $sans-serif: "Apercu Regular", "Helvetica Neue", serif;
+$sans-serif-light: "Apercu Light", "Helvetica Neue", sans-serif;
 $geometric: "Apercu Bold", "Helvetica Neue", sans-serif;
 $monospace: "Apercu Mono", "Consolas", monospace;
 $helvetica: "Helvetica Neue", sans-serif;

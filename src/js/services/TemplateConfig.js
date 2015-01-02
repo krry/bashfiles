@@ -61,7 +61,6 @@ function TemplateConfig_ () {
         stage.push(hardcode(config[i].steps[j].partial));
       }
     }
-    console.log('partials: ', partials);
     return partials;
   }
 

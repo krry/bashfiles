@@ -13,9 +13,9 @@
 
 ================================================== */
 
-angular.module('flannel').factory('MapService', ['$q', 'LayerService', 'StyleService', 'Configurator', MapService_]);
+angular.module('flannel').factory('MapService', ['$q', 'Clientstream', 'LayerService', 'StyleService', 'UserService', 'Configurator', MapService_]);
 
-function MapService_ ($q, LayerService, StyleService, Configurator) {
+function MapService_ ($q, Client, LayerService, StyleService, UserService, Configurator) {
 
   var DEFAULT_LAT = 30;
   var DEFAULT_LNG = -123;
@@ -51,6 +51,8 @@ function MapService_ ($q, LayerService, StyleService, Configurator) {
     getGmapCenter: getGmapCenter,
     setGmapCenter: setGmapCenter,
     updateGmap: updateGmap,
+    recenterMap: recenterMap,
+    geocodeZip: geocodeZip,
     geocodeAddress: geocodeAddress,
     getGmapMaxZoom: getGmapMaxZoom,
     setAutocomplete: setAutocomplete,
@@ -75,7 +77,6 @@ function MapService_ ($q, LayerService, StyleService, Configurator) {
   // google maps methods defined
 
   function getGmapShown () {
-    console.log("getting gmapShown", gmapShown);
     return gmapShown;
   }
 
@@ -111,6 +112,52 @@ function MapService_ ($q, LayerService, StyleService, Configurator) {
     return outcome;
   }
 
+  function geocodeZip(zip, cb) {
+    // TODO: use streams for this later
+    var center,
+        obj;
+
+    obj = { postalCode: zip };
+
+    geocodeAddress(obj, function(response) {
+      if (typeof response.lat !== "function") {
+        return response;
+      } else {
+        center = {
+          lat: response.lat(),
+          lng: response.lng()
+        };
+        service.g.gmap.setCenter(center);
+        getGmapMaxZoom(center, function(zoom) {
+          service.g.gmap.setZoom(zoom);
+          recenterMap(center);
+          return cb(true);
+        });
+      }
+    })
+  }
+
+  function updateGmap(obj, cb) {
+    var center;
+    console.log('updating gmap', obj);
+    if (typeof(obj)==="object") {
+      if (obj.lat() && obj.lng()) {
+      console.log('object passed to updateGmap');
+      center = obj;
+      console.log('lat:', obj.lat(), ', lng:', obj.lng());
+      service.g.gmap.setCenter(center);
+      service.g.gmap.setZoom(getGmapMaxZoom(center, function(zoom) {
+        service.g.gmap.setZoom(zoom);
+        recenterMap(center);
+        return cb(true);
+      }));
+      } else {
+        console.error("this is not a location object: ", obj);
+        return cb(false);
+      }
+    }
+  }
+
   function geocodeAddress(obj, cb) {
     var outcome;
     var addy = "";
@@ -124,83 +171,134 @@ function MapService_ ($q, LayerService, StyleService, Configurator) {
         } else {
           addy = addy + " " + obj[key];
         }
-        components[key] = obj[key];
+        // components[key] = obj[key];
       }
     }
-    console.log("components are", components);
+    // console.log("components are", components);
 
     geocoder.geocode({
       "address": addy,
-      "componentRestrictions": components,
+      // "componentRestrictions": components,
     }, function(results, status) {
       if (status === google.maps.GeocoderStatus.OK) {
         if (results[0]) {
           outcome = results[0].geometry.location;
           console.log('geocode successful', results);
+          var addy = parseLocation(results[0]);
+          if (addy.city) UserService.setHome('city', addy.city);
+          if (addy.state) UserService.setHome('state', addy.state);
+          if (addy.zip) UserService.setHome('zip', addy.zip);
+          if (addy.street) {
+            Client.emit('valid address', addy);
+          }
           return cb(outcome);
         }
       } else if (status === google.maps.GeocoderStatus.ZERO_RESULTS) {
           console.error("Can't find that location.");
           outcome = false;
+          return cb(outcome);
       } else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
           console.error("over query limit, retrying...");
           setTimeout(function(){ geocodeAddress(obj, cb); }, 200);
       } else if (status === google.maps.GeocoderStatus.REQUEST_DENIED) {
           console.error("The geocoder needs an additional parameter.");
           outcome = false;
+          return cb(outcome);
       } else {
           if (status === google.maps.GeocoderStatus.INVALID_REQUEST) {
             console.error("The geocode request was invalid. Address or latLng may be missing.");
             outcome = false;
+            return cb(outcome);
           }
       }
     });
-    return outcome;
+    // return cb(outcome);
   }
 
-  function updateGmap(obj) {
-    var center;
-    // TODO: handle these async calls to Google Maps API with promises
-    console.log('updating gmap', obj);
-    if (typeof(obj)==="object") {
-      console.log('object passed to updateGmap');
-      // TODO: never mix up these indexes again, this was broken because I thought it was obj.B for lng instead of obj.D
-      if (obj.k && obj.D) {
-        center = obj;
-        console.log('lat:', obj.k, ', lng:', obj.D);
-        service.g.gmap.setCenter(center);
-        service.g.gmap.setZoom(getGmapMaxZoom(center, function(zoom) {
-            service.g.gmap.setZoom(zoom);
-          }));
-      } else {
-        console.log('location being geocoded');
-        geocodeAddress(obj, function(latLng) {
-          center = {
-            lat: latLng.k,
-            lng: latLng.D
-          };
-          service.g.gmap.setCenter(center);
-          getGmapMaxZoom(center, function(zoom) {
-            service.g.gmap.setZoom(zoom);
-          });
-        });
+  // send results to parseLocation from geocodeAddress
+  function parseLocation(results, response) {
+    var addy = {};
+    console.log('parsing address', results.address_components);
+    var parsedress = results.address_components
+    // iterate through the array of address_components
+    for (var i=0; i<parsedress.length; i++) {
+      if (parsedress[i].types[0]==="postal_code") {
+        if (typeof(parsedress[i].long_name) !== "undefined") {
+          addy.zip = parsedress[i].long_name
+      }}
+      if (parsedress[i].types[0]==="administrative_area_level_1") {
+        if (typeof(parsedress[i].short_name) !== "undefined") {
+          addy.state = parsedress[i].short_name
+      }}
+      if (parsedress[i].types[0]==="locality") {
+        if (typeof(parsedress[i].long_name) !== "undefined") {
+          addy.city = parsedress[i].long_name
+      }}
+      if (parsedress[i].types[0]==="route") {
+        if (typeof(parsedress[i].short_name) !== "undefined") {
+          addy.street = parsedress[i].short_name
+      }}
+      if (parsedress[i].types[0]==="street_number") {
+        if (typeof(parsedress[i].long_name) !== "undefined") {
+          addy.stno = parsedress[i].long_name
+      }}
+      if (parsedress[i].types[0] === "country" ? typeof parsedress[i].short_name !== "undefined" : void 0) {
+        addy.country = parsedress[i].short_name
       }
-    } else {
-      console.error("this is not a location object: ", obj);
-      return false;
     }
+    if (typeof(addy.street)!=="undefined" && typeof(addy.stno)!=="undefined") {
+      addy.home = addy.stno + " " + addy.street
+      console.log("street address is: ")
+      console.log(addy.home)
+    }
+
+    // return values of address components to be saved in form fields
+    if (addy.country !== 'US') {
+      return response(false, "Invalid ZIP code")
+    } else if (addy.zip) {
+      console.log("returning addy: ")
+      console.log(addy)
+      // return response(true, "Address found", addy)
+      return addy;
+    }
+  }
+
+  function recenterMap(center) {
     console.log("updating map, centering on ", center);
-    // TODO: figure out why center is not a LatLng object...
     service.g.gmap.setCenter(center);
+    console.log('setting center to', center);
     getGmapMaxZoom(center, function (zoom) {
       service.g.gmap.setZoom(zoom);
     });
   }
 
+  function dropPin(addy, res) {
+    var marker;
+
+    if(typeof(marker)!=="undefined") {
+      console.log('already a pin')
+      marker.setMap(null);
+      marker = null;
+    }
+    if (addy.street !== ""){
+      console.log("dropping new pin on addy " + addy);
+      marker = new google.maps.Marker({
+        position: addy.latlng,
+        map: service.g.gmap,
+        zoom: addy.zoom,
+        draggable: true,
+        icon: 'img/burstpin.png'
+      });
+    }
+  }
+
   function getGmapMaxZoom(latLng, cb) {
-    var zoom = service.g.mapOptions.zoom;
+    var zoom = service.g.gmap.getZoom();
+    // handle case where .lng & .lng() differ.
+    var location = typeof latLng.lng === "function" ? new google.maps.LatLng(latLng.lat(), latLng.lng()) : new google.maps.LatLng(latLng.lat, latLng.lng);
     console.log('max zooming', zoom);
-    maxZoomService.getMaxZoomAtLatLng(latLng, function(response) {
+    console.log('latlng', location);
+    maxZoomService.getMaxZoomAtLatLng(location, function(response) {
       if (response.status !== google.maps.MaxZoomStatus.OK) {
         console.log("max zoom status failed");
         zoom = 17;
@@ -237,6 +335,8 @@ function MapService_ ($q, LayerService, StyleService, Configurator) {
 
   function setGmapCenter(center) {
     service.g.center = center;
+    Configurator.view().setCenter([center.lat(), center.lng()])
+    console.log('setting center', Configurator.view().getCenter());
     return service.g.center;
   }
 
@@ -299,4 +399,5 @@ function MapService_ ($q, LayerService, StyleService, Configurator) {
   function addOverlay(layer) {    //TODO: move to OlService
     return service.o.omap.addOverlay(layer);
   }
+
 }

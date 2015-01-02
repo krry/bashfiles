@@ -1,3 +1,12 @@
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+  IMAGES
+  supports BUILD task
+  
+  makes responsive images, minifies, copies to `public`
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+
 var gulp = require('gulp');
 var changed = require('gulp-changed');
 

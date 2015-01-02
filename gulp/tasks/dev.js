@@ -1,17 +1,23 @@
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-   META
 
-   gulp watches changes in itself, reboots itself
+  DEV
+  root task
+  depends on CONFIG task
 
-   slightly adapted from noxoc's solution
-   http://noxoc.de/2014/06/25/reload-gulpfile-js-on-change/
+  cleans out the compiled files and makes sure that gulp
+  is watching itself for changes as well
+
+  gulp watches changes in itself, reboots itself
+
+  slightly adapted from noxoc's solution
+  http://noxoc.de/2014/06/25/reload-gulpfile-js-on-change/
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
 var gulp = require('gulp')
 var spawn = require('child_process').spawn;
 
-gulp.task('meta', function() {
+gulp.task('dev', ['clean'], function() {
   var process;
 
   function restart() {

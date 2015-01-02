@@ -80,6 +80,10 @@ a.btn {
     @include btn($red);
   }
 
+  &.red.tiny {
+    @include btn($red, $size: .75em);
+  }
+
   &.white {
     @include btn($white);
   }
@@ -95,13 +99,13 @@ a.btn {
 }
 
 button.text {
-  @include apercu-light;
+  //@include apercu-light;
   background: none;
   border: none;
   color: $grey-mid;
-  font-size: .875em;
+  font-size: .8em;
   text-transform: none;
-  letter-spacing: .5px;
+  // letter-spacing: .5px;
   padding: 1em .75em;
   margin: 0 auto;
 
@@ -221,7 +225,7 @@ select[multiple=multiple] {
   // padding: .33333em;
   padding: .5em .75em;
   border-radius: 4px;
-  border: 1px solid $grey-lighter;
+  border: 1px solid $grey-medium;
   margin-bottom: .5em;
   width: 100%;
   font-size: 1.75em;
@@ -244,7 +248,7 @@ input[type="month"]:hover,
 input[type="time"]:hover,
 input[type="week"]:hover,
 select[multiple=multiple]:hover {
-  border-color: $blue-light;
+  border-color: $grey-mid;
 }
 
 textarea:focus,
@@ -263,7 +267,10 @@ input[type="month"]:focus,
 input[type="time"]:focus,
 input[type="week"]:focus,
 select[multiple=multiple]:focus {
-  border-color: $blue-bright;
+  border-color: $grey-mid;
+  -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,0.2);
+     -moz-box-shadow: 0px 0px 3px rgba(0,0,0,0.2);
+          box-shadow: 0px 0px 3px rgba(0,0,0,0.2);
 }
 
 // input placeholders
