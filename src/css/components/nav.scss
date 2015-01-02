@@ -72,7 +72,7 @@ header nav li {
   position: relative;
   opacity: 0.7;
   display: inline-block;
-  padding: 1.2em 0.2em;
+  padding: 1.5em 0.2em;
   color: white;
   font-size: .75em;
   text-transform: uppercase;
@@ -89,15 +89,6 @@ header nav li:last-child {
   padding-right: 1.7em;
 }
 
-header nav li.top-five {
-  opacity: 1;
-  background: url('../img/question-mark-white.svg') no-repeat center right;
-  background-size: 100%;
-}
-
-header nav li.top-five span {
-  @include apercu-bold;
-}
 
 
 // header nav li span {
@@ -125,6 +116,7 @@ header nav li.top-five span {
 }
 
 nav.short a {
+  text-transform: uppercase;
   padding: 1.5em 2em;
   font-size: .75em;
   white-space: nowrap;
@@ -133,15 +125,25 @@ nav.short a {
   }
 }
 
-nav.short .logo {
-  background-size: auto 120%;
-  font-size: 1em;
-  padding: 0;
-  height: 3em;
+nav.short span.top-five {
+  opacity: 1;
+  background: url('../img/question-mark-white.svg') no-repeat center center;
+  background-size: 20px 20px;
+  width: 20px;
+  height: 20px;
+
+  border: 1px solid red;
 }
 
+// nav.short .logo {
+//   background-size: auto 120%;
+//   font-size: 1em;
+//   padding: 0;
+//   height: 3em;
+// }
+
 .alternav {
-  margin: 2em 4em;
+  // margin: 2em 4em;
 }
 
 @media screen and (min-width: $width-min-lrg) {
