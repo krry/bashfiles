@@ -294,7 +294,8 @@ function MapService_ ($q, Client, LayerService, StyleService, UserService, Confi
 
   function getGmapMaxZoom(latLng, cb) {
     var zoom = service.g.gmap.getZoom();
-    var location = new google.maps.LatLng(latLng.lat, latLng.lng);
+    // handle case where .lng & .lng() differ.
+    var location = typeof latLng.lng === "function" ? new google.maps.LatLng(latLng.lat(), latLng.lng()) : new google.maps.LatLng(latLng.lat, latLng.lng);
     console.log('max zooming', zoom);
     console.log('latlng', location);
     maxZoomService.getMaxZoomAtLatLng(location, function(response) {

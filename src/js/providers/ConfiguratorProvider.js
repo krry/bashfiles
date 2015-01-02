@@ -49,11 +49,14 @@ function ConfiguratorFactory_() {
       features: draw_modify_features,
     })
 
-    // what part of the map we see?
+    // what part of the map we see
+    // TODO: use constrainCenter to prevent user dragging image off the page
     view = new ol.View({
       center: [0, 0],
-      zoom: 18
-    }); // TODO: move in to this provider
+      zoom: 18,
+      maxResolution: 1, // hack: hardcoding max zoom out
+      minResolution: 0.08, // hack: hardcoding max zoom in
+    });
 
     // the DOM target, not the map center
 
@@ -73,20 +76,30 @@ function ConfiguratorFactory_() {
         units: 'pixels',
         extent: extent
       });
-      console.log('center!', view.getCenter())
-      var layers = new ol.layer.Image({source:new ol.source.ImageStatic({
-                url: [ // TODO: URL constructor for this
-                  'http://scexchange.solarcity.com/scfilefactory/TestGrab.aspx?format=jpg&center=',
-                  view.getCenter()[0]+','+ view.getCenter()[1],  //TODO: connect to the google map center here
-                  '&zoom=20&size=',
-                  windowWidth +'x'+ windowHeight,
-                  '&maptype=satellite&scale=1&client=gme-solarcity'
-                ].join(''),
-                imageSize: [windowWidth, windowHeight],
-                projection: pixelProjection, // needed later for converting sizes
-                imageExtent: pixelProjection.getExtent(),
-                visible: true,
-              })})
+
+
+      var imageWidth, imageHeight;
+      imageHeight = 2 * extent[3];
+      imageWidth = 2 * extent[2];
+      var layers = new ol.layer.Image({
+        source:  new ol.source.ImageStatic({
+          url: [ // TODO: URL constructor for this
+            'http://scexchange.solarcity.com/scfilefactory/TestGrab.aspx?format=jpg&center=',
+            view.getCenter()[0]+','+ view.getCenter()[1],  //TODO: connect to the google map center here
+            '&zoom=20&size=',
+            imageWidth +'x'+ imageHeight,
+            '&maptype=satellite&scale=1&client=gme-solarcity'
+          ].join(''),
+          imageSize: [imageWidth, imageHeight],
+          projection: pixelProjection, // needed later for converting sizes
+          imageExtent: pixelProjection.getExtent(),
+          visible: true,
+        }),
+      })
+
+
+
+      view.setCenter(ol.extent.getCenter(pixelProjection.getExtent())); // make the static image center, the center of the view.
 
       configurator_options.target = target_element[0]; // target_element comes from angular's link function.
       configurator_options.layers = [layers];
