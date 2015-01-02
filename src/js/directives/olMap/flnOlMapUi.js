@@ -35,13 +35,44 @@ directives
 //   };
 // }
 
-function flnDraw_ (Configurator) {
+function flnDraw_ ($timeout, Configurator, Clientstream) {
   return {
     restrict: "EA",
     link: function flnDrawLink (scope, ele, attrs) {
+
+      var tips, tip_step, tip_text, listener_key;
+      // dev //
+      var map_div = $('#omap');
+      // end:dev //
       Configurator.enable('draw');
+
+      // track the step the user is on
+      tip_step = 0;
+      // tip options
+      tips = [
+        "click to begin, brah",
+        "keep clickin', brah",
+        "close that shape up, brah",
+      ]
+      tip_text = tips[tip_step];
+
+      // prep the omap_div
+      map_div.attr('tip-text', tip_text);
+      map_div.attr('position', 'right');
+      // add a tooltip
+      map_div.attr('fln-follow-tip', 'butts')
+      // listen for clicks on the map...
+      listener_key = Configurator.map().on('click',  function() { // save the listener for $destroy
+        console.log(tip_text);
+        tip_step < tips.length -1 && tip_step++;
+        tip_text = tips[tip_step]
+        map_div.attr('tip-text', tip_text);
+        scope.$apply();
+      });
+
       ele.on('$destroy', function drawDestroy (e) {
         Configurator.disable('draw');
+        Configurator.map().unByKey(listener_key) // remove the listener afterwards
       });
     },
   };
