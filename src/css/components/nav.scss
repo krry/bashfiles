@@ -131,12 +131,12 @@ nav.short span.top-five-icon {
   position: absolute;
   top: 1.25em;
   right: 2em;
-  opacity: 0.8;
+  opacity: 1;
   background: url('../img/question-mark-white.svg') no-repeat center center;
   background-size: contain;
   width: 20px;
   height: 20px;
-  border: 1px solid $white;
+  border: 1px solid rgba(255,255,255,0.5);
   border-radius: 50%;
 }
 
