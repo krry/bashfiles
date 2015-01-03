@@ -153,13 +153,20 @@ select {
 }
 
 label {
-  font-size: .875em;
+  font-size: .65em;
   display: block;
   text-indent: 0;
   font-weight: 600;
-  margin-bottom: 0.5em;
+  margin-top: 1em;
+  margin-bottom: 0.6em;
   text-transform: uppercase;
-  letter-spacing: .125em;
+  letter-spacing: .03em;
+}
+
+label span {
+  color: $red;
+  font-size: 1.5em;
+  line-height: 50%;
 }
 
 label abbr {

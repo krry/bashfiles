@@ -40,14 +40,17 @@ span.autolocate-icon {
   height: 20px;
 }
 
-input.street {
+input.street,
+input.name,
+input.email,
+input.birthdate,
+input.phone {
   font-size: 1.5em;
   text-align: left;
   display: inline-block;
   background-color: $white-dark;
 }
 
-input.street,
 .combo-input {
   border: 1px solid $grey-medium;
   border-radius: 4px;
@@ -56,7 +59,11 @@ input.street,
 input.street,
 input.city,
 input.state,
-input.zipcode {
+input.zipcode,
+input.name,
+input.email,
+input.birthdate,
+input.phone {
   color: $color-input-text;
 }
 
