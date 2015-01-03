@@ -1,50 +1,52 @@
 <!-- main.html for qualify stage -->
 <div class="overlay primary col fourth three">
-  <h1>You've made great strides.</h1>
-  <h3>We need a few seconds to see if you qualify.</h3>
+  <h1>Let’s see what we can do for you.<br><small>Enter your info to see if you qualify for our financing options.</small></h1>
   <form name="prospectForm" novalidate>
-    <div class="row">
+    <div class="row">el
+
       <div class="col half padded">
-        <label for="">Full name</label>
-        <input type="text" name="name" ng-model="user.name" placeholder="first and last please">
+        <label for="">Full name <span>*</span></label>
+        <input type="text" name="name" ng-model="user.name" placeholder="First Last" class="name">
       </div>
       <div class="col half padded">
-        <label for="">Email address</label>
-        <input type="text" name="email" ng-model="user.email" placeholder="you@domain.com">
+        <label for="">Email address <span>*</span></label>
+        <input type="text" name="email" ng-model="user.email" placeholder="you@domain.com" class="email">
       </div>
     </div>
     <div class="row">
       <div class="col half padded">
-        <label for="">Date of birth</label>
+        <label for="">Date of birth <span>*</span></label>
         <div class="combo-input">
-          <input type="text" name="month" ng-model="user.month" class="month" placeholder="MM" ng-minlength="2" ng-maxlength="2">
-          <input type="text" name="day" ng-model="user.day" class="day" placeholder="DD" ng-minlength="2" ng-maxlength="2">
-          <input type="text" name="year" ng-model="user.year" class="year" placeholder="YYYY" ng-minlength="4" ng-maxlength="4">
+          <input type="text" name="month" ng-model="user.month" class="month" placeholder="mm" ng-minlength="2" ng-maxlength="2">
+          <input type="text" name="day" ng-model="user.day" class="day" placeholder="dd" ng-minlength="2" ng-maxlength="2">
+          <input type="text" name="year" ng-model="user.year" class="year" placeholder="yyyy" ng-minlength="4" ng-maxlength="4">
         </div>
       </div>
       <div class="col half padded">
         <label for="">Phone number</label>
-        <input type="text" name="phone" ng-model="user.phone" placeholder="(---) --- ----">
+        <input type="text" name="phone" ng-model="user.phone" placeholder="(---) --- ----" class="phone">
       </div>
     </div>
     <div class="row center">
       <div class="col half padded center">
         <!-- implant NoUIslider -->
-        <label for="bill">Your average monthly electric bill: <h1 class="display-inline">$100</h1></label>
-        <button class="ib aqua" ng-click="stages.next()">Next</button>
+        <!-- <label for="bill">Your average monthly electric bill: <h1 class="display-inline">$100</h1></label> -->
+        <br>
+        <button class="ib aqua" ng-click="stages.next()">Qualify Me</button>
       </div>
     </div>
   </form>
 </div>
 <div class="overlay secondary col fourth sml-full med-full">
-  <p>We need your consent to a quick credit check so we can determine what kind of savings we can offer you.</p>
-  <p>This is solely for the purpose of providing you with a solar system. We won't share your information with anyone else.</p>
-  <figure><img src="" alt=""></figure>
-  <p>
-    <a>What happens if I don't qualify?</a>
-  </p>
-  <p>
-    <a>Will this credit check appear in my credit report?</a>
-  </p>
+  <p>We’ll run a soft credit check to determine what financing we can offer you. This will not affect your credit score. We'll talk through your options in more detail later, but here's a peek:</p>
+  
+    <ul class="finacing-options-list">
+      <li><strong>SolarPPA</strong> Pay only for the power your system produces with little to no upfront costs.</li>
+      <li><strong>Solar Lease</strong> Make a fixed monthly payment at locked-in low rate.</li>
+      <li><strong>MyPower loan</strong> Own your system from day one for $0 down.</li>
+      <li><strong>Purchase</strong> If you wish to purchase your system, skip this step. Pay cash upfront and enjoy free, clean energy for years.</li>
+    </ul>
+  
+
   <div fln-help class="fln-help"></div>
 </div>
