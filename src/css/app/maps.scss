@@ -42,7 +42,7 @@
     padding: 2px;
     width: 46px;
     height: 140px;
-    border-radius: 3px;
+    border-radius: 7px;
   }
   .fln-zoom,
   .fln-zoom:hover {
@@ -56,7 +56,7 @@
       // @include apercu-bold;
       // font-size: 1.25em;
       position: relative;
-      // color: $shady;
+      color: $red;
       // padding: .375em .75em;
       // box-shadow: 0px 2px 4px -2px $shady;
       height: 36px;
@@ -80,11 +80,9 @@
     .fln-zoom-in {
       margin-bottom: 6px;
       background: $white url('../img/zoom-in.svg') no-repeat 100% center;
-      background-color: $white;
     }
     .fln-zoom-out {
       background: $white url('../img/zoom-out.svg') no-repeat 100% center;
-      background-color: $white;
     }
   }
 }
@@ -104,34 +102,51 @@
     pointer-events: auto;
     position: absolute;
     margin: auto;
-    width: 7em;
-    height: 3em;
+    width: 36px;
+    height: 36px;
     overflow: auto;
-    opacity: .5;
+    // opacity: .5;
+    padding: 0;
+    min-width: 0;
+    border-radius: 7px;
+    background-color: none;
 
     &.pan-up {
-      top: 1.5em;
+      top: 4.8em;
       right: 0;
       left: 0;
+      background: url('../img/arrow-up.svg') no-repeat center;
+      background-size: 70%;
+      background-color: rgba(255,255,255,0.2);
     }
     &.pan-down {
       right: 0;
-      bottom: 4.5em;
+      bottom: 1em;
       left: 0;
+      background: url('../img/arrow-down.svg') no-repeat center;
+      background-size: 70%;
+      background-color: rgba(255,255,255,0.2);
     }
     &.pan-right {
       top: 0;
       bottom: 0;
       right: 1em;
+      background: url('../img/arrow-right.svg') no-repeat center;
+      background-size: 70%;
+      background-color: rgba(255,255,255,0.2);
     }
     &.pan-left {
       top: 0;
       left: 1em;
       bottom: 0;
+      background: url('../img/arrow-left.svg') no-repeat center;
+      background-size: 70%;
+      background-color: rgba(255,255,255,0.2);
     }
     &:hover,
     &:active {
-      opacity: 1;
+      // opacity: 1;
+      background-color: rgba(255,255,255,0.4);
     }
   }
 }
