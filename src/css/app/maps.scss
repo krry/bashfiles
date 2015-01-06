@@ -36,8 +36,13 @@
 
   .ol-overlaycontainer-stopevent {
     position: absolute;
-    top: 1em;
-    left: 1em;
+    top: 4.5em;
+    left: 1.5em;
+    background: rgba(255,255,255,0.3);
+    padding: 2px;
+    width: 46px;
+    height: 140px;
+    border-radius: 3px;
   }
   .fln-zoom,
   .fln-zoom:hover {
@@ -48,29 +53,38 @@
 
     .fln-zoom-in,
     .fln-zoom-out {
-      @include apercu-bold;
-      font-size: 1.25em;
+      // @include apercu-bold;
+      // font-size: 1.25em;
       position: relative;
-      background: $tinty;
-      color: $shady;
-      padding: .375em .75em;
-      box-shadow: 0px 2px 4px -2px $shady;
-      height: auto;
-      width: auto;
-      border: 3px solid;
-      border-radius: 50%;
-      line-height: inherit;
-      min-width: 0;
-      margin-bottom: .25em;
+      // color: $shady;
+      // padding: .375em .75em;
+      // box-shadow: 0px 2px 4px -2px $shady;
+      height: 36px;
+      width: 36px;
+      // border: 3px solid;
+      border-radius: 5px;
+      // line-height: inherit;
+      // min-width: 0;
+      // margin-bottom: .25em;
 
       &:hover {
-        color: $grey-mid;
-        background: $white;
+        // color: $grey-mid;
+        // background: $white;
       }
       span {
         position: absolute;
         right: 100%;
+
       }
+    }
+    .fln-zoom-in {
+      margin-bottom: 6px;
+      background: $white url('../img/zoom-in.svg') no-repeat 100% center;
+      background-color: $white;
+    }
+    .fln-zoom-out {
+      background: $white url('../img/zoom-out.svg') no-repeat 100% center;
+      background-color: $white;
     }
   }
 }
