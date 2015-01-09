@@ -31,16 +31,19 @@ function SessionProvider_ () {
   this.$get = [  "JwtService", "Clientstream", function SessionProviderFactory(jwt, Client) {
     // auth with firebase
     jwt.jwt();
-    Client.listen('form key', function (data) {return session_ref.update({form: data})});
 
-    function awesome_design_builder_brah() {
+    Client.listen('form key', function (data) {
+      return session_ref.update({ form: data });
+    });
+
+    function awesome_design_builder_brah () {
       return {
-        ref:    function(){ return session_ref; },
-        id:     function(){ return session_ref.key(); },
-        stream: function(){ return fb_observable; },
-        state_stream: function(){ return state_stream; },
-        next:   function() { Client.emit('stage', "next");},
-        back:   function() { Client.emit('stage', "back");},
+        ref:    function (){ return session_ref; },
+        id:     function (){ return session_ref.key(); },
+        stream: function (){ return fb_observable; },
+        state_stream: function (){ return state_stream; },
+        next:   function () { Client.emit('stage', "next");},
+        back:   function () { Client.emit('stage', "back");},
       };
     }
 

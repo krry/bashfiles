@@ -3,10 +3,11 @@
   the form controller
 ================================================== */
 
-controllers.controller("FormCtrl", ["$scope", "Form", "Clientstream", "UserService", "Session", "MapService", FormCtrl_]);
+controllers.controller("FormCtrl", ["$scope", "Form", "Clientstream", "Geocode", "UserService", "Session", "MapService", FormCtrl_]);
 
-function FormCtrl_($scope, Form, Client, UserService, Session, MapService) {
+function FormCtrl_($scope, Form, Client, Geocode, UserService, Session, MapService) {
   var vm = this;
+
   vm.home = UserService.getHome();
   vm.prospect = UserService.getProspect();
   vm.monitorZip = monitorZip;
@@ -42,11 +43,13 @@ function FormCtrl_($scope, Form, Client, UserService, Session, MapService) {
   }
 
   function monitorZip () {
-    console.log('monitoring zip field');
     var zip = vm.user.zip;
+    console.log('monitoring zip field');
 
     if (typeof(zip) !== "undefined") {
-      console.log(zip);
+      console.log('zip field contains:', zip);
+      addy.zip = zip;
+      // Geocode.parseAddy(zip);
       MapService.setGmapShown(true);
       MapService.geocodeZip(zip, validateZip);
       // pass to checkTerritory API
