@@ -27,8 +27,6 @@
     "newrelic": "~1.13.3",
     "node-uuid": "^1.4.1",
     "q": "^1.0.1"
-  },
-  "devDependencies": {
     "browser-sync": "^1.5.8",
     "gulp": "^3.5.6",
     "gulp-autoprefixer": "^1.0.1",
@@ -57,6 +55,8 @@
     "pretty-hrtime": "^0.2.2",
     "run-sequence": "^1.0.1",
     "shelljs": "^0.3.0"
+  },
+  "devDependencies": {
   },
   "scripts": {
     "start": "node server/server.js",
