@@ -1,6 +1,6 @@
 <section class="overlay primary short col full">
-  <h2>Wow, <span id="neighbor_count">1,234</span> of your neighbors have gone solar.<br><small>Let's get you started</small></h2>
-  <form fln-form novalidate ng-submit="">
+  <h1 ng-hide="form.valid">Wow! <span id="neighbor_count">9,999</span> of your neighbors have gone solar.<br><small>Let’s take a closer look at your house.</small></h1>
+  <form fln-form novalidate ng-submit="form.geocodeAddress(form.home, form.recenterMap)">
     <div class="row">
       <div class="col half center padded sml-full">
         <input
@@ -52,8 +52,14 @@
         </div>
       </div>
     </div>
-    <button class="ib aqua" ng-hide="form.valid" ng-click="form.geocodeAddress(form.home, form.recenterMap)">Go</button>
-    <button class="aqua" ng-show="form.valid" ng-click="form.nextStep()">That's my house</button>
+    <!-- <button class="ib aqua" ng-hide="form.valid" ng-click="form.geocodeAddress(form.home, form.recenterMap)">Go</button> -->
+    <!-- <button class="aqua" ng-show="form.valid" ng-click="form.nextStep()">That's my house</button> -->
+
+    <div class="answer-container center" ng-show="form.valid" >
+      <h3>Do you own your house?</h3>
+      <button class="answer-yes aqua" ng-click="form.nextStep()">Yes</button>
+      <button class="answer-no aqua" ng-click="form.nextStep()">No</button>
+    </div>
   </form>
 </section>
 <!-- <aside class="overlay secondary short col fourth sml-full med-full">

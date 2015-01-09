@@ -6,7 +6,7 @@
       <p>Do we cover your neighborhood?</p>
     </li> -->
     <li ng-hide="!form.validZip || !form.validTerritory">
-      <h1 class="tooltip top" title="tick tock">Every minute, someone switches to solar.<br><small>Are we in your neighborhood?</small></h1>
+      <h1>Every minute, someone switches to solar.<br><small>Are we in your neighborhood?</small></h1>
       <!-- <h3>Will you be next?</h3> -->
     </li>
     <li class="error" ng-show="!form.validZip">
@@ -34,6 +34,8 @@
         class="zipcode"
         ng-class=""
         name="zipCheck"
+        autocomplete="off"
+        autocorrect="off"
         required="true"
         ng-required="true"
         maxlength="5"
@@ -45,6 +47,9 @@
         type="email"
         ng-model"form.user.email"
         name="emailDq"
+        autocapitalize="none"
+        autocomplete="on"
+        autocorrect="off"
         placeholder="Leave us your email"
         ng-show="!form.validTerritory">
     </label>
