@@ -18,6 +18,7 @@
   "private": true,
   "description": "flannel for SolarCity",
   "dependencies": {
+    "bower": "^1.3.3",
     "cookie-parser": "^1.3.3",
     "del": "^0.1.3",
     "express": "^4.4.4",
@@ -28,7 +29,6 @@
     "q": "^1.0.1"
   },
   "devDependencies": {
-    "bower": "^1.3.3",
     "browser-sync": "^1.5.8",
     "gulp": "^3.5.6",
     "gulp-autoprefixer": "^1.0.1",
@@ -61,8 +61,8 @@
   "scripts": {
     "start": "node server/server.js",
     "dev": "npm install && gulp config && gulp dev",
-    "staging": "npm install && ./node_modules/bower/bin/bower install -F && gulp staging",
-    "prod": "npm install && ./node_modules/bower/bin/bower install -F && gulp prod",
+    "staging": "npm install && bower install -F && gulp staging",
+    "prod": "npm install && bower install -F && gulp prod",
     "test": "npm install && bower install && karma start karma.conf.js"
   },
   "ignore": [
