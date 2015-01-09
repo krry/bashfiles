@@ -48,7 +48,7 @@ function FormCtrl_($scope, Form, Client, Geocode, UserService, Session, MapServi
 
     if (typeof(zip) !== "undefined") {
       console.log('zip field contains:', zip);
-      // addy.zip = zip;
+      addy.zip = zip;
       // Geocode.parseAddy(zip);
       MapService.setGmapShown(true);
       MapService.geocodeZip(zip, validateZip);
