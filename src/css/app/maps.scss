@@ -20,7 +20,7 @@
 }
 
 .instructions {
-  padding: 2em;
+  padding: 5em 1.5em;
 }
 
 .area-detail {
@@ -80,8 +80,8 @@
       // margin-bottom: .25em;
 
       &:hover {
-        color: $grey-mid;
-        background: $white;
+        // color: $grey-mid;
+        // background: $white;
       }
 
       & + .fln-zoom-out {
@@ -123,7 +123,11 @@
     width: 2.5em;
     height: 2.5em;
     overflow: auto;
-    opacity: .5;
+    // opacity: .5;
+    padding: 0;
+    min-width: 0;
+    border-radius: 7px;
+    background-color: none;
 
     &.pan-up {
       top: 1em;
@@ -135,7 +139,7 @@
     }
     &.pan-down {
       right: 0;
-      bottom: 4.5em;
+      bottom: 1em;
       left: 0;
       background: url('../img/arrow-down.svg') no-repeat center;
       background-size: 70% auto;

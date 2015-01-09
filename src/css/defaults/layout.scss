@@ -21,7 +21,7 @@ main.main {
 }
 
 .overlay.primary {
-  padding: 3em 2em;
+  padding: 6em 2em;
   text-align: center;
   // width: golden-ratio(100);
   // width: 71%;
@@ -82,7 +82,7 @@ main.main {
 
 @media screen and (min-width: $width-min-xlg){
   .overlay.secondary {
-    min-height: 24em;
+    min-height: 30em;
   }
 }
 

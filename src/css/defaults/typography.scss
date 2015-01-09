@@ -53,6 +53,7 @@ h1 small {
   display: block;
   margin-top: 8px;
   // font-weight: normal;
+  line-height: 120%;
 }
 
 h2 {
@@ -60,11 +61,13 @@ h2 {
 }
 
 h3 {
-  font-size: 1.375em;
+  font-size: 1.2em;
 }
 
 h4 {
-  font-size: 1.125em;
+  font-size: 1.05em;
+  margin: 0.5em auto 0.5em auto;
+  line-height: 120%;
 }
 
 h5, .caps {
@@ -80,7 +83,8 @@ h6 .small-caps {
 }
 
 p {
-  font-size: 1em;
+  font-size: 0.85em;
+  margin: 0em auto 0em auto;
 }
 
 blockquote {

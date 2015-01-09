@@ -17,27 +17,40 @@ label + button {
 
 // Address fields
 input.zipcode {
-  font-size: 2.7em;
+  font-size: 3.5em;
   text-transform: uppercase;
   color: $color-input-text;
   text-align: center;
   width: 12em;
   max-width: 8em;
-  padding: 0.5em 1em;
+  padding: 0.6em 1em;
   border: 1px solid $grey-medium;
   border-radius: 4px;
-  margin: 0 auto -.25em;
+  margin: 0.5em auto;
   background-color: $white-dark;
 }
 
-input.street {
+span.autolocate-icon {
+  display: inline-block;
+  opacity: 1;
+  background: url('../img/autolocate-icon.svg') no-repeat center center;
+  background-size: 20px 20px;
+  background-color: none;
+  width: 20px;
+  height: 20px;
+}
+
+input.street,
+input.name,
+input.email,
+input.birthdate,
+input.phone {
   font-size: 1.5em;
   text-align: left;
   display: inline-block;
   background-color: $white-dark;
 }
 
-input.street,
 .combo-input {
   border: 1px solid $grey-medium;
   border-radius: 4px;
@@ -46,20 +59,31 @@ input.street,
 input.street,
 input.city,
 input.state,
-input.zipcode {
+input.zipcode,
+input.name,
+input.email,
+input.birthdate,
+input.phone {
   color: $color-input-text;
 }
 
 .combo-input {
   padding: .75em 1em;
   text-align: justify;
-  max-width: 27em;
-  background-color: $white-dark;
+  position: relative;
+  // max-width: 27em;
+
+  border-color: $grey-mid;
+  background-color: $white;
+  -webkit-box-shadow: 0px 0px 4px rgba(0,0,0,0.15);
+     -moz-box-shadow: 0px 0px 4px rgba(0,0,0,0.15);
+          box-shadow: 0px 0px 4px rgba(0,0,0,0.15);
 }
 
 .combo-input input {
   font-size: 1.5em;
   border: 0;
+  box-shadow: 0;
   padding: 0;
   display: inline;
   margin-bottom: 0;
@@ -78,6 +102,7 @@ input.zipcode {
   width: 3em;
   text-align: left;
   margin: 0;
+  background-color: $white;
 }
 
 .combo-input input.month {
@@ -91,6 +116,40 @@ input.zipcode {
 .combo-input input.year {
   width: 3em;
 }
+
+button.address-search {
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 1;
+  background: url('../img/address-search.svg') no-repeat center center;
+  background-size: 40px 40px;
+  background-color: none;
+  width: 40px;
+  height: 40px;
+  margin: 0.5em;
+  padding: 0em;
+  border-radius: 0em; 
+  border: 0;
+}
+
+.answer-container {
+}
+.answer-container h3 {
+  display: inline-block;
+  margin: 1em 1em 0 0;
+}
+button.answer-yes,
+button.answer-no {
+  display: inline-block;
+  opacity: 1;
+  margin: 0.15em;
+  padding: 0.75em 1.25em;
+  min-width: 5em;
+  border-radius:50% / 100%;
+}
+
+
 
 @media screen and (min-width: $width-min-med) {
   input.street,
