@@ -7,8 +7,8 @@
     "url": "http://github.com/SolarCity/flannel.git"
   },
   "engines": {
-    "node": "0.11.x",
-    "npm": "1.4.20"
+    "node": "0.10.35",
+    "npm": "1.4.28"
   },
   "homepage": "",
   "authors": [
