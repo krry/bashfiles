@@ -2,6 +2,14 @@
   "name": "flannel",
   "version": "0.9.1",
   "main": "server/server.js",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/SolarCity/flannel.git"
+  },
+  "engines": {
+    "node": "0.11.x",
+    "npm": "1.4.20"
+  },
   "homepage": "",
   "authors": [
     "Jesse LaRue <jlarue@solarcity.com>",
