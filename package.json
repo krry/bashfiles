@@ -7,8 +7,8 @@
     "url": "http://github.com/SolarCity/flannel.git"
   },
   "engines": {
-    "node": "0.11.x",
-    "npm": "1.4.20"
+    "node": "0.10.35",
+    "npm": "1.4.28"
   },
   "homepage": "",
   "authors": [
@@ -61,9 +61,10 @@
   "scripts": {
     "start": "node server/server.js",
     "dev": "npm install && gulp config && gulp dev",
-    "staging": "npm install && bower install -F && gulp staging",
-    "prod": "npm install && bower install -F && gulp prod",
-    "test": "npm install && bower install && karma start karma.conf.js"
+    "staging": "gulp staging",
+    "prod": "gulp prod",
+    "test": "karma start karma.conf.js",
+    "postinstall": "npm install && bower install -F"
   },
   "ignore": [
     "**/.*",
