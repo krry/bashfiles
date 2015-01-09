@@ -32,7 +32,7 @@
     color: white;
     white-space: nowrap; // don't let it wrap
     background: $grey-darkest; // fallback for anti-opacity browsers
-    background: $shadiest;
+    background: $shade-80;
     padding: .125em .5em;
     border-radius: 4px;
     z-index: 19; // get on top of other page elements
@@ -42,7 +42,7 @@
     content: ""; // just a triangle, no content
     border-style: solid;
     border-color: $grey-darkest transparent; // fallback for anti-opacity browsers
-    border-color: $shadiest transparent; // make side borders transparent to form a triangle
+    border-color: $shade-80 transparent; // make side borders transparent to form a triangle
     z-index: 20; // make sure the triangle shows over the tip
   }
 
@@ -94,7 +94,7 @@
       bottom: 50%;
       left: 100%;
       border-color: transparent $grey-darkest; // fallback for anti-opacity browsers
-      border-color: transparent $shadiest; // make top and bottom borders transparent to form a triangle
+      border-color: transparent $shade-80; // make top and bottom borders transparent to form a triangle
       border-width: .25em .25em .25em 0; // put the point on the left
     }
   }
@@ -113,7 +113,7 @@
       bottom: 50%;
       right: 100%;
       border-color: transparent $grey-darkest; // fallback for anti-opacity browsers
-      border-color: transparent $shadiest; // make top and bottom borders transparent to form a triangle
+      border-color: transparent $shade-80; // make top and bottom borders transparent to form a triangle
       border-width: .25em 0 .25em .25em; // put the point on the right
     }
   }

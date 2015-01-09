@@ -29,49 +29,57 @@ $grey-lightest: #ECF0F1;
 $grey-lighter:  #D9D9D9;  // rgb(217, 217, 217)  hsl(0, 0%, 85%)
 $grey-light:    #B3B3B3;  // rgb(179, 179, 179)  hsl(0, 0%, 70%)
 $grey-medium:   #CCCCCC;
-$grey-mid:      #999999; 
+$grey-mid:      #999999;
 $grey-dark:     #5F5F5F;  // rgb(095, 095, 095)  hsl(0, 0%, 37%)
 $grey-darker:   #333333;  // rgb(051, 051, 051)  hsl(0, 0%, 20%)
 $grey-darkest:  #171717;  // rgb(023, 023, 023)  hsl(0, 0%, 9%)
 $black:         #000000;  // rgb(000, 000, 000)  hsl(0, 0%, 0%)
 
-$color-input-invalid-text: rgb(171,32,52);
-$color-input-invalid-bkgd: rgb(248,243,213);
+$shade-05: rgba(0,0,0,.05);
+$shade-10: rgba(0,0,0,.10);
+$shade-20: rgba(0,0,0,.20);
+$shade-40: rgba(0,0,0,.40);
+$shade-60: rgba(0,0,0,.60);
+$shade-80: rgba(0,0,0,.80);
+$shade-90: rgba(0,0,0,.90);
+$shade-95: rgba(0,0,0,.95);
 
-$color-text-main:   $grey-darker;
-$color-bkgd-main:   $grey-lightest;
-$color-border-main: $grey-light;
-$color-link-main:   $aqua-dark;
-$color-link-visited-main: $blue-dark;
+$tint-10:  rgba(255,255,255,.10);
+$tint-20:  rgba(255,255,255,.20);
+$tint-40:  rgba(255,255,255,.40);
+$tint-60:  rgba(255,255,255,.60);
+$tint-80:  rgba(255,255,255,.80);
+$tint-90:  rgba(255,255,255,.90);
+$tint-95:  rgba(255,255,255,.95);
 
-$color-bkgd-primary:  $white;
+$color-input-invalid-text:   rgb(171, 032, 052);
+$color-input-invalid-bkgd:   rgb(248, 243, 213);
 
-$color-input-text:    $aqua-dark;
-$color-headline-text: $grey-darker;
+$grey-zep:                   $grey-darker;
 
-$color-text-inverse:   $white;
-$color-bkgd-inverse:   $grey-darkest;
-$color-link-inverse:   $green-lime;
-$color-border-inverse: $white;
+$color-text-main:            $grey-darker;
+$color-border-main:          $grey-light;
+$color-bkgd-main:            $grey-lightest;
+$color-bkgd-primary:         $tint-90;
+$color-link-main:            $aqua-dark;
+$color-link-visited-main:    $blue-dark;
+
+$color-highlight:            $aqua-dark;
+
+$color-input-text:           $aqua-dark;
+$color-headline-text:        $grey-darker;
+
+$color-text-inverse:         $white;
+$color-border-inverse:       $white;
+$color-bkgd-inverse:         $grey-darkest;
+$color-link-inverse:         $green-lime;
 $color-link-visited-inverse: $green-apple;
 
-$color-error-text: $red;
-$color-error-bkgd: $flesh;
+$color-error-text:           $red;
+$color-error-bkgd:           $flesh;
 
-$color-button-bkgd: $grey-mid;
+$color-button-bkgd:          $grey-mid;
 
-$color-header-bkgd: rgba(19,40,48,0.8);
-$color-header-bkgd: rgba(1,30,33,0.70);
-$color-header-bkgd: rgba(22,48,62,0.93);
-
-$color-highlight: $aqua-dark;
-
-$sha:      rgba(0,0,0,.05);
-$shade:    rgba(0,0,0,.2);
-$shady:    rgba(0,0,0,.4);
-$shadier:  rgba(0,0,0,.6);
-$shadiest: rgba(0,0,0,.8);
-$tint:     rgba(255,255,255,.2);
-$tinty:    rgba(255,255,255,.4);
-$tintier:  rgba(255,255,255,.6);
-$tintiest: rgba(255,255,255,.8);
+$color-header-bkgd:          rgba(19, 40, 48, 0.80);
+$color-header-bkgd:          rgba(01, 30, 33, 0.70);
+$color-header-bkgd:          rgba(22, 48, 62, 0.93);
