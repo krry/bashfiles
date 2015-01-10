@@ -8,7 +8,7 @@
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
 var gulp = require('gulp');
-var runSeq = require('run-sequence').use(gulp);
+// var runSeq = require('run-sequence').use(gulp);
 
 gulp.task('heroku:production', ['build']);
 
