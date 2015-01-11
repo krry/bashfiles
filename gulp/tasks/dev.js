@@ -17,7 +17,7 @@
 var gulp = require('gulp')
 var spawn = require('child_process').spawn;
 
-gulp.task('dev', ['clean'], function() {
+gulp.task('dev', ['config'], function() {
   var process;
 
   function restart() {
