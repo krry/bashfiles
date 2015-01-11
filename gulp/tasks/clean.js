@@ -11,20 +11,23 @@
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
-var gulp  = require('gulp')
-var del = require('del')
+var gulp  = require('gulp');
+var del = require('del');
 
 var laundry = [
-  './public/index.html',
+  './public/*.html',
+  './public/js/*.js',
   './public/js/**/*',
+  './public/templates/*.html',
   './public/templates/**/*',
+  './public/css/*.css',
   './public/css/**/*',
   './public/img/*',
   './public/lib/*',
   './public/fonts/*',
-]
+];
 
 gulp.task('clean', function() {
   console.log('[clean   ] now cleaning dist folders');
   return del(laundry);
-})
+});

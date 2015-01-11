@@ -43,7 +43,7 @@ var libSrc = [
   './src/js/rxjs-firebase/rx.firebase.js',
 ]
 
-var libPub = './public/lib/'
+var libPub = './public/lib'
 
 gulp.task('libs', ['bower'], function(){
   return gulp.src(libSrc)

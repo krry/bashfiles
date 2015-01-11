@@ -34,8 +34,8 @@ gulp.task('config', ['clean'], function () {
   console.log("[config  ] wiping 'config.js'");
   del('./src/js/config.js');
   console.log("[config  ] using:" , confile, "as environment config file");
-  gulp.src(confile)
-  .pipe(ngConstant(config))
-  .pipe(rename('config.js'))
-  .pipe(gulp.dest('./src/js'))
+  return gulp.src(confile)
+        .pipe(ngConstant(config))
+        .pipe(rename('config.js'))
+        .pipe(gulp.dest('./src/js'))
 });
