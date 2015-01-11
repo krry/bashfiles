@@ -20,7 +20,7 @@ var rename = require('gulp-rename');
 var ngConstant = require('gulp-ng-constant');
 
 var env = process.env.NODE_ENV || 'development';
-console.log("[config  ] env is:", env);
+// console.log("[config  ] env is:", env);
 
 var config = {
   name: 'flannel.config',
