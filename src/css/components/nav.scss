@@ -32,7 +32,7 @@ header .logo {
   text-indent: -9999px;
   background: url('../img/logo-white.svg') no-repeat left center;
   background-size: auto 100%;
-  width: 100%;
+  width: 12em;
   padding: 1em;
 }
 
@@ -167,6 +167,5 @@ nav.short .top-five-container a span.top-five-icon {
   header .logo {
     float: left;
     background-size: 80% auto;
-    width: 200px;
   }
 }
