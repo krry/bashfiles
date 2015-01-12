@@ -1,0 +1,22 @@
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  
+  ICONS
+  
+  to use icons in your markup, define a class for each icon
+  and include this mixin, passing it the filename of the
+  icon without the extension
+
+  name your icon files in lower-dash-case, 
+  e.g. question-mark.svg or calm-beach-bkgd.jpg
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+
+@mixin icon($icon) {
+  display: inline-block;
+  height: 1.5em;
+  width: 1.5em;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url('../img/#{$icon}.svg');
+}
