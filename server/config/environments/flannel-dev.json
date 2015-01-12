@@ -1,6 +1,6 @@
 {
   "MINIFIED": "false",
-  "PORT": 7100,
+  "PORT": 8100,
   "FLANNEL_SECRET": "sekret",
   "APP_TITLE": "Flannel Staging",
   "FIREBASE_SECRET": "hSKlMlUuwpcowWFyS3UjmSqlZQTPTmeEz62OXta9",

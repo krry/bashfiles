@@ -15,17 +15,16 @@
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
 var gulp = require('gulp');
-var del = require('del')
+var del = require('del');
 var rename = require('gulp-rename');
 var ngConstant = require('gulp-ng-constant');
 
 var env = process.env.NODE_ENV || 'development';
-// console.log("[config  ] env is:", env);
 
 var config = {
   name: 'flannel.config',
   // deps: [],
-  // constants: { "test": "test constanted!" },
+  // constants: { "test": "test constant added" },
 };
 
 var confile = './server/config/environments/'+env+'.json';

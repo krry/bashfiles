@@ -15,16 +15,13 @@ var gulp  = require('gulp');
 var del = require('del');
 
 var laundry = [
-  './public/*.html',
-  './public/js/*.js',
-  './public/js/**/*',
-  './public/templates/*.html',
   './public/templates/**/*',
-  './public/css/*.css',
+  './public/fonts/**/*',
+  './public/img/**/*',
+  './public/lib/**/*',
   './public/css/**/*',
-  './public/img/*',
-  './public/lib/*',
-  './public/fonts/*',
+  './public/js/**/*',
+  './public/index.html',
 ];
 
 gulp.task('clean', function() {

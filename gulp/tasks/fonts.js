@@ -14,13 +14,13 @@ var handleErrors = require('../util/handleErrors');
 
 var fontSrc = [
   './src/fonts/**/*'
-]
+];
 
-var fontPub = './public/fonts'
+var fontPub = './public/fonts';
 
 gulp.task('fonts', function(){
   return gulp.src(fontSrc)
         .pipe(changed(fontPub))
         .on('error', handleErrors)
         .pipe(gulp.dest(fontPub))
-})
+});
