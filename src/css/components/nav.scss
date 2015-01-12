@@ -28,7 +28,7 @@ header .logo {
   text-indent: -9999px;
   background: url('../img/logo-white.svg') no-repeat left center;
   background-size: auto 100%;
-  width: 100%;
+  width: 12em;
   padding: 0.75em;
 }
 
@@ -128,11 +128,9 @@ nav.short a {
 nav.short span.top-five {
   opacity: 1;
   background: url('../img/question-mark-white.svg') no-repeat center center;
-  background-size: 20px 20px;
+  background-size: contain;
   width: 20px;
   height: 20px;
-
-  border: 1px solid red;
 }
 
 // nav.short .logo {
@@ -153,6 +151,5 @@ nav.short span.top-five {
   header .logo {
     float: left;
     background-size: 80% auto;
-    width: 200px;
   }
 }

@@ -28,7 +28,7 @@ $white-dark:    #FAFAFA;  // for Ericson :)
 $grey-lightest: #ECF0F1;
 $grey-lighter:  #D9D9D9;  // rgb(217, 217, 217)  hsl(0, 0%, 85%)
 $grey-light:    #B3B3B3;  // rgb(179, 179, 179)  hsl(0, 0%, 70%)
-$grey-medium:	#CCCCCC;
+$grey-medium:   #CCCCCC;
 $grey-mid:      #999999; 
 $grey-dark:     #5F5F5F;  // rgb(095, 095, 095)  hsl(0, 0%, 37%)
 $grey-darker:   #333333;  // rgb(051, 051, 051)  hsl(0, 0%, 20%)
@@ -38,22 +38,21 @@ $black:         #000000;  // rgb(000, 000, 000)  hsl(0, 0%, 0%)
 $color-input-invalid-text: rgb(171,32,52);
 $color-input-invalid-bkgd: rgb(248,243,213);
 
-$grey-zep:      $grey-darker;
-
-$color-text-main: $grey-darker;
+$color-text-main:   $grey-darker;
+$color-bkgd-main:   $grey-lightest;
 $color-border-main: $grey-light;
-$color-bkgd-main: $grey-lightest;
-$color-bkgd-primary: $white;
-$color-link-main: $aqua-dark;
+$color-link-main:   $aqua-dark;
 $color-link-visited-main: $blue-dark;
 
-$color-input-text: $aqua-dark;
+$color-bkgd-primary:  $white;
+
+$color-input-text:    $aqua-dark;
 $color-headline-text: $grey-darker;
 
-$color-text-inverse: $white;
+$color-text-inverse:   $white;
+$color-bkgd-inverse:   $grey-darkest;
+$color-link-inverse:   $green-lime;
 $color-border-inverse: $white;
-$color-bkgd-inverse: $grey-darkest;
-$color-link-inverse: $green-lime;
 $color-link-visited-inverse: $green-apple;
 
 $color-error-text: $red;
@@ -61,9 +60,7 @@ $color-error-bkgd: $flesh;
 
 $color-button-bkgd: $grey-mid;
 
-
 $color-header-bkgd: $grey-darker;
-$color-header-bkgd: $grey-zep;
 $color-header-bkgd: rgba(42,54,59,0.9);
 
 $color-highlight: $aqua-dark;
