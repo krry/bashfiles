@@ -19,7 +19,8 @@ var stylish = require('jshint-stylish');
 
 var handleErrors = require('../util/handleErrors');
 
-var scripts = [
+// this glob determines the order of the concatenated scripts
+var scriptSrc = [
   'src/js/*.js',
   'src/js/providers/*.js',
   'src/js/services/*.js',
@@ -29,15 +30,17 @@ var scripts = [
   'src/js/stages/*.js',
 ];
 
+var scriptPub = "./public/js";
+
 gulp.task('scripts', function(){
-  return gulp.src(scripts)
+  return gulp.src(scriptSrc)
     .pipe(plumber(handleErrors))
     .pipe(jshint('./.jshintrc'))
     .pipe(jshint.reporter(stylish))
     .pipe(concat('all.js'))
-    .pipe(gulp.dest('./public/js'))
+    .pipe(gulp.dest(scriptPub))
     .pipe(uglify())
     .pipe(rename({suffix: '.min'}))
     .pipe(plumber.stop())
-    .pipe(gulp.dest('./public/js'))
+    .pipe(gulp.dest(scriptPub))
 });
