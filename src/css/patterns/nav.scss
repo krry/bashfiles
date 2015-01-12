@@ -83,23 +83,24 @@ header nav li:last-child {
   padding-right: 1.7em;
 }
 
-nav.short a {
-  position: relative;
-  text-transform: uppercase;
+.stage-nav {
+  display: none;
+}
+
+.icon.top-five {
+  @include icon("question-mark-white");
 }
 
 nav.short a:not(.logo) {
-  padding: 1.5em;
+  position: relative;
+  text-transform: uppercase;
+  padding: 1.5em 4.4em 1.5em 0;
   font-size: .75em;
   text-align: right;
   white-space: nowrap;
   &:hover {
     background-color: $tint-20;
   }
-}
-
-nav.short .logo {
-  padding: 1.25em;
 }
 
 .alternav {
