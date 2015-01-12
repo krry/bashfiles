@@ -8,6 +8,7 @@
 
   ul {
     width: 100%;
+    margin: auto;
   }
 
   li {
@@ -33,6 +34,7 @@
     text-transform: none;
     letter-spacing: 1;
     margin: 0;
+    border: 0;
     border-radius: .25em;
     background-position: 1em center;
     background-repeat: no-repeat;
@@ -41,6 +43,7 @@
     &:hover {
       background-color: $shade-05;
       // color: $white;
+      border: 0;
     }
 
     &.icon-call {

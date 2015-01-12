@@ -31,6 +31,7 @@ h1, h2, h3, h4, h5, h6 {
   color: $color-headline-text;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: .5em;
 }
 
 .col > h1:first-child,
@@ -66,8 +67,12 @@ h3 {
 
 h4 {
   font-size: 1.05em;
-  margin: 0.5em auto 0.5em auto;
+  margin: .5em auto .5em auto;
   line-height: 120%;
+}
+
+h5 {
+  // margin-bottom: .5em;
 }
 
 h5, .caps {
@@ -83,8 +88,8 @@ h6 .small-caps {
 }
 
 p {
-  font-size: 0.85em;
-  margin: 0em auto 0em auto;
+  font-size: .85em;
+  margin: 0 auto;
 }
 
 blockquote {
@@ -94,7 +99,7 @@ blockquote {
   color: $grey-dark;
   line-height: 1.25em;
   margin: 1em 0;
-  padding-left: 0.5em;
+  padding-left: .5em;
 }
 
 cite {

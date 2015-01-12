@@ -8,6 +8,7 @@ controllers.controller("FormCtrl", ["$scope", "Form", "Clientstream", "Geocode",
 function FormCtrl_($scope, Form, Client, Geocode, UserService, Session, MapService) {
   var vm = this;
 
+  vm.addy = Geocode.addy;
   vm.home = UserService.getHome();
   vm.prospect = UserService.getProspect();
   vm.monitorZip = monitorZip;
@@ -43,26 +44,26 @@ function FormCtrl_($scope, Form, Client, Geocode, UserService, Session, MapServi
   }
 
   function monitorZip () {
-    var zip = vm.user.zip;
+    var zip = vm.home.zip;
     console.log('monitoring zip field');
 
     if (typeof(zip) !== "undefined") {
       console.log('zip field contains:', zip);
-      // addy.zip = zip;
-      // Geocode.parseAddy(zip);
+      // vm.addy.zip = zip;
+      Geocode.parseAddy({"zip": zip});
       MapService.setGmapShown(true);
       MapService.geocodeZip(zip, validateZip);
       // pass to checkTerritory API
         // if false, show out of territory state
         // if true, advance to address step
-          // return mapService.initNearMe()
+          // return mapService.initNearMe();
     }
   }
 
   function validateZip(result) {
     vm.valid = result;
     console.log('validZip is', vm.validZip);
-    checkTerritory(vm.user.zip, validateTerritory);
+    checkTerritory(vm.home.zip, validateTerritory);
   }
 
   // TODO: move this to an API provider that sends data to the server which corresponds with proprietary APIs

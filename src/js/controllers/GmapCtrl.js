@@ -1,11 +1,10 @@
-controllers.controller("GmapCtrl", ["$scope", "$element", "MapFactory", GmapCtrl_]);
+controllers.controller("GmapCtrl", ["$scope", "$element", "Geocode", GmapCtrl_]);
 
-function GmapCtrl_ ($scope, $element, Map) {
+function GmapCtrl_ ($scope, $element, Geocode) {
 
   var DEFAULT_CENTER,
       center,
       zoom,
-      map,
       mapEl,
       mapOptions;
 
@@ -30,10 +29,9 @@ function GmapCtrl_ ($scope, $element, Map) {
   }
 
   // once window loads, activate map using defaults
-  google.maps.event.addDomListener(window, "load", activate);
+  google.maps.event.addDomListenerOnce(window, "load", activate);
 
   // when user enters a valid, inTerritory zipcode, center the map and zoom to 15
-
 
   function init (element, options) {
     map = new google.maps.Map(element, options);

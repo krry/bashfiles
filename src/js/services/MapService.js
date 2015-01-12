@@ -137,6 +137,13 @@ function MapService_ ($q, Client, LayerService, StyleService, UserService, Confi
     })
   }
 
+  function setZoom (center) {
+    return getGmapMaxZoom(center, function(zoom) {
+      service.g.gmap.setZoom(zoom);
+      recenterMap(center);
+    });
+  }
+
   function updateGmap(obj, cb) {
     var center;
     console.log('updating gmap', obj);
@@ -146,11 +153,7 @@ function MapService_ ($q, Client, LayerService, StyleService, UserService, Confi
       center = obj;
       console.log('lat:', obj.lat(), ', lng:', obj.lng());
       service.g.gmap.setCenter(center);
-      service.g.gmap.setZoom(getGmapMaxZoom(center, function(zoom) {
-        service.g.gmap.setZoom(zoom);
-        recenterMap(center);
-        return cb(true);
-      }));
+      setZoom(center);
       } else {
         console.error("this is not a location object: ", obj);
         return cb(false);

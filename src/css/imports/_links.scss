@@ -6,10 +6,12 @@
   text-decoration: none;
   transition: all .15s $easing-quick;
   cursor: pointer;
+  border: 0;
   border-bottom: 1px hidden;
 
   &:hover {
     color: lighten($color-link-main, 10%);
+    border-style: solid;
   }
 
   &:active {
