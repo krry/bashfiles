@@ -26,7 +26,7 @@ var styleSrc = [
   './src/lib/normalize.css/normalize.css',
   './src/css/defaults/*.scss',
   './src/css/utilities/*.scss',
-  './src/css/components/*.scss',
+  './src/css/patterns/*.scss',
   './src/css/app/*.scss',
   './src/css/**/*.css',
 ];

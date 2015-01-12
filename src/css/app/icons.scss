@@ -1,0 +1,7 @@
+@import '../imports/icons';
+
+.icon {
+  &.top-five, &.question {
+    @include icon("question-mark-white");
+  }
+}
