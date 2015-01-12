@@ -62,7 +62,7 @@ header a {
   display: inline-block;
   padding: 2.5em 2em 2em 0;
   color: white;
-  font-size: .875em;
+  // font-size: .875em;
 }
 
 header a:hover {
@@ -92,40 +92,14 @@ header nav li:last-child {
   padding-right: 1.7em;
 }
 
-// header nav li span {
-//   border-radius: 100%;
-//   background: $shade;
-//   text-align: left;
-//   padding: .375em .75em;
-//   margin: 0 .5em 0 1em;
-// }
-// header nav a:hover {
-//   color: $white;
-// }
-
-// header nav a {
-//   @include apercu-light;
-//   text-transform: uppercase;
-//   letter-spacing: 2.25;
-//   text-shadow: none;
-//   background: none;
-//   border-bottom: 0px solid transparent;
-// }
-
-.stage-nav {
-  display: none;
-}
-
-nav.short .top-five-container {
-  width: 24.9%;
+nav.short a {
   position: relative;
+  text-transform: uppercase;
 }
 
-nav.short .top-five-container a {
-  text-transform: uppercase;
-  padding: 1.5em 4.4em 1.5em 0;
+nav.short a:not(.logo) {
+  padding: 1.5em;
   font-size: .75em;
-  width: 100%;
   text-align: right;
   white-space: nowrap;
   &:not(.logo):hover {
@@ -133,28 +107,16 @@ nav.short .top-five-container a {
   }
 }
 
-nav.short .top-five-container a span.top-five-icon {
-  position: absolute;
-  top: 1.25em;
-  right: 2em;
-  opacity: 1;
-  background: url('../img/question-mark-white.svg') no-repeat center center;
-  background-size: contain;
-  width: 20px;
-  height: 20px;
-  border: 1px solid rgba(255,255,255,0.5);
-  border-radius: 50%;
+nav.short .logo {
+  padding: 1.25em;
 }
-
-// nav.short .logo {
-//   background-size: auto 120%;
-//   font-size: 1em;
-//   padding: 0;
-//   height: 3em;
-// }
 
 .alternav {
   // margin: 2em 4em;
+}
+
+.stage-nav {
+  display: none;
 }
 
 @media screen and (min-width: $width-min-lrg) {
@@ -162,7 +124,6 @@ nav.short .top-five-container a span.top-five-icon {
     display: block;
   }
   header .logo {
-    float: left;
     background-size: 80% auto;
   }
 }
