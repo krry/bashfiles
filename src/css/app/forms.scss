@@ -73,11 +73,11 @@ input.phone {
   position: relative;
   // max-width: 27em;
 
-  border-color: $grey-mid;
+  // border-color: $grey-mid;
   background-color: $white;
-  -webkit-box-shadow: 0px 0px 4px rgba(0,0,0,0.15);
-     -moz-box-shadow: 0px 0px 4px rgba(0,0,0,0.15);
-          box-shadow: 0px 0px 4px rgba(0,0,0,0.15);
+  // -webkit-box-shadow: 0px 0px 4px rgba(0,0,0,0.15);
+  //    -moz-box-shadow: 0px 0px 4px rgba(0,0,0,0.15);
+  //         box-shadow: 0px 0px 4px rgba(0,0,0,0.15);
 }
 
 .combo-input input {
@@ -106,15 +106,15 @@ input.phone {
 }
 
 .combo-input input.month {
-  width: 1.5em;
+  width: 2em;
 }
 
 .combo-input input.day {
-  width: 1.5em;
+  width: 2em;
 }
 
 .combo-input input.year {
-  width: 3em;
+  width: 4em;
 }
 
 button.address-search {
@@ -148,8 +148,6 @@ button.answer-no {
   min-width: 5em;
   border-radius:50% / 100%;
 }
-
-
 
 @media screen and (min-width: $width-min-med) {
   input.street,

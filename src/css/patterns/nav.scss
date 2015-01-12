@@ -20,10 +20,11 @@ header {
 
 header .logo {
   text-indent: -9999px;
-  background: url('../img/logo-white.svg') no-repeat left center;
+  background: url('../img/logo-white.svg') no-repeat center center;
   background-size: auto 100%;
-  width: 12em;
-  padding: 1em;
+  width: 8em;
+  height: 3em;
+  padding: 0;
 }
 
 header nav {
@@ -83,24 +84,28 @@ header nav li:last-child {
   padding-right: 1.7em;
 }
 
-.stage-nav {
-  display: none;
-}
-
-.icon.top-five {
-  @include icon("question-mark-white");
+nav a {
+  position: relative;
+  text-transform: uppercase;
+  border: 0;
+  &:hover {
+    border: 0;
+  }
 }
 
 nav.short a:not(.logo) {
-  position: relative;
-  text-transform: uppercase;
-  padding: 1.5em 4.4em 1.5em 0;
   font-size: .75em;
+  padding: 1.25em 2em 1.25em;
+  // padding: 1.5em;
   text-align: right;
   white-space: nowrap;
   &:hover {
     background-color: $tint-20;
   }
+}
+
+nav.short .top-five {
+  margin-bottom: -.325em;
 }
 
 .alternav {
@@ -116,6 +121,6 @@ nav.short a:not(.logo) {
     display: block;
   }
   header .logo {
-    background-size: 80% auto;
+    background-size: cover;
   }
 }
