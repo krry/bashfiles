@@ -63,4 +63,4 @@ gulp.task('demon', function(cb){
     })
     .on('error', handleErrors)
     .on('end', cb)
-})
+});

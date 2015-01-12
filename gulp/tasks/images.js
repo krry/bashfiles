@@ -16,7 +16,7 @@ var imgSrc = [
   './src/img/**/*'
 ];
 
-var imgPub = './public/img/';
+var imgPub = './public/img';
 
 gulp.task('images', function(){
   return gulp.src(imgSrc)

@@ -11,11 +11,11 @@
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
-var gulp = require('gulp')
-var changed = require('gulp-changed')
+var gulp = require('gulp');
+var changed = require('gulp-changed');
 var concat = require('gulp-concat');
 
-var handleErrors = require('../util/handleErrors')
+var handleErrors = require('../util/handleErrors');
 
 var libSrc = [
   './src/lib/normalize.css/normalize.css',
@@ -41,13 +41,13 @@ var libSrc = [
   './src/lib/angularfire/dist/angularfire.min.js',
   './src/lib/angular-rx/dist/rx.angular.js',
   './src/js/rxjs-firebase/rx.firebase.js',
-]
+];
 
-var libPub = './public/lib/'
+var libPub = './public/lib';
 
 gulp.task('libs', ['bower'], function(){
   return gulp.src(libSrc)
         .pipe(changed(libPub))
         .on('error', handleErrors)
         .pipe(gulp.dest(libPub))
-})
+});
