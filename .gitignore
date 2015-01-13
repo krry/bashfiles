@@ -1,5 +1,6 @@
 ignore
 public/
+log/
 src/lib/
 src/js/config.js
 node_modules
