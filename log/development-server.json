@@ -70,6 +70,7 @@
 {"level":"info","message":"now serving on port:  8100","timestamp":"2015-01-13T05:13:51.553Z"}
 {"level":"info","message":"winston assembled, ready to log","timestamp":"2015-01-13T05:14:43.019Z"}
 {"level":"info","message":"now serving on port:  8100","timestamp":"2015-01-13T05:14:43.084Z"}
+<<<<<<< HEAD
 {"level":"info","message":"winston assembled, ready to log","timestamp":"2015-01-13T19:08:28.969Z"}
 {"level":"info","message":"now serving on port:  8100","timestamp":"2015-01-13T19:08:29.045Z"}
 {"level":"info","message":"winston assembled, ready to log","timestamp":"2015-01-13T19:59:25.017Z"}
@@ -83,3 +84,5 @@
 {"level":"info","message":"now serving on port:  8100","timestamp":"2015-01-14T21:31:40.416Z"}
 {"level":"info","message":"winston assembled, ready to log","timestamp":"2015-01-14T23:39:24.567Z"}
 {"level":"info","message":"now serving on port:  8100","timestamp":"2015-01-14T23:39:24.638Z"}
+=======
+>>>>>>> adding request and error loggers, minor linting and housekeeping
