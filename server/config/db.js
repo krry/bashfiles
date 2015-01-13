@@ -9,8 +9,6 @@ var dbURL = process.env.dbURL || "example" // use nconf instead of just env
 var db = new database;
 
 module.exports = {
-
   db:     db,
-  dbURL:  dbURL
-
+  dbURL:  dbURL,
 };

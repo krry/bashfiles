@@ -32,7 +32,7 @@ gulp.task('demon', function(cb){
       'NODE_ENV': env
     },
     watch: [
-      'server/server.js'
+      'server/**/*.js'
     ],
     ignore: [
       '*.scss',

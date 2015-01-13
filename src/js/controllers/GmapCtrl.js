@@ -5,6 +5,7 @@ function GmapCtrl_ ($scope, $element, Geocode) {
   var DEFAULT_CENTER,
       center,
       zoom,
+      map,
       mapEl,
       mapOptions;
 
