@@ -60,8 +60,7 @@
     "q": "^1.0.1",
     "run-sequence": "^1.0.1",
     "shelljs": "^0.3.0",
-    "winston": "^0.8.3",
-    "winston-request-logger": "^1.0.7"
+    "winston": "^0.8.3"
   },
   "devDependencies": {},
   "scripts": {

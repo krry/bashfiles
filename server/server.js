@@ -16,7 +16,6 @@ var newrelic      = require('newrelic'),
     expValid      = require('express-validator'),
     bodyParser    = require('body-parser'),
     cookieParser  = require('cookie-parser'),
-    reqLogger     = require('winston-request-logger'),
     env           = process.env.NODE_ENV || 'development',
     morgan        = require('morgan'),
     logger        = require('./logger'), // logger
@@ -58,9 +57,7 @@ require('./routes/appRoutes.js')(app);
 // require('./routes/pathRoutes.js')(app);
 require('./routes/authorizationRoutes.js')(app);
 
+// TODO: determine why requests aren't being logged via Winston
 logger.debug("starting logger, overriding morgan");
-// logger.debug("stream", logger.stream);
-app.use(morgan("combined"));
-// app.use(morgan("combined", { "stream": logger.stream }));
-app.use(reqLogger.create(logger));
+app.use(morgan("combined", { "stream": logger.stream }));
 module.exports = app;
