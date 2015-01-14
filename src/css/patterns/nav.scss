@@ -54,7 +54,10 @@ header a {
   display: inline-block;
   padding: 2.5em 2em 2em 0;
   color: white;
-  // font-size: .875em;
+  border: 0;
+  &:hover {
+    border: 0;
+  }
 }
 
 header a:hover {
@@ -104,8 +107,12 @@ nav.short a:not(.logo) {
   }
 }
 
-nav.short .top-five {
-  margin-bottom: -.325em;
+nav.short a span {
+  margin-bottom: -.25em;
+}
+
+nav.short .logo {
+  padding: 1.25em;
 }
 
 .alternav {

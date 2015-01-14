@@ -61,7 +61,9 @@ function flnDraw_ ($timeout, $compile, Configurator, Clientstream) {
 
       listener_key = Configurator.map().on('click',  function() { // save the listener for $destroy
         console.log($scope.tip_text);
+        /* jshint -W030 */
         tip_step < tips.length -1 && tip_step++;
+        /* jshint +W030 */
         $scope.tip_text = tips[tip_step]
         map_div.attr('tip-text', $scope.tip_text);
         $scope.$apply();
