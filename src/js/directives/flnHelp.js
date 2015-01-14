@@ -1,3 +1,5 @@
+directives.directive('flnHelp', flnHelp);
+
 function flnHelp () {
   return {
     // scope: {},
@@ -5,5 +7,3 @@ function flnHelp () {
     // link: function(scope, element, attrs) {}
   };
 }
-
-directives.directive('flnHelp', flnHelp);

@@ -18,6 +18,7 @@ main.main {
   margin: auto;
   overflow: hidden;
   background-color: $color-bkgd-primary;
+  max-height: 33.3em; // the number of the beast in ems
 }
 
 .overlay.primary {
