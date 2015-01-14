@@ -125,9 +125,9 @@ nav.short .top-five-container {
 }
 
 nav.short .top-five-container a {
-  text-transform: uppercase;
-  padding: 1.5em 4.4em 1.5em 0;
-  font-size: .75em;
+  // text-transform: uppercase;
+  padding: 1em 3.3em 1em 0;
+  font-size: 0.9em;
   width: 100%;
   text-align: right;
   white-space: nowrap;
@@ -138,8 +138,8 @@ nav.short .top-five-container a {
 
 nav.short .top-five-container a span.top-five-icon {
   position: absolute;
-  top: 1.25em;
-  right: 2em;
+  top: 1em;
+  right: 1.5em;
   opacity: 1;
   background: url('../img/question-mark-white.svg') no-repeat center center;
   background-size: 20px 20px;
