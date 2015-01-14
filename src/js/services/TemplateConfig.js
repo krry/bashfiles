@@ -1,13 +1,21 @@
+/* ==================================================
+
+  TemplateConfig
+
+  The order and organization of template partials
+  consumed by StageCtrl
+
+================================================== */
+
 angular.module('flannel').factory('TemplateConfig', TemplateConfig_);
+
 function TemplateConfig_ () {
-  /* ================================
-    TemplateConfig
 
-    The order and organization of template partials used by StageService
+  var config,
+      partials,
+      service;
 
-  ================================ */
-
-  var config = [
+  config = [
     {
       name: 'home',
       destination: 'configure',
@@ -32,23 +40,29 @@ function TemplateConfig_ () {
       name: 'signup',
       destination: '',
       steps: [
-        { step: 'credit-check',    partial: 'credit.html'   },
         { step: 'review-proposal', partial: 'proposal.html' },
+        { step: 'credit-check',    partial: 'credit.html'   },
         { step: 'schedule-survey', partial: 'schedule.html' },
         { step: 'congrats',        partial: 'congrats.html' },
       ],
     },
   ];
 
-  var partials = partial_constructor(config);
+  partials = partial_constructor(config);
+
+  service = {
+    partials: partials,
+    partial: partial,
+    config: config,
+  };
 
   function partial_constructor (config) {
     var stage,
         name,
         template = 'templates/stages/',
         partials = [];
-    // TODO: make this an injectable angular constant
 
+    // TODO: make this an injectable angular constant
     function hardcode(part) {
       return template + name + '/' + part;
     }
@@ -69,10 +83,6 @@ function TemplateConfig_ () {
     return partials[stg][stp];
   }
 
-  return {
-    partials: partials,
-    partial: partial,
-    config: config,
-  };
+  return service;
 }
 
