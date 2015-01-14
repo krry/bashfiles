@@ -7,7 +7,7 @@
   Google Map objects on `service.g.foo`
   OpenLayer Map objects on `service.o.bar`
 
-  OL Map options are set in these objects
+  OL Map options are set in these objects:
     _ol_control_defaults
     _ol_map_interaction_defaults
 
@@ -257,7 +257,7 @@ function MapService_ ($q, Client, LayerService, StyleService, UserService, Confi
 
     // return values of address components to be saved in form fields
     if (addy.country !== 'US') {
-      return response(false, "Invalid ZIP code")
+      return false;
     } else if (addy.zip) {
       console.log("returning addy: ")
       console.log(addy)
