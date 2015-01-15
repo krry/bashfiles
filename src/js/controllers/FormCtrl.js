@@ -72,7 +72,7 @@ function FormCtrl_($scope, Form, Client, Geocode, UserService, Session, MapServi
     // return cb(false);
     return cb(true);
 
-    // DON'T DELETE THIS: WE'LL NEED IT LATER
+    // DON'T DELETE THIS: WE'LL NEED IT LATER //////////////////////////
     // var msg, data = 'zip='+zip.toString()
     // // console.log('data is ' + data)
     // if (zip != null) {
