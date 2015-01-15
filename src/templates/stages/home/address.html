@@ -11,7 +11,7 @@
           minlength="4"
           ng-minlength="4"
           ng-valid="form.parseAddress(user)"
-          ng-keypress="form.resizeInput()"></input>
+          ng-keypress="form.resizeInput()">
       </div>
       <div class="col half center padded sml-full">
         <div class="combo-input">
@@ -23,7 +23,6 @@
             name="city"
             ng-required="true"
             ng-valid="form.parseAddress(user)">
-          </input>
           <input
             ng-model="form.home.state"
             type="text"
@@ -35,7 +34,6 @@
             maxlength="2"
             ng-maxlength="2"
             ng-valid="form.parseAddress(user)">
-          </input>
           <input
             ng-model="form.home.zip"
             type="tel"
@@ -48,7 +46,6 @@
             ng-maxlength="5"
             ng-pattern="/^\d{5}(?:[-\s]\d{4})?$/"
             ng-valid="form.parseAddress(user)">
-          </input>
           <button class="address-search ib" ng-hide="form.valid" ng-click="form.geocodeAddress(form.home, form.recenterMap)">&nbsp;</button>
         </div>
       </div>
@@ -56,7 +53,7 @@
     <!-- <button class="ib aqua" ng-hide="form.valid" ng-click="form.geocodeAddress(form.home, form.recenterMap)">Go</button> -->
     <!-- <button class="aqua" ng-show="form.valid" ng-click="form.nextStep()">That's my house</button> -->
 
-    <div class="answer-container center" ng-show="form.valid" >
+    <div class="answer-container center" ng-show="form.valid">
       <h3>Do you own your house?</h3>
       <button class="answer-yes aqua" ng-click="form.nextStep()">Yes</button>
       <button class="answer-no aqua" ng-click="form.nextStep()">No</button>

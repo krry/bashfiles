@@ -18,7 +18,7 @@ directives.directive("flnFollowTip", flnFollowTip_);
 
 function flnFollowTip_ () {
   return {
-    restrict: "A",
+    restrict: "CA",
     transclude: true,
     // replace: true,
     scope: {
