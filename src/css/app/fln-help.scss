@@ -23,7 +23,6 @@
 
   a {
     @include apercu-regular;
-    // background: $white;
     padding: 1em;
     padding-left: 4.25em;
     width: 100%;
@@ -44,14 +43,6 @@
       background-color: $shade-05;
       // color: $white;
       border: 0;
-    }
-
-    &.icon-call {
-      background-image: url('../img/help-call.svg');
-    }
-
-    &.icon-chat {
-      background-image: url('../img/help-chat.svg');
     }
   }
 }

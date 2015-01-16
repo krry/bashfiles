@@ -4,4 +4,22 @@
   &.top-five, &.question {
     @include icon("question-mark-white");
   }
+  &.icon.call {
+    @include icon('help-call');
+  }
+  &.icon.chat {
+    @include icon('help-chat');
+  }
+  &.facebook {
+    @include icon("facebook", $type: "png");
+  }
+  &.twitter {
+    @include icon("twitter", $type: "png");
+  }
+  &.googleplus {
+    @include icon("googleplus", $type: "png");
+  }
+  &.pinterest {
+    @include icon("pinterest", $type: "png");
+  }
 }
