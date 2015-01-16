@@ -2,18 +2,22 @@
 
 ul,
 ol {
+  font-size: .875em;
   margin: 0;
+  margin-bottom: 1em;
   padding: 0;
+  padding-left: 1em;
 }
 
 dl {
-  line-height: 1em;
+  font-size: .875em;
+  // line-height: 1em;
   margin-bottom: 0.5em;
 }
 
 dl dt {
   font-weight: bold;
-  margin-top: 0.5em;
+  margin: 0.75em auto .25em;
 }
 
 dl dd {
@@ -28,9 +32,6 @@ ol.no-pips li {
 .links li {
   margin-bottom: .5em;
 }
-
-
-
 
 ul.finacing-options-list {
   font-size: 0.85em;
