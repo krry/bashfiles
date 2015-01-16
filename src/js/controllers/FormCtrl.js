@@ -3,10 +3,12 @@
   the form controller
 ================================================== */
 
-controllers.controller("FormCtrl", ["$scope", "Form", "Clientstream", "UserService", "Session", "MapService", FormCtrl_]);
+controllers.controller("FormCtrl", ["$scope", "Form", "Clientstream", "Geocode", "UserService", "Session", "MapService", FormCtrl_]);
 
-function FormCtrl_($scope, Form, Client, UserService, Session, MapService) {
+function FormCtrl_($scope, Form, Client, Geocode, UserService, Session, MapService) {
   var vm = this;
+
+  vm.addy = Geocode.addy;
   vm.home = UserService.getHome();
   vm.prospect = UserService.getProspect();
   vm.monitorZip = monitorZip;
@@ -42,24 +44,26 @@ function FormCtrl_($scope, Form, Client, UserService, Session, MapService) {
   }
 
   function monitorZip () {
+    var zip = vm.home.zip;
     console.log('monitoring zip field');
-    var zip = vm.user.zip;
 
     if (typeof(zip) !== "undefined") {
-      console.log(zip);
+      console.log('zip field contains:', zip);
+      // vm.addy.zip = zip;
+      Geocode.parseAddy({"zip": zip});
       MapService.setGmapShown(true);
       MapService.geocodeZip(zip, validateZip);
       // pass to checkTerritory API
         // if false, show out of territory state
         // if true, advance to address step
-          // return mapService.initNearMe()
+          // return mapService.initNearMe();
     }
   }
 
   function validateZip(result) {
     vm.valid = result;
     console.log('validZip is', vm.validZip);
-    checkTerritory(vm.user.zip, validateTerritory);
+    checkTerritory(vm.home.zip, validateTerritory);
   }
 
   // TODO: move this to an API provider that sends data to the server which corresponds with proprietary APIs
@@ -68,7 +72,7 @@ function FormCtrl_($scope, Form, Client, UserService, Session, MapService) {
     // return cb(false);
     return cb(true);
 
-    // DON'T DELETE THIS: WE'LL NEED IT LATER
+    // DON'T DELETE THIS: WE'LL NEED IT LATER //////////////////////////
     // var msg, data = 'zip='+zip.toString()
     // // console.log('data is ' + data)
     // if (zip != null) {

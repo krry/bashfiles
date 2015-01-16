@@ -53,22 +53,25 @@ function flnDraw_ ($timeout, $compile, Configurator, Clientstream) {
       tips = [
         "click to begin, brah",
         "keep clickin', brah",
-        "close that shape up, brah",
-      ]
+        "close up that shape, brah",
+      ];
+
       $scope.tip_text = tips[tip_step];
 
       // listen for clicks on the map...
 
       listener_key = Configurator.map().on('click',  function() { // save the listener for $destroy
         console.log($scope.tip_text);
+        /* jshint -W030 */
         tip_step < tips.length -1 && tip_step++;
+        /* jshint +W030 */
         $scope.tip_text = tips[tip_step]
         map_div.attr('tip-text', $scope.tip_text);
         $scope.$apply();
       });
 
       // compile && add that beastly tooltip div
-      map_div.addClass('fln-follow-tip')
+      map_div.attr('fln-follow-tip', true);
       map_div.attr('tip-text', '{{tip_text}}');
       $compile(map_div)($scope);
 

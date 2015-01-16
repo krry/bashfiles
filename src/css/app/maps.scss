@@ -20,7 +20,9 @@
 }
 
 .instructions {
-  padding: 2em;
+  background: $white;
+  // box-shadow: 0 .5em .25em -.25em $shade-20;
+  padding: 5em 1.5em;
 }
 
 .area-detail {
@@ -28,17 +30,31 @@
   top: 0;
   height: 100%;
   z-index: 2;
-  background: $tintier;
+  background: $tint-60;
 }
 
 .ol-viewport {
+  position: relative;
   // background: $grey-mid;
 
   .ol-overlaycontainer-stopevent {
     position: absolute;
-    top: 1em;
-    left: 1em;
+    top: .75em;
+    left: .75em;
+    background-color: $tint-40;
+    border-radius: .35em;
+    // background: rgba(255,255,255,0.3);
+    // padding: .125em;
+    // width: 2.25em;
+    // height: 7em;
   }
+
+  .ol-control {
+    padding: .25em;
+    position: static;
+    border-radius: .5em;
+  }
+
   .fln-zoom,
   .fln-zoom:hover {
     background: none;
@@ -48,29 +64,45 @@
 
     .fln-zoom-in,
     .fln-zoom-out {
-      @include apercu-bold;
-      font-size: 1.25em;
-      position: relative;
-      background: $tinty;
-      color: $shady;
-      padding: .375em .75em;
-      box-shadow: 0px 2px 4px -2px $shady;
-      height: auto;
-      width: auto;
-      border: 3px solid;
-      border-radius: 50%;
-      line-height: inherit;
-      min-width: 0;
-      margin-bottom: .25em;
+      // position: relative;
+      color: transparent;
+      height: 2em;
+      width: 2em;
+      padding: 0;
+      border-radius: .25em;
+      background: $white no-repeat center center;
+      background-size: 90% auto;
+      // @include apercu-bold;
+      // font-size: 1.25em;
+      // padding: .375em .75em;
+      // box-shadow: 0px 2px 4px -2px $shade-40;
+      // border: 3px solid;
+      // line-height: inherit;
+      // min-width: 0;
+      // margin-bottom: .25em;
 
       &:hover {
-        color: $grey-mid;
-        background: $white;
+        // color: $grey-mid;
+        // background: $white;
       }
+
+      & + .fln-zoom-out {
+        margin-top: .3025em;
+      }
+
       span {
-        position: absolute;
-        right: 100%;
+        // position: absolute;
+        // right: 100%;
+        display: none;
       }
+    }
+
+    .fln-zoom-in {
+      background-image: url('../img/zoom-in.svg');
+    }
+
+    .fln-zoom-out {
+      background-image: url('../img/zoom-out.svg');
     }
   }
 }
@@ -90,34 +122,51 @@
     pointer-events: auto;
     position: absolute;
     margin: auto;
-    width: 7em;
-    height: 3em;
+    width: 2.5em;
+    height: 2.5em;
     overflow: auto;
-    opacity: .5;
+    // opacity: .5;
+    padding: 0;
+    min-width: 0;
+    border-radius: 7px;
+    background-color: none;
 
     &.pan-up {
-      top: 1.5em;
+      top: 1em;
       right: 0;
       left: 0;
+      background: url('../img/arrow-up.svg') no-repeat center;
+      background-size: 70% auto;
+      background-color: $tint-20;
     }
     &.pan-down {
       right: 0;
-      bottom: 4.5em;
+      bottom: 1em;
       left: 0;
+      background: url('../img/arrow-down.svg') no-repeat center;
+      background-size: 70% auto;
+      background-color: $tint-20;
     }
     &.pan-right {
       top: 0;
       bottom: 0;
       right: 1em;
+      background: url('../img/arrow-right.svg') no-repeat center;
+      background-size: 70% auto;
+      background-color: $tint-20;
     }
     &.pan-left {
       top: 0;
       left: 1em;
       bottom: 0;
+      background: url('../img/arrow-left.svg') no-repeat center;
+      background-size: 70% auto;
+      background-color: $tint-20;
     }
     &:hover,
     &:active {
-      opacity: 1;
+      // opacity: 1;
+      background-color: $tint-40;
     }
   }
 }

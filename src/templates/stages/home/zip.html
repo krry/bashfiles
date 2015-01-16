@@ -1,39 +1,42 @@
 <section class="overlay primary col fourth three">
   <form novalidate fln-form ng-submit="form.checkZip()" name="zipForm">
-  <ul class="no-pips cycle">
-    <!-- <li>
-      <h1>We’re the nation's leading solar provider.</h1>
-      <p>Do we cover your neighborhood?</p>
-    </li> -->
-    <li ng-hide="!form.validZip || !form.validTerritory">
-      <h1 class="tooltip top" title="tick tock">Every minute, someone switches to solar.<br><small>Are we in your neighborhood?</small></h1>
-      <!-- <h3>Will you be next?</h3> -->
-    </li>
-    <li class="error" ng-show="!form.validZip">
-      <h1>We’ve never seen that zip.<br><small>Let's try it again. Or try entering your city.</small></h1>
-    </li>
-    <!-- <li class="error" ng-show="">
-      <h1>That's not a valid ZIP code. Let's try again.</h1>
-    </li>
-    <li class="error" ng-show="">
-      <h1>If we were playing hide and seek, you'd be the winner.</h1>
-    </li> -->
-    <li class="error" ng-show="!form.validTerritory">
-      <h1>Sorry, we're not in your area yet.<br><small>Enter your email if you'd like to know when we get there.</small></h1>
-    </li>
-  </ul>
+    <ul class="no-pips cycle">
+      <!-- <li>
+        <h1>We’re the nation's leading solar provider.</h1>
+        <p>Do we cover your neighborhood?</p>
+      </li> -->
+      <li ng-hide="!form.validZip || !form.validTerritory">
+        <h1>Every minute, someone switches to solar.<br><small>Are we in your neighborhood?</small></h1>
+        <!-- <h3>Will you be next?</h3> -->
+      </li>
+      <li class="error" ng-show="!form.validZip">
+        <h1>We’ve never seen that zip.<br><small>Let's try it again. Or try entering your city.</small></h1>
+      </li>
+      <!-- <li class="error" ng-show="">
+        <h1>That's not a valid ZIP code. Let's try again.</h1>
+      </li>
+      <li class="error" ng-show="">
+        <h1>If we were playing hide and seek, you'd be the winner.</h1>
+      </li> -->
+      <li class="error" ng-show="!form.validTerritory">
+        <h1>Sorry, we're not in your area yet.<br><small>Enter your email if you'd like to know when we get there.</small></h1>
+      </li>
+    </ul>
     <label for="zipcode">
       <!-- TODO: convert this into an auto-size-input for auto-complete glory -->
       <!-- auto-size-input
       auto-size-width="5" -->
       <input
-        ng-model="form.user.zip"
+        ng-model="form.home.zip"
         type="tel"
         id="hood_check"
         placeholder="ZIP CODE"
         class="zipcode"
         ng-class=""
         name="zipCheck"
+        autocomplete="off"
+        autocorrect="off"
+        focus="true"
         required="true"
         ng-required="true"
         maxlength="5"
@@ -43,15 +46,18 @@
         ng-hide="!form.validTerritory">
       <input
         type="email"
-        ng-model"form.user.email"
+        ng-model"form.prospect.email"
         name="emailDq"
+        autocapitalize="none"
+        autocomplete="on"
+        autocorrect="off"
         placeholder="Leave us your email"
         ng-show="!form.validTerritory">
     </label>
     <button class="ib aqua" ng-show="!form.validTerritory">Notify Me</button>
     <div fln-alternav alternatives="true" ng-show="!form.validTerritory"></div fln-alternav>
   </form>
-  <fln-autolocate></fln-autolocate>
+  <!-- <fln-autolocate></fln-autolocate> -->
 </section>
 <aside class="overlay secondary col fourth lrg-full med-full sml-full">
   <figure>

@@ -6,15 +6,22 @@ function GeocodeProvider_ () {
   ================================ */
 
 
-  this.$get = [ "Clientstream", function googleAddressProvider(Client) {
+  this.$get = [ "Clientstream", function googleAddressProvider (Client) {
 
-    Client.listen('validate zip', function(zip){
+    Client.listen('validate zip', function (zip){
 
-    })
+    });
 
-    function geocode_builder_brah() {
+    var addy = {};
+
+    function parseAddy (addy) {
+      console.log('brah!', addy);
+    }
+
+    function geocode_builder_brah () {
       return {
-        butts:   function() { return "butts"},
+        addy: addy,
+        parseAddy: parseAddy,
       };
     }
 

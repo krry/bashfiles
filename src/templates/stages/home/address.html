@@ -1,33 +1,36 @@
 <section class="overlay primary short col full">
-  <h2>Wow, <span id="neighbor_count">1,234</span> of your neighbors have gone solar.<br><small>Let's get you started</small></h2>
-  <form fln-form novalidate ng-submit="">
+  <h1 ng-hide="form.valid">Wow! <span id="neighbor_count">4,499</span> of your neighbors have gone solar.<br><small>Let’s take a closer look at your house.</small></h1>
+  <form fln-form novalidate ng-submit="form.geocodeAddress(form.home, form.recenterMap)">
     <div class="row">
       <div class="col half center padded sml-full">
         <input
+          id="prospect_address"
           ng-model="form.home.street"
           type="text"
           class="street"
+          focus="true"
           placeholder="Street Address"
           minlength="4"
           ng-minlength="4"
           ng-valid="form.parseAddress(user)"
-          ng-keypress="form.resizeInput()"></input>
+          ng-keypress="form.resizeInput()">
       </div>
       <div class="col half center padded sml-full">
         <div class="combo-input">
           <input
             ng-model="form.home.city"
             type="text"
+            id="prospect_city"
             class="city"
             placeholder="City"
             name="city"
             ng-required="true"
             ng-valid="form.parseAddress(user)">
-          </input>
           <input
             ng-model="form.home.state"
             type="text"
             id="state"
+            id="prospect_state"
             placeholder="State"
             class="state"
             name="state"
@@ -35,11 +38,10 @@
             maxlength="2"
             ng-maxlength="2"
             ng-valid="form.parseAddress(user)">
-          </input>
           <input
             ng-model="form.home.zip"
             type="tel"
-            id="zip"
+            id="prospect_zip"
             placeholder="Zip"
             class="zipcode"
             name="zipcode"
@@ -48,12 +50,18 @@
             ng-maxlength="5"
             ng-pattern="/^\d{5}(?:[-\s]\d{4})?$/"
             ng-valid="form.parseAddress(user)">
-          </input>
+          <button class="address-search ib" ng-hide="form.valid" ng-click="form.geocodeAddress(form.home, form.recenterMap)">&nbsp;</button>
         </div>
       </div>
     </div>
-    <button class="ib aqua" ng-hide="form.valid" ng-click="form.geocodeAddress(form.home, form.recenterMap)">Go</button>
-    <button class="aqua" ng-show="form.valid" ng-click="form.nextStep()">That's my house</button>
+    <!-- <button class="ib aqua" ng-hide="form.valid" ng-click="form.geocodeAddress(form.home, form.recenterMap)">Go</button> -->
+    <!-- <button class="aqua" ng-show="form.valid" ng-click="form.nextStep()">That's my house</button> -->
+
+    <div class="answer-container center" ng-show="form.valid">
+      <h3>Do you own your house?</h3>
+      <button class="answer-yes aqua" ng-click="form.nextStep()">Yes</button>
+      <button class="answer-no aqua" ng-click="form.nextStep()">No</button>
+    </div>
   </form>
 </section>
 <!-- <aside class="overlay secondary short col fourth sml-full med-full">

@@ -2,6 +2,7 @@
   "MINIFIED": "false",
   "PORT": 8100,
   "FLANNEL_SECRET": "sekret",
+  "APP_TITLE": "FLNL • DEV",
   "FIREBASE_SECRET": "hSKlMlUuwpcowWFyS3UjmSqlZQTPTmeEz62OXta9",
   "GMAP_CLIENT": "gme-solarcity"
 }

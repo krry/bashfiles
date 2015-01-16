@@ -28,22 +28,22 @@ Generally, let's define a common system for resolving merge conflicts. They will
     [ ] credit check: optional DOB, etc.
 
 * stages and states and steps
-    [ ] advancing
-    [ ] retreating
-    [ ] completing
+    [x] advancing
+    [x] retreating
+    [x] completing
     [ ] depleting
-    [ ] excreting
+    [x] excreting
 
 ## Lazarus
 
 * directives
-    
+
 * angular.providers
     [x] Design
     [x] Session
     [ ] Form
-    [ ] 
-
+    [ ] Map
+    [ ] Geocode
 
 * layers
     [x] area
@@ -61,9 +61,6 @@ Generally, let's define a common system for resolving merge conflicts. They will
         [ ] design id from firebase
     [?] listeners
 
-
-
-
 * ui states
     [x] home
     [x] config
@@ -73,14 +70,11 @@ Generally, let's define a common system for resolving merge conflicts. They will
     [ ] init service
     [ ] views sync
     [ ] areas sync
-    [ ] 
 
 * tenhands
     [ ] template
-    [ ] 
-    
+
 ## Unclaimed
 
 * conditionally load minified versions of dependencies when `process.env.NODE_ENV !== "development"`
-
 * include debug and min versions of lib files in public/ for environment-conditional use

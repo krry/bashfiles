@@ -1,0 +1,10 @@
+*      text=auto
+*.rb   text
+*.js   text
+*.html text
+*.css  text
+
+*.bat  text eol=crlf
+*.sh   text eol=lf
+
+*.png  binary

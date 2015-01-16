@@ -5,8 +5,6 @@
   
   minifies and copies the template HTML into `public`
 
-  TODO: make minification contingent on process.env.NODE_ENV
-
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
 var gulp = require('gulp');
@@ -26,6 +24,7 @@ gulp.task('templates', function(){
     .pipe(gulp.dest('./public/'))
 });
 
+// TODO: make minification contingent on process.env.NODE_ENV
 // var minifyHTML = require('gulp-minify-html');
 // var minOpts = {
 //   comments: true,

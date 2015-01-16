@@ -153,13 +153,20 @@ select {
 }
 
 label {
-  font-size: .875em;
+  font-size: .65em;
   display: block;
   text-indent: 0;
   font-weight: 600;
-  margin-bottom: 0.5em;
+  margin-top: 1em;
+  margin-bottom: 0.6em;
   text-transform: uppercase;
-  letter-spacing: .125em;
+  letter-spacing: .03em;
+}
+
+label span {
+  color: $red;
+  font-size: 1.5em;
+  line-height: 50%;
 }
 
 label abbr {
@@ -268,9 +275,10 @@ input[type="time"]:focus,
 input[type="week"]:focus,
 select[multiple=multiple]:focus {
   border-color: $grey-mid;
-  -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,0.2);
-     -moz-box-shadow: 0px 0px 3px rgba(0,0,0,0.2);
-          box-shadow: 0px 0px 3px rgba(0,0,0,0.2);
+  background-color: $white;
+  // -webkit-box-shadow: 0px 0px 4px rgba(0,0,0,0.15);
+  //    -moz-box-shadow: 0px 0px 4px rgba(0,0,0,0.15);
+  //         box-shadow: 0px 0px 4px rgba(0,0,0,0.15);
 }
 
 // input placeholders
