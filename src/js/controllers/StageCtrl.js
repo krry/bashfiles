@@ -32,6 +32,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
   vm = this;
   vm.next = next;
   vm.prev = prev;
+  vm.jumpToStage = jumpToStage;
   vm.startOver = startOver;
   vm.partial = Templates.partial(stage, step);
   vm.partials = flattenPartialsArray(Templates.partials);
@@ -48,7 +49,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
         }
       }
     }
-    console.log(partials);
+    // console.log(partials);
     return partials;
   }
 
@@ -90,14 +91,15 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
 
   // stage listener
   Clientstream.listen('stage', function stage_listen (target_state) {
+    var name;
     if (target_state === "next") {
       next();
     } else if (target_state === "back") {
-      back();
+      prev();
     } else if ($scope.view_sync) {
       target_state = !!target_state.state ? target_state.state : target_state;
         stage = target_state.stage;
-        var name = Templates.config[stage].name
+        name = Templates.config[stage].name;
         $state.go(name).then(function(){
           // trigger step changes afterwards
           Clientstream.emit('step', target_state.step)
@@ -162,6 +164,19 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
         stage: stage - 1,
         step:  Templates.config[stage - 1].steps.length -1,
       })
+    }
+  }
+
+  function jumpToStage (stage) {
+    console.log('trying to jump to:', stage, 'stage');
+    var stages = Templates.config;
+    for (var i = 0; i < stages.length; i++) {
+      if (stage === Templates.config[i].name) {
+        Clientstream.emit('stage', {
+          stage: i,
+          step: 0
+        });
+      }
     }
   }
 }

@@ -20,10 +20,11 @@ header {
 
 header .logo {
   text-indent: -9999px;
-  background: url('../img/logo-white.svg') no-repeat left center;
+  background: url('../img/logo-white.svg') no-repeat center center;
   background-size: auto 100%;
-  width: 12em;
-  padding: 1em;
+  width: 8em;
+  height: 3em;
+  padding: 0;
 }
 
 header nav {
@@ -73,7 +74,6 @@ header nav li {
   color: white;
   font-size: .75em;
   text-transform: uppercase;
-  letter-spacing: 1.7;
   text-shadow: none;
 }
 
@@ -92,7 +92,7 @@ nav.short a {
 }
 
 nav.short a:not(.logo) {
-  padding: 1.75em;
+  padding: 1.5em;
   font-size: .75em;
   text-align: right;
   white-space: nowrap;
@@ -106,7 +106,7 @@ nav.short a span {
 }
 
 nav.short .logo {
-  padding: 1.25em;
+  padding: 1.675em;
 }
 
 .alternav {
@@ -122,6 +122,6 @@ nav.short .logo {
     display: block;
   }
   header .logo {
-    background-size: 80% auto;
+    background-size: cover;
   }
 }
