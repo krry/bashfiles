@@ -22,7 +22,7 @@ function TemplateConfig_ () {
       steps: [
         { step: 'zip-nearme',      partial: 'zip.html'      },
         { step: 'address-roof',    partial: 'address.html'  },
-        { step: 'intro-design',    partial: 'design.html'   },
+        { step: 'intro-design',    partial: 'address.html'   },
       ],
     },
     {

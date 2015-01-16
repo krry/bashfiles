@@ -48,7 +48,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
         }
       }
     }
-    console.log(partials);
+    // console.log(partials);
     return partials;
   }
 
