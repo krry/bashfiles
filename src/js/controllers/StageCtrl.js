@@ -32,8 +32,8 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
   vm = this;
   vm.next = next;
   vm.prev = prev;
-  vm.jumpToStage = jumpToStage;
   vm.startOver = startOver;
+  vm.jumpToStage = jumpToStage;
   vm.partial = Templates.partial(stage, step);
   vm.partials = flattenPartialsArray(Templates.partials);
 
@@ -54,11 +54,12 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
   }
 
   // for dev: //////////////////////////////
-  state_ref =  session_ref.child('state')
+  state_ref = session_ref.child('state');
+
   state_ref.set({
     stage: stage,
     step:  step,
-  })
+  });
 
   // $timeout(function(){
   //   Clientstream.emit('stage', {

@@ -108,3 +108,11 @@ pre, code {
 label abbr {
   display: none;
 }
+
+strong, b {
+  @include apercu-bold;
+}
+
+em, i {
+  @include apercu-italic;
+}
