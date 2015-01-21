@@ -97,12 +97,11 @@ function ConfiguratorFactory_() {
         }),
       })
 
-
-
       view.setCenter(ol.extent.getCenter(pixelProjection.getExtent())); // make the static image center, the center of the view.
-
       configurator_options.target = target_element[0]; // target_element comes from angular's link function.
       configurator_options.layers = [layers];
+      // set the initial zoom of the map
+      view.setZoom(1);
     }
 
     var configurator_options = {

@@ -10,8 +10,6 @@ TODO:
 function flnOlMap_(Configurator) {
   return {
     restrict: "A",
-    scope: {
-    },
     link: function flnOlMapLink(scope, ele, attrs) {
       var map = Configurator.map(ele);
       ele.on('$destroy', function (e) {
