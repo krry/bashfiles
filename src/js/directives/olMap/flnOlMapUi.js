@@ -38,7 +38,6 @@ directives
 function flnDraw_ ($timeout, $compile, Configurator, Clientstream) {
   return {
     restrict: "EA",
-    template: "<div fln-follow-tip tip-text='{{tip_text}}'></div>",
     controller: function flnDrawCtrl ($scope, $element, $attrs) {
 
       var tips, tip_step, listener_key;
