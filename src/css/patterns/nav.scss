@@ -66,15 +66,12 @@ header a:hover {
 
 header nav li {
   @include apercu-light;
-  @include caps;
   position: relative;
   opacity: 0.7;
   display: inline-block;
   padding: 1.5em 0.2em;
   color: white;
   font-size: .75em;
-  text-transform: uppercase;
-  letter-spacing: 1.7;
   text-shadow: none;
 }
 
@@ -87,19 +84,13 @@ header nav li:last-child {
   padding-right: 1.7em;
 }
 
-nav a {
+nav.short a {
   position: relative;
-  text-transform: uppercase;
-  border: 0;
-  &:hover {
-    border: 0;
-  }
 }
 
 nav.short a:not(.logo) {
-  font-size: .75em;
-  padding: 1.25em 2em 1.25em;
-  // padding: 1.5em;
+  padding: .875em;
+  font-size: .875em;
   text-align: right;
   white-space: nowrap;
   &:hover {
@@ -112,7 +103,7 @@ nav.short a span {
 }
 
 nav.short .logo {
-  padding: 1.25em;
+  padding: 1.25em 1.5em 1.5em;
 }
 
 .alternav {

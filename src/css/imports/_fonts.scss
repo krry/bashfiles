@@ -16,12 +16,12 @@
   font-weight: normal;
   font-style: normal;
 }
-// @mixin apercu-italic {
-//   font-family: "Apercu Italic", "Helvetica Neue", sans-serif;
-//   font-size-adjust: 0.508;
-//   font-weight: normal;
-//   font-style: italic;
-// }
+@mixin apercu-italic {
+  font-family: "Apercu Italic", "Helvetica Neue", sans-serif;
+  font-size-adjust: 0.508;
+  font-weight: normal;
+  font-style: italic;
+}
 @mixin apercu-medium {
   font-family: "Apercu Medium", "Helvetica Neue", sans-serif;
   font-size-adjust: 0.508;

@@ -72,14 +72,12 @@ h4 {
 }
 
 h5 {
+  font-size: 1em;
   // margin-bottom: .5em;
 }
 
 h5, .caps {
   @include caps;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  font-size: 1em;
 }
 
 h6 .small-caps {
@@ -88,8 +86,8 @@ h6 .small-caps {
 }
 
 p {
-  font-size: .85em;
-  margin: 0 auto;
+  font-size: .875em;
+  margin: 0 auto 1em;
 }
 
 blockquote {

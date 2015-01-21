@@ -32,8 +32,8 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
   vm = this;
   vm.next = next;
   vm.prev = prev;
-  vm.jumpToStage = jumpToStage;
   vm.startOver = startOver;
+  vm.jumpToStage = jumpToStage;
   vm.partial = Templates.partial(stage, step);
   vm.partials = flattenPartialsArray(Templates.partials);
 
@@ -54,11 +54,12 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
   }
 
   // for dev: //////////////////////////////
-  state_ref =  session_ref.child('state')
+  state_ref = session_ref.child('state');
+
   state_ref.set({
     stage: stage,
     step:  step,
-  })
+  });
 
   // $timeout(function(){
   //   Clientstream.emit('stage', {
@@ -95,7 +96,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
     if (target_state === "next") {
       next();
     } else if (target_state === "back") {
-      back();
+      prev();
     } else if ($scope.view_sync) {
       target_state = !!target_state.state ? target_state.state : target_state;
         stage = target_state.stage;
@@ -144,19 +145,6 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
     Clientstream.emit('start over', 'butts');
   }
 
-  function jumpToStage (stage) {
-    console.log('trying to jump to:', stage, 'stage');
-    var stages = Templates.config;
-    for (var i = 0; i < stages.length; i++) {
-      if (stage === Templates.config[i].name) {
-        Clientstream.emit('stage', {
-          stage: i,
-          step: 0
-        });
-      }
-    }
-  }
-
   // user flow controls
   function next (){
     if ( step + 1 < Templates.config[stage].steps.length ) {
@@ -177,6 +165,19 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
         stage: stage - 1,
         step:  Templates.config[stage - 1].steps.length -1,
       })
+    }
+  }
+
+  function jumpToStage (stage) {
+    console.log('trying to jump to:', stage, 'stage');
+    var stages = Templates.config;
+    for (var i = 0; i < stages.length; i++) {
+      if (stage === Templates.config[i].name) {
+        Clientstream.emit('stage', {
+          stage: i,
+          step: 0
+        });
+      }
     }
   }
 }

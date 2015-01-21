@@ -17,16 +17,15 @@ label + button {
 
 // Address fields
 input.zipcode {
-  font-size: 3.5em;
+  font-size: 2em;
   text-transform: uppercase;
   color: $color-input-text;
   text-align: center;
-  width: 12em;
-  max-width: 8em;
+  max-width: 7em;
   padding: 0.6em 1em;
   border: 1px solid $grey-medium;
   border-radius: 4px;
-  margin: 0.5em auto;
+  margin: 1em auto;
   background-color: $white-dark;
 }
 
