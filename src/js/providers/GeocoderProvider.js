@@ -15,15 +15,13 @@ function GeocoderProvider_ (UserService) {
 
   this.$get = [ "Clientstream", "UserService", function googleAddressProvider (Client) {
 
-    Client.listen('validate zip', function (zip){  });
-
     var geocoder,
         addy;
 
     addy = {};
 
     // pack the request as a nice little object and send it off to geocode camp
-    function geocode (request) {
+    function sendGeocodeRequest (request) {
       var addyStr,
           gecoder,
           components;
@@ -48,7 +46,7 @@ function GeocoderProvider_ (UserService) {
       }
 
       geocoder = new google.maps.Geocoder();
-      components = { "country": "US" };
+      // components = { "country": "US" };
 
       addy = {
         "address": addyStr,
@@ -71,14 +69,6 @@ function GeocoderProvider_ (UserService) {
           addy = parseLocation(results[0]);
           console.log('addy parsed into:', addy);
 
-          if (addy.zip) {
-            UserService.setHome('zip', addy.zip);
-            checkTerritory(addy.zip);
-          }
-          if (addy.city) UserService.setHome('city', addy.city);
-          if (addy.state) UserService.setHome('state', addy.state);
-          if (addy.street) Client.emit('valid address', addy);
-
           Client.emit('geocode results', center);
         }
       }
@@ -88,7 +78,7 @@ function GeocoderProvider_ (UserService) {
       }
       else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
         console.error("Over query limit, retrying...");
-        setTimeout(function(){ geocode(addy); }, 200);
+        setTimeout(function(){ sendGeocodeRequest(addy); }, 2000);
       }
       else if (status === google.maps.GeocoderStatus.REQUEST_DENIED) {
         console.error("The geocoder needs an additional parameter.");
@@ -98,6 +88,9 @@ function GeocoderProvider_ (UserService) {
         if (status === google.maps.GeocoderStatus.INVALID_REQUEST) {
           console.error("The geocode request was invalid. Address or latLng may be missing.");
           Client.emit('geocode results', false);
+        }
+        else {
+          Client.emit('geocode results', false); // return status;
         }
       }
     }
@@ -115,23 +108,23 @@ function GeocoderProvider_ (UserService) {
       // iterate through the array of address_components
       for (var i=0; i<parsedress.length; i++) {
         if (parsedress[i].types[0]==="postal_code") {
-          if (typeof(parsedress[i].long_name) !== "undefined") {
+          if (typeof parsedress[i].long_name !== "undefined") {
             addy.zip = parsedress[i].long_name;
         }}
         if (parsedress[i].types[0]==="administrative_area_level_1") {
-          if (typeof(parsedress[i].short_name) !== "undefined") {
+          if (typeof parsedress[i].short_name !== "undefined") {
             addy.state = parsedress[i].short_name;
         }}
         if (parsedress[i].types[0]==="locality") {
-          if (typeof(parsedress[i].long_name) !== "undefined") {
+          if (typeof parsedress[i].long_name !== "undefined") {
             addy.city = parsedress[i].long_name;
         }}
         if (parsedress[i].types[0]==="route") {
-          if (typeof(parsedress[i].short_name) !== "undefined") {
+          if (typeof parsedress[i].short_name !== "undefined") {
             addy.street = parsedress[i].short_name;
         }}
         if (parsedress[i].types[0]==="street_number") {
-          if (typeof(parsedress[i].long_name) !== "undefined") {
+          if (typeof parsedress[i].long_name !== "undefined") {
             addy.stno = parsedress[i].long_name;
         }}
         if (parsedress[i].types[0] === "country" ? typeof parsedress[i].short_name !== "undefined" : void 0) {
@@ -139,36 +132,40 @@ function GeocoderProvider_ (UserService) {
         }
       }
 
-      if (typeof addy.street !== "undefined" && typeof addy.stno !== "undefined") {
-        addy.home = addy.stno + " " + addy.street;
-        console.log("street address is: ");
-        console.log(addy.home);
-        response.is = true;
-        response.msg = addy.home;
-        Client.emit('valid address', response);
-      }
-
       // return values of address components to be saved in form fields
       if (addy.country !== 'US') {
-        Client.emit('outside US', true);
-      } else if (addy.zip) {
-        console.log("returning addy: ")
-        console.log(addy)
-        // return response(true, "Address found", addy)
-        return addy;
+        Client.emit('outside US', false);
+      }
+      else {
+        if (addy.zip) {
+          Client.emit('valid zip', addy.zip)
+          checkTerritory(addy.zip);
+        }
+        if (addy.state) {
+          Client.emit('valid state', addy.state);
+        }
+        if (addy.city) {
+          Client.emit('valid city', addy.city);
+        }
+        if (addy.street) {
+          Client.emit('valid address', addy);
+          if (addy.stno) {
+            addy.home = addy.stno + " " + addy.street;
+            Client.emit('valid house', addy.home);
+          }
+        }
       }
     }
 
     function checkTerritory(zip) {
       console.log('checking if', zip, 'is in our territory');
 
-      // DON'T DELETE THIS: WE'LL NEED IT LATER //////////////////////////
       var msg,
           data,
           response = {};
 
       data = 'zip=' + zip.toString();
-      console.log('data is ' + data)
+      console.log('data is ' + data);
 
       if (zip !== null) {
         $.ajax({
@@ -184,8 +181,8 @@ function GeocoderProvider_ (UserService) {
           },
           success: function(data) {
             // data = {'InTerritory' : 'false/true'}
-            // console.log(typeof(data))
-            // console.log(data)
+            // console.log(typeof data)
+           // console.log(data)
             response.is = data.InTerritory;
             response.msg = "It is " + data.InTerritory +" that this place is in SolarCity territory"; 
             Client.emit('valid territory', response);
@@ -197,7 +194,7 @@ function GeocoderProvider_ (UserService) {
     function geocode_builder_brah () {
       return {
         addy: addy,
-        geocode: geocode,
+        sendGeocodeRequest: sendGeocodeRequest,
         checkTerritory: checkTerritory,
       };
     }

@@ -31,6 +31,7 @@ function MapService_ ($q, Client, Geocoder, LayerService, StyleService, UserServ
     backgroundColor: "transparent"
   };
 
+  // TODO: blast this monkeytree into pieces
   var service = {
     // the google maps object literal
     g: {
@@ -46,6 +47,7 @@ function MapService_ ($q, Client, Geocoder, LayerService, StyleService, UserServ
     getGmapCenter: getGmapCenter,
     setGmapCenter: setGmapCenter,
     updateMap: updateMap,
+    setZoom: setZoom,
     getGmapMaxZoom: getGmapMaxZoom,
     setAutocomplete: setAutocomplete,
     setGmapSearchBox: setGmapSearchBox,
@@ -61,10 +63,9 @@ function MapService_ ($q, Client, Geocoder, LayerService, StyleService, UserServ
     getRoofmap: getRoofmap,
   };
 
+  Client.listen('zoom found', setZoom);
+
   return service;
-
-
-  // google maps methods defined
 
   // send a latLng, get back an address
   function reverseGeocode(latLng) {
@@ -89,6 +90,7 @@ function MapService_ ($q, Client, Geocoder, LayerService, StyleService, UserServ
   }
 
   // given a location, update the map to center on it, and max zoom to it
+  // TODO: nix the silly `service.g.gmap` object naming
   function updateMap (location) {
     if (typeof(location) !== "object") {
       console.error("not a location object, cannot update map with:", location);
@@ -96,15 +98,11 @@ function MapService_ ($q, Client, Geocoder, LayerService, StyleService, UserServ
     }
     console.log("updating map to center on:", location);
     service.g.gmap.setCenter(location);
-    return getGmapMaxZoom(location, function(zoom) {
-      console.log('setting zoom to:', zoom);
-      service.g.gmap.setZoom(zoom);
-      console.log('zoom set to:', service.g.gmap.getZoom());
-    });
+    return getGmapMaxZoom(location);
   }
 
   // ask for its maximum imagery zoom at a given location
-  function getGmapMaxZoom(location, cb) {
+  function getGmapMaxZoom(location) {
     var zoom,
         latLng,
         maxZoomService;
@@ -125,12 +123,20 @@ function MapService_ ($q, Client, Geocoder, LayerService, StyleService, UserServ
     maxZoomService.getMaxZoomAtLatLng(latLng, function(response) {
       if (response.status !== google.maps.MaxZoomStatus.OK) {
         console.log("max zoom failed:", response.status);
-        return cb(17);
+        // HACK: hardcode fallback when zoom ain't
+        Client.emit('zoom found', 17);
       } else {
         console.log("max zoom at location:", response.zoom);
-        return cb(response.zoom);
+        Client.emit('zoom found', response.zoom);
       }
     });
+  }
+
+  // TODO: nix that service.g crap here too
+  function setZoom (zoom) {
+    console.log('setting zoom to:', zoom);
+    service.g.gmap.setZoom(zoom);
+    console.log('zoom set to:', service.g.gmap.getZoom());
   }
 
   // drop a pin on the map center

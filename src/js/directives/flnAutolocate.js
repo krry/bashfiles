@@ -10,7 +10,6 @@ function flnAutolocate () {
       $scope.autolocate = autolocate;
 
       function autolocate(){
-        // console.log("YES!");
         if (navigator.geolocation) {
           MapService.setGmapShown(true);
           navigator.geolocation.getCurrentPosition(function(position){

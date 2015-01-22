@@ -1,5 +1,5 @@
 <section class="overlay primary col fourth three">
-  <form novalidate fln-form ng-submit="form.checkZip()" name="zipForm">
+  <form novalidate fln-form name="zipForm" ng-submit="form.checkZip(hood_check)">
     <ul class="no-pips cycle">
       <!-- <li>
         <h1>We’re the nation's leading solar provider.</h1>
@@ -26,7 +26,7 @@
       <!-- auto-size-input
       auto-size-width="5" -->
     <input
-      ng-model="form.home.zip"
+      ng-model="form.user.zip"
       type="tel"
       id="hood_check"
       placeholder="ZIP CODE"
@@ -35,18 +35,18 @@
       name="hood_check"
       autocomplete="off"
       autocorrect="off"
+      ng-change="form.checkZip(form.user.zip)"
       focus="true"
       required="true"
       ng-required="true"
       maxlength="5"
       ng-maxlength="5"
       ng-pattern="/^\d{5}(?:[-\s]\d{4})?$/"
-      ng-change="form.checkZip(hood_check)"
       ng-hide="!form.validTerritory">
-    <input type="submit" value="Check availability" class="btn aqua" ng-disabled="{{!form.validTerritory}}" ng-click="form.nextStep()">
+    <input type="submit" value="Check availability" class="btn aqua" ng-disabled="{{!form.validTerritory}}">
     <input
       type="email"
-      ng-model"form.prospect.email"
+      ng-model"form.user.email"
       name="emailDq"
       autocapitalize="none"
       autocomplete="on"

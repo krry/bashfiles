@@ -1,11 +1,11 @@
 <section class="overlay primary short col full">
   <h1 ng-hide="form.valid">Wow! <span id="neighbor_count">4,499</span> of your neighbors have gone solar.<br><small>Let’s take a closer look at your house.</small></h1>
-  <form fln-form novalidate ng-submit="form.geocodeAddress(form.home, form.updateMap)">
+  <form fln-form novalidate ng-submit="form.geocodeAddress(form.user, form.updateMap)">
     <div class="row">
       <div class="col half center padded sml-full">
         <input
           id="prospect_address"
-          ng-model="form.home.street"
+          ng-model="form.user.street"
           type="text"
           class="street"
           focus="true"
@@ -18,7 +18,7 @@
       <div class="col half center padded sml-full">
         <div class="combo-input">
           <input
-            ng-model="form.home.city"
+            ng-model="form.user.city"
             type="text"
             id="prospect_city"
             class="city"
@@ -27,7 +27,7 @@
             ng-required="true"
             ng-valid="form.parseAddress(user)">
           <input
-            ng-model="form.home.state"
+            ng-model="form.user.state"
             type="text"
             id="state"
             id="prospect_state"
@@ -39,7 +39,7 @@
             ng-maxlength="2"
             ng-valid="form.parseAddress(user)">
           <input
-            ng-model="form.home.zip"
+            ng-model="form.user.zip"
             type="tel"
             id="prospect_zip"
             placeholder="Zip"
@@ -50,11 +50,11 @@
             ng-maxlength="5"
             ng-pattern="/^\d{5}(?:[-\s]\d{4})?$/"
             ng-valid="form.parseAddress(user)">
-          <button class="address-search ib" ng-hide="form.valid" ng-click="form.geocodeAddress(form.home, form.updateMap)">&nbsp;</button>
+          <button class="address-search ib" ng-hide="form.valid" ng-click="form.geocodeAddress(form.user, form.updateMap)">&nbsp;</button>
         </div>
       </div>
     </div>
-    <!-- <button class="ib aqua" ng-hide="form.valid" ng-click="form.geocodeAddress(form.home, form.recenterMap)">Go</button> -->
+    <!-- <button class="ib aqua" ng-hide="form.valid" ng-click="form.geocodeAddress(form.user, form.recenterMap)">Go</button> -->
     <!-- <button class="aqua" ng-show="form.valid" ng-click="form.nextStep()">That's my house</button> -->
 
     <div class="answer-container center" ng-show="form.valid" ng-controller="ModalCtrl as modal">

@@ -7,19 +7,21 @@ controllers.controller("FormCtrl", ["$scope", "Form", "Clientstream", "Geocoder"
 
 function FormCtrl_($scope, Form, Client, Geocoder, UserService, Session, MapService) {
   var vm = this;
+  // var form_ref = Form.ref();
 
-  vm.home = UserService.getHome();
-  vm.prospect = UserService.getProspect();
+  vm.user = {};
   vm.checkZip = checkZip;
   vm.gmapShown = false;
-  vm.valid = false; // use ng-valid from form
+  vm.valid = false;  // use ng-valid from form
   vm.validZip = true;
   vm.validTerritory = true;
   vm.validAddress = false;
   vm.territoryMsg = "";
   vm.prevStep = prev;
   vm.nextStep = next;
-  vm.form_ref = Form.ref();
+
+  // TODO: on change of the user model due to user changing the input values and angular syncing that with the data model, run it through validators, and then save it to firebase
+  // vm.$watch('user', function(){})
 
   Client.listen('gmap shown', showGmap);
   Client.listen('outside US', validateZip);
@@ -27,33 +29,35 @@ function FormCtrl_($scope, Form, Client, Geocoder, UserService, Session, MapServ
   Client.listen('valid address', validateAddress);
 
   function checkZip (zip) {
-    var zip;
-    Client.emit('zip updated', zip);
-    if (vm.form_ref.child('zip')) {
-      zip = vm.form_ref.child('zip');
-      console.log('zip field contains:', zip);
-      Geocoder.geocode(zip, MapService.updateMap);
+    console.log('fart fart', zip);
+    // accept zip from input
+    if (typeof zip !== "undefined" && zip.length === 5) {
+    // validate with GeocodeProvider
+      Geocoder.sendGeocodeRequest(zip);
+    // emit to 'valid zip' event
     }
   }
 
   function showGmap(data) {
-    vm.gmapShown = data;
+    vm.gmapShown = data ? data : false;
+    return vm.gmapShown;
   }
 
   function validateZip(data) {
-    vm.validZip = data;
+    vm.validZip = data ? data : false;
+    return vm.validZip;
   }
 
   function validateTerritory(data) {
-    vm.validTerritory = data.is;
-    vm.territoryMsg = data.msg;
+    vm.validTerritory = data ? data : false;
+    return vm.validTerritory;
   }
 
   function validateAddress(data) {
     console.log('validateAddress data is:', data);
     if (data) {
       vm.valid = true;
-      vm.form_ref.update(data);
+      // vm.form_ref.update(data);
       $scope.$apply();
     }
   }
@@ -62,10 +66,10 @@ function FormCtrl_($scope, Form, Client, Geocoder, UserService, Session, MapServ
     Session.prev();
   }
 
-  function next () { // TODO: currently not checking if valid
+  function next () {
+    // TODO: currently not checking if valid
     /* jshint -W030 */
     vm.valid && Session.next();
     /* jshint +W030 */
   }
-
 }

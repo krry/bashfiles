@@ -43,10 +43,6 @@ main.main {
   min-height: 16em;
   position: relative;
   background: $grey-lightest;
-
-  &.bleed-right {
-    padding-right: 0;
-  }
 }
 
 .overlay.short {
@@ -93,6 +89,9 @@ main.main {
 @media screen and (min-width: $width-min-xlg){
   .overlay.secondary {
     min-height: 30em;
+    &.bleed-right {
+      padding-right: 0;
+    }
   }
 }
 
