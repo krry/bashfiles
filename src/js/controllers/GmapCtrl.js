@@ -1,6 +1,6 @@
-controllers.controller("GmapCtrl", ["$scope", "$element", "Geocode", GmapCtrl_]);
+controllers.controller("GmapCtrl", ["$scope", "$element", "Geocoder", GmapCtrl_]);
 
-function GmapCtrl_ ($scope, $element, Geocode) {
+function GmapCtrl_ ($scope, $element, Geocoder) {
 
   var DEFAULT_CENTER,
       center,

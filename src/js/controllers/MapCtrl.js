@@ -1,4 +1,5 @@
 controllers.controller("MapCtrl", ["$scope", "$timeout", "Clientstream", "SyncService", "MapService", "LayerService", "InteractionService", "StyleService", "Session", "Design", "updateArea", "addWkt", "Configurator", MapCtrl_]);
+
 function MapCtrl_($scope, $timeout, Client, Sync, MapService, LayerService, InteractionService, StyleService, Session, Design, updateArea, addWkt, Configurator) {
   /* ===============================
   TODO:

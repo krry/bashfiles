@@ -1,6 +1,6 @@
-controllers.controller("GoogleMapCtrl", ["$scope", "$element", "MapService", "UserService", GoogleMapCtrl_]);
+controllers.controller("GoogleMapCtrl", ["$scope", "$element", "Clientstream", "MapService", "UserService", GoogleMapCtrl_]);
 
-function GoogleMapCtrl_($scope, $element, MapService, UserService) {
+function GoogleMapCtrl_($scope, $element, Client, MapService, UserService) {
   var vm = this;
 
   var mapOptions,
@@ -8,12 +8,18 @@ function GoogleMapCtrl_($scope, $element, MapService, UserService) {
       input,
       searchbox;
 
-  vm.gmapShown = MapService.getGmapShown;
+  vm.gmapShown = false;
+
+  Client.listen('gmap shown', showGmap);
   mapOptions = MapService.g.mapOptions;
   map = MapService.setGmap($element[0], mapOptions);
 
   // TODO: remove searchbox functionality from zip field
   google.maps.event.addDomListener(window, "load", activate);
+
+  function showGmap (data) {
+    vm.gmapShown = data;
+  }
 
   function activate(){
     // create an Autocompleting search box on the map
@@ -23,12 +29,8 @@ function GoogleMapCtrl_($scope, $element, MapService, UserService) {
     // searchbox.bindTo('bounds', map);
     // listen for the 'place_changed' trigger which is fired
     // google.maps.event.addListener(searchbox, 'place_changed', parsePlace);
-    MapService.updateGmap(MapService.getGmapCenter(), catchMapActivationResult);
+    MapService.updateMap(MapService.getGmapCenter());
     google.maps.event.addListener(map, 'center_changed', saveCenter);
-  }
-
-  function catchMapActivationResult (result) {
-    return result;
   }
 
   function parsePlace(place){
