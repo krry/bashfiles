@@ -95,7 +95,10 @@ a.btn {
   &.white.square.small.padded {
     @include btn($color: $white, $size: .875em, $corners: .25em, $pad: #{1.5em 3em});
   }
-
+  &:disabled {
+    cursor: not-allowed;
+    opacity: .5;
+  }
 }
 
 button.text {
