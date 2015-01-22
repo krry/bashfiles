@@ -10,12 +10,12 @@ function flnAutolocate () {
       $scope.autolocate = autolocate;
 
       function autolocate(){
-        console.log("YES!");
+        // console.log("YES!");
         if (navigator.geolocation) {
           MapService.setGmapShown(true);
           navigator.geolocation.getCurrentPosition(function(position){
             var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            MapService.updateGmap(latLng);
+            MapService.updateMap(latLng);
           });
         }
       }

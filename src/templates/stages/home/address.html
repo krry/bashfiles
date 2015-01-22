@@ -1,6 +1,6 @@
 <section class="overlay primary short col full">
   <h1 ng-hide="form.valid">Wow! <span id="neighbor_count">4,499</span> of your neighbors have gone solar.<br><small>Let’s take a closer look at your house.</small></h1>
-  <form fln-form novalidate ng-submit="form.geocodeAddress(form.home, form.recenterMap)">
+  <form fln-form novalidate ng-submit="form.geocodeAddress(form.home, form.updateMap)">
     <div class="row">
       <div class="col half center padded sml-full">
         <input
@@ -50,7 +50,7 @@
             ng-maxlength="5"
             ng-pattern="/^\d{5}(?:[-\s]\d{4})?$/"
             ng-valid="form.parseAddress(user)">
-          <button class="address-search ib" ng-hide="form.valid" ng-click="form.geocodeAddress(form.home, form.recenterMap)">&nbsp;</button>
+          <button class="address-search ib" ng-hide="form.valid" ng-click="form.geocodeAddress(form.home, form.updateMap)">&nbsp;</button>
         </div>
       </div>
     </div>

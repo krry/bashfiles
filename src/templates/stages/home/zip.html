@@ -32,7 +32,7 @@
       placeholder="ZIP CODE"
       class="zipcode"
       ng-class=""
-      name="zipCheck"
+      name="hood_check"
       autocomplete="off"
       autocorrect="off"
       focus="true"
@@ -41,8 +41,9 @@
       maxlength="5"
       ng-maxlength="5"
       ng-pattern="/^\d{5}(?:[-\s]\d{4})?$/"
-      ng-change="form.monitorZip()"
+      ng-change="form.checkZip(hood_check)"
       ng-hide="!form.validTerritory">
+    <input type="submit" value="Check availability" class="btn aqua" ng-disabled="{{!form.validTerritory}}" ng-click="form.nextStep()">
     <input
       type="email"
       ng-model"form.prospect.email"

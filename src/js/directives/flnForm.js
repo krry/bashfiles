@@ -12,6 +12,7 @@ function flnForm () {
         // console.log('focusing:', inputToFocus);
         inputToFocus.focus();
       }
+      
     }
   };
 }
