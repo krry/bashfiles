@@ -3,13 +3,13 @@
   the form controller
 ================================================== */
 
-controllers.controller("FormCtrl", ["$scope", "Form", "Clientstream", "Geocoder", "UserService", "Session", "MapService", FormCtrl_]);
+controllers.controller("FormCtrl", ["$scope", "Form", "Clientstream", "Geocoder", "Prospect", "Session", "MapService", FormCtrl_]);
 
-function FormCtrl_($scope, Form, Client, Geocoder, UserService, Session, MapService) {
+function FormCtrl_($scope, Form, Client, Geocoder, Prospect, Session, MapService) {
   var vm = this;
   // var form_ref = Form.ref();
 
-  vm.user = {};
+  vm.prospect = {};
   vm.checkZip = checkZip;
   vm.gmapShown = false;
   vm.valid = false;  // use ng-valid from form
@@ -24,42 +24,79 @@ function FormCtrl_($scope, Form, Client, Geocoder, UserService, Session, MapServ
   // vm.$watch('user', function(){})
 
   Client.listen('gmap shown', showGmap);
-  Client.listen('outside US', validateZip);
-  Client.listen('valid territory', validateTerritory);
-  Client.listen('valid address', validateAddress);
+  Client.listen('outside US', acceptValidZip);
+  Client.listen('valid territory', acceptValidTerritory);
+  Client.listen('valid address', acceptValidAddress);
+  Client.listen('email saved', acceptSavedEmail);
+  Client.listen('birthdate saved', acceptSavedBirthdate);
+  Client.listen('phone saved', acceptSavedPhone);
+  Client.listen('fullname saved', acceptSavedFullname);
 
   function checkZip (zip) {
-    console.log('fart fart', zip);
-    // accept zip from input
     if (typeof zip !== "undefined" && zip.length === 5) {
-    // validate with GeocodeProvider
       Geocoder.sendGeocodeRequest(zip);
-    // emit to 'valid zip' event
+    }
+    else { return false; }
+  }
+
+  function checkAddress (prospect) {
+    if (prospect !== {}) {
+      addy = {
+        address: vm.prospect.address,
+        city: vm.prospect.city,
+        state: vm.prospect.state,
+        zip: vm.prospect.zip,
+      }
+      Geocoder.sendGeocodeRequest(addy);
     }
   }
+
+  function checkFullName () {}
+  function checkEmail () {}
+  function checkPhone () {}
+  function checkBirthdate () {}
 
   function showGmap(data) {
     vm.gmapShown = data ? data : false;
     return vm.gmapShown;
   }
 
-  function validateZip(data) {
-    vm.validZip = data ? data : false;
+  function acceptValidZip(data) {
+    if (data) {
+      vm.validZip = true;
+      vm.prospect.zip = data;
+    } else vm.validZip = false;
     return vm.validZip;
   }
 
-  function validateTerritory(data) {
-    vm.validTerritory = data ? data : false;
+  function acceptValidTerritory(data) {
+    if (data) {
+      vm.validTerritory = true;
+      vm.prospect.zip = data;
+    } else vm.validTerritory = false;
     return vm.validTerritory;
   }
 
-  function validateAddress(data) {
+  function acceptValidAddress(data) {
     console.log('validateAddress data is:', data);
     if (data) {
       vm.valid = true;
       // vm.form_ref.update(data);
       $scope.$apply();
     }
+  }
+
+  function acceptSavedEmail (data) {
+    vm.prospect.email = data ? data : "";
+  }
+  function acceptSavedBirthdate (data) {
+    vm.prospect.birthdate = data ? data : "";
+  }
+  function acceptSavedPhone (data) {
+    vm.prospect.phone = data ? data : "";
+  }
+  function acceptSavedFullname (data) {
+    vm.prospect.fullname = data ? data : "";
   }
 
   function prev () {

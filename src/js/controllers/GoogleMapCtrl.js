@@ -34,6 +34,7 @@ function GoogleMapCtrl_($scope, $element, Client, MapService, UserService) {
   }
 
   function parsePlace(place){
+    debugger;
     // get the place you clicked on
     if (!place.geometry) {
       return;
@@ -50,6 +51,7 @@ function GoogleMapCtrl_($scope, $element, Client, MapService, UserService) {
   }
 
   function parsePlaceAddress(place) {
+    debugger;
     var address = '';
     address = [
       (place.address_components[0] && place.address_components[0].short_name || ''),

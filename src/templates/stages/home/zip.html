@@ -26,7 +26,7 @@
       <!-- auto-size-input
       auto-size-width="5" -->
     <input
-      ng-model="form.user.zip"
+      ng-model="form.prospect.zip"
       type="tel"
       id="hood_check"
       placeholder="ZIP CODE"
@@ -35,7 +35,7 @@
       name="hood_check"
       autocomplete="off"
       autocorrect="off"
-      ng-change="form.checkZip(form.user.zip)"
+      ng-change="form.checkZip(form.prospect.zip)"
       focus="true"
       required="true"
       ng-required="true"
@@ -46,7 +46,7 @@
     <input type="submit" value="Check availability" class="btn aqua" ng-disabled="{{!form.validTerritory}}">
     <input
       type="email"
-      ng-model"form.user.email"
+      ng-model"form.prospect.email"
       name="emailDq"
       autocapitalize="none"
       autocomplete="on"
