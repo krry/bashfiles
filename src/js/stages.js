@@ -1,9 +1,10 @@
-angular.module('stages',[
-  'stages.design_link',
-  'stages.home',
-  'stages.configure',
-  'stages.signup',
+angular.module('flannel.stages',[
+  'flannel.providers',
+  'design_link',
+  'home',
+  'configure',
+  'signup',
 ])
-.config(function ($stateProvider, $urlRouterProvider) {
+.config(["$stateProvider", "$urlRouterProvider" ,"SessionProvider", function ($stateProvider, $urlRouterProvider, Session) {
   $urlRouterProvider.otherwise('/home');
-});
+}]);

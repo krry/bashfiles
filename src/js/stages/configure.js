@@ -1,4 +1,4 @@
-angular.module('stages.configure',[]).config( function ($stateProvider) {
+angular.module('configure',[]).config(["$stateProvider", function ($stateProvider) {
 
   // specifics for for this state
   var stageName = 'configure';
@@ -29,4 +29,4 @@ angular.module('stages.configure',[]).config( function ($stateProvider) {
       },
     },
   })
-;});
+;}]);
