@@ -5,6 +5,6 @@ angular.module('flannel.stages',[
   'configure',
   'signup',
 ])
-.config(["$stateProvider", "$urlRouterProvider" ,"SessionProvider", function ($stateProvider, $urlRouterProvider, Session) {
+.config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/home');
 }]);
