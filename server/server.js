@@ -3,7 +3,7 @@
   SERVER
   defines and runs the app on the server
 
-  determines the environment, the port, the database, 
+  determines the environment, the port, the database,
   the routes, cookies, the root directory (public)
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
@@ -30,11 +30,11 @@ nconf.argv().env().file({file: './server/config/environments/' + env + '.json'})
 // db = require('./config/db.js'); // for the db config, this is ignored by git
 app = express(); // the app used throughout the server
 
-publicFolder = __dirname + '/../public';
+app.publicRoot = __dirname + '/../public';
 oneYear = 31557600000;
 
 app.use(cookieParser(nconf.get('FLANNEL_SECRET')));
-app.use(express.static(publicFolder, {maxAge: oneYear})); 
+app.use(express.static(app.publicRoot, {maxAge: oneYear}));
 app.settings.nconf = nconf;
 
 port = app.settings.nconf.get('PORT') || 8100;
