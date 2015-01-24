@@ -22,6 +22,29 @@ function GeocoderProvider_ (UserService) {
     addy = {};
     addyKeys = ['zip', 'city', 'state', 'address'];
 
+    // send a latlng object and receive an address
+    function reverseGeocode(latLng) {
+      var location;
+      var geocoder = new google.maps.Geocoder();
+      geocoder.geocode({'location': latLng}, function(results, status){
+        if (status === google.maps.GeocoderStatus.OK) {
+          if (results[0]) {
+            location = results[0].geometry.location;
+            parseLocation(results[0]);
+          }
+          else {
+            console.error("Error: No known domiciles nearby.");
+            location = false;
+          }
+        }
+        else {
+          console.error("Geocoder failed due to: ", status);
+          location = false;
+        }
+      });
+      return location;
+    }
+
     // pack the request as a nice little object and send it off to geocode camp
     function sendGeocodeRequest (request) {
       var addyStr,
@@ -93,12 +116,12 @@ function GeocoderProvider_ (UserService) {
         if (results[0]) {
 
           console.log('geocode successful:', results);
+          // cache the location as the center
           center = results[0].geometry.location;
-          console.log('center plotted at:', center);
-          parseLocation(results[0]);
-          console.log('addy parsed into:', addy);
-
           Client.emit('geocode results', center);
+          console.log('center plotted at:', center);
+          // parse the results into an address
+          parseLocation(results[0]);
         }
       }
       else if (status === google.maps.GeocoderStatus.ZERO_RESULTS) {
@@ -165,7 +188,8 @@ function GeocoderProvider_ (UserService) {
       }
       else {
         if (addy.zip) {
-          Client.emit('valid zip', addy.zip)
+          Client.emit('valid zip', addy.zip);
+          // check if the valid zip is in our territory
           checkTerritory(addy.zip);
         }
         if (addy.state) {
@@ -185,37 +209,38 @@ function GeocoderProvider_ (UserService) {
     }
 
     function checkTerritory(zip) {
+      // if zip is in territory, emit that
       console.log('checking if', zip, 'is in our territory');
+      // HACK: hardcoding until checkTerritory API is accessible
+      Client.emit('valid territory', true);
 
-      var msg,
-          data,
-          response = {};
+      // var msg,
+      //     data,
+      //     response = {};
 
-      data = 'zip=' + zip.toString();
-      console.log('data is ' + data);
+      // data = 'zip=' + zip.toString();
+      // console.log('data is ' + data);
 
-      if (zip !== null) {
-        $.ajax({
-          url: '//scexchange.solarcity.com/scfilefactory/app_handler/checkTerritory.ashx',
-          // url: '//slc3web00.solarcity.com/scexchange/app_handler/checkTerritory.ashx',
-          type: 'POST',
-          data: data,
-          dataType: 'json',
-          error: function(err){
-            response.is = false;
-            response.msg = 'API not reachable';
-            Client.emit('valid territory', response);
-          },
-          success: function(data) {
-            // data = {'InTerritory' : 'false/true'}
-            // console.log(typeof data)
-           // console.log(data)
-            response.is = data.InTerritory;
-            response.msg = "It is " + data.InTerritory +" that this place is in SolarCity territory";
-            Client.emit('valid territory', response);
-          }
-        });
-      }
+      // if (zip !== null) {
+      //   $.ajax({
+      //     url: '//scexchange.solarcity.com/scfilefactory/app_handler/checkTerritory.ashx',
+      //     // url: '//slc3web00.solarcity.com/scexchange/app_handler/checkTerritory.ashx',
+      //     type: 'POST',
+      //     data: data,
+      //     dataType: 'json',
+      //     error: function(err){
+      //       response.is = false;
+      //       response.msg = 'API not reachable';
+      //       Client.emit('valid territory', response);
+      //     },
+      //     success: function(data) {
+      //       // data = {'InTerritory' : 'false/true'}
+      //       // console.log(typeof data)
+      //      // console.log(data)
+      //      Client.emit('valid territory', data.InTerritory);
+      //     }
+      //   });
+      // }
     }
 
     function geocode_builder_brah () {

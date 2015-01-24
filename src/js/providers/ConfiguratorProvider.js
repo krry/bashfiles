@@ -142,7 +142,14 @@ function ConfiguratorFactory_() {
     Client.listen('erase area', function area_pop (data) {
       console.log('heard that erase area', data);
       draw_modify_features.pop();
-    })
+    });
+
+    Client.listen('center changed', centerOmap);
+
+    function centerOmap (location) {
+      console.log('recentering OLmap at:', location);
+      view().setCenter([location.lat(), location.lng()]);
+    }
 
     function ConfiguratorBuilder() {
       Layers.drawn_features = feature_overlay.getFeatures(); // hack: this shouldn't be assigned this way

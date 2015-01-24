@@ -3,15 +3,14 @@
   the form controller
 ================================================== */
 
-controllers.controller("FormCtrl", ["$scope", "Form", "Clientstream", "Geocoder", "Prospect", "Session", "MapService", FormCtrl_]);
+controllers.controller("FormCtrl", ["$scope", "Form", "Clientstream", "Geocoder", "Prospect", "Session", FormCtrl_]);
 
-function FormCtrl_($scope, Form, Client, Geocoder, Prospect, Session, MapService) {
+function FormCtrl_($scope, Form, Client, Geocoder, Prospect, Session) {
   var vm = this;
   // var form_ref = Form.ref();
 
   vm.prospect = {};
   vm.checkZip = checkZip;
-  vm.gmapShown = false;
   vm.valid = false;  // use ng-valid from form
   vm.validZip = true;
   vm.validTerritory = true;
@@ -23,8 +22,8 @@ function FormCtrl_($scope, Form, Client, Geocoder, Prospect, Session, MapService
   // TODO: on change of the user model due to user changing the input values and angular syncing that with the data model, run it through validators, and then save it to firebase
   // vm.$watch('user', function(){})
 
-  Client.listen('gmap shown', showGmap);
   Client.listen('outside US', acceptValidZip);
+  // Client.listen('valid zip', acceptValidZip);
   Client.listen('valid territory', acceptValidTerritory);
   Client.listen('valid address', acceptValidAddress);
   Client.listen('email saved', acceptSavedEmail);
@@ -40,6 +39,7 @@ function FormCtrl_($scope, Form, Client, Geocoder, Prospect, Session, MapService
   }
 
   function checkAddress (prospect) {
+    var addy;
     if (prospect !== {}) {
       addy = {
         address: vm.prospect.address,
@@ -56,11 +56,6 @@ function FormCtrl_($scope, Form, Client, Geocoder, Prospect, Session, MapService
   function checkPhone () {}
   function checkBirthdate () {}
 
-  function showGmap(data) {
-    vm.gmapShown = data ? data : false;
-    return vm.gmapShown;
-  }
-
   function acceptValidZip(data) {
     if (data) {
       vm.validZip = true;
@@ -70,11 +65,9 @@ function FormCtrl_($scope, Form, Client, Geocoder, Prospect, Session, MapService
   }
 
   function acceptValidTerritory(data) {
-    if (data) {
-      vm.validTerritory = true;
-      vm.prospect.zip = data;
-    } else vm.validTerritory = false;
-    return vm.validTerritory;
+    vm.validTerritory = data;
+    if (vm.validZip) vm.valid = data;
+    return next();
   }
 
   function acceptValidAddress(data) {
@@ -100,10 +93,12 @@ function FormCtrl_($scope, Form, Client, Geocoder, Prospect, Session, MapService
   }
 
   function prev () {
+    console.log('going to previous step');
     Session.prev();
   }
 
   function next () {
+    console.log('going to next step');
     // TODO: currently not checking if valid
     /* jshint -W030 */
     vm.valid && Session.next();

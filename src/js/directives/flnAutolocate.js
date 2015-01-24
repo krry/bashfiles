@@ -5,19 +5,6 @@ function flnAutolocate () {
     restrict: 'E',
     replace: true,
     templateUrl: 'templates/directives/flnAutolocate.html',
-    controller: function ($scope, MapService) {
-
-      $scope.autolocate = autolocate;
-
-      function autolocate(){
-        if (navigator.geolocation) {
-          MapService.setGmapShown(true);
-          navigator.geolocation.getCurrentPosition(function(position){
-            var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            MapService.updateMap(latLng);
-          });
-        }
-      }
-    },
+    controller: "GmapCtrl as gmap",
   };
 }
