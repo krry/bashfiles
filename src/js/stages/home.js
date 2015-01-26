@@ -15,8 +15,13 @@ angular.module('home',[]).config(["$stateProvider", function ($stateProvider) {
         controller:  'HeaderCtrl as header',
       },
       'main@': {
-        resolve: {},
         templateUrl: stageUrl + "main.html",
+        controller:  function ($timeout, Clientstream) {
+          // HACK: enable quick routing through app
+          $timeout(function(){
+            Clientstream.emit('stage', {stage: 0, step: 0});
+          }, 1)
+        },
       },
       'overlay@home': {
         templateUrl: stageUrl + "overlay.html",
