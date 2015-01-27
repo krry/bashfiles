@@ -1,4 +1,4 @@
-angular.module('stages.design_link',[]).config( function ($stateProvider) {
+angular.module('design_link',[]).config(["$stateProvider", function ($stateProvider) {
 
   // specifics for for this state
   var stageName = 'design_link';
@@ -30,4 +30,4 @@ angular.module('stages.design_link',[]).config( function ($stateProvider) {
       },
     },
   })
-;});
+;}]);

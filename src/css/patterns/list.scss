@@ -1,0 +1,42 @@
+@import "../imports/colors";
+
+ul,
+ol {
+  font-size: .875em;
+  margin: 0;
+  margin-bottom: 1em;
+  padding: 0;
+  padding-left: 1em;
+}
+
+dl {
+  font-size: .875em;
+  // line-height: 1em;
+  margin-bottom: 0.5em;
+}
+
+dl dt {
+  font-weight: bold;
+  margin: 0.75em auto .25em;
+}
+
+dl dd {
+  margin: 0;
+}
+
+ul.no-pips li,
+ol.no-pips li {
+  list-style: none;
+}
+
+.links li {
+  margin-bottom: .5em;
+}
+
+ul.finacing-options-list {
+  font-size: 0.85em;
+  margin: 1em 0 1em 1em;
+}
+ul.finacing-options-list li {
+	padding-bottom: 0.5em;
+}

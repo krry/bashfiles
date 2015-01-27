@@ -12,7 +12,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: $shadier;
+  background: $shade-60;
+  overflow-y: scroll;
 }
 
 .modal .dialog {
@@ -40,9 +41,19 @@
   .modal .dialog {
     margin: 4em;
   }
+
   .modal .dialog.small {
     width: $width-min-med;
     height: $width-min-sml;
-    margin: 12em auto auto;
+    // margin: 12em auto auto;
+  }
+
+  .modal .dialog.center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .modal .dialog.center-vertical {
+    bottom: auto;
   }
 }

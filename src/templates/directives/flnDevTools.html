@@ -3,6 +3,8 @@
   <div class="col half padded sml-full">
     <div class="row">
       <div class="full col">
+        <output ng-show="{{view_sync}}">View synced</output>
+        <label ng-hide="{{view_sync}}">View not synced</label>
         <label for="stageSelector">Jump to a stage</label>
         <select id="stageSelector" ng-model="stages.partial" ng-options="s for s in stages.partials" >
         </select>
@@ -10,11 +12,9 @@
     </div>
     <div class="row">
       <div class="col half">
-        <h3>{{view_sync}}</h3>
         <button class="tiny" ng-click="stages.prev()">Back</button>
       </div>
       <div class="col half">
-        <h3>{{view_sync}}</h3>
         <button class="tiny" ng-click="stages.next()">Next</button>
       </div>
     </div>
@@ -22,7 +22,7 @@
   <div class="col half padded sml-full">
     <h4>active user info: <small><a ng-click="dev.toggleUserObject()">{{dev.userShownTriggerText}}</a></small></h4>
     <!-- TODO: log out user object to footer for dev purposes -->
-    <pre ng-show="dev.userShown" fln-form>formInfo = {{ form.home | json }}</pre>
+    <!-- <pre ng-show="dev.userShown" fln-form>formInfo = {{ form.user | json }}</pre> -->
     <a class="btn red" onclick="location.hash = '#/home'; location.reload(true);">Reload app</a>
     <!-- <button class="btn blue" ng-click="">Populate test address</button> -->
     <!-- <ul>

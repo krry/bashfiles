@@ -26,11 +26,10 @@ figure object,
 figure iframe,
 figure embed,
 figure video {
-  max-width: 100%;
   width: 100%;
   display: block;
-  min-height: 10em;
-  background: $black;
+  height: 10em;
+  background-color: pink;
 }
 
 .video-tray {

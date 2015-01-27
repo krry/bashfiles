@@ -1,7 +1,8 @@
 {
   "MINIFIED": "true",
-  "PORT": 7100,
+  "PORT": 8100,
   "FLANNEL_SECRET": "sekret",
+  "APP_TITLE": "The Future is Now • SolarCity",
   "FIREBASE_SECRET": "hSKlMlUuwpcowWFyS3UjmSqlZQTPTmeEz62OXta9",
   "GMAP_CLIENT": ""
 }

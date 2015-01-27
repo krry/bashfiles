@@ -13,7 +13,7 @@
 //       Client.listen('valid address', function (data) {
 //         scope.address = data;
 //         console.log('valid address in header:', scope.address);
-//         $scope.$apply();
+//         scope.$apply();
 //       });
 //     }
 //   };

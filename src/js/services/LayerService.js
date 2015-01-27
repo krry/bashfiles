@@ -16,7 +16,8 @@ function LayerService_ ($window, StyleService) {
       service,
       REMOVEMEcenter,
       sources,
-      layers;
+      layers,
+      drawLayer;
 
   REMOVEMEcenter = new google.maps.LatLng(37.4834436, -122.267538);
 
@@ -42,8 +43,6 @@ function LayerService_ ($window, StyleService) {
     // ENDDEV:
   };
 
-  console.log(service.staticmap.getSource());
-
   // TODO: size map according to the div in which it is loaded, then resize when that div changes size
   // HACK:   dev related
   // TODO:  Extent relates to the size of the map on the user's screen.
@@ -52,7 +51,7 @@ function LayerService_ ($window, StyleService) {
   //         In EDLTR, it was always fullscreen.
 
   REMOVEMEcenter = new google.maps.LatLng(37.4834436, -122.267538);
-  var drawLayer
+
   function getDrawLayer () {
     // !drawLayer && (drawLayer = )
     console.log('getDrawLayer', drawLayer);

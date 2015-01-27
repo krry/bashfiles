@@ -147,7 +147,7 @@
   }
 
   .col.padded.padded {
-    padding: 0 1em;
+    padding: 0 0.5em;
 
     &:first-of-type {
       padding-left: 0;
@@ -174,7 +174,7 @@
   }
 
   .col.padded.padded {
-    padding: 0 1em;
+    padding: 0 0.75em;
 
     &:first-of-type {
       padding-left: 0;
@@ -196,7 +196,7 @@
 /* > 1024px */
 @media screen and (min-width: $width-min-xlg) {
   .col.padded.padded {
-    padding: 0 2em;
+    padding: 0 1em;
 
     &:first-of-type {
       padding-left: 0;

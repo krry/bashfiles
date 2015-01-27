@@ -1,12 +1,11 @@
 ignore
+log/*
 public/
 src/lib/
 src/js/config.js
 node_modules
 npm-debug.*
-app/config/config.js
 bower_components
 .DS_Store
-platforms
 test-results.xml
 newrelic_agent.log
