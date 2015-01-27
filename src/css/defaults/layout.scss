@@ -11,9 +11,9 @@ main.main {
   // margin-bottom: -10em;
 }
 
-.blur {
+// .blur {
   
-}
+// }
 
 .overlayer {
   position: relative;
@@ -21,7 +21,7 @@ main.main {
   width: 100%;
   z-index: 1;
   margin: auto;
-  overflow: hidden;
+  // overflow: hidden;
   background-color: $color-bkgd-primary;
   max-height: 33.3em; // the number of the beast in ems
 }
@@ -53,8 +53,12 @@ main.main {
   padding-bottom: 0;
 }
 
+.overlay.secondary.topdown {
+  padding-top: 8em;
+}
+
 .underlayer {
-  position: absolute;
+  position: fixed;
   z-index: 0;
   top: 0; right: 0;
   bottom: 0; left: 0;
