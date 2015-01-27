@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <!-- this viewport locking approach is useful sometimes, just not for our universally responsive app -->
   <!-- <meta name="viewport" content="initial-scale=1, width=device-width"> -->
-  <title>{{app.appTitle}}</title>
+  <title ng-bind="app.appTitle">SolarCity</title>
 
   <!-- angular -->
   <script src="lib/angular.js"></script>
@@ -86,7 +86,8 @@
 </head>
 
 <!-- app begins -->
-<body ng-controller="StageCtrl as stages">
+<!-- TODO: apply ng-cloak only to divs that need it -->
+<body ng-cloak ng-controller="StageCtrl as stages">
   <div fln-dev-tools ng-class="{shown: dev.panelShown}" class="dev-controls inverse"></div>
   <header ui-view name="header" id="header" class="header"></header>
   <main ui-view name="main" id="main" class="main"></main>

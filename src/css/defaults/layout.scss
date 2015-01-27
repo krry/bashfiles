@@ -11,9 +11,9 @@ main.main {
   // margin-bottom: -10em;
 }
 
-.blur {
+// .blur {
   
-}
+// }
 
 .overlayer {
   position: relative;
@@ -21,7 +21,7 @@ main.main {
   width: 100%;
   z-index: 1;
   margin: auto;
-  overflow: hidden;
+  // overflow: hidden;
   background-color: $color-bkgd-primary;
   max-height: 33.3em; // the number of the beast in ems
 }
@@ -31,7 +31,7 @@ main.main {
   text-align: center;
   // width: golden-ratio(100);
   // width: 71%;
-  // background: $color-bkgd-primary;
+  background: $color-bkgd-primary;
 }
 
 .overlay.secondary {
@@ -51,6 +51,11 @@ main.main {
 
 .overlay.secondary.short {
   padding-bottom: 0;
+}
+
+.overlay.secondary.topdown {
+  padding-top: 6em;
+  padding-bottom: 6em;
 }
 
 .underlayer {
@@ -82,13 +87,13 @@ main.main {
 
 @media screen and (min-width: $width-min-lrg){
   .overlay.secondary {
-    min-height: 20em;
+    min-height: 22em;
   }
 }
 
 @media screen and (min-width: $width-min-xlg){
   .overlay.secondary {
-    min-height: 30em;
+    // min-height: 30em;
     &.bleed-right {
       padding-right: 0;
     }

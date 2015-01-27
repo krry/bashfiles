@@ -1,4 +1,4 @@
-/**
+/*
  * this is the Configurator for the map.
  * name: Configurator
  *
@@ -15,12 +15,14 @@ function ConfiguratorFactory_() {
 
     var map,
         REMOVEMEcenter,
+        header,
         layers,
         features,
         draw,
         modify,
         dragpan_opt,
         default_controls,
+        configurator_options,
         interactions,
         windowWidth,
         windowHeight,
@@ -30,7 +32,7 @@ function ConfiguratorFactory_() {
         target, // This is set by flnOlMap directive link
         view;
 
-    var header = window.getComputedStyle(document.getElementById('header'), null);
+    header = window.getComputedStyle(document.getElementById('header'), null);
     windowWidth = $window.innerWidth;
     windowHeight = $window.innerHeight - parseInt(header.getPropertyValue("height"));
 
@@ -104,7 +106,7 @@ function ConfiguratorFactory_() {
       view.setZoom(1);
     }
 
-    var configurator_options = {
+    configurator_options = {
       controls: ol.control.defaults(default_controls),
       view: view,
       target: null,
@@ -142,23 +144,23 @@ function ConfiguratorFactory_() {
     Client.listen('erase area', function area_pop (data) {
       console.log('heard that erase area', data);
       draw_modify_features.pop();
-    })
+    });
 
     function ConfiguratorBuilder() {
       Layers.drawn_features = feature_overlay.getFeatures(); // hack: this shouldn't be assigned this way
 
       return {
-        map: function(target){
+        map: function (target) {
           /* jshint -W030 */
           target && (setElement(target));
           /* jshint +W030 */
           return map || ( map = new ol.Map(configurator_options) );
         },
-        view: function(){ return view; },
-        draw: function(){ return draw; },
-        modify: function(){ return modify; },
-        features: function(){ return draw_modify_features.getArray(); },
-        interactions: function(){ return interactions; },
+        view: function () { return view; },
+        draw: function () { return draw; },
+        modify: function () { return modify; },
+        features: function () { return draw_modify_features.getArray(); },
+        interactions: function () { return interactions; },
         enable: function (name) { map.addInteraction(interactions[name]); },
         disable: function (name) { map.removeInteraction(interactions[name]); },
 

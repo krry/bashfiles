@@ -70,8 +70,8 @@ function flnDraw_ ($timeout, $compile, Configurator, Clientstream) {
       });
 
       // compile && add that beastly tooltip div
-      map_div.attr('fln-follow-tip', true);
-      map_div.attr('tip-text', '{{tip_text}}');
+      // map_div.attr('fln-follow-tip', true);
+      // map_div.attr('tip-text', '{{tip_text}}');
       $compile(map_div)($scope);
 
       $element.on('$destroy', function drawDestroy (e) {

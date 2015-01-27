@@ -40,7 +40,7 @@ function MapFactory_( MapService, StyleService, LayerService, Configurator ) {
 
   function roofArea (ol_map, target_element, feature) {
     var projection = Configurator.map().getView().getProjection();
-
+    // TODO: restore this function from the now defunct MapService
     map = MapService.setRoofmap({
     view: new ol.View({
       projection: projection,
@@ -129,7 +129,7 @@ function MapFactory_( MapService, StyleService, LayerService, Configurator ) {
     return a;
   }
 
-// deconstruct the feature into its parts
+  // deconstruct the feature into its parts
 
   function deconstructFeat (feature) {
 

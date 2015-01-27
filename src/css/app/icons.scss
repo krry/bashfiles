@@ -3,11 +3,12 @@
 .icon {
   &.top-five, &.question {
     @include icon("question-mark-white");
+    margin-bottom: -.25em;
   }
-  &.icon.call {
+  &.call {
     @include icon('help-call');
   }
-  &.icon.chat {
+  &.chat {
     @include icon('help-chat');
   }
   &.facebook {
