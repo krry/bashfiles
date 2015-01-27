@@ -1,6 +1,6 @@
-controllers.controller("GmapCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Gmap", GmapCtrl_]);
+controllers.controller("GmapCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Gmap", "MapService", GmapCtrl_]);
 
-function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap) {
+function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService) {
 
   var vm,
       center,

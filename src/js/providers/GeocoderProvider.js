@@ -197,9 +197,13 @@ function GeocoderProvider_ () {
         Client.emit('outside US', false);
       }
       else {
-        if (addy.zip && !territoryChecked) {
-          Client.emit('valid zip', addy.zip);
-          // check if the valid zip is in our territory
+        // TODO: determine whether the zip checks are happening in the right order
+        // if (addy.zip && !territoryChecked) {
+        //   Client.emit('valid zip', addy.zip);
+        //   // check if the valid zip is in our territory
+        //   checkTerritory(addy.zip);
+        // }
+        if (addy.zip) {
           checkTerritory(addy.zip);
         }
         if (addy.state) {

@@ -15,12 +15,14 @@ function ConfiguratorFactory_() {
 
     var map,
         REMOVEMEcenter,
+        header,
         layers,
         features,
         draw,
         modify,
         dragpan_opt,
         default_controls,
+        configurator_options,
         interactions,
         windowWidth,
         windowHeight,
@@ -30,7 +32,7 @@ function ConfiguratorFactory_() {
         target, // This is set by flnOlMap directive link
         view;
 
-    var header = window.getComputedStyle(document.getElementById('header'), null);
+    header = window.getComputedStyle(document.getElementById('header'), null);
     windowWidth = $window.innerWidth;
     windowHeight = $window.innerHeight - parseInt(header.getPropertyValue("height"));
 
@@ -104,7 +106,7 @@ function ConfiguratorFactory_() {
       view.setZoom(1);
     }
 
-    var configurator_options = {
+    configurator_options = {
       controls: ol.control.defaults(default_controls),
       view: view,
       target: null,
@@ -143,15 +145,6 @@ function ConfiguratorFactory_() {
       console.log('heard that erase area', data);
       draw_modify_features.pop();
     });
-
-    Client.listen('center changed', centerOmap);
-
-    function centerOmap (location) {
-      // if (location !== Gmap.map.getCenter()){
-        console.log('recentering OLmap at:', location);
-        view.setCenter([location.lat(), location.lng()]);
-      // }
-    }
 
     function ConfiguratorBuilder() {
       Layers.drawn_features = feature_overlay.getFeatures(); // hack: this shouldn't be assigned this way

@@ -61,6 +61,15 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect, Session) 
   function checkPhone () {}
   function checkBirthdate () {}
 
+  // TODO: figure out if the valid territory / valid zip dependency is appropriate for the prescribed UX
+  function acceptValidTerritory(data) {
+    console.log('accepting valid territory', data);
+    acceptValidZip(data);
+    vm.validTerritory = data;
+    if (vm.validZip) vm.valid = data;
+    return next();
+  }
+
   function acceptValidZip(data) {
     console.log('accepting valid zip', data);
     if (data) {
@@ -88,25 +97,24 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect, Session) 
     return vm.validCity;
   }
 
-  function acceptValidTerritory(data) {
-    console.log('accepting valid territory', data);
-    vm.validTerritory = data;
-    if (vm.validZip) vm.valid = data;
-    return next();
-  }
-
   function acceptValidAddress(data) {
-    console.log('validateAddress data is:', data);
+    console.log('accepting valid address', data);
     if (data) {
-      vm.valid = true;
-      vm.prospect.street = data;
-      // vm.form_ref.update(data);
-      $scope.$apply();
-    }
+      vm.validAddress = true;
+      vm.prospect.address = data;
+    } else vm.validAddress = false;
+    return vm.validAddress;
   }
 
   function acceptValidHouse(data) {
     // sync full address
+    console.log('accepting valid house:', data.home);
+    if (data) {
+      vm.valid = true;
+      vm.prospect.street = data.home;
+      // vm.form_ref.update(data);
+      $scope.$apply();
+    }
   }
 
   function acceptSavedEmail (data) {
