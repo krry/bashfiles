@@ -157,17 +157,17 @@ function ConfiguratorFactory_() {
       Layers.drawn_features = feature_overlay.getFeatures(); // hack: this shouldn't be assigned this way
 
       return {
-        map: function(target){
+        map: function (target) {
           /* jshint -W030 */
           target && (setElement(target));
           /* jshint +W030 */
           return map || ( map = new ol.Map(configurator_options) );
         },
-        view: function(){ return view; },
-        draw: function(){ return draw; },
-        modify: function(){ return modify; },
-        features: function(){ return draw_modify_features.getArray(); },
-        interactions: function(){ return interactions; },
+        view: function () { return view; },
+        draw: function () { return draw; },
+        modify: function () { return modify; },
+        features: function () { return draw_modify_features.getArray(); },
+        interactions: function () { return interactions; },
         enable: function (name) { map.addInteraction(interactions[name]); },
         disable: function (name) { map.removeInteraction(interactions[name]); },
 

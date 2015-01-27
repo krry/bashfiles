@@ -11,6 +11,12 @@
 @import "../imports/colors";
 @import "../imports/functions";
 
+.prospect-form {
+  margin-bottom: 0;
+  // padding-bottom: 2px;
+  overflow: hidden;
+}
+
 label + button {
   margin-top: 2em !important;
 }
@@ -135,6 +141,7 @@ input.zipcode,
 }
 
 .answer-container {
+  margin-bottom: 1em;
 }
 .answer-container h3 {
   display: inline-block;

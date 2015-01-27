@@ -91,5 +91,4 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap) {
       });
     }
   }
-
 }

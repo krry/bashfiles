@@ -99,6 +99,7 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect, Session) 
     console.log('validateAddress data is:', data);
     if (data) {
       vm.valid = true;
+      vm.prospect.street = data;
       // vm.form_ref.update(data);
       $scope.$apply();
     }
