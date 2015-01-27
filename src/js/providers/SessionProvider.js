@@ -38,8 +38,9 @@ function SessionProvider_ () {
     });
 
     // if user is existing, should send existing users to their correct place in the flow
-    Client.listen('existing user', function() {
+    Client.listen('existing user', function (data) {
       // get necessary data to move the user to correct state in flow
+      Client.emit('stage', data);
     });
 
     // listen for & save form_id to the session when you get it
