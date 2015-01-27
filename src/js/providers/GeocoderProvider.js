@@ -11,16 +11,23 @@
 
 providers.provider("Geocoder", [GeocoderProvider_]);
 
-function GeocoderProvider_ (UserService) {
+function GeocoderProvider_ () {
 
-  this.$get = [ "Clientstream", "UserService", function googleAddressProvider (Client) {
+  this.$get = [ "Clientstream", function (Client) {
 
     var geocoder,
         addy,
-        addyKeys;
+        addyKeys,
+        territoryChecked;
 
+    territoryChecked = false;
     addy = {};
-    addyKeys = ['zip', 'city', 'state', 'address'];
+    addyKeys = [' zip', 'city', 'state', 'street' ];
+
+    Client.listen('valid territory', function(){
+      console.log('caching valid territory');
+      territoryChecked = true;
+    })
 
     // send a latlng object and receive an address
     function reverseGeocode(latLng) {
@@ -79,6 +86,7 @@ function GeocoderProvider_ (UserService) {
       else if (typeof request === "object") {
         // save the object as the cached addy
         // TODO: check if request obj would overwrite more valuable cached addy
+        console.log('geocode requested for object', request);
         addy = request;
       }
       // else error state
@@ -92,10 +100,13 @@ function GeocoderProvider_ (UserService) {
             // if it has a key named 'zip', 'city', 'state', or 'address', run it through the addy object stringifier
             if (addyKeys.indexOf(key) > -1) {
               console.log("appending", key,"to addy string");
-              if (addyStr.length === 0) {
-                addyStr = request[key];
-              } else {
-                addyStr = addyStr + " " + request[key];
+              if (request[key]){
+                if (addyStr.length === 0) {
+                  addyStr = request[key];
+                }
+                else {
+                  addyStr = addyStr + " " + request[key];
+                }
               }
               // components[key] = request[key];
             } // else { do nothing }
@@ -110,16 +121,15 @@ function GeocoderProvider_ (UserService) {
 
     // handle geocode errors, and if successful save and use the results
     function handleGeocodeResults(results, status) {
-      var center;
       console.log('geocode results received', results);
       if (status === google.maps.GeocoderStatus.OK) {
         if (results[0]) {
 
           console.log('geocode successful:', results);
           // cache the location as the center
-          center = results[0].geometry.location;
-          Client.emit('geocode results', center);
-          console.log('center plotted at:', center);
+          addy.location = results[0].geometry.location;
+          Client.emit('center changed', addy.location);
+          console.log('center plotted at:', addy.location);
           // parse the results into an address
           parseLocation(results[0]);
         }
@@ -187,7 +197,7 @@ function GeocoderProvider_ (UserService) {
         Client.emit('outside US', false);
       }
       else {
-        if (addy.zip) {
+        if (addy.zip && !territoryChecked) {
           Client.emit('valid zip', addy.zip);
           // check if the valid zip is in our territory
           checkTerritory(addy.zip);
@@ -199,10 +209,10 @@ function GeocoderProvider_ (UserService) {
           Client.emit('valid city', addy.city);
         }
         if (addy.street) {
-          Client.emit('valid address', addy);
+          Client.emit('valid address', addy.street);
           if (addy.stno) {
             addy.home = addy.stno + " " + addy.street;
-            Client.emit('valid house', addy.home);
+            Client.emit('valid house', addy);
           }
         }
       }
@@ -211,8 +221,9 @@ function GeocoderProvider_ (UserService) {
     function checkTerritory(zip) {
       // if zip is in territory, emit that
       console.log('checking if', zip, 'is in our territory');
+      addy.zoom = 15;
       // HACK: hardcoding until checkTerritory API is accessible
-      Client.emit('valid territory', true);
+      Client.emit('valid territory', addy.zip);
 
       // var msg,
       //     data,

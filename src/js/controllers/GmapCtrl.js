@@ -22,8 +22,13 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap) {
 
   // stream listeners
   // Client.listen('gmap shown', showMap);
+  Client.listen('center changed', applyCenter);
   Client.listen('max zoom found', applyMaxZoom);
   Client.listen('valid territory', checkMapVisibility);
+
+  function init (el, opts) {
+    map = Gmap.init(el, opts);
+  }
 
   function activate () {
     // init the map object with defaults
@@ -31,10 +36,6 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap) {
     // listen to the map for user's changes
     listenToCenter();
     listenToZoom();
-  }
-
-  function init (el, opts) {
-    map = Gmap.init(el, opts);
   }
 
   function listenToCenter () {
@@ -46,24 +47,31 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap) {
   }
 
   function saveCenter () {
-    center = map.getCenter();
-    if (center) {
+    if (map.getCenter() !== center){
+      center = map.getCenter();
+      console.log('saving center', center);
       Client.emit('center changed', center);
     }
   }
 
   function applyCenter (location) {
-    if (location) {
+    if (location !== center) {
+      console.log('applying center', location);
       map.setCenter(location);
-      return Client.emit('center changed', location);
+      // Client.emit('center changed', location);
     } else return false;
   }
 
   function saveZoom () {
-    mapOpts.zoom = map.getZoom();
+    var zoom = map.getZoom();
+    console.log('saving zoom as', zoom);
+    if (mapOpts.zoom !== zoom){
+      mapOpts.zoom = zoom;
+    }
   }
 
   function applyMaxZoom (zoom) {
+    console.log('setting zoom to', zoom);
     map.setZoom(zoom);
   }
 

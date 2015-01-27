@@ -13,7 +13,7 @@ providers.provider("Gmap", GmapFactory_);
 
 function GmapFactory_ () {
 
-  this.$get = ["Clientstream", "Configurator", function (Client, Configurator) {
+  this.$get = ["Clientstream", function (Client) {
 
     var DEFAULT,
         map,
@@ -36,20 +36,29 @@ function GmapFactory_ () {
       // scrollwheel: false,
     }
 
-    Client.listen('center changed', checkMaxZoom);
+    Client.listen('valid territory', zoomToHood);
+    Client.listen('valid house', checkMaxZoom);
 
     function init (data) {
       map = new google.maps.Map(data, mapOpts);
       return map;
     }
 
-    function checkMaxZoom(location) {
+    function zoomToHood (zip) {
+      console.log('zooming into neighborhood in zipcode', zip);
+      Client.emit('max zoom found', 16);
+    }
+
+    function checkMaxZoom(addy) {
       var zoom,
           latLng,
-          maxZoomService;
+          maxZoomService,
+          location;
 
-      zoom = map.getZoom();
-      console.log('old zoom level:', zoom);
+      location = addy.location;
+
+      // zoom = map.getZoom();
+      // console.log('old zoom level:', zoom);
 
       // handle case where .lng & .lng() differ.
       if (typeof location.lng === "function") {
