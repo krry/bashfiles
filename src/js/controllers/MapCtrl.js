@@ -1,7 +1,7 @@
-controllers.controller("MapCtrl", ["$scope", "$timeout", "Clientstream", "SyncService", "LayerService", "InteractionService", "StyleService", "Session", "Design", "updateArea", "addWkt", "Configurator", MapCtrl_]);
-
-function MapCtrl_($scope, $timeout, Client, Sync, LayerService, InteractionService, StyleService, Session, Design, updateArea, addWkt, Configurator) {
   /* ===============================
+  
+  MapCtrl
+
   TODO:
     * this name is unhelpful
     * too many services loaded in here
@@ -17,6 +17,10 @@ function MapCtrl_($scope, $timeout, Client, Sync, LayerService, InteractionServi
     Peak
 
   =============================== */
+
+controllers.controller("MapCtrl", ["$scope", "$timeout", "Clientstream", "LayerService", "InteractionService", "StyleService", "Session", "Design", "updateArea", "addWkt", "Configurator", MapCtrl_]);
+function MapCtrl_($scope, $timeout, Client, LayerService, InteractionService, StyleService, Session, Design, updateArea, addWkt, Configurator) {
+
   // helper functions TODO: service these --
       // wkt allows us to turn feature.getGeometry() into text, text into geometry for
       // use with feature.setGeometry()

@@ -31,12 +31,34 @@ function SessionProvider_ () {
   var fb_observable = session_ref.observe('value').skip(1);
   var state_stream = session_ref.child('state').observe('value').skip(2);
   this.$get = [  "JwtService", "Clientstream", function SessionProviderFactory(jwt, Client) {
-    // auth with firebase
-    jwt.jwt();
+    console.log('Session Provider started')
+    /* setup listeners */
 
+    // listen for and save successful auth to the session when you get it
+    Client.listen('new user', function (data) {
+      // save data to session object
+    });
+
+    // if user is existing, should send existing users to their correct place in the flow
+    Client.listen('existing user', function (data) {
+      // get necessary data to move the user to correct state in flow
+      Client.emit('stage', data);
+    });
+
+    // listen for & save form_id to the session when you get it
     Client.listen('form key', function (data) {
+      console.log('heard that form key: ', data);
       return session_ref.update({ form: data });
     });
+
+    // listen for & save design_id to the session when you get it
+    Client.listen('design key', function (data) {
+      console.log('heard that design key: ', data);
+      return session_ref.update({ design: data });
+    });
+
+    /*  initialize the process of getting auth from firebase with custom token */
+    jwt.jwt();
 
     function awesome_design_builder_brah () {
       return {

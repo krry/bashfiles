@@ -93,7 +93,7 @@ main.main {
 
 @media screen and (min-width: $width-min-xlg){
   .overlay.secondary {
-    min-height: 30em;
+    // min-height: 30em;
     &.bleed-right {
       padding-right: 0;
     }

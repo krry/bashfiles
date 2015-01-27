@@ -1,4 +1,4 @@
-/**
+/*
  * this is the Configurator for the map.
  * name: Configurator
  *
@@ -11,7 +11,7 @@ providers.provider("Configurator", ConfiguratorFactory_);
 
 function ConfiguratorFactory_() {
 
-  this.$get = ["$window", "Session", "Gmap", "StyleService", "LayerService", "Clientstream", function ($window, Session, Gmap, Styles, Layers, Client) {
+  this.$get = ["$window", "Session", "StyleService", "LayerService", "Clientstream", function ($window, Session, Styles, Layers, Client) {
 
     var map,
         REMOVEMEcenter,
@@ -147,10 +147,10 @@ function ConfiguratorFactory_() {
     Client.listen('center changed', centerOmap);
 
     function centerOmap (location) {
-      if (location !== Gmap.map.getCenter()){
+      // if (location !== Gmap.map.getCenter()){
         console.log('recentering OLmap at:', location);
         view.setCenter([location.lat(), location.lng()]);
-      }
+      // }
     }
 
     function ConfiguratorBuilder() {

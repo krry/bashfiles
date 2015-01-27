@@ -3,7 +3,9 @@ function Clientstream_ () {
   /* ================================
     Clientstream
 
-   Create an emitter to handle pub/sub.
+    Create an emitter to handle pub/sub within the application.
+
+    This stream is used throughtout the application.
 
   ================================ */
   this.$get = [function ClientStreamProviderFactory () {

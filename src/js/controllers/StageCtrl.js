@@ -16,7 +16,6 @@
 controllers.controller("StageCtrl", ["$scope", "$state", "$timeout", "TemplateConfig", "Session", "Clientstream", StageCtrl_]);
 
 function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) {
-
   var vm,
       session_ref,
       stage,
@@ -49,24 +48,8 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
         }
       }
     }
-    // console.log(partials);
     return partials;
   }
-
-  // for dev: //////////////////////////////
-  state_ref = session_ref.child('state');
-
-  state_ref.set({
-    stage: stage,
-    step:  step,
-  });
-
-  // $timeout(function(){
-  //   Clientstream.emit('stage', {
-  //       stage: 1,
-  //       step:  0,
-  //     })
-  // }, 200)
 
   // view_sync helps flow control for async // TODO: more stream-like
   $scope.view_sync = true;
@@ -89,7 +72,6 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
     });
 
   // register listeners for stage, step, and start over events
-
   // stage listener
   Clientstream.listen('stage', function stage_listen (target_state) {
     console.log('heard that stage emission');
@@ -124,7 +106,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
     vm.partial = Templates.partial(stage, step);
     // update firebase
     /* jshint -W030 */
-    $scope.view_sync && state_ref.update({
+    $scope.view_sync && session_ref.child('state').update({
       stage: stage,
       step: step
     });
@@ -142,6 +124,9 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
     });
     /* jshint +W030 */
   });
+
+  // listen for stage change requests from ui-router
+  Clientstream.listen('jump', jumpToStage);
 
   function startOver () {
     Clientstream.emit('start over', 'butts');
@@ -170,11 +155,11 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
     }
   }
 
-  function jumpToStage (stage) {
-    console.log('trying to jump to:', stage, 'stage');
+  function jumpToStage (target) {
+    console.log('trying to jump to:', target, 'stage');
     var stages = Templates.config;
     for (var i = 0; i < stages.length; i++) {
-      if (stage === Templates.config[i].name) {
+      if ( target !== i && target === Templates.config[i].name) {
         Clientstream.emit('stage', {
           stage: i,
           step: 0
