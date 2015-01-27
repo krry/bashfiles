@@ -1,6 +1,6 @@
-controllers.controller("MapCtrl", ["$scope", "$timeout", "Clientstream", "SyncService", "MapService", "LayerService", "InteractionService", "StyleService", "Session", "Design", "updateArea", "addWkt", "Configurator", MapCtrl_]);
+controllers.controller("MapCtrl", ["$scope", "$timeout", "Clientstream", "MapService", "LayerService", "InteractionService", "StyleService", "Session", "Design", "updateArea", "addWkt", "Configurator", MapCtrl_]);
+function MapCtrl_($scope, $timeout, Client, MapService, LayerService, InteractionService, StyleService, Session, Design, updateArea, addWkt, Configurator) {
 
-function MapCtrl_($scope, $timeout, Client, Sync, MapService, LayerService, InteractionService, StyleService, Session, Design, updateArea, addWkt, Configurator) {
   /* ===============================
   TODO:
     * this name is unhelpful

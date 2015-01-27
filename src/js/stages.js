@@ -1,9 +1,12 @@
 angular.module('stages',[
-  'stages.design_link',
-  'stages.home',
-  'stages.configure',
-  'stages.signup',
+  'flannel.providers',
+  'design_link',
+  'home',
+  'configure',
+  'signup',
 ])
-.config(function ($stateProvider, $urlRouterProvider) {
+.config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/home');
-});
+}]).run([function ui_router_run() {
+  // this runs after all the dependencies are bootstrapped
+}]);
