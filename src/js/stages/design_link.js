@@ -11,7 +11,7 @@ angular.module('design_link',[]).config(["$stateProvider", function ($stateProvi
     views: {
       'header@': {
         templateUrl: templateUrl + 'header.html',
-        controller:  'HeaderCtrl as head',
+        controller:  'NavCtrl as nav',
       },
       'main@': {
         templateUrl: templateUrl +'design_link.html',
