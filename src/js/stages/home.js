@@ -12,7 +12,7 @@ angular.module('home',[]).config(["$stateProvider", function ($stateProvider) {
     views: {
       'header@': {
         templateUrl: templateUrl + 'header.html',
-        controller:  'HeaderCtrl as header',
+        controller:  'NavCtrl as nav',
       },
       'main@': {
         templateUrl: stageUrl + "main.html",
