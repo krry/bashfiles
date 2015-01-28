@@ -71,8 +71,17 @@ header nav li {
   opacity: 0.7;
   display: inline;
   color: white;
-  font-size: .85rem;
+  // font-size: .85rem;
   text-shadow: none;
+  cursor: default;
+}
+
+.questions {
+  margin-right: 1em;
+}
+
+.stage-nav {
+  display: none;
 }
 
 header nav li.chevron.right {

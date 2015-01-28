@@ -26,7 +26,7 @@ angular.module('configure',[]).config(["$stateProvider", function ($stateProvide
       // below here, still the same target as index,
       'header@': {
         templateUrl: templateUrl + 'header.html',
-        controller:  "HeaderCtrl as header",
+        controller:  "NavCtrl as nav",
       },
       'footer@': {
         templateUrl: templateUrl + "footer.html",
