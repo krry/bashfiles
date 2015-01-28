@@ -85,9 +85,9 @@
   </script>
 </head>
 
-<!-- app begins -->
-<!-- TODO: apply ng-cloak only to divs that need it -->
+<!-- //////// BODY STARTS //////// -->
 <body ng-cloak ng-controller="StageCtrl as stages">
+  <!-- TODO: apply ng-cloak only to divs that need it -->
   <div fln-dev-tools ng-class="{shown: dev.panelShown}" class="dev-controls inverse"></div>
   <header ui-view name="header" id="header" class="header"></header>
   <main ui-view name="main" id="main" class="main"></main>
@@ -95,7 +95,7 @@
   <div fln-chat class="chat" ng-controller="ChatCtrl as chat" ng-show="chat.shown"></div>
   <div fln-modal class="modal" ng-show="modal.isOn()" ng-click=""></div>
 
-  <!-- TAIL of the body -->
+  <!-- TAIL of the BODY -->
   <script src="lib/angular-touch.js"></script>
   <script src="lib/angular-ui-router.min.js"></script>
   <script src="lib/ui-bootstrap-tpls.min.js"></script>
