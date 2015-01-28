@@ -101,6 +101,10 @@ a.btn {
   }
 }
 
+.baseline button {
+  margin-bottom: 0;
+}
+
 button.text {
   //@include apercu-light;
   background: none;

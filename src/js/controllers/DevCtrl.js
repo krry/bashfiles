@@ -13,7 +13,7 @@ function DevCtrl_($scope) {
   vm.userShown = true;
   vm.userShownTriggerText = "hide";
   vm.panelShown = false;
-  vm.panelShownTriggerText = "show dev tools";
+  vm.panelShownTriggerText = "dev";
 
   // TODO: register a dev tools service so directives outside the dev panel can interact with it. see the ModalService and ModalCtrl
 
@@ -24,7 +24,7 @@ function DevCtrl_($scope) {
 
   function toggleDevPanel() {
     vm.panelShown = !vm.panelShown;
-    vm.panelShownTriggerText = (vm.panelShown) ? "hide dev tools" : "show dev tools";
+    vm.panelShownTriggerText = (vm.panelShown) ? "undev" : "dev";
     // TODO: wire up esc key to hide dev panel when shown
   }
 }
