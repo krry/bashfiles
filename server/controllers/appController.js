@@ -1,6 +1,5 @@
 var UUID = require('node-uuid');
 var FirebaseTokenGenerator = require("firebase-token-generator");
-var app = require('../server');
 
 module.exports = function(app) {
 

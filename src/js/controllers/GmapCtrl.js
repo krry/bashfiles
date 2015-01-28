@@ -1,47 +1,38 @@
-controllers.controller("GmapCtrl", ["$scope", "$element", "MapFactory", GmapCtrl_]);
+controllers.controller("GmapCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Gmap", "MapService", GmapCtrl_]);
 
-function GmapCtrl_ ($scope, $element, Map) {
+function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService) {
 
-  var DEFAULT_CENTER,
+  var vm,
       center,
       zoom,
       map,
       mapEl,
-      mapOptions;
+      mapOpts;
 
-  // TODO: get default center from MapFactory
-  DEFAULT_CENTER = {
-    LAT: 30,
-    LNG: -123,
-  };
+  vm = this;
+  vm.shown = false;
+  vm.autolocate = autolocate;
 
   mapEl = $element[0];
 
-  // TODO: get default mapOptions from MapFactory
-  mapOptions = {
-    zoom: 4,
-    minZoom: 4,
-    mapTypeId: google.maps.MapTypeId.TERRAIN,
-    disableDefaultUI: true,
-    // draggable: false,
-    // zoomable: false,
-    // scrollwheel: false,
-    backgroundColor: "transparent",
-  }
+  mapOpts = Gmap.opts;
 
   // once window loads, activate map using defaults
-  google.maps.event.addDomListener(window, "load", activate);
+  google.maps.event.addDomListenerOnce(window, "load", activate);
 
-  // when user enters a valid, inTerritory zipcode, center the map and zoom to 15
+  // stream listeners
+  // Client.listen('gmap shown', showMap);
+  Client.listen('center changed', applyCenter);
+  Client.listen('max zoom found', applyMaxZoom);
+  Client.listen('valid territory', checkMapVisibility);
 
-
-  function init (element, options) {
-    map = new google.maps.Map(element, options);
+  function init (el, opts) {
+    map = Gmap.init(el, opts);
   }
 
   function activate () {
     // init the map object with defaults
-    init(mapEl, mapOptions);
+    init(mapEl, mapOpts);
     // listen to the map for user's changes
     listenToCenter();
     listenToZoom();
@@ -56,16 +47,48 @@ function GmapCtrl_ ($scope, $element, Map) {
   }
 
   function saveCenter () {
-    center = map.getCenter();
-    if (center) {
-      Map.setCenter(center);
+    if (map.getCenter() !== center){
+      center = map.getCenter();
+      console.log('saving center', center);
+      Client.emit('center changed', center);
     }
   }
 
+  function applyCenter (location) {
+    if (location !== center) {
+      console.log('applying center', location);
+      map.setCenter(location);
+      // Client.emit('center changed', location);
+    } else return false;
+  }
+
   function saveZoom () {
-    zoom = map.getZoom();
-    if (zoom) {
-      Map.setZoom(zoom);
+    var zoom = map.getZoom();
+    console.log('saving zoom as', zoom);
+    if (mapOpts.zoom !== zoom){
+      mapOpts.zoom = zoom;
+    }
+  }
+
+  function applyMaxZoom (zoom) {
+    console.log('setting zoom to', zoom);
+    map.setZoom(zoom);
+  }
+
+  function checkMapVisibility (data) {
+    if (!vm.shown) {
+      vm.shown = true;
+    }
+  }
+
+  function autolocate () {
+    var location;
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position){
+        location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        vm.shown = true;
+        applyCenter(location);
+      });
     }
   }
 }

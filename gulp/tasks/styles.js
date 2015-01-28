@@ -21,20 +21,21 @@ var minCSS  = require('gulp-minify-css');
 
 var handleErrors = require('../util/handleErrors');
 
+// this glob determines the order of the concatenated stylesheets
 var styleSrc = [
   './src/lib/normalize.css/normalize.css',
   './src/css/defaults/*.scss',
   './src/css/utilities/*.scss',
-  './src/css/components/*.scss',
+  './src/css/patterns/*.scss',
   './src/css/app/*.scss',
   './src/css/**/*.css',
-]
+];
 
 var sassOpts = {
   sourceComments: 'normal'
 };
 
-var stylePub = './public/css/';
+var stylePub = './public/css';
 
 gulp.task('styles', function(){
   return gulp.src(styleSrc)

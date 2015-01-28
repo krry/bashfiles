@@ -1,67 +1,62 @@
 <section class="overlay primary short col full">
-  <h1 ng-hide="form.valid">Wow! <span id="neighbor_count">9,999</span> of your neighbors have gone solar.<br><small>Let’s take a closer look at your house.</small></h1>
-  <form fln-form novalidate ng-submit="form.geocodeAddress(form.home, form.recenterMap)">
-    <div class="row">
-      <div class="col half center padded sml-full">
-        <input
-          ng-model="form.home.street"
-          type="text"
-          class="street"
-          placeholder="Street Address"
-          minlength="4"
-          ng-minlength="4"
-          ng-valid="form.parseAddress(user)"
-          ng-keypress="form.resizeInput()"></input>
-      </div>
-      <div class="col half center padded sml-full">
-        <div class="combo-input">
-          <input
-            ng-model="form.home.city"
-            type="text"
-            class="city"
-            placeholder="City"
-            name="city"
-            ng-required="true"
-            ng-valid="form.parseAddress(user)">
-          </input>
-          <input
-            ng-model="form.home.state"
-            type="text"
-            id="state"
-            placeholder="State"
-            class="state"
-            name="state"
-            ng-required="true"
-            maxlength="2"
-            ng-maxlength="2"
-            ng-valid="form.parseAddress(user)">
-          </input>
-          <input
-            ng-model="form.home.zip"
-            type="tel"
-            id="zip"
-            placeholder="Zip"
-            class="zipcode"
-            name="zipcode"
-            ng-required="true"
-            maxlength="5"
-            ng-maxlength="5"
-            ng-pattern="/^\d{5}(?:[-\s]\d{4})?$/"
-            ng-valid="form.parseAddress(user)">
-          </input>
-          <button class="address-search ib" ng-hide="form.valid" ng-click="form.geocodeAddress(form.home, form.recenterMap)">&nbsp;</button>
-        </div>
-      </div>
+  <h1 ng-hide="form.valid">Wow! <span id="neighbor_count">4,499</span> of your neighbors have gone solar.<br><small>Let’s take a closer look at your house.</small></h1>
+  <div class="row">
+    <div class="col full padded center sml-full">
+      <input
+        id="prospect_address"
+        ng-model="form.prospect.street"
+        type="text"
+        class="street"
+        focus="true"
+        placeholder="Street Address"
+        minlength="4"
+        ng-minlength="4"
+        ng-valid="form.checkAddress(form.prospect)"
+        ng-keypress="form.resizeInput()">
+      <input
+        ng-model="form.prospect.city"
+        type="text"
+        id="prospect_city"
+        class="city"
+        placeholder="City"
+        name="city"
+        ng-required="true"
+        ng-valid="form.checkAddress(form.prospect)">
+      <input
+        ng-model="form.prospect.state"
+        type="text"
+        id="state"
+        id="prospect_state"
+        placeholder="State"
+        class="state"
+        name="state"
+        ng-required="true"
+        maxlength="2"
+        ng-maxlength="2"
+        ng-valid="form.checkAddress(form.prospect)">
+      <input
+        ng-model="form.prospect.zip"
+        type="tel"
+        id="prospect_zip"
+        placeholder="Zip"
+        class="zipcode"
+        name="zipcode"
+        ng-required="true"
+        maxlength="5"
+        ng-maxlength="5"
+        ng-pattern="/^\d{5}(?:[-\s]\d{4})?$/"
+        ng-valid="form.checkAddress(form.prospect)">
+      <button class="address-search ib" ng-click="form.checkAddress(form.prospect)">&nbsp;</button>
     </div>
-    <!-- <button class="ib aqua" ng-hide="form.valid" ng-click="form.geocodeAddress(form.home, form.recenterMap)">Go</button> -->
-    <!-- <button class="aqua" ng-show="form.valid" ng-click="form.nextStep()">That's my house</button> -->
+  </div>
+  <!-- <button class="ib aqua" ng-hide="form.valid" ng-click="form.geocodeAddress(form.prospect, form.recenterMap)">Go</button> -->
+  <!-- <button class="aqua" ng-show="form.valid" ng-click="form.nextStep()">That's my house</button> -->
 
-    <div class="answer-container center" ng-show="form.valid" >
-      <h3>Do you own your house?</h3>
-      <button class="answer-yes aqua" ng-click="form.nextStep()">Yes</button>
-      <button class="answer-no aqua" ng-click="form.nextStep()">No</button>
-    </div>
-  </form>
+  <div class="answer-container center" ng-show="form.valid" ng-controller="ModalCtrl as modal">
+    <h3>Do you own your house?</h3>
+    <button class="answer-yes aqua" ng-click="form.nextStep()">Yes</button>
+    <button class="answer-no aqua" ng-click="modal.showDialog('alternatives')">No</button>
+  </div>
 </section>
 <!-- <aside class="overlay secondary short col fourth sml-full med-full">
   <p>Our customers in your area save an average of <strong>20%</strong> on their utility bill and reduces an average of <strong>2.5 tons of CO<sub>2</sub></strong> every month.</p>

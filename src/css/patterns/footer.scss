@@ -1,0 +1,30 @@
+footer.footer {
+  position: relative;
+  text-align: center;
+  padding: 2em;
+  font-size: .875em;
+  width: 74.9%;
+}
+
+footer a,
+footer a:hover {
+  color: inherit;
+}
+
+footer .caps {
+  font-size: .5em;
+}
+
+footer.footer p {
+  padding-bottom: 0.75em;
+}
+
+footer.footer p small {
+  font-size: .75em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+footer.footer p small a {
+  color: #333333;
+}

@@ -95,27 +95,24 @@ We'll keep objects of various types in firebase:
       }
     }
 
-### homes
+### forms
 
-  homes: {
-    home_id: {
-      owner:    "owner_id", // ???
-      address1: "address1",
-      address2: "address2",
-      city:     "city",
-      state:    "state",
-      zip:      "11111",
-    },
-  }
-
+    forms: {
+      form_id: {
+        owner:    "owner_id", // ???
+        address1: "address1",
+        address2: "address2",
+        city:     "city",
+        state:    "state",
+        zip:      "11111",
+      },
+    }
 
 ## how do we sync?
 
 var test = new Firebase('https://scty.firebaseio.com/features')
 var wkt = new ol.format.WKT();
 test.push(wkt.writeFeature(feature))
-
-
 
 after mount draw: (rather than getting the pixel data, we should get the LatLng data)
 

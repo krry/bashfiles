@@ -3,109 +3,143 @@
   the form controller
 ================================================== */
 
-controllers.controller("FormCtrl", ["$scope", "Form", "Clientstream", "Geocode", "UserService", "Session", "MapService", FormCtrl_]);
+controllers.controller("FormCtrl", ["$scope", "$element", "Form", "Clientstream", "Geocoder", "Prospect", "Session", FormCtrl_]);
 
-function FormCtrl_($scope, Form, Client, Geocode, UserService, Session, MapService) {
+function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect, Session) {
   var vm = this;
+  // var form_ref = Form.ref();
 
-  vm.home = UserService.getHome();
-  vm.prospect = UserService.getProspect();
-  vm.monitorZip = monitorZip;
-  vm.valid = false; // use ng-valid from form
+  vm.prospect = {};
+  vm.checkZip = checkZip;
+  vm.checkAddress = checkAddress;
+  vm.valid = false;  // use ng-valid from form
   vm.validZip = true;
   vm.validTerritory = true;
   vm.validAddress = false;
-  vm.gmapShown = MapService.getGmapShown;
+  vm.territoryMsg = "";
   vm.prevStep = prev;
   vm.nextStep = next;
-  vm.recenterMap = MapService.recenterMap;
-  vm.geocodeAddress = MapService.geocodeAddress;
 
-  Client.listen('valid address', validateAddress);
+  // TODO: on change of the user model due to user changing the input values and angular syncing that with the data model, run it through validators, and then save it to firebase
+  // vm.$watch('user', function(){})
 
-  function validateAddress(data){
-    console.log('validateAddress data is:', data);
+  Client.listen('outside US', acceptValidZip);
+  // Client.listen('valid zip', acceptValidZip);
+  Client.listen('valid territory', acceptValidTerritory);
+  Client.listen('valid address', acceptValidAddress);
+  Client.listen('valid house', acceptValidHouse);
+  Client.listen('valid state', acceptValidState);
+  Client.listen('valid city', acceptValidCity);
+  Client.listen('email saved', acceptSavedEmail);
+  Client.listen('birthdate saved', acceptSavedBirthdate);
+  Client.listen('phone saved', acceptSavedPhone);
+  Client.listen('fullname saved', acceptSavedFullname);
+
+  function checkZip (zip) {
+    if (typeof zip !== "undefined" && zip.length === 5) {
+      Geocoder.sendGeocodeRequest(zip);
+    }
+    else { return false; }
+  }
+
+  function checkAddress (prospect) {
+    console.log('checking address for', prospect);
+    var addy;
+    if (prospect !== {}) {
+      addy = {
+        street: vm.prospect.street,
+        city: vm.prospect.city,
+        state: vm.prospect.state,
+        zip: vm.prospect.zip,
+      }
+      Geocoder.sendGeocodeRequest(addy);
+    }
+  }
+
+  function checkFullName () {}
+  function checkEmail () {}
+  function checkPhone () {}
+  function checkBirthdate () {}
+
+  // TODO: figure out if the valid territory / valid zip dependency is appropriate for the prescribed UX
+  function acceptValidTerritory(data) {
+    console.log('accepting valid territory', data);
+    acceptValidZip(data);
+    vm.validTerritory = data;
+    if (vm.validZip) vm.valid = data;
+    return next();
+  }
+
+  function acceptValidZip(data) {
+    console.log('accepting valid zip', data);
+    if (data) {
+      vm.validZip = true;
+      vm.prospect.zip = data;
+    } else vm.validZip = false;
+    return vm.validZip;
+  }
+
+  function acceptValidState(data) {
+    console.log('accepting valid state', data);
+    if (data) {
+      vm.validState = true;
+      vm.prospect.state = data;
+    } else vm.validState = false;
+    return vm.validState;
+  }
+
+  function acceptValidCity(data) {
+    console.log('accepting valid city', data);
+    if (data) {
+      vm.validCity = true;
+      vm.prospect.city = data;
+    } else vm.validCity = false;
+    return vm.validCity;
+  }
+
+  function acceptValidAddress(data) {
+    console.log('accepting valid address', data);
+    if (data) {
+      vm.validAddress = true;
+      vm.prospect.address = data;
+    } else vm.validAddress = false;
+    return vm.validAddress;
+  }
+
+  function acceptValidHouse(data) {
+    // sync full address
+    console.log('accepting valid house:', data.home);
     if (data) {
       vm.valid = true;
-      Form.ref().update(data);
+      vm.prospect.street = data.home;
+      // vm.form_ref.update(data);
       $scope.$apply();
     }
   }
 
+  function acceptSavedEmail (data) {
+    vm.prospect.email = data ? data : "";
+  }
+  function acceptSavedBirthdate (data) {
+    vm.prospect.birthdate = data ? data : "";
+  }
+  function acceptSavedPhone (data) {
+    vm.prospect.phone = data ? data : "";
+  }
+  function acceptSavedFullname (data) {
+    vm.prospect.fullname = data ? data : "";
+  }
+
   function prev () {
+    console.log('going to previous step');
     Session.prev();
   }
 
-  function next () { // TODO: currently not checking if valid
+  function next () {
+    console.log('going to next step');
+    // TODO: currently not checking if valid
     /* jshint -W030 */
     vm.valid && Session.next();
     /* jshint +W030 */
   }
-
-  function monitorZip () {
-    var zip = vm.user.zip;
-    console.log('monitoring zip field');
-
-    if (typeof(zip) !== "undefined") {
-      console.log('zip field contains:', zip);
-      // addy.zip = zip;
-      // Geocode.parseAddy(zip);
-      MapService.setGmapShown(true);
-      MapService.geocodeZip(zip, validateZip);
-      // pass to checkTerritory API
-        // if false, show out of territory state
-        // if true, advance to address step
-          // return mapService.initNearMe()
-    }
-  }
-
-  function validateZip(result) {
-    vm.valid = result;
-    console.log('validZip is', vm.validZip);
-    checkTerritory(vm.user.zip, validateTerritory);
-  }
-
-  // TODO: move this to an API provider that sends data to the server which corresponds with proprietary APIs
-  function checkTerritory(zip, cb) {
-    console.log('checking if', zip, 'is in our territory');
-    // return cb(false);
-    return cb(true);
-
-    // DON'T DELETE THIS: WE'LL NEED IT LATER
-    // var msg, data = 'zip='+zip.toString()
-    // // console.log('data is ' + data)
-    // if (zip != null) {
-    //   $.ajax({
-    //     url: '//scexchange.solarcity.com/scfilefactory/app_handler/checkTerritory.ashx',
-    //     //url: '//slc3web00.solarcity.com/scexchange/app_handler/checkTerritory.ashx',
-    //     type: 'POST',
-    //     data: data,
-    //     dataType: 'json',
-    //     error: function(){
-    //       console.log('API not reachable')
-    //       // checkZipDB(zip, res)
-    //     },
-    //     success: function(data) {
-    //       // data = {'InTerritory' : 'false/true'}
-    //       // console.log(typeof(data))
-    //       // console.log(data)
-    //       if (data['InTerritory']) {
-    //         // msg = 'We service ' + zip
-    //         res(true)
-    //       } else {
-    //         // msg = 'We do not yet service ' + zip
-    //         res(false)
-    //       }
-    //     }
-    //   })
-    // }
-  }
-
-  function validateTerritory(result) {
-    vm.validTerritory = result;
-    console.log('inTerritory is', vm.validTerritory);
-    vm.valid = true;
-    next();
-  }
-
 }

@@ -8,6 +8,7 @@
 
   ul {
     width: 100%;
+    margin: auto;
   }
 
   li {
@@ -22,7 +23,6 @@
 
   a {
     @include apercu-regular;
-    // background: $white;
     padding: 1em;
     padding-left: 4.25em;
     width: 100%;
@@ -33,6 +33,7 @@
     text-transform: none;
     letter-spacing: 1;
     margin: 0;
+    border: 0;
     border-radius: .25em;
     background-position: 1em center;
     background-repeat: no-repeat;
@@ -40,14 +41,8 @@
 
     &:hover {
       background-color: $shade-05;
-    }
-
-    &.icon-call {
-      background-image: url('../img/help-call.svg');
-    }
-
-    &.icon-chat {
-      background-image: url('../img/help-chat.svg');
+      // color: $white;
+      border: 0;
     }
   }
 }

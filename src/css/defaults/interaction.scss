@@ -95,7 +95,10 @@ a.btn {
   &.white.square.small.padded {
     @include btn($color: $white, $size: .875em, $corners: .25em, $pad: #{1.5em 3em});
   }
-
+  &:disabled {
+    cursor: not-allowed;
+    opacity: .5;
+  }
 }
 
 button.text {
@@ -153,14 +156,12 @@ select {
 }
 
 label {
-  font-size: .65em;
+  font-size: .75em;
   display: block;
   text-indent: 0;
   font-weight: 600;
   margin-top: 1em;
-  margin-bottom: 0.6em;
-  text-transform: uppercase;
-  letter-spacing: .03em;
+  margin-bottom: 0.625em;
 }
 
 label span {
@@ -276,9 +277,9 @@ input[type="week"]:focus,
 select[multiple=multiple]:focus {
   border-color: $grey-mid;
   background-color: $white;
-  -webkit-box-shadow: 0px 0px 4px rgba(0,0,0,0.15);
-     -moz-box-shadow: 0px 0px 4px rgba(0,0,0,0.15);
-          box-shadow: 0px 0px 4px rgba(0,0,0,0.15);
+  // -webkit-box-shadow: 0px 0px 4px rgba(0,0,0,0.15);
+  //    -moz-box-shadow: 0px 0px 4px rgba(0,0,0,0.15);
+  //         box-shadow: 0px 0px 4px rgba(0,0,0,0.15);
 }
 
 // input placeholders
