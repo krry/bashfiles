@@ -1,16 +1,11 @@
-<nav>
+<nav class="short">
   <a ui-sref="home.initial" class="logo">SolarCity</a>
-  <!-- <div fln-headdress address="address"></div> -->
-  <!-- ericson hiding this for now
-  <ul class="stage-nav">
-    <li class="active"><a class="white" ui-sref="configure.initial">&rsaquo;&nbsp;Configure</a></li>
-    <li><a class="white" ui-sref="qualify.initial">&rsaquo;&nbsp;Qualify</a></li>
-    <li><a class="white" ui-sref="schedule.initial">&rsaquo;&nbsp;Schedule</a></li>
-  </ul> -->
-
-  <ul class="stage-nav caps">
-    <li class="active">&rsaquo;&nbsp;Configure</li>
-    <li>&rsaquo;&nbsp;Qualify</li>
-    <li>&rsaquo;&nbsp;Schedule</li>
+  <ul class="stage-nav float right">
+    <li class="active chevron right caps">My Home</li>
+    <li class="chevron right caps">Configure</li>
+    <li class="chevron right caps">Qualify</li>
   </ul>
+  <div class="float right" ng-controller="ModalCtrl as modal">
+    <a ng-click="modal.showDialog('faq')">Top 5 Questions <span class="icon top-five"></span></a>
+  </div>
 </nav>

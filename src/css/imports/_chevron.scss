@@ -1,0 +1,117 @@
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  
+  CHEVRON
+  
+  shapes an element like a chevron pointing in a given
+  direction ("right", "left", "up", "down")
+
+  inspired by [@apticknor](https://twitter.com/apticknor)'s
+  approach courtesy of 
+  [CSS Tricks](http://css-tricks.com/examples/ShapesOfCSS/)
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+
+@mixin chevron($direction) {
+  position: relative;
+  text-align: center;
+  color: white;
+  z-index: 10;
+  padding: 1.5rem 2rem 1.5rem;
+  font-size: .75rem;
+
+  &.active:before,
+  &.active:after {
+    background: $tint-10;
+  }
+
+  &:before,
+  &:after {
+    border-left: 1px solid $tint-20;
+    border-right: 1px solid $tint-20;
+    content: '';
+    position: absolute;
+    z-index: -1;
+  }
+
+  @if ($direction == "right" or $direction == "left") {
+    height: 3em;
+    width: 6em;
+    line-height: 3.5em;
+
+    &:before,
+    &:after {
+      width: 100%;
+      height: 50%;
+    }
+    &:before {
+      top: 0;
+      border-top: 1px solid $tint-20;
+    }
+    &:after {
+      bottom: 0;
+      border-bottom: 1px solid $tint-20;
+    }
+  }
+
+  @if $direction == "right" {
+    &:before,
+    &:after {
+      left: 0;
+    }
+    &:before {
+      transform: skew(25deg, 0deg);
+    }
+    &:after {
+      transform: skew(-25deg, 0deg);
+    }
+  }
+  @if $direction == "left" {
+    &:before,
+    &:after {
+      right: 0;
+    }
+    &:before {
+      transform: skew(-25deg, 0deg);
+    }
+    &:after {
+      transform: skew(25deg, 0deg);
+    }
+  }
+
+  @if ($direction == "up" or $direction == "down") {
+    width: 3em;
+    height: 6em;
+    // line-height: 3.5em;
+
+    &:before,
+    &:after {
+      width: 50%;
+      height: 100%;
+    }
+    &:before {
+      left: 0;
+      border-left: 1px solid $tint-20;
+    }
+    &:after {
+      right: 0;
+      border-right: 1px solid $tint-20;
+    }
+  }
+
+  @if $direction == "up" {
+    &:before {
+      transform: skew(0deg, 25deg);
+    }
+    &:after {
+      transform: skew(0deg, -25deg);
+    }
+  }
+  @if $direction == "left" {
+    &:before {
+      transform: skew(0deg, -25deg);
+    }
+    &:after {
+      transform: skew(0deg, 25deg);
+    }
+  }
+}

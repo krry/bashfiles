@@ -1,4 +1,5 @@
 @import "../imports/colors";
+@import "../imports/typography";
 
 .hide,
 .display-none {
@@ -36,8 +37,7 @@
 
 .caps,
 .text.caps {
-  text-transform: uppercase;
-  letter-spacing: 0.0625em;
+  @include caps;
 }
 
 .border {
