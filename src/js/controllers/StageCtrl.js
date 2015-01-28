@@ -74,6 +74,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
   // register listeners for stage, step, and start over events
   // stage listener
   Clientstream.listen('stage', function stage_listen (target_state) {
+    console.log('heard that stage emission');
     var name;
     if (target_state === "next") {
       next();
@@ -93,6 +94,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
 
   // step listener
   Clientstream.listen('step', function step_listen (target_step) {
+    console.log('heard that step emission');
     step = target_step;
     $timeout( function () {
       // unlock the view

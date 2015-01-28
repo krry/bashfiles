@@ -3,9 +3,16 @@
 
 <head>
   <meta charset="utf-8">
+
+  <!-- <meta name="robots" content="noindex,nofollow"> -->
+  <!-- shorter and equivalent to the boilerplate above: -->
+  <meta name="robots" content="none">
+  <!-- preventing crawls with google's recommended meta tag -->
+  <!-- https://developers.google.com/webmasters/control-crawl-index/docs/robots_meta_tag -->
+
   <!-- this viewport locking approach is useful sometimes, just not for our universally responsive app -->
   <!-- <meta name="viewport" content="initial-scale=1, width=device-width"> -->
-  <title>{{app.appTitle}}</title>
+  <title ng-bind="app.appTitle">SolarCity</title>
 
   <!-- angular -->
   <script src="lib/angular.js"></script>
@@ -85,16 +92,17 @@
   </script>
 </head>
 
-<!-- app begins -->
-<body ng-controller="StageCtrl as stages">
+<!-- //////// BODY STARTS //////// -->
+<body ng-cloak ng-controller="StageCtrl as stages">
+  <!-- TODO: apply ng-cloak only to divs that need it -->
   <div fln-dev-tools ng-class="{shown: dev.panelShown}" class="dev-controls inverse"></div>
   <header ui-view name="header" id="header" class="header"></header>
   <main ui-view name="main" id="main" class="main"></main>
-  <footer ui-view name="footer" id="footer" class="footer"></footer>
+  <footer ui-view name="footer" id="footer" class="footer row"></footer>
   <div fln-chat class="chat" ng-controller="ChatCtrl as chat" ng-show="chat.shown"></div>
   <div fln-modal class="modal" ng-show="modal.isOn()" ng-click=""></div>
 
-  <!-- TAIL of the body -->
+  <!-- TAIL of the BODY -->
   <script src="lib/angular-touch.js"></script>
   <script src="lib/angular-ui-router.min.js"></script>
   <script src="lib/ui-bootstrap-tpls.min.js"></script>

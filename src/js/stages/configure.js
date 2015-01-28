@@ -21,12 +21,12 @@ angular.module('configure',[]).config(["$stateProvider", function ($stateProvide
       // modify the new named views @ configure
       'map@configure': {
         templateUrl: stageUrl + "map.html",
-        controller:  "MapCtrl as map",
+        controller:  "OlMapCtrl as omap",
       },
       // below here, still the same target as index,
       'header@': {
         templateUrl: templateUrl + 'header.html',
-        controller:  "HeaderCtrl as header",
+        controller:  "NavCtrl as nav",
       },
       'footer@': {
         templateUrl: templateUrl + "footer.html",

@@ -1,6 +1,6 @@
 @mixin caps($type: "default") {
   text-transform: uppercase;
-  letter-spacing: .0625em;
+  letter-spacing: .125em;
   @if $type == "small" {
     font-variant: small-caps;
   }

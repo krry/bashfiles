@@ -11,8 +11,8 @@ angular.module('home',[]).config(["$stateProvider", function ($stateProvider) {
     url: "/home",
     views: {
       'header@': {
-        templateUrl: templateUrl + 'header-short.html',
-        controller:  'HeaderCtrl as header',
+        templateUrl: templateUrl + 'header.html',
+        controller:  'NavCtrl as nav',
       },
       'main@': {
         templateUrl: stageUrl + "main.html",

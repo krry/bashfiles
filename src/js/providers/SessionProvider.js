@@ -1,9 +1,8 @@
-providers.provider("Session", SessionProvider_);
-
-function SessionProvider_ () {
   /* ================================
+
     Session
-      structures the user flow, e.g.:
+
+    structures the user flow, e.g.:
 
     sessions: {
       session_id: {
@@ -25,6 +24,9 @@ function SessionProvider_ () {
 
   ================================ */
 
+providers.provider("Session", SessionProvider_);
+
+function SessionProvider_ () {
   var session_ref = new Firebase('https://scty.firebaseio.com/sessions/').push();  // TODO: pass arguments to this $get method to change the fb_observable's_ref
   var fb_observable = session_ref.observe('value').skip(1);
   var state_stream = session_ref.child('state').observe('value').skip(2);
