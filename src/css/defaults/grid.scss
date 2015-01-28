@@ -102,8 +102,8 @@
 }
 
 .row.center .col {
-  display: block;
-  margin: 0 auto;
+  // display: block;
+  // margin: 0 auto;
 }
 
 /* on mobile, stretch the partial blocks to full width */
@@ -137,6 +137,10 @@
   &.padded {
     padding: 0;
   }
+}
+
+.col.baseline {
+  vertical-align: baseline;
 }
 
 /* > 536px --- bigger than iPhone portrait */
