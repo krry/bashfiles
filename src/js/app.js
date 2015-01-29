@@ -1,4 +1,5 @@
 angular.module('flannel', [
+  'ngCookies',
   'flannel.config',
   'ui.router',
   // 'ui.bootstrap',
