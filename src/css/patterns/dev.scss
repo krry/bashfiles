@@ -25,14 +25,21 @@ a.dev-trigger.dev-trigger {
   font-size: .875em;
   padding: .75em;
   text-align: center;
-  background: $gold;
   color: $black;
-  border: 3px solid $black;
+  background: $gold;
+  border: 3px solid;
   border-right: none;
   &:hover {
-    border: 3px solid $black;
-    border-right: none;
-    background: lighten($gold, 15%);
+    border-color: $gold;
+    background: saturate($gold, 5%);
+  }
+  &.triggered {
+    color: $gold;
+    border-color: $black;
+    background-color: $black;
+  }
+  &:hover.triggered {
+    border-color: $gold;
   }
 }
 
