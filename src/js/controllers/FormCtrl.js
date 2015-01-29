@@ -12,9 +12,9 @@ function FormCtrl_($scope, Form, Client, Geocoder, UserService, Session, MapServ
   vm.user = {};
   vm.checkZip = checkZip;
   vm.gmapShown = false;
-  vm.valid = false;  // use ng-valid from form
-  vm.validZip = true;
-  vm.validTerritory = true;
+  vm.valid = true;
+  vm.invalidZip = true;
+  vm.invalidTerritory = true;
   vm.validAddress = false;
   vm.territoryMsg = "";
   vm.prevStep = prev;
@@ -44,19 +44,21 @@ function FormCtrl_($scope, Form, Client, Geocoder, UserService, Session, MapServ
   }
 
   function validateZip(data) {
-    vm.validZip = data ? data : false;
-    return vm.validZip;
+    vm.invalidZip = !data;
+    vm.valid = !vm.invalidZip && !vm.invalidTerritory;
+    return vm.invalidZip;
   }
 
   function validateTerritory(data) {
-    vm.validTerritory = data ? data : false;
-    return vm.validTerritory;
+    vm.invalidTerritory = !data;
+    vm.valid = !vm.invalidZip && !vm.invalidTerritory;
+    return vm.invalidTerritory;
   }
 
   function validateAddress(data) {
     console.log('validateAddress data is:', data);
     if (data) {
-      vm.valid = true;
+      vm.invalid = true;
       // vm.form_ref.update(data);
       $scope.$apply();
     }
