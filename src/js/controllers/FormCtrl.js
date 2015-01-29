@@ -12,7 +12,6 @@ function FormCtrl_($scope, Form, Client, Geocoder, UserService, Session, MapServ
   vm.user = {};
   vm.checkZip = checkZip;
   vm.gmapShown = false;
-  vm.valid = true;
   vm.invalidZip = true;
   vm.invalidTerritory = true;
   vm.validAddress = false;
@@ -45,20 +44,20 @@ function FormCtrl_($scope, Form, Client, Geocoder, UserService, Session, MapServ
 
   function validateZip(data) {
     vm.invalidZip = !data;
-    vm.valid = !vm.invalidZip && !vm.invalidTerritory;
+    vm.invalid = vm.invalidZip && vm.invalidTerritory;
     return vm.invalidZip;
   }
 
   function validateTerritory(data) {
     vm.invalidTerritory = !data;
-    vm.valid = !vm.invalidZip && !vm.invalidTerritory;
+    vm.invalid = vm.invalidZip && vm.invalidTerritory;
     return vm.invalidTerritory;
   }
 
   function validateAddress(data) {
     console.log('validateAddress data is:', data);
     if (data) {
-      vm.invalid = true;
+      vm.invalid = false;
       // vm.form_ref.update(data);
       $scope.$apply();
     }
