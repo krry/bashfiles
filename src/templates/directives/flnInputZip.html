@@ -1,0 +1,17 @@
+<input
+  ng-model="form.prospect.zip"
+  type="tel"
+  id="hood_check"
+  placeholder="ZIP CODE"
+  class="zipcode"
+  ng-class=""
+  name="hood_check"
+  autocomplete="off"
+  autocorrect="off"
+  focus="true"
+  required="true"
+  ng-required="true"
+  maxlength="5"
+  ng-maxlength="5"
+  ng-pattern="/^\d{5}(?:[-\s]\d{4})?$/"
+  ng-hide="!form.validTerritory">

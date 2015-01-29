@@ -3,22 +3,22 @@
   SERVER
   defines and runs the app on the server
 
-  determines the environment, the port, the database, 
+  determines the environment, the port, the database,
   the routes, cookies, the root directory (public)
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
 // external modules
-var newrelic      = require('newrelic'),
-    nconf         = require('nconf'), // https://github.com/flatiron/nconf
-    express       = require('express'),
-    compression   = require('compression'),
-    expValid      = require('express-validator'),
-    bodyParser    = require('body-parser'),
-    cookieParser  = require('cookie-parser'),
-    env           = process.env.NODE_ENV || 'development',
-    morgan        = require('morgan'),
-    logger        = require('./logger'), // logger
+var newrelic     = require('newrelic'),
+    nconf        = require('nconf'), // https://github.com/flatiron/nconf
+    express      = require('express'),
+    compression  = require('compression'),
+    expValid     = require('express-validator'),
+    bodyParser   = require('body-parser'),
+    cookieParser = require('cookie-parser'),
+    env          = process.env.NODE_ENV || 'development',
+    morgan       = require('morgan'),
+    logger       = require('./logger'), // logger
     // db,
     app,
     port,
@@ -34,7 +34,7 @@ publicFolder = __dirname + '/../public';
 oneYear = 31557600000;
 
 app.use(cookieParser(nconf.get('FLANNEL_SECRET')));
-app.use(express.static(publicFolder, {maxAge: oneYear})); 
+app.use(express.static(publicFolder, {maxAge: oneYear}));
 app.settings.nconf = nconf;
 
 port = app.settings.nconf.get('PORT') || 8100;
