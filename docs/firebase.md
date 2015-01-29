@@ -43,11 +43,31 @@ We'll keep objects of various types in firebase:
 
   prospects: {
     prospect_id: {
-      name:              "name",
-      prospects_designs: [design_id...],
-      prospects_calls:   [session_id...]
+      uuid:              "uuid",
+      prospects_session: [design_id...],
+      support_events:   [session_id...]
     },
   }
+
+support_event_id: {
+  session: "<session_id>",
+  agent: "<agent_id>",
+  agent: "<agent_id>",
+}
+
+
+Session Queue
+
+session -> status_code ["done", "waiting"]
+session -> form_id -> form_status ["complete", "passed_credit_waiting", "needs_design_waiting"]
+session -> prospect_id -> prospect name
+session -> design_id -> design url
+session -> support event -> messages
+
+Support Events
+
+
+
 
 #### Agents
 
@@ -99,7 +119,7 @@ We'll keep objects of various types in firebase:
 
     forms: {
       form_id: {
-        owner:    "owner_id", // ???
+        prospect:    "prospect_id",
         address1: "address1",
         address2: "address2",
         city:     "city",
