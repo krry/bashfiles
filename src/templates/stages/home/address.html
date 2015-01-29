@@ -1,64 +1,64 @@
 <section class="overlay primary short col full">
-  <!-- <h1 ng-show="!form.valid"></h1> -->
   <h1>Wow! <span id="neighbor_count">4,499</span> of your neighbors have gone solar.<br><small>Let’s take a closer look at your house.</small></h1>
-  <form fln-form novalidate ng-submit="form.geocodeAddress(form.user, form.updateMap)">
-    <div class="row">
-      <div class="col half center padded sml-full">
-        <input
-          id="prospect_address"
-          ng-model="form.user.street"
-          type="text"
-          class="street"
-          focus="true"
-          placeholder="Street Address"
-          minlength="4"
-          ng-minlength="4"
-          ng-valid="form.parseAddress(user)"
-          ng-keypress="form.resizeInput()">
-      </div>
-      <div class="col half center padded sml-full">
-        <div class="combo-input">
-          <input
-            ng-model="form.user.city"
-            type="text"
-            id="prospect_city"
-            class="city"
-            placeholder="City"
-            name="city"
-            ng-required="true"
-            ng-valid="form.parseAddress(user)">
-          <input
-            ng-model="form.user.state"
-            type="text"
-            id="state"
-            id="prospect_state"
-            placeholder="State"
-            class="state"
-            name="state"
-            ng-required="true"
-            maxlength="2"
-            ng-maxlength="2"
-            ng-valid="form.parseAddress(user)">
-          <input
-            ng-model="form.user.zip"
-            type="tel"
-            id="prospect_zip"
-            placeholder="Zip"
-            class="zipcode"
-            name="zipcode"
-            ng-required="true"
-            maxlength="5"
-            ng-maxlength="5"
-            ng-pattern="/^\d{5}(?:[-\s]\d{4})?$/"
-            ng-valid="form.parseAddress(user)">
-          <button class="address-search ib" ng-show="form.invalid" ng-click="form.geocodeAddress(form.user, form.updateMap)">&nbsp;</button>
-        </div>
-      </div>
+  <div class="row">
+    <div class="col full padded center sml-full">
+      <input
+        id="prospect_address"
+        ng-model="form.prospect.street"
+        type="text"
+        class="street"
+        focus="true"
+        placeholder="Street Address"
+        minlength="4"
+        ng-minlength="4"
+        ng-valid="form.checkAddress(form.prospect)"
+        ng-keypress="form.resizeInput()">
+      <input
+        ng-model="form.prospect.city"
+        type="text"
+        id="prospect_city"
+        class="city"
+        placeholder="City"
+        name="city"
+        ng-required="true"
+        ng-valid="form.checkAddress(form.prospect)">
+      <input
+        ng-model="form.prospect.state"
+        type="text"
+        id="state"
+        id="prospect_state"
+        placeholder="State"
+        class="state"
+        name="state"
+        ng-required="true"
+        maxlength="2"
+        ng-maxlength="2"
+        ng-valid="form.checkAddress(form.prospect)">
+      <input
+        ng-model="form.prospect.zip"
+        type="tel"
+        id="prospect_zip"
+        placeholder="Zip"
+        class="zipcode"
+        name="zipcode"
+        ng-required="true"
+        maxlength="5"
+        ng-maxlength="5"
+        ng-pattern="/^\d{5}(?:[-\s]\d{4})?$/"
+        ng-valid="form.checkAddress(form.prospect)">
+      <button class="address-search ib" ng-click="form.checkAddress(form.prospect)">&nbsp;</button>
     </div>
-    <div class="answer-container center" ng-show="!form.invalid" ng-controller="ModalCtrl as modal">
+  </div>
+  <!-- <button class="ib aqua" ng-hide="form.valid" ng-click="form.geocodeAddress(form.prospect, form.recenterMap)">Go</button> -->
+  <!-- <button class="aqua" ng-show="form.valid" ng-click="form.nextStep()">That's my house</button> -->
+
+  <div class="row" ng-show="!form.invalid" ng-controller="ModalCtrl as modal">
+    <div class="col half right padded baseline">
       <h3>Do you own your house?</h3>
-      <button class="answer-yes aqua" ng-click="form.nextStep()">Yes</button>
-      <button class="answer-no aqua" ng-click="modal.showDialog('alternatives')">No</button>
     </div>
-  </form>
+    <div class="col half padded baseline">
+      <button class="answer-yes aqua ib" ng-click="form.nextStep()">Yes</button>
+      <button class="answer-no aqua ib" ng-click="modal.showDialog('alternatives')">No</button>
+    </div>
+  </div>
 </section>

@@ -1,5 +1,4 @@
-// home.js stage
-angular.module('stages.home',[]).config( function ($stateProvider) {
+angular.module('home',[]).config(["$stateProvider", function ($stateProvider) {
 
   // paths for this state
   var stageName = 'home';
@@ -12,12 +11,17 @@ angular.module('stages.home',[]).config( function ($stateProvider) {
     url: "/home",
     views: {
       'header@': {
-        templateUrl: templateUrl + 'header-short.html',
-        controller:  'HeaderCtrl as header',
+        templateUrl: templateUrl + 'header.html',
+        controller:  'NavCtrl as nav',
       },
       'main@': {
-        resolve: {},
         templateUrl: stageUrl + "main.html",
+        controller:  function ($timeout, Clientstream) {
+          // HACK: enable quick routing through app
+          $timeout(function(){
+            Clientstream.emit('stage', {stage: 0, step: 0});
+          }, 1)
+        },
       },
       'overlay@home': {
         templateUrl: stageUrl + "overlay.html",
@@ -30,4 +34,4 @@ angular.module('stages.home',[]).config( function ($stateProvider) {
       },
     },
   })
-;});
+;}]);

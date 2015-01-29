@@ -1,4 +1,4 @@
-angular.module('stages.design_link',[]).config( function ($stateProvider) {
+angular.module('design_link',[]).config(["$stateProvider", function ($stateProvider) {
 
   // specifics for for this state
   var stageName = 'design_link';
@@ -11,7 +11,7 @@ angular.module('stages.design_link',[]).config( function ($stateProvider) {
     views: {
       'header@': {
         templateUrl: templateUrl + 'header.html',
-        controller:  'HeaderCtrl as head',
+        controller:  'NavCtrl as nav',
       },
       'main@': {
         templateUrl: templateUrl +'design_link.html',
@@ -30,4 +30,4 @@ angular.module('stages.design_link',[]).config( function ($stateProvider) {
       },
     },
   })
-;});
+;}]);

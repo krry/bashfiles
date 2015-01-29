@@ -2,11 +2,10 @@
   <h1 ng-hide="form.invalid">Every minute, someone switches to solar.<br><small>Are we in your neighborhood?</small></h1>
   <h1 class="error" ng-show="form.invalid && form.invalidZip">We’ve never seen that zip.<br><small>Let's try it again. Or try entering your city.</small></h1>
   <h1 class="error" ng-show="form.invalid && form.invalidTerritory">Sorry, we're not in your area yet.<br><small>Enter your email if you'd like to know when we get there.</small></h1>
+
   <fln-input-zip></fln-input-zip>
-  <!-- TODO: convert this into an auto-size-input for auto-complete glory -->
-  <!-- auto-size-input
-  auto-size-width="5" -->
   <input type="submit" value="Check availability" class="btn aqua" ng-disabled="form.invalid" ng-click="form.checkZip(form.prospect.zip)">
+
   <input
     type="email"
     ng-model"form.prospect.email"
@@ -18,10 +17,13 @@
     ng-show="form.invalid && form.invalidTerritory">
   <button class="ib aqua" ng-show="form.invalid && form.invalidTerritory">Notify Me</button>
   <div fln-alternav alternatives="true" ng-show="form.invalid && form.invalidTerritory"></div fln-alternav>
+
 <!-- <fln-autolocate></fln-autolocate> -->
+
 </section>
-<aside class="overlay secondary col fourth lrg-full med-full sml-full bleed-right">
-  <figure>
+
+<aside class="overlay secondary col fourth sml-full med-full lrg-full">
+  <figure class="bleed-right">
     <video src=""></video>
     <label for="vision_video"><strong>SolarCity Vision</strong>&nbsp;<em>2:42 min</em></label>
   </figure>

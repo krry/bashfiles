@@ -1,43 +1,55 @@
-controllers.controller("MapCtrl", ["$scope", "$timeout", "Clientstream", "SyncService", "MapService", "LayerService", "InteractionService", "StyleService", "Session", "Design", "updateArea", "addWkt", "Configurator", MapCtrl_]);
+/* ========================================================
+  
+  OlMapCtrl
 
-function MapCtrl_($scope, $timeout, Client, Sync, MapService, LayerService, InteractionService, StyleService, Session, Design, updateArea, addWkt, Configurator) {
-  /* ===============================
-  TODO:
-    * this name is unhelpful
-    * too many services loaded in here
+  responsible for establishing connections with, and
+  monitoring streams between Firebase and the client
+  
+  important events:
+    * Map Center
+    * Zoom Level
+    * Area Add
+    * Modify Area
+    * Slope
+    * Peak
 
-  MapCtrl is responsible for establishing connections with, and monitoring streams between Firebase and the client
-    important events:
-    Map Center
+======================================================== */
 
-    Zoom Level
-    Area Add
-    Modify Area
-    Slope
-    Peak
+controllers.controller("OlMapCtrl", ["$scope", "$timeout", "Clientstream", "MapService", "LayerService", "InteractionService", "StyleService", "Session", "Design", "updateArea", "addWkt", "Configurator", OlMapCtrl_]);
 
-  =============================== */
+function OlMapCtrl_($scope, $timeout, Client, MapService, LayerService, InteractionService, StyleService, Session, Design, updateArea, addWkt, Configurator) {
+
+  var remote_stream,
+      wkt,
+      vm,
+      live_feature,
+      gmapCenter;
+
+  vm = this;
+  wkt = new ol.format.WKT();
+
   // helper functions TODO: service these --
-      // wkt allows us to turn feature.getGeometry() into text, text into geometry for
-      // use with feature.setGeometry()
-
-      var wkt = new ol.format.WKT();
-      function getWkt(f) {
-        return wkt.writeGeometry(f.getGeometry());
-      }
-      function getGeom(txt) {
-        return wkt.readGeometry(txt);
-      }
-
+    // wkt allows us to turn feature.getGeometry() into text, text into geometry for
+    // use with feature.setGeometry()
   // end helpers
-  var vm = this;
-  var live_feature;
+
+  // HACK: on omap load, grab the map center from MapService which cached it from GmapProvider
+  gmapCenter = MapService.getOmapCenter();
+  Configurator.view().setCenter([gmapCenter.lat(), gmapCenter.lng()]);
 
   // state of the interface
   $scope.draw_busy = false;
   // client_stream
   Client.listen('update_client', update_client); // messages from remote
   Client.listen('update_remote', update_remote); // messages from the feature
+
+  function getWkt(f) {
+    return wkt.writeGeometry(f.getGeometry());
+  }
+
+  function getGeom(txt) {
+    return wkt.readGeometry(txt);
+  }
 
   function update_remote (geom) {
     // $scope.draw_busy = true;
@@ -70,11 +82,13 @@ function MapCtrl_($scope, $timeout, Client, Sync, MapService, LayerService, Inte
   }
 
   // remote evt stream
-  var remote_stream = Design.areas_stream().map( remote_map );
+  remote_stream = Design.areas_stream().map( remote_map );
   remote_stream.delay(500).subscribe( fb_sub )
+
   function remote_map (x){
     return x.exportVal().area;
   }
+
   function fb_sub (txt) {
     Client.emit('update_client', txt);
   }
@@ -89,11 +103,13 @@ function MapCtrl_($scope, $timeout, Client, Sync, MapService, LayerService, Inte
     $scope.$apply();
     Design.feature(evt.feature);
   }
+
   function update_wkt_while_modify (f) {
     $scope.draw_busy = true;
     $scope.$apply();
     Design.feature().set('wkt', getWkt(Design.feature()));
   }
+
   function draw_end (evt) {
     $scope.draw_busy = false;
     $scope.$apply();

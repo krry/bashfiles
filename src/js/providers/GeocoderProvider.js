@@ -11,65 +11,127 @@
 
 providers.provider("Geocoder", [GeocoderProvider_]);
 
-function GeocoderProvider_ (UserService) {
+function GeocoderProvider_ () {
 
-  this.$get = [ "Clientstream", "UserService", function googleAddressProvider (Client) {
+  this.$get = [ "Clientstream", function (Client) {
 
     var geocoder,
-        addy;
+        addy,
+        addyKeys,
+        territoryChecked;
 
+    territoryChecked = false;
     addy = {};
+    addyKeys = [' zip', 'city', 'state', 'street' ];
+
+    Client.listen('valid territory', function(){
+      console.log('caching valid territory');
+      territoryChecked = true;
+    })
+
+    // send a latlng object and receive an address
+    function reverseGeocode(latLng) {
+      var location;
+      var geocoder = new google.maps.Geocoder();
+      geocoder.geocode({'location': latLng}, function(results, status){
+        if (status === google.maps.GeocoderStatus.OK) {
+          if (results[0]) {
+            location = results[0].geometry.location;
+            parseLocation(results[0]);
+          }
+          else {
+            console.error("Error: No known domiciles nearby.");
+            location = false;
+          }
+        }
+        else {
+          console.error("Geocoder failed due to: ", status);
+          location = false;
+        }
+      });
+      return location;
+    }
 
     // pack the request as a nice little object and send it off to geocode camp
     function sendGeocodeRequest (request) {
       var addyStr,
-          gecoder,
-          components;
+          numbersOnly,
+          geocodeRequest,
+          // components,
+          geocoder;
 
       addyStr = "";
+      numbersOnly = new RegExp('^[0-9]');
+      // components = { "country": "US" };
+      geocoder = new google.maps.Geocoder();
 
+      // if the request is string...
       if (typeof request === "string") {
         addyStr = request;
-      }
-      else {
-        for (var key in request) {
-          if (request.hasOwnProperty(key)){
-            console.log("appending", key,"to addy string");
-            if (addyStr.length === 0) {
-              addyStr = request[key];
-            } else {
-              addyStr = addyStr + " " + request[key];
-            }
-            // components[key] = request[key];
-          }
+        // if the request is 5 numbers long, package it as a zip code
+        if (addyStr.length === 5 && numbersOnly.test(addyStr)) {
+          addy.zip = addyStr;
+        }
+        // else if the request could be an address and we have a zipcode cached
+        else if (addyStr.length > 3 && addy.zip) {
+          // add it as the addy.address
+          addy.address = addyStr;
+        }
+        // else try to geocode/emit error
+        else {
+          Client.emit('invalid geocode request', false);
         }
       }
+      // else if the request is an object...
+      else if (typeof request === "object") {
+        // save the object as the cached addy
+        // TODO: check if request obj would overwrite more valuable cached addy
+        console.log('geocode requested for object', request);
+        addy = request;
+      }
+      // else error state
+      else {
+        Client.emit('invalid geocode request', false);
+      }
 
-      geocoder = new google.maps.Geocoder();
-      // components = { "country": "US" };
+      if (addy !== {} && typeof addy !== "undefined") {
+        for (var key in request) {
+          if (request.hasOwnProperty(key)){
+            // if it has a key named 'zip', 'city', 'state', or 'address', run it through the addy object stringifier
+            if (addyKeys.indexOf(key) > -1) {
+              console.log("appending", key,"to addy string");
+              if (request[key]){
+                if (addyStr.length === 0) {
+                  addyStr = request[key];
+                }
+                else {
+                  addyStr = addyStr + " " + request[key];
+                }
+              }
+              // components[key] = request[key];
+            } // else { do nothing }
+          }
+        }
 
-      addy = {
-        "address": addyStr,
-        // "componentRestrictions": components,
-      };
-
-      geocoder.geocode(addy, handleGeocodeResults);
+        geocodeRequest = { "address": addyStr };
+        console.log('sending', geocodeRequest, 'to geocoder');
+        geocoder.geocode(geocodeRequest, handleGeocodeResults);
+      }
     }
 
     // handle geocode errors, and if successful save and use the results
     function handleGeocodeResults(results, status) {
-      var center;
       console.log('geocode results received', results);
       if (status === google.maps.GeocoderStatus.OK) {
         if (results[0]) {
 
           console.log('geocode successful:', results);
-          center = results[0].geometry.location;
-          console.log('center plotted at:', center);
-          addy = parseLocation(results[0]);
-          console.log('addy parsed into:', addy);
-
-          Client.emit('geocode results', center);
+          // cache the location as the center
+          addy.location = results[0].geometry.location;
+          Client.emit('center changed', addy.location);
+          console.log('center plotted at:', addy.location);
+          // parse the results into an address
+          parseLocation(results[0]);
         }
       }
       else if (status === google.maps.GeocoderStatus.ZERO_RESULTS) {
@@ -97,11 +159,9 @@ function GeocoderProvider_ (UserService) {
 
     // send results to parseLocation from geocodeAddress
     function parseLocation(results) {
-      var addy,
-          parsedress,
+      var parsedress,
           response;
 
-      addy = {};
       parsedress = results.address_components
       console.log('parsing address', results.address_components);
 
@@ -137,8 +197,13 @@ function GeocoderProvider_ (UserService) {
         Client.emit('outside US', false);
       }
       else {
+        // TODO: determine whether the zip checks are happening in the right order
+        // if (addy.zip && !territoryChecked) {
+        //   Client.emit('valid zip', addy.zip);
+        //   // check if the valid zip is in our territory
+        //   checkTerritory(addy.zip);
+        // }
         if (addy.zip) {
-          Client.emit('valid zip', addy.zip)
           checkTerritory(addy.zip);
         }
         if (addy.state) {
@@ -148,47 +213,49 @@ function GeocoderProvider_ (UserService) {
           Client.emit('valid city', addy.city);
         }
         if (addy.street) {
-          Client.emit('valid address', addy);
+          Client.emit('valid address', addy.street);
           if (addy.stno) {
             addy.home = addy.stno + " " + addy.street;
-            Client.emit('valid house', addy.home);
+            Client.emit('valid house', addy);
           }
         }
       }
     }
 
     function checkTerritory(zip) {
+      // if zip is in territory, emit that
       console.log('checking if', zip, 'is in our territory');
+      addy.zoom = 15;
+      // HACK: hardcoding until checkTerritory API is accessible
+      Client.emit('valid territory', addy.zip);
 
-      var msg,
-          data,
-          response = {};
+      // var msg,
+      //     data,
+      //     response = {};
 
-      data = 'zip=' + zip.toString();
-      console.log('data is ' + data);
+      // data = 'zip=' + zip.toString();
+      // console.log('data is ' + data);
 
-      if (zip !== null) {
-        $.ajax({
-          // url: '//scexchange.solarcity.com/scfilefactory/app_handler/checkTerritory.ashx',
-          url: '//slc3web00.solarcity.com/scexchange/app_handler/checkTerritory.ashx',
-          type: 'POST',
-          data: data,
-          dataType: 'json',
-          error: function(err){
-            response.is = false;
-            response.msg = 'API not reachable';
-            Client.emit('valid territory', response);
-          },
-          success: function(data) {
-            // data = {'InTerritory' : 'false/true'}
-            // console.log(typeof data)
-           // console.log(data)
-            response.is = data.InTerritory;
-            response.msg = "It is " + data.InTerritory +" that this place is in SolarCity territory"; 
-            Client.emit('valid territory', response);
-          }
-        });
-      }
+      // if (zip !== null) {
+      //   $.ajax({
+      //     url: '//scexchange.solarcity.com/scfilefactory/app_handler/checkTerritory.ashx',
+      //     // url: '//slc3web00.solarcity.com/scexchange/app_handler/checkTerritory.ashx',
+      //     type: 'POST',
+      //     data: data,
+      //     dataType: 'json',
+      //     error: function(err){
+      //       response.is = false;
+      //       response.msg = 'API not reachable';
+      //       Client.emit('valid territory', response);
+      //     },
+      //     success: function(data) {
+      //       // data = {'InTerritory' : 'false/true'}
+      //       // console.log(typeof data)
+      //      // console.log(data)
+      //      Client.emit('valid territory', data.InTerritory);
+      //     }
+      //   });
+      // }
     }
 
     function geocode_builder_brah () {

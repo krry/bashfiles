@@ -2,6 +2,7 @@
 @import "../imports/fonts";
 @import "../imports/icons";
 @import "../imports/sizes";
+@import "../imports/chevron";
 @import "../imports/typography";
 
 header {
@@ -24,7 +25,7 @@ header .logo {
   background-size: auto 100%;
   width: 8em;
   height: 3em;
-  padding: 0;
+  padding: 1.25em 1.5em 1.5em;
 }
 
 header nav {
@@ -52,7 +53,6 @@ header nav li span {
 
 header a {
   display: inline-block;
-  padding: 2.5em 2em 2em 0;
   color: white;
   border: 0;
   &:hover {
@@ -68,55 +68,44 @@ header nav li {
   @include apercu-light;
   position: relative;
   opacity: 0.7;
-  display: inline-block;
-  padding: 1.5em 0.2em;
+  display: inline;
   color: white;
-  font-size: .75em;
   text-shadow: none;
+  cursor: default;
 }
 
-header nav li.active {
-  @include apercu-bold;
-  opacity: 1;
-}
-
-header nav li:last-child {
-  padding-right: 1.7em;
-}
-
-nav.short a {
-  position: relative;
-}
-
-nav.short a:not(.logo) {
-  padding: .875em;
-  font-size: .875em;
-  text-align: right;
-  white-space: nowrap;
-  &:hover {
-    background-color: $tint-20;
+.questions {
+  margin-right: 1em;
+  a {
+    font-size: .875em;
+    line-height: 3.5em;
+    padding: 0 1em;
+    &:hover {
+      background-color: $tint-10;
+    }
+    span {
+      margin-bottom: -.25em;
+    }
   }
-}
-
-nav.short a span {
-  margin-bottom: -.25em;
-}
-
-nav.short .logo {
-  padding: 1.25em 1.5em 1.5em;
-}
-
-.alternav {
-  // margin: 2em 4em;
 }
 
 .stage-nav {
   display: none;
 }
 
+header nav li.chevron.right {
+  @include chevron("right");
+}
+
+header nav li.active {
+  opacity: 1;
+}
+
 @media screen and (min-width: $width-min-lrg) {
   .stage-nav {
     display: block;
+    margin-right: 2rem;
+    font-size: 0.1px
   }
   header .logo {
     background-size: cover;

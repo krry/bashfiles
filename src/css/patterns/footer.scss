@@ -1,15 +1,26 @@
-footer.footer {
+@import "../imports/colors";
+
+.footer {
   position: relative;
-  text-align: center;
+  z-index: 0;
+}
+
+.footer .boilerplate {
+  font-size: .625em;
   padding: 2em;
-  font-size: .875em;
+  margin-bottom: 0;
+  text-align: center;
+
+  span {
+    padding: 0 1em;
+    border-right: 1px solid $shade-10;
+    &:last-child {
+      border-right: none;
+    }
+  }
 }
 
-footer a,
-footer a:hover {
+.footer a,
+.footer a:hover {
   color: inherit;
-}
-
-footer .caps {
-  font-size: .5em;
 }

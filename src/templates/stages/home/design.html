@@ -1,13 +1,31 @@
-<section class="overlay primary col fourth three blur">
-  <h1>It's time to check out your house</h1>
-  <p>If you're the DIY type, we have you covered. Just continue.</p>
-  <button class="btn std" ng-click="form.nextStep()">Continue</button>
-  <p>If you're the kick-back and relax type, just skip the design phase.</p>
-  <button class="btn std" ng-click="stages.jumpToStage('signup')">Skip</button>
+<section class="overlay primary col fourth three short">
+  <!-- <section class="ghost"></section> -->
+  <h1>Time to configure your system.</h1>
+  <p>This tool helps you get a sense of what panels could look like on your roof and how much you could save.<br>Don't worry, our experts will do the final system design for your rooftop.</p>
+  <div class="row padded center">
+    <div class="col baseline">
+      <button class="btn std aqua" ng-click="form.nextStep()">Start Configurator</button>
+    </div>
+    <div class="col padded baseline">
+      <p><strong class="caps">or</strong></p>
+    </div>
+    <div class="col baseline">
+      <button class="btn std aqua" ng-click="stages.jumpToStage('signup')">Skip</button>
+    </div>
+  </div>
+  <p class="small">Skip this step and go straight to qualification. Our experts will handle all the configuration for you.</p>
 </section>
-<aside class="overlay secondary col fourth lrg-full med-full sml-full">
-  <figure>
-    <video src=""></video>
-    <label for="vision_video"><strong>SolarCity Vision</strong>&nbsp;<em>2:42 min</em></label>
-  </figure>
+<aside class="overlay secondary col fourth lrg-full med-full short">
+  <p>
+    <a ng-click="modal.showDialog('faq')"><strong>Top 5 Questions</strong> people ask</a>&nbsp;<span class="icon top-five"></span>
+  </p>
+  <div>
+    <strong>What's next?</strong>
+  </div>
+  <ul>
+    <li>Configure your system (or skip this and have a solar consultant do it for you).</li>
+    <li>Review your solar proposal.</li>
+    <li>Run soft credit to see if you qualify for financing.</li>
+    <li>Schedule your site survey.</li>
+  </ul>
 </aside>
