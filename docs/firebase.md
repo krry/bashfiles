@@ -49,24 +49,24 @@ We'll keep objects of various types in firebase:
     },
   }
 
-support_event_id: {
-  session: "<session_id>",
-  agent: "<agent_id>",
-  agent: "<agent_id>",
-}
+#### Support Events
+
+  support_events: {
+    support_event_id: {
+      session: "<session_id>",
+      agent: "<agent_id>",
+      agent: "<agent_id>",
+    }
+  }
+
+#### Session Queue
 
 
-Session Queue
-
-session -> status_code ["done", "waiting"]
-session -> form_id -> form_status ["complete", "passed_credit_waiting", "needs_design_waiting"]
-session -> prospect_id -> prospect name
-session -> design_id -> design url
-session -> support event -> messages
-
-Support Events
-
-
+    session -> status_code ["done", "waiting"]
+    session -> form_id -> form_status ["complete", "passed_credit_waiting", "needs_design_waiting"]
+    session -> prospect_id -> prospect name
+    session -> design_id -> design url
+    session -> support event -> messages
 
 
 #### Agents
@@ -118,14 +118,21 @@ Support Events
 ### forms
 
     forms: {
-      form_id: {
-        prospect:    "prospect_id",
-        address1: "address1",
-        address2: "address2",
-        city:     "city",
-        state:    "state",
-        zip:      "11111",
-      },
+      <form_id>: {
+        state: {
+          stage: 0,
+          step:  0,
+        },
+        event_log:  [{event},{event},{event},...],
+        prospect:   "prospect_id",
+        design:     "design_id",
+        home: {
+          address: "123 Example Dr",
+          city: "Instanceville",
+          state: "FB",
+          zip: "54321",
+        },
+      }
     }
 
 ## how do we sync?
