@@ -20,6 +20,31 @@ label + button {
 }
 
 // Address fields
+input.zipcode {
+  text-transform: uppercase;
+  color: $color-input-text;
+  border: 1px solid $grey-medium;
+  border-radius: 4px;
+  background-color: $white-dark;
+  &.big {
+    text-align: center;
+    font-size: 2.5em;
+    width: 7em;
+    padding: 0.6em 1em;
+    margin: 1em auto;
+  }
+}
+
+span.autolocate-icon {
+  display: inline-block;
+  opacity: 1;
+  background: url('../img/autolocate-icon.svg') no-repeat center center;
+  background-size: 20px 20px;
+  background-color: none;
+  width: 20px;
+  height: 20px;
+}
+
 input.street,
 input.city,
 input.state,
