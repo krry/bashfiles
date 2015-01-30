@@ -4,7 +4,7 @@
 @import "functions";
 @import "typography";
 
-@mixin btn($color: $color-button-bkgd, $size: 0.9rem, $corners: #{1.5em/50%}, $pad: #{1em 2em 1em}) {
+@mixin btn($color: $color-button-bkgd, $size: 0.75rem, $corners: #{2.1em/50%}, $pad: #{1.5em 2.8em 1.5em}) {
 
   @include apercu-medium;
   @include caps;
@@ -20,6 +20,15 @@
 
   color: $white;
   background-color: $color;
+
+  @if $color == $white {
+    color: $grey-dark;
+    background-color: $color;
+  }
+
+  @if trim-unit($size) < 1 {
+    letter-spacing: 3px;
+  }
 
   padding: $pad;
 
