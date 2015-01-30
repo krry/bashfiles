@@ -20,31 +20,6 @@ label + button {
 }
 
 // Address fields
-input.zipcode {
-  text-transform: uppercase;
-  color: $color-input-text;
-  border: 1px solid $grey-medium;
-  border-radius: 4px;
-  background-color: $white-dark;
-  &.big {
-    text-align: center;
-    font-size: 2em;
-    width: 7em;
-    padding: 0.6em 1em;
-    margin: .25em auto;
-  }
-}
-
-span.autolocate-icon {
-  display: inline-block;
-  opacity: 1;
-  background: url('../img/autolocate-icon.svg') no-repeat center center;
-  background-size: 20px 20px;
-  background-color: none;
-  width: 20px;
-  height: 20px;
-}
-
 input.street,
 input.city,
 input.state,
@@ -70,23 +45,21 @@ input.phone {
   color: $color-input-text;
 }
 
-.combo-input {
+input.zipcode {
+  text-transform: uppercase;
+  color: $color-input-text;
   border: 1px solid $grey-medium;
   border-radius: 4px;
-  padding: .75em 1em;
-  text-align: justify;
-  position: relative;
-  background-color: $white;
-
-  input {
-    font-size: 1.5rem;
-    border: 0;
-    box-shadow: 0;
-    padding: 0;
-    display: inline;
-    margin-bottom: 0;
-  }
+  background-color: $white-dark;
 }
+
+.step-zip input.zipcode {
+    text-align: center;
+    font-size: 2em;
+    width: 7em;
+    padding: 0.6em 1em;
+    margin: .25em auto;
+  }
 
 input.street {
   width: 12em;
@@ -120,6 +93,34 @@ input.zipcode,
 
 .combo-input input.year {
   width: 4em;
+}
+
+span.autolocate-icon {
+  display: inline-block;
+  opacity: 1;
+  background: url('../img/autolocate-icon.svg') no-repeat center center;
+  background-size: 20px 20px;
+  background-color: none;
+  width: 20px;
+  height: 20px;
+}
+
+.combo-input {
+  border: 1px solid $grey-medium;
+  border-radius: 4px;
+  padding: .75em 1em;
+  text-align: justify;
+  position: relative;
+  background-color: $white;
+
+  input {
+    font-size: 1.5rem;
+    border: 0;
+    box-shadow: 0;
+    padding: 0;
+    display: inline;
+    margin-bottom: 0;
+  }
 }
 
 .address-search {

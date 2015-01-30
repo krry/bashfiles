@@ -1,6 +1,9 @@
 /* ==================================================
+  
   FormCtrl
+
   the form controller
+
 ================================================== */
 
 controllers.controller("FormCtrl", ["$scope", "$element", "Form", "Clientstream", "Geocoder", "Prospect", "Session", FormCtrl_]);
@@ -8,14 +11,12 @@ controllers.controller("FormCtrl", ["$scope", "$element", "Form", "Clientstream"
 function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect, Session) {
   var vm = this;
   // var form_ref = Form.ref();
-
   vm.prospect = {};
 
   vm.gmapShown = false;
   vm.invalidZip = true;
   vm.invalidTerritory = true;
   vm.validAddress = false;
-  vm.territoryMsg = "";
 
   vm.prevStep = prev;
   vm.nextStep = next;
@@ -38,6 +39,7 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect, Session) 
   Client.listen('fullname saved', acceptSavedFullname);
 
   function checkZip (zip) {
+    console.log('************ checkin dat zip boss *********')
     if (typeof zip !== "undefined" && zip.length === 5) {
       Geocoder.sendGeocodeRequest(zip);
     }
@@ -70,7 +72,7 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect, Session) 
     vm.invalidTerritory = !data;
     vm.invalid = vm.invalidZip && vm.invalidTerritory;
     if (vm.validZip) vm.valid = data;
-    return next();
+    Client.emit('jump to step', 'address-roof');
   }
 
   function acceptValidZip(data) {

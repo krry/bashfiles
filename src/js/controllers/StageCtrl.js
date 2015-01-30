@@ -15,7 +15,7 @@
 
 controllers.controller("StageCtrl", ["$scope", "$state", "$timeout", "TemplateConfig", "Session", "Clientstream", StageCtrl_]);
 
-function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) {
+function StageCtrl_($scope, $state, $timeout, Templates, Session, Client) {
   var vm,
       session_ref,
       stage,
@@ -35,6 +35,9 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
   vm.jumpToStage = jumpToStage;
   vm.partial = Templates.partial(stage, step);
   vm.partials = flattenPartialsArray(Templates.partials);
+
+  Client.listen('jump to step', jumpToStep);
+  Client.listen('jump to stage', jumpToStage);
 
   function flattenPartialsArray (array) {
     var partials = [];
@@ -64,16 +67,16 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
         // lock the view if you're making changes
         $scope.view_sync = false;
         if (data.stage !== stage) {
-          Clientstream.emit('stage', data);
+          Client.emit('stage', data);
         } else if (data.step !== step) {
-          Clientstream.emit('step', data.step);
+          Client.emit('step', data.step);
         }
       }
     });
 
   // register listeners for stage, step, and start over events
   // stage listener
-  Clientstream.listen('stage', function stage_listen (target_state) {
+  Client.listen('stage', function stage_listen (target_state) {
     console.log('heard that stage emission');
     var name;
     if (target_state === "next") {
@@ -82,18 +85,17 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
       prev();
     } else if ($scope.view_sync) {
       target_state = !!target_state.state ? target_state.state : target_state;
-        stage = target_state.stage;
-        name = Templates.config[stage].name;
-        $state.go(name).then(function(){
-          // trigger step changes afterwards
-          Clientstream.emit('step', target_state.step)
-        });
-
+      stage = target_state.stage;
+      name = Templates.config[stage].name;
+      $state.go(name).then(function(){
+        // trigger step changes afterwards
+        Client.emit('step', target_state.step)
+      });
     }
   });
 
   // step listener
-  Clientstream.listen('step', function step_listen (target_step) {
+  Client.listen('step', function step_listen (target_step) {
     console.log('heard that step emission');
     step = target_step;
     $timeout( function () {
@@ -114,11 +116,11 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
   });
 
   // start over listener
-  Clientstream.listen('start over', function start_over (data) {
+  Client.listen('start over', function start_over (data) {
     console.log('heard that startover', data)
-    Clientstream.emit('erase area', data);
+    Client.emit('erase area', data);
     /* jshint -W030 */
-    $scope.view_sync && Clientstream.emit('stage', {
+    $scope.view_sync && Client.emit('stage', {
       stage: 1,
       step: 0
     });
@@ -126,32 +128,44 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
   });
 
   // listen for stage change requests from ui-router
-  Clientstream.listen('jump', jumpToStage);
 
   function startOver () {
-    Clientstream.emit('start over', 'butts');
+    Client.emit('start over', 'butts');
   }
 
   // user flow controls
-  function next (){
+  function next () {
     if ( step + 1 < Templates.config[stage].steps.length ) {
-      Clientstream.emit('step', step + 1);
+      Client.emit('step', step + 1);
     } else if (stage + 1 < Templates.config.length ) {
-      Clientstream.emit('stage', {
+      Client.emit('stage', {
         stage: stage + 1,
         step:  0,
       })
     }
   }
 
-  function prev (){
+  function prev () {
     if ( step - 1 >= 0 ) {
-      Clientstream.emit('step', step - 1);
+      Client.emit('step', step - 1);
     } else if (stage - 1 >= 0 ) {
-      Clientstream.emit('stage', {
+      Client.emit('stage', {
         stage: stage - 1,
         step:  Templates.config[stage - 1].steps.length -1,
       })
+    }
+  }
+
+  function jumpToStep (target) {
+    console.log('trying to jump to:', target, 'step');
+    var steps = Templates.config[stage].steps;
+    for (var i = 0; i < steps.length; i++) {
+      if ( target === steps[i].step ) {
+        Client.emit('step', {
+          stage: stage,
+          step: i
+        });
+      }
     }
   }
 
@@ -160,7 +174,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Clientstream) 
     var stages = Templates.config;
     for (var i = 0; i < stages.length; i++) {
       if ( target !== i && target === Templates.config[i].name) {
-        Clientstream.emit('stage', {
+        Client.emit('stage', {
           stage: i,
           step: 0
         });
