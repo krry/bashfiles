@@ -4,7 +4,7 @@
 @import "functions";
 @import "typography";
 
-@mixin btn($color: $color-button-bkgd, $size: 0.75rem, $corners: #{2.1em/50%}, $pad: #{1.5em 2.8em 1.5em}) {
+@mixin btn($color: $color-button-bkgd, $size: 0.85rem, $corners: #{2em/50%}, $pad: #{1.5em 2.8em 1.5em}) {
 
   @include apercu-medium;
   @include caps;
