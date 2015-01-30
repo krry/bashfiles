@@ -21,6 +21,17 @@ We'll keep objects of various types in firebase:
   }
 
 ### Users
+    users: {
+      <jwt.uid>: {
+        user_type: {"PROSPECT", "ODA", "ADMIN", "OTHER"},
+        name: {
+          first_name: "Llamo",
+          last_name: "Llama"
+        },
+        last_session:  <session_id>,
+        sessions: [<sessionA_id>, <sessionB_id>, <sessionC_id>, ...],
+      }
+    }
 
   two types of users:
     prospects, who use the online sales tool to estimate their home's production
