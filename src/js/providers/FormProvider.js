@@ -37,7 +37,9 @@ function FormProvider_ () {
       // TODO: sync this with firebase instead of caching it locally
       prospect;
 
-  _ref = new Firebase('https://scty.firebaseio.com/forms/').push();  // TODO: pass arguments to this $get method to change the fb_observable's_ref
+  forms_url = 'https://scty.firebaseio.com/forms/'; // hack: hardcode // todo: make this constant value
+
+  _ref = new Firebase(forms_url).push();  // TODO: pass arguments to this $get method to change the fb_observable's_ref
 
   fb_observable = _ref.observe('value').skip(1);
 
