@@ -28,7 +28,7 @@
 
 providers.provider("Prospect", [ProspectProvider_]);
 
-function ProspectProvider_ (UserService) {
+function ProspectProvider_ () {
 
   var prospect_ref,
       fb_observable;
@@ -37,7 +37,7 @@ function ProspectProvider_ (UserService) {
 
   fb_observable = prospect_ref.observe('value').skip(1);
 
-  this.$get = [ "Clientstream", "UserService", function prospectProviderFactory (Client) {
+  this.$get = [ "Clientstream", function prospectProviderFactory (Client) {
 
     Client.listen('valid email', saveEmail);
 
