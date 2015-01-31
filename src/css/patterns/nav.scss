@@ -1,0 +1,113 @@
+@import "../imports/colors";
+@import "../imports/fonts";
+@import "../imports/icons";
+@import "../imports/sizes";
+@import "../imports/chevron";
+@import "../imports/typography";
+
+header {
+  background: $color-header-bkgd;
+  color: $white;
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+
+  -webkit-box-shadow: 0 1px 5px $color-header-shadow;
+     -moz-box-shadow: 0 1px 5px $color-header-shadow;
+          box-shadow: 0 1px 5px $color-header-shadow;
+}
+
+header .logo {
+  text-indent: -9999px;
+  background: url('../img/logo-white.svg') no-repeat center center;
+  background-size: auto 100%;
+  width: 10em;
+  height: 3em;
+  padding: 1.25em 1.5em 1.5em;
+}
+
+header nav {
+  overflow: hidden;
+}
+
+header nav ul {
+  float: right;
+}
+
+header nav ul,
+header nav li {
+  margin: 0;
+  padding: 0;
+}
+
+header nav li span {
+  border-radius: 100%;
+  background: $shade-20;
+  text-align: left;
+  padding: .375em .75em;
+  margin: 0 .5em 0 1em;
+  font-style: italic;
+}
+
+header a {
+  display: inline-block;
+  color: white;
+  border: 0;
+  &:hover {
+    border: 0;
+  }
+}
+
+header a:hover {
+  color: $white;
+}
+
+header nav li {
+  @include apercu-light;
+  position: relative;
+  opacity: 0.7;
+  display: inline;
+  color: white;
+  text-shadow: none;
+  cursor: default;
+}
+
+.questions {
+  margin-right: 1em;
+  a {
+    font-size: .875em;
+    line-height: 3.5em;
+    padding: 0 1em;
+    &:hover {
+      background-color: $tint-10;
+    }
+    span {
+      margin-bottom: -.25em;
+    }
+  }
+}
+
+.stage-nav {
+  display: none;
+}
+
+header nav li.chevron.right {
+  @include chevron("right");
+}
+
+header nav li.active {
+  opacity: 1;
+}
+
+@media screen and (min-width: $width-min-lrg) {
+  .stage-nav {
+    display: block;
+    margin-right: 2rem;
+    font-size: 0.1px
+  }
+  header .logo {
+    background-size: cover;
+  }
+}
