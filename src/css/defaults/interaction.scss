@@ -362,9 +362,7 @@ input[type="week"]:focus,
 select[multiple=multiple]:focus {
   border-color: $grey-mid;
   background-color: $color-input-bkgd-focus;
-  // -webkit-box-shadow: 0px 0px 4px rgba(0,0,0,0.15);
-  //    -moz-box-shadow: 0px 0px 4px rgba(0,0,0,0.15);
-  //         box-shadow: 0px 0px 4px rgba(0,0,0,0.15);
+  box-shadow: $shadow-input;
 }
 
 // input placeholders
