@@ -1,10 +1,10 @@
 /* ========================================================
-  
+
   OlMapCtrl
 
   responsible for establishing connections with, and
   monitoring streams between Firebase and the client
-  
+
   important events:
     * Map Center
     * Zoom Level
@@ -15,9 +15,9 @@
 
 ======================================================== */
 
-controllers.controller("OlMapCtrl", ["$scope", "$timeout", "Clientstream", "MapService", "LayerService", "InteractionService", "StyleService", "Session", "Design", "updateArea", "addWkt", "Configurator", OlMapCtrl_]);
+controllers.controller("OlMapCtrl", ["$scope", "$timeout", "Clientstream", "MapService", "LayerService", "InteractionService", "StyleService", "Design", "updateArea", "addWkt", "Configurator", OlMapCtrl_]);
 
-function OlMapCtrl_($scope, $timeout, Client, MapService, LayerService, InteractionService, StyleService, Session, Design, updateArea, addWkt, Configurator) {
+function OlMapCtrl_($scope, $timeout, Client, MapService, LayerService, InteractionService, StyleService, Design, updateArea, addWkt, Configurator) {
 
   var remote_stream,
       wkt,
@@ -124,7 +124,7 @@ function OlMapCtrl_($scope, $timeout, Client, MapService, LayerService, Interact
     Design.feature().on('change:wkt', wkt_update_notification);
     Design.feature().getGeometry().on('change', update_wkt_while_modify);
     Client.emit('update_remote', Design.feature().getGeometry());
-    Session.next();
+    Client.emit('stage', "next");
   }
 
   function wkt_update_notification (ft) {
