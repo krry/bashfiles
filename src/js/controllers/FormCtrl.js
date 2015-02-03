@@ -119,7 +119,8 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect, Session) 
       vm.invalid = false;
       vm.prospect.street = data.home;
       // vm.form_ref.update(data);
-      $scope.$apply();
+      Client.emit('jump to step', 'monthly-bill');
+      // $scope.$apply();
     }
   }
 

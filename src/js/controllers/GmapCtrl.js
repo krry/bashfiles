@@ -14,7 +14,6 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService) {
   vm.autolocate = autolocate;
 
   mapEl = $element[0];
-
   mapOpts = Gmap.opts;
 
   // once window loads, activate map using defaults
@@ -26,8 +25,8 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService) {
   Client.listen('max zoom found', applyMaxZoom);
   Client.listen('valid territory', checkMapVisibility);
 
-  function init (el, opts) {
-    map = Gmap.init(el, opts);
+  function init (el) {
+    map = Gmap.init(el);
   }
 
   function activate () {
@@ -48,13 +47,13 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService) {
 
   function saveCenter () {
     // TODO: wait to fire these updates until mouseup to avoid oversyncing and lag induction
-    if ($element.mouseUp()) {
+    // if ($element.mouseUp()) {
       if (map.getCenter() !== center){
         center = map.getCenter();
         console.log('saving center', center);
         Client.emit('center changed', center);
       }
-    }
+    // }
   }
 
   function applyCenter (location) {

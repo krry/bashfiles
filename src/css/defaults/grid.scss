@@ -143,6 +143,10 @@
   vertical-align: baseline;
 }
 
+.col.bottom {
+  vertical-align: bottom;
+}
+
 /* > 536px --- bigger than iPhone portrait */
 @media screen and (min-width: $width-min-med) {
   /* let .half .third etc. express themselves */

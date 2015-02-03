@@ -1,11 +1,11 @@
 /* =========================================================
 
-  MapProvider
+  GmapProvider
 
-  provides a map
+  provides a gmap
 
   emits results to the Clientstream
-  to which map controllers listen
+  to which gmap controllers listen
 
 ========================================================= */
 
