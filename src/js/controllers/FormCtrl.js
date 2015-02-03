@@ -146,7 +146,8 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect, Session) 
     console.log('going to next step');
     // TODO: currently not checking if valid
     /* jshint -W030 */
-    vm.valid && Session.next();
+    // vm.valid && Session.next();
+    Session.next();
     /* jshint +W030 */
   }
 }
