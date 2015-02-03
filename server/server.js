@@ -9,16 +9,16 @@
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
 // external modules
-var newrelic      = require('newrelic'),
-    nconf         = require('nconf'), // https://github.com/flatiron/nconf
-    express       = require('express'),
-    compression   = require('compression'),
-    expValid      = require('express-validator'),
-    bodyParser    = require('body-parser'),
-    cookieParser  = require('cookie-parser'),
-    env           = process.env.NODE_ENV || 'development',
-    morgan        = require('morgan'),
-    logger        = require('./logger'), // logger
+var newrelic     = require('newrelic'),
+    nconf        = require('nconf'), // https://github.com/flatiron/nconf
+    express      = require('express'),
+    compression  = require('compression'),
+    expValid     = require('express-validator'),
+    bodyParser   = require('body-parser'),
+    cookieParser = require('cookie-parser'),
+    env          = process.env.NODE_ENV || 'development',
+    morgan       = require('morgan'),
+    logger       = require('./logger'), // logger
     // db,
     app,
     port,
@@ -31,7 +31,7 @@ nconf.argv().env().file({file: './server/config/environments/' + env + '.json'})
 app = express(); // the app used throughout the server
 
 app.publicRoot = __dirname + '/../public';
-oneYear = 31557600000;
+oneYear = 1*365.25*24*60*60*1000; // 1 yr = 31557600000ms
 
 app.use(cookieParser(nconf.get('FLANNEL_SECRET')));
 app.use(express.static(app.publicRoot, {maxAge: oneYear}));
@@ -43,9 +43,7 @@ app.listen(port, function() {
 });
 
 logger.debug('enabling GZip compression');
-app.use(compression({
-  threshold: 512
-}));
+app.use(compression({ threshold: 512 }));
 
 logger.debug('setting parse urlencoded request bodies into req.body');
 app.use(bodyParser.urlencoded({ extended: true }));

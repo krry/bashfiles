@@ -1,0 +1,12 @@
+<input
+  type="text"
+  name="address"
+  id="prospect_street"
+  class="street"
+  minlength="4"
+  focus="true"
+  placeholder="{{hint}}"
+  ng-model="form.prospect.street"
+  ng-minlength="4"
+  ng-valid="form.checkAddress(form.prospect)"
+  ng-blur="form.checkAddress(form.prospect)">

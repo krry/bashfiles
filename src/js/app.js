@@ -14,8 +14,8 @@ angular.module('flannel', [
   $sceDelegateProvider.resourceUrlWhitelist([
    // Allow same origin resource loads.
    'self',
-   'http://localhost:8100/**',
    // Allow loading from our assets domain. Notice the difference between * and **.
+   'http://localhost:8100/**',
    'http://scexchange.solarcity.com/scfilefactory/testfill.aspx'
   ]);
   $sceProvider.enabled(false);

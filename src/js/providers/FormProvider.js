@@ -36,7 +36,9 @@ providers.provider("Form", FormProvider_);
 function FormProvider_ () {
 
   var form_ref,
-      fb_observable;
+      fb_observable,
+      // TODO: sync this with firebase instead of caching it locally
+      prospect;
 
   form_ref = new Firebase('https://scty.firebaseio.com/forms/').push();  // TODO: pass arguments to this $get method to change the fb_observable's_ref
 
@@ -66,6 +68,7 @@ function FormProvider_ () {
         ref:    function(){ return form_ref; },
         id:     function(){ return form_ref.key(); },
         stream: function(){ return fb_observable; },
+        prospect: function(){ return prospect; },
       };
     }
 

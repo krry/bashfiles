@@ -1,0 +1,23 @@
+<section class="overlay primary short col full step-address">
+  <div class="row">
+    <div class="col half right bottom padded">
+      <h3>How much is your monthly electricity bill?</h3>
+    </div>
+    <div class="col third padded">
+      <!-- fln-input-slider -->
+    </div>
+    <div class="col sixth padded">
+      <output for="slider" class="slider-output med-full sml-full">100</output>
+    </div>
+  </div>
+
+  <div class="row" ng-show="!form.invalid" ng-controller="ModalCtrl as modal">
+    <div class="col half right padded bottom">
+      <h3>Do you own your house?</h3>
+    </div>
+    <div class="col half padded baseline">
+      <button class="answer-yes aqua ib" ng-click="form.nextStep()">Yes</button>
+      <button class="answer-no aqua ib" ng-click="modal.showDialog('alternatives')">No</button>
+    </div>
+  </div>
+</section>
