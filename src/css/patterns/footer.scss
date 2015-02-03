@@ -1,9 +1,11 @@
 @import "../imports/colors";
 
 .footer {
-  position: relative;
+  position: fixed;
   z-index: 1;
   background: $color-bkgd-primary;
+  bottom: 0;
+  width: 100%
 }
 
 .footer .boilerplate {
