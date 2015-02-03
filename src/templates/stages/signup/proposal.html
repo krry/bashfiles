@@ -1,155 +1,158 @@
 <!-- main.html for qualify stage -->
-<div class="overlay primary col full center">
-  <h1>Congratulations – you’re eligible to go solar for $0 down!<br><small>This is you on solar.</small></h1>
-  <div class="proposal col third two">
-    <div class="block row top">
-      <div class="col third left"></div>
-      <div class="col third two right">
-        <p>809 ALVARADO AVE. SUNNYVALE CA 94085<br>( not actual panel layout shown here )</p>
-      </div>
+<div class="overlay primary col full center contain">
+  <div class="row padded">
+    <div class="col full center">
+      <h1>Looking good! You may be eligible to go solar for $0 down.<br><small>This is you on solar.</small></h1>
     </div>
-
-    <div class="block row">
-      <div class="col third left">
-        <div>Current Utility Rate</div>
-        <div class="number cents">12.2<span>c</span></div>
-        <div class="unit">per kWh average in your zip code</div>
-      </div>
-      <div class="col third two right">
-        <div>SolarCity Cost</div>
-        <div class="number cents">9.9<span>c</span></div>
-        <div class="unit">per kWh</div>
-      </div>
-      <hr>
+  </div>
+  <div class="proposal row padded">
+    <div class="col fifth two aerial">
+      <!-- TODO: render the design here instead of this placeholder -->
     </div>
-
-    <div><!-- ODA row -->
-      <div><!-- ODA card -->
-        <div>(ODA image)</div>
-        <div>(ODA name)</div>
-        <div>Online Design Assistant</div>
-        <div>Call  Chat</div>
-      </div>
-
-      <div><!-- ODA message -->
-        <p>Your solar energy costs will be 20% lower than what your utility currently charges on average. Your Online Design Assistant will review your design and email you with any changes. After completing your site survey, you’ll receive your final system design and solar energy contract.</p>
-        <button class="text float right tiny">Download PDF</button>
-        <button class="text float right tiny">Share Design</button>
-      </div>
-    </div>
-
-<!-- 
-    <div class="block row">
-      <div class="col third left">
-        <div class="number dollars">0</div>
-        <div class="unit">Down payment</div>
-      </div>
-      <div class="col third two right">
-        <h4>Free Installation</h4>
-        <p>No upfront cost. Pay only for the power your system produces.</p>
-      </div>
-      <hr>
-    </div>
-    <div class="block row">
-      <div class="col third left">
-        <div class="number">24/7</div>
-        <div class="unit">Monitoring</div>
-      </div>
-      <div class="col third two right">
-        <h4>We're On It</h4>
-        <p>Our system monitoring solution helps ensure your system is running smoothly. It will even alert us if problems arise.</p>
-      </div>
-      <hr>
-    </div>
-    <div class="block row">
-      <div class="col third left">
-        <div class="number cents">0</div>
-        <div class="unit">Effort required</div>
-      </div>
-      <div class="col third two right">
-        <h4>On Us</h4>
-        <p>We cover everything—design, permits, and repairs for the life of the system.</p>
-      </div>
-    </div>
-    <div class="row right">
-      <div class="col third right">
-        <button class="text float right tiny">Download PDF</button>
-      </div>
-    </div> -->
-
-    <button class="aqua" ng-click="stages.next()">Next</button>
-
-
-<h3>WELCOME TO SOLARCITY</h3>
-
-<h1><small>Signing up with America’s #1 full-service solar provider means premium service every step of the way.</small></h1>
-
-    <div class="block row">
-      <div class="col third left">
-        <div>(icon here)</div>
-        <div>
-          <strong>Unmatched aesthetics</strong>
-          <p>Reducing your home’s energy costs shouldn’t also reduce its curb appeal. Our ZEP mounting system seamlessly integrates with your roof for a low-profile design that gives your home a sleek look.</p>
+    <div class="col fifth three">
+      <div class="row">
+        <div class="col third center padded utes">
+          <label for="current_rate">Current Utility Rate</label>
+          <figure>
+            <span id="current_rate" class="cents">12.2</span>
+          </figure>
+          <label class="units">avg per kwh in your zip code</label>
+        </div>
+        <div class="col third center padded">
+          <label for="scty_rate">SolarCity's rate</label>
+          <figure>
+            <span id="scty_rate" class="cents">9.9</span>
+          </figure>
+          <label class="units">per kwh</label>
+        </div>
+        <div class="col third center padded">
+          <label for="est_savings">Estimated Savings</label>
+          <figure>
+            <span id="est_savings" class="dollars">600</span>
+          </figure>
+          <label class="units">year one</label>
         </div>
       </div>
-
-      <div class="col third right">
-        <div>(icon here)</div>
-        <div>
-          <strong>Ongoing Rewards</strong>
+      <div class="row">
+        <div class="col half center padded">
+          <label for="ppa_plan">Solar PPA Plan</label>
+          <figure>
+            <span id="ppa_plan" class="dollars">0</span>
+          </figure>
+          <label class="units">no upfront cost (recommended)</label>
+        </div>
+        <div class="col half center padded">
+          <label for="est_energy_mix">Estimated Energy Mix</label>
+          <figure>
+            <span id="est_energy_mix" class="icon pie"></span>
+          </figure>
+          <label class="units">94% solar power and 6% utility power</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row padded">
+    <div class="col fifth two center">
+      <button class="btn std">Share my design</button>
+    </div>
+    <div class="col fifth three left padded">
+      <p>After your complete your site survey, we will send you your final system design and proposal with the <a>financing options</a> that are available to you.</p>
+    </div>
+  </div>
+  <div class="row padded">
+    <div class="col full center">
+      <button class="btn aqua" ng-click="stages.next()">Continue</button>
+    </div>
+  </div>
+  <!-- TODO: build a helper class to put down arrows in .jump-down <hr>s -->
+  <hr class="jump-down">
+  <div class="row padded">
+    <div class="col full center">
+      <h4>Signing up with America's #1 full-service solar provider means premium service every step of the way</h4>
+    </div>
+  </div>
+  <div class="row padded">
+    <div class="col half padded">
+      <div class="row">
+        <div class="col fifth center">
+          <span class="icon call large"></span>
+        </div>
+        <div class="col fifth four">
+          <h5>Unmatched aesthetics</h5>
+          <p>Reducing your home's energy costs shouldn't also reduce its curb appeal. Our ZEP mounting system seamlessly integrates with your roof for a low-profile design that gives your home a sleek look.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col half padded">
+      <div class="row">
+        <div class="col fifth center">
+          <span class="icon call large"></span>
+        </div>
+        <div class="col fifth four">
+          <h5>Ongoing Rewards</h5>
           <p>We make sharing the benefits of clean energy easy and fun. Our Solar Ambassador program rewards you for every referral who signs up with SolarCity. You can build a business and help the environment!</p>
         </div>
       </div>
     </div>
-
-    <div class="block row">
-      <div class="col third left">
-        <div>(icon here)</div>
-        <div>
-          <strong>Lifetime system protection</strong>
-          <p>System monitoring – Our exclusive 24/7 monitoring ensures your system is always working. It’ll even alert us if problems arise.</p>
-          <p>Warranty for life – We cover any damage and take care of repairs for the life of our agreement.</p>
-          <p>Performance guarantee – We make sure the system is protected and performing as promised. It’s clean energy with no worries!</p>
+  </div>
+  <div class="row padded">
+    <div class="col half padded">
+      <div class="row">
+        <div class="col fifth center">
+          <span class="icon call large"></span>
         </div>
-      </div>
-      
-      <div class="col third right">
-        <div>(icon here)</div>
-        <div>
-          <strong>Environmental</strong>
-          <p>Over 20 years, the average 5 kWh solar power system offsets 50 tons of CO2. That's the equivalent of:
-            •  Driving a car 125,000 miles.
-            •  CO2 absorbed by 60 trees.
-            •  40,000 gallons of water used to make electricity.
-          </p>
+        <div class="col fifth four">
+          <h5>Lifetime system protection</h5>
+          <dl class="horizontal">
+            <dt>System monitoring</dt>
+            <dd>Our exclusive 24-7 monitoring ensures your system is always working. It'll even alert us if problems arise.</dd>
+            <dt>Warranty for life</dt>
+            <dd>We cover any damage and take care of repairs for the life of our agreement.</dd>
+            <dt>Performance guarantee</dt>
+            <dd>We make sure the system is protected and performing as promised. It's clean energy with no worries!</dd>
+          </dl>
         </div>
       </div>
     </div>
-
-    <div class="block row">
-      <div class="col third left">
-        <div>(icon here)</div>
-        <div>
-          <strong>Cutting-edge insights</strong>
-          <p>Our custom app lets you see everything from system production to home energy consumption to when your site surveyor is scheduled to arrive. It’s a one-stop shop to keep everything you need to know about your system in the palm of your hand.</p>
+    <div class="col half padded">
+      <div class="row">
+        <div class="col fifth center">
+          <span class="icon call large"></span>
         </div>
-      </div>
-
-      <div class="col third right">
-        <div>(icon here)</div>
-        <div>
-          <strong>GivePower</strong>
-          <p>Your decision to go solar also helps bring the gift of power to the developing world.  For every megawatt of solar energy SolarCity installs on customer homes, we’ll donate a clean energy system to a school in need through GivePower program. GivePower has brought light to over 400 schools to date. And we’re just getting started.</p>
+        <div class="col fifth four">
+          <h5>Environmental</h5>
+          <p>Over 20 years, the average 5 kWh solar power system offsets 50 tons of CO<sub>2</sub>. That's the equivalent of:</p>
+          <ul>
+            <li>Driving a car 125,000 miles</li>
+            <li>CO<sub>2</sub> absorbed by 60 trees</li>
+            <li>40,000 gallons of water used to make electricity</li>
+          </ul>
         </div>
       </div>
     </div>
-
-
+  </div>
+  <div class="row padded">
+    <div class="col half padded">
+      <div class="row">
+        <div class="col fifth center">
+          <span class="icon call large"></span>
+        </div>
+        <div class="col fifth four">
+          <h5>Cutting-edge insights</h5>
+          <p>Our custom app lets you see everything from system production to home energy consumption to when your site surveyor is scheduled to arrive. It's a one-stop shop to keep everything you need to know about your system in the palm of your hand.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col half padded">
+      <div class="row">
+        <div class="col fifth center">
+          <span class="icon call large"></span>
+        </div>
+        <div class="col fifth four">
+          <h5>GivePower</h5>
+          <p>Your decision to go solar also helps bring the gift of power to the developing world. For every megawatt of solar energy SolarCity installs on customers' homes, we'll donate a clean energy system to a school in need through the GivePower program. To date, GivePower has brought light to over 400 schools. And we're just getting started.</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-<!-- <div class="overlay secondary col fourth sml-full med-full">
-  <p>So what now?</p>
-  <p>Learn more about the SolarCity process to give you abundant, clean energy.</p>
-  <figure><video src=""></video></figure>
-  <div fln-help class="fln-help"></div>
-</div> -->

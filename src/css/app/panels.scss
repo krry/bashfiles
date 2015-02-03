@@ -1,8 +1,51 @@
 @import "../imports/colors";
+@import "../imports/typography";
 @import "../imports/fonts";
 
 .proposal {
+  background-color: $beige;
+  color: $tan;
+  border-radius: .125rem;
+  .row:not(:last-child) {
+    border-bottom: 2px solid white;
+  }
+  .col:not(.fifth) {
+    border-right: 2px solid white;
+    // TODO: figure out how to avoid this important shit
+    padding: 1em !important;
+    // margin: 1em 0;
+  }
+  .col:last-child {
+    border-right: 0;
+  }
+  .utes {
+    color: $grey-dark;
+  }
+  label:first-child {
+    @include apercu-light;
+    font-size: 1.125em;
+    margin: .25em 0 -.25em;
+  }
+  label:last-child {
+    @include apercu-light;
+    @include caps;
+    font-size: .625em;
+    margin: .25em 0;
+  }
+  figure {
+    margin: 0;
+  }
+  figure span.cents,
+  figure span.dollars {
+    font-size: 3em;
+    font-weight: 900;
+  }
+}
 
+.aerial {
+  background: $black url('../img/aerial.png') no-repeat center center;
+  background-size: contain;
+  height: 17.75em;
 }
 
 .block {

@@ -6,6 +6,7 @@ main.main {
   position: relative;
   width: 100%;
   z-index: 1;
+  margin-top: 3em;
   // HACK: to pull the footer up into view
   // margin-bottom: -10em;
 }
@@ -50,6 +51,12 @@ main.main {
   height: 100%;
 }
 
+.contain {
+  max-width: 75em;
+  display: block !important;
+  margin: auto;
+}
+
 @media screen and (min-width: $width-min-sml){
   .overlay.secondary {
     // min-height: 16em;
@@ -74,11 +81,11 @@ main.main {
 
 @media screen and (min-width: $width-min-xlg){
   main.main {
-    height: 100%;
-    max-height: calc(100vh - 7em);
+    // height: 100%;
+    // max-height: calc(100vh - 7em);
   }
   .overlay {
-    height: 100%;
+    // height: 100%;
   }
   .overlay.short {
     height: auto;
