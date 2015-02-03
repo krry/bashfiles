@@ -47,10 +47,13 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService) {
   }
 
   function saveCenter () {
-    if (map.getCenter() !== center){
-      center = map.getCenter();
-      console.log('saving center', center);
-      Client.emit('center changed', center);
+    // TODO: wait to fire these updates until mouseup to avoid oversyncing and lag induction
+    if ($element.mouseUp()) {
+      if (map.getCenter() !== center){
+        center = map.getCenter();
+        console.log('saving center', center);
+        Client.emit('center changed', center);
+      }
     }
   }
 
