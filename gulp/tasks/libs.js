@@ -3,7 +3,7 @@
   LIBS
   supports BUILD task, depends on BOWER task
 
-  concatentates third-party libs (JS and CSS mostly) and 
+  concatentates third-party libs (JS and CSS mostly) and
   copies them to `public` for use in the DOM
 
   TODO: concatentate them in the proper order to minimize
@@ -31,6 +31,8 @@ var libSrc = [
   './src/lib/angular/angular.min.js',
   './src/lib/angular-touch/angular-touch.js',
   './src/lib/angular-ui-router/release/angular-ui-router.min.js',
+  './src/lib/angular-cookies/angular-cookies.js',
+  './src/lib/angular-cookies/angular-cookies.min.js',
   // './src/lib/angular-mocks/angular-mocks.js',
   './src/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
   './src/lib/angular-bootstrap/ui-bootstrap.js',
