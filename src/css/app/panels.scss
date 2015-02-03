@@ -2,7 +2,13 @@
 @import "../imports/fonts";
 
 .proposal {
+  background-color: $beige;
+  color: $tan;
+}
 
+.aerial {
+  background: url('../img/aerial.png') no-repeat center center;
+  background-size: cover;
 }
 
 .block {
