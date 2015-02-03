@@ -22,7 +22,7 @@ function DesignProvider_ () {
       make a private history function that keeps a record of what you've done
 
   ================================ */
-    console.log('design provider started');
+
   this.$get = [ "Clientstream", function designProviderFactory(Client) {
     console.log('design $get');
 
