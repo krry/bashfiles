@@ -11,10 +11,10 @@
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
-@mixin icon($icon, $type: "svg") {
+@mixin icon($icon, $type: "svg", $size: 1.5em) {
   display: inline-block;
-  width: 1.5em;
-  height: 1.5em;
+  width: $size;
+  height: $size;
   background-position: center center;
   background-repeat: no-repeat;
   background-size: contain;
