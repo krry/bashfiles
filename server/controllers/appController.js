@@ -15,7 +15,6 @@ module.exports = function(app) {
   function index(req, res) {
     var uuid;
     uuid = req.signedCookies.uuid;
-    // console.log("UUID: " + uuid + ".");
     if (uuid !== null && uuid !== undefined) {
       // Look up the document by uuid and return that one
     } else {
