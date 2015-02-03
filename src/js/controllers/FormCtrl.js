@@ -10,6 +10,7 @@ controllers.controller("FormCtrl", ["$scope", "$element", "Form", "Clientstream"
 
 function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect, Session) {
   var vm = this;
+  // TODO: instead of this object literal on the FormProvider, use the firebase ref to the Form object related to the current Session
   // var form_ref = Form.ref();
   vm.prospect = Form.prospect;
 

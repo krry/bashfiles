@@ -172,7 +172,6 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client) {
 
     partials = [];
     stages_count = array.length;
-    this_partial;
 
     for (var i = 0; i < stages_count; i++) {
       steps_count = array[i].length;
