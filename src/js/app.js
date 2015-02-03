@@ -19,15 +19,10 @@ angular.module('flannel', [
   angular.injector(['ngCookies']).invoke(function(_$cookies_) {
     $cookies = _$cookies_;
   });
-  // HACK: DEV:
-  $cookies.butts_uuid = 'butts_session';
-  $cookies.butts_session_id = 'butts_session';
-  // if ($cookies.uuid) { // HACK: DEV:
-  if ($cookies.butts_uuid) {
+  if ($cookies.uuid) {
     // pull the user id from an existing cookie
-    uid = $cookies.butts_uuid;
-    // uid = $cookies.uuid; // HACK: DEV:
-    // uid = uid.split(":")[1].split(".")[0]; // hack: is this too ugly to live? // HACK: DEV:
+    uid = $cookies.uuid;
+    uid = uid.split(":")[1].split(".")[0]; // hack: is this too ugly to live?
     // make the User provider use the previous user
     console.log('**** VISITOR HAS 1 WHOLE COOKIE ****', $cookies, uid);
     UserProvider.setRefKey(uid);
@@ -35,10 +30,8 @@ angular.module('flannel', [
   // TODO: otherwise what?
     console.log('**** VISITOR HAS NO COOKIE ****');
   }
-  // if ($cookies.session_id) { // HACK: DEV:
-  if ($cookies.butts_session_id) {
-    // SessionProvider.setRefKey($cookies.session_id); // HACK: DEV:
-    SessionProvider.setRefKey($cookies.butts_session_id);
+  if ($cookies.session_id) {
+    SessionProvider.setRefKey($cookies.session_id);
   }
 
   // hack: end of $cookie hack
@@ -53,18 +46,22 @@ angular.module('flannel', [
   $httpProvider.defaults.useXDomain = true;
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
 }).run(["$cookies","User", "Session", "Clientstream", function run_app($cookies, User, Session, Client) {
-  // $cookies.session_id = "butts";
-$cookies.butts_uuid = 'butts_session';
-  $cookies.butts_session_id = 'butts_session';
+  // $cookies.session_id = "butts_session"; // HACK: DEV: save
+
   User.ref().once('value', function(ds){
     var data = ds.exportVal();
     if (data.session_id) {
-      // there's an existing session_id on the user object, set the Session reference to that key
+      // there's an existing session_id on the user object, set the Session provider's reference key
       Session.setRefKey(ds.exportVal().session_id);
     } else {
       // Just set the User key for later use by Session
       Session.setUserKey(ds.ref().key());
     }
+  })
+
+  Client.listen('Session: New Session', function setCookieSession (ds){
+    ds.ref().key() !== $cookies.session_id && (console.log('updating session_id on cookies. current:', $cookies.session_id, 'new:', ds.ref().key()));
+    ds.ref().key() !== $cookies.session_id && ($cookies.session_id = ds.ref().key());
   })
 
 }]);
