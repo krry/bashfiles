@@ -9,10 +9,10 @@
   maxlength="5"
   placeholder="{{hint}}"
   focus="true"
-  ng-required="true"
   ng-model="form.prospect.zip"
+  ng-required="true"
   ng-maxlength="5"
   ng-pattern="/^\d{5}(?:[-\s]\d{4})?$/"
   ng-hide="form.invalid && form.invalidTerritory"
-  ng-valid="form.checkAddress(form.prospect)">
-  <!-- TODO: add a placeholder attribute (and potentially others) to the directive to enable the optimum experience as the directive is used elsewhere -->
+  ng-change="form.checkZip(form.prospect.zip)">
+<!-- <input type="submit" value="Check availability" class="btn aqua" ng-disabled="form.invalid" ng-click="form.checkZip(zip)"> -->

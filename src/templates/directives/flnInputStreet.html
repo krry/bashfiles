@@ -9,4 +9,4 @@
   ng-model="form.prospect.street"
   ng-minlength="4"
   ng-valid="form.checkAddress(form.prospect)"
-  ng-keypress="form.resizeInput()">
+  ng-blur="form.checkAddress(form.prospect)">

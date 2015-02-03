@@ -11,7 +11,7 @@ controllers.controller("FormCtrl", ["$scope", "$element", "Form", "Clientstream"
 function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect, Session) {
   var vm = this;
   // var form_ref = Form.ref();
-  vm.prospect = {};
+  vm.prospect = Form.prospect;
 
   vm.gmapShown = false;
   vm.invalidZip = true;
@@ -39,7 +39,7 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect, Session) 
   Client.listen('fullname saved', acceptSavedFullname);
 
   function checkZip (zip) {
-    console.log('************ checkin dat zip boss *********')
+    console.log('************ checkin dat zip', zip, 'boss *********')
     if (typeof zip !== "undefined" && zip.length === 5) {
       Geocoder.sendGeocodeRequest(zip);
     }
@@ -68,7 +68,7 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect, Session) 
   // TODO: figure out if the valid territory / valid zip dependency is appropriate for the prescribed UX
   function acceptValidTerritory(data) {
     console.log('accepting valid territory', data);
-    acceptValidZip(data);
+    // acceptValidZip(data);
     vm.invalidTerritory = !data;
     vm.invalid = vm.invalidZip && vm.invalidTerritory;
     if (vm.validZip) vm.valid = data;

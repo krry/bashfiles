@@ -1,0 +1,12 @@
+<input
+  type="email"
+  name="email"
+  id="prospect_email"
+  class="email"
+  placeholder="{{hint}}"
+  ng-model="form.prospect.email"
+  ng-required="true"
+  autocapitalize="none"
+  autocomplete="on"
+  autocorrect="off"
+  ng-valid="form.checkEmail(form.prospect.email)">

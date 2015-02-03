@@ -5,8 +5,10 @@ function flnInputZip_ (Form) {
     scope: {
       hint: "@"
     },
+    // replace: "true",
     restrict: "E",
     templateUrl: "templates/directives/flnInputZip.html",
-    controller: "FormCtrl as form"
+    controller: "FormCtrl as form",
+    // link: function (scope, element, attrs) {},
   };
 }

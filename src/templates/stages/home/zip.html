@@ -4,17 +4,8 @@
   <h1 class="error" ng-show="form.invalid && form.invalidTerritory">Sorry, we're not in your area yet.<br><small>Enter your email if you'd like to know when we get there.</small></h1>
 
   <fln-input-zip hint="ZIP CODE"></fln-input-zip>
-  <input type="submit" value="Check availability" class="btn aqua" ng-disabled="form.invalid" ng-click="form.checkZip(form.prospect.zip)">
 
-  <input
-    type="email"
-    ng-model"form.prospect.email"
-    name="emailDq"
-    autocapitalize="none"
-    autocomplete="on"
-    autocorrect="off"
-    placeholder="Leave us your email"
-    ng-show="form.invalid && form.invalidTerritory">
+  <fln-input-email hint="Leave us your email" ng-show="form.invalid && form.invalidTerritory"></fln-input-email>
   <button class="ib aqua" ng-show="form.invalid && form.invalidTerritory">Notify Me</button>
   <div fln-alternav alternatives="true" ng-show="form.invalid && form.invalidTerritory"></div fln-alternav>
 
