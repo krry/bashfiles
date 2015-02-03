@@ -26,10 +26,14 @@
 }
 
 .slider-output {
+
+}
+
+.slider-output {
   display: block;
   font-family: $font-interface;
   width: auto;
-  font-size: 2rem;
+  font-size: 1.5em;
   line-height: 1em;
   font-weight: 600;
   text-align: center;
@@ -43,6 +47,10 @@
   /*font-size: 1rem;*/
   line-height: 1em;
   /*vertical-align: .5em;*/
+}
+
+.slider-output:after {
+  content: "/mo.";
 }
 
 .slider-output:nth-of-type(2) {

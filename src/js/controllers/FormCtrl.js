@@ -1,24 +1,28 @@
 /* ==================================================
+  
   FormCtrl
+
   the form controller
+
 ================================================== */
 
 controllers.controller("FormCtrl", ["$scope", "$element", "Form", "Clientstream", "Geocoder", "Prospect", "Session", FormCtrl_]);
 
 function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect, Session) {
   var vm = this;
+  // TODO: instead of this object literal on the FormProvider, use the firebase ref to the Form object related to the current Session
   // var form_ref = Form.ref();
+  vm.prospect = Form.prospect;
 
-  vm.prospect = {};
-  vm.checkZip = checkZip;
-  vm.checkAddress = checkAddress;
-  vm.valid = false;  // use ng-valid from form
-  vm.validZip = true;
-  vm.validTerritory = true;
+  vm.gmapShown = false;
+  vm.invalidZip = true;
+  vm.invalidTerritory = true;
   vm.validAddress = false;
-  vm.territoryMsg = "";
+
   vm.prevStep = prev;
   vm.nextStep = next;
+  vm.checkZip = checkZip;
+  vm.checkAddress = checkAddress;
 
   // TODO: on change of the user model due to user changing the input values and angular syncing that with the data model, run it through validators, and then save it to firebase
   // vm.$watch('user', function(){})
@@ -36,6 +40,7 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect, Session) 
   Client.listen('fullname saved', acceptSavedFullname);
 
   function checkZip (zip) {
+    console.log('************ checkin dat zip', zip, 'boss *********')
     if (typeof zip !== "undefined" && zip.length === 5) {
       Geocoder.sendGeocodeRequest(zip);
     }
@@ -64,19 +69,21 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect, Session) 
   // TODO: figure out if the valid territory / valid zip dependency is appropriate for the prescribed UX
   function acceptValidTerritory(data) {
     console.log('accepting valid territory', data);
-    acceptValidZip(data);
-    vm.validTerritory = data;
+    // acceptValidZip(data);
+    vm.invalidTerritory = !data;
+    vm.invalid = vm.invalidZip && vm.invalidTerritory;
     if (vm.validZip) vm.valid = data;
-    return next();
+    Client.emit('jump to step', 'address-roof');
   }
 
   function acceptValidZip(data) {
     console.log('accepting valid zip', data);
     if (data) {
-      vm.validZip = true;
+      vm.invalidZip = !data;
+      vm.invalid = vm.invalidZip && vm.invalidTerritory;
       vm.prospect.zip = data;
-    } else vm.validZip = false;
-    return vm.validZip;
+    } else vm.invalidZip = true;
+    return !vm.invalidZip;
   }
 
   function acceptValidState(data) {
@@ -110,10 +117,11 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect, Session) 
     // sync full address
     console.log('accepting valid house:', data.home);
     if (data) {
-      vm.valid = true;
+      vm.invalid = false;
       vm.prospect.street = data.home;
       // vm.form_ref.update(data);
-      $scope.$apply();
+      Client.emit('jump to step', 'monthly-bill');
+      // $scope.$apply();
     }
   }
 
@@ -139,7 +147,8 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect, Session) 
     console.log('going to next step');
     // TODO: currently not checking if valid
     /* jshint -W030 */
-    vm.valid && Session.next();
+    // vm.valid && Session.next();
+    Session.next();
     /* jshint +W030 */
   }
 }
