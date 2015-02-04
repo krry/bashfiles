@@ -90,6 +90,9 @@ main.main {
   .overlay.short {
     height: auto;
     padding: 2em;
+    &.step-bill {
+      padding: 3em 2em 1em;
+    }
   }
   .overlay.secondary {
     max-width: 365px;

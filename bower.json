@@ -19,7 +19,8 @@
     "matthewlein-jQuery-widowFix": "~1.3.2",
     "rxjs": "~2.3.22",
     "angular-rx": "~0.0.12",
-    "angular-cookies": "~1.3.11"
+    "angular-cookies": "~1.3.11",
+    "angular-nouislider": "~0.3.1"
   },
   "resolutions": {
     "angular": "~1.3.0",

@@ -11,6 +11,7 @@ angular.module('flannel', [
   'flannel.firebase',
   'flannel.controllers',
   'flannel.directives',
+  'nouislider'
 ]).config(function($sceDelegateProvider, $sceProvider, $httpProvider) {
   $sceDelegateProvider.resourceUrlWhitelist([
    // Allow same origin resource loads.

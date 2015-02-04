@@ -20,6 +20,12 @@ var handleErrors = require('../util/handleErrors');
 var libSrc = [
   './src/lib/normalize.css/normalize.css',
   './src/lib/openlayers3/build/ol.css',
+  './src/lib/nouislider/jquery.nouislider.css',
+  './src/lib/nouislider/jquery.nouislider.js',
+  './src/lib/nouislider/jquery.nouislider.min.js',
+  './src/lib/nouislider/Link.js',
+  './src/lib/angular-nouislider/src/nouislider.js',
+  './src/lib/angular-nouislider/src/nouislider.min.js',
   './src/lib/rxjs/dist/rx.all.js',
   './src/lib/rxjs/dist/rx.all.min.js',
   './src/lib/openlayers3/build/ol-debug.js',
