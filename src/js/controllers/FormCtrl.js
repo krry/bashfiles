@@ -42,6 +42,7 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect, Session) 
   function checkZip (zip) {
     console.log('************ checkin dat zip', zip, 'boss *********')
     if (typeof zip !== "undefined" && zip.length === 5) {
+      Client.emit('spin it', true);
       Geocoder.sendGeocodeRequest(zip);
     }
     else { return false; }
@@ -57,6 +58,7 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect, Session) 
         state: vm.prospect.state,
         zip: vm.prospect.zip,
       }
+      Client.emit('spin it', true);
       Geocoder.sendGeocodeRequest(addy);
     }
   }

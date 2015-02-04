@@ -215,6 +215,7 @@ function GeocoderProvider_ () {
         if (addy.street) {
           Client.emit('valid address', addy.street);
           if (addy.stno) {
+            Client.emit('Gmap: switch to satellite', true);
             addy.home = addy.stno + " " + addy.street;
             Client.emit('valid house', addy);
           }

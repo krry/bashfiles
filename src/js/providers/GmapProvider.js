@@ -28,7 +28,7 @@ function GmapFactory_ () {
       zoom: 4,
       minZoom: 4,
       center: new google.maps.LatLng(DEFAULT.LAT, DEFAULT.LNG),
-      mapTypeId: google.maps.MapTypeId.HYBRID,
+      mapTypeId: google.maps.MapTypeId.TERRAIN,
       disableDefaultUI: true,
       backgroundColor: "transparent",
       // draggable: false,

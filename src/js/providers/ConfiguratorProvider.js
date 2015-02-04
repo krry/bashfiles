@@ -104,6 +104,8 @@ function ConfiguratorFactory_() {
       configurator_options.layers = [layers];
       // set the initial zoom of the map
       view.setZoom(1);
+      // let the app know that we got static tiles back
+      // Client.emit('static tiles loaded', true);
     }
 
     configurator_options = {
