@@ -21,19 +21,23 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client) {
       stage,
       step,
       state_ref,
-      session_stream;
+      session_stream,
+      waiting;
 
   // get Session info
   session_ref = Session.ref();
   stage = 0;
   step  = 0;
+  waiting = false;
 
   vm = this;
   vm.next = next;
   vm.prev = prev;
+  vm.waiting = isWaiting;
   vm.startOver = startOver;
   vm.jumpToStep = jumpToStep;
   vm.jumpToStage = jumpToStage;
+  vm.spinIt = waiting;
   vm.partial = Templates.partial(stage, step);
   vm.partials = flattenPartialsArray(Templates.partials);
 
@@ -43,6 +47,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client) {
   Client.listen('stage', stageListen);
   Client.listen('step', stepListen);
   Client.listen('start over', startOver);
+  Client.listen('spin it', setWaiting);
 
   // view_sync helps flow control for async // TODO: more stream-like
   $scope.view_sync = true;
@@ -66,6 +71,17 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client) {
         Client.emit('step', data.step);
       }
     }
+  }
+
+  function isWaiting () {
+    return waiting;
+  }
+
+  function setWaiting (data) {
+    waiting = data;
+    $timeout(function(){
+      $scope.$apply();
+    }, 0);
   }
 
   // listen for stage change requests from ui-router
