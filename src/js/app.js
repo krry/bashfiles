@@ -19,22 +19,22 @@ angular.module('flannel', [
   angular.injector(['ngCookies']).invoke(function(_$cookies_) {
     $cookies = _$cookies_;
   });
-  if ($cookies.uuid) {
-    // pull the user id from an existing cookie
-    uid = $cookies.uuid;
-    uid = uid.split(":")[1].split(".")[0]; // hack: is this too ugly to live?
-    // make the User provider use the previous user
-    console.log('**** VISITOR HAS 1 WHOLE COOKIE ****', $cookies, uid);
-    UserProvider.setRefKey(uid);
+
+  // $cookies.uuid is set by the server after getting an auth token from Firebase
+  uid = $cookies.uuid;
+  uid = uid.split(":")[1].split(".")[0]; // hack: is this too ugly to live?
+
+  if ($cookies.user_id) {
+    // returning visitor
+    console.log('**** VISITOR HAS 1 WHOLE COOKIE ****', $cookies.user_id);
+    // make the User provider use the correct user
+    UserProvider.setRefKey($cookies.user_id);
   } else {
-  // TODO: otherwise what?
-    console.log('**** VISITOR HAS NO COOKIE ****');
-  }
-  if ($cookies.session_id) {
-    SessionProvider.setRefKey($cookies.session_id);
+    // new visitor
+    console.log('**** VISITOR HAS NO COOKIE ****', uid);
+    UserProvider.setRefKey(uid);
   }
 
-  // hack: end of $cookie hack
   $sceDelegateProvider.resourceUrlWhitelist([
    // Allow same origin resource loads.
    'self',
@@ -45,25 +45,30 @@ angular.module('flannel', [
   $sceProvider.enabled(false);
   $httpProvider.defaults.useXDomain = true;
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
-}).run(["$cookies","User", "Session", "Clientstream", function run_app($cookies, User, Session, Client) {
-  // $cookies.session_id = "butts_session"; // HACK: DEV: save
+}).run(["$rootScope","$cookies", "$cookieStore", "User", "Clientstream", function run_app($rootScope,$cookies,$cookieStore, User, Client) {
+  // save user_id & session_id on the cookie
+  Client.listen('User: User _ref_key', setCookieUser )
+  Client.listen('Session: Session _ref_key', setCookieSession )
 
-  User.ref().once('value', function(ds){
-    var data = ds.exportVal();
-    if (data.session_id) {
-      // there's an existing session_id on the user object, set the Session provider's reference key
-      Session.setRefKey(ds.exportVal().session_id);
-    } else {
-      // Just set the User key for later use by Session
-      Session.setUserKey(ds.ref().key());
-    }
+  // let the app know we've gotten the important stuff :)
+  User.ref().once('value', function setSessionFromUser (ds) {
+    // let session know we've loaded the User. now load the session.
+    Client.emit('App.run: User Loaded', ds);
   })
 
-  Client.listen('Session: New Session', function setCookieSession (ds){
-    ds.ref().key() !== $cookies.session_id && (console.log('updating session_id on cookies. current:', $cookies.session_id, 'new:', ds.ref().key()));
-    ds.ref().key() !== $cookies.session_id && ($cookies.session_id = ds.ref().key());
-  })
-
+  function setCookieSession (data){
+    console.log('app.run cookie saving Session: Session _ref_key', data);
+    cookieHack('session_id', data.session_id);
+    cookieHack('bootytoody', 'asses');
+  }
+  function setCookieUser (data){
+    console.log('app.run cookie saving User: User _ref_key', data);
+    cookieHack('session_id', data.user_id);
+    cookieHack('bootycookie', 'cookie');
+  }
+  function cookieHack (target, key) {
+    $cookies[target] = key;
+  }
 }]);
 
 var providers   = angular.module('flannel.providers',[]);
