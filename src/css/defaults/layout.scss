@@ -6,7 +6,7 @@ main.main {
   position: relative;
   width: 100%;
   z-index: 1;
-  margin-top: 3em;
+  margin-top: 3rem;
   // HACK: to pull the footer up into view
   // margin-bottom: -10em;
 }
@@ -90,6 +90,9 @@ main.main {
   .overlay.short {
     height: auto;
     padding: 2em;
+    &.step-bill {
+      padding: 3em 2em 1em;
+    }
   }
   .overlay.secondary {
     max-width: 365px;

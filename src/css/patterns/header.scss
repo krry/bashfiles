@@ -1,0 +1,112 @@
+@import "../imports/colors";
+@import "../imports/fonts";
+@import "../imports/icons";
+@import "../imports/sizes";
+@import "../imports/chevron";
+@import "../imports/typography";
+
+.header {
+  background: $color-header-bkgd;
+  color: $color-header-text;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  height: 3rem;
+
+  -webkit-box-shadow: 0 1px 5px $color-header-shadow;
+     -moz-box-shadow: 0 1px 5px $color-header-shadow;
+          box-shadow: 0 1px 5px $color-header-shadow;
+
+  a, span, ul, li {
+    display: inline-block;
+  }
+
+  nav {
+    overflow: hidden;
+  }
+
+  a {
+    line-height: 3rem;
+    height: 3rem;
+    color: $color-header-text;
+    border: none;
+    &:hover {
+      border: none;
+      color: $color-header-text;
+    }
+  }
+
+  ul, li {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    position: relative;
+    opacity: 0.6;
+    text-shadow: none;
+    cursor: default;
+    &.active {
+      opacity: 1;
+      font-weight: 800;
+    }
+  }
+
+  .stage-nav {
+    display: none;
+    margin-right: 2rem;
+  }
+
+  .logo {
+    background-image: url('../img/logo-white.svg');
+    background-position: 1rem center;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    width: 10rem;
+    opacity: 1;
+    a {
+      text-indent: -9999px;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .chevron.right {
+    @include chevron("right", $height: 3rem);
+    font-size: .625rem;
+    padding: 1.125rem 2rem 1.25rem;
+  }
+
+  .top-five {
+    opacity: 1;
+    border-left: 1px solid $tint-20;
+  }
+
+  a.questions {
+    font-size: .875rem;
+    padding: 0 1.5em;
+    &:hover {
+      font-weight: 800;
+      background-color: $tint-20;
+    }
+  }
+
+  .icon.question {
+    margin-right: -.75em;
+    margin-bottom: -.25em;
+  }
+
+  .header-address {
+    @include apercu-light;
+  }
+}
+
+@media screen and (min-width: $width-min-lrg) {
+  .header {
+    .stage-nav {
+      display: inline;
+    }
+  }
+}

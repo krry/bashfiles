@@ -3,8 +3,7 @@
   WATCH
   supports DEFAULT task
 
-  watches for changes in source stylesheets, scripts, and
-  templates
+  watches for changes in source stylesheets, scripts, templates, and images
 
   **formerly**
   when activated, sets isWatching flag to true which
@@ -18,6 +17,7 @@ var paths = {
   styles:    ['./src/css/**/*'],
   scripts:   './src/js/**/*.js',
   templates: ['./src/templates/**/*.html','./src/index.html'],
+  images:    ['./src/images/**/*']
 };
 
 // global.isWatching = true;
@@ -38,5 +38,10 @@ gulp.task('watch', function(){
   var templateWatcher = gulp.watch(paths.templates, ['templates']);
   templateWatcher.on('change', function(e) {
     console.log('File ' + e.path + ' was ' + e.type + ', running templates tasks...');
+  });
+
+  var imageWatcher = gulp.watch(paths.images, ['images']);
+  imageWatcher.on('change', function(e) {
+    console.log('File ' + e.path + ' was ' + e.type + ', running images tasks...');
   });
 });

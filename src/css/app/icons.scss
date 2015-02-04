@@ -1,9 +1,8 @@
 @import '../imports/icons';
 
 .icon {
-  &.top-five, &.question {
+  &.question {
     @include icon("question-mark-white");
-    margin-bottom: -.25em;
   }
   &.call {
     @include icon('help-call');
