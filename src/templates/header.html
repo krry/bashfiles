@@ -1,16 +1,23 @@
 <nav>
-  <a ui-sref="home.initial" class="logo">SolarCity</a>
-  <span class="header-address">
-    <span class="header-street" ng-bind="form.prospect.street"></span>
-    <span class="header-zip" ng-bind="form.prospect.zip"></span>
-    <span class="icon edit">&nbsp;</span>
-  </span>
-  <ul class="stage-nav float right">
-    <li class="chevron right caps" ng-class="{ active: nav.onActiveStage('/home') }">Your Home</li>
-    <li class="chevron right caps" ng-class="{ active: nav.onActiveStage('/configure') }">Configure</li>
-    <li class="chevron right caps" ng-class="{ active: nav.onActiveStage('/signup') }">Qualify</li>
+  <!-- TODO: employ .primary and .secondary to match this to the body columns -->
+  <ul class="stage-nav float row">
+    <li class="float left logo">
+      <a ui-sref="home.initial">SolarCity</a>
+    </li>
+    <li class="chevron right caps col" ng-class="{ active: nav.onActiveStage('/home') }">
+      <span>Your Home</span>
+      <span class="header-address" ng-controller="FormCtrl as form" ng-show="form.prospect.zip">
+        <span>&bull;</span>
+        <span ng-bind="form.prospect.street" class="header-street"></span>
+        <span ng-bind="form.prospect.zip" class="header-zip"></span>
+        <span class="icon edit"></span>
+      </span>
+    </li>
+    <li class="chevron right caps col" ng-class="{ active: nav.onActiveStage('/configure') }">Your System</li>
+    <li class="chevron right caps col" ng-class="{ active: nav.onActiveStage('/savings') }">Your Savings</li>
+    <!-- TODO: employ .primary and .secondary to match this to the body columns -->
+    <li ng-controller="ModalCtrl as modal" class="col float right top-five">
+      <a class="questions" ng-click="modal.showDialog('faq')">Top 5 Questions&nbsp;<span class="icon question"></span></a>
+    </li>
   </ul>
-  <div class="float right questions" ng-controller="ModalCtrl as modal">
-    <a ng-click="modal.showDialog('faq')">Top 5 Questions <span class="icon top-five"></span></a>
-  </div>
 </nav>
