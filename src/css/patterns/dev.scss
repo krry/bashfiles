@@ -2,33 +2,45 @@
 @import "../imports/motion";
 
 .dev-controls {
-  height: auto;
   position: fixed;
-  bottom: 0;
-  transform: translate3d(0, 100%, 0);
+  right: 0;
+  width: auto;
+  height: 100%;
   z-index: 12;
-  width: 100%;
   padding: 1em 4em 2em;
+  transform: translate3d(100%, 0, 0);
   transition: transform 250ms $easing-quick;
   &.shown {
     transform: translate3d(0, 0, 0);
   }
 }
 
-.dev-trigger {
+a.dev-trigger.dev-trigger {
   position: absolute;
   margin: auto;
   overflow: auto;
-  bottom: 100%;
-  // right: 0;
-  right: 50%;
-  height: 2em;
-  border-radius: .5em .5em 0 0;
-  width: 10em;
-  font-size: .75em;
-  padding: .25em .75em;
+  bottom: 6em;
+  right: 100%;
+  border-radius: 12px 0 0 12px;
+  font-size: .875em;
+  padding: .75em;
   text-align: center;
-  background: $black;
+  color: $black;
+  background: $gold;
+  border: 3px solid;
+  border-right: none;
+  &:hover {
+    border-color: $gold;
+    background: saturate($gold, 5%);
+  }
+  &.triggered {
+    color: $gold;
+    border-color: $black;
+    background-color: $black;
+  }
+  &:hover.triggered {
+    border-color: $gold;
+  }
 }
 
 .dev {

@@ -18,6 +18,7 @@
   <script src="lib/angular.js"></script>
 
   <!-- Dependencies & libraries -->
+  <link href="lib/jquery.nouislider.css" rel="stylesheet">
   <link href="css/all.css" rel="stylesheet">
   <!-- <link href="css/all.min.css" rel="stylesheet"> -->
   <link href="lib/ol.css" rel="stylesheet">
@@ -73,7 +74,7 @@
   <!-- <script>L.mapbox.accessToken = 'pk.eyJ1Ijoic29sYXJjaXR5IiwiYSI6IkVnZ3AtbTgifQ.LxtRfmX2J0qJ-Lf7QihSIg';</script> -->
 
   <!-- google maps -->
-  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false&client=#{app.gmapClient}"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false&client=#{app.gmapClient}"></script>
 
   <!-- Apercu fonts from FontDeck -->
   <!-- TODO: prevent a FOUT -->
@@ -92,19 +93,28 @@
   </script>
 </head>
 
-<!-- app begins -->
-<!-- TODO: apply ng-cloak only to divs that need it -->
+<!-- //////// BODY STARTS //////// -->
 <body ng-cloak ng-controller="StageCtrl as stages">
-  <div fln-dev-tools ng-class="{shown: dev.panelShown}" class="dev-controls inverse"></div>
+  <!-- TODO: apply ng-cloak only to divs that need it -->
+  <div fln-dev-tools ng-class="{shown: panelShown}" class="dev-controls inverse"></div>
   <header ui-view name="header" id="header" class="header"></header>
   <main ui-view name="main" id="main" class="main"></main>
-  <footer ui-view name="footer" id="footer" class="footer"></footer>
+  <footer ui-view name="footer" id="footer" class="footer row"></footer>
   <div fln-chat class="chat" ng-controller="ChatCtrl as chat" ng-show="chat.shown"></div>
   <div fln-modal class="modal" ng-show="modal.isOn()" ng-click=""></div>
 
-  <!-- TAIL of the body -->
+  <!-- TAIL of the BODY -->
   <script src="lib/angular-touch.js"></script>
+  <script src="lib/angular-cookies.js"></script>
   <script src="lib/angular-ui-router.min.js"></script>
+
+  <!-- noUIslider scripps -->
+  <script src="lib/jquery.nouislider.js"></script>
+  <script src="lib/Link.js"></script>
+  <script src="lib/nouislider.js"></script>
+  <script src="lib/nouislider.min.js"></script>
+
+  <!-- bootstrap scripps -->
   <script src="lib/ui-bootstrap-tpls.min.js"></script>
   <script src="lib/ui-bootstrap.js"></script>
   <!-- <script src="lib/ui-bootstrap.min.js"></script> -->
@@ -139,28 +149,5 @@
     <script ng-switch-when="false" src="lib/rx.firebase.js"></script>
     <script ng-switch-when="true" src="lib/rx.firebase.min.js"></script>
   </switch> -->
-
-  <!-- begin olark code -->
-  <script data-cfasync="false" type='text/javascript'>/*<![CDATA[*/window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){
-    f[z]=function(){
-    (a.s=a.s||[]).push(arguments)};var a=f[z]._={
-    },q=c.methods.length;while(q--){(function(n){f[z][n]=function(){
-    f[z]("call",n,arguments)}})(c.methods[q])}a.l=c.loader;a.i=nt;a.p={
-    0:+new Date};a.P=function(u){
-    a.p[u]=new Date-a.p[0]};function s(){
-    a.P(r);f[z](r)}f.addEventListener?f.addEventListener(r,s,false):f.attachEvent("on"+r,s);var ld=function(){function p(hd){
-    hd="head";return["<",hd,"></",hd,"><",i,' onl' + 'oad="var d=',g,";d.getElementsByTagName('head')[0].",j,"(d.",h,"('script')).",k,"='",l,"//",a.l,"'",'"',"></",i,">"].join("")}var i="body",m=d[i];if(!m){
-    return setTimeout(ld,100)}a.P(1);var j="appendChild",h="createElement",k="src",n=d[h]("div"),v=n[j](d[h](z)),b=d[h]("iframe"),g="document",e="domain",o;n.style.display="none";m.insertBefore(n,m.firstChild).id=z;b.frameBorder="0";b.id=z+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){
-    b.src="javascript:false"}b.allowTransparency="true";v[j](b);try{
-    b.contentWindow[g].open()}catch(w){
-    c[e]=d[e];o="javascript:var d="+g+".open();d.domain='"+d.domain+"';";b[k]=o+"void(0);"}try{
-    var t=b.contentWindow[g];t.write(p());t.close()}catch(x){
-    b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({
-    loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
-    /* custom configuration goes here (www.olark.com/documentation) */
-    olark.identify('4137-319-10-6122');/*]]>*/
-  </script>
-  <noscript><a href="https://www.olark.com/site/4137-319-10-6122/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript>
-  <!-- end olark code -->
 </body>
 </html>

@@ -42,6 +42,8 @@ function OlMapCtrl_($scope, $timeout, Client, MapService, LayerService, Interact
   // client_stream
   Client.listen('update_client', update_client); // messages from remote
   Client.listen('update_remote', update_remote); // messages from the feature
+  // TODO: when tiles come back, listen for that, and hide the spinner
+  // Client.listen('static tiles loaded', hideSpinner);
 
   function getWkt(f) {
     return wkt.writeGeometry(f.getGeometry());
@@ -49,6 +51,10 @@ function OlMapCtrl_($scope, $timeout, Client, MapService, LayerService, Interact
 
   function getGeom(txt) {
     return wkt.readGeometry(txt);
+  }
+
+  function hideSpinner () {
+    Client.emit('spin it', false);
   }
 
   function update_remote (geom) {

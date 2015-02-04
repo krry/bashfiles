@@ -1,12 +1,20 @@
-<section class="overlay primary col fourth three blur">
+<section class="overlay primary col fourth three short">
   <h1>Time to configure your system.</h1>
   <p>This tool helps you get a sense of what panels could look like on your roof and how much you could save.<br>Don't worry, our experts will do the final system design for your rooftop.</p>
-  <button class="btn std aqua" ng-click="form.nextStep()">Start Configurator</button>
-  <p><strong class="caps">or</strong></p>
-  <button class="btn std aqua" ng-click="stages.jumpToStage('signup')">Skip</button>
+  <div class="row padded center">
+    <div class="col baseline">
+      <button class="btn std aqua" ng-click="form.nextStep()">Start Configurator</button>
+    </div>
+    <div class="col padded baseline">
+      <p><strong class="caps">or</strong></p>
+    </div>
+    <div class="col baseline">
+      <button class="btn std aqua" ng-click="stages.jumpToStage('signup')">Skip</button>
+    </div>
+  </div>
   <p class="small">Skip this step and go straight to qualification. Our experts will handle all the configuration for you.</p>
 </section>
-<aside class="overlay secondary col fourth lrg-full med-full sml-full topdown">
+<aside class="overlay secondary col fourth lrg-full med-full short">
   <p>
     <a ng-click="modal.showDialog('faq')"><strong>Top 5 Questions</strong> people ask</a>&nbsp;<span class="icon top-five"></span>
   </p>

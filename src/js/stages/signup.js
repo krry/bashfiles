@@ -20,7 +20,7 @@ angular.module('signup', []).config(["$stateProvider", function ($stateProvider)
       },
       'header@': {
         templateUrl: templateUrl + 'header.html',
-        controller: 'HeaderCtrl as header',
+        controller: 'NavCtrl as nav',
       },
       'footer@': {
         templateUrl: templateUrl + 'footer.html',

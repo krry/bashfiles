@@ -1,4 +1,5 @@
 angular.module('flannel', [
+  'ngCookies',
   'flannel.config',
   'ui.router',
   // 'ui.bootstrap',
@@ -10,12 +11,13 @@ angular.module('flannel', [
   'flannel.firebase',
   'flannel.controllers',
   'flannel.directives',
+  'nouislider'
 ]).config(function($sceDelegateProvider, $sceProvider, $httpProvider) {
   $sceDelegateProvider.resourceUrlWhitelist([
    // Allow same origin resource loads.
    'self',
-   'http://localhost:8100/**',
    // Allow loading from our assets domain. Notice the difference between * and **.
+   'http://localhost:8100/**',
    'http://scexchange.solarcity.com/scfilefactory/testfill.aspx'
   ]);
   $sceProvider.enabled(false);

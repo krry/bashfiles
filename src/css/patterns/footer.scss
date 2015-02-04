@@ -1,30 +1,33 @@
-footer.footer {
-  position: relative;
-  text-align: center;
-  padding: 2em;
-  font-size: .875em;
-  width: 74.9%;
+@import "../imports/colors";
+
+.footer {
+  position: fixed;
+  z-index: 1;
+  background: $color-bkgd-primary;
+  bottom: 0;
+  width: 100%
 }
 
-footer a,
-footer a:hover {
+.footer .boilerplate {
+  font-size: .625em;
+  padding: 2em;
+  margin-bottom: 0;
+  text-align: center;
+
+  span {
+    padding: 0 1em;
+    border-right: 1px solid $shade-10;
+    &:last-child {
+      border-right: none;
+    }
+  }
+}
+
+.footer a,
+.footer a:hover {
   color: inherit;
 }
 
-footer .caps {
-  font-size: .5em;
-}
-
-footer.footer p {
-  padding-bottom: 0.75em;
-}
-
-footer.footer p small {
-  font-size: .75em;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-footer.footer p small a {
-  color: #333333;
+.footer .fourth {
+  border-left: 1px solid $shade-10;
 }

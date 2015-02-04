@@ -1,12 +1,17 @@
 @import '../imports/icons';
 
 .icon {
-  &.top-five, &.question {
+  &.question {
     @include icon("question-mark-white");
-    margin-bottom: -.25em;
   }
   &.call {
     @include icon('help-call');
+  }
+  &.call.large {
+    @include icon('help-call');
+    background-position: center -.75em;
+    width: 4em;
+    height: 4em;
   }
   &.chat {
     @include icon('help-chat');

@@ -14,7 +14,6 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService) {
   vm.autolocate = autolocate;
 
   mapEl = $element[0];
-
   mapOpts = Gmap.opts;
 
   // once window loads, activate map using defaults
@@ -25,9 +24,10 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService) {
   Client.listen('center changed', applyCenter);
   Client.listen('max zoom found', applyMaxZoom);
   Client.listen('valid territory', checkMapVisibility);
+  Client.listen('Gmap: switch to satellite', switchToSatellite);
 
-  function init (el, opts) {
-    map = Gmap.init(el, opts);
+  function init (el) {
+    map = Gmap.init(el);
   }
 
   function activate () {
@@ -36,6 +36,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService) {
     // listen to the map for user's changes
     listenToCenter();
     listenToZoom();
+    listenForMapFinish();
   }
 
   function listenToCenter () {
@@ -46,12 +47,30 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService) {
     google.maps.event.addListener(map, 'zoom_changed', saveZoom);
   }
 
-  function saveCenter () {
-    if (map.getCenter() !== center){
-      center = map.getCenter();
-      console.log('saving center', center);
-      Client.emit('center changed', center);
+  function listenForMapFinish () {
+    google.maps.event.addListener(map, 'tilesloaded', hideSpinner);
+  }
+
+  function hideSpinner () {
+    Client.emit('spin it', false);
+  }
+
+  function switchToSatellite (data) {
+    if (data && map.getMapTypeId() !== "hybrid") {
+      map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+      // Gmap.checkMaxZoom()
     }
+  }
+
+  function saveCenter () {
+    // TODO: wait to fire these updates until mouseup to avoid oversyncing and lag induction
+    // if ($element.mouseUp()) {
+      if (map.getCenter() !== center){
+        center = map.getCenter();
+        console.log('saving center', center);
+        Client.emit('center changed', center);
+      }
+    // }
   }
 
   function applyCenter (location) {

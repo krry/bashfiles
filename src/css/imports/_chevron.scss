@@ -11,13 +11,11 @@
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
-@mixin chevron($direction) {
+@mixin chevron($direction, $height) {
   position: relative;
   text-align: center;
   color: white;
   z-index: 10;
-  padding: 1.5rem 2rem 1.5rem;
-  font-size: .75rem;
 
   &.active:before,
   &.active:after {
@@ -34,9 +32,8 @@
   }
 
   @if ($direction == "right" or $direction == "left") {
-    height: 3em;
-    width: 6em;
-    line-height: 3.5em;
+    width: auto;
+    height: $height;
 
     &:before,
     &:after {
@@ -79,9 +76,8 @@
   }
 
   @if ($direction == "up" or $direction == "down") {
-    width: 3em;
-    height: 6em;
-    // line-height: 3.5em;
+    width: $height;
+    height: auto;
 
     &:before,
     &:after {

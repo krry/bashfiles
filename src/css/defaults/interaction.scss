@@ -34,6 +34,10 @@ a {
   color: white;
 }
 
+// button + button {
+//   margin-left: .5em !important;
+// }
+
 button,
 input,
 select,
@@ -52,44 +56,91 @@ a.btn {
   &.std {
     @include btn();
   }
-  &.huge {
-    @include btn($size: 1.5em);
-  }
-
-  &.large {
-    @include btn($size: 1.25em);
-  }
-
-  &.small {
-    @include btn($size: .875em);
-  }
-
-  &.tiny {
-    @include btn($size: .75em);
-  }
-
   &.gold {
     @include btn($gold);
   }
-
   &.aqua {
     @include btn($aqua-dark);
   }
-
   &.red {
     @include btn($red);
   }
-
-  &.red.tiny {
-    @include btn($red, $size: .75em);
-  }
-
   &.white {
     @include btn($white);
   }
+  &.aqua {
+    @include btn($aqua-dark);
+  }
+  &.huge {
+    &.gold {
+      @include btn($gold, $size: 1.5em);
+    }
+    &.aqua {
+      @include btn($aqua-dark, $size: 1.5em);
+    }
+    &.red {
+      @include btn($red, $size: 1.5em);
+    }
+    &.white {
+      @include btn($white, $size: 1.5em);
+    }
+    &.aqua {
+      @include btn($aqua-dark, $size: 1.5em);
+    }
+  }
 
-  &.aqua.large {
-    @include btn($aqua-dark, $size: 1.25em);
+  &.large {
+    &.gold {
+      @include btn($gold, $size: 1.25em);
+    }
+    &.aqua {
+      @include btn($aqua-dark, $size: 1.25em);
+    }
+    &.red {
+      @include btn($red, $size: 1.25em);
+    }
+    &.white {
+      @include btn($white, $size: 1.25em);
+    }
+    &.aqua {
+      @include btn($aqua-dark, $size: 1.25em);
+    }
+  }
+
+  &.small {
+    &.gold {
+      @include btn($gold, $size: .875em);
+    }
+    &.aqua {
+      @include btn($aqua-dark, $size: .875em);
+    }
+    &.red {
+      @include btn($red, $size: .875em);
+    }
+    &.white {
+      @include btn($white, $size: .875em);
+    }
+    &.aqua {
+      @include btn($aqua-dark, $size: .875em);
+    }
+  }
+
+  &.tiny {
+    &.gold {
+      @include btn($gold, $size: .75em);
+    }
+    &.aqua {
+      @include btn($aqua-dark, $size: .75em);
+    }
+    &.red {
+      @include btn($red, $size: .75em);
+    }
+    &.white {
+      @include btn($white, $size: .75em);
+    }
+    &.aqua {
+      @include btn($aqua-dark, $size: .75em);
+    }
   }
 
   &.white.square.small.padded {
@@ -99,6 +150,10 @@ a.btn {
     cursor: not-allowed;
     opacity: .5;
   }
+}
+
+.baseline button {
+  margin-bottom: 0;
 }
 
 button.text {

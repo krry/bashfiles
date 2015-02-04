@@ -1,11 +1,11 @@
 /* =========================================================
 
-  MapProvider
+  GmapProvider
 
-  provides a map
+  provides a gmap
 
   emits results to the Clientstream
-  to which map controllers listen
+  to which gmap controllers listen
 
 ========================================================= */
 
@@ -28,7 +28,7 @@ function GmapFactory_ () {
       zoom: 4,
       minZoom: 4,
       center: new google.maps.LatLng(DEFAULT.LAT, DEFAULT.LNG),
-      mapTypeId: google.maps.MapTypeId.HYBRID,
+      mapTypeId: google.maps.MapTypeId.TERRAIN,
       disableDefaultUI: true,
       backgroundColor: "transparent",
       // draggable: false,

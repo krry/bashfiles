@@ -5,15 +5,11 @@
 main.main {
   position: relative;
   width: 100%;
-  height: 100%;
-  max-height: 80vh;
+  z-index: 1;
+  margin-top: 3rem;
   // HACK: to pull the footer up into view
   // margin-bottom: -10em;
 }
-
-// .blur {
-  
-// }
 
 .overlayer {
   position: relative;
@@ -23,43 +19,25 @@ main.main {
   margin: auto;
   // overflow: hidden;
   background-color: $color-bkgd-primary;
-  max-height: 33.3em; // the number of the beast in ems
+  // max-height: 33.3em; // the number of the beast in ems
+}
+
+.overlay {
+  position: relative;
 }
 
 .overlay.primary {
   padding: 3em 2em;
   text-align: center;
-  // width: golden-ratio(100);
-  // width: 71%;
-  background: $color-bkgd-primary;
 }
 
 .overlay.secondary {
-  padding: 4em 2em;
-  // padding-bottom: 0;
-  // padding: 9em 1.5em;
-  // width: 100% - golden-ratio(100);
-  // width: 29%;
-  min-height: 16em;
-  position: relative;
+  padding: 2em;
   background: $grey-lightest;
 }
 
-.overlay.short {
-  padding: 2em 2em .5em;
-}
-
-.overlay.secondary.short {
-  padding-bottom: 0;
-}
-
-.overlay.secondary.topdown {
-  padding-top: 6em;
-  padding-bottom: 6em;
-}
-
 .underlayer {
-  position: absolute;
+  position: fixed;
   z-index: 0;
   top: 0; right: 0;
   bottom: 0; left: 0;
@@ -73,9 +51,15 @@ main.main {
   height: 100%;
 }
 
+.contain {
+  max-width: 75em;
+  display: block !important;
+  margin: auto;
+}
+
 @media screen and (min-width: $width-min-sml){
   .overlay.secondary {
-    min-height: 16em;
+    // min-height: 16em;
   }
 }
 
@@ -87,16 +71,33 @@ main.main {
 
 @media screen and (min-width: $width-min-lrg){
   .overlay.secondary {
-    min-height: 22em;
+    // min-height: 22em;
+  }
+  .overlay.primary,
+  .overlay.secondary {
+    display: inline-block;
   }
 }
 
 @media screen and (min-width: $width-min-xlg){
-  .overlay.secondary {
-    // min-height: 30em;
-    &.bleed-right {
-      padding-right: 0;
+  main.main {
+    // height: 100%;
+    // max-height: calc(100vh - 7em);
+  }
+  .overlay {
+    // height: 100%;
+  }
+  .overlay.short {
+    height: auto;
+    padding: 2em;
+    &.step-bill {
+      padding: 3em 2em 1em;
     }
+  }
+  .overlay.secondary {
+    max-width: 365px;
+    // padding: 4em 0 4em 2em;
+    // min-height: 30em;
   }
 }
 

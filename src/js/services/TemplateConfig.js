@@ -22,6 +22,7 @@ function TemplateConfig_ () {
       steps: [
         { step: 'zip-nearme',      partial: 'zip.html'      },
         { step: 'address-roof',    partial: 'address.html'  },
+        { step: 'monthly-bill',    partial: 'bill.html'     },
         { step: 'intro-design',    partial: 'design.html'   },
       ],
     },
@@ -33,7 +34,7 @@ function TemplateConfig_ () {
         { step: 'trace-area',      partial: 'trace.html'    },
         { step: 'edit-area',       partial: 'edit.html'     },
         { step: 'detail-area',     partial: 'detail.html'   },
-        { step: 'area-slope',      partial: 'slope.html'    },
+        // { step: 'area-slope',      partial: 'slope.html'    },
         { step: 'complete-area',   partial: 'complete.html' },
       ],
     },
@@ -76,6 +77,7 @@ function TemplateConfig_ () {
         stage.push(hardcode(config[i].steps[j].partial));
       }
     }
+
     return partials;
   }
 

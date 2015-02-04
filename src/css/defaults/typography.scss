@@ -116,13 +116,13 @@ code, kbd, pre, samp {
   font-family: $font-monospace;
 }
 
-.center h1,
-.center h2,
-.center h3,
-.center h4,
-.center h5,
-.center h6,
-.center p {
+.center > h1,
+.center > h2,
+.center > h3,
+.center > h4,
+.center > h5,
+.center > h6,
+.center > p {
   margin-left: auto;
   margin-right: auto;
   text-align: center;

@@ -14,205 +14,75 @@
 @import "../imports/colors";
 @import "../imports/motion";
 
-.slider-tray {
-  width: 85%;
-  max-width: 600px;
-  margin: 0 auto;
-  padding-bottom: 2em;
-}
-
-.slider-tray:hover .handle {
-  box-shadow: 0 0 .125em
-}
-
 .slider-output {
-  display: block;
-  font-family: $font-interface;
-  width: auto;
-  font-size: 2rem;
-  line-height: 1em;
-  font-weight: 600;
-  text-align: center;
-  max-width: 800px;
-  margin: .25rem auto 1rem;
+  @include apercu-bold;
+  font-size: 1.5em;
+  line-height: 1;
+}
+
+.slider-output:before,
+.slider-output:after {
+  font-size: .625em;
 }
 
 .slider-output:before {
   content: "\0024";
-  /*font-weight: 400;*/
-  /*font-size: 1rem;*/
   line-height: 1em;
-  /*vertical-align: .5em;*/
 }
 
-.slider-output:nth-of-type(2) {
-  margin-bottom: 2rem;
+.slider-output:before,
+.slider-output:after {
+  font-size: .5em;
 }
 
-.bill {
-  appearance: none;
-  outline: none;
-  border: 1px dotted transparent;
-  max-width: 2.75em;
-  text-align: center;
-  padding: 0 .25em;
-  transition: border-color 200ms $easing-quick;
+.slider-output:after {
+  content: "/mo.";
 }
 
-.slider-tray:hover .month.bill,
-.slider-tray:focus .month.bill {
-  border-bottom: 1px $white dotted;
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.bill.year {
-  max-width: 3.5em;
-}
-
-.bill:focus,
-.bill:hover:not(:disabled) {
-/*  border-color: $brightgreen;
-  color: $brightgreen;
-*/}
-
-.bill + span:after {
-  font-size: 1.25rem;
-  font-weight: 700;
-}
-
-.bill.year + span:after {
-  content: "\00a0 per year";
-}
-
-.bill.month + span:after {
-  content: "\00a0 per month";
-}
-
-.slider {
-  color: $grey-light;
-  background: $grey-light;
-  height: 1.5em;
-  border: 2px solid;
-  max-width: 50em;
-  outline: none;
-  cursor: pointer;
-  transition-property: background-color, border-color;
-  transition-duration: 250ms;
-  transition-timing-function: $easing-quick;
-  margin: 0.5em 0;
-  border-radius: .125em;
-  font-size: 1.25em;
-  position: relative;
-}
-
-.noUi-horizontal .noUi-handle:before,
-.noUi-horizontal .noUi-handle:after {
-  display: none;
-}
-
-.noUi-horizontal .noUi-handle {
-  color: inherit;
-  position: absolute;
-  z-index: 2;
-  border: 0.25rem solid;
-  box-shadow: 0 0 0;
-  background: white;
-  text-align: center;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 2em;
-  line-height: 1.2;
-  cursor: pointer;
-  height: 1.5em;
-  width: 1.5em;
-  top: -.375em;
-  margin-left: -.325em;
-  border-radius: 2px;
-  outline: none;
-  -ms-touch-action: none;
-  font-family: $font-interface;
-  transition-property: box-shadow, color, border-color;
-  transition-duration: 250ms;
-  transition-timing-function: $easing-quick;
-}
-
-.noUi-base {
-  z-index: 1;
-}
-
-.noUi-target.noUi-connect {
+.noUi-target {
+  border-radius: 1em;
+  border: 1px solid hsl(0, 0%, 0%);
   box-shadow: none;
 }
 
-.noUi-pips {
-  font-family: $font-interface;
-  color: $color-text-main;
-  opacity: 0;
-  transition: opacity 200ms $easing-quick;
+.noUi-background {
+  background: hsl(0, 0%, 0%);
+  box-shadow: none;
 }
 
-.noUi-marker {
-  background-color: $color-bkgd-main;
+.noUi-horizontal {
+  height: .25em;
+  margin-top: .75em;
 }
 
-.noUi-marker-large {
-  background-color: $color-bkgd-main;
+.noUi-horizontal .noUi-handle {
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  top: -.625em;
 }
 
-.slider:hover .noUi-pips,
-.slider:focus .noUi-pips {
-  opacity: 1;
+.noUi-handle {
+  border: 2px solid hsl(0, 0%, 0%);
+  /* border-radius: 3px; */
+  background: hsl(0, 100%, 100%);
+  cursor: pointer;
+  box-shadow: none;
 }
 
-.slider.tier2 {
-  background: $gold;
-  border: 2px solid $gold;
+.noUi-handle {
+  position: relative;
+  z-index: 1;
 }
 
-.slider.tier2 .handle {
-  border-color: $gold;
-  color: $gold;
-}
-
-.slider.tier3 {
-  background: $orange;
-  border: 2px solid $orange;
-}
-
-.slider.tier3 .handle {
-  border-color: $orange;
-  color: $orange;
-}
-
-.slider.tier4 {
-  background: $ginger;
-  border: 2px solid $ginger;
-}
-
-.slider.tier4 .handle {
-  border-color: $ginger;
-  color: $ginger;
-}
-
-.slider.tier5 {
-  background: $red;
-  border: 2px solid $red;
-}
-
-.slider.tier5 .handle {
-  border-color: $red;
-  color: $red;
-}
-
-@media screen and (min-width: 1024px) {
-
-  .slider-output:nth-of-type(2) {
-    margin-bottom: 0;
-  }
-
-  .slider-output {
-    display: inline-block;
-    width: 48%;
-  }
-
+.noUi-handle:before, .noUi-handle:after {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 0.625em;
+  width: .625em;
+  background: hsl(0, 0%, 0%);
+  left: .35em;
+  top: .325em;
+  border-radius: 50%;
 }
