@@ -44,55 +44,44 @@ function SessionProvider_ () {
     key && (_ref_key = key);
   };
 
-  this.$get = ["$timeout","Clientstream", function SessionProviderFactory($timeout, Client) {
+  this.$get = ["Clientstream", "User", function SessionProviderFactory(Client, User) {
+    Client.listen('User: User session_id', function(data){
+      data.session_id && (_ref_key = data.session_id);
+      // make the ref
+      if (_ref_key) {
+        _ref = new Firebase(sessions_url).child(_ref_key);
+      } else {
+        console.log('Session: _ref_key not set SessionProvider');
+        _ref = new Firebase(sessions_url).push();
+      }
+      // create overservables and streams
+      fb_observable = _ref.observe('value').skip(1);
+      state_stream = _ref.child('state').observe('value').skip(2);
+
+      _ref.once('value', function session_loaded(ds){
+        Client.emit('Session: Session Loaded', ds);
+        User.ref().update({session_id: _ref.key()});
+      })
+      Client.emit('Session: Session _ref_key', {session_id: _ref.key()});
+    })
+
     /* setup listeners */
-
-
-
-    // listen for and save successful auth to the session when you get it
-    Client.listen('Session: add reference key', function (data) {
-      // adding any reference key to session (form, user, etc...)
-      _ref.update(data);
-    });
-
-    // listen for & save form_id to the session when you get it
-    // Client.listen('form key', function (data) {
-    //   console.log('Session: heard that form key: ', data);
-    //   return _ref.update({ form: data });
-    // });
-
-    // // listen for & save design_id to the session when you get it
-    // Client.listen('design key', function (data) {
-    //   console.log('Session: heard that design key: ', data);
-    //   return _ref.update({ design: data });
-    // });
+    Client.listen('User: User _ref_key', save_user );
+    function save_user (data) {
+      _ref.update({user_id: data.user_id});
+    }
 
     function awesome_session_builder_brah () {
       return {
-        setRefKey: function (key){
-          key && (_ref_key = key);
-        },
+        // TODO: enable hotswap sessions
+        // setRefKey: function (key){
+        //   console.log('Session.setRefKey method called', key)
+        //   key && (_ref_key = key);
+        // },
         setUserKey: function (key){
           key && (_user_key = key);
         },
-        ref: function(){
-          if (!_ref) { // TODO: may need to Delete _ref when we jump sessisons for ODAs
-            if (_ref_key) {
-              // _ref_key set from $cookie during angular bootstrap
-              _ref = new Firebase(sessions_url).child(_ref_key);
-            } else {
-              _ref = new Firebase(sessions_url).push();
-            }
-            // establish streams
-            fb_observable = _ref.observe('value').skip(1);
-            state_stream = _ref.child('state').observe('value').skip(2);
-          }
-          // once it's back from FB emit new session
-          _ref.once('value', function new_session (ds) {
-            Client.emit('New Session', ds.exportVal());
-          })
-          return _ref;
-        },
+        ref: function () {return _ref;},
         id:     function (){ return _ref.key(); },
         stream: function (){ return fb_observable; },
         state_stream: function (){ return state_stream; },

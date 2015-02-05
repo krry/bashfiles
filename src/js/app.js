@@ -2,7 +2,6 @@ angular.module('flannel', [
   'ngCookies',
   'flannel.config',
   'ui.router',
-  // 'ui.bootstrap',
   'firebase',
   'rx',
   'ngTouch',
@@ -22,7 +21,7 @@ angular.module('flannel', [
 
   // $cookies.uuid is set by the server after getting an auth token from Firebase
   uid = $cookies.uuid;
-  uid = uid.split(":")[1].split(".")[0]; // hack: is this too ugly to live?
+  uid && (uid = uid.split(":")[1].split(".")[0]); // hack: is this too ugly to live?
 
   if ($cookies.user_id) {
     // returning visitor
@@ -45,30 +44,12 @@ angular.module('flannel', [
   $sceProvider.enabled(false);
   $httpProvider.defaults.useXDomain = true;
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
-}).run(["$rootScope","$cookies", "$cookieStore", "User", "Clientstream", function run_app($rootScope,$cookies,$cookieStore, User, Client) {
-  // save user_id & session_id on the cookie
-  Client.listen('User: User _ref_key', setCookieUser )
-  Client.listen('Session: Session _ref_key', setCookieSession )
-
+}).run(["$rootScope", "$cookies", "$cookieStore", "User", "Session", "Clientstream", function run_app($rootScope, $cookies, $cookieStore, User, Session, Client) {
   // let the app know we've gotten the important stuff :)
   User.ref().once('value', function setSessionFromUser (ds) {
     // let session know we've loaded the User. now load the session.
     Client.emit('App.run: User Loaded', ds);
-  })
-
-  function setCookieSession (data){
-    console.log('app.run cookie saving Session: Session _ref_key', data);
-    cookieHack('session_id', data.session_id);
-    cookieHack('bootytoody', 'asses');
-  }
-  function setCookieUser (data){
-    console.log('app.run cookie saving User: User _ref_key', data);
-    cookieHack('session_id', data.user_id);
-    cookieHack('bootycookie', 'cookie');
-  }
-  function cookieHack (target, key) {
-    $cookies[target] = key;
-  }
+  });
 }]);
 
 var providers   = angular.module('flannel.providers',[]);

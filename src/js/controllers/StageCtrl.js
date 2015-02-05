@@ -24,8 +24,6 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client) {
       session_stream,
       waiting;
 
-  // get Session info
-  session_ref = Session.ref();
   stage = 0;
   step  = 0;
   waiting = false;
@@ -52,12 +50,15 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client) {
   // view_sync helps flow control for async // TODO: more stream-like
   $scope.view_sync = true;
 
-  // now a stream from firebase
-  session_stream = Session.stream()
-    .map(function(x){
-      return x.val() || x;
-    })
-    .subscribe(handleSessionStream);
+  Client.listen('Session >> Stage: New Session', function (ds) {
+
+    // now a stream from firebase
+    session_stream = Session.stream()
+      .map(function(x){
+        return x.val() || x;
+      })
+      .subscribe(handleSessionStream);
+  })
 
   function handleSessionStream (data) {
     if ($scope.view_sync) {
@@ -96,7 +97,9 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client) {
     /* jshint +W030 */
   }
 
+  var counter = 0;  // HACK: DEV: session provider
   function stageListen (target_state) {
+    if (counter++ < 1) return; // HACK: DEV: session provider
     console.log('heard that stage emission');
     var name;
     if (target_state === "next") {
@@ -127,7 +130,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client) {
     vm.partial = Templates.partial(stage, step);
     // update firebase
     /* jshint -W030 */
-    $scope.view_sync && session_ref.child('state').update({
+    $scope.view_sync && Session.ref().child('state').update({
       stage: stage,
       step: step
     });

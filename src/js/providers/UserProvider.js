@@ -21,7 +21,7 @@
 
 ============================================================ */
 
-providers.provider("User", ["SessionProvider", UserProvider_]);
+providers.provider("User", [ "SessionProvider", UserProvider_]);
 
 function UserProvider_ (SessionProvider) {
   var _ref,
@@ -32,78 +32,51 @@ function UserProvider_ (SessionProvider) {
   users_url = "https://scty.firebaseio.com/users/";
 
   this.setRefKey = function(key){
-    key && (_ref_key = key);
-    key && (this._ref_key = key);
+    _ref_key = key;
+    _ref = new Firebase(users_url).child(_ref_key);
+    // if user is returning, set the session _ref_key
+    _ref.once('value', function(ds) {
+      // when firebase tells us about the User object
+      if (ds.exportVal() !== null) { // if user is returning
+        // set the session _ref_key
+        SessionProvider.setRefKey(ds.exportVal().session_id);
+      }
+    });
+
+    return ref_setup(_ref);
   };
 
-  this.$get = ["$http", "$cookies", "Clientstream", function userProviderFactory ($http, $cookies, Client) {
+  function ref_setup (ref) {
+    fb_observable = ref.observe('value').skip(1);
+    state_stream = ref.child('state').observe('value').skip(2);
+    return ref;
+  }
+
+  this.$get = ["$cookies", "Clientstream", function userProviderFactory ($cookies, Client) {
     // User is the first Provider loaded for the application.
     // It contains the key to the most recent session, or if there's no key, it will need to get a new session.
-
-
-    // Get /jwt.  Use the resulting data (a jwt) and pass it to FireBase for authentication
-    $http.get('/jwt').success(function jwt_callback(data) {
-      var ref = new Firebase(users_url);
-      ref.authWithCustomToken(data, function(error, authData) {
-        if (error) {
-          console.log("Login Failed!", error);
-          } else {
-          console.log("Login Succeeded!", authData);
-        }
-      });
-    }).error(function (a,b,c,d) {
-      console.log("There was an error getting the jwt.");
+    $cookies.user_id = _ref.key();
+    // listen for the session to load, save it's _ref_key to the user
+    Client.listen('App.run: User Loaded', function save_session_to_user (ds){
+      var data = ds.exportVal();
+      var user_id = _ref.key();
+      var session_id = data ? data.session_id : null;
+      Client.emit('User: User session_id', {session_id: session_id});
+      Client.emit('User: User _ref_key', {user_id: user_id});
     });
 
-    Client.listen('User: current session', function save_session_to_user (data){
-      _ref.update(data);
-    });
-
-
-    function user_assembly () {
+    function user_builder_brah () {
       return {
-        setRefKey: function (key){
-          key && (_ref_key = key);
-        },
         ref: function(){
-          if (!_ref) { // TODO: may need to Delete _ref when we jump sessisons for ODAs
-            if (_ref_key) {
-              // _ref_key set from $cookie during angular bootstrap
-              _ref = new Firebase(users_url).child(_ref_key);
-            } else {
-              alert('this shouldn\'t happen');
-              _ref = new Firebase(sessions_url).push();
-            }
-            // establish streams
-            fb_observable = _ref.observe('value').skip(1);
-            state_stream = _ref.child('state').observe('value').skip(2);
-          }
-          // once it's back from FB emit new session
-          _ref.once('value', function new_session (ds) {
-            Client.emit('New User', ds.exportVal());
-          })
-          return _ref;
+          // return ref if we have it already // TODO: should we be able to change user?
+          if (_ref) return _ref;
+          return null;
         },
-
-
-        // ref: function(uid){
-        //   if (uid && (typeof uid === "string" || typeof uid === "number")) {
-        //     // if App.js detected a cookie with uid, we have a returning user
-        //     _ref_key = uid;
-        //     _ref = new Firebase(users_url).child(_ref_key);
-        //     // get the last session from the user & tell Session about user key
-        //     _ref.child('session_id').once('value', function update_session(ds){
-        //       console.log('session_id', ds.exportVal());
-        //       Client.emit('Session: add reference key', {user_id: _ref_key});
-        //     })
-        //   }
-        //   return _ref || (_ref = new Firebase(users_url).child(_ref_key)); // TODO: does this need to be able to push?
-        // },
-        id: function () { return _ref.key(); }
+        id: function () { return _ref.key(); },
       };
     }
 
-    return new user_assembly();
+    return new user_builder_brah();
 
 }]}
 
