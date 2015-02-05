@@ -1,18 +1,22 @@
 @import "../imports/colors";
 @import "../imports/motion";
 
-.dev-controls {
+.dev-drawer {
   position: fixed;
-  right: 0;
+  top: 0; right: 0; bottom: 0;
   width: auto;
-  height: 100%;
   z-index: 12;
-  padding: 1em 4em 2em;
   transform: translate3d(100%, 0, 0);
   transition: transform 250ms $easing-quick;
   &.shown {
     transform: translate3d(0, 0, 0);
   }
+}
+
+.dev-controls {
+  padding: 1em 4em 2em;
+  height: 100%;
+  overflow: scroll;
 }
 
 a.dev-trigger.dev-trigger {
@@ -43,7 +47,6 @@ a.dev-trigger.dev-trigger {
   }
 }
 
-.dev {
-  color: $red;
-  background: $gold;
+.dev-drawer input {
+  font-size: 1rem !important;
 }
