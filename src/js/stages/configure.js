@@ -16,6 +16,9 @@ angular.module('configure',[]).config(["$stateProvider", function ($stateProvide
           $timeout(function(){
             Clientstream.emit('stage', {stage: 1, step: 0});
           }, 1)
+          Clientstream.listen('drawing closed', function (data) {
+            $scope.traced = data;
+          })
         },
       },
       // modify the new named views @ configure

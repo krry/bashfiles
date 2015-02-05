@@ -45,7 +45,6 @@ function flnDraw_ ($timeout, $compile, Configurator, Clientstream) {
       var map_div = $('#omap');
       // end:dev //
       Configurator.enable('draw');
-
       // track the step the user is on
       tip_step = 0;
       // tip options
@@ -64,8 +63,8 @@ function flnDraw_ ($timeout, $compile, Configurator, Clientstream) {
         /* jshint -W030 */
         tip_step < tips.length -1 && tip_step++;
         /* jshint +W030 */
-        $scope.tip_text = tips[tip_step]
-        map_div.attr('tip-text', $scope.tip_text);
+        $scope.tip_text = tips[tip_step];
+        $element.find('fln-follow-tip').attr('tip', $scope.tip_text);
         $scope.$apply();
       });
 
