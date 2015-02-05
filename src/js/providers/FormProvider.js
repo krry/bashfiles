@@ -64,9 +64,9 @@ function FormProvider_ () {
 
     function awesome_form_builder_brah() {
       return {
-        ref:    function(uid){
-          if (uid) {
-            _ref = new Firebase(forms_url).child(uid);
+        ref:    function(key){
+          if (key) {
+            _ref = new Firebase(forms_url).child(key);
             Client.emit('new form ref', {key: _ref.key()});
           }
           return _ref;

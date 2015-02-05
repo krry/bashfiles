@@ -36,7 +36,6 @@ function DesignProvider_ () {
     areas_ref = design_ref.child('areas');
     areas_stream = areas_ref.observe('value').skip(1);
 
-    // HACK: sync service probably isn't necessary
     Client.listen('session key', function (key){return design_ref.update({session: key});});
     Client.emit('design key', design_ref.key());
     // TODO: it's possible pass arguments to this $get method to change the fb_observable's_ref
