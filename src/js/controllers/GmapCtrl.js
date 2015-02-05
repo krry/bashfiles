@@ -49,6 +49,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService) {
 
   function listenForMapFinish () {
     google.maps.event.addListener(map, 'tilesloaded', hideSpinner);
+    google.maps.event.addListener(map, 'idle', hideSpinner);
   }
 
   function hideSpinner () {

@@ -152,6 +152,10 @@ a.btn {
   }
 }
 
+.btn + .btn {
+  margin-left: .5em;
+}
+
 .baseline button {
   margin-bottom: 0;
 }
@@ -220,9 +224,9 @@ label {
 }
 
 label span {
-  color: $red;
-  font-size: 1.5em;
-  line-height: 50%;
+  // color: $red;
+  // font-size: 1.5em;
+  // line-height: 50%;
 }
 
 label abbr {

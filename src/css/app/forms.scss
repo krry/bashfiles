@@ -70,6 +70,10 @@ input.city,
   width: 9em;
 }
 
+.step-address .city:after {
+  content: ",";
+}
+
 input.state,
 .combo-input input.state {
   width: 4em;

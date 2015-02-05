@@ -1,11 +1,11 @@
-<input
+<span
   type="text"
   name="state"
   id="prospect_state"
   class="state"
   maxlength="2"
   placeholder="{{hint}}"
-  ng-model="form.prospect.state"
+  ng-bind="form.prospect.state"
   ng-required="true"
   ng-maxlength="2"
-  ng-valid="form.checkAddress(form.prospect)">
+  ng-valid="form.checkAddress(form.prospect)"></span>

@@ -1,11 +1,9 @@
 <section class="overlay primary short col full step-address">
-  <h1>Wow! <span id="neighbor_count">4,499</span> of your neighbors have gone solar.<br><small>Let’s take a closer look at your house.</small></h1>
+  <h1>Wow! <span id="neighbor_count">4,499</span> of your neighbors in <fln-input-city></fln-input-city><fln-input-state></fln-input-state> have gone solar.<br><small>Let’s take a closer look at your house.</small></h1>
 
   <div class="row">
     <div class="col full padded center sml-full">
-      <fln-input-street hint="Street Address"></fln-input-street>
-      <fln-input-city hint="City"></fln-input-city>
-      <fln-input-state hint="State"></fln-input-state>
+      <fln-input-street hint="Your Street Address"></fln-input-street>
       <fln-input-zip hint="Zip"></fln-input-zip>
       <button class="address-search ib" ng-click="form.checkAddress(form.prospect)">&nbsp;</button>
     </div>

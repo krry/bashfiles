@@ -15,7 +15,6 @@ module.exports = function(app) {
   function index(req, res) {
     var uuid;
     uuid = req.signedCookies.uuid;
-    // console.log("UUID: " + uuid + ".");
     if (uuid !== null && uuid !== undefined) {
       // Look up the document by uuid and return that one
     } else {
@@ -40,6 +39,7 @@ module.exports = function(app) {
       _jwt = generateJwt(uuid, edit);
     } else {
       _jwt = 'you lying so and so';
+
     }
     // now we need to pass the _jwt to the client
     res.send(_jwt);
