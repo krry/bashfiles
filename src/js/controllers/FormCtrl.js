@@ -1,14 +1,14 @@
 /* ==================================================
-  
+
   FormCtrl
 
   the form controller
 
 ================================================== */
 
-controllers.controller("FormCtrl", ["$scope", "$element", "Form", "Clientstream", "Geocoder", "Prospect", "Session", FormCtrl_]);
+controllers.controller("FormCtrl", ["$scope", "$element", "Form", "Clientstream", "Geocoder", "Prospect", FormCtrl_]);
 
-function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect, Session) {
+function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect) {
   var vm = this;
   // TODO: instead of this object literal on the FormProvider, use the firebase ref to the Form object related to the current Session
   // var form_ref = Form.ref();
@@ -142,15 +142,14 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect, Session) 
 
   function prev () {
     console.log('going to previous step');
-    Session.prev();
+    Client.emit('stage', "back");
   }
 
   function next () {
     console.log('going to next step');
     // TODO: currently not checking if valid
     /* jshint -W030 */
-    // vm.valid && Session.next();
-    Session.next();
+    Client.emit('stage', "next");
     /* jshint +W030 */
   }
 }

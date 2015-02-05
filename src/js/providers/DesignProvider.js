@@ -22,14 +22,23 @@ function DesignProvider_ () {
       make a private history function that keeps a record of what you've done
 
   ================================ */
-  this.$get = [ "Session", "Clientstream", function designProviderFactory(Session, Client) {
-    // HACK: sync service probably isn't necessary
-    Client.listen('session key', function (key){return design_ref.update({session: key});});
-    Client.emit('design key', design_ref.key());
+
+  this.$get = [ "Clientstream", function designProviderFactory(Client) {
+    console.log('design $get');
+
+    var feature;
+
+    var design_ref = new Firebase('https://scty.firebaseio.com/designs/').push();
+    var fb_observable = design_ref.observe('value').skip(1);
+    var areas_ref;
+    var areas_stream;
 
     areas_ref = design_ref.child('areas');
     areas_stream = areas_ref.observe('value').skip(1);
-    var feature;
+
+    Client.listen('session key', function (key){return design_ref.update({session: key});});
+    Client.emit('design key', design_ref.key());
+    // TODO: it's possible pass arguments to this $get method to change the fb_observable's_ref
     function awesome_design_builder_brah() {
       return {
         stream: function(){return fb_observable},
@@ -48,11 +57,4 @@ function DesignProvider_ () {
     // always save your firebase references when you create them
     return new awesome_design_builder_brah();
   } ];
-
-  var design_ref = new Firebase('https://scty.firebaseio.com/designs/').push();
-  var fb_observable = design_ref.observe('value').skip(1);
-  var areas_ref;
-  var areas_stream;
-
-  // TODO: it's possible pass arguments to this $get method to change the fb_observable's_ref
 }

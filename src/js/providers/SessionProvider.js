@@ -27,43 +27,62 @@
 providers.provider("Session", SessionProvider_);
 
 function SessionProvider_ () {
-  var session_ref = new Firebase('https://scty.firebaseio.com/sessions/').push();  // TODO: pass arguments to this $get method to change the fb_observable's_ref
-  var fb_observable = session_ref.observe('value').skip(1);
-  var state_stream = session_ref.child('state').observe('value').skip(2);
-  this.$get = [  "JwtService", "Clientstream", function SessionProviderFactory(jwt, Client) {
-    console.log('Session Provider started')
+  console.log('Session Provider started')
+
+  var _ref,
+      sessions_url,
+      _ref_key,
+      _user_key,
+      fb_observable,
+      state_stream;
+
+  sessions_url = 'https://scty.firebaseio.com/sessions/';
+  _ref_key = null;
+  _user_key = null;
+
+  this.setRefKey = function setRefKey(key){
+    key && (_ref_key = key);
+  };
+
+  this.$get = ["Clientstream", "User", function SessionProviderFactory(Client, User) {
+    Client.listen('User: User session_id', function(data){
+      data.session_id && (_ref_key = data.session_id);
+      // make the ref
+      if (_ref_key) {
+        _ref = new Firebase(sessions_url).child(_ref_key);
+      } else {
+        console.log('Session: _ref_key not set SessionProvider');
+        _ref = new Firebase(sessions_url).push();
+      }
+      // create overservables and streams
+      fb_observable = _ref.observe('value').skip(1);
+      state_stream = _ref.child('state').observe('value').skip(2);
+
+      _ref.once('value', function session_loaded(ds){
+        Client.emit('Session: Session Loaded', ds);
+        User.ref().update({session_id: _ref.key()});
+      })
+      Client.emit('Session: Session _ref_key', {session_id: _ref.key()});
+    })
+
     /* setup listeners */
+    Client.listen('User: User _ref_key', save_user );
+    function save_user (data) {
+      _ref.update({user_id: data.user_id});
+    }
 
-    // listen for and save successful auth to the session when you get it
-    Client.listen('new user', function (data) {
-      // save data to session object
-    });
-
-    // if user is existing, should send existing users to their correct place in the flow
-    Client.listen('existing user', function (data) {
-      // get necessary data to move the user to correct state in flow
-      Client.emit('stage', data);
-    });
-
-    // listen for & save form_id to the session when you get it
-    Client.listen('form key', function (data) {
-      console.log('heard that form key: ', data);
-      return session_ref.update({ form: data });
-    });
-
-    // listen for & save design_id to the session when you get it
-    Client.listen('design key', function (data) {
-      console.log('heard that design key: ', data);
-      return session_ref.update({ design: data });
-    });
-
-    /*  initialize the process of getting auth from firebase with custom token */
-    jwt.jwt();
-
-    function awesome_design_builder_brah () {
+    function awesome_session_builder_brah () {
       return {
-        ref:    function (){ return session_ref; },
-        id:     function (){ return session_ref.key(); },
+        // TODO: enable hotswap sessions
+        // setRefKey: function (key){
+        //   console.log('Session.setRefKey method called', key)
+        //   key && (_ref_key = key);
+        // },
+        setUserKey: function (key){
+          key && (_user_key = key);
+        },
+        ref: function () {return _ref;},
+        id:     function (){ return _ref.key(); },
         stream: function (){ return fb_observable; },
         state_stream: function (){ return state_stream; },
         next:   function () { Client.emit('stage', "next");},
@@ -72,6 +91,6 @@ function SessionProvider_ () {
     }
 
     // always save your firebase references when you create them
-    return new awesome_design_builder_brah();
+    return new awesome_session_builder_brah();
   } ];
 }
