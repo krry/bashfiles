@@ -1,44 +1,72 @@
-<h2>dev tools</h2>
-
-<div>
-  <label for="stageSelector">Jump to a stage</label>
-    <select id="stageSelector" ng-model="stages.partial" ng-options="s for s in stages.partials" >
-    </select>
-</div>
-
-<div class="row">
-  <div class="col half">
-    <button class="tiny aqua" ng-click="stages.prev()">Back</button>
-  </div>
-  <div class="col half">
-    <button class="tiny aqua" ng-click="stages.next()">Next</button>
-  </div>
-</div>
-
-<div>
-  <label>active user info: <a ng-click="toggleUserObject()">{{userShownTriggerText}}</a></label>
-  <!-- TODO: log out user object to footer for dev purposes -->
-  <!-- <pre ng-show="userShown" fln-form>formInfo = {{ form.user | json }}</pre> -->
+<div class="dev-controls">
+  <h2>dev tools</h2>
   <a class="btn red" onclick="location.hash = '#/home'; location.reload(true);">Reload app</a>
-  <!-- <button class="btn blue" ng-click="">Populate test address</button> -->
-  <!-- <ul>
-    <li><label for="userName">user.name</label><span>{{user.name}}</span></li>
-    <li><label for="userZip">user.zip</label><span>{{user.zip}}</span></li>
-    <li><label for="userAddress">user.address</label><span>{{user.address}}</span></li>
-    <li><label for="userCity">user.city</label><span>{{user.city}}</span></li>
-    <li><label for="userState">user.state</label><span>{{user.state}}</span></li>
-    <li><label for="userEmail">user.email</label><span>{{user.email}}</span></li>
-    <li><label for="userPhone">user.phone</label><span>{{user.phone}}</span></li>
-    <li><label for="userUsage">user.usage</label><span>{{user.usage}}</span></li>
-    <li><label for="userDesign">user.design</label><span>{{user.design}}</span></li>
-    <li><label for="userAppt">user.appt</label><span>{{user.appt}}</span></li>
-  </ul> -->
-</div>
 
-<h5>App status</h5>
-<ul>
-  <li ng-show="{{view_sync}}">View synced</li>
-  <li ng-hide="{{view_sync}}">View not synced</li>
-</ul>
+  <div>
+    <h4 for="stageSelector">Jump to a stage</h4>
+    <select id="stageSelector" ng-model="stages.partial" ng-options="s for s in stages.partials" ng-init="stages.partial = stages.partials[0]">
+      </select>
+  </div>
+
+  <div class="row">
+    <div class="col half">
+      <button class="tiny aqua" ng-click="stages.prev()">Back</button>
+    </div>
+    <div class="col half">
+      <button class="tiny aqua" ng-click="stages.next()">Next</button>
+    </div>
+  </div>
+
+  <div>
+    <h4>Current prospect info:</h4>
+    <label class="inline" for="dev_zip">
+      <span>zip</span>
+      <input type="text" id="dev_zip" ng-model="dev.prospect.zip">
+    </label>
+    <label class="inline" for="dev_city">
+      <span>city</span>
+      <input type="text" id="dev_city" ng-model="dev.prospect.city">
+    </label>
+    <label class="inline" for="dev_state">
+      <span>state</span>
+      <input type="text" id="dev_state" ng-model="dev.prospect.state">
+    </label>
+    <label class="inline" for="dev_street">
+      <span>street</span>
+      <input type="text" id="dev_street" ng-model="dev.prospect.street">
+    </label>
+    <label class="inline" for="dev_name">
+      <span>name</span>
+      <input type="text" id="dev_name" ng-model="dev.prospect.name">
+    </label>
+    <label class="inline" for="dev_email">
+      <span>email</span>
+      <input type="text" id="dev_email" ng-model="dev.prospect.email">
+    </label>
+    <label class="inline" for="dev_phone">
+      <span>phone</span>
+      <input type="text" id="dev_phone" ng-model="dev.prospect.phone">
+    </label>
+    <label class="inline" for="dev_dob-month">
+      <span>month</span>
+      <input type="text" id="dev_dob-month" ng-model="dev.prospect.dob.month">
+    </label>
+    <label class="inline" for="dev_dob-day">
+      <span>day</span>
+      <input type="text" id="dev_dob-day" ng-model="dev.prospect.dob.day">
+    </label>
+    <label class="inline" for="dev_dob-year">
+      <span>year</span>
+      <input type="text" id="dev_dob-year" ng-model="dev.prospect.dob.year">
+    </label>
+  </div>
+
+  <h4>App status</h4>
+  <ul>
+    <li ng-show="{{view_sync}}">View synced</li>
+    <li ng-hide="{{view_sync}}">View not synced</li>
+  </ul>
+
+</div>
 
 <a class="dev-trigger" ng-click="toggleDevPanel()">{{panelShownTriggerText}}</a>

@@ -27,12 +27,14 @@
 
 .slider-output:before {
   content: "\0024";
-  line-height: 1em;
+  position: relative;
+  top: -.375em;
+  // line-height: 2em;
 }
 
 .slider-output:before,
 .slider-output:after {
-  font-size: .5em;
+  font-size: .625em;
 }
 
 .slider-output:after {
@@ -55,11 +57,17 @@
   margin-top: .75em;
 }
 
+.noUi-base {
+  padding: 1em 0;
+  margin-top: -1em;
+}
+
 .noUi-horizontal .noUi-handle {
-  width: 1.5em;
-  height: 1.5em;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  top: -.625em;
+  top: 3px;
+  position: relative;
 }
 
 .noUi-handle {
@@ -79,10 +87,11 @@
   content: "";
   display: block;
   position: absolute;
-  height: 0.625em;
-  width: .625em;
+  height: 12px;
+  width: 12px;
   background: hsl(0, 0%, 0%);
-  left: .35em;
-  top: .325em;
+  left: 50%;
+  top: 50%;
+  margin: -6px 0 0 -6px;
   border-radius: 50%;
 }

@@ -23,3 +23,8 @@
   color: white;
   border-color: $grey-dark;
 }
+
+.inverse input {
+  background-color: $color-bkgd-inverse !important;
+  color: $color-text-inverse !important;
+}

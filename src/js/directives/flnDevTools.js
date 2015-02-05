@@ -4,14 +4,14 @@ function flnDevTools_ () {
   return {
     // scope: {},
     templateUrl: 'templates/directives/flnDevTools.html',
-    // controller: 'DevCtrl',
-    // controllerAs: 'dev',
+    controller: 'DevCtrl',
+    controllerAs: 'dev',
     link: function(scope, element, attrs) {
       scope.toggleUserObject = toggleUserObject;
       scope.toggleDevPanel = toggleDevPanel;
       scope.userShown = true;
       scope.userShownTriggerText = "hide";
-      scope.panelShown = false;
+      scope.panelShown = true;
       scope.panelShownTriggerText = "dev";
 
       // TODO: register a dev tools service so directives outside the dev panel can interact with it. see the ModalService and ModalCtrl

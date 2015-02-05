@@ -124,7 +124,10 @@ function OlMapCtrl_($scope, $timeout, Client, MapService, LayerService, Interact
     Design.feature().on('change:wkt', wkt_update_notification);
     Design.feature().getGeometry().on('change', update_wkt_while_modify);
     Client.emit('update_remote', Design.feature().getGeometry());
-    Client.emit('stage', "next");
+    // TODO: decide whether to auto-advance user or to let them approve
+    Client.emit('drawing closed', true);
+    // Client.emit('stage', "next");
+    // Session.next();
   }
 
   function wkt_update_notification (ft) {

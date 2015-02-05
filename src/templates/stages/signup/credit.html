@@ -5,25 +5,25 @@
     <div class="row">
       <div class="col half padded">
         <label for="">Full name <span>*</span></label>
-        <input type="text" name="name" ng-model="user.name" placeholder="First and last, please" class="name">
+        <input type="text" name="name" ng-model="form.prospect.name" placeholder="First and last, please" class="name">
       </div>
       <div class="col half padded">
         <label for="">Email address <span>*</span></label>
-        <input type="text" name="email" ng-model="user.email" placeholder="you@domain.com" class="email">
+        <input type="text" name="email" ng-model="form.prospect.email" placeholder="you@domain.com" class="email">
       </div>
     </div>
     <div class="row">
       <div class="col half padded">
         <label for="">Date of birth <span>*</span></label>
         <div class="combo-input">
-          <input type="text" name="month" ng-model="user.month" class="month" placeholder="mm" ng-minlength="2" ng-maxlength="2">
-          <input type="text" name="day" ng-model="user.day" class="day" placeholder="dd" ng-minlength="2" ng-maxlength="2">
-          <input type="text" name="year" ng-model="user.year" class="year" placeholder="yyyy" ng-minlength="4" ng-maxlength="4">
+          <input type="text" name="month" ng-model="form.prospect.dob.month" class="month" placeholder="mm" ng-minlength="2" ng-maxlength="2">
+          <input type="text" name="day" ng-model="form.prospect.dob.day" class="day" placeholder="dd" ng-minlength="2" ng-maxlength="2">
+          <input type="text" name="year" ng-model="form.prospect.dob.year" class="year" placeholder="yyyy" ng-minlength="4" ng-maxlength="4">
         </div>
       </div>
       <div class="col half padded">
         <label for="">Phone number</label>
-        <input type="text" name="phone" ng-model="user.phone" placeholder="(---) --- ----" class="phone">
+        <input type="text" name="phone" ng-model="form.prospect.phone" placeholder="(---) --- ----" class="phone">
       </div>
     </div>
     <div class="row center">

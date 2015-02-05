@@ -10,8 +10,8 @@
   <!-- preventing crawls with google's recommended meta tag -->
   <!-- https://developers.google.com/webmasters/control-crawl-index/docs/robots_meta_tag -->
 
-  <!-- this viewport locking approach is useful sometimes, just not for our universally responsive app -->
-  <!-- <meta name="viewport" content="initial-scale=1, width=device-width"> -->
+  <!-- ensures that (mobile) browsers don't load the app in a zoomed state -->
+  <meta name="viewport" content="initial-scale=1">
   <title ng-bind="app.appTitle">SolarCity</title>
 
   <!-- angular -->
@@ -113,11 +113,6 @@
   <script src="lib/Link.js"></script>
   <script src="lib/nouislider.js"></script>
   <script src="lib/nouislider.min.js"></script>
-
-  <!-- bootstrap scripps -->
-  <script src="lib/ui-bootstrap-tpls.min.js"></script>
-  <script src="lib/ui-bootstrap.js"></script>
-  <!-- <script src="lib/ui-bootstrap.min.js"></script> -->
 
   <!-- firebase related -->
   <script src="lib/firebase-debug.js"></script>
