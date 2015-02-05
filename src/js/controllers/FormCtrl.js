@@ -149,7 +149,7 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect) {
     console.log('going to next step');
     // TODO: currently not checking if valid
     /* jshint -W030 */
-    vm.valid && Client.emit('stage', "next");
+    Client.emit('stage', "next");
     /* jshint +W030 */
   }
 }
