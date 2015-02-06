@@ -139,12 +139,14 @@
   }
 }
 
-.col.baseline {
+.col.baseline,
+.vert-baseline {
   vertical-align: baseline;
 }
 
-.col.bottom {
-  vertical-align: bottom;
+.col.bottom,
+.vert-bottom {
+  vertical-align: bottom !important;
 }
 
 /* > 536px --- bigger than iPhone portrait */

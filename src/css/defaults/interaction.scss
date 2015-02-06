@@ -141,6 +141,14 @@ a.btn {
     &.aqua {
       @include btn($aqua-dark, $size: .75em);
     }
+
+  &.clear {
+    @include btn($tint-80);
+    padding: .5em 1em;
+  }
+
+  &.aqua.large {
+    @include btn($aqua-dark, $size: 1.25em);
   }
 
   &.white.square.small.padded {
@@ -284,7 +292,7 @@ select[multiple=multiple] {
   @include apercu-light;
   box-sizing: border-box;
   transition: border-color;
-  background-color: transparent;
+  background-color: $color-input-bkgd;
   color: inherit;
   // border: none;
   // border-bottom: 1px solid $grey-lighter;

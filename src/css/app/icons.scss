@@ -6,15 +6,31 @@
   }
   &.call {
     @include icon('help-call');
+    &.medium {
+      background-position: center -.75em;
+      width: 2em;
+      height: 2em;
+    }
+    &.large {
+      background-position: center -.75em;
+      width: 4em;
+      height: 4em;
+    }
   }
-  &.call.large {
-    @include icon('help-call');
-    background-position: center -.75em;
-    width: 4em;
-    height: 4em;
+  &.search {
+    @include icon('address-search');
+    background-color: transparent;
+    border: none;
+    width: 2em;
+    height: 2em;
   }
   &.chat {
     @include icon('help-chat');
+    &.large {
+      background-position: center -.75em;
+      width: 4em;
+      height: 4em;
+    }
   }
   &.facebook {
     @include icon("facebook", $type: "png");

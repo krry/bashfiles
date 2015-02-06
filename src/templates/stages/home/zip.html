@@ -1,10 +1,11 @@
-<section class="overlay primary col fourth three step-zip">
+<section class="overlay primary col step-zip">
   <h1 ng-hide="form.invalid">Every minute, someone switches to solar.<br><small>Are we in your neighborhood?</small></h1>
   <h1 class="error" ng-show="form.invalid && form.invalidZip">We’ve never seen that zip.<br><small>Let's try it again. Or try entering your city.</small></h1>
   <h1 class="error" ng-show="form.invalid && form.invalidTerritory">Sorry, we're not in your area yet.<br><small>Enter your email if you'd like to know when we get there.</small></h1>
 
   <fln-input-zip hint="ZIP CODE"></fln-input-zip>
 
+  <p>If you prefer to speak with a sales representative, call <strong><a href="tel:18887652489">(888) 765-2489</a></strong> or <a>ask us to call you</a>.</p>
   <fln-input-email hint="Leave us your email" ng-show="form.invalid && form.invalidTerritory"></fln-input-email>
   <button class="ib aqua" ng-show="form.invalid && form.invalidTerritory">Notify Me</button>
   <div fln-alternav alternatives="true" ng-show="form.invalid && form.invalidTerritory"></div fln-alternav>
@@ -13,7 +14,7 @@
 
 </section>
 
-<aside class="overlay secondary col fourth sml-full med-full lrg-full">
+<aside class="overlay secondary col sml-full med-full lrg-full">
   <figure class="bleed-right">
     <video src=""></video>
     <label for="vision_video"><strong>SolarCity Vision</strong>&nbsp;<em>2:42 min</em></label>
