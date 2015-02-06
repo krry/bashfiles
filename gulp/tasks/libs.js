@@ -49,6 +49,7 @@ var libSrc = [
   './src/lib/angularfire/dist/angularfire.min.js',
   './src/lib/angular-rx/dist/rx.angular.js',
   './src/js/rxjs-firebase/rx.firebase.js',
+  './src/lib/moment/moment.js'
 ];
 
 var libPub = './public/lib';

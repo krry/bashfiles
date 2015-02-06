@@ -45,6 +45,7 @@ function TemplateConfig_ () {
         { step: 'review-proposal', partial: 'proposal.html' },
         { step: 'credit-check',    partial: 'credit.html'   },
         { step: 'schedule-survey', partial: 'schedule.html' },
+        { step: 'confirm-appt',    partial: 'confirm.html'  },
         { step: 'congrats',        partial: 'congrats.html' },
       ],
     },
