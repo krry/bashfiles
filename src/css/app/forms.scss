@@ -53,13 +53,19 @@ input.zipcode {
   background-color: $white-dark;
 }
 
-.step-zip input.zipcode {
+.step-zip {
+  input.zipcode {
     text-align: center;
-    font-size: 2em;
-    width: 7em;
-    padding: 0.6em 1em;
-    margin: .25em auto;
+    font-size: 2.25em;
+    width: 6.75em;
+    padding: .6em .75em;
+    margin: .25em auto 1.5em;
   }
+  p {
+      font-size: .75em;
+  }
+}
+
 
 input.street {
   width: 12em;
@@ -122,36 +128,6 @@ span.autolocate-icon {
     margin-bottom: 0;
   }
 }
-
-.address-search {
-  // position: absolute;
-  // top: 0;
-  // right: 0;
-  // opacity: 1;
-  background: url('../img/address-search.svg') no-repeat center center;
-  background-size: 40px 40px;
-  background-color: none;
-  width: 40px;
-  height: 40px;
-  margin: 0.5em;
-  padding: 0em;
-  border-radius: 0em;
-  border: 0;
-}
-
-// .answer-container h3 {
-//   display: inline-block;
-//   margin: 1em 1em 0 0;
-// }
-// button.answer-yes,
-// button.answer-no {
-//   display: inline-block;
-//   opacity: 1;
-//   margin: 0.15em;
-//   padding: 0.75em 1.25em;
-//   min-width: 5em;
-//   border-radius: 50% / 100%;
-// }
 
 @media screen and (min-width: $width-min-med) {
   input.street,

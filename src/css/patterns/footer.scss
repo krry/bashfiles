@@ -3,14 +3,14 @@
 .footer {
   position: fixed;
   z-index: 1;
-  background: $color-bkgd-primary;
+  background: $color-bkgd-footer;
   bottom: 0;
-  width: 100%
+  width: 100%;
 }
 
 .footer .boilerplate {
-  font-size: .625em;
-  padding: 2em;
+  font-size: .5em;
+  padding: 1.5em;
   margin-bottom: 0;
   text-align: center;
 

@@ -21,16 +21,6 @@
   color: $white;
   background-color: $color;
 
-  @if $color == $white {
-    // @include apercu-light;
-    color: $grey-dark;
-    background-color: $color;
-  }
-
-  @if trim-unit($size) < 1 {
-    letter-spacing: 1px;
-  }
-
   padding: $pad;
 
   outline: none;
@@ -50,6 +40,23 @@
 
   transition: all .075s $easing-quick;
   transition: background-color .1s $easing-quick;
+
+  @if $color == $white {
+    // @include apercu-light;
+    color: $grey-dark;
+    background-color: $color;
+  }
+
+  @if $color == $tint-80 {
+    // @include apercu-light;
+    color: $aqua-dark;
+    border: 3px solid $aqua-dark;
+    background-color: $color;
+  }
+
+  @if trim-unit($size) < 1 {
+    letter-spacing: 1px;
+  }
 
   &:hover {
     color: $white;

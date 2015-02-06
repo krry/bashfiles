@@ -24,7 +24,7 @@
 
 // mobile width type styles first
 body {
-  font-size: em($font-size*.875)
+  font-size: em($font-size*.875);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -48,11 +48,15 @@ h1 {
   line-height: 1.2em;
 }
 
+.step-zip h1 {
+  margin-bottom: .75em;
+}
+
 h1 small {
   @include apercu-light;
   font-size: 65%;
   display: block;
-  margin-top: 8px;
+  margin-top: .5em;
   // font-weight: normal;
   line-height: 120%;
 }

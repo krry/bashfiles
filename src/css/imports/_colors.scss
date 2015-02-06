@@ -57,13 +57,16 @@ $tint-95:  rgba(255,255,255,.95);
 $color-text-main:            $grey-darker;
 $color-border-main:          $grey-light;
 $color-bkgd-main:            $grey-lightest;
+$color-bkgd-main:            $white;
 $color-bkgd-primary:         $tint-90;
+$color-bkgd-footer:          $grey-lightest;
 $color-link-main:            $aqua-dark;
 $color-link-visited-main:    $blue-dark;
 
 $color-highlight:            $aqua-dark;
 
 $color-input-text:           $aqua-dark;
+$color-input-bkgd:           $white-dark;
 $color-headline-text:        $grey-darker;
 
 $color-text-inverse:         $white;
@@ -83,5 +86,7 @@ $color-header-bkgd:          rgba(19, 40, 48, 0.80);
 $color-header-bkgd:          rgba(01, 30, 33, 0.70);
 $color-header-bkgd:          rgba(42, 54, 59, 0.9);
 $color-header-bkgd:          rgba(22, 48, 62, 0.93);
+$color-header-bkgd:          transparentize($green, 0.93);
 $color-header-shadow:        rgba(42, 54, 59, 0.5);
 $color-header-shadow:        rgba(22, 48, 62, 0.5);
+$color-header-shadow:        transparentize($green, 0.5);
