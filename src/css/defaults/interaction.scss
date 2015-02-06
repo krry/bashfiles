@@ -141,10 +141,6 @@ a.btn {
     &.aqua {
       @include btn($aqua-dark, $size: .75em);
     }
-
-  &.clear {
-    @include btn($tint-80);
-    padding: .5em 1em;
   }
 
   &.aqua.large {
@@ -154,14 +150,36 @@ a.btn {
   &.white.square.small.padded {
     @include btn($color: $white, $size: .875em, $corners: .25em, $pad: #{1.5em 3em});
   }
+  &.nested {
+    position: absolute;
+    right: .5rem;
+    top: .5rem;
+    margin: 0;
+  }
+  &.round {
+    border-radius: 50%;
+    padding: 0;
+    width: 2.5rem;
+    min-width: 0;
+    height: 2.5rem;
+  }
+
   &:disabled {
     cursor: not-allowed;
     opacity: .5;
   }
 }
 
+.nest {
+  position: relative;
+  display: inline-block;
+  input {
+    padding-right: 3.5rem !important;
+  }
+}
+
 .btn + .btn {
-  margin-left: .5em;
+  margin-left: 1em;
 }
 
 .baseline button {
@@ -343,7 +361,7 @@ input[type="time"]:focus,
 input[type="week"]:focus,
 select[multiple=multiple]:focus {
   border-color: $grey-mid;
-  background-color: $white;
+  background-color: $color-input-bkgd-focus;
   // -webkit-box-shadow: 0px 0px 4px rgba(0,0,0,0.15);
   //    -moz-box-shadow: 0px 0px 4px rgba(0,0,0,0.15);
   //         box-shadow: 0px 0px 4px rgba(0,0,0,0.15);

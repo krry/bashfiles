@@ -3,9 +3,11 @@
 
   <div class="row">
     <div class="col full padded center sml-full">
-      <fln-input-street hint="Your Street Address"></fln-input-street>
+      <span class="nest">
+        <fln-input-street hint="Your Street Address"></fln-input-street>
+        <button class="btn gold nested round" ng-click="form.checkAddress(form.prospect)"><span class="icon search"></span></button>
+      </span>
       <fln-input-zip hint="Zip"></fln-input-zip>
-      <button class="ib btn clear small vert-bottom" ng-click="form.checkAddress(form.prospect)"><span class="icon search"></span></button>
     </div>
   </div>
 </section>
