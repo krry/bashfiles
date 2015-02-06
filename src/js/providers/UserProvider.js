@@ -27,7 +27,8 @@ function UserProvider_ (SessionProvider) {
   var _ref,
       _ref_key,
       users_url,
-      fb_observable;
+      fb_observable,
+      state_stream;
 
   users_url = "https://scty.firebaseio.com/users/";
 

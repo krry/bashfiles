@@ -11,7 +11,7 @@ angular.module('configure',[]).config(["$stateProvider", function ($stateProvide
       // replace the main ui-view @ index
       'main@': {
         templateUrl: stageUrl + "main.html",
-        controller:  function ($timeout, Clientstream) {
+        controller:  function ($scope, $timeout, Clientstream) {
           // HACK: enable quick routing through app
           $timeout(function(){
             Clientstream.emit('stage', {stage: 1, step: 0});

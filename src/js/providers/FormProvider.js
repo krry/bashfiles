@@ -35,7 +35,8 @@ function FormProvider_ () {
   var _ref,
       fb_observable,
       // TODO: sync this with firebase instead of caching it locally
-      prospect;
+      prospect,
+      forms_url;
 
   forms_url = 'https://scty.firebaseio.com/forms/'; // hack: hardcode // todo: make this constant value
 

@@ -21,8 +21,9 @@ angular.module('flannel', [
 
   // $cookies.uuid is set by the server after getting an auth token from Firebase
   uid = $cookies.uuid;
+  /* jshint -W030 */
   uid && (uid = uid.split(":")[1].split(".")[0]); // hack: is this too ugly to live?
-
+  /* jshint +W030 */
   if ($cookies.user_id) {
     // returning visitor
     console.log('**** VISITOR HAS 1 WHOLE COOKIE ****', $cookies.user_id);
