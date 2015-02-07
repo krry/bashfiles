@@ -49,6 +49,10 @@ var libSrc = [
   './src/lib/angularfire/dist/angularfire.min.js',
   './src/lib/angular-rx/dist/rx.angular.js',
   './src/js/rxjs-firebase/rx.firebase.js',
+  './src/js/fln-chat/fln-chat-jquery-ui.css', // TODO: HACK: nix that shit ASAP
+  './src/js/fln-chat/fln-chat-jquery-ui.js', // TODO: HACK: nix that shit ASAP
+  './src/js/fln-chat/fln-chat-jquery-ui-chatbox.js', // TODO: HACK: nix that shit ASAP
+  './src/js/fln-chat/fln-chat-jquery-ui-chatbox.css', // TODO: HACK: nix that shit ASAP
 ];
 
 var libPub = './public/lib';
