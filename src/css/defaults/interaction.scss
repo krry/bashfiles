@@ -114,6 +114,9 @@ a.btn {
     &.aqua {
       @include btn($aqua-dark, $size: .875em);
     }
+    &.orange {
+      @include btn($orange, $size: .875em);
+    }
     &.red {
       @include btn($red, $size: .875em);
     }
