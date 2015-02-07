@@ -11,6 +11,11 @@ angular.module('configure',[]).config(["$stateProvider", function ($stateProvide
       // replace the main ui-view @ index
       'main@': {
         templateUrl: stageUrl + "main.html",
+        controller:  function ($scope, Clientstream) {
+          Clientstream.listen('drawing closed', function (data) {
+            $scope.traced = data;
+          })
+        },
       },
       // modify the new named views @ configure
       'map@configure': {
