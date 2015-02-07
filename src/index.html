@@ -16,16 +16,22 @@
   <meta name="viewport" content="initial-scale=1">
   <title ng-bind="app.appTitle">SolarCity</title>
 
-  <!-- angular -->
-  <script src="lib/angular.js"></script>
+  <!-- fln-chat styles   // TODO: HACK: nix that shit ASAP -->
+  <link href="lib/fln-chat-jquery-ui.css" rel="stylesheet">
+  <link href="lib/fln-chat-jquery-ui-chatbox.css" rel="stylesheet">
 
   <!-- Dependencies & libraries -->
   <link href="lib/jquery.nouislider.css" rel="stylesheet">
 
   <!--STYLES--><!--STYLES END-->
 
+  <link href="css/all.css" rel="stylesheet">
+  <!-- <link href="css/all.min.css" rel="stylesheet"> -->
   <link href="lib/ol.css" rel="stylesheet">
   <!-- <link href="lib/ol.min.css" rel="stylesheet"> -->
+
+  <!-- angular -->
+  <script src="lib/angular.js"></script>
 
   <!-- RXjs -->
   <script src="lib/rx.all.js"></script>
@@ -41,6 +47,11 @@
   <script src="lib/jquery.widowFix-1.3.2.js"></script>
   <!-- <script src="lib/jquery.widowFix-1.3.2.min.js"></script> -->
   <script src="lib/mailgun_validator.js"></script>
+
+  <!-- fln-chat-scripts   // TODO: HACK: nix that shit ASAP -->
+  <script src="lib/fln-chat-jquery-ui.js"></script>
+  <script src="lib/fln-chat-jquery-ui-chatbox.js"></script>
+
   <!-- Dependencies & libraries if you want environmental conditionals -->
 
   <!-- <script ng-switch-when="false" src="lib/angular.js"></script> -->
@@ -129,8 +140,6 @@
   <!-- <script src="lib/rx.firebase.min.js"></script> -->
 
   <!-- Application -->
-  <!-- NOTE TO KERRY: you need to prefix script paths with `js/` or you will brim with frothing, stupid rage foam -->
-  <!--SCRIPTS--><!--SCRIPTS END-->
 
   <!-- <switch ng-switch="app.minified">
     <script ng-switch-when="false" src="lib/ui-bootstrap.js"></script>
@@ -148,5 +157,6 @@
     <script ng-switch-when="false" src="lib/rx.firebase.js"></script>
     <script ng-switch-when="true" src="lib/rx.firebase.min.js"></script>
   </switch> -->
+  <!--SCRIPTS--><!--SCRIPTS END-->
 </body>
 </html>
