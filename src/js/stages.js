@@ -5,8 +5,9 @@ angular.module('stages',[
   'configure',
   'signup',
 ])
-.config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/home');
+.config(["$locationProvider", "$stateProvider", "$urlRouterProvider", function ($locationProvider, $stateProvider, $urlRouterProvider) {
+  // $urlRouterProvider.when('#', '');
+  $urlRouterProvider.otherwise('/');
 }]).run([function ui_router_run() {
   // this runs after all the dependencies are bootstrapped
 }]);
