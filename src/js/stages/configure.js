@@ -6,16 +6,12 @@ angular.module('configure',[]).config(["$stateProvider", function ($stateProvide
   var stageUrl = templateUrl + "stages/" + stageName + '/';
 
   $stateProvider.state("configure", {
-    url: "/configure",
+    url: "^",
     views: {
       // replace the main ui-view @ index
       'main@': {
         templateUrl: stageUrl + "main.html",
-        controller:  function ($scope, $timeout, Clientstream) {
-          // HACK: enable quick routing through app
-          $timeout(function(){
-            Clientstream.emit('stage', {stage: 1, step: 0});
-          }, 1)
+        controller:  function ($scope, Clientstream) {
           Clientstream.listen('drawing closed', function (data) {
             $scope.traced = data;
           })

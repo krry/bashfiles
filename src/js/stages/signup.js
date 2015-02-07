@@ -7,16 +7,10 @@ angular.module('signup', []).config(["$stateProvider", function ($stateProvider)
   var stageUrl = templateUrl + "stages/" + stageName + '/';
 
   $stateProvider.state('signup', {
-    url: "/signup",
+    url: "^",
     views: {
       'main@': {
         templateUrl: stageUrl + "main.html",
-        controller:  function ($timeout, Clientstream) {
-          // HACK: enable quick routing through app
-          $timeout(function(){
-            Clientstream.emit('stage', {stage: 2, step: 0});
-          }, 1)
-        },
       },
       'header@': {
         templateUrl: templateUrl + 'header.html',
