@@ -1,4 +1,13 @@
 <button id="chat-trigger" class="chat-trigger btn small orange" name="chat-trigger">Chat now</button>
-<div id="chat-tray" name="chat-iframe" class="chat-tray">
+<div id="chat-tray" name="chat-iframe" class="chat-tray" ng-show="chat.shown">
   <iframe id="chat-iframe" name="chat-iframe" src="" frameborder="0"></iframe>
+</div>
+
+<img id="liveagent_button_online_57319000000CaTc" style="display: none; border: 0px none; cursor: pointer" onclick="liveagent.startChat('57319000000CaTc')" src="https://oda-solarcity.cs24.force.com/support/resource/1423088340000/Chat_Online" />
+<img id="liveagent_button_offline_57319000000CaTc" style="display: none; border: 0px none; " src="https://oda-solarcity.cs24.force.com/support/resource/1423088060000/Chat_Offline" />
+<input type="button" name="toggle" value="Get Help"/>
+
+<!--Chat box will be generated in this container-->
+<div id="chat_div" style="float: right;">
+  <iframe id='liveAgentChat' height="250px;"></iframe>
 </div>
