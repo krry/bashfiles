@@ -67,7 +67,6 @@ function SessionProvider_ () {
       _ref.once('value', function session_loaded(ds){
         Client.emit('Session: Session Loaded', ds);
         User.ref().update({session_id: _ref.key()});
-        console.log({session_id: ds.exportVal()});
       })
       Client.emit('Session: Session _ref_key', {session_id: _ref.key()});
     })
