@@ -44,6 +44,7 @@ function SessionProvider_ () {
     /* jshint -W030 */
     key && (_ref_key = key);
     /* jshint +W030 */
+    console.log('ref_key in sessionProvider being set:', key);
   };
 
   this.$get = ["Clientstream", "User", function SessionProviderFactory(Client, User) {
@@ -53,18 +54,20 @@ function SessionProvider_ () {
       /* jshint +W030 */
       // make the ref
       if (_ref_key) {
+        // console.log('Session: _ref_key set on load');
         _ref = new Firebase(sessions_url).child(_ref_key);
       } else {
-        console.log('Session: _ref_key not set SessionProvider');
+        // console.log('Session: _ref_key not set SessionProvider');
         _ref = new Firebase(sessions_url).push();
       }
       // create overservables and streams
       fb_observable = _ref.observe('value').skip(1);
-      state_stream = _ref.child('state').observe('value').skip(2);
+      state_stream = _ref.child('state').observe('value');
 
       _ref.once('value', function session_loaded(ds){
         Client.emit('Session: Session Loaded', ds);
         User.ref().update({session_id: _ref.key()});
+        console.log({session_id: ds.exportVal()});
       })
       Client.emit('Session: Session _ref_key', {session_id: _ref.key()});
     })
