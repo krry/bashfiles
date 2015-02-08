@@ -1,9 +1,15 @@
-directives.directive('flnContinueDesign', flnContinueDesign);
+directives.directive('flnContinueDesign', ['Clientstream', flnContinueDesign]);
 
-function flnContinueDesign () {
+function flnContinueDesign (Client) {
   return {
     templateUrl: 'templates/directives/flnContinueDesign.html',
-    controller: 'ModalCtrl',
-    controllerAs: 'modal',
+    controller: function resumeSessionModalLink ($scope) {
+      $scope.restart = function() {
+        Client.emit('flnContinueDesign: result', 'restart');
+      }
+      $scope.resume = function() {
+        Client.emit('flnContinueDesign: result', 'resume');
+      }
+    },
   };
 }
