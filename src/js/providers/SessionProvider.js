@@ -48,6 +48,18 @@ function SessionProvider_ () {
   };
 
   this.$get = ["Clientstream", "User", function SessionProviderFactory(Client, User) {
+
+
+    Client.listen('User: User _ref_key', save_user );
+    function save_user (data) {
+      _ref.update({user_id: data.user_id});
+    }
+
+    // DEV: HACK:
+    Client.listen('DEV: set_state_object', setStateObject);
+    // DEV: end
+    Client.listen('StageCtrl -> Session: new session', setStateObject);
+
     Client.listen('User: User session_id', function(data){
       /* jshint -W030 */
       data.session_id && (_ref_key = data.session_id);
@@ -72,9 +84,9 @@ function SessionProvider_ () {
     })
 
     /* setup listeners */
-    Client.listen('User: User _ref_key', save_user );
-    function save_user (data) {
-      _ref.update({user_id: data.user_id});
+
+    function setStateObject(state_obj) {
+      _ref.child('state').set(state_obj);
     }
 
     function awesome_session_builder_brah () {
