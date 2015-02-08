@@ -1,0 +1,27 @@
+/*app/chat.css*/
+
+.chat-trigger {
+  display: block;
+  font-size: 2em;
+}
+
+.chat-tray {
+  position: fixed;
+  z-index: 12;
+  bottom: 0;
+  right: 2rem;
+}
+
+#chat_div {
+  position: fixed;
+  bottom: 0;
+  height: 250px;
+  right: 2em;
+}
+
+.chat-buttons {
+  position: fixed;
+  z-index: 20;
+  top: 10em;
+  left: 0;
+}
