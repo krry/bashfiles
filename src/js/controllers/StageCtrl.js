@@ -51,26 +51,47 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client) {
   $scope.view_sync = true;
 
   Client.listen('Session: Session Loaded', function (ds) {
-
     // now a stream from firebase
     session_stream = Session.state_stream()
+      .filter(function() {
+        return $scope.view_sync;
+      })
       .map(function(x){
-        return x.val() || x;
+        console.log('x in StageCtrls statestream map', x );
+        return x.val();
       })
       .subscribe(handleSessionStream);
   })
 
   function handleSessionStream (data) {
-    if ($scope.view_sync) {
-      // lock the view if you're making changes
-      $scope.view_sync = false;
+    console.log('data in handleSessionStream', data, $scope.view_sync)
+    // DEV: init state object if hardcoded firebase user_id.session_id
+    var dev_target_state;
+    if (data === null) {
+      dev_target_state = {stage: 0, step: 0};
+      console.log('DEV: session_id hardcoded on user object');
+      return Client.emit('DEV: set_state_object', dev_target_state);
+    }
+    // DEV: end
 
-      if (data.stage !== stage) {
-        Client.emit('stage', data);
-      }
-      else if (data.step !== step) {
-        Client.emit('step', data.step);
-      }
+    // you're about to making changes to the templates. Lock the view so that
+    // messages don't arrive in the meantime.
+
+
+    $scope.view_sync = false;
+
+    //
+    if (data.stage === undefined ) { // new user,
+      console.log('new user. anything special?');
+      $scope.view_sync = true;
+      Client.emit('StageCtrl -> Session: new session', {stage: stage, step: step});
+    } else if (data.stage !== stage) {
+      console.log('data.stage', data.stage,'diff from client stage', stage);
+      Client.emit('stage', data);
+    }
+    else if (data.step !== step) {
+      console.log('same stage, but data.step', data.step, 'diff from client step', step);
+      Client.emit('step', data.step);
     }
   }
 
@@ -139,9 +160,12 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client) {
 
   // user flow controls
   function next () {
+    console.log('next button. stage:', stage, 'step:', step);
     if ( step + 1 < Templates.config[stage].steps.length ) {
+      console.log('next: emit step')
       Client.emit('step', step + 1);
     } else if (stage + 1 < Templates.config.length ) {
+      console.log('next: emit stage')
       Client.emit('stage', {
         stage: stage + 1,
         step:  0,
