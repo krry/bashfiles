@@ -50,10 +50,10 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client) {
   // view_sync helps flow control for async // TODO: more stream-like
   $scope.view_sync = true;
 
-  Client.listen('Session >> Stage: New Session', function (ds) {
+  Client.listen('Session: Session Loaded', function (ds) {
 
     // now a stream from firebase
-    session_stream = Session.stream()
+    session_stream = Session.state_stream()
       .map(function(x){
         return x.val() || x;
       })
