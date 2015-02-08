@@ -13,9 +13,9 @@
 
 ================================================== */
 
-controllers.controller("StageCtrl", ["$scope", "$state", "$timeout", "TemplateConfig", "Session", "Clientstream", StageCtrl_]);
+controllers.controller("StageCtrl", ["$scope", "$state", "$timeout", "TemplateConfig", "Session", "Clientstream", "ModalService", StageCtrl_]);
 
-function StageCtrl_($scope, $state, $timeout, Templates, Session, Client) {
+function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal) {
   var vm,
       session_ref,
       stage,
@@ -46,11 +46,19 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client) {
   Client.listen('step', stepListen);
   Client.listen('start over', startOver);
   Client.listen('spin it', setWaiting);
+  Client.listen('Session --> StageCtrl: Loaded existing session', loadExistingSession); // fire modal
+  Client.listen('flnContinueDesign: result', popContinueModal); // result of modal button press
 
   // view_sync helps flow control for async // TODO: more stream-like
   $scope.view_sync = true;
 
-  Client.listen('Session: Session Loaded', function (ds) {
+
+  function loadExistingSession() {
+    Modal.set(true);
+    return Modal.activate('continue');
+  }
+
+  Client.listen('Session: Session Loaded', function () {
     // now a stream from firebase
     session_stream = Session.state_stream()
       .filter(function() {
@@ -60,31 +68,19 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client) {
         console.log('x in StageCtrls statestream map', x );
         return x.val();
       })
-      .subscribe(handleSessionStream);
-  })
+      .subscribe(stateSubscribe);
+  });
 
-  function handleSessionStream (data) {
-    console.log('data in handleSessionStream', data, $scope.view_sync)
-    // DEV: init state object if hardcoded firebase user_id.session_id
-    var dev_target_state;
-    if (data === null) {
-      dev_target_state = {stage: 0, step: 0};
-      console.log('DEV: session_id hardcoded on user object');
-      return Client.emit('DEV: set_state_object', dev_target_state);
-    }
-    // DEV: end
-
-    // you're about to making changes to the templates. Lock the view so that
+  function stateSubscribe (data) {
+    if (data === null) return;
+    console.log('data in bootstrapStateStream', data, $scope.view_sync)
+    // you're about to emit messages that making changes to the templates. Lock the view so that
     // messages don't arrive in the meantime.
-
-
     $scope.view_sync = false;
 
-    //
     if (data.stage === undefined ) { // new user,
       console.log('new user. anything special?');
-      $scope.view_sync = true;
-      Client.emit('StageCtrl -> Session: new session', {stage: stage, step: step});
+      Client.emit('StageCtrl -> Session: request new session', {stage: stage, step: step});
     } else if (data.stage !== stage) {
       console.log('data.stage', data.stage,'diff from client stage', stage);
       Client.emit('stage', data);
@@ -108,7 +104,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client) {
 
   // listen for stage change requests from ui-router
   function startOver (data) {
-    console.log('heard that startover', data)
+    console.log('heard that startover', data);
     Client.emit('erase area', data);
     /* jshint -W030 */
     $scope.view_sync && Client.emit('stage', {
@@ -118,10 +114,20 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client) {
     /* jshint +W030 */
   }
 
+  function popContinueModal (result) {
+    // close the modal
+    Modal.set(false);
+    if (result === 'restart') {
+      return Client.emit('StageCtrl: restart session', true);
+    } else if (result === 'resume') {
+      return Client.emit('Session: Session Loaded', true);
+    }
+  }
+
   var counter = 0;  // HACK: DEV: session provider
   function stageListen (target_state) {
     if (counter++ < 1) return; // HACK: DEV: session provider
-    console.log('heard that stage emission');
+    console.log('heard that stage emission', target_state, $scope.view_sync);
     var name;
     if (target_state === "next") {
       next();

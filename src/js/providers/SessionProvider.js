@@ -55,10 +55,8 @@ function SessionProvider_ () {
       _ref.update({user_id: data.user_id});
     }
 
-    // DEV: HACK:
-    Client.listen('DEV: set_state_object', setStateObject);
-    // DEV: end
-    Client.listen('StageCtrl -> Session: new session', setStateObject);
+    Client.listen('StageCtrl: restart session', restartSession);
+    Client.listen('StageCtrl -> Session: request new session', setStateObject);
 
     Client.listen('User: User session_id', function(data){
       /* jshint -W030 */
@@ -72,21 +70,44 @@ function SessionProvider_ () {
         // console.log('Session: _ref_key not set SessionProvider');
         _ref = new Firebase(sessions_url).push();
       }
+      Client.emit('Session: new session ref loaded', data);
+    })
+
+    Client.listen('Session: new session ref loaded', bootstrapStreams );
+    function bootstrapStreams() {
       // create overservables and streams
       fb_observable = _ref.observe('value').skip(1);
       state_stream = _ref.child('state').observe('value');
 
-      _ref.once('value', function session_loaded(ds){
-        Client.emit('Session: Session Loaded', ds);
-        User.ref().update({session_id: _ref.key()});
-      })
+      _ref.once('value', newSessionLoaded )
       Client.emit('Session: Session _ref_key', {session_id: _ref.key()});
-    })
-
+    }
     /* setup listeners */
+
+    function newSessionLoaded (ds){
+        var data = ds.exportVal();
+
+        if (data.state) {
+          // you have a state already! welcome returning user
+          // let stagectrl know to pop the modal
+          return Client.emit('Session --> StageCtrl: Loaded existing session', data);
+        } else {
+          // set the user ref on the new session
+          User.ref().update({session_id: _ref.key()});
+          return Client.emit('Session: Session Loaded', ds);
+        }
+        return alert('unhandled case');
+
+      }
 
     function setStateObject(state_obj) {
       _ref.child('state').set(state_obj);
+
+    }
+
+    function restartSession () {
+      console.log('Session: restarting session');
+      setStateObject({stage: 0, step: 0});
     }
 
     function awesome_session_builder_brah () {
