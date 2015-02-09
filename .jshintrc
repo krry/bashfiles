@@ -107,6 +107,7 @@
         "wkt"         : true,
         "syncGeometry": true,
         "Rx"          : true,
-        "moment"      : true
+        "moment"      : true,
+        "ics"         : true
     } // additional predefined global variables
 }
