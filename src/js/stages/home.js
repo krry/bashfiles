@@ -17,10 +17,6 @@ angular.module('home',[]).config(["$stateProvider", function ($stateProvider) {
       'main@': {
         templateUrl: stageUrl + "main.html",
         controller:  function ($timeout, Clientstream) {
-          // HACK: enable quick routing through app
-          $timeout(function(){
-            Clientstream.emit('stage', {stage: 0, step: 0});
-          }, 1)
         },
       },
       'overlay@home': {
