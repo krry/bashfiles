@@ -68,10 +68,10 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
         console.log('x in StageCtrls statestream map', x );
         return x.val();
       })
-      .subscribe(stateSubscribe);
+      .subscribe(subscribeToStateStream);
   });
 
-  function stateSubscribe (data) {
+  function subscribeToStateStream (data) {
     if (data === null) return;
     console.log('data in bootstrapStateStream', data, $scope.view_sync)
     // you're about to emit messages that making changes to the templates. Lock the view so that
