@@ -44,35 +44,70 @@ function SessionProvider_ () {
     /* jshint -W030 */
     key && (_ref_key = key);
     /* jshint +W030 */
+    console.log('ref_key in sessionProvider being set:', key);
   };
 
   this.$get = ["Clientstream", "User", function SessionProviderFactory(Client, User) {
+
+
+    Client.listen('User: User _ref_key', save_user );
+    function save_user (data) {
+      _ref.update({user_id: data.user_id});
+    }
+
+    Client.listen('StageCtrl: restart session', restartSession);
+    Client.listen('StageCtrl -> Session: request new session', setStateObject);
+
     Client.listen('User: User session_id', function(data){
       /* jshint -W030 */
       data.session_id && (_ref_key = data.session_id);
       /* jshint +W030 */
       // make the ref
       if (_ref_key) {
+        // console.log('Session: _ref_key set on load');
         _ref = new Firebase(sessions_url).child(_ref_key);
       } else {
-        console.log('Session: _ref_key not set SessionProvider');
+        // console.log('Session: _ref_key not set SessionProvider');
         _ref = new Firebase(sessions_url).push();
       }
-      // create overservables and streams
-      fb_observable = _ref.observe('value').skip(1);
-      state_stream = _ref.child('state').observe('value').skip(2);
-
-      _ref.once('value', function session_loaded(ds){
-        Client.emit('Session: Session Loaded', ds);
-        User.ref().update({session_id: _ref.key()});
-      })
-      Client.emit('Session: Session _ref_key', {session_id: _ref.key()});
+      Client.emit('Session: new session ref loaded', data);
     })
 
+    Client.listen('Session: new session ref loaded', bootstrapStreams );
+    function bootstrapStreams() {
+      // create overservables and streams
+      fb_observable = _ref.observe('value').skip(1);
+      state_stream = _ref.child('state').observe('value');
+
+      _ref.once('value', newSessionLoaded )
+      Client.emit('Session: Session _ref_key', {session_id: _ref.key()});
+    }
     /* setup listeners */
-    Client.listen('User: User _ref_key', save_user );
-    function save_user (data) {
-      _ref.update({user_id: data.user_id});
+
+    function newSessionLoaded (ds){
+        var data = ds.exportVal();
+
+        if (data.state) {
+          // you have a state already! welcome returning user
+          // let stagectrl know to pop the modal
+          return Client.emit('Session --> StageCtrl: Loaded existing session', data);
+        } else {
+          // set the user ref on the new session
+          User.ref().update({session_id: _ref.key()});
+          return Client.emit('Session: Session Loaded', ds);
+        }
+        return alert('unhandled case');
+
+      }
+
+    function setStateObject(state_obj) {
+      _ref.child('state').set(state_obj);
+
+    }
+
+    function restartSession () {
+      console.log('Session: restarting session');
+      setStateObject({stage: 0, step: 0});
     }
 
     function awesome_session_builder_brah () {

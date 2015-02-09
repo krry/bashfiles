@@ -13,9 +13,9 @@
 
 ================================================== */
 
-controllers.controller("StageCtrl", ["$scope", "$state", "$timeout", "TemplateConfig", "Session", "Clientstream", StageCtrl_]);
+controllers.controller("StageCtrl", ["$scope", "$state", "$timeout", "TemplateConfig", "Session", "Clientstream", "ModalService", StageCtrl_]);
 
-function StageCtrl_($scope, $state, $timeout, Templates, Session, Client) {
+function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal) {
   var vm,
       session_ref,
       stage,
@@ -46,31 +46,48 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client) {
   Client.listen('step', stepListen);
   Client.listen('start over', startOver);
   Client.listen('spin it', setWaiting);
+  Client.listen('Session --> StageCtrl: Loaded existing session', loadExistingSession); // fire modal
+  Client.listen('flnContinueDesign: result', popContinueModal); // result of modal button press
 
   // view_sync helps flow control for async // TODO: more stream-like
   $scope.view_sync = true;
 
-  Client.listen('Session >> Stage: New Session', function (ds) {
 
+  function loadExistingSession() {
+    Modal.set(true);
+    return Modal.activate('continue');
+  }
+
+  Client.listen('Session: Session Loaded', function () {
     // now a stream from firebase
-    session_stream = Session.stream()
-      .map(function(x){
-        return x.val() || x;
+    session_stream = Session.state_stream()
+      .filter(function() {
+        return $scope.view_sync;
       })
-      .subscribe(handleSessionStream);
-  })
+      .map(function(x){
+        console.log('x in StageCtrls statestream map', x );
+        return x.val();
+      })
+      .subscribe(subscribeToStateStream);
+  });
 
-  function handleSessionStream (data) {
-    if ($scope.view_sync) {
-      // lock the view if you're making changes
-      $scope.view_sync = false;
+  function subscribeToStateStream (data) {
+    if (data === null) return;
+    console.log('data in bootstrapStateStream', data, $scope.view_sync)
+    // you're about to emit messages that making changes to the templates. Lock the view so that
+    // messages don't arrive in the meantime.
+    $scope.view_sync = false;
 
-      if (data.stage !== stage) {
-        Client.emit('stage', data);
-      }
-      else if (data.step !== step) {
-        Client.emit('step', data.step);
-      }
+    if (data.stage === undefined ) { // new user,
+      console.log('new user. anything special?');
+      Client.emit('StageCtrl -> Session: request new session', {stage: stage, step: step});
+    } else if (data.stage !== stage) {
+      console.log('data.stage', data.stage,'diff from client stage', stage);
+      Client.emit('stage', data);
+    }
+    else if (data.step !== step) {
+      console.log('same stage, but data.step', data.step, 'diff from client step', step);
+      Client.emit('step', data.step);
     }
   }
 
@@ -87,7 +104,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client) {
 
   // listen for stage change requests from ui-router
   function startOver (data) {
-    console.log('heard that startover', data)
+    console.log('heard that startover', data);
     Client.emit('erase area', data);
     /* jshint -W030 */
     $scope.view_sync && Client.emit('stage', {
@@ -97,10 +114,20 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client) {
     /* jshint +W030 */
   }
 
+  function popContinueModal (result) {
+    // close the modal
+    Modal.set(false);
+    if (result === 'restart') {
+      return Client.emit('StageCtrl: restart session', true);
+    } else if (result === 'resume') {
+      return Client.emit('Session: Session Loaded', true);
+    }
+  }
+
   var counter = 0;  // HACK: DEV: session provider
   function stageListen (target_state) {
     if (counter++ < 1) return; // HACK: DEV: session provider
-    console.log('heard that stage emission');
+    console.log('heard that stage emission', target_state, $scope.view_sync);
     var name;
     if (target_state === "next") {
       next();
@@ -139,9 +166,12 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client) {
 
   // user flow controls
   function next () {
+    console.log('next button. stage:', stage, 'step:', step);
     if ( step + 1 < Templates.config[stage].steps.length ) {
+      console.log('next: emit step')
       Client.emit('step', step + 1);
     } else if (stage + 1 < Templates.config.length ) {
+      console.log('next: emit stage')
       Client.emit('stage', {
         stage: stage + 1,
         step:  0,
