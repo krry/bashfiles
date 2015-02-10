@@ -11,7 +11,7 @@
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
-@mixin chevron($direction, $height) {
+@mixin chevron($direction, $height: 3em) {
   position: relative;
   text-align: center;
   color: white;
