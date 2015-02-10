@@ -3,7 +3,10 @@
   <h1>Time to schedule a site survey.</h1>
   <p>What day works for you?</p>
   <div ng-controller="CalendarCtrl as calendar">
-    <fln-calendar config="calendar.config"></fln-calendar>
+    <fln-calendar config="calendar.config"
+     select-fn="calendar.selectDate(date)"
+     available-times="calendar.availableTimes">
+    </fln-calendar>
   </div>
   <button class="std gold" ng-click="stages.next()">Book it</button>
 </div>

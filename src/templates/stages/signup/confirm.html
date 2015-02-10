@@ -1,6 +1,9 @@
 <!-- main.html for qualify stage -->
-<div class="overlay primary col fourth three">
+<div class="overlay primary col fourth three" ng-controller="FormCtrl as form">
   <h1>Thank you for inviting us to your home.</h1>
   <p>What time works for you?</p>
-  <button class="std aqua" ng-click="stages.next()">Schedule it</button>
+  <h2 class="month">{{form.prospect.scheduledDate.month}} {{form.prospect.scheduledDate.day}}</h2>
+  <fln-time-selection></fln-time-selection>
+  <p>Note: These are 2-hour arrival windows for our site surveyors and then the site survey will take around 1 to 2 hours.
+  <button class="std gold" ng-click="stages.next()">Schedule it</button>
 </div>

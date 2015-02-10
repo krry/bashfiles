@@ -1,12 +1,5 @@
 <!-- main.html for qualify stage -->
-<div class="overlay primary col fourth three"
- ng-init="event = { 
- subject: 'SolarCity site survey',
- location: '',
- begin: '02/09/2015 1:00:00 PM',
- end: '02/09/2015 3:00:00 PM',
- description: 'A site surveyor will come to your house. Someone over 18 must be home to open the door and answer any questions.\nThe site surveyor will study your roof as well as your current energy consumption. This will take 1-2 hours, but you only need to be there to answer the door.'
- }">
+<div class="overlay primary col fourth three" ng-controller="CalendarCtrl as calendar">
   <h1>We'll see you then.</h1>
   <p>Hey. You've taken a big step forward. Give yourself a hand. Seriously. We're happy to have you as part of our solar family.</p>
   <div class="proposal col fifth three">
@@ -17,9 +10,9 @@
         <h5>Thursday, 8am to 10am</h5>
         <h1>JAN 16</h1>
         <span class="text tiny caps display-inline">Add to Calendar</span>
-        <a class="text tiny caps display-inline aqua" fln-add-google-event="event">Google</a>
-        <a class="text tiny caps display-inline aqua" fln-download-ics="event">Outlook</a>
-        <a class="text tiny caps display-inline aqua" fln-download-ics="event">iCal</a>
+        <a class="text tiny caps display-inline aqua" fln-add-google-event="calendar.eventDetails()">Google</a>
+        <a class="text tiny caps display-inline aqua" fln-download-ics="calendar.eventDetails()">Outlook</a>
+        <a class="text tiny caps display-inline aqua" fln-download-ics="calendar.eventDetails()">iCal</a>
         <div class="icon icon-paper-airplane"></div>
       </div>
     </div>

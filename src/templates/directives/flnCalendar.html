@@ -3,11 +3,11 @@
     <td class="day-header" ng-repeat="day in days">{{day}}</td>
   </tr>
   <tr ng-repeat="row in rows">
-    <td class="date" 
+    <td class="date"
      ng-repeat="date in dates | limitTo: (row * 7) | limitTo: -7"
-     ng-class="{ available: false, unavailable: true }"
-     ng-click="selectDate(date)">
-      <div class="month">{{date.month}}</div>
+     ng-class="date.availableTimes.length > 0 ? 'available' : 'unavailable'"
+     ng-click="selectFn({ date: date })">
+      <div class="month" ng-if="date.day <= 1">{{date.month}}</div>
       <div class="day">{{date.day}}</div>
    </td>
   </tr>

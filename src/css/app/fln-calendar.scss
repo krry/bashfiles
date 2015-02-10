@@ -19,6 +19,7 @@
     border: $box-border solid $white;
     color: $white;
     position: relative;
+    cursor: pointer;
 
     &.available {
       background: $gold;
@@ -29,9 +30,37 @@
     }
   }
 
+  .month {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-weight: bold;
+  }
+
   .day {
     position: absolute;
     right: 5px;
     bottom: 5px;
   }
+
+  @media screen and (max-width: 7 * $box-width) {
+    width: 100%;
+
+    .date {
+      width: 100% / 7;
+    }
+  }
+}
+
+.month {
+  text-transform: uppercase;
+}
+
+.time-selection {
+  display: inline-block;
+  padding: 5px 20px;
+  margin: 5px;
+  text-transform: uppercase;
+  background: $grey-lighter;
+  cursor: pointer;
 }
