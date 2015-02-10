@@ -52,15 +52,15 @@ function SessionProvider_ () {
     Client.listen('User: Loaded', loadSession );
     Client.listen('Stage: subscribed to statestream', bootstrapStreams );
     Client.listen('StageCtrl: restart session', restartSession);
+    Client.listen('Form: Form Loaded', saveFormId);
 
     function loadSession (user_data) {
       /* jshint -W030 */
-      user_data.session_id && (_ref_key = user_data.session_id);
-      /* jshint +W030 */
+      user_data.session_id && (_ref_key = user_data.session_id); /* jshint +W030 */
+
       // make the ref
       if (_ref_key) {
         console.log('load the state from the user\'s previous session');
-        // console.log('Session: _ref_key set on load');
         _ref = new Firebase(sessions_url).child(_ref_key);
       } else {
         console.log('there was no state, make a new one on the new session');
@@ -72,7 +72,6 @@ function SessionProvider_ () {
       _ref.once('value', newSessionLoaded )
     }
 
-
     function bootstrapStreams() {
       // create overservables and streams
       fb_observable = _ref.observe('value');
@@ -82,7 +81,7 @@ function SessionProvider_ () {
     function newSessionLoaded (ds){
       var data = ds.exportVal();
       console.log('newSession', data);
-      User.ref().update({session_id: _ref.key()});
+      data.session_id = _ref.key();
       return Client.emit('Session: Session Loaded', data);
     }
 
@@ -90,6 +89,10 @@ function SessionProvider_ () {
       var state_obj = {stage: 0, step: 0};
       _ref.child('state').set(state_obj);
     }
+
+    function saveFormId (data) {
+      _ref.update({form_id: data.form_id});
+    };
 
     function awesome_session_builder_brah () {
       return {
