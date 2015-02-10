@@ -59,6 +59,7 @@ function UserProvider_ (SessionProvider) {
     $cookies.user_id = _ref.key();
     // listen for the session to load, save it's _ref_key to the user
     Client.listen('App.run: User Loaded', checkForPriorSession );
+    Client.listen('Session: Session Loaded', saveSessionId);
 
     function checkForPriorSession (ds){
       var data = ds.exportVal() || {};
@@ -74,6 +75,10 @@ function UserProvider_ (SessionProvider) {
       }
       Client.emit('User: Loaded', data);
     }
+
+    function saveSessionId (data) {
+      _ref.update({session_id: data.session_id});
+    };
 
     function user_builder_brah () {
       return {
