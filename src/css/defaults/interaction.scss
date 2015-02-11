@@ -43,7 +43,7 @@ input,
 select,
 textarea {
   margin: 0;
-  font-size: 1em;
+  font-size: 1rem;
   line-height: normal;
   font-family: inherit;
   vertical-align: baseline;
@@ -59,6 +59,9 @@ a.btn {
   &.gold {
     @include btn($gold);
   }
+  &.blue {
+    @include btn($blue-dark);
+  }
   &.aqua {
     @include btn($aqua-dark);
   }
@@ -73,82 +76,94 @@ a.btn {
   }
   &.huge {
     &.gold {
-      @include btn($gold, $size: 1.5em);
+      @include btn($gold, $size: 1.5rem);
+    }
+    &.blue {
+      @include btn($blue-dark, $size: 1.5rem);
     }
     &.aqua {
-      @include btn($aqua-dark, $size: 1.5em);
+      @include btn($aqua-dark, $size: 1.5rem);
     }
     &.red {
-      @include btn($red, $size: 1.5em);
+      @include btn($red, $size: 1.5rem);
     }
     &.white {
-      @include btn($white, $size: 1.5em);
+      @include btn($white, $size: 1.5rem);
     }
     &.aqua {
-      @include btn($aqua-dark, $size: 1.5em);
+      @include btn($aqua-dark, $size: 1.5rem);
     }
   }
 
   &.large {
     &.gold {
-      @include btn($gold, $size: 1.25em);
+      @include btn($gold, $size: 1.25rem);
+    }
+    &.blue {
+      @include btn($blue-dark, $size: 1.25rem);
     }
     &.aqua {
-      @include btn($aqua-dark, $size: 1.25em);
+      @include btn($aqua-dark, $size: 1.25rem);
     }
     &.red {
-      @include btn($red, $size: 1.25em);
+      @include btn($red, $size: 1.25rem);
     }
     &.white {
-      @include btn($white, $size: 1.25em);
+      @include btn($white, $size: 1.25rem);
     }
     &.aqua {
-      @include btn($aqua-dark, $size: 1.25em);
+      @include btn($aqua-dark, $size: 1.25rem);
     }
   }
 
   &.small {
     &.gold {
-      @include btn($gold, $size: .875em);
+      @include btn($gold, $size: .875rem);
+    }
+    &.blue {
+      @include btn($blue-dark, $size: .875rem);
     }
     &.aqua {
-      @include btn($aqua-dark, $size: .875em);
+      @include btn($aqua-dark, $size: .875rem);
     }
     &.red {
-      @include btn($red, $size: .875em);
+      @include btn($red, $size: .875rem);
     }
     &.white {
-      @include btn($white, $size: .875em);
+      @include btn($white, $size: .875rem);
     }
     &.aqua {
-      @include btn($aqua-dark, $size: .875em);
+      @include btn($aqua-dark, $size: .875rem);
     }
   }
 
   &.tiny {
     &.gold {
-      @include btn($gold, $size: .75em);
+      @include btn($gold, $size: .75rem);
+    }
+    &.blue {
+      @include btn($blue-dark, $size: .75rem);
     }
     &.aqua {
-      @include btn($aqua-dark, $size: .75em);
+      @include btn($aqua-dark, $size: .75rem);
     }
     &.red {
-      @include btn($red, $size: .75em);
+      @include btn($red, $size: .75rem);
     }
     &.white {
-      @include btn($white, $size: .75em);
+      @include btn($white, $size: .75rem);
     }
     &.aqua {
-      @include btn($aqua-dark, $size: .75em);
+      @include btn($aqua-dark, $size: .75rem);
     }
   }
 
   &.aqua.large {
-    @include btn($aqua-dark, $size: 1.25em);
+    @include btn($aqua-dark, $size: 1.25rem);
   }
 
   &.white.square.small.padded {
-    @include btn($color: $white, $size: .875em, $corners: .25em, $pad: #{1.5em 3em});
+    @include btn($color: $white, $size: .875rem, $corners: .25em, $pad: #{1.5em 3em});
   }
   &.nested {
     position: absolute;
