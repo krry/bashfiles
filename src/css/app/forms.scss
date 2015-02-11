@@ -51,23 +51,43 @@ input.state,
 input.zipcode,
 input.name,
 input.email,
+input.bill,
 input.birthdate,
+input.full-name,
 input.phone {
   font-size: 1.5em;
   text-align: left;
   display: inline-block;
   background-color: $white-dark;
+  color: $color-input-text;
 }
 
-input.street,
-input.city,
-input.state,
-input.zipcode,
-input.name,
-input.email,
-input.birthdate,
-input.phone {
-  color: $color-input-text;
+input.birthdate {
+  padding: .33em .75em;
+}
+
+input.bill {
+  width: 3em;
+  padding: .25em;
+  margin-bottom: 0;
+  text-align: right;
+}
+
+.bill-box {
+  display: inline-block;
+  margin-bottom: .25em;
+  &:before,
+  &:after {
+    // font-size: .625em;
+  }
+  &:before {
+    content: "\0024";
+    position: relative;
+    top: -.125em;
+  }
+  &:after {
+    content: "/mo.";
+  }
 }
 
 input.zipcode {
@@ -96,8 +116,7 @@ input.street {
   width: 14em;
 }
 
-input.city,
-.combo-input input.city {
+input.city {
   width: 9em;
 }
 
@@ -105,29 +124,15 @@ input.city,
   content: ",";
 }
 
-input.state,
-.combo-input input.state {
+input.state {
   width: 4em;
 }
 
-input.zipcode,
-.combo-input input.zipcode {
+input.zipcode {
   width: 4.5em;
   text-align: left;
   margin: 0;
   background-color: $white;
-}
-
-.combo-input input.month {
-  width: 2em;
-}
-
-.combo-input input.day {
-  width: 2em;
-}
-
-.combo-input input.year {
-  width: 4em;
 }
 
 span.autolocate-icon {
@@ -138,57 +143,4 @@ span.autolocate-icon {
   background-color: none;
   width: 20px;
   height: 20px;
-}
-
-.combo-input {
-  border: 1px solid $grey-medium;
-  border-radius: 4px;
-  padding: .75em 1em;
-  text-align: justify;
-  position: relative;
-  background-color: $white;
-
-  input {
-    font-size: 1.5rem;
-    border: 0;
-    box-shadow: 0;
-    padding: 0;
-    display: inline;
-    margin-bottom: 0;
-  }
-}
-
-@media screen and (min-width: $width-min-med) {
-  input.street,
-  .combo-input input {
-    // font-size: em($font-size*1.25);
-  }
-}
-
-@media screen and (min-width: $width-min-lrg) {
-  input.street,
-  .combo-input input {
-    // font-size: em($font-size*1.375);
-  }
-}
-
-@media screen and (min-width: $width-min-xlg) {
-  input.street,
-  .combo-input input {
-    // font-size: em($font-size*1.5);
-  }
-}
-
-@media screen and (min-width: $width-min-xxl) {
-  input.street,
-  .combo-input input {
-    // font-size: em($font-size*1.75);
-  }
-}
-
-@media screen and (min-width: $width-min-uhd) {
-  input.street,
-  .combo-input input {
-    // font-size: em($font-size*1.25);
-  }
 }

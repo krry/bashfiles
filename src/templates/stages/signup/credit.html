@@ -5,33 +5,25 @@
     <div class="row">
       <div class="col half padded">
         <label for="">Full name <span>*</span></label>
-        <input type="text" name="name" ng-model="form.prospect.full_name" placeholder="First and last, please" class="name">
+        <fln-input-full-name hint="First and last, please"></fln-input-full-name>
       </div>
       <div class="col half padded">
         <label for="">Email address <span>*</span></label>
-        <input type="text" name="email" ng-model="form.prospect.email" placeholder="you@domain.com" class="email">
+        <fln-input-email hint="you@domain.com"></fln-input-email>
       </div>
     </div>
     <div class="row">
       <div class="col half padded">
         <label for="">Date of birth <span>*</span></label>
-        <div class="combo-input">
-          
-          <input type="date" name="month" ng-model="form.prospect.dob.month" class="month" placeholder="mm" ng-minlength="2" ng-maxlength="2">
-          <input type="date" name="day" ng-model="form.prospect.dob.day" class="day" placeholder="dd" ng-minlength="2" ng-maxlength="2">
-          <input type="date" name="year" ng-model="form.prospect.dob.year" class="year" placeholder="yyyy" ng-minlength="4" ng-maxlength="4">
-        </div>
+        <fln-input-dob></fln-input-dob>
       </div>
       <div class="col half padded">
         <label for="">Phone number</label>
-        <input type="text" name="phone" ng-model="form.prospect.phone" placeholder="(---) --- ----" class="phone">
+        <fln-input-phone hint="(---) --- ----"></fln-input-phone>
       </div>
     </div>
     <div class="row center">
       <div class="col half padded center">
-        <!-- implant NoUIslider -->
-        <!-- <label for="bill">Your average monthly electric bill: <h1 class="display-inline">$100</h1></label> -->
-        <br>
         <button class="ib gold" ng-click="stages.next()">Qualify Me</button>
       </div>
     </div>
