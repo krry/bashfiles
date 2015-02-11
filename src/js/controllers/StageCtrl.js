@@ -38,6 +38,11 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client) {
   vm.spinIt = waiting;
   vm.partial = Templates.partial(stage, step);
   vm.partials = flattenPartialsArray(Templates.partials);
+  vm.currentStep = currentStep;
+
+  function currentStep (step) {
+    return step === step;
+  }
 
   // register listeners for stage, step, and start over events
   Client.listen('jump to step', jumpToStep);

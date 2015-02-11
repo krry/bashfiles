@@ -1,0 +1,16 @@
+<div class="bill-box">
+  <input
+    type="tel"
+    class="bill"
+    ng-model="form.prospect.bill"
+    ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"
+    ng-cloak
+    value="100">
+</div>
+<span
+  slider
+  ng-model="form.prospect.bill"
+  class="bill-slider"
+  start="0"
+  end="750"
+  step="5"></span>

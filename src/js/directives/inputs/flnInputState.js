@@ -6,7 +6,7 @@ function flnInputState_ (Form) {
       hint: "@"
     },
     restrict: "E",
-    templateUrl: "templates/directives/flnInputState.html",
+    templateUrl: "templates/directives/inputs/flnInputState.html",
     controller: "FormCtrl as form"
   };
 }

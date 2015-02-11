@@ -4,10 +4,10 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
 <g>
-	
-		<circle fill="none" stroke="#007F70" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="8.9" cy="9.2" r="4"/>
-	
-		<line fill="none" stroke="#007F70" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="11.7" y1="12" x2="15.4" y2="15.7"/>
+
+		<circle fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="8.9" cy="9.2" r="4"/>
+
+		<line fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="11.7" y1="12" x2="15.4" y2="15.7"/>
 </g>
 <g id="New_Symbol_65">
 </g>

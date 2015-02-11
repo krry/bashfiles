@@ -8,7 +8,7 @@ angular.module('home',[]).config(["$stateProvider", function ($stateProvider) {
 
   // state definition
   $stateProvider.state("home", {
-    url: "/home",
+    url: "^",
     views: {
       'header@': {
         templateUrl: templateUrl + 'header.html',

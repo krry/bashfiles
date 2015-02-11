@@ -6,8 +6,8 @@ main.main {
   position: fixed;
   width: 100%;
   z-index: 1;
-  top: 3rem;
-  bottom: 3rem;
+  top: 2.5rem;
+  bottom: 2.5rem;
   // HACK: to pull the footer up into view
   // margin-bottom: -10em;
 }
@@ -18,17 +18,26 @@ main.main {
   width: 100%;
   z-index: 1;
   margin: auto;
+  // height: 100%;
   // overflow: hidden;
-  background-color: $color-bkgd-primary;
   // max-height: 33.3em; // the number of the beast in ems
+}
+
+.full-height,
+.prospect-form,
+.overlay.secondary,
+.overlayer {
+  height: 100%;
 }
 
 .overlay {
   position: relative;
+  width: 100%;
+  background-color: $color-bkgd-primary;
 }
 
 .overlay.primary {
-  padding: 3em 2em;
+  padding: 4em 2em;
   text-align: center;
 }
 
@@ -59,24 +68,31 @@ main.main {
 }
 
 @media screen and (min-width: $width-min-sml){
-  .overlay.secondary {
-    // min-height: 16em;
-  }
 }
 
 @media screen and (min-width: $width-min-med){
-  .overlay.secondary {
-    // min-height: 18em;
-  }
 }
 
 @media screen and (min-width: $width-min-lrg){
-  .overlay.secondary {
-    // min-height: 22em;
+  .primary.primary {
+    width: calc(100% - 20em);
   }
-  .overlay.primary,
-  .overlay.secondary {
+  .secondary.secondary {
+    width: calc(20em - 1px);
+  }
+  .primary.primary,
+  .secondary.secondary {
     display: inline-block;
+    height: 100%;
+  }
+
+  .step-address.primary,
+  .step-bill.primary {
+    width: 100%;
+  }
+
+  .inset-right {
+    box-shadow: inset 0 0 8px -2px $shade-40;
   }
 }
 
@@ -88,17 +104,19 @@ main.main {
   .overlay {
     // height: 100%;
   }
+  .primary.primary {
+    width: calc(100% - 18em);
+  }
+  .secondary.secondary {
+    width: calc(18em - 1px);
+  }
   .overlay.short {
     height: auto;
     padding: 2em;
+    box-shadow: 0 0 8px 0 $shade-40;
     &.step-bill {
       padding: 3em 2em 1em;
     }
-  }
-  .overlay.secondary {
-    max-width: 365px;
-    // padding: 4em 0 4em 2em;
-    // min-height: 30em;
   }
 }
 

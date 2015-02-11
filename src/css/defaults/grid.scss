@@ -139,12 +139,14 @@
   }
 }
 
-.col.baseline {
+.col.baseline,
+.vert-baseline {
   vertical-align: baseline;
 }
 
-.col.bottom {
-  vertical-align: bottom;
+.col.bottom,
+.vert-bottom {
+  vertical-align: bottom !important;
 }
 
 /* > 536px --- bigger than iPhone portrait */
@@ -199,10 +201,10 @@
       padding: 0;
     }
   }
-}
+// }
 
-/* > 1024px */
-@media screen and (min-width: $width-min-xlg) {
+// /* > 1024px */
+// @media screen and (min-width: $width-min-xlg) {
   .col.padded.padded {
     padding: 0 1em;
 

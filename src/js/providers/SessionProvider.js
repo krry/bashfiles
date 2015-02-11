@@ -41,12 +41,16 @@ function SessionProvider_ () {
   _user_key = null;
 
   this.setRefKey = function setRefKey(key){
+    /* jshint -W030 */
     key && (_ref_key = key);
+    /* jshint +W030 */
   };
 
   this.$get = ["Clientstream", "User", function SessionProviderFactory(Client, User) {
     Client.listen('User: User session_id', function(data){
+      /* jshint -W030 */
       data.session_id && (_ref_key = data.session_id);
+      /* jshint +W030 */
       // make the ref
       if (_ref_key) {
         _ref = new Firebase(sessions_url).child(_ref_key);
@@ -79,7 +83,9 @@ function SessionProvider_ () {
         //   key && (_ref_key = key);
         // },
         setUserKey: function (key){
+          /* jshint -W030 */
           key && (_user_key = key);
+          /* jshint +W030 */
         },
         ref: function () {return _ref;},
         id:     function (){ return _ref.key(); },

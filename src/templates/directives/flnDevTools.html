@@ -1,6 +1,7 @@
 <div class="dev-controls">
   <h2>dev tools</h2>
-  <a class="btn red" onclick="location.hash = '#/home'; location.reload(true);">Reload app</a>
+  <a class="btn red" onclick="location.hash = ''; location.reload(true);">Reload app</a>
+  <!-- <a class="btn red" ui-sref="home">Reload app</a> -->
 
   <div>
     <h4 for="stageSelector">Jump to a stage</h4>
@@ -10,10 +11,10 @@
 
   <div class="row">
     <div class="col half">
-      <button class="tiny aqua" ng-click="stages.prev()">Back</button>
+      <button class="tiny gold" ng-click="stages.prev()">Back</button>
     </div>
     <div class="col half">
-      <button class="tiny aqua" ng-click="stages.next()">Next</button>
+      <button class="tiny gold" ng-click="stages.next()">Next</button>
     </div>
   </div>
 
@@ -21,7 +22,7 @@
     <h4>Current prospect info:</h4>
     <label class="inline" for="dev_zip">
       <span>zip</span>
-      <input type="text" id="dev_zip" ng-model="dev.prospect.zip">
+      <input type="tel" id="dev_zip" ng-model="dev.prospect.zip">
     </label>
     <label class="inline" for="dev_city">
       <span>city</span>
@@ -35,29 +36,25 @@
       <span>street</span>
       <input type="text" id="dev_street" ng-model="dev.prospect.street">
     </label>
+    <label class="inline" for="dev_bill">
+      <span>bill</span>
+      <input type="number" id="dev_bill" ng-model="dev.prospect.bill">
+    </label>
     <label class="inline" for="dev_name">
       <span>name</span>
-      <input type="text" id="dev_name" ng-model="dev.prospect.name">
+      <input type="text" id="dev_name" ng-model="dev.prospect.full_name">
     </label>
     <label class="inline" for="dev_email">
       <span>email</span>
-      <input type="text" id="dev_email" ng-model="dev.prospect.email">
+      <input type="email" id="dev_email" ng-model="dev.prospect.email">
     </label>
     <label class="inline" for="dev_phone">
       <span>phone</span>
-      <input type="text" id="dev_phone" ng-model="dev.prospect.phone">
+      <input type="tel" id="dev_phone" ng-model="dev.prospect.phone">
     </label>
-    <label class="inline" for="dev_dob-month">
-      <span>month</span>
-      <input type="text" id="dev_dob-month" ng-model="dev.prospect.dob.month">
-    </label>
-    <label class="inline" for="dev_dob-day">
-      <span>day</span>
-      <input type="text" id="dev_dob-day" ng-model="dev.prospect.dob.day">
-    </label>
-    <label class="inline" for="dev_dob-year">
-      <span>year</span>
-      <input type="text" id="dev_dob-year" ng-model="dev.prospect.dob.year">
+    <label class="inline" for="dev_dob">
+      <span>dob</span>
+      <input type="date" id="dev_dob" ng-model="dev.prospect.dob">
     </label>
   </div>
 

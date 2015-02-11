@@ -4,7 +4,7 @@
 @import "functions";
 @import "typography";
 
-@mixin btn($color: $color-button-bkgd, $size: 0.9rem, $corners: #{1.5em/50%}, $pad: #{1em 2em 1em}) {
+@mixin btn($color: $color-button-bkgd, $size: 0.85rem, $corners: #{2em/50%}, $pad: #{1.5em 2.8em 1.5em}) {
 
   @include apercu-medium;
   @include caps;
@@ -22,13 +22,12 @@
   background-color: $color;
 
   @if $color == $white {
-    // @include apercu-light;
     color: $grey-dark;
     background-color: $color;
   }
 
   @if trim-unit($size) < 1 {
-    letter-spacing: 1px;
+    letter-spacing: 3px;
   }
 
   padding: $pad;
@@ -51,9 +50,27 @@
   transition: all .075s $easing-quick;
   transition: background-color .1s $easing-quick;
 
+  @if $color == $white {
+    // @include apercu-light;
+    color: $grey-dark;
+    background-color: $color;
+  }
+
+  @if $color == $tint-80 {
+    // @include apercu-light;
+    color: $aqua-dark;
+    border: 3px solid $aqua-dark;
+    background-color: $color;
+  }
+
+  @if trim-unit($size) < 1 {
+    letter-spacing: 1px;
+  }
+
   &:hover {
     color: $white;
     background-color: lighten($color, 3%);
+    box-shadow: 0 0 4px -1px darken($color, 20%);
 
     @if $color == $white {
       color: $grey-darker;
@@ -64,6 +81,7 @@
   &:active:not(:disabled) {
     color: $white;
     background-color: lighten($color, 3%);
+    box-shadow: none;
 
     @if $color == $white {
       color: $grey-darker;
@@ -81,4 +99,13 @@
   &.doubledecker {
     border-radius: 2.125em/50%;
   }
+}
+
+button.medium {
+    padding: 0.75em 1em;
+    border-radius: 1.3em;
+    font-size: 0.85em;
+    min-width: 5em;
+    width: 6em;
+    letter-spacing: 1px;
 }

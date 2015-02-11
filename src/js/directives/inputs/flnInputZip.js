@@ -6,7 +6,7 @@ function flnInputZip_ (Form) {
       hint: "@"
     },
     restrict: "E",
-    templateUrl: "templates/directives/flnInputZip.html",
+    templateUrl: "templates/directives/inputs/flnInputZip.html",
     controller: "FormCtrl as form",
   };
 }

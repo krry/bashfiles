@@ -39,7 +39,7 @@ var libSrc = [
   './src/lib/angular-ui-router/release/angular-ui-router.min.js',
   './src/lib/angular-cookies/angular-cookies.js',
   './src/lib/angular-cookies/angular-cookies.min.js',
-  // './src/lib/angular-mocks/angular-mocks.js',
+  './src/lib/angular-mocks/angular-mocks.js',
   './src/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
   './src/lib/angular-bootstrap/ui-bootstrap.js',
   './src/lib/angular-bootstrap/ui-bootstrap.min.js',

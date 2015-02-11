@@ -6,8 +6,10 @@
   top: 0; right: 0; bottom: 0;
   width: auto;
   z-index: 12;
+  background-color: $glass-smoked;
   transform: translate3d(100%, 0, 0);
   transition: transform 250ms $easing-quick;
+  box-shadow: -4px 0 8px -8px $shade-40;
   &.shown {
     transform: translate3d(0, 0, 0);
   }
@@ -23,27 +25,25 @@ a.dev-trigger.dev-trigger {
   position: absolute;
   margin: auto;
   overflow: auto;
-  bottom: 6em;
+  top: 18em;
   right: 100%;
-  border-radius: 12px 0 0 12px;
+  border-radius: 8px 0 0 8px;
   font-size: .875em;
   padding: .75em;
   text-align: center;
-  color: $black;
-  background: $gold;
-  border: 3px solid;
-  border-right: none;
+  color: $glass-smoked;
+  background: $glass-amber;
+  box-shadow: 0px 0 8px -2px $shade-60;
   &:hover {
-    border-color: $gold;
-    background: saturate($gold, 5%);
+    background: saturate($glass-amber, 10%);
+    border: 0;
   }
   &.triggered {
-    color: $gold;
-    border-color: $black;
-    background-color: $black;
+    color: $glass-amber;
+    background-color: $glass-smoked;
   }
   &:hover.triggered {
-    border-color: $gold;
+    background: lighten($glass-smoked, 10%);
   }
 }
 

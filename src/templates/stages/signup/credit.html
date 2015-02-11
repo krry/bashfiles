@@ -1,48 +1,42 @@
 <!-- main.html for qualify stage -->
-<div class="overlay primary col fourth three">
+<div class="overlay primary col">
   <h1>Let’s see what we can do for you.<br><small>Enter your info to see if you qualify for our financing options.</small></h1>
   <form name="prospectForm" novalidate>
     <div class="row">
       <div class="col half padded">
         <label for="">Full name <span>*</span></label>
-        <input type="text" name="name" ng-model="form.prospect.name" placeholder="First and last, please" class="name">
+        <fln-input-full-name hint="First and last, please"></fln-input-full-name>
       </div>
       <div class="col half padded">
         <label for="">Email address <span>*</span></label>
-        <input type="text" name="email" ng-model="form.prospect.email" placeholder="you@domain.com" class="email">
+        <fln-input-email hint="you@domain.com"></fln-input-email>
       </div>
     </div>
     <div class="row">
       <div class="col half padded">
         <label for="">Date of birth <span>*</span></label>
-        <div class="combo-input">
-          <input type="text" name="month" ng-model="form.prospect.dob.month" class="month" placeholder="mm" ng-minlength="2" ng-maxlength="2">
-          <input type="text" name="day" ng-model="form.prospect.dob.day" class="day" placeholder="dd" ng-minlength="2" ng-maxlength="2">
-          <input type="text" name="year" ng-model="form.prospect.dob.year" class="year" placeholder="yyyy" ng-minlength="4" ng-maxlength="4">
-        </div>
+        <fln-input-dob></fln-input-dob>
       </div>
       <div class="col half padded">
         <label for="">Phone number</label>
-        <input type="text" name="phone" ng-model="form.prospect.phone" placeholder="(---) --- ----" class="phone">
+        <fln-input-phone hint="(---) --- ----"></fln-input-phone>
       </div>
     </div>
     <div class="row center">
       <div class="col half padded center">
-        <!-- implant NoUIslider -->
-        <!-- <label for="bill">Your average monthly electric bill: <h1 class="display-inline">$100</h1></label> -->
-        <br>
-        <button class="ib aqua" ng-click="stages.next()">Qualify Me</button>
+        <button class="ib gold" ng-click="stages.next()">Qualify Me</button>
       </div>
     </div>
   </form>
 </div>
 
-<div class="overlay secondary col fourth sml-full med-full">
+<div class="overlay secondary col sml-full med-full">
   <!-- <p>We need your consent to a quick credit check so we can determine what kind of savings we can offer you.</p> -->
   <!-- <p>This is solely for the purpose of providing you with a solar system. We won't share your information with anyone else.</p> -->
 
   <!-- TODO: remove internal jargon from this copy; prospects won't know a 'soft' from a 'hard' credit check -->
-  <p>We’ll run a soft credit check to determine what financing we can offer you. This won't affect your credit score. We'll talk through your options in more detail later, but here's a peek:</p>
+  <p>We’ll run a soft credit check to determine what financing we can offer you. This won't affect your credit score. We'll talk through your options with you once your professional design is complete so we know your exact system size/production.</p>
+  <p>If you are not interested in financing and prefer to purchase your system, you'll want to contact a sales representative directly. Give us a call now at <strong><a href="tel:18887652489">(888) 765-2489</a></strong>.</p>
 
   <ul class="financing-options-list">
     <li><strong>SolarPPA</strong>&nbsp;Pay only for the power your system produces with little to no upfront costs.</li>
@@ -50,6 +44,4 @@
     <li><strong>MyPower loan</strong>&nbsp;Own your system from day one for $0 down.</li>
     <li><strong>Purchase</strong>&nbsp;If you wish to purchase your system, skip this step. Pay cash upfront and enjoy free, clean energy for years.</li>
   </ul>
-
-  <div fln-help class="fln-help"></div>
 </div>

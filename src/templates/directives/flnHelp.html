@@ -1,10 +1,8 @@
-<nav class="help">
-  <ul class="row bottom fourth three">
-    <li class="col half sml-half">
-      <a class="icon caps call">Call</a>
-    </li>
-    <li class="col half sml-half">
-      <a class="icon caps chat">Chat</a>
-    </li>
-  </ul>
-</nav>
+<button id="help-trigger" class="trigger-bar tooltip top" ng-click="toggleShown()" title="Check out our FAQ or connect with a solar consultant. That's what we're here for!">Contact us for help</button>
+<div class="row">
+  <div class="col full center" ng-controller="ModalCtrl as modal">
+    <button class="btn green tiny">Call</button>
+    <button class="btn green tiny">Chat</button>
+    <button class="btn green tiny" ng-click="modal.showDialog('faq')">FAQ</button>
+  </div>
+</div>
