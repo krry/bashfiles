@@ -38,8 +38,8 @@ function CalendarCtrl_ (Form, Client, $q) {
     if (vm.selectedDate) {
       vm.selectedDate.isClicked = false;
     }
-    
-    if (date.availableTimes.length > 0) {
+
+    if (date.availableTimes.length > 0 && date.canSchedule) {
       vm.prospect.scheduledDate = date;
       Client.emit('stage', 'next');
     } else {
@@ -57,7 +57,8 @@ function CalendarCtrl_ (Form, Client, $q) {
   function getTimes() {
     var dfd = $q.defer();
     dfd.resolve([
-      '2/16/2015 7:00:00AM',
+      moment().add(1, 'day').format('M/DD/YYYY h:mm:ssA'),
+      moment().add(2, 'day').format('M/DD/YYYY h:mm:ssA'),
       '2/27/2015 7:00:00AM',
       '2/27/2015 11:00:00AM',
       '3/2/2015 9:00:00AM'
@@ -67,7 +68,7 @@ function CalendarCtrl_ (Form, Client, $q) {
   }
 
   function init() {
-    getTimes().then(parseTimes);
+    return getTimes().then(parseTimes);
   }
 
   function parseTimes(data) {

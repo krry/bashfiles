@@ -22,14 +22,6 @@
     position: relative;
     cursor: pointer;
 
-    &.available {
-      background: $gold;
-    }
-
-    &.unavailable {
-      background: $grey-lighter;
-    }
-
     &.tooltip {
       &:before {
         border-color: $tan transparent;
@@ -44,6 +36,14 @@
     }
   }
 
+  .available {
+    background: $gold;
+  }
+
+  .unavailable {
+    background: $grey-lighter;
+  }
+
   .month {
     position: absolute;
     top: 5px;
@@ -55,6 +55,27 @@
     position: absolute;
     right: 5px;
     bottom: 5px;
+  }
+
+  .key {
+    display: inline-block;
+    width: 30px;
+    height: 20px;
+    margin-left: 20px;
+    margin-right: 5px;
+    vertical-align: text-bottom;
+  }
+
+  .legend {
+    margin: 10px 0 0;
+    text-align: left;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.8em;
+
+    .key:first-child {
+      margin-left: 0;
+    }
   }
 
   @media screen and (max-width: 7 * $box-width) {
