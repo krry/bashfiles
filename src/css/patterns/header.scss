@@ -52,15 +52,17 @@
   }
 
   .stage-nav {
-    display: none;
+    // display: none;
+    width: 100%;
     margin-right: 2rem;
+    text-align: left;
   }
 
   .logo {
     background-image: url('../img/logo-white.svg');
-    background-position: 1rem 0;
+    background-position: 0.375rem -0.35rem;
     background-repeat: no-repeat;
-    background-size: auto 100%;
+    background-size: auto 120%;
     width: 8rem;
     opacity: 1;
     a {
@@ -72,9 +74,13 @@
 
   .chevron.right {
     @include chevron("right", $height: 2.5rem);
-    font-size: .625rem;
+    font-size: .75rem;
     padding: 0 2rem;
     line-height: 2.5rem;
+    display: none;
+    &.active {
+      display: inline-block;
+    }
   }
 
   .top-five {
@@ -104,8 +110,8 @@
 
 @media screen and (min-width: $width-min-lrg) {
   .header {
-    .stage-nav {
-      display: inline;
+    .chevron.right {
+      display: inline-block;
     }
   }
 }
