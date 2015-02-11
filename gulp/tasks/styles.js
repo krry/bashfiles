@@ -20,6 +20,7 @@ var sass    = require('gulp-sass');
 var minCSS  = require('gulp-minify-css');
 
 var handleErrors = require('../util/handleErrors');
+var timestamp = require('../util/timestamp');
 
 // this glob determines the order of the concatenated stylesheets
 var styleSrc = [
@@ -44,7 +45,7 @@ gulp.task('styles', function(){
         }))
         .pipe(sass(sassOpts))
         .pipe(prefix(['ie 9','last 2 versions', '> 5%'], { cascade: true }))
-        .pipe(concat('all.css'))
+        .pipe(concat('all-' + timestamp + '.css'))
         .pipe(gulp.dest(stylePub))
         .pipe(minCSS({keepBreaks: false}))
         .pipe(rename({suffix: '.min'}))

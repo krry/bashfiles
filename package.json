@@ -32,10 +32,14 @@
     "gulp-autoprefixer": "^1.0.1",
     "gulp-changed": "^1.0.0",
     "gulp-concat": "^2.2.0",
+    "gulp-filter": "^2.0.1",
+    "gulp-htmlmin": "^1.0.0",
     "gulp-jshint": "^1.9.0",
+    "gulp-linker": "^0.1.7",
     "gulp-minify-css": "^0.3.11",
     "gulp-minify-html": "^0.1.8",
     "gulp-ng-constant": "^0.2.0",
+    "gulp-ng-templates": "0.0.5",
     "gulp-nodemon": "^1.0.4",
     "gulp-notify": "^2.0.0",
     "gulp-plumber": "^0.6.6",
@@ -66,6 +70,7 @@
   "scripts": {
     "start": "node server/server.js",
     "dev": "npm install && gulp dev",
+    "pc": "npm install && gulp clean && gulp config && gulp default",
     "staging": "npm install && bower install -F && gulp staging",
     "prod": "npm install && bower install -F && gulp prod",
     "test": "npm install && bower install && karma start karma.conf.js"

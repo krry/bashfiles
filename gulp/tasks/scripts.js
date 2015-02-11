@@ -18,6 +18,7 @@ var plumber = require('gulp-plumber');
 var stylish = require('jshint-stylish');
 
 var handleErrors = require('../util/handleErrors');
+var timestamp = require('../util/timestamp');
 
 // this glob determines the order of the concatenated scripts
 var scriptSrc = [
@@ -37,7 +38,7 @@ gulp.task('scripts', function(){
     .pipe(plumber(handleErrors))
     .pipe(jshint('./.jshintrc'))
     .pipe(jshint.reporter(stylish))
-    .pipe(concat('all.js'))
+    .pipe(concat('all-' + timestamp + '.js'))
     .pipe(gulp.dest(scriptPub))
     .pipe(uglify())
     .pipe(rename({suffix: '.min'}))
