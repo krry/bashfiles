@@ -78,7 +78,8 @@ main.main {
     height: 100%;
   }
 
-  .step-address.primary {
+  .step-address.primary,
+  .step-bill.primary {
     width: 100%;
   }
 }
@@ -103,9 +104,6 @@ main.main {
     &.step-bill {
       padding: 3em 2em 1em;
     }
-  }
-  .step-address.primary {
-    width: 100%;
   }
 }
 
