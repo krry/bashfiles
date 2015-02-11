@@ -3,11 +3,8 @@
     <div class="col half right bottom padded">
       <h3>How much is your monthly electricity bill?</h3>
     </div>
-    <div class="col third padded">
-      <div slider ng-model="form.prospect.bill" start="0" end="750" step="5"></div>
-    </div>
-    <div class="col sixth padded">
-      <output for="slider" class="slider-output med-full sml-full" ng-bind="form.prospect.bill" ng-cloak>100</output>
+    <div class="col half left">
+      <fln-input-bill-slider></fln-input-bill-slider>
     </div>
   </div>
 

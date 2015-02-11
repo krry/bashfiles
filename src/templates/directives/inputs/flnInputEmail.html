@@ -4,9 +4,10 @@
   id="prospect_email"
   class="email"
   placeholder="{{hint}}"
-  ng-model="form.prospect.email"
-  ng-required="true"
   autocapitalize="none"
   autocomplete="on"
   autocorrect="off"
+  ng-model="form.prospect.email"
+  ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"
+  ng-required="true"
   ng-valid="form.checkEmail(form.prospect.email)">

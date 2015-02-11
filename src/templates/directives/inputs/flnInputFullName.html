@@ -1,0 +1,12 @@
+<input
+  type="text"
+  name="full_name"
+  class="full-name"
+  focus="true"
+  placeholder="{{hint}}"
+  autocomplete="on"
+  autocorrect="off"
+  ng-model="form.prospect.full_name"
+  ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"
+  ng-required="true"
+  ng-minlength="4">

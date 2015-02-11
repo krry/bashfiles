@@ -44,7 +44,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 1.75em;
+  font-size: 1.9em;
   line-height: 1.2em;
 }
 
@@ -54,11 +54,10 @@ h1 {
 
 h1 small {
   @include apercu-light;
-  font-size: 65%;
+  font-size: 71%;
   display: block;
-  margin-top: .5em;
-  // font-weight: normal;
-  line-height: 120%;
+  margin-top: .875em;
+  line-height: 1.2;
 }
 
 h2 {

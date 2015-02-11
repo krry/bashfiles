@@ -5,10 +5,10 @@
 <fln-control-pan></fln-control-pan>
 <div>
   <div ui-view name="instructions" class="instructions">
-    <h4>Trace the one section for your panels.</h4>
+    <h4>Trace the sunny side of your roof.</h4>
     <p>Start by clicking at one corner of the section, then click another corner. Each click will place points. The tool will connect the dots for you. You can always adjust them later if you want.</p>
     <figure><img src="" alt=""></figure>
     <p>Remember to choose the section that gets the best sunlight from the south.</p>
-    <button class="ib gold" ng-disabled="!traced" ng-click="stages.next()">Next</button>
+    <button class="gold" ng-hide="!traced" ng-click="stages.next()">Next</button>
   </div>
 </div>
