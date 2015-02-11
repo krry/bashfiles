@@ -90,6 +90,10 @@ main.main {
   .step-bill.primary {
     width: 100%;
   }
+
+  .inset-right {
+    box-shadow: inset 0 0 8px -2px $shade-40;
+  }
 }
 
 @media screen and (min-width: $width-min-xlg){
@@ -109,6 +113,7 @@ main.main {
   .overlay.short {
     height: auto;
     padding: 2em;
+    box-shadow: 0 0 8px 0 $shade-40;
     &.step-bill {
       padding: 3em 2em 1em;
     }

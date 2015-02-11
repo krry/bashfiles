@@ -70,6 +70,7 @@
   &:hover {
     color: $white;
     background-color: lighten($color, 3%);
+    box-shadow: 0 0 4px -1px darken($color, 20%);
 
     @if $color == $white {
       color: $grey-darker;
@@ -80,6 +81,7 @@
   &:active:not(:disabled) {
     color: $white;
     background-color: lighten($color, 3%);
+    box-shadow: none;
 
     @if $color == $white {
       color: $grey-darker;

@@ -9,6 +9,7 @@
   background-color: $glass-smoked;
   transform: translate3d(100%, 0, 0);
   transition: transform 250ms $easing-quick;
+  box-shadow: -4px 0 8px -8px $shade-40;
   &.shown {
     transform: translate3d(0, 0, 0);
   }
@@ -32,8 +33,9 @@ a.dev-trigger.dev-trigger {
   text-align: center;
   color: $glass-smoked;
   background: $glass-amber;
+  box-shadow: 0px 0 8px -2px $shade-60;
   &:hover {
-    background: lighten($glass-amber, 10%);
+    background: saturate($glass-amber, 10%);
     border: 0;
   }
   &.triggered {
