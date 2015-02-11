@@ -22,6 +22,7 @@ var laundry = [
   './public/css/**/*',
   './public/js/**/*',
   './public/index.html',
+  './public/*.js'
 ];
 
 gulp.task('clean', function() {

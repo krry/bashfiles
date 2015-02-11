@@ -8,19 +8,25 @@
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
 var gulp = require('gulp');
-var rename = require('gulp-rename');
-var changed = require('gulp-changed');
+var htmlmin = require('gulp-htmlmin');
+var ngTemplates = require('gulp-ng-templates');
+
+var timestamp = require('../util/timestamp');
 
 var tmplSrc = [
-  'src/index.html',
   'src/templates/**/*.html',
 ];
 
-var tmplPub = 'public/templates';
-
 gulp.task('templates', function(){
   return gulp.src(tmplSrc, {base: './src/'})
-    .pipe(changed(tmplPub))
+    .pipe(htmlmin({collapseWhitespace: true}))
+    .pipe(ngTemplates({
+      filename: 'templates-' + timestamp + '.js',
+      module: 'flannel.templates',
+      path: function (path, base) {
+        return path.replace(/\\/g, '/').split('src/')[1];
+      }
+    }))
     .pipe(gulp.dest('./public/'))
 });
 
