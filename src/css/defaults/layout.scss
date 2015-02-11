@@ -18,14 +18,22 @@ main.main {
   width: 100%;
   z-index: 1;
   margin: auto;
+  // height: 100%;
   // overflow: hidden;
-  background-color: $color-bkgd-primary;
   // max-height: 33.3em; // the number of the beast in ems
+}
+
+.full-height,
+.prospect-form,
+.overlay.secondary,
+.overlayer {
+  height: 100%;
 }
 
 .overlay {
   position: relative;
   width: 100%;
+  background-color: $color-bkgd-primary;
 }
 
 .overlay.primary {
