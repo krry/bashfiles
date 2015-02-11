@@ -9,12 +9,12 @@ fln-help {
   bottom: 0;
   right: 1rem;
   width: 16rem;
-  height: 16rem;
-  background: $tint-80;
+  height: 15rem;
+  background: hsl(0, 100%, 100%);
   border-radius: 4px 4px 0 0;
-  border: 1px solid $blue-smoke;
-  border-bottom: 0;
-  transform: translate3d(0, 13rem, 0);
+  box-shadow: 0 0 12px -4px hsla(0, 0%, 0%, 0.8);
+  border-style: none;
+  transform: translate3d(0, 12rem, 0);
   transition: transform 250ms $easing-quick;
   .trigger-bar {
     @include apercu-bold;
