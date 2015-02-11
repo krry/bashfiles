@@ -7,6 +7,6 @@
   autocorrect="off"
   placeholder="{{hint}}"
   ng-model="form.prospect.phone"
-  ng-required="true"
+  ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"  ng-required="true"
   ng-minlength="10"
   ng-maxlength="10">

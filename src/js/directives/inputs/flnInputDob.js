@@ -6,7 +6,7 @@ function flnInputDob_ (Form) {
       hint: "@"
     },
     restrict: "E",
-    templateUrl: "templates/directives/flnInputDob.html",
+    templateUrl: "templates/directives/inputs/flnInputDob.html",
     controller: "FormCtrl as form"
   };
 }

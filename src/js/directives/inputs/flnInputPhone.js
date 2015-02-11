@@ -6,7 +6,7 @@ function flnInputPhone_ (Form) {
       hint: "@"
     },
     restrict: "E",
-    templateUrl: "templates/directives/flnInputPhone.html",
+    templateUrl: "templates/directives/inputs/flnInputPhone.html",
     controller: "FormCtrl as form"
   };
 }

@@ -6,7 +6,7 @@ function flnInputFullName_ (Form) {
       hint: "@"
     },
     restrict: "E",
-    templateUrl: "templates/directives/flnInputFullName.html",
+    templateUrl: "templates/directives/inputs/flnInputFullName.html",
     controller: "FormCtrl as form"
   };
 }

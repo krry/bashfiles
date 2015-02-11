@@ -6,7 +6,7 @@ function flnInputEmail_ (Form) {
       hint: "@"
     },
     restrict: "E",
-    templateUrl: "templates/directives/flnInputEmail.html",
+    templateUrl: "templates/directives/inputs/flnInputEmail.html",
     controller: "FormCtrl as form"
   };
 }
