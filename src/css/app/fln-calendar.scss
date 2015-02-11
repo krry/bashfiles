@@ -3,6 +3,7 @@
 .calendar {
   $box-width: 100px;
   $box-border: 2px;
+  $tan: #f9f2d6;
 
   width: 7 * $box-width;
   margin: 0 auto;
@@ -27,6 +28,19 @@
 
     &.unavailable {
       background: $grey-lighter;
+    }
+
+    &.tooltip {
+      &:before {
+        border-color: $tan transparent;
+      }
+
+      &:after {
+        left: -50%;
+        width: 220%;
+        background: $tan;
+        color: $grey-darkest;
+      }
     }
   }
 

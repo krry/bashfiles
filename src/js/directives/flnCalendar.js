@@ -10,6 +10,8 @@ function flnCalendar_ () {
     },
     link: function(scope, element, attrs) {
       scope.days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      scope.isAvailable = isAvailable;
+
       scope.$watch('config', function() {
         scope.dates = getDates(scope.config.startDate, scope.config.range);
         setRows(scope.config.range);
@@ -69,6 +71,10 @@ function flnCalendar_ () {
             }
           }
         }
+      }
+
+      function isAvailable(date) {
+        return date.availableTimes.length > 0;
       }
     }
   };

@@ -4,11 +4,15 @@
   </tr>
   <tr ng-repeat="row in rows">
     <td class="date"
+     title="{{ 'The selected date is ' + (isAvailable(date) ? 'available.' : 'unavailable.')}}"
      ng-repeat="date in dates | limitTo: (row * 7) | limitTo: -7"
-     ng-class="date.availableTimes.length > 0 ? 'available' : 'unavailable'"
+     ng-class="{ available: isAvailable(date), unavailable: !isAvailable(date), 'tooltip top': date.isClicked }"
      ng-click="selectFn({ date: date })">
-      <div class="month" ng-if="date.day <= 1">{{date.month}}</div>
+      <div class="month" ng-if="date.day <= 1 || ($index <= 0 && row <= 1)">{{date.month}}</div>
       <div class="day">{{date.day}}</div>
    </td>
   </tr>
 </table>
+
+<span>Available</span>Test
+<span>Unavailable</span>

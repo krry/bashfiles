@@ -6,6 +6,7 @@ function CalendarCtrl_ (Form, Client, $q) {
   vm.eventDetails = eventDetails;
   vm.selectDate = selectDate;
   vm.selectTime = selectTime;
+  vm.selectedDate = null;
   vm.init = init;
   vm.init();
 
@@ -34,8 +35,18 @@ function CalendarCtrl_ (Form, Client, $q) {
   }
 
   function selectDate(date) {
-    vm.prospect.scheduledDate = date;
-    Client.emit('stage', 'next');
+    if (vm.selectedDate) {
+      vm.selectedDate.isClicked = false;
+    }
+    
+    if (date.availableTimes.length > 0) {
+      vm.prospect.scheduledDate = date;
+      Client.emit('stage', 'next');
+    } else {
+      date.isClicked = true;
+    }
+
+    vm.selectedDate = date;
   }
 
   function selectTime(time) {
