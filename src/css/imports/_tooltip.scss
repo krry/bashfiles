@@ -4,11 +4,12 @@
 @mixin tooltip($position: "bottom") {
   position: relative; // pseudo-elements should be relative to this
   cursor: help; // got a question about this? so does your cursor
-  display: inline-block;
+  // display: inline-block;
 
   &:before,
   &:after {
-    font-size: .75em;
+    @include apercu-light;
+    font-size: .625em;
     opacity: 0;
     visibility: hidden;
     position: absolute; // finds the nearest positioned parent
@@ -30,10 +31,11 @@
   &:after {
     content: attr(title); // grab content from `title` tag
     color: white;
-    white-space: nowrap; // don't let it wrap
-    background: $grey-darkest; // fallback for anti-opacity browsers
-    background: $shade-80;
-    padding: .125em .5em;
+    line-height: 1.25;
+    // white-space: nowrap; // don't let it wrap
+    background: $grey-darker; // fallback for anti-opacity browsers
+    background: $shade-60;
+    padding: .5em;
     border-radius: 4px;
     z-index: 19; // get on top of other page elements
   }
@@ -41,8 +43,8 @@
   &:before {
     content: ""; // just a triangle, no content
     border-style: solid;
-    border-color: $grey-darkest transparent; // fallback for anti-opacity browsers
-    border-color: $shade-80 transparent; // make side borders transparent to form a triangle
+    border-color: $grey-darker transparent; // fallback for anti-opacity browsers
+    border-color: $shade-60 transparent; // make side borders transparent to form a triangle
     z-index: 20; // make sure the triangle shows over the tip
   }
 
@@ -53,12 +55,14 @@
     }
     &:after {
       top: 100%; // hang it under the element
-      left: 0;
+      left: 50%;
+      width: 12rem;
+      margin-left: -6rem;
       margin-top: calc(.25em - .5px);
     }
     &:before {
-      top: 100%;
-      left: 1em;
+      bottom: -.5em;
+      left: 50%;
       border-width: 0 .25em .25em; // omit the top border to form to an upward-facing point
     }
   }
@@ -71,10 +75,10 @@
     &:after {
       bottom: 100%; // hang it under the element
       left: 0;
-      margin-bottom: calc(.25em - .5px);
+      margin-bottom: calc(.5em - .5px);
     }
     &:before {
-      bottom: 100%;
+      top: -.5em;
       left: 1em;
       border-width: .25em .25em 0 .25em; // omit the top border to form to an upward-facing point
     }
