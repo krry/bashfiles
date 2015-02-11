@@ -1,7 +1,9 @@
-<!-- <!DOCTYPE html> -->
+<!DOCTYPE html>
 <html ng-app="flannel" ng-controller="AppCtrl as app">
 
 <head>
+  <!-- adding this meta tag to try to snap IE9 out of Quirks mode. note, this must be the first meta tag and ahead of any conditional comments in order to work. http://stackoverflow.com/questions/3449286/force-ie-compatibility-mode-off-in-ie-using-tags -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta charset="utf-8">
 
   <!-- <meta name="robots" content="noindex,nofollow"> -->
@@ -100,7 +102,7 @@
   <header ui-view name="header" id="header" class="header"></header>
   <main ui-view name="main" id="main" class="main"></main>
   <footer ui-view name="footer" id="footer" class="footer row"></footer>
-  <div fln-chat class="chat" ng-controller="ChatCtrl as chat" ng-show="chat.shown"></div>
+  <!-- <div fln-chat class="chat" ng-controller="ChatCtrl as chat" ng-show="chat.shown"></div> -->
   <div fln-modal class="modal" ng-show="modal.isOn()" ng-click=""></div>
 
   <!-- TAIL of the BODY -->
