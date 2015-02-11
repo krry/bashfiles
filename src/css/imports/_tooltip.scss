@@ -9,7 +9,7 @@
   &:before,
   &:after {
     @include apercu-light;
-    font-size: .625em;
+    font-size: .75em;
     opacity: 0;
     visibility: hidden;
     position: absolute; // finds the nearest positioned parent
@@ -35,7 +35,8 @@
     // white-space: nowrap; // don't let it wrap
     background: $grey-darker; // fallback for anti-opacity browsers
     background: $shade-60;
-    padding: .5em;
+    padding: 1em;
+    text-align: center;
     border-radius: 4px;
     z-index: 19; // get on top of other page elements
   }
@@ -75,12 +76,13 @@
     &:after {
       bottom: 100%; // hang it under the element
       left: 0;
-      margin-bottom: calc(.5em - .5px);
+      width: 16rem;
+      margin-bottom: calc(1em - 0px);
     }
     &:before {
-      top: -.5em;
-      left: 1em;
-      border-width: .25em .25em 0 .25em; // omit the top border to form to an upward-facing point
+      top: -1em;
+      left: 50%;
+      border-width: .75em .75em 0 .75em; // omit the top border to form to an upward-facing point
     }
   }
 

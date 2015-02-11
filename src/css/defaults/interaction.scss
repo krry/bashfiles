@@ -71,8 +71,8 @@ a.btn {
   &.white {
     @include btn($white);
   }
-  &.aqua {
-    @include btn($aqua-dark);
+  &.green {
+    @include btn($green);
   }
   &.huge {
     &.gold {
@@ -90,8 +90,8 @@ a.btn {
     &.white {
       @include btn($white, $size: 1.5rem);
     }
-    &.aqua {
-      @include btn($aqua-dark, $size: 1.5rem);
+    &.green {
+      @include btn($green, $size: 1.5rem);
     }
   }
 
@@ -111,8 +111,8 @@ a.btn {
     &.white {
       @include btn($white, $size: 1.25rem);
     }
-    &.aqua {
-      @include btn($aqua-dark, $size: 1.25rem);
+    &.green {
+      @include btn($green, $size: 1.25rem);
     }
   }
 
@@ -132,8 +132,8 @@ a.btn {
     &.white {
       @include btn($white, $size: .875rem);
     }
-    &.aqua {
-      @include btn($aqua-dark, $size: .875rem);
+    &.green {
+      @include btn($green, $size: .875rem);
     }
   }
 
@@ -153,8 +153,8 @@ a.btn {
     &.white {
       @include btn($white, $size: .75rem);
     }
-    &.aqua {
-      @include btn($aqua-dark, $size: .75rem);
+    &.green {
+      @include btn($green, $size: .75rem);
     }
   }
 
@@ -193,7 +193,7 @@ a.btn {
   }
 }
 
-.btn + .btn {
+.btn.ib + .btn.ib {
   margin-left: 1em !important;
 }
 
