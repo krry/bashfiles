@@ -7,12 +7,14 @@ fln-help {
   display: block;
   z-index: 1;
   bottom: 0;
-  right: 2rem;
+  right: 1rem;
   width: 16rem;
-  height: 12rem;
+  height: 16rem;
   background: $tint-80;
-  border-radius: .25em .25em 0 0;
-  transform: translate3d(0,9rem,0);
+  border-radius: 4px 4px 0 0;
+  border: 1px solid $blue-smoke;
+  border-bottom: 0;
+  transform: translate3d(0, 13rem, 0);
   transition: transform 250ms $easing-quick;
   .trigger-bar {
     @include apercu-bold;
@@ -23,7 +25,6 @@ fln-help {
     border: 0;
     display: block;
     width: 100%;
-    border-radius: .25em .25em 0 0;
     padding: .25em 1.5em;
     text-align: left;
   }
