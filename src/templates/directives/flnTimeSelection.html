@@ -1,5 +1,6 @@
 <div>
   <div class="time-selection"
    ng-click="calendar.selectTime(time)"
-   ng-repeat="time in calendar.prospect.scheduledDate.availableTimes">{{ time }}</div>
+   ng-class="{ selected: time.isSelected }"
+   ng-repeat="time in calendar.prospect.scheduledDate.availableTimes">{{ time.start }}</div>
 </div>

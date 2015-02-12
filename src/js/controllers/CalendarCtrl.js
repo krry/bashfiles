@@ -18,8 +18,8 @@ function CalendarCtrl_ (Form, Client, $q) {
   function eventDetails() { 
     return {
       subject: 'SolarCity site survey',
-      begin: vm.prospect.scheduledTime.format('MM/DD/YYYY h:mm:ss A'),
-      end: vm.prospect.scheduledTime.clone().add(2, 'hours').format('MM/DD/YYYY h:mm:ss A'),
+      begin: vm.prospect.scheduledTime.obj.format('MM/DD/YYYY h:mm:ss A'),
+      end: vm.prospect.scheduledTime.obj.clone().add(2, 'hours').format('MM/DD/YYYY h:mm:ss A'),
       location: [
         vm.prospect.street,
         vm.prospect.city,
@@ -47,10 +47,15 @@ function CalendarCtrl_ (Form, Client, $q) {
     }
 
     vm.selectedDate = date;
+    vm.prospect.scheduledTime = null;
   }
 
   function selectTime(time) {
-    console.log(time);
+    if (vm.prospect.scheduledTime) {
+      vm.prospect.scheduledTime.isSelected = false;
+    }
+
+    time.isSelected = true;
     vm.prospect.scheduledTime = time;
   }
 
@@ -59,6 +64,12 @@ function CalendarCtrl_ (Form, Client, $q) {
     dfd.resolve([
       moment().add(1, 'day').format('M/DD/YYYY h:mm:ssA'),
       moment().add(2, 'day').format('M/DD/YYYY h:mm:ssA'),
+      '2/18/2015 11:00:00AM',
+      '2/19/2015 11:00:00AM',
+      '2/20/2015 9:00:00AM',
+      '2/20/2015 11:00:00AM',
+      '2/23/2015 9:00:00AM',
+      '2/23/2015 11:00:00AM',
       '2/27/2015 7:00:00AM',
       '2/27/2015 11:00:00AM',
       '3/2/2015 9:00:00AM'

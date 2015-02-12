@@ -76,7 +76,11 @@ function flnCalendar_ () {
             timeDiff = availableTimestamp - selectedTimestamp;
 
             if (timeDiff > 0 && timeDiff < (60 * 60 * 24)) {
-              dates[i].availableTimes.push(times[j]);
+              dates[i].availableTimes.push({
+                obj: times[j],
+                start: times[j].format('h A'),
+                end: times[j].clone().add(2, 'hours').format('h A')
+              });
             }
           }
         }
