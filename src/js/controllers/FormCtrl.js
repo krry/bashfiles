@@ -151,6 +151,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form) {
     if (data) {
       vm.invalid = false;
       vm.prospect.street = data.home;
+      Client.emit('Form: valid house', data);
       Client.emit('jump to step', 'monthly-bill');
     }
   }
