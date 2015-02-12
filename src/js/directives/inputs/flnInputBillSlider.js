@@ -1,6 +1,6 @@
-directives.directive('flnInputBillSlider', ["Form", flnInputBillSlider_]);
+directives.directive('flnInputBillSlider', [flnInputBillSlider_]);
 
-function flnInputBillSlider_ (Form) {
+function flnInputBillSlider_ () {
   return {
     scope: {
       hint: "@"

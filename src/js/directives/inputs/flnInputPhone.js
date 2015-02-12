@@ -1,6 +1,6 @@
-directives.directive('flnInputPhone', ["Form", flnInputPhone_]);
+directives.directive('flnInputPhone', [flnInputPhone_]);
 
-function flnInputPhone_ (Form) {
+function flnInputPhone_ () {
   return {
     scope: {
       hint: "@"

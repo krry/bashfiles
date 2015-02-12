@@ -1,6 +1,6 @@
-directives.directive('flnInputState', ["Form", flnInputState_]);
+directives.directive('flnInputState', [flnInputState_]);
 
-function flnInputState_ (Form) {
+function flnInputState_ () {
   return {
     scope: {
       hint: "@"
