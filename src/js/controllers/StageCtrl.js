@@ -45,7 +45,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
   }
 
   // subscribe to the state when session is loaded
-  Client.listen('Session: Session Loaded', bootstrapNewSession);
+  Client.listen('Session: Loaded', bootstrapNewSession);
   Client.listen('Modal: continue design? result', popContinueModal); // result of modal button press
 
   // register listeners for stage, step, and start over events

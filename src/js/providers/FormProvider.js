@@ -52,7 +52,7 @@ function FormProvider_ () {
   this.$get = ["Clientstream",function formProviderFactory(Client) {
 
 
-    Client.listen('Session: Session Loaded', bootstrapForm);
+    Client.listen('Session: Loaded', bootstrapForm);
     Client.listen('valid zip', updateZipOnRef);// TODO: fix line use Client.listen('valid format', updateRefByKey ); or something
     Client.listen('Form: valid house', updateRefByVal );
     Client.listen('Form: valid data', updateRefByVal);
