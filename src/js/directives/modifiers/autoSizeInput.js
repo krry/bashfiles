@@ -20,7 +20,7 @@ function autoSizeInput() {
       value: '=inputValue',
       width: '=autoSizeWidth',
     },
-    templateUrl: 'templates/directives/autoSizeInput.html',
+    templateUrl: 'templates/directives/modifiers/autoSizeInput.html',
     link: function(scope, element, attrs) {
       // find the span wrapping the input within the directive
       var elSpan = element.find('span');
