@@ -7,6 +7,6 @@ function flnInputState_ (Form) {
     },
     restrict: "E",
     templateUrl: "templates/directives/inputs/flnInputState.html",
-    controller: "FormCtrl as form"
+    controller: "FormCtrl as form",
   };
 }

@@ -7,6 +7,6 @@ function flnInputPhone_ (Form) {
     },
     restrict: "E",
     templateUrl: "templates/directives/inputs/flnInputPhone.html",
-    controller: "FormCtrl as form"
+    controller: "FormCtrl as form",
   };
 }

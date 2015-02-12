@@ -7,6 +7,6 @@ function flnInputCity_ (Form) {
     },
     restrict: "E",
     templateUrl: "templates/directives/inputs/flnInputCity.html",
-    controller: "FormCtrl as form"
+    controller: "FormCtrl as form",
   };
 }

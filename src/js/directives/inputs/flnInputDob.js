@@ -7,6 +7,6 @@ function flnInputDob_ (Form) {
     },
     restrict: "E",
     templateUrl: "templates/directives/inputs/flnInputDob.html",
-    controller: "FormCtrl as form"
+    controller: "FormCtrl as form",
   };
 }

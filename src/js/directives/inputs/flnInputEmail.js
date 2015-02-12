@@ -7,6 +7,6 @@ function flnInputEmail_ (Form) {
     },
     restrict: "E",
     templateUrl: "templates/directives/inputs/flnInputEmail.html",
-    controller: "FormCtrl as form"
+    controller: "FormCtrl as form",
   };
 }
