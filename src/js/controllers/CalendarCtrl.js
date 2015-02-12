@@ -8,6 +8,7 @@ function CalendarCtrl_ (Form, Client, $q) {
   vm.selectTime = selectTime;
   vm.selectedDate = null;
   vm.init = init;
+  vm.save = save;
   vm.init();
 
   vm.config = {
@@ -59,6 +60,7 @@ function CalendarCtrl_ (Form, Client, $q) {
     vm.prospect.scheduledTime = time;
   }
 
+  // TODO: replace mocked response with call to GSA api provider
   function getTimes() {
     var dfd = $q.defer();
     dfd.resolve([
@@ -76,6 +78,19 @@ function CalendarCtrl_ (Form, Client, $q) {
     ]);
 
     return dfd.promise;
+  }
+
+  // TODO: replace mocked response with call to GSA api provider
+  function scheduleTime() {
+    var dfd = $q.defer();
+    dfd.resolve('success');
+    return dfd.promise;
+  }
+
+  function save() {
+    scheduleTime().then(function() {
+      Client.emit('stage', "next");
+    });
   }
 
   function init() {
