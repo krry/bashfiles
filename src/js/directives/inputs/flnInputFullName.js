@@ -1,6 +1,6 @@
-directives.directive('flnInputFullName', ["Form", flnInputFullName_]);
+directives.directive('flnInputFullName', [flnInputFullName_]);
 
-function flnInputFullName_ (Form) {
+function flnInputFullName_ () {
   return {
     scope: {
       hint: "@"

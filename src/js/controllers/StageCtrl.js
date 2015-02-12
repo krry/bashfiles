@@ -44,6 +44,10 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
     return step === step;
   }
 
+  // subscribe to the state when session is loaded
+  Client.listen('Session: Session Loaded', bootstrapNewSession);
+  Client.listen('Modal: continue design? result', popContinueModal); // result of modal button press
+
   // register listeners for stage, step, and start over events
   Client.listen('jump to step', jumpToStep);
   Client.listen('jump to stage', jumpToStage);
@@ -51,47 +55,35 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
   Client.listen('step', stepListen);
   Client.listen('start over', startOver);
   Client.listen('spin it', setWaiting);
-  Client.listen('Session --> StageCtrl: Loaded existing session', loadExistingSession); // fire modal
-  Client.listen('flnContinueDesign: result', popContinueModal); // result of modal button press
 
   // view_sync helps flow control for async // TODO: more stream-like
   $scope.view_sync = true;
 
-
-  function loadExistingSession() {
-    Modal.set(true);
-    return Modal.activate('continue');
+  function bootstrapNewSession (session_data) {
+    // bootstrap a new session, start it's streams up
+    session_stream = Session.state_stream()
+      // .filter(function() { return $scope.view_sync; }) // don't listen to changes you're making
+      .select(function(x){ return x.exportVal();    }) // just watch the value of the state
+      .subscribe(streamSubscription);
+    // anounce you're watching the streams, send the new data
+    Client.emit('Stage: subscribed to statestream', session_data);
+    if (session_data.state.stage !== 0 || session_data.state.step !== 0) {
+      Modal.set(true);
+      return Modal.activate('continue');
+    }
   }
 
-  Client.listen('Session: Session Loaded', function () {
-    // now a stream from firebase
-    session_stream = Session.state_stream()
-      .filter(function() {
-        return $scope.view_sync;
-      })
-      .map(function(x){
-        console.log('x in StageCtrls statestream map', x );
-        return x.val();
-      })
-      .subscribe(subscribeToStateStream);
-  });
-
-  function subscribeToStateStream (data) {
-    if (data === null) return;
-    console.log('data in bootstrapStateStream', data, $scope.view_sync)
+  function streamSubscription (data) {
+    if (data === null) return; // will be null if there's no value to the firebase object, which shouldn't happen
     // you're about to emit messages that making changes to the templates. Lock the view so that
     // messages don't arrive in the meantime.
-    $scope.view_sync = false;
-
-    if (data.stage === undefined ) { // new user,
-      console.log('new user. anything special?');
-      Client.emit('StageCtrl -> Session: request new session', {stage: stage, step: step});
-    } else if (data.stage !== stage) {
+    // $scope.view_sync = false; // TODO: why isn't this necessary anymore?
+    if (data.stage !== stage) {
       console.log('data.stage', data.stage,'diff from client stage', stage);
       Client.emit('stage', data);
     }
     else if (data.step !== step) {
-      console.log('same stage, but data.step', data.step, 'diff from client step', step);
+      console.log('same stage, but data.step', data.step, 'diff from client step', step, $scope.view_sync);
       Client.emit('step', data.step);
     }
   }
@@ -125,14 +117,14 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
     if (result === 'restart') {
       return Client.emit('StageCtrl: restart session', true);
     } else if (result === 'resume') {
-      return Client.emit('Session: Session Loaded', true);
+      // load all the form data?
+      // do nothing?
+      return
     }
   }
 
-  var counter = 0;  // HACK: DEV: session provider
   function stageListen (target_state) {
-    if (counter++ < 1) return; // HACK: DEV: session provider
-    console.log('heard that stage emission', target_state, $scope.view_sync);
+    // console.log('heard that stage emission', target_state, 'view_sync',$scope.view_sync);
     var name;
     if (target_state === "next") {
       next();
@@ -150,7 +142,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
   }
 
   function stepListen (target_step) {
-    console.log('heard that step emission');
+    // console.log('heard that step emission', target_step);
     step = target_step;
     $timeout( function () {
       // unlock the view
@@ -158,10 +150,9 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
       $scope.$apply();
     }, 1);
     // update the view
-    // vm.partial = Templates.partials[stage][step];
     vm.partial = Templates.partial(stage, step);
-    // update firebase
     /* jshint -W030 */
+    // update firebase
     $scope.view_sync && Session.ref().child('state').update({
       stage: stage,
       step: step
@@ -171,12 +162,9 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
 
   // user flow controls
   function next () {
-    console.log('next button. stage:', stage, 'step:', step);
     if ( step + 1 < Templates.config[stage].steps.length ) {
-      console.log('next: emit step')
       Client.emit('step', step + 1);
     } else if (stage + 1 < Templates.config.length ) {
-      console.log('next: emit stage')
       Client.emit('stage', {
         stage: stage + 1,
         step:  0,
@@ -196,7 +184,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
   }
 
   function jumpToStep (target) {
-    console.log('trying to jump to:', target, 'step');
+    // console.log('trying to jump to:', target, 'step');
     var steps = Templates.config[stage].steps;
     for (var i = 0; i < steps.length; i++) {
       if ( target === steps[i].step ) {
@@ -206,7 +194,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
   }
 
   function jumpToStage (target) {
-    console.log('trying to jump to:', target, 'stage');
+    // console.log('trying to jump to:', target, 'stage');
     var stages = Templates.config;
     for (var i = 0; i < stages.length; i++) {
       if ( target !== i && target === Templates.config[i].name) {

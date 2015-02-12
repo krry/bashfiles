@@ -6,14 +6,44 @@
 
 ================================================== */
 
-controllers.controller("FormCtrl", ["$scope", "$element", "Form", "Clientstream", "Geocoder", "Prospect", FormCtrl_]);
+controllers.controller("FormCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Form", FormCtrl_]);
 
-function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect) {
+function FormCtrl_($scope, $element, Client, Geocoder, Form) {
   var vm = this;
-  // TODO: instead of this object literal on the FormProvider, use the firebase ref to the Form object related to the current Session
-  // var form_ref = Form.ref();
+  var form_stream;
+
   vm.prospect = Form.prospect;
-  vm.prospect.bill = 100;
+
+  /* bootstrap the controller's model from the form provider, listen for changes */
+  Client.listen('Form: Loaded', bootstrapForm);
+
+  function bootstrapForm (form_obj) {
+    // subscribe to the stream
+    form_stream = Form.form_stream()
+    // .distinctUntilChanged()
+    .select(function(x) { return x.exportVal();})
+    .subscribe(streamSubscription)
+    // let session provider know you're subscribed, so it can make the
+    Client.emit('Form: subscribed to form_stream', form_obj);
+  }
+
+  function streamSubscription (form_obj) {
+    var key, keys, val;
+    if (form_obj === null) return; // will be null if no data on firebase
+    keys = Object.keys(form_obj);  // HACK: this may fail in different js interpretters... #readabookbrah
+    if (!angular.equals(form_obj, vm.prospect)) { // firebase different from local
+      for (var i = 0; i < keys.length; i++) {
+        key = keys[i];
+        val = form_obj[key];
+        vm.prospect[key] = val;
+      }
+      $scope.$apply(); // update the views
+    }
+    !form_obj.bill && Client.emit('Form: valid data', {bill: 100}); // HACK: hardcode bill should be angular.constant
+  }
+
+  /* end bootstrap */
+
   vm.gmapShown = false;
   vm.invalidZip = true;
   vm.invalidTerritory = true;
@@ -70,7 +100,7 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect) {
 
   // TODO: figure out if the valid territory / valid zip dependency is appropriate for the prescribed UX
   function acceptValidTerritory(data) {
-    console.log('accepting valid territory', data);
+    // accepting valid territory
     // acceptValidZip(data);
     vm.invalidTerritory = !data;
     vm.invalid = vm.invalidZip && vm.invalidTerritory;
@@ -79,7 +109,7 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect) {
   }
 
   function acceptValidZip(data) {
-    console.log('accepting valid zip', data);
+    // accepting valid zip
     if (data) {
       vm.invalidZip = !data;
       vm.invalid = vm.invalidZip && vm.invalidTerritory;
@@ -89,7 +119,7 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect) {
   }
 
   function acceptValidState(data) {
-    console.log('accepting valid state', data);
+    // accepting valid state
     if (data) {
       vm.validState = true;
       vm.prospect.state = data;
@@ -98,7 +128,7 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect) {
   }
 
   function acceptValidCity(data) {
-    console.log('accepting valid city', data);
+    // accepting valid city
     if (data) {
       vm.validCity = true;
       vm.prospect.city = data;
@@ -107,7 +137,7 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect) {
   }
 
   function acceptValidAddress(data) {
-    console.log('accepting valid address', data);
+    // accepting valid address
     if (data) {
       vm.validAddress = true;
       vm.prospect.address = data;
@@ -117,13 +147,12 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect) {
 
   function acceptValidHouse(data) {
     // sync full address
-    console.log('accepting valid house:', data.home);
+    // accepting valid house
     if (data) {
       vm.invalid = false;
       vm.prospect.street = data.home;
-      // vm.form_ref.update(data);
+      Client.emit('Form: valid house', data);
       Client.emit('jump to step', 'monthly-bill');
-      // $scope.$apply();
     }
   }
 
@@ -141,12 +170,10 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect) {
   }
 
   function prev () {
-    console.log('going to previous step');
     Client.emit('stage', "back");
   }
 
   function next () {
-    console.log('going to next step');
     // TODO: currently not checking if valid
     /* jshint -W030 */
     Client.emit('stage', "next");

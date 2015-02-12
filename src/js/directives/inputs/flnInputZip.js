@@ -1,6 +1,6 @@
-directives.directive('flnInputZip', ["Form", flnInputZip_]);
+directives.directive('flnInputZip', [flnInputZip_]);
 
-function flnInputZip_ (Form) {
+function flnInputZip_ () {
   return {
     scope: {
       hint: "@"

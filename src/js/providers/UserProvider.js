@@ -58,13 +58,27 @@ function UserProvider_ (SessionProvider) {
     // It contains the key to the most recent session, or if there's no key, it will need to get a new session.
     $cookies.user_id = _ref.key();
     // listen for the session to load, save it's _ref_key to the user
-    Client.listen('App.run: User Loaded', function save_session_to_user (ds){
-      var data = ds.exportVal();
-      var user_id = _ref.key();
-      var session_id = data ? data.session_id : null;
-      Client.emit('User: User session_id', {session_id: session_id});
-      Client.emit('User: User _ref_key', {user_id: user_id});
-    });
+    Client.listen('App.run: User Loaded', checkForPriorSession );
+    Client.listen('Session: Session Loaded', saveSessionId);
+
+    function checkForPriorSession (ds){
+      var data = ds.exportVal() || {};
+      data.user_id = _ref.key();
+      console.log(data)
+      if (data && data.session_id) {
+        // if there's a session on the object, start the process of reloading the session
+        Client.emit('User: Existing session_id found', data);
+      } else {
+        console.log('userprovider heard app run')
+        // let the app know about the user's _ref_key
+        Client.emit('User: No existing session_id', {user_id: data.user_id});
+      }
+      Client.emit('User: Loaded', data);
+    }
+
+    function saveSessionId (data) {
+      _ref.update({session_id: data.session_id});
+    };
 
     function user_builder_brah () {
       return {
