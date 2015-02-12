@@ -6,7 +6,7 @@ function flnAlternav () {
       alternatives: "@alternatives",
     },
     restrict: 'A',
-    templateUrl: 'templates/directives/flnAlternav.html',
+    templateUrl: 'templates/directives/widgets/flnAlternav.html',
     // link: function(scope, element, attrs) {}
   };
 }
