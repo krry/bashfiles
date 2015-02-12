@@ -31,7 +31,7 @@ function flnControlPan_ (Configurator) {
       vm.size = Configurator.map().getSize();
       vm.view = Configurator.map().getView();
     },
-    templateUrl: "templates/directives/flnControlPan.html",
+    templateUrl: "templates/directives/olmap/flnControlPan.html",
   };
 }
 
