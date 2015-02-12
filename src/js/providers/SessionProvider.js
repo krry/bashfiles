@@ -26,7 +26,7 @@
 
 providers.provider("Session", SessionProvider_);
 
-function SessionProvider_ () {
+function SessionProvider_ (FormProvider) {
   console.log('Session Provider started')
 
   var _ref,
@@ -44,32 +44,32 @@ function SessionProvider_ () {
     /* jshint -W030 */
     key && (_ref_key = key);
     /* jshint +W030 */
-    console.log('ref_key in sessionProvider being set:', key);
+    // console.log('ref_key in sessionProvider being set:', key);
   };
 
-  this.$get = ["Clientstream", "User", function SessionProviderFactory(Client, User) {
+  this.$get = ["Clientstream", function SessionProviderFactory(Client) {
 
     Client.listen('User: Loaded', loadSession );
     Client.listen('Stage: subscribed to statestream', bootstrapStreams );
     Client.listen('StageCtrl: restart session', restartSession);
-    Client.listen('Form: Form Loaded', saveFormId);
+    Client.listen('Form: Loaded', saveFormId);
+    Client.listen('center changed', saveMapCenter);
 
     function loadSession (user_data) {
       /* jshint -W030 */
       user_data.session_id && (_ref_key = user_data.session_id); /* jshint +W030 */
-
       // make the ref
       if (_ref_key) {
-        console.log('load the state from the user\'s previous session');
+        // load the state from the user's previous session
         _ref = new Firebase(sessions_url).child(_ref_key);
       } else {
-        console.log('there was no state, make a new one on the new session');
+        // there was no state, make a new one on the new session
         _ref = new Firebase(sessions_url).push();
         _ref.update({user_id: user_data.user_id});
         _ref.update({state:{stage: 0, step: 0}});
       }
       bootstrapStreams();
-      _ref.once('value', newSessionLoaded )
+      _ref.once('value', updateProvidersAndEmit );
     }
 
     function bootstrapStreams() {
@@ -78,10 +78,13 @@ function SessionProvider_ () {
       state_stream = _ref.child('state').observe('value');
     }
 
-    function newSessionLoaded (ds){
+    function updateProvidersAndEmit (ds){
       var data = ds.exportVal();
-      console.log('newSession', data);
       data.session_id = _ref.key();
+      if (data.form_id) {
+        // update form's _ref_key
+        FormProvider.setRefKey(data.form_id);
+      }
       return Client.emit('Session: Session Loaded', data);
     }
 
@@ -93,6 +96,14 @@ function SessionProvider_ () {
     function saveFormId (data) {
       _ref.update({form_id: data.form_id});
     };
+
+    function saveMapCenter (location) {
+      if (location.lat()) { // TODO: make this work for Gmap & Configurator
+        _ref.child('map_center').update({lat:location.lat(), lng: location.lng()});
+      } else {
+        alert('unhandled center changed event');
+      }
+    }
 
     function awesome_session_builder_brah () {
       return {
