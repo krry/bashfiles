@@ -44,7 +44,6 @@ function FormProvider_ () {
 
   this.setRefKey = function(key){
     /* jshint -W030 */
-    console.log('set form _ref_key');
     key && (_ref_key = key);
     /* jshint +W030 */
     // console.log('ref_key in sessionProvider being set:', key);
@@ -68,11 +67,12 @@ function FormProvider_ () {
         _ref = new Firebase(forms_url).push();
       }
       _ref.once('value', processNewFormFromFirebase );
+      return _ref;
     }
 
     function processNewFormFromFirebase (ds) {
-      console.log('Form: Loaded')
       var data = ds.exportVal() || {};
+      console.log('Form: Loaded', data)
       _ref_key = ds.ref().key();
       data.form_id = ds.ref().key();
       prospect = data;

@@ -39,7 +39,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form) {
       }
       $scope.$apply(); // update the views
     }
-    !form_obj.bill && Client.emit('Form: update value', {bill: 100}); // HACK: hardcode bill should be angular.constant
+    !form_obj.bill && Client.emit('Form: valid data', {bill: 100}); // HACK: hardcode bill should be angular.constant
   }
 
   /* end bootstrap */
@@ -100,7 +100,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form) {
 
   // TODO: figure out if the valid territory / valid zip dependency is appropriate for the prescribed UX
   function acceptValidTerritory(data) {
-    console.log('accepting valid territory', data);
+    // accepting valid territory
     // acceptValidZip(data);
     vm.invalidTerritory = !data;
     vm.invalid = vm.invalidZip && vm.invalidTerritory;
@@ -109,7 +109,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form) {
   }
 
   function acceptValidZip(data) {
-    console.log('accepting valid zip', data);
+    // accepting valid zip
     if (data) {
       vm.invalidZip = !data;
       vm.invalid = vm.invalidZip && vm.invalidTerritory;
@@ -119,7 +119,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form) {
   }
 
   function acceptValidState(data) {
-    console.log('accepting valid state', data);
+    // accepting valid state
     if (data) {
       vm.validState = true;
       vm.prospect.state = data;
@@ -128,7 +128,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form) {
   }
 
   function acceptValidCity(data) {
-    console.log('accepting valid city', data);
+    // accepting valid city
     if (data) {
       vm.validCity = true;
       vm.prospect.city = data;
@@ -137,7 +137,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form) {
   }
 
   function acceptValidAddress(data) {
-    console.log('accepting valid address', data);
+    // accepting valid address
     if (data) {
       vm.validAddress = true;
       vm.prospect.address = data;
@@ -147,7 +147,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form) {
 
   function acceptValidHouse(data) {
     // sync full address
-    console.log('accepting valid house:', data.home);
+    // accepting valid house
     if (data) {
       vm.invalid = false;
       vm.prospect.street = data.home;

@@ -1,6 +1,6 @@
-directives.directive('flnInputZip', ["Clientstream", flnInputZip_]);
+directives.directive('flnInputZip', [flnInputZip_]);
 
-function flnInputZip_ (Client) {
+function flnInputZip_ () {
   return {
     scope: {
       hint: "@"

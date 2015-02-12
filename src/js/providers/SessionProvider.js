@@ -68,14 +68,14 @@ function SessionProvider_ (FormProvider) {
         _ref.update({user_id: user_data.user_id});
         _ref.update({state:{stage: 0, step: 0}});
       }
-      bootstrapStreams();
+      // bootstrapStreams();
+      fb_observable = _ref.observe('value');
+      state_stream = _ref.child('state').observe('value');
       _ref.once('value', updateProvidersAndEmit );
     }
 
     function bootstrapStreams() {
       // create overservables and streams
-      fb_observable = _ref.observe('value');
-      state_stream = _ref.child('state').observe('value');
     }
 
     function updateProvidersAndEmit (ds){

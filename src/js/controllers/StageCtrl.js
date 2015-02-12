@@ -46,7 +46,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
 
   // subscribe to the state when session is loaded
   Client.listen('Session: Session Loaded', bootstrapNewSession);
-  Client.listen('flnContinueDesign: result', popContinueModal); // result of modal button press
+  Client.listen('Modal: continue design? result', popContinueModal); // result of modal button press
 
   // register listeners for stage, step, and start over events
   Client.listen('jump to step', jumpToStep);
@@ -60,7 +60,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
   $scope.view_sync = true;
 
   function bootstrapNewSession (session_data) {
-    console.log('bootstrapNewSession called', session_data);
+    // bootstrap a new session, start it's streams up
     session_stream = Session.state_stream()
       // .filter(function() { return $scope.view_sync; }) // don't listen to changes you're making
       .select(function(x){ return x.exportVal();    }) // just watch the value of the state
@@ -123,10 +123,8 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
     }
   }
 
-  // var counter = 0;  // HACK: DEV: session provider
   function stageListen (target_state) {
-    // if (counter++ < 1) return; // HACK: DEV: session provider
-    console.log('heard that stage emission', target_state, $scope.view_sync);
+    // console.log('heard that stage emission', target_state, 'view_sync',$scope.view_sync);
     var name;
     if (target_state === "next") {
       next();
@@ -144,7 +142,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
   }
 
   function stepListen (target_step) {
-    console.log('heard that step emission', target_step);
+    // console.log('heard that step emission', target_step);
     step = target_step;
     $timeout( function () {
       // unlock the view
@@ -152,7 +150,6 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
       $scope.$apply();
     }, 1);
     // update the view
-    // vm.partial = Templates.partials[stage][step];
     vm.partial = Templates.partial(stage, step);
     /* jshint -W030 */
     // update firebase
@@ -165,12 +162,9 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
 
   // user flow controls
   function next () {
-    console.log('next button. stage:', stage, 'step:', step);
     if ( step + 1 < Templates.config[stage].steps.length ) {
-      console.log('next: emit step')
       Client.emit('step', step + 1);
     } else if (stage + 1 < Templates.config.length ) {
-      console.log('next: emit stage')
       Client.emit('stage', {
         stage: stage + 1,
         step:  0,
@@ -190,7 +184,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
   }
 
   function jumpToStep (target) {
-    console.log('trying to jump to:', target, 'step');
+    // console.log('trying to jump to:', target, 'step');
     var steps = Templates.config[stage].steps;
     for (var i = 0; i < steps.length; i++) {
       if ( target === steps[i].step ) {
@@ -200,7 +194,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
   }
 
   function jumpToStage (target) {
-    console.log('trying to jump to:', target, 'stage');
+    // console.log('trying to jump to:', target, 'stage');
     var stages = Templates.config;
     for (var i = 0; i < stages.length; i++) {
       if ( target !== i && target === Templates.config[i].name) {
