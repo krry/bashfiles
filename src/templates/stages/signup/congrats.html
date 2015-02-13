@@ -1,6 +1,6 @@
 <!-- main.html for qualify stage -->
-<div class="overlay primary col" ng-controller="CalendarCtrl as calendar">
-  <div ng-if="calendar.prospect.scheduledTime">
+<div class="overlay primary col" ng-controller="ScheduleCtrl as schedule">
+  <div ng-if="schedule.prospect.scheduledTime">
     <h1>We'll see you then.
       <br><small>Our solar consultant will be in touch with you to confirm your appointment and aswer any questions you may have.</small>
     </h1>
@@ -14,16 +14,16 @@
         </p>
         <div class="calendar-links caps">
           <span class="display-inline">Add to Calendar</span>
-          <a class="display-inline aqua" fln-add-google-event="calendar.eventDetails()">Google</a>
-          <a class="display-inline aqua" fln-download-ics="calendar.eventDetails()">Outlook</a>
-          <a class="display-inline aqua" fln-download-ics="calendar.eventDetails()">iCal</a>
+          <a class="display-inline aqua" fln-add-google-event="schedule.eventDetails()">Google</a>
+          <a class="display-inline aqua" fln-download-ics="schedule.eventDetails()">Outlook</a>
+          <a class="display-inline aqua" fln-download-ics="schedule.eventDetails()">iCal</a>
         </div>
         <div class="icon icon-paper-airplane"></div>
       </div>
     </div>
   </div>
 
-  <div ng-if="!calendar.prospect.scheduledTime">
+  <div ng-if="!schedule.prospect.scheduledTime">
     <h1>Congratulations - you qualified!
       <br><small>Our solar consultant will be in touch with you soon to schedule site survey, then review a final system design for your rooftop.</small>
     </h1>
@@ -40,12 +40,12 @@
   </div>
 </div>
 
-<aside class="overlay secondary col sml-full med-full lrg-full full-height" ng-controller="CalendarCtrl as calendar">
+<aside class="overlay secondary col sml-full med-full lrg-full full-height" ng-controller="ScheduleCtrl as schedule">
   <div>
     <strong>What's next?</strong>
   </div>
   <ul>
-    <li ng-if="!calendar.prospect.scheduledTime">Schedule your site survey.</li>
+    <li ng-if="!schedule.prospect.scheduledTime">Schedule your site survey.</li>
     <li>A site surveyor will come to your house. Someone over 18 must be home to open the door and answer any questions.</li>
     <li>The site surveyor will study your roof as well as your current energy consumption. This will take 1-2 hours, but you only need to be there to answer the door.</li>
     <li>In a few days you'll receive your final system design from our experts.</li>

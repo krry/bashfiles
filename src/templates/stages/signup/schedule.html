@@ -1,14 +1,14 @@
 <!-- main.html for qualify stage -->
-<div class="overlay primary col" ng-controller="CalendarCtrl as calendar">
+<div class="overlay primary col" ng-controller="ScheduleCtrl as schedule">
   <h1>Thank you for inviting us to your home.
     <br><small>What time works for you?
   </h1>
-  <h2 class="caps">{{calendar.prospect.scheduledDate.month}} {{calendar.prospect.scheduledDate.day}}</h2>
+  <h2 class="caps">{{schedule.prospect.scheduledDate.month}} {{schedule.prospect.scheduledDate.day}}</h2>
   <fln-time-selection></fln-time-selection>
   <div class="col fifth three center">
     <p>Note: These are 2-hour arrival windows for our site surveyors and then the site survey will take around 1 to 2 hours.</p>
   </div>
-  <button class="std gold" ng-click="calendar.save()" ng-disabled="!calendar.prospect.scheduledTime">Schedule it</button>
+  <button class="std gold" ng-click="schedule.save()" ng-disabled="!schedule.prospect.scheduledTime">Schedule it</button>
 
   <div class="col fifth three center">
     <button class="std white display-inline-block tiny" ng-click="stages.prev()">Change date</button>
