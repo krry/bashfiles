@@ -78,7 +78,7 @@ function UserProvider_ (SessionProvider) {
 
     function saveSessionId (data) {
       _ref.update({session_id: data.session_id});
-    };
+    }
 
     function user_builder_brah () {
       return {

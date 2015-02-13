@@ -95,7 +95,7 @@ function SessionProvider_ (FormProvider) {
 
     function saveFormId (data) {
       _ref.update({form_id: data.form_id});
-    };
+    }
 
     function saveMapCenter (location) {
       if (location.lat()) { // TODO: make this work for Gmap & Configurator

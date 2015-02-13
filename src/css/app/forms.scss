@@ -111,7 +111,6 @@ input.zipcode {
   }
 }
 
-
 input.street {
   width: 14em;
 }
@@ -143,4 +142,8 @@ span.autolocate-icon {
   background-color: none;
   width: 20px;
   height: 20px;
+}
+
+input.date {
+  padding: .18em .5em;
 }

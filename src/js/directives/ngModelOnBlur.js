@@ -1,17 +1,19 @@
-directives.directive("ngModelOnBlur", ["ngModel", ngModelOnBlur_]);
+directives.directive("ngModelOnBlur", [ngModelOnBlur_]);
 
-function ngModelOnBlur_ (ngModel) {
+function ngModelOnBlur_ () {
   return {
-    priority: 1,
     restrict: 'A',
     require: 'ngModel',
-    link: function(scope, elm, attr, ngModelCtrl) {
+    priority: 1, // needed for angular 1.2.x
+    link: function(scope, element, attr, ngModelCtrl) {
+      console.log('saving validation till blur on that input boss', element);
       if (attr.type === 'radio' || attr.type === 'checkbox') return;
-      elm.off('input keydown change');
-      elm.on('blur', function() {
-        scope.$apply(function() {
-          ngModelCtrl.$setViewValue(elm.val());
-        });
+
+      element.unbind('input').unbind('keydown').unbind('change');
+      element.bind('blur', function() {
+          scope.$apply(function() {
+              ngModelCtrl.$setViewValue(element.val());
+          });
       });
     }
   };
