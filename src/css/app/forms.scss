@@ -69,13 +69,15 @@ input.birthdate {
 input.bill {
   width: 3em;
   padding: .25em;
-  margin-bottom: 0;
+  margin: 0 .125em;
   text-align: right;
+  color: $green;
 }
 
 .bill-box {
   display: inline-block;
   margin-bottom: .25em;
+  color: $green;
   &:before,
   &:after {
     // font-size: .625em;
