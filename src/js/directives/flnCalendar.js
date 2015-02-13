@@ -79,7 +79,8 @@ function flnCalendar_ () {
               dates[i].availableTimes.push({
                 obj: times[j],
                 start: times[j].format('h A'),
-                end: times[j].clone().add(2, 'hours').format('h A')
+                end: times[j].clone().add(2, 'hours').format('h A'),
+                day: times[j].format('dddd')
               });
             }
           }

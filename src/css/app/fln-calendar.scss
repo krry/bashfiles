@@ -47,8 +47,8 @@
 
   .month {
     position: absolute;
-    top: 5px;
-    left: 5px;
+    top: 5%;
+    left: 5%;
     font-weight: bold;
     text-transform: uppercase;
   }
@@ -93,6 +93,14 @@
   }
 
   @media screen and (max-width: $width-min-sml) {
+    .day-header, .month {
+      font-size: 0.85em;
+    }
+
+    .date {
+      height: ($box-width / 2) - (2 * $box-border);
+    }
+
     .label {
       display: block;
       margin-left: 0;
