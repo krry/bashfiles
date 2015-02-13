@@ -18,6 +18,7 @@ var gulp = require('gulp');
 var del = require('del');
 var rename = require('gulp-rename');
 var ngConstant = require('gulp-ng-constant');
+var jsonCombine = require("gulp-jsoncombine");
 
 var env = process.env.NODE_ENV || 'development';
 
@@ -34,6 +35,9 @@ gulp.task('config', ['clean'], function () {
   del('./src/js/config.js');
   console.log("[config  ] using:" , confile, "as environment config file");
   return gulp.src(confile)
+        .pipe(jsonCombine('results.json', function(data) {
+          return new Buffer(JSON.stringify(data[env].CLIENT));
+        }))
         .pipe(ngConstant(config))
         .pipe(rename('config.js'))
         .pipe(gulp.dest('./src/js'))
