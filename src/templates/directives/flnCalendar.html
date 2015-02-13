@@ -1,0 +1,31 @@
+<div class="calendar">
+  <table>
+    <tr>
+      <td class="day-header" ng-repeat="day in calendar.days">{{day}}</td>
+    </tr>
+    <tr ng-repeat="row in calendar.rows">
+      <td class="date"
+       title="{{ calendar.getTooltip(date) }}"
+       ng-repeat="date in calendar.dates | limitTo: (row * 7) | limitTo: -7"
+       ng-class="{ 
+        available: calendar.isAvailable(date),
+        unavailable: !calendar.isAvailable(date),
+        'tooltip top': date.isClicked }"
+       ng-click="selectFn({ date: date })">
+        <div class="month" ng-if="date.day <= 1 || ($index <= 0 && row <= 1)">{{date.month}}</div>
+        <div class="day">{{date.day}}</div>
+     </td>
+    </tr>
+  </table>
+
+  <div class="legend">
+    <span class="label">
+      <span class="key available"></span> 
+      Available
+    </span>
+    <span class="label">
+      <span class="key unavailable"></span>
+      Unavailable
+    </span>
+  </div>
+</div>
