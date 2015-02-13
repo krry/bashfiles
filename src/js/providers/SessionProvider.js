@@ -24,7 +24,7 @@
 
   ================================ */
 
-providers.provider("Session", SessionProvider_);
+providers.provider("Session", ['FormProvider', SessionProvider_]);
 
 function SessionProvider_ (FormProvider) {
   console.log('Session Provider started')

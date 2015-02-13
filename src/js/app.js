@@ -12,7 +12,7 @@ angular.module('flannel', [
   'flannel.controllers',
   'flannel.directives',
   'nouislider'
-]).config(function($sceDelegateProvider, $sceProvider, $httpProvider, UserProvider) {
+]).config(['$sceDelegateProvider', '$sceProvider', '$httpProvider', 'UserProvider', function($sceDelegateProvider, $sceProvider, $httpProvider, UserProvider) {
   // hack: sorta hacky... but maybe not.
   // http://stackoverflow.com/questions/20588114/how-to-use-cookiesprovider-in-angular-config
   var $cookies, uid;
@@ -46,7 +46,7 @@ angular.module('flannel', [
   $sceProvider.enabled(false);
   $httpProvider.defaults.useXDomain = true;
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
-}).run(["User", "Clientstream", function run_app(User, Client) {
+}]).run(["User", "Clientstream", function run_app(User, Client) {
   // let the app know we've gotten the important stuff :)
   User.ref().once('value', function setSessionFromUser (ds) {
     // let session know we've loaded the User. now load the session.
