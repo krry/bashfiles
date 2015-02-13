@@ -15,8 +15,6 @@ function NavCtrl_($scope, $location, Form, Prospect, $state) {
   // vm.prospect = {} // bind with a Firebase ref for the current prospect
 
   function onActiveStage (stage) {
-    // console.log('stage is:', stage);
-    // console.log('$state is:', $state);
     return stage === $state.current.name;
   }
 }
