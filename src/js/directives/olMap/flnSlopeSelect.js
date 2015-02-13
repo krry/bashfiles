@@ -16,7 +16,7 @@ function flnSlopeSelect_ ($compile, Design, Client) {
     restrict: 'EA',
     controllerAs: 'SlopeSelect',
     transclude: true,
-    templateUrl: "templates/directives/flnSlopeSelect.html",
+    templateUrl: "templates/directives/olmap/flnSlopeSelect.html",
     scope: {
 
     },

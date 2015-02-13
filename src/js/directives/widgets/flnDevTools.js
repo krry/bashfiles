@@ -2,7 +2,7 @@ directives.directive('flnDevTools', [flnDevTools_]);
 
 function flnDevTools_ () {
   return {
-    templateUrl: 'templates/directives/flnDevTools.html',
+    templateUrl: 'templates/directives/widgets/flnDevTools.html',
     controller: 'DevCtrl',
     controllerAs: 'dev',
     link: function(scope, element, attrs) {

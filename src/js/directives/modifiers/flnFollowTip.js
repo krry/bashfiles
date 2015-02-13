@@ -25,7 +25,7 @@ function flnFollowTip_ () {
       position: "@position",
       tip: "@tipText",
     },
-    templateUrl: "templates/directives/flnFollowTip.html",
+    templateUrl: "templates/directives/modifiers/flnFollowTip.html",
     link: function FollowTipLink(scope, el, attrs) {
       var tip,
           offsetX,

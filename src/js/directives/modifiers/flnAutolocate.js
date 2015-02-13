@@ -4,7 +4,7 @@ function flnAutolocate () {
   return {
     restrict: 'E',
     replace: true,
-    templateUrl: 'templates/directives/flnAutolocate.html',
+    templateUrl: 'templates/directives/modifiers/flnAutolocate.html',
     controller: "GmapCtrl as gmap",
   };
 }

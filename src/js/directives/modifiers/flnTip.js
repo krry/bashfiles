@@ -8,7 +8,7 @@ function flnTip_ () {
       tiptext: "@tiptext",
       position: "@position",
     },
-    templateUrl: "templates/directives/flnTip.html",
+    templateUrl: "templates/directives/modifiers/flnTip.html",
     controller: function ($scope) {
       console.log('tip control', $scope);
     },

@@ -4,6 +4,6 @@ function flnSpinner () {
   return {
     restrict: "E",
     replace: "true",
-    templateUrl: 'templates/directives/flnSpinner.html',
+    templateUrl: 'templates/directives/widgets/flnSpinner.html',
   };
 }

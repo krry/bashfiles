@@ -19,8 +19,8 @@ var plumber = require('gulp-plumber');
 var sass    = require('gulp-sass');
 var minCSS  = require('gulp-minify-css');
 
-var handleErrors = require('../util/handleErrors');
 var timestamp = require('../util/timestamp');
+var handleErrors = require('../util/handleErrors');
 
 // this glob determines the order of the concatenated stylesheets
 var styleSrc = [
@@ -28,7 +28,7 @@ var styleSrc = [
   './src/css/defaults/*.scss',
   './src/css/utilities/*.scss',
   './src/css/patterns/*.scss',
-  './src/css/app/*.scss',
+  './src/css/fln/*.scss',
   './src/css/**/*.css',
 ];
 
