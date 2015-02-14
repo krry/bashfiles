@@ -1,30 +1,14 @@
 <!-- main.html for qualify stage -->
 <div class="overlay primary col">
-  <h1>Let’s see what we can do for you.<br><small>Enter your info to see if you qualify for our financing options.</small></h1>
-  <div class="row">
-    <div class="col half padded">
-      <label for="">Full name
-        <fln-input-full-name hint="First and last, please"></fln-input-full-name>
-      </label>
-    </div>
-    <div class="col half padded">
-      <label for="">Email address
-        <fln-input-email hint="you@domain.com"></fln-input-email>
-      </label>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col half padded">
-      <label for="">Date of birth
+  <h1>Great, now let’s see what we can do for you.<br><small>Enter your date of birth to see if you qualify for our flexible financing options.</small></h1>
+  <form name="prospectForm" novalidate>
+    <div class="row center">
+      <div class="col half padded">
+        <label for="" class="caps">Date of birth</label>
         <fln-input-dob></fln-input-dob>
-      </label>
+      </div>
     </div>
-    <div class="col half padded">
-      <label for="">Mobile phone
-        <fln-input-phone hint="(---) --- ----"></fln-input-phone>
-      </label>
-    </div>
-  </div>
+  </form>
   <div class="row center">
     <div class="col half padded center">
       <button class="ib gold" ng-click="stages.next()">Qualify Me</button>
