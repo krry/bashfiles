@@ -24,9 +24,9 @@
 
   ================================ */
 
-providers.provider("Session", ['FormProvider', SessionProvider_]);
+providers.provider("Session", ['FormProvider', 'DesignProvider', SessionProvider_]);
 
-function SessionProvider_ (FormProvider) {
+function SessionProvider_ (FormProvider, DesignProvider, ConfiguratorProvider) {
   console.log('Session Provider started')
 
   var _ref,
@@ -49,13 +49,14 @@ function SessionProvider_ (FormProvider) {
 
   this.$get = ["Clientstream", function SessionProviderFactory(Client) {
 
-    Client.listen('User: Loaded', loadSession );
-    Client.listen('Stage: subscribed to statestream', bootstrapStreams );
+    Client.listen('User: Loaded', bootstrapSession );
+    // Client.listen('Stage: subscribed to statestream', loadSession );
     Client.listen('StageCtrl: restart session', restartSession);
     Client.listen('Form: Loaded', saveFormId);
-    Client.listen('center changed', saveMapCenter);
+    Client.listen('Design: Loaded', saveDesignId);
+    Client.listen('center changed', storeGMapCenter);
 
-    function loadSession (user_data) {
+    function bootstrapSession (user_data) {
       /* jshint -W030 */
       user_data.session_id && (_ref_key = user_data.session_id); /* jshint +W030 */
       // make the ref
@@ -71,21 +72,26 @@ function SessionProvider_ (FormProvider) {
       // bootstrapStreams();
       fb_observable = _ref.observe('value');
       state_stream = _ref.child('state').observe('value');
-      _ref.once('value', updateProvidersAndEmit );
+      _ref.once('value', loadSession );
     }
 
-    function bootstrapStreams() {
-      // create overservables and streams
-    }
-
-    function updateProvidersAndEmit (ds){
+    function loadSession (ds){
       var data = ds.exportVal();
       data.session_id = _ref.key();
+      console.log('data in loadSession', data);
       if (data.form_id) {
         // update form's _ref_key
         FormProvider.setRefKey(data.form_id);
       }
-      return Client.emit('Session: Session Loaded', data);
+      if (data.design_id) {
+        console.log('design_id on session', data.design_id);
+        DesignProvider.setRefKey(data.design_id);
+      }
+      if (data.map_center) {
+        console.log('map_center on session', data.map_center);
+        DesignProvider.setCenter(data.map_center);
+      }
+      return Client.emit('Session: Loaded', data);
     }
 
     function restartSession () {
@@ -96,10 +102,13 @@ function SessionProvider_ (FormProvider) {
     function saveFormId (data) {
       _ref.update({form_id: data.form_id});
     }
+    function saveDesignId (data) {
+      _ref.update({design_id: data.design_id});
+    }
 
-    function saveMapCenter (location) {
+    function storeGMapCenter (location) {
       if (location.lat()) { // TODO: make this work for Gmap & Configurator
-        _ref.child('map_center').update({lat:location.lat(), lng: location.lng()});
+        _ref.child('map_center').update([ location.lat(), location.lng(), ]);
       } else {
         alert('unhandled center changed event');
       }
