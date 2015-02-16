@@ -18,22 +18,24 @@
 ======================================================= */
 
 directives
-// .directive('flnSelect', flnSelect_ )
 .directive('flnDraw', flnDraw_ )
 .directive('flnModify', flnModify_ )
 .directive('flnDragpan', flnDragPan_ );
+/*  .directive('flnSelect', flnSelect_ ) */
 
-// function flnSelect_ (InteractionService, MapService) {
-//   return {
-//     restrict: "EA",
-//     link: function flnSelectLink (scope, ele, attrs) {
-//       InteractionService.enable(InteractionService.get('select'));
-//       ele.on('$destroy', function selectDestroy (e) {
-//         InteractionService.disable(InteractionService.get('select'));
-//       });
-//     },
-//   };
-// }
+/* Interaction service not currently in use
+  function flnSelect_ (InteractionService, MapService) {
+    return {
+      restrict: "EA",
+      link: function flnSelectLink (scope, ele, attrs) {
+        InteractionService.enable(InteractionService.get('select'));
+        ele.on('$destroy', function selectDestroy (e) {
+          InteractionService.disable(InteractionService.get('select'));
+        });
+      },
+    };
+  }
+*/
 
 function flnDraw_ ($timeout, $compile, Configurator, Clientstream) {
   return {
@@ -63,7 +65,6 @@ function flnDraw_ ($timeout, $compile, Configurator, Clientstream) {
           "keep clickin', brah",
           "close up that shape, brah",
         ];
-
 
         // listen for clicks on the map...
         $scope.tip_text = tips[tip_step];
