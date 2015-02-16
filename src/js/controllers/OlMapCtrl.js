@@ -15,9 +15,9 @@
 
 ======================================================== */
 
-controllers.controller("OlMapCtrl", ["$scope", "$timeout", "Clientstream", "MapService", "LayerService", "InteractionService", "StyleService", "Design", "updateArea", "addWkt", "Configurator", OlMapCtrl_]);
+controllers.controller("OlMapCtrl", ["$scope", "$timeout", "Clientstream", "Session", "InteractionService", "StyleService", "Design", "updateArea", "addWkt", OlMapCtrl_]);
 
-function OlMapCtrl_($scope, $timeout, Client, MapService, LayerService, InteractionService, StyleService, Design, updateArea, addWkt, Configurator) {
+function OlMapCtrl_($scope, $timeout, Client, Session, InteractionService, StyleService, Design, updateArea, addWkt) {
 
   var remote_stream,
       wkt,
@@ -25,25 +25,39 @@ function OlMapCtrl_($scope, $timeout, Client, MapService, LayerService, Interact
       live_feature,
       gmapCenter;
 
+  // app wiring
+  Client.listen('Configurator: Loaded', bootstrapOlMapCtrl );
+
+  function bootstrapOlMapCtrl (interactions) {
+    // remote evt stream
+    remote_stream = Design.areas_stream().map( remote_map );
+    remote_stream.delay(500).subscribe( fb_sub );
+    // connect to the draw event
+    interactions.draw.once('drawstart', draw_start );
+    interactions.draw.once('drawend',   draw_end );
+    Client.emit('OlMapCtrl: Loaded');
+  }
+
+  /* helper functions TODO: service these
+     wkt allows us to turn feature.getGeometry() into text, text into geometry for
+     use with feature.setGeometry()
+  */
   vm = this;
   wkt = new ol.format.WKT();
+  /* end helpers */
 
-  // helper functions TODO: service these --
-    // wkt allows us to turn feature.getGeometry() into text, text into geometry for
-    // use with feature.setGeometry()
-  // end helpers
 
-  // HACK: on omap load, grab the map center from MapService which cached it from GmapProvider
-  gmapCenter = MapService.getOmapCenter();
-  Configurator.view().setCenter([gmapCenter.lat(), gmapCenter.lng()]);
-
-  // state of the interface
+  // state of the interface, used to filter messages from remote_stream
+  // true when the client is updating itself, or firebase, until the confirmation
+  // of last last edit is recieved from firebase.
   $scope.draw_busy = false;
   // client_stream
   Client.listen('update_client', update_client); // messages from remote
   Client.listen('update_remote', update_remote); // messages from the feature
-  // TODO: when tiles come back, listen for that, and hide the spinner
-  // Client.listen('static tiles loaded', hideSpinner);
+  /*
+    TODO: when tiles come back, listen for that, and hide the spinner
+    Client.listen('static tiles loaded', hideSpinner);
+  */
 
   function getWkt(f) {
     return wkt.writeGeometry(f.getGeometry());
@@ -87,10 +101,6 @@ function OlMapCtrl_($scope, $timeout, Client, MapService, LayerService, Interact
     return result;
   }
 
-  // remote evt stream
-  remote_stream = Design.areas_stream().map( remote_map );
-  remote_stream.delay(500).subscribe( fb_sub )
-
   function remote_map (x){
     return x.exportVal().area;
   }
@@ -98,10 +108,6 @@ function OlMapCtrl_($scope, $timeout, Client, MapService, LayerService, Interact
   function fb_sub (txt) {
     Client.emit('update_client', txt);
   }
-
-  // openlayers connection
-  Configurator.draw().once('drawstart', draw_start );
-  Configurator.draw().once('drawend',   draw_end );
 
   function draw_start (evt) {
     console.log('draw_start');
