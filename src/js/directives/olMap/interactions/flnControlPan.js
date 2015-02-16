@@ -21,14 +21,14 @@ directives
 .directive('flnControlPan', flnControlPan_ )
 .directive('flnMapPan', flnMapPan_ );
 
-function flnControlPan_ (Clientstream, Configurator) {
+function flnControlPan_ () {
   return {
     restrict: 'E',
     templateUrl: "templates/directives/olmap/flnControlPan.html",
   };
 }
 
-function flnMapPan_ (Clientstream, Configurator) {
+function flnMapPan_ (Configurator) {
   return {
     restrict: 'A',
     scope: {

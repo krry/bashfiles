@@ -104,7 +104,7 @@ function SessionProvider_ (FormProvider, DesignProvider, ConfiguratorProvider) {
 
     function storeGMapCenter (location) {
       if (location.lat()) { // TODO: make this work for Gmap & Configurator
-        _ref.child('map_center').update([ location.lat(), location.lng(), ]);
+        _ref.child('map_center').set([ location.lat(), location.lng(), ]);
       } else {
         alert('unhandled center changed event');
       }

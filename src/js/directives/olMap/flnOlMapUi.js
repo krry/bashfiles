@@ -110,16 +110,14 @@ function flnModify_ (Configurator) {
   };
 }
 
-function flnDragPan_ (Clientstream, Configurator) {
+function flnDragPan_ (Configurator) {
   return {
     restrict: "EA",
     link: function flnDragPanLink (scope, ele, attrs) {
+      Configurator.enable('dragpan');
       ele.on('$destroy', function dragPanDestroy (e) {
         Configurator.disable('dragpan');
       });
     },
-    controller: function flnDragPanCtrl () {
-      Configurator.enable('dragpan');
-    }
   };
 }

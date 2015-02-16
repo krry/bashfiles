@@ -32,9 +32,7 @@ function InteractionService_ (Configurator) {
   }
 
   function disable (interaction) {
-    console.log('butts')
     Configurator.map().removeInteraction(interaction);
-    console.log('butts2')
   }
 
   function get (name) {
