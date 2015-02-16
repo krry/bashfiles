@@ -44,13 +44,11 @@ function SessionProvider_ (FormProvider, DesignProvider, ConfiguratorProvider) {
     /* jshint -W030 */
     key && (_ref_key = key);
     /* jshint +W030 */
-    // console.log('ref_key in sessionProvider being set:', key);
   };
 
   this.$get = ["Clientstream", function SessionProviderFactory(Client) {
 
     Client.listen('User: Loaded', bootstrapSession );
-    // Client.listen('Stage: subscribed to statestream', loadSession );
     Client.listen('StageCtrl: restart session', restartSession);
     Client.listen('Form: Loaded', saveFormId);
     Client.listen('Design: Loaded', saveDesignId);
@@ -69,7 +67,6 @@ function SessionProvider_ (FormProvider, DesignProvider, ConfiguratorProvider) {
         _ref.update({user_id: user_data.user_id});
         _ref.update({state:{stage: 0, step: 0}});
       }
-      // bootstrapStreams();
       fb_observable = _ref.observe('value');
       state_stream = _ref.child('state').observe('value');
       _ref.once('value', loadSession );
@@ -78,17 +75,16 @@ function SessionProvider_ (FormProvider, DesignProvider, ConfiguratorProvider) {
     function loadSession (ds){
       var data = ds.exportVal();
       data.session_id = _ref.key();
-      console.log('data in loadSession', data);
       if (data.form_id) {
-        // update form's _ref_key
+        // update form's _ref_key if the user has a form
         FormProvider.setRefKey(data.form_id);
       }
       if (data.design_id) {
-        console.log('design_id on session', data.design_id);
+        // update design's _ref_key if the user has already started design
         DesignProvider.setRefKey(data.design_id);
       }
       if (data.map_center) {
-        console.log('map_center on session', data.map_center);
+        // last known position of googleMap or olMap
         DesignProvider.setCenter(data.map_center);
       }
       return Client.emit('Session: Loaded', data);

@@ -43,7 +43,6 @@ function DesignProvider_ () {
   };
 
   this.setCenter = function(center) {
-    console.log('set center in design provider', center);
     map_center = center;
   }
 

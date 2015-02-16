@@ -72,7 +72,6 @@ function FormProvider_ () {
 
     function processNewFormFromFirebase (ds) {
       var data = ds.exportVal() || {};
-      console.log('Form: Loaded', data)
       _ref_key = ds.ref().key();
       data.form_id = ds.ref().key();
       prospect = data;

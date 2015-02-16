@@ -31,17 +31,13 @@ function ConfiguratorFactory_() {
       view;
 
   this.$get = ["$window", "StyleService", "Clientstream", "Design", function ($window, Styles, Client, Design) {
-    console.log('configurator $get');
-
-
-
-    // map event listeners
-    Client.listen('erase area', area_pop);
-//////////
-
 
     // bootstrap configurator with details abt. design_stream, map_center, (// todo:) zoom_level
     Client.listen('Design: Loaded', bootstrapConfigurator);
+    Client.listen('OlMap: map target element', setElement);
+
+    // map event listeners
+    Client.listen('erase area', area_pop);
 
     // defaults
     default_controls = ol.control.defaults({
@@ -52,21 +48,15 @@ function ConfiguratorFactory_() {
     dragpan_opt = { enableKinetic: true };
 
     function bootstrapConfigurator (design_obj) {
-      console.log('setting configurator center', design_obj);
-
-
-
-      // For a map to render, a view, one or more layers, and a target container are needed
-
-      // what part of the map we see
+      /* For a map to render, a view, one or more layers, and a target container are needed */
       // TODO: use constrainCenter to prevent user dragging image off the page
+      // what part of the map we see
       view = new ol.View({
                   center: [design_obj.map_center[0], design_obj.map_center[1]],
                   zoom: 18,
                   maxResolution: 1, // hack: hardcoding max zoom out
                   minResolution: 0.08, // hack: hardcoding max zoom in
       });
-      console.log('******************** view made ********************')
 
       // the group of features on the map
       draw_modify_features = new ol.Collection([]);
@@ -100,20 +90,12 @@ function ConfiguratorFactory_() {
         scroll_zoom: new ol.interaction.MouseWheelZoom(),
       }
 
-      // debugger;
-
-
-
       Client.emit('Configurator: Loaded', interactions );
     }
 
-////////////
 
-    Client.listen('OlMap: map target element', setElement);
-
-    // the static map layer
+    // finally, create the map & attach it to the DOM
     function setElement(target_element) {
-      console.log('setting target for map element')
       var el = (!target_element) ? $window : target_element;
 
       // var header = window.getComputedStyle(document.getElementById('header'), null);
@@ -123,17 +105,13 @@ function ConfiguratorFactory_() {
 
       var el_height = $(el).innerHeight() - $('#header').height();
       var extent = [0, 0, $(el).innerWidth(), el_height];
-      console.log('header height is:', $('#header').height());
+      // console.log('header height is:', $('#header').height());
       $('.fln-control-pan').css('height', el_height);
-      setTimeout(function(){
-        console.log('header height is:', $('#header').height());
-      }, 1000);
-      console.log('el_height is:', el_height);
+
       pixel_projection = new ol.proj.Projection({
         units: 'pixels',
         extent: extent
       });
-
 
       var imageWidth, imageHeight;
       imageHeight = 2 * extent[3];
@@ -147,6 +125,7 @@ function ConfiguratorFactory_() {
             '&maptype=satellite&scale=1&client=gme-solarcity'
           ].join('');
 
+      // the static map layer
       var layers = new ol.layer.Image({
         source:  new ol.source.ImageStatic({
           url: static_map_image_url,
@@ -165,30 +144,27 @@ function ConfiguratorFactory_() {
         overlays: [feature_overlay],
       }
 
-
-      view.setCenter(ol.extent.getCenter(pixel_projection.getExtent())); // make the static image center, the center of the view.
-      configurator_options.target = target_element[0]; // target_element comes from angular's link function.
-      configurator_options.layers = [layers];
-      // set the initial zoom of the map
+      // make the static image center, the center of the view.
+      view.setCenter(ol.extent.getCenter(pixel_projection.getExtent()));
       view.setZoom(1);
+      // update configurator options
+      configurator_options.layers = [layers];
+      configurator_options.target = target_element[0];
+
       // let the app know that we got static tiles back
       // Client.emit('static tiles loaded', true);
+
       map = new ol.Map(configurator_options)
-      console.log('static_map_image_url', static_map_image_url)
       Client.emit('Configurator: Map ready', map);
     }
 
 
-
-
     function area_pop (data) {
-      console.log('heard that erase area', data);
+      // erase the last area drawn on the map
       draw_modify_features.pop();
     }
 
     function ConfiguratorBuilder() {
-      // Layers.drawn_features = feature_overlay.getFeatures(); // hack: this shouldn't be assigned this way
-
       return {
         map: function ()  { return map; },
         view: function () { return view; },
@@ -196,13 +172,19 @@ function ConfiguratorFactory_() {
         modify: function () { return modify; },
         features: function () { return draw_modify_features.getArray(); },
         interactions: function () { return interactions; },
-        enable: function (name) {  console.log('butts', name);
-          map.addInteraction(interactions[name]); },
+        enable: function (name) {
+          if (map) {
+            map.addInteraction(interactions[name]);
+          } else {
+            Client.listen('Configurator: Map ready', function() {
+              return map.addInteraction(interactions[name]);
+            });
+          }
+        },
         disable: function (name) { map.removeInteraction(interactions[name]); },
         setCenter: function (center) {
           console.log('*************** setCenter', center)
           map_center = center;
-
         },
       }
     }
