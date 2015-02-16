@@ -12,9 +12,9 @@
 
 ================================================== */
 
-angular.module('flannel').factory('InteractionService',['MapService', 'StyleService', 'LayerService', 'EventService', InteractionService_]);
+angular.module('flannel').factory('InteractionService',['Configurator', InteractionService_]);
 
-function InteractionService_ (MapService, StyleService, LayerService, EventService) {
+function InteractionService_ (Configurator) {
   var options,
       interactions;
 
@@ -32,13 +32,13 @@ function InteractionService_ (MapService, StyleService, LayerService, EventServi
   }
 
   function disable (interaction) {
-    MapService.getOmap().removeInteraction(interaction);
+    Configurator.map().removeInteraction(interaction);
   }
 
   function get (name) {
     if (!interactions) {
       init();
-    } 
+    }
     if (name === 'all') return interactions;
     return interactions[name];
   }
@@ -53,7 +53,7 @@ function InteractionService_ (MapService, StyleService, LayerService, EventServi
     add = typeof add === 'object' ? [add] : add;
 
     angular.forEach(add, function (interaction){
-      MapService.getOmap().addInteraction(interaction);
+      Configurator.map().addInteraction(interaction);
     });
   }
 

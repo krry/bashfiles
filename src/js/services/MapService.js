@@ -13,18 +13,16 @@
 
 ================================================== */
 
-angular.module('flannel').factory('MapService', ['$q', 'Clientstream', 'LayerService', 'StyleService', 'Configurator', MapService_]);
+angular.module('flannel').factory('MapService', ['$q', 'Clientstream', 'StyleService', MapService_]);
 
-function MapService_ ($q, Client, LayerService, StyleService, Configurator) {
+function MapService_ ($q, Client, StyleService) {
 
   var service = {
     // the open layers map object
     o: {},
     // ol map methods
-    initOmap: initOmap,
     addOverlay: addOverlay,
     getOmap: getOmap,
-    setOmap: setOmap,
     setRoofmap: setRoofmap,
     getRoofmap: getRoofmap,
     getOmapCenter: getOmapCenter
@@ -33,6 +31,7 @@ function MapService_ ($q, Client, LayerService, StyleService, Configurator) {
   // HACK: when the gmap center updates store it here so Configurator and OlMapCtrl can grab it as needed
   // the omap center get and set functions are also hacky
   Client.listen('center changed', setOmapCenter);
+
 
   function getOmapCenter () {
     return service.omapCenter;
@@ -46,36 +45,10 @@ function MapService_ ($q, Client, LayerService, StyleService, Configurator) {
     // }
   }
 
-  function initOmap(target_element) {
-    var olMapOptions = {
-      controls: ol.control.defaults({
-            zoom: true,
-            attribution: false,
-            rotate: false,
-          }),
-      view: LayerService.initOlView(),
-      // interactions: ol.interaction.defaults,
-      // layers: LayerService.init(target_element),
-      // overlays: [new ol.FeatureOverlay({
-      //         style: StyleService.defaultStyleFunction,
-      //         name: 'area_layer',
-      //       })],
-      target: target_element,
-    };
-
-    return setOmap(Configurator.map(target_element));
-    // return setOmap(olMapOptions);
-  }
-
   function getOmap(options) {  //TODO: move to OlService
     return service.o.omap;
   }
-  function setOmap (options) {  //TODO: move to OlService
-    service.o.omap = new ol.Map(options);
 
-    // LayerService.getDrawLayer().setMap(service.o.omap);
-    return service.o.omap;
-  }
   function getRoofmap() {  //TODO: move to OlService
     return service.o.roofmap;
   }
