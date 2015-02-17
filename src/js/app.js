@@ -12,7 +12,7 @@ angular.module('flannel', [
   'flannel.controllers',
   'flannel.directives',
   'nouislider'
-]).config(['$sceDelegateProvider', '$sceProvider', '$httpProvider', 'UserProvider' function($sceDelegateProvider, $sceProvider, $httpProvider, UserProvider) {
+]).config(['$sceDelegateProvider', '$sceProvider', '$httpProvider', 'UserProvider', 'MailgunProvider', function($sceDelegateProvider, $sceProvider, $httpProvider, UserProvider, MailgunProvider) {
   // hack: sorta hacky... but maybe not.
   // http://stackoverflow.com/questions/20588114/how-to-use-cookiesprovider-in-angular-config
   var $cookies, uid;
@@ -56,7 +56,7 @@ angular.module('flannel', [
   };
   MailgunProvider.configure(mailgunOptions);
 
-}).run(["User", "Clientstream", function run_app(User, Client) {
+}]).run(["User", "Clientstream", function run_app(User, Client) {
   // let the app know we've gotten the important stuff :)
   User.ref().once('value', function setSessionFromUser (ds) {
     // let session know we've loaded the User. now load the session.
