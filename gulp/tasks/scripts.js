@@ -22,6 +22,7 @@ var timestamp = require('../util/timestamp');
 
 // this glob determines the order of the concatenated scripts
 var scriptSrc = [
+  'src/js/mailgun/**/*.js',
   'src/js/*.js',
   'src/js/providers/*.js',
   'src/js/services/*.js',
@@ -34,11 +35,12 @@ var scriptSrc = [
 var scriptPub = "./public/js";
 
 gulp.task('scripts', function(){
+  var currentTime = timestamp();
   return gulp.src(scriptSrc)
     .pipe(plumber(handleErrors))
     .pipe(jshint('./.jshintrc'))
     .pipe(jshint.reporter(stylish))
-    .pipe(concat('all-' + timestamp + '.js'))
+    .pipe(concat('all-' + currentTime + '.js'))
     .pipe(gulp.dest(scriptPub))
     .pipe(uglify())
     .pipe(rename({suffix: '.min'}))

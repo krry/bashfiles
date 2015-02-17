@@ -1,3 +1,5 @@
-var timestamp = new Date().getTime();
+function getTimestamp() {
+  return new Date().getTime();
+}
 
-module.exports = timestamp;
+module.exports = getTimestamp;

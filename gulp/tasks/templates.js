@@ -2,7 +2,7 @@
 
   TEMPLATES
   supports BUILD task
-  
+
   minifies and copies the template HTML into `public`
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
@@ -13,15 +13,20 @@ var ngTemplates = require('gulp-ng-templates');
 
 var timestamp = require('../util/timestamp');
 
+console.log("timestamp is:", timestamp());
+
 var tmplSrc = [
   'src/templates/**/*.html',
 ];
 
 gulp.task('templates', function(){
+  var currentTime;
+  currentTime = timestamp();
+  console.log("currentTime is:", currentTime);
   return gulp.src(tmplSrc, {base: './src/'})
     .pipe(htmlmin({collapseWhitespace: true}))
     .pipe(ngTemplates({
-      filename: 'templates-' + timestamp + '.js',
+      filename: 'templates-' + currentTime + '.js',
       module: 'flannel.templates',
       path: function (path, base) {
         return path.replace(/\\/g, '/').split('src/')[1];
