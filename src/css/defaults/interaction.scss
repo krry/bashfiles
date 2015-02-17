@@ -311,6 +311,7 @@ select[multiple=multiple] {
   width: 100%;
   font-size: 1.75em;
   font-weight: 700;
+  transition: all 250ms $easing-quick;
 }
 
 textarea:hover,
