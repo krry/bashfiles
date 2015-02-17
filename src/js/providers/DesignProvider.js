@@ -30,6 +30,7 @@ function DesignProvider_ () {
       areas_stream,
       feature,
       map_center,
+      center_ref,
       center_stream,
       designs_url;
 
@@ -90,8 +91,8 @@ function DesignProvider_ () {
         ref:    function(key){
           if (key) {
             _ref_key = key;
-            _ref = new Firebase(forms_url).child(_ref_key);
-            _ref.once('value', processNewFormFromFirebase );
+            _ref = new Firebase(designs_url).child(_ref_key);
+            _ref.once('value', loadDesign);
           }
           return _ref;
         },
