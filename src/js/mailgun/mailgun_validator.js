@@ -84,7 +84,7 @@ function run_validator(address_text, options) {
     }).error(function(jq_xhr, text_status, error_thrown) {
         success = true;
         if (options && options.error) {
-            console.log('Error from validation service:', data);
+            console.log('Error from validation service:', text_status);
             options.error(jq_xhr);
         }
         else {
