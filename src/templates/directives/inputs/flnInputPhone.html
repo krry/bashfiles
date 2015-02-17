@@ -1,3 +1,6 @@
+<div class="ib status">
+  <span>Required</span>
+</div>
 <input
   type="tel"
   name="phone"
@@ -7,6 +10,8 @@
   autocorrect="off"
   placeholder="{{hint}}"
   ng-model="form.prospect.phone"
-  ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"  ng-required="true"
+  ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"
+  ng-required="true"
   ng-minlength="10"
-  ng-maxlength="10">
+  ng-maxlength="10"
+  ng-pattern="/[0-9]/">

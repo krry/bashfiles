@@ -149,3 +149,17 @@ span.autolocate-icon {
 input.date {
   padding: .18em .5em;
 }
+
+label input.full-name,
+label input.email,
+label input.birthdate,
+label input.phone {
+  font-size: 2em;
+  margin-top: .325em;
+}
+
+label .ib.status {
+  margin-left: 2em;
+  float: right;
+  color: $shade-40;
+}

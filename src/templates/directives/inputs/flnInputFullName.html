@@ -1,6 +1,9 @@
+<div class="ib status">
+  <span ng-show="prospectForm.fullName.$invalid">Required</span>
+</div>
 <input
   type="text"
-  name="full_name"
+  name="fullName"
   class="full-name"
   focus="true"
   placeholder="{{hint}}"
@@ -9,4 +12,5 @@
   ng-model="form.prospect.full_name"
   ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"
   ng-required="true"
-  ng-minlength="4">
+  ng-minlength="4"
+  ng-pattern="/[A-Z][a-z]/">
