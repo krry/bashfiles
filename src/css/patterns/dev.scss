@@ -33,7 +33,7 @@ a.dev-trigger.dev-trigger {
   text-align: center;
   color: $glass-smoked;
   background: $glass-amber;
-  box-shadow: -3px 0 6px -3px $shade-60;
+  box-shadow: -3px 0 6px -3px saturate($gold-bright, .2);
   &:hover {
     background: saturate($glass-amber, 10%);
     border: 0;
