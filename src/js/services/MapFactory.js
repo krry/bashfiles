@@ -5,9 +5,15 @@
  *Ï
  */
 
-angular.module('flannel').factory('MapFactory', ['MapService','StyleService', 'LayerService', 'Configurator', MapFactory_]);
+angular.module('flannel').factory('MapFactory', ['MapService','StyleService', 'LayerService', 'Configurator', 'Clientstream', MapFactory_]);
 
-function MapFactory_( MapService, StyleService, LayerService, Configurator ) {
+function MapFactory_( MapService, StyleService, LayerService, Configurator, Client ) {
+
+  var map,
+      f_collection,
+      f_layer;
+
+  f_collection = new ol.Collection([]);
 
   // TODO:
 
@@ -15,19 +21,25 @@ function MapFactory_( MapService, StyleService, LayerService, Configurator ) {
   var wkt = new ol.format.WKT();
 
   // end hacks //
-  var map;
-  var f_collection = new ol.Collection([]);
 
   var f_source = new ol.source.Vector({
     features: f_collection,
   });
 
-  var f_layer = new ol.layer.Vector({
-    source: f_source,
-    projection: Configurator.map().getView().getProjection(),
-    style:  StyleService.remap,
-    name: 'roof_area_layer',
-  });
+  if (Configurator.map()) {
+    createRoofpeakLayer();
+  } else {
+    Client.listen('Configurator: Map ready', createRoofpeakLayer);
+  }
+
+  function createRoofpeakLayer () {
+    f_layer = new ol.layer.Vector({
+      source: f_source,
+      projection: Configurator.map().getView().getProjection(),
+      style:  StyleService.remap,
+      name: 'roof_area_layer',
+    });
+  }
 
   function setTarget (element) {
     // set the map's target to render in browser
@@ -205,6 +217,7 @@ function MapFactory_( MapService, StyleService, LayerService, Configurator ) {
 
   return {
     roofArea: roofArea,
+    fFromWkt: featFromTxt,
   };
 
 }
