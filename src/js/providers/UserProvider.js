@@ -60,6 +60,7 @@ function UserProvider_ (SessionProvider) {
     // listen for the session to load, save it's _ref_key to the user
     Client.listen('App.run: User Loaded', checkForPriorSession );
     Client.listen('Session: Loaded', saveSessionId);
+    Client.listen('ODA: Request session', requestSessionUpdate);
 
     function checkForPriorSession (ds){
       var data = ds.exportVal() || {};
@@ -78,6 +79,14 @@ function UserProvider_ (SessionProvider) {
 
     function saveSessionId (data) {
       _ref.update({session_id: data.session_id});
+    }
+
+    function requestSessionUpdate (session_id) {
+      _ref.update({session_id: session_id});
+      Client.emit('ODA: share_session set', {
+        oda_id: _ref.key(),
+        session_id: session_id
+      });
     }
 
     function user_builder_brah () {
