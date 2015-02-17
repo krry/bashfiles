@@ -28,9 +28,10 @@ function flnRoofpeak_ (MapFactory, Configurator, Client) {
       if (Configurator.map()) {
         loadRoofpeak();
       } else {
-        Client.listen('Configurator: Map ready', loadRoofpeak);
+        Client.listen('OlMapCtrl: remote feature added', loadRoofpeak);
       }
       function loadRoofpeak() {
+        console.log('roofPeak');
         base_map = Configurator.map();
         old_view = base_map.getView();
         feature = Configurator.features()[0];

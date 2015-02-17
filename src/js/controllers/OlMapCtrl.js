@@ -100,8 +100,9 @@ function OlMapCtrl_($scope, $timeout, Client, Session, InteractionService, Style
       // add it to the map
       Configurator.overlay().addFeature(remote_feature);
       // make sure it works right.
-      draw_start(remote_feature);
+      draw_start(remote_feature); // HACK: consolidate this function for both client & firebase processes?
       draw_end();
+      Client.emit('OlMapCtrl: remote feature added')
     } else if (diff_client(txt) && !$scope.draw_busy) { // remote different from local, and local sync'd
       Design.feature().setGeometry(getGeom(txt));
     } else if (!diff_client(txt)) { // remote and local are the same
@@ -122,7 +123,6 @@ function OlMapCtrl_($scope, $timeout, Client, Session, InteractionService, Style
       result = txt !== Design.feature().get('wkt');
     }
     // use the existing design feature
-    // console.log('DesignFeatureWKT', Design.feature().get('wkt'));
     return result;
   }
 
@@ -132,7 +132,6 @@ function OlMapCtrl_($scope, $timeout, Client, Session, InteractionService, Style
 
   function fb_sub (txt) {
     if (txt === null) return;
-
     Client.emit('update_client', txt);
   }
 
@@ -160,8 +159,6 @@ function OlMapCtrl_($scope, $timeout, Client, Session, InteractionService, Style
     Client.emit('update_remote', Design.feature().getGeometry());
     // TODO: decide whether to auto-advance user or to let them approve
     Client.emit('drawing closed', true);
-    // Client.emit('stage', "next");
-    // Session.next();
   }
 
   function wkt_update_notification (ft) {
