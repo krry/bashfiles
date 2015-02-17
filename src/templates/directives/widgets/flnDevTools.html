@@ -5,7 +5,12 @@
 
   <div>
     <h4 for="stageSelector">Jump to a stage</h4>
-    <select id="stageSelector" ng-model="stages.partial" ng-options="s for s in stages.partials" ng-init="stages.partial = stages.partials[0]">
+    <select id="stageSelector"
+            multiple
+            size="14"
+            ng-model="stages.partial"
+            ng-options="s for s in stages.partials"
+            ng-init="stages.partial = stages.partials[0]">
       </select>
   </div>
 
