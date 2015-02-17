@@ -21,7 +21,7 @@
 
   <!-- Dependencies & libraries -->
   <link href="lib/jquery.nouislider.css" rel="stylesheet">
-  
+
   <!--STYLES--><!--STYLES END-->
 
   <link href="lib/ol.css" rel="stylesheet">
@@ -40,7 +40,7 @@
   <!-- <script src="lib/jquery.min.js"></script> -->
   <script src="lib/jquery.widowFix-1.3.2.js"></script>
   <!-- <script src="lib/jquery.widowFix-1.3.2.min.js"></script> -->
-
+  <script src="lib/mailgun_validator.js"></script>
   <!-- Dependencies & libraries if you want environmental conditionals -->
 
   <!-- <script ng-switch-when="false" src="lib/angular.js"></script> -->
@@ -95,12 +95,13 @@
     })();
   </script>
 </head>
-<!-- //////// BODY STARTS //////// -->
 <body ng-cloak ng-controller="StageCtrl as stages">
   <!-- TODO: apply ng-cloak only to divs that need it -->
   <div fln-dev-tools ng-class="{shown: panelShown}" class="dev-drawer inverse"></div>
   <header ui-view name="header" id="header" class="header"></header>
-  <main ui-view name="main" id="main" class="main"></main>
+  <form novalidate name="prospectForm" class="prospect-form">
+    <main ui-view name="main" id="main" class="main"></main>
+  </form>
   <footer ui-view name="footer" id="footer" class="footer row"></footer>
   <!-- <div fln-chat class="chat" ng-controller="ChatCtrl as chat" ng-show="chat.shown"></div> -->
   <div fln-modal class="modal" ng-show="modal.isOn()" ng-click=""></div>
