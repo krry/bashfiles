@@ -5,9 +5,11 @@ function flnInputBill_ () {
     scope: {
       hint: "@"
     },
-    restrict: "E",
+    restrict: "A",
     templateUrl: "templates/directives/inputs/flnInputBill.html",
-    controller: "FormCtrl as form",
+    // controller: function () {
+      // TODO: instead of importing the whole FormCtrl, write a custom controller that only consumes the Form model piece relevant to the directive
+    // }
     link: function (scope, element, attrs) {
       $(element).focus();
     }
