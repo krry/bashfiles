@@ -15,11 +15,10 @@ var concat  = require('gulp-concat');
 var rename  = require('gulp-rename');
 var prefix  = require('gulp-autoprefixer');
 var plumber = require('gulp-plumber');
-
 var sass    = require('gulp-sass');
 var minCSS  = require('gulp-minify-css');
 
-var timestamp = require('../util/timestamp');
+var timestamp = require('../util/timestamp').timestamp;
 var handleErrors = require('../util/handleErrors');
 
 // this glob determines the order of the concatenated stylesheets
@@ -38,7 +37,7 @@ var sassOpts = {
 
 var stylePub = './public/css';
 
-gulp.task('styles', function(){
+gulp.task('styles', ['clearStyles'], function(){
   var currentTime = timestamp();
   return gulp.src(styleSrc)
         .pipe(plumber({

@@ -11,18 +11,15 @@ var gulp = require('gulp');
 var htmlmin = require('gulp-htmlmin');
 var ngTemplates = require('gulp-ng-templates');
 
-var timestamp = require('../util/timestamp');
-
-console.log("timestamp is:", timestamp());
+var timestamp = require('../util/timestamp').timestamp;
 
 var tmplSrc = [
   'src/templates/**/*.html',
 ];
 
-gulp.task('templates', function(){
+gulp.task('templates', ['clearTemplates'], function(){
   var currentTime;
   currentTime = timestamp();
-  console.log("currentTime is:", currentTime);
   return gulp.src(tmplSrc, {base: './src/'})
     .pipe(htmlmin({collapseWhitespace: true}))
     .pipe(ngTemplates({

@@ -25,7 +25,23 @@ var laundry = [
   './public/*.js'
 ];
 
+var templates = './public/templates-*.js';
+var scripts = './public/js/all-*.js';
+var styles = './public/css/all-*.css';
+
 gulp.task('clean', function() {
   console.log('[clean   ] now cleaning dist folders');
   return del(laundry);
 });
+
+gulp.task('clearTemplates', function () {
+  return del(templates);
+})
+
+gulp.task('clearScripts', function () {
+  return del(scripts);
+})
+
+gulp.task('clearStyles', function () {
+  return del(styles);
+})

@@ -1,5 +1,13 @@
+var thetime;
+
 function getTimestamp() {
-  return new Date().getTime();
+  if (!thetime) {
+    thetime = new Date().getTime();
+  }
+  return thetime;
 }
 
-module.exports = getTimestamp;
+module.exports = {
+  timestamp: getTimestamp,
+  thetime: thetime,
+}

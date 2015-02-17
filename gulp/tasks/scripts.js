@@ -19,23 +19,21 @@ var stylish = require('jshint-stylish');
 var ngAnnotate = require('gulp-ng-annotate');
 
 var handleErrors = require('../util/handleErrors');
-var timestamp = require('../util/timestamp');
+var timestamp = require('../util/timestamp').timestamp;
 
 // this glob determines the order of the concatenated scripts
 var scriptSrc = [
-  'src/js/mailgun/**/*.js',
   'src/js/*.js',
   'src/js/providers/*.js',
   'src/js/services/*.js',
   'src/js/controllers/*.js',
   'src/js/directives/**/*.js',
-  'src/js/rxjs-firebase/**/*.js',
   'src/js/stages/*.js',
 ];
 
-var scriptPub = "./public/js";
+var scriptPub = './public/js';
 
-gulp.task('scripts', function(){
+gulp.task('scripts', ['clearScripts'], function(){
   var currentTime = timestamp();
   return gulp.src(scriptSrc)
     .pipe(plumber(handleErrors))
