@@ -238,15 +238,6 @@ select {
   font-size: 100%;
 }
 
-select {
-  @include btn($color: $white, $size: .75em, $corners: .25em);
-  position: relative;
-  color: $grey-darker;
-  text-align: left;
-  background: $white url('../img/down-arrow.svg') no-repeat 92% center;
-  background-size: auto 80%;
-}
-
 label {
   font-size: .75em;
   display: block;
@@ -355,11 +346,30 @@ input[type="datetime"]:focus,
 input[type="datetime-local"]:focus,
 input[type="month"]:focus,
 input[type="time"]:focus,
-input[type="week"]:focus,
-select[multiple=multiple]:focus {
+input[type="week"]:focus {
   border-color: $grey-mid;
   background-color: $color-input-bkgd-focus;
   box-shadow: inset $shadow-input;
+}
+
+select {
+  @include btn($color: $white, $size: .75em, $corners: .25em);
+  position: relative;
+  color: $grey-darker;
+  text-align: left;
+  background: $white url('../img/down-arrow.svg') no-repeat 92% center;
+  background-size: auto 80%;
+  &[multiple] {
+    font-size: .75em;
+    background-image: none;
+    option:hover {
+      background: $tint-20;
+    }
+    &:active:not(:disabled) {
+      background: inherit;
+      color: inherit;
+    }
+  }
 }
 
 // input placeholders
