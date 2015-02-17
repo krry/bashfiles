@@ -80,13 +80,11 @@ function OlMapCtrl_($scope, $timeout, Client, Session, InteractionService, Style
 
   function update_remote (geom) {
     // $scope.draw_busy = true;
-    console.log('update_remote');
     Design.areas_ref().child('area').set(wkt.writeGeometry(geom));
     $scope.$apply();
   }
 
   function update_client (txt) {
-    console.log('update_client', txt, !diff_client(txt), $scope.draw_busy);
     if (Design.feature() !== 'undefined' && !$scope.draw_busy) { // you're sync'd but you should do something with new data
       console.log('==================== what should i do now, boss? ================', txt)
       // make a new feature
@@ -157,12 +155,10 @@ function OlMapCtrl_($scope, $timeout, Client, Session, InteractionService, Style
     Design.feature().on('change:wkt', wkt_update_notification);
     Design.feature().getGeometry().on('change', update_wkt_while_modify);
     Client.emit('update_remote', Design.feature().getGeometry());
-    // TODO: decide whether to auto-advance user or to let them approve
     Client.emit('drawing closed', true);
   }
 
   function wkt_update_notification (ft) {
-    console.log('wktupdate')
     Client.emit('update_remote', Design.feature().getGeometry());
   }
 }
