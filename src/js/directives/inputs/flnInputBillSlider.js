@@ -7,6 +7,5 @@ function flnInputBillSlider_ () {
     },
     restrict: "E",
     templateUrl: "templates/directives/inputs/flnInputBillSlider.html",
-    controller: "FormCtrl as form",
   };
 }

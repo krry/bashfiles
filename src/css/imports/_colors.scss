@@ -63,6 +63,7 @@ $tint-95:  rgba(255, 255, 255, .95);
 $glass-smoked:  transparentize($grey-darkest, 0.07);
 $glass-frosted: transparentize($grey-lightest, 0.07);
 $glass-amber:   transparentize($gold, 0.07);
+$gold-bright:   lighten($gold, .2);
 
 $color-text-main:            $grey-darker;
 $color-border-main:          $grey-light;

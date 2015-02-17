@@ -85,11 +85,14 @@ function OlMapCtrl_($scope, $timeout, Client, Session, InteractionService, Style
   }
 
   function update_client (txt) {
-    if (Design.feature() !== 'undefined' && !$scope.draw_busy) { // you're sync'd but you should do something with new data
-      console.log('==================== what should i do now, boss? ================', txt)
-      // make a new feature
-      typeof txt !== "string" && (txt = txt.area);
+    var remote_feature;
 
+    if (Design.feature() !== 'undefined' && !$scope.draw_busy) { // you're sync'd but you should do something with new data
+      console.log('=============== what should i do now, boss? ================', txt)
+      // make a new feature
+      /* jshint -W030 */
+      typeof txt !== "string" && (txt = txt.area);
+      /* jshint +W030 */
       remote_feature = featFromTxt(txt, 'area');
       // make it referencable
       Design.feature(remote_feature);
