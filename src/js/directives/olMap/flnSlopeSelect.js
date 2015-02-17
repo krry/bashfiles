@@ -24,10 +24,19 @@ function flnSlopeSelect_ ($compile, Design, Client) {
       $scope.slope_options = [40, 25, 10, 0]; // hack: hardcode
       $scope.selected = 0;
 
+
+      // if (Configurator.map()) {
+      //   // already loaded map
+      //   buildRoofpeakoverla();
+      // } else {
+      //   // wait for map to hotload
+      //   console.log('flnDraw, configurator not ready');
+      //   Clientstream.listen('Configurator: Map ready', buildRoofpeakoverla);
+      // }
+
       // load the feature for slope values
       var feature = Design.areas_ref().child('area'); // hack: this is hardcode
       Client.listen('feature slope', function() {
-        console.log('butts', arguments)
         feature.update({slope: $scope.selected});
       })
 
@@ -35,10 +44,6 @@ function flnSlopeSelect_ ($compile, Design, Client) {
       $scope.setslope = function butts () {
         Client.emit('feature slope', '// hack:');
       }
-
-      var map_div = $('#omap')
-      // map_div.append($element.children()[0])
-      // $compile(map_div)($scope)
 
       $element.on('$destroy', function () {
         console.log('should remove the SlopeSelect now');

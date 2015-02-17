@@ -9,60 +9,73 @@ this directive enables opens a layer that:
 
 ================================================== */
 
-directives.directive('flnRoofpeak', ["MapFactory", "Configurator", flnRoofpeak_]);
+directives.directive('flnRoofpeak', ["MapFactory", "Configurator", "Clientstream", flnRoofpeak_]);
 
-function flnRoofpeak_ (MapFactory, Configurator) {
+function flnRoofpeak_ (MapFactory, Configurator, Client) {
   return {
     restrict: 'EA',
     controllerAs: 'Roofpeak',
-    scope: {
-      // area: "=", // pass this object, the area we're focused on
-    },
     link: function flnRoofpeakLink (scope, element, attrs) {
-      // scope.area = scope.design_element.getLayers()
-      var base_map = Configurator.map();
-      var old_view = base_map.getView();
-      var feature = Configurator.features()[0];
-      var lay_over_element = $('#roof_peak');
-      lay_over_element.show();
-      var ol_map = Configurator.map();
-      var roof_peak_map = MapFactory.roofArea(ol_map, lay_over_element, feature);
+      var base_map,
+          old_view,
+          feature,
+          lay_over_element,
+          ol_map,
+          roof_peak_map,
+          feature_overlay,
+          highlight;
 
-      $(roof_peak_map.getViewport()).on('mousemove', function(evt) {
-        var pixel = roof_peak_map.getEventPixel(evt.originalEvent);
-        mouseover(pixel);
-      });
+      if (Configurator.map()) {
+        loadRoofpeak();
+      } else {
+        Client.listen('OlMapCtrl: remote feature added', loadRoofpeak);
+      }
+      function loadRoofpeak() {
+        console.log('roofPeak');
+        base_map = Configurator.map();
+        old_view = base_map.getView();
+        feature = Configurator.features()[0];
+        lay_over_element = $('#roof_peak');
+        lay_over_element.show();
+        ol_map = Configurator.map();
+        roof_peak_map = MapFactory.roofArea(ol_map, lay_over_element, feature);
 
-      var highlight;
-      var featureOverlay = roof_peak_map.getOverlays().getArray()[0];
-
-      function mouseover (pixel) {
-        var feature = roof_peak_map.forEachFeatureAtPixel(pixel, function(feature, layer) {
-          return feature;
+        $(roof_peak_map.getViewport()).on('mousemove', function(evt) {
+          var pixel = roof_peak_map.getEventPixel(evt.originalEvent);
+          mouseover(pixel);
         });
 
-        if (feature !== highlight) {
-          if (highlight) {
-            featureOverlay.removeFeature(highlight);
+        feature_overlay = roof_peak_map.getOverlays().getArray()[0];
+
+        function mouseover (pixel) {
+          var f = roof_peak_map.forEachFeatureAtPixel(pixel, function(feature, layer) {
+            return f;
+          });
+
+          if (feature !== highlight) {
+            if (highlight) {
+              feature_overlay.removeFeature(highlight);
+            }
+            if (feature) {
+              feature_overlay.addFeature(feature);
+            }
+            highlight = feature;
           }
-          if (feature) {
-            featureOverlay.addFeature(feature);
-          }
-          highlight = feature;
         }
+
+        roof_peak_map.setTarget(lay_over_element[0]);
+        lay_over_element.width(ol_map.getSize()[0]); // (jesse) HACK: we shouldn't have to do this... but we do.
+        roof_peak_map.updateSize();
+        element.on('$destroy', function () {
+          console.log('should remove the roofpeak now');
+          base_map.setView(old_view);
+          lay_over_element.html('');
+          lay_over_element.hide();
+          // remove the map
+          // save any details to firebase?
+        });
       }
 
-      roof_peak_map.setTarget(lay_over_element[0]);
-      lay_over_element.width(ol_map.getSize()[0]); // (jesse) HACK: we shouldn't have to do this... but we do.
-      roof_peak_map.updateSize();
-      element.on('$destroy', function () {
-        console.log('should remove the roofpeak now');
-        base_map.setView(old_view);
-        lay_over_element.html('');
-        lay_over_element.hide();
-        // remove the map
-        // save any details to firebase?
-      });
     }
   };
 }
