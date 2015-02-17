@@ -1,3 +1,12 @@
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+//
+//  fln-help
+//  widget
+//
+//  applies to the directive of the same name
+//
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
 @import "../imports/colors";
 @import "../imports/fonts";
 @import "../imports/motion";
@@ -11,11 +20,15 @@ fln-help {
   width: 16rem;
   height: 15rem;
   background: hsl(0, 100%, 100%);
-  border-radius: 4px 4px 0 0;
   box-shadow: 0 0 12px -4px hsla(0, 0%, 0%, 0.8);
   border-style: none;
   transform: translate3d(0, 12rem, 0);
   transition: transform 250ms $easing-quick;
+
+  &.shown {
+    transform: translate3d(0,0,0);
+  }
+
   .trigger-bar {
     @include apercu-bold;
     font-size: 1rem;
@@ -23,16 +36,13 @@ fln-help {
     height: 3rem;
     background-color: $blue-smoke;
     border: 0;
+    border-radius: 4px 4px 0 0;
     display: block;
     width: 100%;
     padding: .25em 1.5em;
     text-align: left;
   }
-  &.shown {
-    transform: translate3d(0,0,0);
-  }
 }
-
 
 .help {
   margin: auto;
@@ -47,16 +57,10 @@ fln-help {
     text-align: left;
     padding: 0 0 0 0;
     transition: background-color .15s $easing-quick;
-
-    &:first-of-type {
-      // border-left: none;
-    }
   }
 
   a {
     @include apercu-regular;
-    // padding: 1em;
-    // padding-left: 4.25em;
     width: 100%;
     display: block;
     color: inherit;

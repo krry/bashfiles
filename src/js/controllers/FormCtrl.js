@@ -39,7 +39,10 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form) {
       }
       $scope.$apply(); // update the views
     }
-    !form_obj.bill && Client.emit('Form: valid data', {bill: 100}); // HACK: hardcode bill should be angular.constant
+    /* jshint -W030 */
+    // HACK: hardcode bill should be angular.constant
+    !form_obj.bill && Client.emit('Form: valid data', {bill: 100});
+    /* jshint +W030 */
   }
 
   /* end bootstrap */

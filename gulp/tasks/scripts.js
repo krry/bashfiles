@@ -16,6 +16,7 @@ var jshint = require('gulp-jshint');
 var uglify = require('gulp-uglify');
 var plumber = require('gulp-plumber');
 var stylish = require('jshint-stylish');
+var ngAnnotate = require('gulp-ng-annotate');
 
 var handleErrors = require('../util/handleErrors');
 var timestamp = require('../util/timestamp');
@@ -41,6 +42,7 @@ gulp.task('scripts', function(){
     .pipe(jshint('./.jshintrc'))
     .pipe(jshint.reporter(stylish))
     .pipe(concat('all-' + currentTime + '.js'))
+    .pipe(ngAnnotate())
     .pipe(gulp.dest(scriptPub))
     .pipe(uglify())
     .pipe(rename({suffix: '.min'}))

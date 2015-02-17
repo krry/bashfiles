@@ -9,9 +9,9 @@ this directive enables opens a layer that:
 
 ================================================== */
 
-directives.directive('flnRoofpeak', ["MapFactory", "LayerService", "Configurator", flnRoofpeak_]);
+directives.directive('flnRoofpeak', ["MapFactory", "Configurator", flnRoofpeak_]);
 
-function flnRoofpeak_ (MapFactory, LayerService, Configurator) {
+function flnRoofpeak_ (MapFactory, Configurator) {
   return {
     restrict: 'EA',
     controllerAs: 'Roofpeak',

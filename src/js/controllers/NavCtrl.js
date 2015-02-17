@@ -14,8 +14,6 @@ function NavCtrl_($scope, $state) {
   vm.onActiveStage = onActiveStage;
 
   function onActiveStage (stage) {
-    // console.log('stage is:', stage);
-    // console.log('$state is:', $state);
     return stage === $state.current.name;
   }
 }

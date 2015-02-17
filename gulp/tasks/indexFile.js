@@ -18,13 +18,16 @@ var tmplSrc = [
   'src/index.html',
 ];
 
-if (env === 'development') {
-  scriptSrc = ['public/*.js', 'public/js/**/*.js', '!public/js/**/*.min.js'];
-  styleSrc = ['public/css/**/*.css', '!public/css/**/*.min.css'];
-} else {
-  scriptSrc = ['public/*.js', 'public/js/**/*.min.js'];
-  styleSrc = ['public/css/**/*.min.css'];
-}
+scriptSrc = ['public/*.js', 'public/js/**/*.js', '!public/js/**/*.min.js'];
+styleSrc = ['public/css/**/*.css', '!public/css/**/*.min.css'];
+
+// if (env === 'development') {
+//   scriptSrc = ['public/*.js', 'public/js/**/*.js', '!public/js/**/*.min.js'];
+//   styleSrc = ['public/css/**/*.css', '!public/css/**/*.min.css'];
+// } else {
+//   scriptSrc = ['public/*.js', 'public/js/**/*.min.js'];
+//   styleSrc = ['public/css/**/*.min.css'];
+// }
 
 gulp.task('indexFile', ['styles', 'scripts', 'templates'], function(){
   return gulp.src(tmplSrc, {base: './src/'})
