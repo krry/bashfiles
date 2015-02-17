@@ -171,6 +171,7 @@ function ConfiguratorFactory_() {
         draw: function () { return draw; },
         modify: function () { return modify; },
         features: function () { return draw_modify_features.getArray(); },
+        overlay: function () { return feature_overlay; },
         interactions: function () { return interactions; },
         enable: function (name) {
           if (map) {

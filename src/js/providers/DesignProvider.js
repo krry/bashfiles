@@ -67,10 +67,10 @@ function DesignProvider_ () {
       }
       // firebase design ref
       _ref.once('value', loadDesign );
-      _ref_stream = _ref.observe('value').skip(1);
+      _ref_stream = _ref.observe('value');
       // areas_stream
       areas_ref = _ref.child('areas');
-      areas_stream = areas_ref.observe('value').skip(1);
+      areas_stream = areas_ref.observe('value');
       // map_center stream from Session
       return _ref;
     }

@@ -49,6 +49,7 @@ function SessionProvider_ (FormProvider, DesignProvider, ConfiguratorProvider) {
   this.$get = ["Clientstream", function SessionProviderFactory(Client) {
 
     Client.listen('User: Loaded', bootstrapSession );
+    Client.listen('ODA: share_session set', bootstrapSession);
     Client.listen('StageCtrl: restart session', restartSession);
     Client.listen('Form: Loaded', saveFormId);
     Client.listen('Design: Loaded', saveDesignId);
