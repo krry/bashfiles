@@ -1,0 +1,45 @@
+@import "../imports/colors";
+
+.footer-chat {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+}
+
+.chat-trigger {
+  display: block;
+  font-size: 2em;
+}
+
+.chat-buttons {
+  position: fixed;
+  z-index: 20;
+  bottom: 10em;
+  right: 0;
+}
+
+#chat_div {
+  // position: fixed;
+  // bottom: 0;
+  height: 100%;
+  border: 0;
+  // right: 2em;
+}
+
+#liveAgentChat {
+  border: 0;
+  background: $tint-90;
+}
+
+.liveagent-online {
+  background-image: url("//oda-solarcity.cs24.force.com/support/resource/1423088340000/Chat_Online");
+}
+
+.liveagent-offline {
+  background-image: url("https://oda-solarcity.cs24.force.com/support/resource/1423088060000/Chat_Offline");
+}
+
+.toggle-help {
+  z-index: 1000;
+  background: $ginger;
+}
