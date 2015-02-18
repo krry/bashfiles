@@ -1,9 +1,9 @@
 <!doctype html>
 <html ng-app="flannel" ng-controller="AppCtrl as app" ng-strict-di>
-<!-- //////// HEAD START //////// -->
+<!-- ////// HEAD ////// -->
 <head>
 
-  <!-- //// META TAGS START //// -->
+  <!-- ///// META TAGS ///// -->
   <!-- adding this meta tag to try to snap IE9 out of Quirks mode. note, this must be the first meta tag and ahead of any conditional comments in order to work. http://stackoverflow.com/questions/3449286/force-ie-compatibility-mode-off-in-ie-using-tags -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta charset="UTF-8">
@@ -17,9 +17,9 @@
   <!-- ensures that (mobile) browsers don't load the app in a zoomed state -->
   <meta name="viewport" content="initial-scale=1">
   <title ng-bind="app.appTitle">SolarCity</title>
+  <!-- ///// META TAGS END ///// -->
 
-  <!-- ///////////// STYLES ///////////// -->
-
+  <!-- ///// STYLES ///// -->
   <!-- if you would like to avoid FOUCs while scripts load -->
   <!-- always load styles before scripts in the head -->
 
@@ -34,8 +34,7 @@
   <!-- <link href="css/all.min.css" rel="stylesheet"> -->
   <link href="lib/ol.css" rel="stylesheet">
   <!-- <link href="lib/ol.min.css" rel="stylesheet"> -->
-
-  <!-- //////////// STYLES END ///////////// -->
+  <!-- ///// STYLES END ///// -->
 
 
   <!-- angular -->
@@ -239,7 +238,8 @@
     <script ng-switch-when="false" src="lib/rx.firebase.js"></script>
     <script ng-switch-when="true" src="lib/rx.firebase.min.js"></script>
   </switch> -->
-  <!--SCRIPTS--><!--SCRIPTS END-->
+  <!-- ///// SCRIPTS ///// -->
+  <!-- ///// SCRIPTS END ///// -->
 
   <!-- SALESFORCE LIVEAGENT CHAT START -->
   <div class="chat-buttons">
