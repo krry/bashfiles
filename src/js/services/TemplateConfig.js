@@ -35,7 +35,7 @@ function TemplateConfig_ () {
         { step: 'edit-area',       partial: 'edit.html'     },
         { step: 'detail-area',     partial: 'detail.html'   },
         // { step: 'area-slope',      partial: 'slope.html'    },
-        { step: 'complete-area',   partial: 'complete.html' },
+        // { step: 'complete-area',   partial: 'complete.html' },
       ],
     },
     {
