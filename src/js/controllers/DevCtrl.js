@@ -7,7 +7,18 @@ controllers.controller("DevCtrl", ["$scope", "Clientstream", "Form", DevCtrl_]);
 
 function DevCtrl_($scope, Client, Form) {
   var vm = this;
+
   Client.listen('Form: Loaded', subscribeForm);
+
+  vm.reloadApp = function reloadApp () {
+    location.hash = '';
+    location.reload(true);
+  }
+
+  vm.resetForm = function resetForm () {
+    Client.emit('Dev: Reset form');
+  }
+
 
   function subscribeForm (form_obj) {
     vm.prospect = form_obj;
