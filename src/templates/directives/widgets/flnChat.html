@@ -1,6 +1,18 @@
-<button id="chat-trigger" class="chat-trigger btn small orange" name="chat-trigger">Chat now</button>
+<!-- SAVE: CUSTOM CHAT PROTOTYPE -->
+<!-- <button id="chat-trigger" class="chat-trigger btn small orange" name="chat-trigger">Chat now</button>
+>>>>>>> adding newer chatbox features
 <div id="chat-tray" name="chat-iframe" class="chat-tray" ng-show="chat.shown">
   <iframe id="chat-iframe" name="chat-iframe" src="" frameborder="0"></iframe>
+</div> -->
+
+<div class="chat-buttons">
+  <button id="liveagent_button_online_57319000000CaTc" class="btn orange toggle-help liveagent-online" ng-click="liveagent.startChat('57319000000CaTc')">Agent available</button>
+  <button id="liveagent_button_offline_57319000000CaTc" class="btn orange toggle-help liveagent-offline">Contact us</button>
+</div>
+<!--Chat box will be generated in this container-->
+
+<div id="chat_div" ng-show="chat.shown">
+  <iframe id="liveAgentChat"></iframe>
 </div>
 
 <img id="liveagent_button_online_57319000000CaTc" style="display: none; border: 0px none; cursor: pointer" onclick="liveagent.startChat('57319000000CaTc')" src="https://oda-solarcity.cs24.force.com/support/resource/1423088340000/Chat_Online" />

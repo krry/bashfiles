@@ -8,7 +8,7 @@ controllers.controller("ChatCtrl", [ChatCtrl_]);
 function ChatCtrl_() {
   var vm = this;
 
-  vm.shown = false;
+  vm.shown = true;
   vm.open = openChat;
   vm.close = closeChat;
 

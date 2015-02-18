@@ -33,15 +33,15 @@ gulp.task('indexFile', ['styles', 'scripts', 'templates'], function(){
   return gulp.src(tmplSrc, {base: './src/'})
     .pipe(linker({
       scripts: scriptSrc,
-      startTag: '<!-- ///// SCRIPTS ///// -->',
-      endTag: '<!-- ///// SCRIPTS END ///// -->',
+      startTag: '<!-- ##### SCRIPTS ##### -->',
+      endTag: '<!-- ##### SCRIPTS END ##### -->',
       fileTmpl: '<script src="%s"></script>',
       appRoot: 'public/'
     }))
     .pipe(linker({
       scripts: styleSrc,
-      startTag: '<!-- ///// STYLES ///// -->',
-      endTag: '<!-- ///// STYLES END ///// -->',
+      startTag: '<!-- ##### STYLES ##### -->',
+      endTag: '<!-- ##### STYLES END ##### -->',
       fileTmpl: '<link href="%s" rel="stylesheet"></link>',
       appRoot: 'public/'
     }))
