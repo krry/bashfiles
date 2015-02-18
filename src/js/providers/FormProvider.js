@@ -57,6 +57,14 @@ function FormProvider_ () {
     Client.listen('Form: valid house', updateRefByVal );
     Client.listen('Form: valid data', updateRefByVal);
 
+    // DEV:
+    Client.listen('Dev: Reset form', restartForm);
+    function restartForm () {
+      var form_obj = {bill: 100};
+      _ref.set(form_obj);
+    }
+    // DEV: end
+
     function bootstrapForm (argument) {
       // make the ref when Form is first required.
       if (_ref_key) {
@@ -86,7 +94,6 @@ function FormProvider_ () {
     function updateRefByVal (obj) {
       _ref.update(obj);
       return
-
     }
     Client.listen('valid address', function (addy) {
       return _ref.update({address: addy});
