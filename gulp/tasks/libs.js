@@ -51,6 +51,10 @@ var libSrc = [
   './src/js/rxjs-firebase/rx.firebase.js',
   './src/lib/moment/moment.js',
   './src/js/mailgun/mailgun_validator.js',
+  './src/js/fln-chat/fln-chat-jquery-ui.css', // TODO: HACK: nix that shit ASAP
+  './src/js/fln-chat/fln-chat-jquery-ui.js', // TODO: HACK: nix that shit ASAP
+  './src/js/fln-chat/fln-chat-jquery-ui-chatbox.js', // TODO: HACK: nix that shit ASAP
+  './src/js/fln-chat/fln-chat-jquery-ui-chatbox.css', // TODO: HACK: nix that shit ASAP
 ];
 
 var libPub = './public/lib';
