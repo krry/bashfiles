@@ -17,8 +17,8 @@ function TemplateConfig_ () {
 
   config = [
     {
-      name: 'home',
-      destination: 'configure',
+      name: 'flannel.home',
+      destination: 'flannel.configure',
       steps: [
         { step: 'zip-nearme',      partial: 'zip.html'      },
         { step: 'address-roof',    partial: 'address.html'  },
@@ -27,8 +27,8 @@ function TemplateConfig_ () {
       ],
     },
     {
-      name: 'configure',
-      destination: 'signup',
+      name: 'flannel.configure',
+      destination: 'flannel.signup',
       steps: [
         { step: 'zoom-lock-roof',  partial: 'zoom.html'     },
         { step: 'trace-area',      partial: 'trace.html'    },
@@ -39,7 +39,7 @@ function TemplateConfig_ () {
       ],
     },
     {
-      name: 'signup',
+      name: 'flannel.signup',
       destination: '',
       steps: [
         { step: 'review-proposal', partial: 'proposal.html' },
@@ -72,7 +72,7 @@ function TemplateConfig_ () {
 
     for (var i = 0; i < config.length; i++) {
       partials.push([]);
-      name = config[i].name;
+      name = config[i].name.split('.')[1]; // drop the "flannel." part of the state's name.
       for (var j = 0; j< config[i].steps.length; j++) {
         stage = partials[i];
         stage.push(hardcode(config[i].steps[j].partial));
