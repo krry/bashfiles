@@ -14,8 +14,8 @@
 .chat-buttons {
   position: fixed;
   z-index: 20;
-  bottom: 10em;
-  right: 0;
+  bottom: 2em;
+  right: 3em;
 }
 
 #chat_div {
@@ -31,15 +31,21 @@
   background: $tint-90;
 }
 
-.liveagent-online {
-  background-image: url("//oda-solarcity.cs24.force.com/support/resource/1423088340000/Chat_Online");
+.liveagent-online {}
+
+.liveagent-offline {}
+
+.ui-chatbox {
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  z-index: 10;
 }
 
-.liveagent-offline {
-  background-image: url("https://oda-solarcity.cs24.force.com/support/resource/1423088060000/Chat_Offline");
-}
-
-.toggle-help {
-  z-index: 1000;
-  background: $ginger;
+.chat-tray {
+  // height: 330px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 10;
 }
