@@ -1,6 +1,6 @@
-controllers.controller('ScheduleCtrl', ['Form', 'Clientstream', '$q', ScheduleCtrl_]);
+controllers.controller('ScheduleCtrl', ['Form', 'Clientstream', '$q', '$http', 'UTILITIES_API', ScheduleCtrl_]);
 
-function ScheduleCtrl_ (Form, Client, $q) {
+function ScheduleCtrl_ (Form, Client, $q, $http, UTILITIES_API) {
   var vm = this;
   vm.prospect = Form.prospect;
   vm.eventDetails = eventDetails;
@@ -10,6 +10,8 @@ function ScheduleCtrl_ (Form, Client, $q) {
   vm.init = init;
   vm.save = save;
   vm.init();
+
+  console.log(vm.prospect.zip);
 
   vm.config = {
     startDate: moment().format('MM/D/YYYY'),

@@ -6,9 +6,9 @@
 
 ================================================== */
 
-controllers.controller("FormCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Form", FormCtrl_]);
+controllers.controller("FormCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Form", "Credit", FormCtrl_]);
 
-function FormCtrl_($scope, $element, Client, Geocoder, Form) {
+function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit) {
   var vm = this;
   var form_stream;
 
@@ -56,6 +56,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form) {
   vm.nextStep = next;
   vm.checkZip = checkZip;
   vm.checkAddress = checkAddress;
+  vm.checkCredit = checkCredit;
 
   // TODO: on change of the user model due to user changing the input values and angular syncing that with the data model, run it through validators, and then save it to firebase
   // vm.$watch('user', function(){})
@@ -94,6 +95,21 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form) {
       Client.emit('spin it', true);
       Geocoder.sendGeocodeRequest(addy);
     }
+  }
+
+  // TODO: get actual Contactid and AddressId of user
+  function checkCredit(prospect) {
+    Credit.check({
+      Contactid: '12345',
+      AddressId: '23456',
+      BirthDate: moment(prospect.dob).format('MM/DD/YYYY')
+    }).then(function(data) {
+      var qualified = data.EligibleProducts.indexOf(Credit.products.Lease) > -1 ||
+        data.EligibleProducts.indexOf(Credit.products.PPA) > -1;
+
+      vm.prospect.qualified = qualified;
+      Client.emit('stage', 'next');
+    });
   }
 
   function checkFullName () {}

@@ -1,5 +1,5 @@
 <!-- main.html for qualify stage -->
-<div class="overlay primary col">
+<div class="overlay primary col" ng-controller="FormCtrl as form">
   <h1>Great, now let’s see what we can do for you.<br><small>Enter your date of birth to see if you qualify for our flexible financing options.</small></h1>
   <form name="prospectForm" novalidate>
     <div class="row center">
@@ -11,7 +11,7 @@
   </form>
   <div class="row center">
     <div class="col half padded center">
-      <button class="ib gold" ng-click="stages.next()">Qualify Me</button>
+      <button class="ib gold" ng-click="form.checkCredit(form.prospect)" ng-disabled="prospectForm.$invalid">Qualify Me</button>
     </div>
   </div>
 </div>
