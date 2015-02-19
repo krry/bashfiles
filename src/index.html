@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="flannel" ng-controller="AppCtrl as app" ng-strict-di>
+<html ng-app="flannel" ng-controller="AppCtrl as app">
 <!-- ###### HEAD ###### -->
 <head>
 
@@ -22,14 +22,6 @@
   <!-- ##### STYLES ##### -->
   <!-- if you would like to avoid FOUCs while scripts load -->
   <!-- always load styles before scripts in the head -->
-
-  <!-- ///// STYLES ///// -->
-  <!-- if you would like to avoid FOUCs while scripts load -->
-  <!-- always load styles before scripts in the head -->
-
-  <!-- fln-chat styles   // TODO: HACK: nix that shit ASAP -->
-  <link href="lib/fln-chat-jquery-ui.css" rel="stylesheet">
-  <link href="lib/fln-chat-jquery-ui-chatbox.css" rel="stylesheet">
 
   <!-- Dependencies & libraries -->
   <link href="lib/jquery.nouislider.css" rel="stylesheet">
@@ -57,14 +49,6 @@
   <script src="lib/jquery.widowFix-1.3.2.js"></script>
   <!-- <script src="lib/jquery.widowFix-1.3.2.min.js"></script> -->
   <script src="lib/mailgun_validator.js"></script>
-
-  <!-- fln-chat-scripts   // TODO: HACK: nix that shit ASAP -->
-  <script src="lib/fln-chat-jquery-ui.js"></script>
-  <script src="lib/fln-chat-jquery-ui-chatbox.js"></script>
-
-  <!-- fln-chat-scripts   // TODO: HACK: nix that shit ASAP -->
-  <script src="lib/fln-chat-jquery-ui.js"></script>
-  <script src="lib/fln-chat-jquery-ui-chatbox.js"></script>
 
   <!-- Dependencies & libraries if you want environmental conditionals -->
 
@@ -121,73 +105,11 @@
   </script>
 
   <!-- SALESFORCE LIVEAGENT -->
-  <script type='text/javascript' src='https://c.la3-c2cs-chi.salesforceliveagent.com/content/g/js/32.0/deployment.js'></script>
-  <script type='text/javascript'>
+  <script src='https://c.la3-c2cs-chi.salesforceliveagent.com/content/g/js/32.0/deployment.js'></script>
+  <!-- <script>
+    liveagent.addCustomDetail("key", "prospect[key]");
     liveagent.init('https://d.la3-c2cs-chi.salesforceliveagent.com/chat', '57219000000CaSA', '00D19000000Dtc3');
-  </script>
-  <script type="text/javascript">
-    /*
-      document ready.
-    */
-    $(document).ready(function()
-    {
-      /*
-        declare gloabl box variable,
-        so we can check if box is alreay open,
-        when user click toggle button
-      */
-      var box = null;
-
-      /*
-        we are now adding click hanlder for
-        toggle button.
-      */
-
-      $("input[type='button']").click(function(event, ui)
-      {
-        /*
-          now if box is not null,
-          we are toggling chat box.
-        */
-        if(box)
-        {
-          /*
-            below code will hide the chatbox that
-            is active, when first clicked on toggle button
-          */
-          box.chatbox("option", "boxManager").toggleBox();
-          <!-- changed -->
-          <!-- liveagent.startChat('573i0000000FGFY'); -->
-          liveagent.startChat('57319000000CaTc');
-
-        }
-        else
-        {
-          $('#liveAgentChat').attr('src','https://d.la3-c2cs-chi.salesforceliveagent.com/content/s/chat?language=en#deployment_id=57219000000CaSA&org_id=00D19000000Dtc3&button_id=57319000000CaTc&session_id=9dc885db-a138-4214-a731-f02d83aa9a12'); //Here you need to change the url with the corrects ID's
-          /*
-            if box variable is null then we will create
-            chat-box.
-          */
-          box = $("#chat_div").chatbox(
-          {
-            /*
-              unique id for chat box
-            */
-            id:"Runnable",
-                        user:
-            {
-              key : "value"
-            },
-            /*
-              Title for the chat box
-            */
-            title : "SolarCity",
-
-          });
-        }
-      });
-    });
-  </script>
+  </script> -->
 </head>
 
 <body ng-cloak ng-controller="StageCtrl as stages">
@@ -251,47 +173,9 @@
     <script ng-switch-when="false" src="lib/rx.firebase.js"></script>
     <script ng-switch-when="true" src="lib/rx.firebase.min.js"></script>
   </switch> -->
-  <!-- ///// SCRIPTS ///// -->
-  <!-- ///// SCRIPTS END ///// -->
-
-  <!-- SALESFORCE LIVEAGENT CHAT START -->
-  <div class="chat-buttons">
-    <img id="liveagent_button_online_57319000000CaTc" style="display: none; border: 0px none; cursor: pointer" onclick="liveagent.startChat('57319000000CaTc')" src="https://oda-solarcity.cs24.force.com/support/resource/1423088340000/Chat_Online" />
-
-    <img id="liveagent_button_offline_57319000000CaTc" style="display: none; border: 0px none; " src="https://oda-solarcity.cs24.force.com/support/resource/1423088060000/Chat_Offline" />
-
-    <input type="button" class="btn orange" style="z-index:1000;"name="toggle" value="Get Help"/>
-  </div>
-  <!--Chat box will be generated in this container-->
-
-  <div id="chat_div">
-    <iframe id='liveAgentChat' height="250px;" ></iframe>
-  </div>
 
   <!-- ##### SCRIPTS ##### -->
   <!-- ##### SCRIPTS END ##### -->
-
-  <!-- SALESFORCE LIVEAGENT CHAT START -->
-
-  <script type="text/javascript">
-    console.log("liveagent is:", liveagent);
-    if (!window._laq) { window._laq = []; }
-    window._laq.push(
-      function(){
-        liveagent.showWhenOnline(
-          '57319000000CaTc',
-          document.getElementById('liveagent_button_online_57319000000CaTc')
-        );
-
-        liveagent.showWhenOffline(
-          '57319000000CaTc',
-          document.getElementById('liveagent_button_offline_57319000000CaTc')
-        );
-      }
-    );
-  </script>
-  <!-- SALESFORCE LIVEAGENT CHAT END -->
-
 </body>
 
 </html>

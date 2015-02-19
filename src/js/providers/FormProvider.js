@@ -59,6 +59,7 @@ function FormProvider_ () {
 
     // DEV:
     Client.listen('Dev: Reset form', restartForm);
+
     function restartForm () {
       var form_obj = {bill: 100};
       _ref.set(form_obj);
@@ -95,6 +96,7 @@ function FormProvider_ () {
       _ref.update(obj);
       return
     }
+
     Client.listen('valid address', function (addy) {
       return _ref.update({address: addy});
     });
