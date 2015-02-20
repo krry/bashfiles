@@ -49,11 +49,6 @@ function TemplateConfig_ () {
       name: 'flannel.signup',
       destination: '',
       steps: [
-<<<<<<< Updated upstream
-        { step: 'review-proposal', partial: 'proposal.html' },
-        { step: 'create-contact',  partial: 'contact.html'  },
-=======
->>>>>>> Stashed changes
         { step: 'credit-check',    partial: 'credit.html'   },
         { step: 'qualify',         partial: 'qualify.html'  },
         { step: 'survey-calendar', partial: 'calendar.html' },
