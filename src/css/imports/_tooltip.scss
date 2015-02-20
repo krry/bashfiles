@@ -39,6 +39,7 @@
     text-align: center;
     border-radius: 4px;
     z-index: 19; // get on top of other page elements
+    pointer-events: none; // ensure they don't obscure interactive elements
   }
 
   &:before {

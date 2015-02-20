@@ -6,7 +6,7 @@ function flnInputBillSlider_ () {
       hint: "@"
     },
     restrict: "E",
-    templateUrl: "templates/directives/inputs/flnInputBillSlider.html",
     controller: "FormCtrl as form",
+    templateUrl: "templates/directives/inputs/flnInputBillSlider.html",
   };
 }

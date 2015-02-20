@@ -6,8 +6,8 @@ function flnInputZip_ () {
       hint: "@"
     },
     restrict: "E",
-    templateUrl: "templates/directives/inputs/flnInputZip.html",
     controller: "FormCtrl as form",
+    templateUrl: "templates/directives/inputs/flnInputZip.html",
     link: function (scope, element, attrs) {
       if (!$('#prospect_street')) {
         $(element).focus();

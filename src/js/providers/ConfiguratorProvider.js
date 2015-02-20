@@ -12,6 +12,7 @@ providers.provider("Configurator", ConfiguratorFactory_);
 function ConfiguratorFactory_() {
 
   var map,
+      map_center,
       header,
       layers,
       features,

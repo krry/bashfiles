@@ -6,7 +6,7 @@ function flnHelp () {
     link: function(scope, element, attrs) {
       function toggleShown () {
         scope.shown = !scope.shown;
-        // return scope.shown;
+        return scope.shown;
       }
       scope.toggleShown = toggleShown;
     }

@@ -72,24 +72,7 @@ input.bill {
   margin: 0 .125em;
   text-align: right;
   color: $green;
-}
-
-.bill-box {
-  display: inline-block;
-  margin-bottom: .25em;
-  color: $green;
-  &:before,
-  &:after {
-    // font-size: .625em;
-  }
-  &:before {
-    content: "\0024";
-    position: relative;
-    top: -.125em;
-  }
-  &:after {
-    content: "/mo.";
-  }
+  border: 2px solid $green;
 }
 
 input.zipcode {

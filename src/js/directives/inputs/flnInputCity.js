@@ -6,7 +6,7 @@ function flnInputCity_ () {
       hint: "@"
     },
     restrict: "E",
-    templateUrl: "templates/directives/inputs/flnInputCity.html",
     controller: "FormCtrl as form",
+    templateUrl: "templates/directives/inputs/flnInputCity.html",
   };
 }

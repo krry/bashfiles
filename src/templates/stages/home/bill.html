@@ -1,14 +1,13 @@
 <section class="overlay short col full step-bill">
-  <div class="row padded">
-    <div class="col half right bottom padded">
+  <div class="row center padded">
+    <div class="col third two center">
       <h3>How much is your monthly electricity bill?</h3>
-    </div>
-    <div class="col half left">
       <fln-input-bill-slider></fln-input-bill-slider>
+      <div fln-input-bill class="bill-box"></div>
     </div>
   </div>
 
-  <div class="row" ng-show="!form.invalid" ng-controller="ModalCtrl as modal">
+  <div class="row" ng-show=" ng-show="prospectForm.bill.$dirty" ng-controller="ModalCtrl as modal">
     <div class="col half right padded baseline">
       <h3>Do you own your house?</h3>
     </div>

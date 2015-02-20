@@ -5,9 +5,9 @@ function flnInputBill_ () {
     scope: {
       hint: "@"
     },
-    restrict: "E",
-    templateUrl: "templates/directives/inputs/flnInputBill.html",
+    restrict: "A",
     controller: "FormCtrl as form",
+    templateUrl: "templates/directives/inputs/flnInputBill.html",
     link: function (scope, element, attrs) {
       $(element).focus();
     }
