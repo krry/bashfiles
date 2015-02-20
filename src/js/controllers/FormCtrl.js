@@ -16,6 +16,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form) {
 
   /* bootstrap the controller's model from the form provider, listen for changes */
   Client.listen('Form: Loaded', bootstrapForm);
+  Client.listen('geocode results', badZip);
 
   function bootstrapForm (form_obj) {
     // subscribe to the stream
@@ -91,8 +92,10 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form) {
         state: vm.prospect.state,
         zip: vm.prospect.zip,
       }
-      Client.emit('spin it', true);
-      Geocoder.sendGeocodeRequest(addy);
+      if (addy.street) {
+        Client.emit('spin it', true);
+        Geocoder.sendGeocodeRequest(addy);
+      }
     }
   }
 
@@ -100,6 +103,22 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form) {
   function checkEmail () {}
   function checkPhone () {}
   function checkBirthdate () {}
+
+  function badZip (data) {
+    if (!data) {
+      vm.invalid = true;
+      vm.invalidZip = true;
+      vm.invalidTerritory = false;
+    }
+  }
+
+  function outOfTerritory (data) {
+    if (!data) {
+      vm.invalid = true;
+      vm.invalidZip = false;
+      vm.invalidTerritory = true;
+    }
+  }
 
   // TODO: figure out if the valid territory / valid zip dependency is appropriate for the prescribed UX
   function acceptValidTerritory(data) {

@@ -224,11 +224,14 @@ function GeocoderProvider_ () {
     }
 
     function checkTerritory(zip) {
+      var randomNumber = Math.random() >= 0.5;
       // if zip is in territory, emit that
       console.log('checking if', zip, 'is in our territory');
-      addy.zoom = 15;
       // HACK: hardcoding until checkTerritory API is accessible
-      Client.emit('valid territory', addy.zip);
+      addy.zoom = 15;
+      if (randomNumber) {
+        Client.emit('valid territory', addy.zip);
+      } else Client.emit('invalid territory', 'alternatives');
 
       // var msg,
       //     data,
@@ -247,7 +250,8 @@ function GeocoderProvider_ () {
       //     error: function(err){
       //       response.is = false;
       //       response.msg = 'API not reachable';
-      //       Client.emit('valid territory', response);
+      //       alert('CheckTerritory API not reachable from this domain');
+      //       Client.emit('invalid territory', response);
       //     },
       //     success: function(data) {
       //       // data = {'InTerritory' : 'false/true'}

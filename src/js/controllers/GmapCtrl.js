@@ -56,13 +56,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService) {
   function hideSpinner () {
     // TODO: ensure that the spinner stays up until the tiles are actually loaded
     // switching from TERRAIN to HYBRID map causes an extra `tilesloaded` event to be emitted, prematurely hiding the spinner for the HYBRID map load
-    spinCount++;
-    console.log('tiles loaded');
-    console.log("spinCount is", String(spinCount));
-    if (spinCount > 0) {
-      Client.emit('spin it', false);
-      spinCount = 0;
-    }
+    Client.emit('spin it', false);
   }
 
   function switchToSatellite (data) {
