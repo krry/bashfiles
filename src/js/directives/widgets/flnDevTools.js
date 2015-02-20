@@ -10,7 +10,7 @@ function flnDevTools_ () {
       scope.toggleDevPanel = toggleDevPanel;
       scope.userShown = true;
       scope.userShownTriggerText = "hide";
-      scope.panelShown = true;
+      scope.panelShown = false;
       scope.panelShownTriggerText = "dev";
 
       // TODO: register a dev tools service so directives outside the dev panel can interact with it. see the ModalService and ModalCtrl
