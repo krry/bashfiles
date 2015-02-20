@@ -28,7 +28,7 @@ function TemplateConfig_ () {
     },
     {
       name: 'flannel.configure',
-      destination: 'flannel.signup',
+      destination: 'flannel.proposal',
       steps: [
         { step: 'zoom-lock-roof',  partial: 'zoom.html'     },
         { step: 'trace-area',      partial: 'trace.html'    },
@@ -39,11 +39,21 @@ function TemplateConfig_ () {
       ],
     },
     {
+      name: 'flannel.proposal',
+      destination: 'flannel.signup',
+      steps: [
+        { step: 'review-proposal', partial: 'proposal.html' },
+      ],
+    },
+    {
       name: 'flannel.signup',
       destination: '',
       steps: [
+<<<<<<< Updated upstream
         { step: 'review-proposal', partial: 'proposal.html' },
         { step: 'create-contact',  partial: 'contact.html'  },
+=======
+>>>>>>> Stashed changes
         { step: 'credit-check',    partial: 'credit.html'   },
         { step: 'qualify',         partial: 'qualify.html'  },
         { step: 'survey-calendar', partial: 'calendar.html' },
