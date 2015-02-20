@@ -58,6 +58,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
   Client.listen('stage', stageLayout);
 
   function stageLayout (target_state) {
+    if (typeof target_state === "string" ) return;
     var stage = target_state.stage;
     if (Templates.config[stage].steps[0].step === "review-proposal") {
       vm.proposal = true;

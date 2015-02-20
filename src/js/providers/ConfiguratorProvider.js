@@ -156,6 +156,7 @@ function ConfiguratorFactory_() {
       // Client.emit('static tiles loaded', true);
 
       map = new ol.Map(configurator_options)
+      Client.emit('spin it', false);
       Client.emit('Configurator: Map ready', map);
     }
 

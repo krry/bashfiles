@@ -224,7 +224,7 @@ function GeocoderProvider_ () {
     }
 
     function checkTerritory(zip) {
-      var randomNumber = Math.random() >= 0.5;
+      var randomNumber = Math.random() >= 0.1;
       // if zip is in territory, emit that
       console.log('checking if', zip, 'is in our territory');
       // HACK: hardcoding until checkTerritory API is accessible
