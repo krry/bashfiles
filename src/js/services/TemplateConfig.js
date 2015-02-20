@@ -49,8 +49,9 @@ function TemplateConfig_ () {
       name: 'flannel.signup',
       destination: '',
       steps: [
+        { step: 'create-contact',  partial: 'contact.html'   },
         { step: 'credit-check',    partial: 'credit.html'   },
-        { step: 'qualify',         partial: 'qualify.html'  },
+        // { step: 'qualify',         partial: 'qualify.html'  },
         { step: 'survey-calendar', partial: 'calendar.html' },
         { step: 'schedule-survey', partial: 'schedule.html' },
         { step: 'congrats',        partial: 'congrats.html' }
