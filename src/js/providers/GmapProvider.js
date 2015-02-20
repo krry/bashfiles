@@ -38,6 +38,7 @@ function GmapFactory_ () {
 
     Client.listen('valid territory', zoomToHood);
     Client.listen('valid house', checkMaxZoom);
+    Client.listen('drop pin', dropPin);
 
     function init (data) {
       map = new google.maps.Map(data, mapOpts);
