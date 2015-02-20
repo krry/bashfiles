@@ -3,6 +3,7 @@ angular.module('stages',[
   'design_link',
   'home',
   'configure',
+  'proposal',
   'signup',
 ])
 .config(["$locationProvider", "$stateProvider", "$urlRouterProvider", function ($locationProvider, $stateProvider, $urlRouterProvider) {
