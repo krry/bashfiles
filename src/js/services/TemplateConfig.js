@@ -43,7 +43,9 @@ function TemplateConfig_ () {
       destination: '',
       steps: [
         { step: 'review-proposal', partial: 'proposal.html' },
+        { step: 'create-contact',  partial: 'contact.html'  },
         { step: 'credit-check',    partial: 'credit.html'   },
+        { step: 'qualify',         partial: 'qualify.html'  },
         { step: 'survey-calendar', partial: 'calendar.html' },
         { step: 'schedule-survey', partial: 'schedule.html' },
         { step: 'congrats',        partial: 'congrats.html' }
