@@ -59,7 +59,6 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService) {
     spinCount++;
     console.log('tiles loaded');
     console.log("spinCount is", String(spinCount));
-    alert("spinCount is", String(spinCount));
     if (spinCount > 0) {
       Client.emit('spin it', false);
       spinCount = 0;
