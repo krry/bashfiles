@@ -1,3 +1,12 @@
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+//
+//  HEADER
+//
+//  applies to the topbar in the app and nothing else
+//  logo, nav, universal shizzle
+//
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
 @import "../imports/colors";
 @import "../imports/fonts";
 @import "../imports/icons";
@@ -6,6 +15,7 @@
 @import "../imports/typography";
 
 .header {
+  @include apercu-regular;
   background: $color-header-bkgd;
   color: $color-header-text;
   position: fixed;
@@ -13,8 +23,9 @@
   left: 0;
   right: 0;
   z-index: 10;
-  height: 2.5rem;
   box-shadow: 0 2px 8px -2px $shade-40;
+  height: 2.9rem;
+  box-shadow: 0 1px 5px $color-header-shadow;
 
   a, span, ul, li {
     display: inline-block;
@@ -25,8 +36,8 @@
   }
 
   a {
-    line-height: 2.5rem;
-    height: 2.5rem;
+    line-height: 2.9rem;
+    height: 2.9rem;
     color: $color-header-text;
     border: none;
     &:hover {
@@ -42,7 +53,7 @@
 
   li {
     position: relative;
-    opacity: 0.6;
+    opacity: 0.9;
     text-shadow: none;
     cursor: default;
     &.active {
@@ -60,10 +71,10 @@
 
   .logo {
     background-image: url('../img/logo-white.svg');
-    background-position: 0.375rem -0.35rem;
+    background-position: left -10px;
     background-repeat: no-repeat;
-    background-size: auto 120%;
-    width: 8rem;
+    background-size: auto 130%;
+    width: 9.8rem;
     opacity: 1;
     a {
       text-indent: -9999px;
@@ -73,10 +84,10 @@
   }
 
   .chevron.right {
-    @include chevron("right", $height: 2.5rem);
-    font-size: .675rem;
-    padding: 0 2rem;
-    line-height: 2.5rem;
+    @include chevron("right", $height: 2.9rem);
+    font-size: .7rem;
+    padding: 0 1.72rem 0 2rem;
+    line-height: 2.9rem;
     display: none;
     &.active {
       display: inline-block;
@@ -84,13 +95,14 @@
   }
 
   .top-five {
+    @include apercu-bold;
     opacity: 1;
-    border-left: 1px solid $tint-20;
+    border-left: 0px solid $tint-20;
   }
 
   a.questions {
-    @include caps;
-    font-size: .625rem;
+    // @include caps;
+    font-size: .85rem;
     padding: 0 1.5em;
     &:hover {
       font-weight: 800;
@@ -99,8 +111,12 @@
   }
 
   .icon.question {
-    margin-right: -.75em;
-    margin-bottom: -.25em;
+    margin-right: -0.3em;
+    margin-bottom: -0.4em;
+    border: 2px solid $tint-50;
+    border-radius: 50%;
+    width: 1.75em;
+    height: 1.75em;
   }
 
   .header-address {

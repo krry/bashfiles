@@ -16,8 +16,10 @@ var jshint = require('gulp-jshint');
 var uglify = require('gulp-uglify');
 var plumber = require('gulp-plumber');
 var stylish = require('jshint-stylish');
+var ngAnnotate = require('gulp-ng-annotate');
 
 var handleErrors = require('../util/handleErrors');
+var timestamp = require('../util/timestamp').timestamp;
 
 // this glob determines the order of the concatenated scripts
 var scriptSrc = [
@@ -26,18 +28,19 @@ var scriptSrc = [
   'src/js/services/*.js',
   'src/js/controllers/*.js',
   'src/js/directives/**/*.js',
-  'src/js/rxjs-firebase/**/*.js',
   'src/js/stages/*.js',
 ];
 
-var scriptPub = "./public/js";
+var scriptPub = './public/js';
 
-gulp.task('scripts', function(){
+gulp.task('scripts', ['clearScripts'], function(){
+  var currentTime = timestamp();
   return gulp.src(scriptSrc)
     .pipe(plumber(handleErrors))
     .pipe(jshint('./.jshintrc'))
     .pipe(jshint.reporter(stylish))
-    .pipe(concat('all.js'))
+    .pipe(concat('all-' + currentTime + '.js'))
+    .pipe(ngAnnotate())
     .pipe(gulp.dest(scriptPub))
     .pipe(uglify())
     .pipe(rename({suffix: '.min'}))

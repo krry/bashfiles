@@ -9,13 +9,20 @@
 
 ================================================== */
 
-directives.directive('flnOlMap', ['Configurator', flnOlMap_]);
+directives.directive('flnOlMap', ['Clientstream', flnOlMap_]);
 
-function flnOlMap_ (Configurator) {
+function flnOlMap_ (Client) {
   return {
     restrict: "A",
     link: function flnOlMapLink(scope, ele, attrs) {
-      var map = Configurator.map(ele);
+      // in the case we have a new user, the directive needs to
+      // wait until it configurator is
+      // loaded before attaching configurator to map
+      Client.listen('Configurator: Loaded', sendElement);
+      function sendElement (interactions) {
+        Client.emit('spin it', true);
+        Client.emit('OlMap: map target element', ele);
+      }
       ele.on('$destroy', function (e) {
         // make sure we sync whatever is going on with firebase
         // what else?

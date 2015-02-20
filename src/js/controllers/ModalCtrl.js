@@ -3,9 +3,9 @@
   the modal controller
 ================================================== */
 
-controllers.controller("ModalCtrl", ["ModalService", ModalCtrl_]);
+controllers.controller("ModalCtrl", ["Clientstream", "ModalService", ModalCtrl_]);
 
-function ModalCtrl_(ModalService) {
+function ModalCtrl_(Client, ModalService) {
 
   var vm = this;
 
@@ -15,6 +15,8 @@ function ModalCtrl_(ModalService) {
   vm.close       = closeModal;
   vm.toggle      = toggleModal;
   vm.showDialog  = showDialog;
+
+  Client.listen('invalid territory', showDialog);
 
   // turn modal state on
   function openModal() {
@@ -45,4 +47,5 @@ function ModalCtrl_(ModalService) {
     ModalService.activate(name);
     console.log('body is:', $('body'), 'and dialog name is:', name);
   }
+
 }

@@ -6,10 +6,8 @@ main.main {
   position: fixed;
   width: 100%;
   z-index: 1;
-  top: 2.5rem;
+  top: 2.9rem;
   bottom: 2.5rem;
-  // HACK: to pull the footer up into view
-  // margin-bottom: -10em;
 }
 
 .overlayer {
@@ -18,9 +16,6 @@ main.main {
   width: 100%;
   z-index: 1;
   margin: auto;
-  // height: 100%;
-  // overflow: hidden;
-  // max-height: 33.3em; // the number of the beast in ems
 }
 
 .full-height,
@@ -36,6 +31,10 @@ main.main {
   background-color: $color-bkgd-primary;
 }
 
+.overlay.short {
+  padding: 2em;
+}
+
 .overlay.primary {
   padding: 4em 2em;
   text-align: center;
@@ -44,6 +43,10 @@ main.main {
 .overlay.secondary {
   padding: 2em;
   background: $grey-lightest;
+}
+
+.scroll-y {
+  overflow-y: scroll;
 }
 
 .underlayer {
@@ -67,18 +70,15 @@ main.main {
   margin: auto;
 }
 
-@media screen and (min-width: $width-min-sml){
-}
-
-@media screen and (min-width: $width-min-med){
-}
-
 @media screen and (min-width: $width-min-lrg){
   .primary.primary {
     width: calc(100% - 20em);
   }
   .secondary.secondary {
     width: calc(20em - 1px);
+    &.drop-top {
+      padding-top: 7rem;
+    }
   }
   .primary.primary,
   .secondary.secondary {
@@ -97,13 +97,6 @@ main.main {
 }
 
 @media screen and (min-width: $width-min-xlg){
-  main.main {
-    // height: 100%;
-    // max-height: calc(100vh - 7em);
-  }
-  .overlay {
-    // height: 100%;
-  }
   .primary.primary {
     width: calc(100% - 18em);
   }
@@ -111,17 +104,11 @@ main.main {
     width: calc(18em - 1px);
   }
   .overlay.short {
-    height: auto;
     padding: 2em;
+    height: auto;
     box-shadow: 0 0 8px 0 $shade-40;
     &.step-bill {
       padding: 3em 2em 1em;
     }
   }
-}
-
-@media screen and (min-width: $width-min-xxl){
-  // .tray {
-  //  width: $width-min-xxl;
-  // }
 }

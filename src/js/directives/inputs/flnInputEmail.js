@@ -1,12 +1,13 @@
-directives.directive('flnInputEmail', ["Form", flnInputEmail_]);
+directives.directive('flnInputEmail', [flnInputEmail_]);
 
-function flnInputEmail_ (Form) {
+function flnInputEmail_ () {
   return {
     scope: {
-      hint: "@"
+      hint: "@",
+      prospectForm: "=form"
     },
     restrict: "E",
+    controller: "FormCtrl as form",
     templateUrl: "templates/directives/inputs/flnInputEmail.html",
-    controller: "FormCtrl as form"
   };
 }

@@ -33,47 +33,88 @@ providers.provider("Form", FormProvider_);
 function FormProvider_ () {
 
   var _ref,
-      fb_observable,
+      _ref_key,
+      _ref_stream,
       // TODO: sync this with firebase instead of caching it locally
       prospect,
       forms_url;
 
+  _ref_key  =  null;
   forms_url = 'https://scty.firebaseio.com/forms/'; // hack: hardcode // todo: make this constant value
 
-  _ref = new Firebase(forms_url).push();  // TODO: pass arguments to this $get method to change the fb_observable's_ref
-
-  fb_observable = _ref.observe('value').skip(1);
+  this.setRefKey = function(key){
+    /* jshint -W030 */
+    key && (_ref_key = key);
+    /* jshint +W030 */
+    // console.log('ref_key in sessionProvider being set:', key);
+  };
 
   this.$get = ["Clientstream",function formProviderFactory(Client) {
-    // Client.listen('add session to form', function (key) {
-    //   return _ref.update({session: key});
-    // });
 
-    Client.listen('valid zip', function (zip) {
+
+    Client.listen('Session: Loaded', bootstrapForm);
+    Client.listen('valid zip', updateZipOnRef);// TODO: fix line use Client.listen('valid format', updateRefByKey ); or something
+    Client.listen('Form: valid house', updateRefByVal );
+    Client.listen('Form: valid data', updateRefByVal);
+
+    // DEV:
+    Client.listen('Dev: Reset form', restartForm);
+    function restartForm () {
+      var form_obj = {bill: 100};
+      _ref.set(form_obj);
+    }
+    // DEV: end
+
+    function bootstrapForm (argument) {
+      // make the ref when Form is first required.
+      if (_ref_key) {
+        // load the _ref from the user's previous session
+        _ref = new Firebase(forms_url).child(_ref_key);
+      } else {
+        // there was no form, make a new one
+        _ref = new Firebase(forms_url).push();
+      }
+      _ref.once('value', processNewFormFromFirebase );
+      return _ref;
+    }
+
+    function processNewFormFromFirebase (ds) {
+      var data = ds.exportVal() || {};
+      _ref_key = ds.ref().key();
+      data.form_id = ds.ref().key();
+      prospect = data;
+      _ref_stream = _ref.observe('value');
+      _ref_stream.subscribe(function(ds) {
+        prospect = ds.exportVal();
+        Client.emit('Form: Prospect updated', prospect);
+      });
+      Client.emit('Form: Loaded', data);
+    }
+
+
+    function updateZipOnRef (zip) {
       return _ref.update({zip: zip});
-    });
+    }
 
+    function updateRefByVal (obj) {
+      _ref.update(obj);
+      return
+    }
     Client.listen('valid address', function (addy) {
       return _ref.update({address: addy});
     });
-
-    Client.emit('add session to form', function(key){
-
-    });
-
-    Client.emit('form key', _ref.key());
 
     function awesome_form_builder_brah() {
       return {
         ref:    function(key){
           if (key) {
             _ref = new Firebase(forms_url).child(key);
-            Client.emit('new form ref', {key: _ref.key()});
+            _ref.once('value', processNewFormFromFirebase );
           }
           return _ref;
         },
         id:     function(){ return _ref.key(); },
-        stream: function(){ return fb_observable; },
+        form_stream: function(){ return _ref_stream; },
         prospect: function(){ return prospect; },
       };
     }

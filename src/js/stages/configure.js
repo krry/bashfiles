@@ -5,8 +5,8 @@ angular.module('configure',[]).config(["$stateProvider", function ($stateProvide
   var templateUrl = "templates/";
   var stageUrl = templateUrl + "stages/" + stageName + '/';
 
-  $stateProvider.state("configure", {
-    url: "^",
+  $stateProvider.state("flannel.configure", {
+    url: "^/configure",
     views: {
       // replace the main ui-view @ index
       'main@': {
@@ -18,18 +18,9 @@ angular.module('configure',[]).config(["$stateProvider", function ($stateProvide
         },
       },
       // modify the new named views @ configure
-      'map@configure': {
+      'map@flannel.configure': {
         templateUrl: stageUrl + "map.html",
         controller:  "OlMapCtrl as omap",
-      },
-      // below here, still the same target as index,
-      'header@': {
-        templateUrl: templateUrl + 'header.html',
-        controller:  "NavCtrl as nav",
-      },
-      'footer@': {
-        templateUrl: templateUrl + "footer.html",
-        controller:  "FooterCtrl as footer",
       },
     },
   })

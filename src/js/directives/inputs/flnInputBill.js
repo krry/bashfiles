@@ -1,12 +1,15 @@
-directives.directive('flnInputBill', ["Form", flnInputBill_]);
+directives.directive('flnInputBill', [flnInputBill_]);
 
-function flnInputBill_ (Form) {
+function flnInputBill_ () {
   return {
     scope: {
       hint: "@"
     },
-    restrict: "E",
+    restrict: "A",
+    controller: "FormCtrl as form",
     templateUrl: "templates/directives/inputs/flnInputBill.html",
-    controller: "FormCtrl as form"
+    link: function (scope, element, attrs) {
+      $(element).focus();
+    }
   };
 }

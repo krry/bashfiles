@@ -5,32 +5,21 @@ angular.module('home',[]).config(["$stateProvider", function ($stateProvider) {
   // TODO: make these paths central and DRYer for all stages, changing based on stageName
   var templateUrl = "templates/";
   var stageUrl = templateUrl + "stages/" + stageName + '/';
-
   // state definition
-  $stateProvider.state("home", {
-    url: "^",
+  $stateProvider.state("flannel.home", {
+    url: "^/my-home",
     views: {
-      'header@': {
-        templateUrl: templateUrl + 'header.html',
-        controller:  'NavCtrl as nav',
-      },
       'main@': {
         templateUrl: stageUrl + "main.html",
-        controller:  function ($timeout, Clientstream) {
-          // HACK: enable quick routing through app
-          $timeout(function(){
-            Clientstream.emit('stage', {stage: 0, step: 0});
-          }, 1)
+        controller:  function () {
+
         },
       },
-      'overlay@home': {
+      'overlay@flannel.home': {
         templateUrl: stageUrl + "overlay.html",
       },
-      'underlay@home': {
+      'underlay@flannel.home': {
         templateUrl: stageUrl + "underlay.html",
-      },
-      'footer@': {
-        templateUrl: templateUrl + 'footer.html',
       },
     },
   })

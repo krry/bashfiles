@@ -7,7 +7,8 @@
   focus="true"
   placeholder="{{hint}}"
   ng-model="form.prospect.street"
-  ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"
+  ng-model-options="{ updateOn: 'default blur change', debounce: { default: 4000, blur: 0, change: 1000 } }"
   ng-minlength="4"
   ng-valid="form.checkAddress(form.prospect)"
+  ng-change="form.checkAddress(form.prospect)"
   ng-blur="form.checkAddress(form.prospect)">

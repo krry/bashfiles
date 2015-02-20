@@ -34,10 +34,6 @@ a {
   color: white;
 }
 
-// button + button {
-//   margin-left: .5em !important;
-// }
-
 button,
 input,
 select,
@@ -74,6 +70,9 @@ a.btn {
   &.green {
     @include btn($green);
   }
+  &.grey {
+    @include btn($grey-dark);
+  }
   &.huge {
     &.gold {
       @include btn($gold, $size: 1.5rem);
@@ -92,6 +91,9 @@ a.btn {
     }
     &.green {
       @include btn($green, $size: 1.5rem);
+    }
+    &.grey {
+      @include btn($grey-dark, $size: 1.5rem);
     }
   }
 
@@ -114,6 +116,9 @@ a.btn {
     &.green {
       @include btn($green, $size: 1.25rem);
     }
+    &.grey {
+      @include btn($grey-dark, $size: 1.25rem);
+    }
   }
 
   &.small {
@@ -134,6 +139,9 @@ a.btn {
     }
     &.green {
       @include btn($green, $size: .875rem);
+    }
+    &.grey {
+      @include btn($grey-dark, $size: .875rem);
     }
   }
 
@@ -156,6 +164,9 @@ a.btn {
     &.green {
       @include btn($green, $size: .75rem);
     }
+    &.grey {
+      @include btn($grey-dark, $size: .75rem);
+    }
   }
 
   &.aqua.large {
@@ -168,7 +179,7 @@ a.btn {
   &.nested {
     position: absolute;
     right: .5rem;
-    top: .5rem;
+    top: 0.425rem;
     margin: 0;
   }
   &.round {
@@ -178,10 +189,33 @@ a.btn {
     min-width: 0;
     height: 2.5rem;
   }
-
   &:disabled {
     cursor: not-allowed;
     opacity: .5;
+  }
+  &.close.close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 0;
+    padding-left: 1.6em;
+    padding-right: 1.6em;
+    margin: 0;
+    border-radius: 0 0 0 4px;
+  }
+  &.text {
+    background: none;
+    border: none;
+    color: $grey-mid;
+    font-size: .8em;
+    text-transform: none;
+    padding: 1em .75em;
+    margin: 0 auto;
+
+    &:active {
+      background: none;
+      color: $aqua-dark;
+    }
   }
 }
 
@@ -194,34 +228,12 @@ a.btn {
 }
 
 .btn.ib + .btn.ib {
-  margin-left: 1em !important;
+  margin-left: 0.8em !important;
 }
 
 .baseline button {
   margin-bottom: 0;
 }
-
-button.text {
-  //@include apercu-light;
-  background: none;
-  border: none;
-  color: $grey-mid;
-  font-size: .8em;
-  text-transform: none;
-  // letter-spacing: .5px;
-  padding: 1em .75em;
-  margin: 0 auto;
-
-  &:active {
-    background: none;
-    color: $aqua-dark;
-  }
-}
-
-button.close {
-  float: right;
-}
-
 
 // form fields, inputs, labels
 fieldset {
@@ -241,20 +253,6 @@ select {
   font-size: 100%;
 }
 
-select {
-  @include btn($color: $white, $size: .75em, $corners: .25em);
-  position: relative;
-  color: $grey-darker;
-  text-align: left;
-  background: $white url('../img/down-arrow.svg') no-repeat 92% center;
-  background-size: auto 80%;
-  // &:after {
-  //   content: "\25BC";
-  //   position: absolute;
-  //   right: .5em;
-  // }
-}
-
 label {
   font-size: .75em;
   display: block;
@@ -262,12 +260,6 @@ label {
   font-weight: 600;
   margin-top: 1em;
   margin-bottom: 0.625em;
-}
-
-label span {
-  // color: $red;
-  // font-size: 1.5em;
-  // line-height: 50%;
 }
 
 label abbr {
@@ -327,10 +319,6 @@ select[multiple=multiple] {
   transition: border-color;
   background-color: $color-input-bkgd;
   color: inherit;
-  // border: none;
-  // border-bottom: 1px solid $grey-lighter;
-  // border-radius: 0;
-  // padding: .33333em;
   padding: .5em .75em;
   border-radius: 4px;
   border: 1px solid $grey-medium;
@@ -338,6 +326,7 @@ select[multiple=multiple] {
   width: 100%;
   font-size: 1.75em;
   font-weight: 700;
+  transition: all 250ms $easing-quick;
 }
 
 textarea:hover,
@@ -373,11 +362,30 @@ input[type="datetime"]:focus,
 input[type="datetime-local"]:focus,
 input[type="month"]:focus,
 input[type="time"]:focus,
-input[type="week"]:focus,
-select[multiple=multiple]:focus {
+input[type="week"]:focus {
   border-color: $grey-mid;
   background-color: $color-input-bkgd-focus;
-  box-shadow: $shadow-input;
+  box-shadow: inset $shadow-input;
+}
+
+select {
+  @include btn($color: $white, $size: .75em, $corners: .25em);
+  position: relative;
+  color: $grey-darker;
+  text-align: left;
+  background: $white url('../img/down-arrow.svg') no-repeat 92% center;
+  background-size: auto 80%;
+  &[multiple] {
+    font-size: .75em;
+    background-image: none;
+    option:hover {
+      background: $tint-20;
+    }
+    &:active:not(:disabled) {
+      background: inherit;
+      color: inherit;
+    }
+  }
 }
 
 // input placeholders
@@ -394,4 +402,3 @@ select[multiple=multiple]:focus {
 input::placeholder {
   color: $grey-mid;
 }
-

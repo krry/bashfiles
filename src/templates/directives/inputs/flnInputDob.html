@@ -1,9 +1,13 @@
+<div class="ib status" ng-hide="prospectForm.dob.$pristine">
+  <span ng-show="prospectForm.dob.$error.required">Date of birth is required.</span>
+  <span ng-show="prospectForm.dob.$error.min || prospectForm.dob.$error.max">Year of birth must be between 1915 and 1997.</span>
+</div>
 <input
   type="date"
   name="dob"
   class="birthdate"
-  min="1901-01-01"
+  step="1"
+  min="1915-01-01"
   max="1998-01-01"
   ng-model="form.prospect.dob"
-  ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"
   ng-required="true">

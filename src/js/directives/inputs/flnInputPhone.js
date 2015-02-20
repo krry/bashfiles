@@ -1,9 +1,10 @@
-directives.directive('flnInputPhone', ["Form", flnInputPhone_]);
-
-function flnInputPhone_ (Form) {
+directives.directive('flnInputPhone', [flnInputPhone_]);
+//
+function flnInputPhone_ () {
   return {
     scope: {
-      hint: "@"
+      hint: "@",
+      prospectForm: "=form"
     },
     restrict: "E",
     templateUrl: "templates/directives/inputs/flnInputPhone.html",

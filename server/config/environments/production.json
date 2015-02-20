@@ -1,8 +1,27 @@
 {
-  "MINIFIED": "true",
   "PORT": 8100,
   "FLANNEL_SECRET": "sekret",
-  "APP_TITLE": "The Future is Now • SolarCity",
   "FIREBASE_SECRET": "hSKlMlUuwpcowWFyS3UjmSqlZQTPTmeEz62OXta9",
-  "GMAP_CLIENT": ""
+  "SOLAR_WORKS_ROOT": "https://api-test.solarcity.com",
+  "GSA_ROOT": "https://gsa-test.solarcity.com",
+  "NEAR_ME_ROOT": "https://nearme-test.solarcity.com",
+  "UTILITIES_API": "/solarbid/api/utilities/",
+  "WAREHOUSE_API": "/solarbid/api/warehouses/",
+  "RATES_API": "/solarbid/api/rates/",
+  "CREDIT_CHECK_API": "/solarworks/api/contact/checkcredit",
+  "CONTACT_API": "/solarworks/api/contact/create",
+  "NEAR_ME_API": "/api/accounts/",
+  "GSA_API": "/api/Help/Api/",
+  "CLIENT": {
+    "MINIFIED": "true",
+    "APP_TITLE": "The Future is Now • SolarCity",
+    "GMAP_CLIENT": "",
+    "UTILITIES_API": "/api/utilities",
+    "WAREHOUSE_API": "/api/warehouses",
+    "RATES_API": "/api/rates",
+    "CREDIT_CHECK_API": "/api/credit",
+    "CONTACT_API": "/api/contact",
+    "NEAR_ME_API": "/api/nearme",
+    "GSA_API": "/api/gsa"
+  }
 }

@@ -17,35 +17,44 @@ function TemplateConfig_ () {
 
   config = [
     {
-      name: 'home',
-      destination: 'configure',
+      name: 'flannel.home',
+      destination: 'flannel.configure',
       steps: [
         { step: 'zip-nearme',      partial: 'zip.html'      },
         { step: 'address-roof',    partial: 'address.html'  },
         { step: 'monthly-bill',    partial: 'bill.html'     },
-        { step: 'intro-design',    partial: 'design.html'   },
+        { step: 'intro-design',    partial: 'fork.html'     },
       ],
     },
     {
-      name: 'configure',
-      destination: 'signup',
+      name: 'flannel.configure',
+      destination: 'flannel.proposal',
       steps: [
         { step: 'zoom-lock-roof',  partial: 'zoom.html'     },
         { step: 'trace-area',      partial: 'trace.html'    },
         { step: 'edit-area',       partial: 'edit.html'     },
         { step: 'detail-area',     partial: 'detail.html'   },
         // { step: 'area-slope',      partial: 'slope.html'    },
-        { step: 'complete-area',   partial: 'complete.html' },
+        // { step: 'complete-area',   partial: 'complete.html' },
       ],
     },
     {
-      name: 'signup',
-      destination: '',
+      name: 'flannel.proposal',
+      destination: 'flannel.signup',
       steps: [
         { step: 'review-proposal', partial: 'proposal.html' },
+      ],
+    },
+    {
+      name: 'flannel.signup',
+      destination: '',
+      steps: [
+        { step: 'create-contact',  partial: 'contact.html'   },
         { step: 'credit-check',    partial: 'credit.html'   },
+        // { step: 'qualify',         partial: 'qualify.html'  },
+        { step: 'survey-calendar', partial: 'calendar.html' },
         { step: 'schedule-survey', partial: 'schedule.html' },
-        { step: 'congrats',        partial: 'congrats.html' },
+        { step: 'congrats',        partial: 'congrats.html' }
       ],
     },
   ];
@@ -71,7 +80,7 @@ function TemplateConfig_ () {
 
     for (var i = 0; i < config.length; i++) {
       partials.push([]);
-      name = config[i].name;
+      name = config[i].name.split('.')[1]; // drop the "flannel." part of the state's name.
       for (var j = 0; j< config[i].steps.length; j++) {
         stage = partials[i];
         stage.push(hardcode(config[i].steps[j].partial));

@@ -1,0 +1,88 @@
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+//
+//  fln-help
+//  widget
+//
+//  applies to the directive of the same name
+//
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+@import "../imports/colors";
+@import "../imports/fonts";
+@import "../imports/motion";
+
+fln-help {
+  position: absolute;
+  display: block;
+  z-index: 1;
+  bottom: 0;
+  right: 1rem;
+  width: 16rem;
+  height: 15rem;
+  background: hsl(0, 100%, 100%);
+  box-shadow: 0 0 12px -4px hsla(0, 0%, 0%, 0.8);
+  border-style: none;
+  transform: translate3d(0, 12rem, 0);
+  transition: transform 250ms $easing-quick;
+
+  &.shown {
+    transform: translate3d(0,0,0);
+  }
+
+  .trigger-bar {
+    @include apercu-bold;
+    font-size: 1rem;
+    color: $white;
+    height: 3rem;
+    background-color: $blue-smoke;
+    border: 0;
+    border-radius: 4px 4px 0 0;
+    display: block;
+    width: 100%;
+    padding: .25em 1.5em;
+    text-align: left;
+  }
+}
+
+.help {
+  margin: auto;
+  padding-top: 2em;
+
+  ul {
+    width: 100%;
+    margin: auto;
+  }
+
+  li {
+    text-align: left;
+    padding: 0 0 0 0;
+    transition: background-color .15s $easing-quick;
+  }
+
+  a {
+    @include apercu-regular;
+    width: 100%;
+    display: block;
+    color: inherit;
+    font-size: .75em;
+    line-height: 2.5;
+    text-transform: none;
+    letter-spacing: 1;
+    margin: 0;
+    border: 0;
+    border-radius: .25em;
+    background-position: 1em center;
+    background-repeat: no-repeat;
+    background-size: auto 70%;
+
+    &:hover {
+      background-color: $shade-05;
+      // color: $white;
+      border: 0;
+    }
+  }
+}
+
+.short .help {
+  margin-top: 8em;
+}

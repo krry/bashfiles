@@ -24,9 +24,9 @@
 
   ================================ */
 
-providers.provider("Session", SessionProvider_);
+providers.provider("Session", ['FormProvider', 'DesignProvider', SessionProvider_]);
 
-function SessionProvider_ () {
+function SessionProvider_ (FormProvider, DesignProvider, ConfiguratorProvider) {
   console.log('Session Provider started')
 
   var _ref,
@@ -46,33 +46,69 @@ function SessionProvider_ () {
     /* jshint +W030 */
   };
 
-  this.$get = ["Clientstream", "User", function SessionProviderFactory(Client, User) {
-    Client.listen('User: User session_id', function(data){
+  this.$get = ["Clientstream", function SessionProviderFactory(Client) {
+
+    Client.listen('User: Loaded', bootstrapSession );
+    Client.listen('ODA: share_session set', bootstrapSession);
+    Client.listen('StageCtrl: restart session', restartSession);
+    Client.listen('Form: Loaded', saveFormId);
+    Client.listen('Design: Loaded', saveDesignId);
+    Client.listen('center changed', storeGMapCenter);
+
+    function bootstrapSession (user_data) {
       /* jshint -W030 */
-      data.session_id && (_ref_key = data.session_id);
-      /* jshint +W030 */
+      user_data.session_id && (_ref_key = user_data.session_id); /* jshint +W030 */
       // make the ref
       if (_ref_key) {
+        // load the state from the user's previous session
         _ref = new Firebase(sessions_url).child(_ref_key);
       } else {
-        console.log('Session: _ref_key not set SessionProvider');
+        // there was no state, make a new one on the new session
         _ref = new Firebase(sessions_url).push();
+        _ref.update({user_id: user_data.user_id});
+        _ref.update({state:{stage: 0, step: 0}});
       }
-      // create overservables and streams
-      fb_observable = _ref.observe('value').skip(1);
-      state_stream = _ref.child('state').observe('value').skip(2);
+      fb_observable = _ref.observe('value');
+      state_stream = _ref.child('state').observe('value');
+      _ref.once('value', loadSession );
+    }
 
-      _ref.once('value', function session_loaded(ds){
-        Client.emit('Session: Session Loaded', ds);
-        User.ref().update({session_id: _ref.key()});
-      })
-      Client.emit('Session: Session _ref_key', {session_id: _ref.key()});
-    })
+    function loadSession (ds){
+      var data = ds.exportVal();
+      data.session_id = _ref.key();
+      if (data.form_id) {
+        // update form's _ref_key if the user has a form
+        FormProvider.setRefKey(data.form_id);
+      }
+      if (data.design_id) {
+        // update design's _ref_key if the user has already started design
+        DesignProvider.setRefKey(data.design_id);
+      }
+      if (data.map_center) {
+        // last known position of googleMap or olMap
+        DesignProvider.setCenter(data.map_center);
+      }
+      return Client.emit('Session: Loaded', data);
+    }
 
-    /* setup listeners */
-    Client.listen('User: User _ref_key', save_user );
-    function save_user (data) {
-      _ref.update({user_id: data.user_id});
+    function restartSession () {
+      var state_obj = {stage: 0, step: 0};
+      _ref.child('state').set(state_obj);
+    }
+
+    function saveFormId (data) {
+      _ref.update({form_id: data.form_id});
+    }
+    function saveDesignId (data) {
+      _ref.update({design_id: data.design_id});
+    }
+
+    function storeGMapCenter (location) {
+      if (location.lat()) { // TODO: make this work for Gmap & Configurator
+        _ref.child('map_center').set([ location.lat(), location.lng(), ]);
+      } else {
+        console.error('unhandled center changed event');
+      }
     }
 
     function awesome_session_builder_brah () {

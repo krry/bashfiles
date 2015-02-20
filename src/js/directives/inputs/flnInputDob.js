@@ -1,12 +1,13 @@
-directives.directive('flnInputDob', ["Form", flnInputDob_]);
+directives.directive('flnInputDob', [flnInputDob_]);
 
-function flnInputDob_ (Form) {
+function flnInputDob_ () {
   return {
     scope: {
-      hint: "@"
+      hint: "@",
+      prospectForm: "=form"
     },
     restrict: "E",
+    controller: "FormCtrl as form",
     templateUrl: "templates/directives/inputs/flnInputDob.html",
-    controller: "FormCtrl as form"
   };
 }

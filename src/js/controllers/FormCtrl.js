@@ -6,14 +6,48 @@
 
 ================================================== */
 
-controllers.controller("FormCtrl", ["$scope", "$element", "Form", "Clientstream", "Geocoder", "Prospect", FormCtrl_]);
+controllers.controller("FormCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Form", "Credit", "Contact", FormCtrl_]);
 
-function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect) {
+function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
   var vm = this;
-  // TODO: instead of this object literal on the FormProvider, use the firebase ref to the Form object related to the current Session
-  // var form_ref = Form.ref();
+  var form_stream;
+
   vm.prospect = Form.prospect;
-  vm.prospect.bill = 100;
+
+  /* bootstrap the controller's model from the form provider, listen for changes */
+  Client.listen('Form: Loaded', bootstrapForm);
+  Client.listen('geocode results', badZip);
+
+  function bootstrapForm (form_obj) {
+    // subscribe to the stream
+    form_stream = Form.form_stream()
+    // .distinctUntilChanged()
+    .select(function(x) { return x.exportVal();})
+    .subscribe(streamSubscription)
+    // let session provider know you're subscribed, so it can make the
+    Client.emit('Form: subscribed to form_stream', form_obj);
+  }
+
+  function streamSubscription (form_obj) {
+    var key, keys, val;
+    if (form_obj === null) return; // will be null if no data on firebase
+    keys = Object.keys(form_obj);  // HACK: this may fail in different js interpretters... #readabookbrah
+    if (!angular.equals(form_obj, vm.prospect)) { // firebase different from local
+      for (var i = 0; i < keys.length; i++) {
+        key = keys[i];
+        val = form_obj[key];
+        vm.prospect[key] = val;
+      }
+      $scope.$apply(); // update the views
+    }
+    /* jshint -W030 */
+    // HACK: hardcode bill should be angular.constant
+    !form_obj.bill && Client.emit('Form: valid data', {bill: 100});
+    /* jshint +W030 */
+  }
+
+  /* end bootstrap */
+
   vm.gmapShown = false;
   vm.invalidZip = true;
   vm.invalidTerritory = true;
@@ -23,12 +57,15 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect) {
   vm.nextStep = next;
   vm.checkZip = checkZip;
   vm.checkAddress = checkAddress;
+  vm.checkCredit = checkCredit;
+  vm.createContact = createContact;
 
   // TODO: on change of the user model due to user changing the input values and angular syncing that with the data model, run it through validators, and then save it to firebase
   // vm.$watch('user', function(){})
 
   Client.listen('outside US', acceptValidZip);
   // Client.listen('valid zip', acceptValidZip);
+  Client.listen('valid latlng', acceptValidLatLng);
   Client.listen('valid territory', acceptValidTerritory);
   Client.listen('valid address', acceptValidAddress);
   Client.listen('valid house', acceptValidHouse);
@@ -58,8 +95,10 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect) {
         state: vm.prospect.state,
         zip: vm.prospect.zip,
       }
-      Client.emit('spin it', true);
-      Geocoder.sendGeocodeRequest(addy);
+      if (addy.street) {
+        Client.emit('spin it', true);
+        Geocoder.sendGeocodeRequest(addy);
+      }
     }
   }
 
@@ -68,9 +107,60 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect) {
   function checkPhone () {}
   function checkBirthdate () {}
 
+  function badZip (data) {
+    if (!data) {
+      vm.invalid = true;
+      vm.invalidZip = true;
+      vm.invalidTerritory = false;
+    }
+  }
+
+  function outOfTerritory (data) {
+    if (!data) {
+      vm.invalid = true;
+      vm.invalidZip = false;
+      vm.invalidTerritory = true;
+    }
+  }
+
+  function checkCredit() {
+    Credit.check({
+      ContactId: vm.prospect.ContactId,
+      AddressId: vm.prospect.AddressId,
+      BirthDate: moment(vm.prospect.dob).format('MM/DD/YYYY')
+    }).then(function(data) {
+      Client.emit('Form: valid data', { qualified: data.qualified });
+      Client.emit('stage', 'next');
+    });
+  }
+
+  function createContact() {
+    Contact.create({
+      Email: vm.prospect.email,
+      FirstName: vm.prospect.firstName,
+      LastName: vm.prospect.lastName,
+      PhoneNumber: vm.prospect.phone,
+      Address: {
+        AddressLine1: vm.prospect.street,
+        AddressLine2: '',
+        City: vm.prospect.city,
+        Zip: vm.prospect.zip,
+        Country: 'US',
+        Latitude: vm.prospect.lat,
+        Longitude: vm.prospect.lng
+      }
+    }).then(function(data) {
+      vm.prospect.ContactId = data.ContactId;
+      vm.prospect.AddressId = data.AddressId;
+      Client.emit('Form: valid data', data);
+
+      Client.emit('stage', 'next');
+    })
+  }
+
   // TODO: figure out if the valid territory / valid zip dependency is appropriate for the prescribed UX
   function acceptValidTerritory(data) {
-    console.log('accepting valid territory', data);
+    // accepting valid territory
     // acceptValidZip(data);
     vm.invalidTerritory = !data;
     vm.invalid = vm.invalidZip && vm.invalidTerritory;
@@ -79,7 +169,7 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect) {
   }
 
   function acceptValidZip(data) {
-    console.log('accepting valid zip', data);
+    // accepting valid zip
     if (data) {
       vm.invalidZip = !data;
       vm.invalid = vm.invalidZip && vm.invalidTerritory;
@@ -88,8 +178,18 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect) {
     return !vm.invalidZip;
   }
 
+  function acceptValidLatLng(data) {
+    if (data) {
+      vm.validLatLng = true;
+      vm.prospect.lat = data.lat;
+      vm.prospect.lng = data.lng;
+      Client.emit('Form: valid data', data);
+    } else vm.validLatLng = false;
+    return vm.validLatLng;
+  }
+
   function acceptValidState(data) {
-    console.log('accepting valid state', data);
+    // accepting valid state
     if (data) {
       vm.validState = true;
       vm.prospect.state = data;
@@ -98,7 +198,7 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect) {
   }
 
   function acceptValidCity(data) {
-    console.log('accepting valid city', data);
+    // accepting valid city
     if (data) {
       vm.validCity = true;
       vm.prospect.city = data;
@@ -107,7 +207,7 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect) {
   }
 
   function acceptValidAddress(data) {
-    console.log('accepting valid address', data);
+    // accepting valid address
     if (data) {
       vm.validAddress = true;
       vm.prospect.address = data;
@@ -117,13 +217,12 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect) {
 
   function acceptValidHouse(data) {
     // sync full address
-    console.log('accepting valid house:', data.home);
+    // accepting valid house
     if (data) {
       vm.invalid = false;
       vm.prospect.street = data.home;
-      // vm.form_ref.update(data);
+      Client.emit('Form: valid house', data);
       Client.emit('jump to step', 'monthly-bill');
-      // $scope.$apply();
     }
   }
 
@@ -141,12 +240,10 @@ function FormCtrl_($scope, $element, Form, Client, Geocoder, Prospect) {
   }
 
   function prev () {
-    console.log('going to previous step');
     Client.emit('stage', "back");
   }
 
   function next () {
-    console.log('going to next step');
     // TODO: currently not checking if valid
     /* jshint -W030 */
     Client.emit('stage', "next");

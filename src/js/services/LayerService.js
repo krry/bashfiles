@@ -32,14 +32,14 @@ function LayerService_ ($window, StyleService) {
 
     // DEV:
 
-    staticmap: new ol.layer.Image({source:new ol.source.ImageStatic({
-        // TODO: URL constructor for this
-        url: 'http://scexchange.solarcity.com/scfilefactory/TestGrab.aspx?format=jpg&center='+ REMOVEMEcenter.lat()+','+ REMOVEMEcenter.lng() +'&zoom=20&size='+ 2048 +'x'+ 2048 +'&maptype=satellite&scale=1&client=gme-solarcity',
-        imageSize: [2048, 2048],
-        // projection: pixelProjection, // needed later for converting sizes
-        imageExtent: [0,0,2048,2048],
-        visible: true,
-      })})
+    // staticmap: new ol.layer.Image({source:new ol.source.ImageStatic({
+    //     // TODO: URL constructor for this
+    //     url: 'http://scexchange.solarcity.com/scfilefactory/TestGrab.aspx?format=jpg&center='+ REMOVEMEcenter.lat()+','+ REMOVEMEcenter.lng() +'&zoom=20&size='+ 2048 +'x'+ 2048 +'&maptype=satellite&scale=1&client=gme-solarcity',
+    //     imageSize: [2048, 2048],
+    //     // projection: pixelProjection, // needed later for converting sizes
+    //     imageExtent: [0,0,2048,2048],
+    //     visible: true,
+    //   })})
     // ENDDEV:
   };
 

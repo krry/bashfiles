@@ -1,0 +1,48 @@
+@import '../imports/icons';
+
+.icon {
+  &.question {
+    @include icon("question-mark-white");
+  }
+  &.call {
+    @include icon('help-call');
+    &.medium {
+      background-position: center -.75em;
+      width: 2em;
+      height: 2em;
+    }
+    &.large {
+      background-position: center -.75em;
+      width: 4em;
+      height: 4em;
+    }
+  }
+  &.search {
+    @include icon('address-search');
+    background-color: transparent;
+    border: none;
+    width: 2em;
+    height: 2em;
+    background-position: center -1px;
+  }
+  &.chat {
+    @include icon('help-chat');
+    &.large {
+      background-position: center -.75em;
+      width: 4em;
+      height: 4em;
+    }
+  }
+  &.facebook {
+    @include icon("facebook", $type: "png");
+  }
+  &.twitter {
+    @include icon("twitter", $type: "png");
+  }
+  &.googleplus {
+    @include icon("googleplus", $type: "png");
+  }
+  &.pinterest {
+    @include icon("pinterest", $type: "png");
+  }
+}

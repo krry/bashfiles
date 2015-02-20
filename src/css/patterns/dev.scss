@@ -9,7 +9,7 @@
   background-color: $glass-smoked;
   transform: translate3d(100%, 0, 0);
   transition: transform 250ms $easing-quick;
-  box-shadow: -4px 0 8px -8px $shade-40;
+  box-shadow: -4px 0 8px -4px $shade-40;
   &.shown {
     transform: translate3d(0, 0, 0);
   }
@@ -25,7 +25,7 @@ a.dev-trigger.dev-trigger {
   position: absolute;
   margin: auto;
   overflow: auto;
-  top: 18em;
+  top: 6em;
   right: 100%;
   border-radius: 8px 0 0 8px;
   font-size: .875em;
@@ -33,7 +33,7 @@ a.dev-trigger.dev-trigger {
   text-align: center;
   color: $glass-smoked;
   background: $glass-amber;
-  box-shadow: 0px 0 8px -2px $shade-60;
+  box-shadow: -3px 0 6px -3px saturate($gold-bright, .2);
   &:hover {
     background: saturate($glass-amber, 10%);
     border: 0;

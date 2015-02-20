@@ -1,0 +1,134 @@
+@import "../imports/colors";
+@import "../imports/sizes";
+
+.calendar {
+  $box-width: 100px;
+  $box-border: 2px;
+  $tan: #f9f2d6;
+
+  width: 7 * $box-width;
+  margin: 0 auto;
+
+  .day-header {
+    border-bottom: 0;
+    text-transform: uppercase;
+    text-align: center;
+    color: $grey-mid;
+  }
+
+  .date {
+    height: $box-width - (2 * $box-border);
+    border: $box-border solid $white;
+    color: $white;
+    position: relative;
+    cursor: pointer;
+
+    &.tooltip {
+      &:before {
+        border-color: $tan transparent;
+      }
+
+      &:after {
+        left: -50%;
+        width: 220%;
+        background: $tan;
+        color: $grey-darkest;
+      }
+    }
+  }
+
+  .available {
+    background: $gold;
+  }
+
+  .unavailable {
+    background: $grey-lighter;
+  }
+
+  .month {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .day {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+  }
+
+  .label {
+    margin: 10px 0 0 20px;
+    display: inline-block;
+  }
+
+  .key {
+    display: inline-block;
+    width: 30px;
+    height: 20px;
+    margin-right: 5px;
+    vertical-align: text-bottom;
+  }
+
+  .legend {
+    margin: 40px 0 0;
+    text-align: left;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.8em;
+
+    .label:first-child {
+      margin-left: 0;
+    }
+  }
+
+  @media screen and (max-width: 7 * $box-width) {
+    width: 100%;
+
+    .date {
+      width: 100% / 7;
+    }
+  }
+
+  @media screen and (max-width: $width-min-sml) {
+    .day-header, .month {
+      font-size: 0.85em;
+    }
+
+    .date {
+      height: ($box-width / 2) - (2 * $box-border);
+    }
+
+    .label {
+      display: block;
+      margin-left: 0;
+    }
+  }
+}
+
+.time-selection {
+  display: inline-block;
+  padding: 5px 20px;
+  margin: 5px;
+  text-transform: uppercase;
+  background: $grey-lightest;
+  cursor: pointer;
+  border: 4px solid transparent;
+
+  &.selected {
+    border: 4px solid $green-bright;
+  }
+}
+
+.calendar-links {
+  font-size: 0.8em;
+  letter-spacing: initial;
+  margin: 0 0 20px;
+
+  a {
+    font-weight: bold;
+    margin-left: 15px;
+  }
+}

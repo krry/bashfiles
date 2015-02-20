@@ -2,7 +2,7 @@
 
   BROWSERSYNC
   supports DEFAULT task
-  
+
   runs a new webserver on http://localhost:{PORT+1} that
   watches for changes in client-side files and injects
   them or automatically reloads the app as you develop
@@ -35,6 +35,7 @@ gulp.task('browserSync', ['demon'], function() {
       port: port,
       open: false,
       injectChanges: true,
+      reloadDelay: 2000,
     });
   }, INITIAL_SERVER_BOOT_DELAY)
 });

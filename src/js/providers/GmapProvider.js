@@ -68,6 +68,11 @@ function GmapFactory_ () {
       }
       console.log('latlng', latLng);
 
+      Client.emit('valid latlng', {
+        lat: latLng.lat(),
+        lng: latLng.lng()
+      });
+
       maxZoomService = new google.maps.MaxZoomService();
 
       maxZoomService.getMaxZoomAtLatLng(latLng, function(response) {

@@ -9,4 +9,4 @@
 
 var gulp = require('gulp');
 
-gulp.task('build', ['scripts', 'libs', 'styles', 'templates', 'fonts', 'images']);
+gulp.task('build', ['scripts', 'libs', 'styles', 'templates', 'indexFile', 'fonts', 'images']);
