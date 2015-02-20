@@ -6,7 +6,6 @@ main.main {
   position: fixed;
   width: 100%;
   z-index: 1;
-  overflow-y: scroll;
   top: 2.9rem;
   bottom: 2.5rem;
 }
@@ -44,6 +43,10 @@ main.main {
 .overlay.secondary {
   padding: 2em;
   background: $grey-lightest;
+}
+
+.scroll-y {
+  overflow-y: scroll;
 }
 
 .underlayer {
