@@ -1,6 +1,6 @@
-controllers.controller('ScheduleCtrl', ['Form', 'Clientstream', '$q', '$http', 'UTILITIES_API', ScheduleCtrl_]);
+controllers.controller('ScheduleCtrl', ['Form', 'Clientstream', '$q', ScheduleCtrl_]);
 
-function ScheduleCtrl_ (Form, Client, $q, $http, UTILITIES_API) {
+function ScheduleCtrl_ (Form, Client, $q) {
   var vm = this;
   vm.prospect = Form.prospect;
   vm.eventDetails = eventDetails;

@@ -2,7 +2,7 @@
 
   Credit Provider
 
-
+  Accesses the credit check API in SolarWorks
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
