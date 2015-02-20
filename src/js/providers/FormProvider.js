@@ -84,8 +84,13 @@ function FormProvider_ () {
       data.form_id = ds.ref().key();
       prospect = data;
       _ref_stream = _ref.observe('value');
+      _ref_stream.subscribe(function(ds) {
+        prospect = ds.exportVal();
+        Client.emit('Form: Prospect updated', prospect);
+      });
       Client.emit('Form: Loaded', data);
     }
+
 
     function updateZipOnRef (zip) {
       return _ref.update({zip: zip});

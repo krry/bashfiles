@@ -7,7 +7,8 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService) {
       zoom,
       map,
       mapEl,
-      mapOpts;
+      mapOpts,
+      spinCount;
 
   vm = this;
   vm.shown = false;
@@ -15,6 +16,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService) {
 
   mapEl = $element[0];
   mapOpts = Gmap.opts;
+  spinCount = 0;
 
   // once window loads, activate map using defaults
   google.maps.event.addDomListenerOnce(window, "load", activate);
@@ -49,15 +51,23 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService) {
 
   function listenForMapFinish () {
     google.maps.event.addListener(map, 'tilesloaded', hideSpinner);
-    google.maps.event.addListener(map, 'idle', hideSpinner);
   }
 
   function hideSpinner () {
-    Client.emit('spin it', false);
+    // TODO: ensure that the spinner stays up until the tiles are actually loaded
+    // switching from TERRAIN to HYBRID map causes an extra `tilesloaded` event to be emitted, prematurely hiding the spinner for the HYBRID map load
+    spinCount++;
+    console.log('tiles loaded');
+    console.log("spinCount is", String(spinCount));
+    if (spinCount > 0) {
+      Client.emit('spin it', false);
+      spinCount = 0;
+    }
   }
 
   function switchToSatellite (data) {
     if (data && map.getMapTypeId() !== "hybrid") {
+      spinCount = 0;
       map.setMapTypeId(google.maps.MapTypeId.HYBRID);
       // Gmap.checkMaxZoom()
     }
@@ -92,6 +102,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService) {
 
   function applyMaxZoom (zoom) {
     console.log('setting zoom to', zoom);
+    spinCount = 0;
     map.setZoom(zoom);
   }
 

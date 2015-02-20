@@ -107,7 +107,7 @@ function SessionProvider_ (FormProvider, DesignProvider, ConfiguratorProvider) {
       if (location.lat()) { // TODO: make this work for Gmap & Configurator
         _ref.child('map_center').set([ location.lat(), location.lng(), ]);
       } else {
-        alert('unhandled center changed event');
+        console.error('unhandled center changed event');
       }
     }
 
