@@ -5,7 +5,6 @@
   position: relative; // pseudo-elements should be relative to this
   cursor: help; // got a question about this? so does your cursor
   // display: inline-block;
-  pointer-events: none; // ensure they don't obscure interactive elements
 
   &:before,
   &:after {
@@ -40,6 +39,7 @@
     text-align: center;
     border-radius: 4px;
     z-index: 19; // get on top of other page elements
+    pointer-events: none; // ensure they don't obscure interactive elements
   }
 
   &:before {
