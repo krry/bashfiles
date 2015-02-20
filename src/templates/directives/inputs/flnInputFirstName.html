@@ -18,6 +18,7 @@
   autocomplete="on"
   autocorrect="off"
   ng-model="form.prospect.firstName"
+  ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"
   ng-required="true"
   ng-minlength="2"
   ng-pattern="/^([A-Za-z]|_|-|\.|\s)+$/">

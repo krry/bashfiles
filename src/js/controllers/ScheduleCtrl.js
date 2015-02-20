@@ -11,8 +11,6 @@ function ScheduleCtrl_ (Form, Client, $q, $http, UTILITIES_API) {
   vm.save = save;
   vm.init();
 
-  console.log(vm.prospect.zip);
-
   vm.config = {
     startDate: moment().format('MM/D/YYYY'),
     range: 21

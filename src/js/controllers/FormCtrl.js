@@ -104,7 +104,6 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
   function checkPhone () {}
   function checkBirthdate () {}
 
-  // TODO: get actual Contactid and AddressId of user
   function checkCredit() {
     Credit.check({
       ContactId: vm.prospect.ContactId,
