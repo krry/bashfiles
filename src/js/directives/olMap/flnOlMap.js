@@ -20,6 +20,7 @@ function flnOlMap_ (Client) {
       // loaded before attaching configurator to map
       Client.listen('Configurator: Loaded', sendElement);
       function sendElement (interactions) {
+        Client.emit('spin it', true);
         Client.emit('OlMap: map target element', ele);
       }
       ele.on('$destroy', function (e) {
