@@ -6,9 +6,9 @@
 
 ================================================== */
 
-controllers.controller("FormCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Form", "Credit", FormCtrl_]);
+controllers.controller("FormCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Form", "Credit", "Contact", FormCtrl_]);
 
-function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit) {
+function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
   var vm = this;
   var form_stream;
 
@@ -57,12 +57,14 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit) {
   vm.checkZip = checkZip;
   vm.checkAddress = checkAddress;
   vm.checkCredit = checkCredit;
+  vm.createContact = createContact;
 
   // TODO: on change of the user model due to user changing the input values and angular syncing that with the data model, run it through validators, and then save it to firebase
   // vm.$watch('user', function(){})
 
   Client.listen('outside US', acceptValidZip);
   // Client.listen('valid zip', acceptValidZip);
+  Client.listen('valid latlng', acceptValidLatLng);
   Client.listen('valid territory', acceptValidTerritory);
   Client.listen('valid address', acceptValidAddress);
   Client.listen('valid house', acceptValidHouse);
@@ -97,25 +99,46 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit) {
     }
   }
 
-  // TODO: get actual Contactid and AddressId of user
-  function checkCredit(prospect) {
-    Credit.check({
-      Contactid: '12345',
-      AddressId: '23456',
-      BirthDate: moment(prospect.dob).format('MM/DD/YYYY')
-    }).then(function(data) {
-      var qualified = data.EligibleProducts.indexOf(Credit.products.Lease) > -1 ||
-        data.EligibleProducts.indexOf(Credit.products.PPA) > -1;
-
-      vm.prospect.qualified = qualified;
-      Client.emit('stage', 'next');
-    });
-  }
-
   function checkFullName () {}
   function checkEmail () {}
   function checkPhone () {}
   function checkBirthdate () {}
+
+  // TODO: get actual Contactid and AddressId of user
+  function checkCredit() {
+    Credit.check({
+      ContactId: vm.prospect.ContactId,
+      AddressId: vm.prospect.AddressId,
+      BirthDate: moment(vm.prospect.dob).format('MM/DD/YYYY')
+    }).then(function(data) {
+      Client.emit('Form: valid data', { qualified: data.qualified });
+      Client.emit('stage', 'next');
+    });
+  }
+
+  function createContact() {
+    Contact.create({
+      Email: vm.prospect.email,
+      FirstName: vm.prospect.firstName,
+      LastName: vm.prospect.lastName,
+      PhoneNumber: vm.prospect.phone,
+      Address: {
+        AddressLine1: vm.prospect.street,
+        AddressLine2: '',
+        City: vm.prospect.city,
+        Zip: vm.prospect.zip,
+        Country: 'US',
+        Latitude: vm.prospect.lat,
+        Longitude: vm.prospect.lng
+      }
+    }).then(function(data) {
+      vm.prospect.ContactId = data.ContactId;
+      vm.prospect.AddressId = data.AddressId;
+      Client.emit('Form: valid data', data);
+
+      Client.emit('stage', 'next');
+    })
+  }
 
   // TODO: figure out if the valid territory / valid zip dependency is appropriate for the prescribed UX
   function acceptValidTerritory(data) {
@@ -135,6 +158,16 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit) {
       vm.prospect.zip = data;
     } else vm.invalidZip = true;
     return !vm.invalidZip;
+  }
+
+  function acceptValidLatLng(data) {
+    if (data) {
+      vm.validLatLng = true;
+      vm.prospect.lat = data.lat;
+      vm.prospect.lng = data.lng;
+      Client.emit('Form: valid data', data);
+    } else vm.validLatLng = false;
+    return vm.validLatLng;
   }
 
   function acceptValidState(data) {

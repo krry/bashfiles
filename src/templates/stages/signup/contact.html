@@ -1,30 +1,35 @@
 <!-- main.html for qualify stage -->
-<div class="overlay primary col">
-  <h1>Let’s see what we can do for you.<br><small>Enter your information to get set up with a solar site survey for your home.</small></h1>
+<div class="overlay primary col" ng-controller="FormCtrl as form">
+  <h1>Welcome to the SolarCity family.<br><small>Enter your information to get set up with a solar site survey for your home.</small></h1>
   <form name="prospectForm" novalidate>
     <div class="row">
       <div class="col half padded">
         <label for="" class="caps">First name</label>
-        <fln-input-full-name hint="First"></fln-input-full-name>
+        <fln-input-first-name hint="First" form="prospectForm"></fln-input-full-name>
       </div>
        <div class="col half padded">
         <label for="" class="caps">Last name</label>
-        <fln-input-full-name hint="Last"></fln-input-full-name>
+        <fln-input-last-name hint="Last" form="prospectForm"></fln-input-full-name>
       </div>
     </div>
     <div class="row">
       <div class="col half padded">
         <label for="" class="caps">Email address</label>
-        <fln-input-email hint="you@domain.com"></fln-input-email>
+        <fln-input-email hint="you@domain.com" form="prospectForm"></fln-input-email>
       </div>
       <div class="col half padded">
         <label for="" class="caps">Phone number</label>
-        <fln-input-phone hint="(---) --- ----"></fln-input-phone>
+        <fln-input-phone hint="(---) --- ----" form="prospectForm"></fln-input-phone>
       </div>
     </div>
     <div class="row center">
       <div class="col half padded center">
-        <button class="ib gold" ng-click="stages.next()">Submit</button>
+        <fln-input-terms></fln-input-terms>
+      </div>
+    </div>
+    <div class="row center">
+      <div class="col half padded center">
+        <button class="ib gold" ng-click="form.createContact()" ng-disabled="prospectForm.$invalid">Submit</button>
       </div>
     </div>
   </form>

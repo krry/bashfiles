@@ -1,0 +1,23 @@
+<div class="ib status" ng-hide="prospectForm.lastName.$pristine">
+  <span ng-show="prospectForm.lastName.$error.required">
+    Last name is required.
+  </span>
+  <span ng-show="prospectForm.lastName.$error.minlength">
+    Last name must be at least two characters.
+  </span>
+  <span ng-show="prospectForm.lastName.$error.pattern">
+    Last name must be alphabetical.
+  </span>
+</div>
+<input
+  type="text"
+  name="lastName"
+  class="full-name"
+  focus="true"
+  placeholder="{{hint}}"
+  autocomplete="on"
+  autocorrect="off"
+  ng-model="form.prospect.lastName"
+  ng-required="true"
+  ng-minlength="2"
+  ng-pattern="/^([A-Za-z]|_|-|\.|\s)+$/">

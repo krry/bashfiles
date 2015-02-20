@@ -3,7 +3,8 @@ directives.directive('flnInputDob', [flnInputDob_]);
 function flnInputDob_ () {
   return {
     scope: {
-      hint: "@"
+      hint: "@",
+      prospectForm: "=form"
     },
     restrict: "E",
     controller: "FormCtrl as form",

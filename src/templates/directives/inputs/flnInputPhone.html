@@ -1,5 +1,12 @@
-<div class="ib status">
-  <span>Required</span>
+<div class="ib status" ng-hide="prospectForm.phone.$pristine">
+  <span ng-show="prospectForm.phone.$error.required">
+    Phone number is required.
+  </span>
+  <span ng-show="prospectForm.phone.$error.pattern ||
+   prospectForm.phone.$error.minlength || 
+   prospectForm.phone.$error.maxlength">
+    Phone number must be valid.
+ </span>
 </div>
 <input
   type="tel"
@@ -10,8 +17,7 @@
   autocorrect="off"
   placeholder="{{hint}}"
   ng-model="form.prospect.phone"
-  ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"
   ng-required="true"
   ng-minlength="10"
   ng-maxlength="10"
-  ng-pattern="/[0-9]/">
+  ng-pattern="/\b\d{10}\b/">
