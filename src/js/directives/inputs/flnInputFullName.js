@@ -7,6 +7,7 @@ function flnInputFullName_ () {
     },
     restrict: "E",
     templateUrl: "templates/directives/inputs/flnInputFullName.html",
+    controller: "FormCtrl as form",
     link: function (scope, element, attrs) {
       $(element).focus();
     }

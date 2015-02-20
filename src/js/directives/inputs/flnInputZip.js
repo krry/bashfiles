@@ -6,6 +6,7 @@ function flnInputZip_ () {
       hint: "@"
     },
     restrict: "E",
+    controller: "FormCtrl as form",
     templateUrl: "templates/directives/inputs/flnInputZip.html",
     link: function (scope, element, attrs) {
       if (!$('#prospect_street')) {
