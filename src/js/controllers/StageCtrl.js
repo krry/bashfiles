@@ -59,7 +59,6 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
 
   function stageLayout (target_state) {
     var stage = target_state.stage;
-    debugger;
     if (Templates.config[stage].steps[0].step === "review-proposal") {
       vm.proposal = true;
     }

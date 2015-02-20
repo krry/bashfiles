@@ -6,19 +6,11 @@ angular.module('signup', []).config(["$stateProvider", function ($stateProvider)
   var templateUrl = "templates/";
   var stageUrl = templateUrl + "stages/" + stageName + '/';
 
-  $stateProvider.state('signup', {
-    url: "^",
+  $stateProvider.state('flannel.signup', {
+    url: "^/signup",
     views: {
       'main@': {
         templateUrl: stageUrl + "main.html",
-      },
-      'header@': {
-        templateUrl: templateUrl + 'header.html',
-        controller: 'NavCtrl as nav',
-      },
-      'footer@': {
-        templateUrl: templateUrl + 'footer.html',
-        controller: 'FooterCtrl as footer',
       },
     }
   })
