@@ -5,16 +5,16 @@
       <a ui-sref="home.initial">SolarCity</a>
     </li>
     <li class="chevron right caps col" ng-class="{ active: nav.onActiveStage('home') }">
-      <span>Locate</span>
-      <span class="header-address" ng-controller="FormCtrl as form" ng-show="form.prospect.zip && nav.onActiveStage('home')">
+      <span>Your Home</span>
+      <span class="header-address" ng-controller="FormCtrl as form" ng-show="form.prospect.zip && nav.onActiveStage('flannel.home')">
         <span>&bull;</span>
         <span ng-bind="form.prospect.street" class="header-street"></span>
         <span ng-bind="form.prospect.zip" class="header-zip"></span>
         <span class="icon edit"></span>
       </span>
     </li>
-    <li class="chevron right caps col" ng-class="{ active: nav.onActiveStage('configure') }">Configure</li>
-    <li class="chevron right caps col" ng-class="{ active: nav.onActiveStage('signup') }">Sign up</li>
+    <li class="chevron right caps col" ng-class="{ active: nav.onActiveStage('flannel.configure') }">Configurator</li>
+    <li class="chevron right caps col" ng-class="{ active: nav.onActiveStage('flannel.signup') }">Sign up</li>
     <!-- TODO: employ .primary and .secondary to match this to the body columns -->
     <li ng-controller="ModalCtrl as modal" class="col float right top-five">
       <a class="questions" ng-click="modal.showDialog('faq')">Top 5 Questions&nbsp;&nbsp;<span class="icon question"></span></a>

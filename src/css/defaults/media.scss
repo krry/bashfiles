@@ -26,7 +26,8 @@ figure embed,
 figure video {
   width: 100%;
   display: block;
-  height: 10em;
+  min-height: 10em;
+  height: auto;
   background-color: $black;
 }
 

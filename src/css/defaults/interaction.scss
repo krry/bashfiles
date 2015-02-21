@@ -70,6 +70,9 @@ a.btn {
   &.green {
     @include btn($green);
   }
+  &.grey {
+    @include btn($grey-dark);
+  }
   &.huge {
     &.gold {
       @include btn($gold, $size: 1.5rem);
@@ -88,6 +91,9 @@ a.btn {
     }
     &.green {
       @include btn($green, $size: 1.5rem);
+    }
+    &.grey {
+      @include btn($grey-dark, $size: 1.5rem);
     }
   }
 
@@ -109,6 +115,9 @@ a.btn {
     }
     &.green {
       @include btn($green, $size: 1.25rem);
+    }
+    &.grey {
+      @include btn($grey-dark, $size: 1.25rem);
     }
   }
 
@@ -137,6 +146,9 @@ a.btn {
     &.green {
       @include btn($green, $size: .875rem);
     }
+    &.grey {
+      @include btn($grey-dark, $size: .875rem);
+    }
   }
 
   &.tiny {
@@ -157,6 +169,9 @@ a.btn {
     }
     &.green {
       @include btn($green, $size: .75rem);
+    }
+    &.grey {
+      @include btn($grey-dark, $size: .75rem);
     }
   }
 

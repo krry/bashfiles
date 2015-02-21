@@ -6,9 +6,9 @@
 
 ================================================== */
 
-controllers.controller("FormCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Form", FormCtrl_]);
+controllers.controller("FormCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Form", "Credit", "Contact", FormCtrl_]);
 
-function FormCtrl_($scope, $element, Client, Geocoder, Form) {
+function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
   var vm = this;
   var form_stream;
 
@@ -16,6 +16,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form) {
 
   /* bootstrap the controller's model from the form provider, listen for changes */
   Client.listen('Form: Loaded', bootstrapForm);
+  Client.listen('geocode results', badZip);
 
   function bootstrapForm (form_obj) {
     // subscribe to the stream
@@ -56,12 +57,15 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form) {
   vm.nextStep = next;
   vm.checkZip = checkZip;
   vm.checkAddress = checkAddress;
+  vm.checkCredit = checkCredit;
+  vm.createContact = createContact;
 
   // TODO: on change of the user model due to user changing the input values and angular syncing that with the data model, run it through validators, and then save it to firebase
   // vm.$watch('user', function(){})
 
   Client.listen('outside US', acceptValidZip);
   // Client.listen('valid zip', acceptValidZip);
+  Client.listen('valid latlng', acceptValidLatLng);
   Client.listen('valid territory', acceptValidTerritory);
   Client.listen('valid address', acceptValidAddress);
   Client.listen('valid house', acceptValidHouse);
@@ -91,8 +95,10 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form) {
         state: vm.prospect.state,
         zip: vm.prospect.zip,
       }
-      Client.emit('spin it', true);
-      Geocoder.sendGeocodeRequest(addy);
+      if (addy.street) {
+        Client.emit('spin it', true);
+        Geocoder.sendGeocodeRequest(addy);
+      }
     }
   }
 
@@ -100,6 +106,57 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form) {
   function checkEmail () {}
   function checkPhone () {}
   function checkBirthdate () {}
+
+  function badZip (data) {
+    if (!data) {
+      vm.invalid = true;
+      vm.invalidZip = true;
+      vm.invalidTerritory = false;
+    }
+  }
+
+  function outOfTerritory (data) {
+    if (!data) {
+      vm.invalid = true;
+      vm.invalidZip = false;
+      vm.invalidTerritory = true;
+    }
+  }
+
+  function checkCredit() {
+    Credit.check({
+      ContactId: vm.prospect.ContactId,
+      AddressId: vm.prospect.AddressId,
+      BirthDate: moment(vm.prospect.dob).format('MM/DD/YYYY')
+    }).then(function(data) {
+      Client.emit('Form: valid data', { qualified: data.qualified });
+      Client.emit('stage', 'next');
+    });
+  }
+
+  function createContact() {
+    Contact.create({
+      Email: vm.prospect.email,
+      FirstName: vm.prospect.firstName,
+      LastName: vm.prospect.lastName,
+      PhoneNumber: vm.prospect.phone,
+      Address: {
+        AddressLine1: vm.prospect.street,
+        AddressLine2: '',
+        City: vm.prospect.city,
+        Zip: vm.prospect.zip,
+        Country: 'US',
+        Latitude: vm.prospect.lat,
+        Longitude: vm.prospect.lng
+      }
+    }).then(function(data) {
+      vm.prospect.ContactId = data.ContactId;
+      vm.prospect.AddressId = data.AddressId;
+      Client.emit('Form: valid data', data);
+
+      Client.emit('stage', 'next');
+    })
+  }
 
   // TODO: figure out if the valid territory / valid zip dependency is appropriate for the prescribed UX
   function acceptValidTerritory(data) {
@@ -119,6 +176,16 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form) {
       vm.prospect.zip = data;
     } else vm.invalidZip = true;
     return !vm.invalidZip;
+  }
+
+  function acceptValidLatLng(data) {
+    if (data) {
+      vm.validLatLng = true;
+      vm.prospect.lat = data.lat;
+      vm.prospect.lng = data.lng;
+      Client.emit('Form: valid data', data);
+    } else vm.validLatLng = false;
+    return vm.validLatLng;
   }
 
   function acceptValidState(data) {

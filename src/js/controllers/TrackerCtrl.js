@@ -1,7 +1,5 @@
 controllers.controller('TrackerCtrl', ['Clientstream', '$location', TrackerCtrl_]);
 
-//
-
 function TrackerCtrl_ (Client, $location) {
   var vm = this;
 

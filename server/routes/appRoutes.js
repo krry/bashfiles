@@ -1,21 +1,18 @@
 
 module.exports = function(app) {
-  var appController = require('../controllers/appController.js')(app),
-      proxy         = require('express-http-proxy'),
-      env           = process.env.NODE_ENV || 'development',
-      conf          = require('../config/environments/' + env + '.json'),
-      proxySettings;
-
-  proxySettings = {
-    forwardPath: function(req, res) {
-      return require('url').parse(req.url).path;
-    }
-  };
+  var appController   = require('../controllers/appController.js')(app),
+      proxyController = require('../controllers/proxyController.js')(app),
+      env             = process.env.NODE_ENV || 'development',
+      conf            = require('../config/environments/' + env + '.json');
 
   app.get('/flannel/', appController.index );
   app.get('/jwt', appController.jwt );
 
-  app.use(conf.CLIENT.SOLAR_WORKS_ROOT, proxy(conf.SOLAR_WORKS_ROOT, proxySettings));
-  app.use(conf.CLIENT.GSA_ROOT, proxy(conf.GSA_ROOT, proxySettings));
-  app.use(conf.CLIENT.NEAR_ME_ROOT, proxy(conf.NEAR_ME_ROOT, proxySettings));
+  app.get(conf.CLIENT.UTILITIES_API, proxyController.utilities);
+  app.get(conf.CLIENT.WAREHOUSE_API, proxyController.warehouses);
+  app.get(conf.CLIENT.RATES_API, proxyController.rates);
+  app.post(conf.CLIENT.CREDIT_CHECK_API, proxyController.creditCheck);
+  app.post(conf.CLIENT.CONTACT_API, proxyController.contact);
+  app.get(conf.CLIENT.NEAR_ME_API, proxyController.nearMe);
+  app.get(conf.CLIENT.GSA_API, proxyController.gsa);
 };

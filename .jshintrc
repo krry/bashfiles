@@ -108,6 +108,7 @@
         "syncGeometry": true,
         "Rx"          : true,
         "moment"      : true,
+        "ga"          : true,
         "ics"         : true
     } // additional predefined global variables
 }

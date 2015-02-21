@@ -61,10 +61,6 @@ function OlMapCtrl_($scope, $timeout, Client, Session, InteractionService, Style
   // client_stream
   Client.listen('update_client', update_client); // messages from remote
   Client.listen('update_remote', update_remote); // messages from the feature
-  /*
-    TODO: when tiles come back, listen for that, and hide the spinner
-    Client.listen('static tiles loaded', hideSpinner);
-  */
 
   function getWkt(f) {
     return wkt.writeGeometry(f.getGeometry());
@@ -72,10 +68,6 @@ function OlMapCtrl_($scope, $timeout, Client, Session, InteractionService, Style
 
   function getGeom(txt) {
     return wkt.readGeometry(txt);
-  }
-
-  function hideSpinner () {
-    Client.emit('spin it', false);
   }
 
   function update_remote (geom) {
@@ -86,7 +78,6 @@ function OlMapCtrl_($scope, $timeout, Client, Session, InteractionService, Style
 
   function update_client (txt) {
     var remote_feature;
-
     if (Design.feature() !== 'undefined' && !$scope.draw_busy) { // you're sync'd but you should do something with new data
       console.log('=============== what should i do now, boss? ================', txt)
       // make a new feature
