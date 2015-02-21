@@ -1,6 +1,6 @@
-controllers.controller("GmapCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Gmap", "MapService", GmapCtrl_]);
+controllers.controller("GmapCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Gmap", "MapService", "NearMe", GmapCtrl_]);
 
-function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService) {
+function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe) {
 
   var vm,
       center,
@@ -98,6 +98,36 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService) {
     console.log('setting zoom to', zoom);
     spinCount = 0;
     map.setZoom(zoom);
+
+    getNearMeData().then(plotMarkers);
+  }
+
+  function getNearMeData() {
+    var bounds = map.getBounds(),
+        ne = bounds.getNorthEast(),
+        sw = bounds.getSouthWest(),
+        coords;
+
+    coords = {
+      top: ne.lat(),
+      right: ne.lng(),
+      bottom: sw.lat(),
+      left: sw.lng()
+    };
+
+    return NearMe.get(coords);
+  }
+
+  function plotMarkers(data) {
+    angular.forEach(data, function(point) {
+      var location = new google.maps.LatLng(point.la, point.ln),
+          production = data.kw;
+      
+      Client.emit('drop pin', location);
+      // TODO: add a listener in Gmap to drop a infowindow for the production value
+    });
+
+    Client.emit('neighbor_count saved', data.length);
   }
 
   function checkMapVisibility (data) {

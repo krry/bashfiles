@@ -97,7 +97,7 @@ function GmapFactory_ () {
         position: location,
         map: map,
         draggable: false,
-        icon: 'img/burstpin.png'
+        //icon: 'img/burstpin.png'
       });
     }
 
