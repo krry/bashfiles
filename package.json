@@ -63,6 +63,7 @@
     "nconf": "~0.6.9",
     "newrelic": "~1.13.3",
     "node-uuid": "^1.4.1",
+    "portfinder": "^0.4.0",
     "pretty-hrtime": "^0.2.2",
     "q": "^1.0.1",
     "request": "^2.53.0",
