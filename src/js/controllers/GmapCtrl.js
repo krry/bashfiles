@@ -38,7 +38,6 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
     // listen to the map for user's changes
     listenToCenter();
     listenToZoom();
-    listenForMapFinish();
   }
 
   function listenToCenter () {
@@ -47,10 +46,6 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
 
   function listenToZoom () {
     google.maps.event.addListener(map, 'zoom_changed', saveZoom);
-  }
-
-  function listenForMapFinish () {
-    google.maps.event.addListener(map, 'tilesloaded', hideSpinner);
   }
 
   function hideSpinner () {
@@ -128,6 +123,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
     });
 
     Client.emit('neighbor_count saved', data.length);
+    hideSpinner();
   }
 
   function checkMapVisibility (data) {
