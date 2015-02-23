@@ -50,6 +50,10 @@ function ScheduleCtrl_ (Form, Client, $q, SiteSurvey) {
 
     vm.selectedDate = date;
     vm.prospect.scheduledTime = null;
+
+    if (date.availableTimes.length === 1) {
+      selectTime(date.availableTimes[0]);
+    }
   }
 
   function selectTime(time) {
