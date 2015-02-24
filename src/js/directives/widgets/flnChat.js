@@ -12,7 +12,8 @@ function flnChat () {
         // ga('send', 'event', step, 'Button Clicks', 'ODA Session Activated');
       // });
       var chatbox,
-          prospect;
+          prospect,
+          value;
 
       if (!window._laq) { window._laq = []; }
       window._laq.push(
@@ -44,7 +45,10 @@ function flnChat () {
           if ( prospect.hasOwnProperty(key)) {
             console.log("key:", key);
             console.log("prospect[key]:", prospect[key]);
-            liveagent.addCustomDetail(key, prospect[key]);
+            if (key !== "location") {
+              value = prospect[key].toString();
+              liveagent.addCustomDetail(key, value);
+            }
           }
         }
 

@@ -18,17 +18,10 @@
   right: 3em;
 }
 
-#chat_div {
-  // position: fixed;
-  // bottom: 0;
-  height: 100%;
-  border: 0;
-  // right: 2em;
-}
-
-#liveAgentChat {
+#live_agent_chat {
   border: 0;
   background: $tint-90;
+  height: 280px;
 }
 
 .liveagent-online {}
@@ -43,7 +36,7 @@
 }
 
 .chat-tray {
-  // height: 330px;
+  height: 330px;
   position: fixed;
   bottom: 0;
   right: 0;
