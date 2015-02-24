@@ -109,6 +109,7 @@
         "Rx"          : true,
         "moment"      : true,
         "ga"          : true,
-        "ics"         : true
+        "ics"         : true,
+        "liveagent"   : true
     } // additional predefined global variables
 }
