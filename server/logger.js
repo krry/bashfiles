@@ -3,7 +3,7 @@
 var env     = process.env.NODE_ENV || "development",
     fs      = require('fs'),
     winston = require('winston'),
-    logDir  = __dirname + '/../log/',
+    logDir  = __dirname + '/../logs/',
     logger,
     consoleLevel,
     fileLevel,
