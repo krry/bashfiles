@@ -4,4 +4,6 @@
   type="checkbox"
   ng-required="true"
   ng-model="form.prospect.terms">
-<label for="" class="caps">I accept the <a>terms and conditions</a></label>
+<label for="" class="caps" ng-controller="ModalCtrl as modal">
+  I accept the <a ng-click="modal.showDialog('credit-check-terms')">terms and conditions</a>
+</label>
