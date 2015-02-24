@@ -365,7 +365,7 @@ input[type="time"]:focus,
 input[type="week"]:focus {
   border-color: $grey-mid;
   background-color: $color-input-bkgd-focus;
-  box-shadow: inset $shadow-input;
+  box-shadow: $shadow-input;
 }
 
 select {
