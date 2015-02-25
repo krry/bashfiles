@@ -51,17 +51,18 @@ function FormProvider_ () {
 
   this.$get = ["Clientstream",function formProviderFactory(Client) {
 
-
     Client.listen('Session: Loaded', bootstrapForm);
     Client.listen('valid zip', updateZipOnRef);// TODO: fix line use Client.listen('valid format', updateRefByKey ); or something
     Client.listen('Form: valid house', updateRefByVal );
     Client.listen('Form: valid data', updateRefByVal);
 
     // DEV:
-    Client.listen('Dev: Reset form', restartForm);
-    function restartForm () {
+    Client.listen('Dev: Reset form', resetForm);
+
+    function resetForm () {
       var form_obj = {bill: 100};
       _ref.set(form_obj);
+      _ref.once('value', processNewFormFromFirebase );
     }
     // DEV: end
 
@@ -100,6 +101,7 @@ function FormProvider_ () {
       _ref.update(obj);
       return
     }
+
     Client.listen('valid address', function (addy) {
       return _ref.update({address: addy});
     });

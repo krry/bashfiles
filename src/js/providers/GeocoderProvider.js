@@ -203,9 +203,7 @@ function GeocoderProvider_ () {
         //   // check if the valid zip is in our territory
         //   checkTerritory(addy.zip);
         // }
-        if (addy.zip) {
-          checkTerritory(addy.zip);
-        }
+        var street_present = false;
         if (addy.state) {
           Client.emit('valid state', addy.state);
         }
@@ -218,7 +216,11 @@ function GeocoderProvider_ () {
             Client.emit('Gmap: switch to satellite', true);
             addy.home = addy.stno + " " + addy.street;
             Client.emit('valid house', addy);
+            street_present = true;
           }
+        }
+        if (addy.zip && !street_present) {
+          checkTerritory(addy.zip);
         }
       }
     }

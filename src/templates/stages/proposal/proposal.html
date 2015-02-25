@@ -1,11 +1,11 @@
 <!-- main.html for qualify stage -->
-<div class="overlay primary col full center contain">
+<div class="overlay only col full center contain">
   <div class="row padded">
     <div class="col full center">
-      <h1>Looking good! You may be eligible to go solar for $0 down.<br><small>This is you on solar.</small></h1>
+      <h2>Looking good! You may be eligible to go solar for $0 down.<br><small>This is you on solar.</small></h2>
     </div>
   </div>
-  <div class="proposal row padded">
+  <div class="proposal row padded less">
     <div class="col fifth two aerial">
       <!-- TODO: render the design here instead of this placeholder -->
     </div>
@@ -16,14 +16,14 @@
           <figure>
             <span id="current_rate" class="cents">12.2</span>
           </figure>
-          <label class="units">avg per kwh in your zip code</label>
+          <label class="units">per kwh average in your zip code</label>
         </div>
         <div class="col third center padded">
-          <label for="scty_rate">SolarCity's rate</label>
+          <label for="scty_rate">SolarCity Rate</label>
           <figure>
             <span id="scty_rate" class="cents">9.9</span>
           </figure>
-          <label class="units">per kwh</label>
+          <label class="units">per kWh with our recommended financing plan</label>
         </div>
         <div class="col third center padded">
           <label for="est_savings">Estimated Savings</label>
@@ -35,27 +35,28 @@
       </div>
       <div class="row">
         <div class="col half center padded">
-          <label for="ppa_plan">Solar PPA Plan</label>
+          <label for="ppa_plan">No Upfront Cost</label>
           <figure>
             <span id="ppa_plan" class="dollars">0</span>
           </figure>
-          <label class="units">no upfront cost (recommended)</label>
+          <label class="units">with our recommended financing plan</label>
         </div>
         <div class="col half center padded">
           <label for="est_energy_mix">Estimated Energy Mix</label>
           <figure>
             <span id="est_energy_mix" class="icon pie"></span>
           </figure>
-          <label class="units">94% solar power and 6% utility power</label>
+          <label class="units">94% solar power<br>6% utility power</label>
         </div>
       </div>
     </div>
   </div>
-  <div class="row padded">
+  <div class="row padded less">
     <div class="col fifth two center">
       <!-- <button class="btn std">Share my design</button> -->
-      <button class="btn std">{{prop.proposal_share}}</button>
-      <a href="/#{{prop.proposal_share}}">link to share</a>
+      <button class="btn white square tiny less-padded">Save my Solar Proposal</button>
+      <!-- <button class="btn white outline">{{prop.proposal_share}}</button> -->
+      <!-- <a href="/#{{prop.proposal_share}}">link to share</a> -->
     </div>
     <div class="col fifth three left padded">
       <p>After your complete your site survey, we will send you your final system design and proposal with the <a>financing options</a> that are available to you.</p>
@@ -63,14 +64,19 @@
   </div>
   <div class="row padded">
     <div class="col full center">
-      <button class="btn gold" ng-click="stages.next()">Continue</button>
+      <button class="btn gold wide small" ng-click="stages.next()">Continue</button>
     </div>
   </div>
   <!-- TODO: build a helper class to put down arrows in .jump-down <hr>s -->
-  <hr class="jump-down">
+  <!-- <hr class="jump-down"> -->
   <div class="row padded">
     <div class="col full center">
-      <h4>Signing up with America's #1 full-service solar provider means premium service every step of the way</h4>
+      <strong>&or;</strong>
+    </div>
+  </div>
+  <div class="row padded center">
+    <div class="col third two center">
+      <h4 class="light-weight">Signing up with America's #1 full-service solar provider means premium<br> service every step of the way</h4>
     </div>
   </div>
   <div class="row padded">
@@ -80,7 +86,7 @@
           <span class="icon call large"></span>
         </div>
         <div class="col fifth four">
-          <h5>Unmatched aesthetics</h5>
+          <strong>Unmatched aesthetics</strong>
           <p>Reducing your home's energy costs shouldn't also reduce its curb appeal. Our ZEP mounting system seamlessly integrates with your roof for a low-profile design that gives your home a sleek look.</p>
         </div>
       </div>
@@ -91,7 +97,7 @@
           <span class="icon call large"></span>
         </div>
         <div class="col fifth four">
-          <h5>Ongoing Rewards</h5>
+          <strong>Ongoing Rewards</strong>
           <p>We make sharing the benefits of clean energy easy and fun. Our Solar Ambassador program rewards you for every referral who signs up with SolarCity. You can build a business and help the environment!</p>
         </div>
       </div>
@@ -104,7 +110,7 @@
           <span class="icon call large"></span>
         </div>
         <div class="col fifth four">
-          <h5>Lifetime system protection</h5>
+          <strong>Lifetime system protection</strong>
           <dl class="horizontal">
             <dt>System monitoring</dt>
             <dd>Our exclusive 24-7 monitoring ensures your system is always working. It'll even alert us if problems arise.</dd>
@@ -122,7 +128,7 @@
           <span class="icon call large"></span>
         </div>
         <div class="col fifth four">
-          <h5>Environmental</h5>
+          <strong>Environmental</strong>
           <p>Over 20 years, the average 5 kWh solar power system offsets 50 tons of CO<sub>2</sub>. That's the equivalent of:</p>
           <ul>
             <li>Driving a car 125,000 miles</li>
@@ -140,7 +146,7 @@
           <span class="icon call large"></span>
         </div>
         <div class="col fifth four">
-          <h5>Cutting-edge insights</h5>
+          <strong>Cutting-edge insights</strong>
           <p>Our custom app lets you see everything from system production to home energy consumption to when your site surveyor is scheduled to arrive. It's a one-stop shop to keep everything you need to know about your system in the palm of your hand.</p>
         </div>
       </div>
@@ -151,10 +157,15 @@
           <span class="icon call large"></span>
         </div>
         <div class="col fifth four">
-          <h5>GivePower</h5>
+          <strong>GivePower</strong>
           <p>Your decision to go solar also helps bring the gift of power to the developing world. For every megawatt of solar energy SolarCity installs on customers' homes, we'll donate a clean energy system to a school in need through the GivePower program. To date, GivePower has brought light to over 400 schools. And we're just getting started.</p>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="row padded">
+    <div class="col full">
+      <p class="tiny">A solar power system is customized for your home, so pricing and savings vary based on location, system size, government rebates and local utility rates. Savings on your total electricity costs is not guaranteed. Financing terms vary by location and are not available in all areas. $0 due upon contract signing. No security deposit required. A 3 kW system starts at $25-$100 per month with an annual increase of 0-2.9% each year for 20-30 years, on approved credit. SolarCity Corporation will repair or replace broken warranted components. AZ ROC 243771/ROC 245450, CA CSLB 888104, CO EC8041, CT HIC 0632778/ELC 0125305, DE 2011120386/ T1-6032, DC 410514000080/ECC902585, FL EC13006226, HI CT-29770, MA HIC 168572/EL-1136MR, MD HIC 128948/11805, NC NC 30801-U NV NV20121135172/0079719/EC 0078648, NJ NJHIC#13VH06160600/34EI01732700, NM EE98-379590, OR CB180498/C562, PA HICPA077343, RI RC38313/AC004714, TX TECL27006, VA ELE2705153278, WA SOLARC*919O1/SOLARC*905P7. Nassau H2409710000, Greene A-486, Suffolk 52057-H, Putnam PC6041, Rockland H-11864-40-00-00, Westchester WC-26088-H13, N.Y.C #2001384-DCA. SCENYC: N.Y.C. Licensed Electrician, #12610, #004485, 155 Water St, 6th Fl., Unit 10, Brooklyn, NY 11201, #2013966-DCA. All loans provided by SolarCity Finance Company, LLC. CA Finance Lenders License 6054796. SolarCity Finance Company, LLC is licensed by the Delaware State Bank Commissioner to engage in business in Delaware under license number 019422, MD Consumer Loan License 2241, TX Registered Creditor 1400050963-202404.</p>
     </div>
   </div>
 </div>

@@ -38,6 +38,7 @@ function GmapFactory_ () {
 
     Client.listen('valid territory', zoomToHood);
     Client.listen('valid house', checkMaxZoom);
+    Client.listen('drop pin', dropPin);
 
     function init (data) {
       map = new google.maps.Map(data, mapOpts);
@@ -47,6 +48,7 @@ function GmapFactory_ () {
     function zoomToHood (zip) {
       console.log('zooming into neighborhood in zipcode', zip);
       Client.emit('max zoom found', 16);
+      Client.emit('get nearme data', true);
     }
 
     function checkMaxZoom(addy) {
@@ -90,13 +92,12 @@ function GmapFactory_ () {
     // given a location on the map, make and drop a marker there
     function dropPin(location) {
       var marker;
-      console.log("dropping new pin on:", location);
 
       marker = new google.maps.Marker({
         position: location,
         map: map,
         draggable: false,
-        icon: 'img/burstpin.png'
+        //icon: 'img/burstpin.png'
       });
     }
 

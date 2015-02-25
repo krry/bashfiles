@@ -1,5 +1,6 @@
 module.exports = function(app) {
   var request       = require('request'),
+      querystring   = require('querystring'),
       env           = process.env.NODE_ENV || 'development',
       conf          = require('../config/environments/' + env + '.json');
 
@@ -72,8 +73,8 @@ module.exports = function(app) {
     var url = [
       conf.NEAR_ME_ROOT,
       conf.NEAR_ME_API,
-      req.query.id,
-      '?format=json'
+      '?format=json&',
+      querystring.stringify(req.query)
     ].join('');
 
     proxyGET(url, res);
