@@ -20,6 +20,7 @@ var newrelic     = require('newrelic'),
     morgan       = require('morgan'),
     logger       = require('./logger'), // logger
     // db,
+    portfinder   = require('portfinder'),
     app,
     port,
     publicFolder,
@@ -37,25 +38,29 @@ app.use(cookieParser(nconf.get('FLANNEL_SECRET')));
 app.use(express.static(app.publicRoot, {maxAge: oneYear}));
 app.settings.nconf = nconf;
 
-port = app.settings.nconf.get('PORT') || 8100;
-app.listen(port, function() {
-  logger.info('now serving on port: ', port);
+portfinder.getPort(function (err, port) {
+  appPort = app.settings.nconf.get('PORT') || 8100;
+
+  app.listen(appPort, function() {
+    logger.info('now serving on port: ', appPort);
+  });
+
+  logger.debug('enabling GZip compression');
+  app.use(compression({ threshold: 512 }));
+
+  logger.debug('setting parse urlencoded request bodies into req.body');
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
+  app.use(expValid());
+
+  // load the express routes
+  require('./routes/appRoutes.js')(app);
+  // require('./routes/pathRoutes.js')(app);
+  require('./routes/authorizationRoutes.js')(app);
+
+  // TODO: determine why requests aren't being logged via Winston
+  logger.debug("starting logger, overriding morgan");
+  app.use(morgan("combined", { "stream": logger.stream }));
+
+  module.exports = app;
 });
-
-logger.debug('enabling GZip compression');
-app.use(compression({ threshold: 512 }));
-
-logger.debug('setting parse urlencoded request bodies into req.body');
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(expValid());
-
-// load the express routes
-require('./routes/appRoutes.js')(app);
-// require('./routes/pathRoutes.js')(app);
-require('./routes/authorizationRoutes.js')(app);
-
-// TODO: determine why requests aren't being logged via Winston
-logger.debug("starting logger, overriding morgan");
-app.use(morgan("combined", { "stream": logger.stream }));
-module.exports = app;

@@ -1,5 +1,4 @@
 ignore
-log/*
 public/
 src/lib/
 src/js/config.js
@@ -9,3 +8,4 @@ bower_components
 .DS_Store
 test-results.xml
 newrelic_agent.log
+log/*.json
