@@ -166,6 +166,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
       step: step
     });
     /* jshint +W030 */
+    Client.emit('step complete', vm.partial);
   }
 
   // user flow controls

@@ -20,27 +20,28 @@ function AppCtrl_($sce, GMAP_CLIENT, MINIFIED, APP_TITLE, Client, $location) {
   vm.appTitle = APP_TITLE;
 
   console.log('****** loading google analytics trackers ******');
-  Client.listen('step', notifyTrackerAboutStep);
+  Client.listen('step complete', notifyTrackerAboutStep);
 
-  function notifyTrackerAboutStep (step) {
+  function notifyTrackerAboutStep (step_url) {
+    var split_url_array = step_url.split('/');
+    var step = split_url_array[split_url_array.length-1].split('.')[0];
     console.log('step is', step);
     if (step === "congrats") {
       ga('send', 'event', 'Congrats', 'Button Clicks', 'Final submit');
     }
-    if (step === "zoom-lock-roof") {
+    if (step === "zoom") {
       ga('send', 'event', step, 'Design Tool', 'Design tool engaged');
     }
-    if (step === "detail-area") {
+    if (step === "detail") {
       ga('send', 'event', step, 'Design Tool', 'Roof alignment determined');
     }
-    if (step === "area-slope") {
+    if (step === "slope") {
       ga('send', 'event', step, 'Design Tool', 'Roof slope determined');
     }
-    if (step === "complete-area") {
+    if (step === "complete") {
       ga('send', 'event', step, 'Design Tool', 'Polygon Completed');
     }
     // ga('send', 'pageview', '/RELATIVE-URL');
     ga('send', 'pageview', $location.path); // relative url
   }
-
 }
