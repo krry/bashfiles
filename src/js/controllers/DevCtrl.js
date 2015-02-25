@@ -20,7 +20,7 @@ function DevCtrl_($scope, Client, Form) {
   }
 
   function subscribeForm (form_obj) {
-    console.log('subscribing to form');
+    // subscribing to form
     vm.prospect = form_obj;
     Form.form_stream()
     .select(function(x) { return x.exportVal(); })
@@ -28,7 +28,7 @@ function DevCtrl_($scope, Client, Form) {
   }
 
   function streamSubscription (form_obj) {
-    console.log('subscription made');
+    // subscription made
     var key, keys, val;
     if (form_obj === null) return; // will be null if no data on firebase
     keys = Object.keys(form_obj);  // HACK: this may fail in different js interpreters... #readabookbrah

@@ -8,4 +8,4 @@ bower_components
 .DS_Store
 test-results.xml
 newrelic_agent.log
-log/*.json
+logs/*.json
