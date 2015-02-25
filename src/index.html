@@ -106,10 +106,6 @@
 
   <!-- SALESFORCE LIVEAGENT -->
   <script src='https://c.la3-c2cs-chi.salesforceliveagent.com/content/g/js/32.0/deployment.js'></script>
-  <!-- <script>
-    liveagent.addCustomDetail("key", "prospect[key]");
-    liveagent.init('https://d.la3-c2cs-chi.salesforceliveagent.com/chat', '57219000000CaSA', '00D19000000Dtc3');
-  </script> -->
 </head>
 
 <!-- TODO: apply ng-cloak only to divs that need it -->
@@ -122,7 +118,6 @@
 
     ga('create', 'UA-4736922-32', 'auto');
     ga('send', 'pageview');
-
   </script>
 
   <div fln-dev-tools ng-class="{shown: panelShown}" class="dev-drawer inverse"></div>
@@ -131,7 +126,6 @@
     <main ui-view name="main" id="main" class="main" ng-class="{ 'scroll-y': stages.proposal }"></main>
   </form>
   <footer ui-view name="footer" id="footer" class="footer row"></footer>
-  <!-- <div fln-chat class="chat" ng-controller="ChatCtrl as chat" ng-show="chat.shown"></div> -->
   <div fln-modal class="modal" ng-show="modal.isOn()" ng-click=""></div>
 
   <!-- TAIL of the BODY -->
