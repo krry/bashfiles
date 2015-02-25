@@ -92,7 +92,6 @@ function GmapFactory_ () {
     // given a location on the map, make and drop a marker there
     function dropPin(location) {
       var marker;
-      console.log("dropping new pin on:", location);
 
       marker = new google.maps.Marker({
         position: location,

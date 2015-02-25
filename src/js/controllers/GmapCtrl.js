@@ -57,15 +57,17 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
 
   function setSpinCount(data) {
     spinnerEventCount += data ? 1 : -1;
-    console.log('&&&&&&&&&&&&&&&&&&& spin event count is', spinnerEventCount);
+    console.log('spin event count is', spinnerEventCount);
   }
 
   function hideSpinner () {
+    console.log('hiding spinner');
     // TODO: ensure that the spinner stays up until the tiles are actually loaded
     // switching from TERRAIN to HYBRID map causes an extra `tilesloaded` event to be emitted, prematurely hiding the spinner for the HYBRID map load
+    Client.emit('spin it', false);
     if (spinnerEventCount < 1) {
-      Client.emit('spin it', false);
       if (spinnerEventCount < 0) spinnerEventCount = 0;
+      console.log('spinner counter', spinnerEventCount);
     }
   }
 
@@ -128,7 +130,6 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
   }
 
   function plotMarkers(data) {
-    console.log("receiving nearme data", data);
     angular.forEach(data, function(point) {
       var location = new google.maps.LatLng(point.la, point.ln),
           production = data.kw;
