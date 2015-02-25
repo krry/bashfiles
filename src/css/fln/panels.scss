@@ -2,15 +2,19 @@
 @import "../imports/typography";
 @import "../imports/fonts";
 
+.greyback {
+  background-color: $grey-lightest;
+}
+
 .proposal {
-  background-color: $beige;
-  color: $tan;
+  background-color: $white;
+  color: $green;
   border-radius: 2px;
   .row:not(:last-child) {
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid $grey-lightest;
   }
   .col:not(.fifth) {
-    border-right: 2px solid white;
+    border-right: 2px solid $grey-lightest;
     // TODO: figure out how to avoid this important shit
     padding: 1em !important;
     // margin: 1em 0;
@@ -23,29 +27,45 @@
   }
   label:first-child {
     @include apercu-light;
-    font-size: 1.125em;
+    font-size: .875em;
     margin: .25em 0 -.25em;
+    color: $grey-dark;
   }
   label:last-child {
     @include apercu-light;
     @include caps;
-    font-size: .625em;
+    font-size: .6em;
     margin: .25em 0;
+    letter-spacing: 0.5px;
+    color: $grey-dark;
   }
   figure {
     margin: 0;
   }
   figure span.cents,
   figure span.dollars {
+    @include apercu-bold;
     font-size: 3em;
-    font-weight: 900;
   }
+
+}
+.proposal-page {
+  strong + p {
+    margin-top: .25em;
+  }
+  strong + dl {
+    margin-top: 0;
+  }
+}
+
+.padded.less {
+  margin-bottom: .75rem;
 }
 
 .aerial {
   background: $black url('../img/aerial.png') no-repeat center center;
   background-size: contain;
-  height: 17.75em;
+  height: 17em;
 }
 
 .block {
@@ -97,7 +117,7 @@
 }
 
 .block .unit {
-  @include apercu-light;
+  @include apercu-bold;
   color: $grey-dark;
   font-size: 1em;
 }

@@ -57,7 +57,7 @@ function flnHelp () {
           setTimeout(function(){
             liveagent.startChatWithWindow("57319000000CaTc", "live_agent_chat");
             chatOpened = true;
-          }, 500)
+          }, 1000)
         }
       });
 

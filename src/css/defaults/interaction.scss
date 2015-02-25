@@ -184,8 +184,17 @@ a.btn {
     }
   }
 
-  &.white.square.small.padded {
-    @include btn($color: $white, $size: .875rem, $corners: .25em, $pad: #{1.5em 3em});
+  &.white.square.tiny.less-padded {
+    @include btn($color: $white, $size: .65rem, $corners: .25em, $pad: #{1em 2em});
+    width: 100%;
+    border-width: 1px;
+    border-color: $grey-mid;
+    border-style: solid;
+    margin-top: 0;
+  }
+  &.wide.wide.wide.wide {
+    padding-left: 5em;
+    padding-right: 5em;
   }
   &.nested {
     position: absolute;
