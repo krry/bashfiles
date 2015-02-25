@@ -35,9 +35,14 @@ main.main {
   padding: 2em;
 }
 
-.overlay.primary {
+.overlay.primary,
+.overlay.only {
   padding: 4em 2em;
   text-align: center;
+}
+
+.overlay.only {
+  background-color: $grey-lightest;
 }
 
 .overlay.secondary {
@@ -74,6 +79,10 @@ main.main {
   .primary.primary {
     width: calc(100% - 20em);
   }
+  .only.only {
+    width: auto;
+    height: 100%;
+  }
   .secondary.secondary {
     width: calc(20em - 1px);
     &.drop-top {
@@ -99,6 +108,9 @@ main.main {
 @media screen and (min-width: $width-min-xlg){
   .primary.primary {
     width: calc(100% - 18em);
+  }
+  .only.only {
+    width: auto;
   }
   .secondary.secondary {
     width: calc(18em - 1px);

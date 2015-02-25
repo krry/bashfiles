@@ -4,7 +4,7 @@
 @import "functions";
 @import "typography";
 
-@mixin btn($color: $color-button-bkgd, $size: 0.83rem, $corners: #{2em/50%}, $pad: #{1.37em 2.6em 1.35em}) {
+@mixin btn($color: $color-button-bkgd, $size: 0.83rem, $corners: #{1.5em/50%}, $pad: #{1em 2.6em 1em}) {
 
   @include apercu-medium;
   @include caps;
@@ -27,7 +27,7 @@
   }
 
   @if trim-unit($size) < 1 {
-    letter-spacing: 3px;
+    letter-spacing: 2px;
   }
 
   padding: $pad;
@@ -52,7 +52,7 @@
 
   @if $color == $white {
     // @include apercu-light;
-    color: $grey-dark;
+    color: $grey-mid;
     background-color: $color;
   }
 
@@ -64,7 +64,7 @@
   }
 
   @if trim-unit($size) < 1 {
-    letter-spacing: 2px;
+    letter-spacing: 1px;
   }
 
   &:hover {
