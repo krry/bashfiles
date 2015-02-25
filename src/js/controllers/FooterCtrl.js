@@ -1,6 +1,7 @@
 controllers.controller("FooterCtrl", FooterCtrl_);
 
-function FooterCtrl_($scope, StageService) {
+function FooterCtrl_() {
   var vm = this;
 
+  // add controls for terms dialog
 }

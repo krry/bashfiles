@@ -41,14 +41,17 @@ app.use(express.static(app.publicRoot, {maxAge: oneYear}));
 app.settings.nconf = nconf;
 
 portfinder.getPort(function (err, port) {
+  if (env === "development") {
+    // TODO: determine why requests aren't being logged via Winston
+    app.use(morgan("combined", { "stream": logger.stream }));
+    logger.debug("overriding morgan with logger");
+    logger.debug('enabling GZip compression');
+    logger.debug('setting parse urlencoded request bodies into req.body');
+  }
+
   appPort = app.settings.nconf.get('PORT') || 8100;
-
   app.listen(appPort, listening);
-
-  logger.debug('enabling GZip compression');
   app.use(compression({ threshold: 512 }));
-
-  logger.debug('setting parse urlencoded request bodies into req.body');
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
   app.use(expValid());
@@ -57,10 +60,6 @@ portfinder.getPort(function (err, port) {
   require('./routes/appRoutes.js')(app);
   // require('./routes/pathRoutes.js')(app);
   require('./routes/authorizationRoutes.js')(app);
-
-  // TODO: determine why requests aren't being logged via Winston
-  logger.debug("overriding morgan with logger");
-  app.use(morgan("combined", { "stream": logger.stream }));
 
   module.exports = app;
 });
@@ -80,6 +79,6 @@ function listening () {
       port: appPort,
       injectChanges: true
     });
+    logger.info('now serving on port: ', appPort);
   }
-  logger.info('now serving on port: ', appPort);
 }
