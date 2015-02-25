@@ -37,7 +37,7 @@ fln-help {
     background-color: $blue-smoke;
     border: 0;
     border-radius: 4px 4px 0 0;
-    display: block;
+    display: block !important;
     width: 100%;
     padding: .25em 1.5em;
     text-align: left;
