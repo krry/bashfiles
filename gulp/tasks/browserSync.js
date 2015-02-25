@@ -16,16 +16,14 @@ var fs          = require('fs');
 var gulp        = require('gulp');
 var browserSync = require('browser-sync');
 
-var port = process.env.PORT || '8100';
+var port = '8100';
+var INITIAL_SERVER_BOOT_DELAY = 1000;
 
 browserSync.use({
-  plugin: function(){},
   hooks: {
     'client:js': fs.readFileSync('./gulp/util/browserSyncReloader.js', 'utf-8')
   }
-})
-
-var INITIAL_SERVER_BOOT_DELAY = 1000;
+});
 
 gulp.task('browserSync', ['demon'], function() {
   setTimeout(function(){
@@ -37,5 +35,5 @@ gulp.task('browserSync', ['demon'], function() {
       injectChanges: true,
       reloadDelay: 2000,
     });
-  }, INITIAL_SERVER_BOOT_DELAY)
+  }, INITIAL_SERVER_BOOT_DELAY);
 });

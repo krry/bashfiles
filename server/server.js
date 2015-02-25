@@ -13,6 +13,7 @@ var newrelic     = require('newrelic'),
     nconf        = require('nconf'), // https://github.com/flatiron/nconf
     express      = require('express'),
     compression  = require('compression'),
+    browserSync  = require('browser-sync'),
     expValid     = require('express-validator'),
     bodyParser   = require('body-parser'),
     cookieParser = require('cookie-parser'),
@@ -41,9 +42,7 @@ app.settings.nconf = nconf;
 portfinder.getPort(function (err, port) {
   appPort = app.settings.nconf.get('PORT') || 8100;
 
-  app.listen(appPort, function() {
-    logger.info('now serving on port: ', appPort);
-  });
+  app.listen(appPort, listening);
 
   logger.debug('enabling GZip compression');
   app.use(compression({ threshold: 512 }));
@@ -64,3 +63,17 @@ portfinder.getPort(function (err, port) {
 
   module.exports = app;
 });
+
+function listening () {
+  if (env === "development") {
+    browserSync({
+      proxy: 'localhost:' + appPort,
+      files: ['./public/**/*.*'],
+      open: false,
+      port: port,
+      injectChanges: true,
+      reloadDelay: 2000
+    });
+  }
+  logger.info('now serving on port: ', appPort);
+}
