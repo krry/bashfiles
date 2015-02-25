@@ -38,7 +38,9 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
         val = form_obj[key];
         vm.prospect[key] = val;
       }
-      $scope.$apply(); // update the views
+      setTimeout(function() {
+        $scope.$apply(); // update the views
+      }, 0);
     }
     /* jshint -W030 */
     // HACK: hardcode bill should be angular.constant
@@ -130,6 +132,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
       AddressId: vm.prospect.AddressId,
       BirthDate: moment(vm.prospect.dob).format('MM/DD/YYYY')
     }).then(function(data) {
+      console.log(data);
       Client.emit('Form: valid data', { qualified: data.qualified });
       Client.emit('stage', 'next');
     });

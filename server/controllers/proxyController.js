@@ -66,8 +66,6 @@ module.exports = function(app) {
       conf.CONTACT_API
     ].join('');
 
-    console.log(url);
-
     proxyPOST(url, req.body, res);
   }
 
