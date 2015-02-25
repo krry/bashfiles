@@ -50,6 +50,7 @@
 .noUi-base {
   padding: 1em 0;
   margin-top: -1em;
+  position: relative;
 }
 
 .noUi-origin,
@@ -129,7 +130,7 @@
     height: 64px;
   }
   .noUi-handle:after {
-    font-size: 3em;
+    font-size: 2.5em;
   }
 }
 
