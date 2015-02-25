@@ -69,8 +69,8 @@ function listening () {
     browserSync({
       proxy: 'localhost:' + appPort,
       files: ['./public/**/*.*'],
-      open: false,
-      port: port,
+      open: true,
+      port: appPort,
       injectChanges: true,
       reloadDelay: 2000
     });
