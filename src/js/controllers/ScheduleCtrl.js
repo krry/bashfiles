@@ -1,15 +1,16 @@
-controllers.controller('ScheduleCtrl', ['Form', 'Clientstream', '$q', ScheduleCtrl_]);
+controllers.controller('ScheduleCtrl', ['Form', 'Clientstream', '$q', 'SiteSurvey', ScheduleCtrl_]);
 
-function ScheduleCtrl_ (Form, Client, $q) {
+function ScheduleCtrl_ (Form, Client, $q, SiteSurvey) {
   var vm = this;
   vm.prospect = Form.prospect;
   vm.eventDetails = eventDetails;
   vm.selectDate = selectDate;
   vm.selectTime = selectTime;
   vm.selectedDate = null;
+  vm.availableTimes = [];
   vm.init = init;
+  vm.check = check;
   vm.save = save;
-  vm.init();
 
   vm.config = {
     startDate: moment().format('MM/D/YYYY'),
@@ -49,6 +50,10 @@ function ScheduleCtrl_ (Form, Client, $q) {
 
     vm.selectedDate = date;
     vm.prospect.scheduledTime = null;
+
+    if (date.availableTimes.length === 1) {
+      selectTime(date.availableTimes[0]);
+    }
   }
 
   function selectTime(time) {
@@ -60,41 +65,18 @@ function ScheduleCtrl_ (Form, Client, $q) {
     vm.prospect.scheduledTime = time;
   }
 
-  // TODO: replace mocked response with call to GSA api provider
-  function getTimes() {
-    var dfd = $q.defer();
-    dfd.resolve([
-      moment().add(1, 'day').format('M/DD/YYYY h:mm:ssA'),
-      moment().add(2, 'day').format('M/DD/YYYY h:mm:ssA'),
-      '2/18/2015 11:00:00AM',
-      '2/19/2015 11:00:00AM',
-      '2/20/2015 9:00:00AM',
-      '2/20/2015 11:00:00AM',
-      '2/23/2015 9:00:00AM',
-      '2/23/2015 11:00:00AM',
-      '2/27/2015 7:00:00AM',
-      '2/27/2015 11:00:00AM',
-      '3/2/2015 9:00:00AM'
-    ]);
-
-    return dfd.promise;
-  }
-
-  // TODO: replace mocked response with call to GSA api provider
-  function scheduleTime() {
-    var dfd = $q.defer();
-    dfd.resolve('success');
-    return dfd.promise;
-  }
-
   function save() {
-    scheduleTime().then(function() {
-      Client.emit('stage', "next");
+    return SiteSurvey.scheduleTime().then(function() {
+      Client.emit('stage', 'next');
     });
   }
 
   function init() {
-    return getTimes().then(parseTimes);
+    return SiteSurvey.getTimes().then(parseTimes);
+  }
+
+  function check() {
+    return SiteSurvey.getTimes().then(checkTimes);
   }
 
   function parseTimes(data) {
@@ -106,5 +88,14 @@ function ScheduleCtrl_ (Form, Client, $q) {
     });
 
     vm.config.startDate = vm.availableTimes[0].format('MM/D/YYYY');
+  }
+
+  function checkTimes(data) {
+    // Immediately redirect to congrats page if no times available
+    if (!data.length) {
+      Client.emit('jump to step', 'congrats'); 
+    } else {
+      Client.emit('stage', 'next');
+    }
   }
 }
