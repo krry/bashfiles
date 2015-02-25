@@ -75,8 +75,8 @@
     },
   "scripts": {
     "start": "node server/server.js",
-    "dev": "npm install && gulp dev",
-    "pc": "npm install && gulp clean && gulp config && gulp default",
+    "dev": "npm install && gulp dev && nodemon server/server.js",
+    "pc": "npm install && gulp clean && gulp config && gulp default && nodemon server/server.js",
     "staging": "npm install && bower install -F && gulp staging",
     "prod": "npm install && bower install -F && gulp prod",
     "test": "npm install && bower install && karma start karma.conf.js"
