@@ -11,6 +11,7 @@
 // external modules
 var newrelic     = require('newrelic'),
     nconf        = require('nconf'), // https://github.com/flatiron/nconf
+    fs           = require('fs'),
     express      = require('express'),
     compression  = require('compression'),
     browserSync  = require('browser-sync'),
@@ -58,21 +59,26 @@ portfinder.getPort(function (err, port) {
   require('./routes/authorizationRoutes.js')(app);
 
   // TODO: determine why requests aren't being logged via Winston
-  logger.debug("starting logger, overriding morgan");
+  logger.debug("overriding morgan with logger");
   app.use(morgan("combined", { "stream": logger.stream }));
 
   module.exports = app;
 });
 
 function listening () {
+  browserSync.use({
+    hooks: {
+      'client:js': fs.readFileSync('./gulp/util/browserSyncReloader.js', 'utf-8')
+    }
+  });
+
   if (env === "development") {
     browserSync({
       proxy: 'localhost:' + appPort,
       files: ['./public/**/*.*'],
-      open: true,
+      open: false,
       port: appPort,
-      injectChanges: true,
-      reloadDelay: 2000
+      injectChanges: true
     });
   }
   logger.info('now serving on port: ', appPort);
