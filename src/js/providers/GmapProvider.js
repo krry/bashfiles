@@ -48,6 +48,7 @@ function GmapFactory_ () {
     function zoomToHood (zip) {
       console.log('zooming into neighborhood in zipcode', zip);
       Client.emit('max zoom found', 16);
+      Client.emit('get nearme data', true);
     }
 
     function checkMaxZoom(addy) {

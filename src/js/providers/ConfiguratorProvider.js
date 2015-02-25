@@ -155,7 +155,7 @@ function ConfiguratorFactory_() {
       // let the app know that we got static tiles back
       // Client.emit('static tiles loaded', true);
 
-      map = new ol.Map(configurator_options)
+      map = new ol.Map(configurator_options);
       Client.emit('spin it', false);
       Client.emit('Configurator: Map ready', map);
     }
