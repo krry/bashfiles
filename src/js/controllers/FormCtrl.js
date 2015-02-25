@@ -75,6 +75,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
   Client.listen('birthdate saved', acceptSavedBirthdate);
   Client.listen('phone saved', acceptSavedPhone);
   Client.listen('fullname saved', acceptSavedFullname);
+  Client.listen('neighbor_count saved', acceptNeighborCount);
 
   function checkZip (zip) {
     console.log('************ checkin dat zip', zip, 'boss *********')
@@ -224,6 +225,10 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
       Client.emit('Form: valid house', data);
       Client.emit('jump to step', 'monthly-bill');
     }
+  }
+
+  function acceptNeighborCount(data) {
+    vm.prospect.neighbor_count = data ? data : "";
   }
 
   function acceptSavedEmail (data) {
