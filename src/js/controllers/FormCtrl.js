@@ -151,6 +151,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
         Longitude: vm.prospect.lng
       }
     }).then(function(data) {
+      console.log(data);
       vm.prospect.ContactId = data.ContactId;
       vm.prospect.AddressId = data.AddressId;
       Client.emit('Form: valid data', data);
