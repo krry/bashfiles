@@ -58,7 +58,7 @@ function flnHelp () {
           // manually add a few more required fields
           liveagent.addCustomDetail("Status", "Open");
           liveagent.addCustomDetail("Company", "a");
-          liveagent.addcustomdetail("LastName","a");
+          liveagent.addCustomDetail("LastName","a");
 
           // if a Lead exists with the same Form details, find it
           // if no similar Lead exists, create a new one
