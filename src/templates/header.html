@@ -6,7 +6,9 @@
     </li>
     <li class="chevron right caps col" ng-class="{ active: nav.onActiveStage('home') }">
       <span>Your Home</span>
-      <span class="header-address" ng-controller="FormCtrl as form" ng-show="form.prospect.zip && nav.onActiveStage('flannel.home')">
+      <!-- TODO: decide whether to continue showing address throughout the later stages -->
+      <!-- <span class="header-address" ng-controller="FormCtrl as form" ng-show="form.prospect.zip && nav.onActiveStage('flannel.home')"> -->
+      <span class="header-address" ng-controller="FormCtrl as form" ng-show="form.prospect.zip">
         <span>&bull;</span>
         <span ng-bind="form.prospect.street" class="header-street"></span>
         <span ng-bind="form.prospect.zip" class="header-zip"></span>
