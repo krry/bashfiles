@@ -19,7 +19,9 @@ function flnHelp () {
 
       scope.toggleShown = toggleShown;
 
+      // find the liveagent buttons in the window, wire the agent status logic to them
       if (!window._laq) { window._laq = []; }
+
       window._laq.push(
         function(){
           liveagent.showWhenOnline(
@@ -35,11 +37,14 @@ function flnHelp () {
       );
 
       $(element).find('.liveagent-online').on('click', function(){
-        if (!chatOpened) {
-          // $('#liveAgentChat').attr('src','https://d.la3-c2cs-chi.salesforceliveagent.com/content/s/chat?language=en#deployment_id=57219000000CaSA&org_id=00D19000000Dtc3&button_id=57319000000CaTc&session_id=9dc885db-a138-4214-a731-f02d83aa9a12');
 
+        if (!chatOpened) {
+
+          // retrieve prospect object from Form in Firebase
           prospect = scope.prospect();
-          console.log("retrieving prospect from Form in Firebase", prospect);
+
+          // parse the prospect object into addCustomDetail calls that build the Lead object in Salesforce
+          // custom details must be added before init of liveagent
           for (var key in prospect) {
             if ( prospect.hasOwnProperty(key)) {
               if (key !== "location") {
@@ -50,11 +55,29 @@ function flnHelp () {
             }
           }
 
+          // manually add a few more required fields
+          liveagent.addCustomDetail("Status", "Open");
+          liveagent.addCustomDetail("Company", "a");
+          liveagent.addcustomdetail("LastName","a");
+
+          // if a Lead exists with the same Form details, find it
+          // if no similar Lead exists, create a new one
+          liveagent.findOrCreate("Lead")
+                   .map("Street", "home", true, true, true)
+                   .map("City","city", true, true, true)
+                   .map("State", "state", true, true, true)
+                   .map("PostalCode", "zip", true, true, true)
+                   .map("Country","country", true, true, true)
+                   .map("Monthly_Electric_Bill__c", "bill", true, true, true)
+                   .map("Status", "Status", true, true, true)
+                   .map("LastName", "LastName", true,true,true)
+                   .showOnCreate().saveToTranscript("Lead");
+
+          // initialize the liveagent session with a deployment id, and configuration id
           liveagent.init('https://d.la3-c2cs-chi.salesforceliveagent.com/chat', '57219000000CaSA', '00D19000000Dtc3');
 
-          // might have to auth with Salesforce to get past the login gate which seems to have X-Frame-Options: DENY
-          // might have to
           setTimeout(function(){
+            // start a chat with button id [1st parameter] within an iframe [2nd parameter]
             liveagent.startChatWithWindow("57319000000CaTc", "live_agent_chat");
             chatOpened = true;
           }, 1000)
