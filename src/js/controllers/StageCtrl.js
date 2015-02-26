@@ -60,7 +60,8 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
   function stageLayout (target_state) {
     if (typeof target_state === "string" ) return;
     var stage = target_state.stage;
-    if (Templates.config[stage].steps[0].step === "review-proposal") {
+    console.log("Templates.config[stage].name", Templates.config[stage].name);
+    if (Templates.config[stage].name === "flannel.proposal") {
       vm.proposal = true;
     }
   }
