@@ -25,7 +25,7 @@
     </div>
     <div class="row center">
       <div class="col half padded center">
-        <button class="ib gold" ng-click="form.createContact()" ng-disabled="prospectForm.$invalid">Submit</button>
+        <button class="ib gold" ng-click="form.createContact()" ng-disabled="prospectForm.$invalid || form.isSubmitting">Submit</button>
       </div>
     </div>
   </form>

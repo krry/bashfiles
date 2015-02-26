@@ -54,6 +54,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
   vm.invalidZip = true;
   vm.invalidTerritory = true;
   vm.validAddress = false;
+  vm.isSubmitting = false;
 
   vm.prevStep = prev;
   vm.nextStep = next;
@@ -128,12 +129,15 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
   }
 
   function checkCredit() {
+    vm.isSubmitting = true;
+
     Credit.check({
       ContactId: vm.prospect.ContactId,
       AddressId: vm.prospect.AddressId,
       BirthDate: moment(vm.prospect.dob).format('MM/DD/YYYY')
     }).then(function(data) {
       var stage = data.CreditResultFound ? 'next' : 'back';
+      vm.isSubmitting = false;
       Client.emit('Form: valid data', { qualified: data.qualified });
 
       if (vm.prospect.skipped && data.qualified) {
@@ -145,6 +149,8 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
   }
 
   function createContact() {
+    vm.isSubmitting = true;
+
     Contact.create({
       Email: vm.prospect.email,
       FirstName: vm.prospect.firstName,
@@ -162,6 +168,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
     }).then(function(data) {
       vm.prospect.ContactId = data.ContactId;
       vm.prospect.AddressId = data.AddressId;
+      vm.isSubmitting = false;
       Client.emit('Form: valid data', {
         ContactId: data.ContactId,
         AddressId: data.AddressId,
