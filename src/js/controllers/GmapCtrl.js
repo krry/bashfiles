@@ -113,12 +113,13 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
 
   function getNearMeData() {
     console.log("getting nearme data");
-
     var bounds = map.getBounds(),
         ne = bounds.getNorthEast(),
         sw = bounds.getSouthWest(),
         coords;
 
+    console.log('map bounds:', ne);
+    console.log('map bounds:', sw);
     coords = {
       top: ne.lat(),
       right: ne.lng(),
