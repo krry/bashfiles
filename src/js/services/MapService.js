@@ -144,7 +144,7 @@ function MapService_ ($q, LayerService) {
           outcome = false;
       } else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
           console.error("over query limit, retrying...");
-          setTimeout(function(){ geocodeAddress(obj, cb)}, 200);
+          setTimeout(function(){ geocodeAddress(obj, cb); }, 200);
       } else if (status === google.maps.GeocoderStatus.REQUEST_DENIED) {
           console.error("The geocoder needs an additional parameter.");
           outcome = false;
