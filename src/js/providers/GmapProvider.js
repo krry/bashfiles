@@ -31,7 +31,7 @@ function GmapFactory_ () {
       mapTypeId: google.maps.MapTypeId.TERRAIN,
       disableDefaultUI: true,
       backgroundColor: "transparent",
-      // draggable: false,
+      draggable: true,
       // zoomable: false,
       // scrollwheel: false,
     }
