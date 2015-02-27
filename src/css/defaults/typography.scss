@@ -44,7 +44,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 1.9em;
+  font-size: 1.75em;
   line-height: 1.2em;
 }
 
@@ -60,9 +60,9 @@ p.tiny {
 h1 small,
 h2 small {
   @include apercu-light;
-  font-size: 71%;
+  font-size: 65%;
   display: block;
-  margin-top: .5em;
+  margin-top: .7em;
   line-height: 1.2;
 }
 
