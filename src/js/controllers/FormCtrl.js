@@ -6,9 +6,9 @@
 
 ================================================== */
 
-controllers.controller("FormCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Form", "Credit", "Contact", FormCtrl_]);
+controllers.controller("FormCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Form", "Credit", "Contact", "Utility", FormCtrl_]);
 
-function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
+function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Utility) {
   var vm = this;
   var form_stream;
 
@@ -157,9 +157,10 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
       LastName: vm.prospect.lastName,
       PhoneNumber: vm.prospect.phone,
       Address: {
-        AddressLine1: vm.prospect.street,
+        AddressLine1: vm.prospect.home,
         AddressLine2: '',
         City: vm.prospect.city,
+        State: vm.prospect.state,
         Zip: vm.prospect.zip,
         Country: 'US',
         Latitude: vm.prospect.lat,
@@ -252,9 +253,30 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
     if (data) {
       vm.invalid = false;
       vm.prospect.street = data.home;
+
       Client.emit('Form: valid house', data);
       Client.emit('jump to step', 'monthly-bill');
+
+      saveUtility();
     }
+  }
+
+  function saveUtility() {
+    if (Utility.isSubmitting) {
+      return; 
+    }
+
+    Utility.isSubmitting = true;
+    Utility.search({
+      city: vm.prospect.city,
+      zip: vm.prospect.zip
+    }).then(function(data) {
+      return Utility.get({ utilityid: data[0].UtilityId });
+    }).then(function(data) {
+      vm.prospect.utilityId = data.UtilityId;
+      Client.emit('Form: valid data', { utilityId: vm.prospect.utilityId });
+      Utility.isSubmitting = false;
+    });
   }
 
   function acceptNeighborCount(data) {
