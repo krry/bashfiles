@@ -184,6 +184,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
 
   function skipConfigurator() {
     vm.prospect.skipped = true;
+    // TODO: store this under the Session object in Firebase
     Client.emit('Form: valid data', { skipped: true });
     Client.emit('jump to stage', 'flannel.signup');
   }
