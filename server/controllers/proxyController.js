@@ -53,7 +53,7 @@ module.exports = function(app) {
 
   function creditCheck(req, res) {
     var url = [
-      conf.SOLAR_WORKS_ROOT,
+      conf.SOLAR_WORKS_API_ROOT,
       conf.CREDIT_CHECK_API
     ].join('');
 
@@ -62,7 +62,7 @@ module.exports = function(app) {
 
   function contact(req, res) {
     var url = [
-      conf.SOLAR_WORKS_ROOT,
+      conf.SOLAR_WORKS_API_ROOT,
       conf.CONTACT_API
     ].join('');
 
