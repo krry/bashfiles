@@ -1,6 +1,6 @@
-controllers.controller('ScheduleCtrl', ['Form', 'Clientstream', '$q', 'SiteSurvey', ScheduleCtrl_]);
+controllers.controller('ScheduleCtrl', ['Form', 'Clientstream', 'SiteSurvey', 'Installation', ScheduleCtrl_]);
 
-function ScheduleCtrl_ (Form, Client, $q, SiteSurvey) {
+function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation) {
   var vm = this;
   vm.prospect = Form.prospect;
   vm.eventDetails = eventDetails;
@@ -11,6 +11,7 @@ function ScheduleCtrl_ (Form, Client, $q, SiteSurvey) {
   vm.init = init;
   vm.check = check;
   vm.save = save;
+  vm.createInstallation = createInstallation;
 
   vm.config = {
     startDate: moment().format('MM/D/YYYY'),
@@ -76,6 +77,8 @@ function ScheduleCtrl_ (Form, Client, $q, SiteSurvey) {
   }
 
   function check() {
+    // TODO: waiting for installation POST error to clear up
+    // createInstallation();
     return SiteSurvey.getTimes().then(checkTimes);
   }
 
@@ -97,5 +100,19 @@ function ScheduleCtrl_ (Form, Client, $q, SiteSurvey) {
     } else {
       Client.emit('stage', 'next');
     }
+  }
+
+  function createInstallation() {
+    vm.isSubmitting = true;
+
+    // TODO: remove this hardcode once we can get any address id to create an installation
+    Installation.create({
+      OfficeId: vm.prospect.warehouseId,
+      ContactId: vm.prospect.contactId,
+      AddressId: 2 || vm.prospect.addressId,
+      UtilityId: vm.prospect.utilityId
+    }).then(function(data) {
+      console.log(data);
+    });
   }
 }

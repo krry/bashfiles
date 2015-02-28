@@ -91,6 +91,15 @@ module.exports = function(app) {
     proxyGET(url, res);
   }
 
+  function installation(req, res) {
+    var url = [
+      conf.SOLAR_WORKS_API_ROOT,
+      conf.INSTALLATION_API
+    ].join('');
+
+    proxyPOST(url, req.body, res);
+  }
+
   return {
     utilities: utilities,
     warehouses: warehouses,
@@ -98,6 +107,7 @@ module.exports = function(app) {
     creditCheck: creditCheck,
     contact: contact,
     nearMe: nearMe,
-    gsa: gsa
+    gsa: gsa,
+    installation: installation
   };
 };

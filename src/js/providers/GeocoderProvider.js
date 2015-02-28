@@ -233,7 +233,7 @@ function GeocoderProvider_ () {
         if (data.IsInTerritory) {
           addy.zoom = 15;
           Client.emit('valid territory', zip);
-          Client.emit('Form: valid data', { WarehouseId: data.WarehouseId });
+          Client.emit('valid warehouse', data.WarehouseId);
           Client.emit('jump to stage', 'address-roof');
         } else {
           Client.emit('stage', 'next');

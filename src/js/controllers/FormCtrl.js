@@ -75,6 +75,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
   Client.listen('valid house', acceptValidHouse);
   Client.listen('valid state', acceptValidState);
   Client.listen('valid city', acceptValidCity);
+  Client.listen('valid warehouse', acceptValidWarehouse);
   Client.listen('email saved', acceptSavedEmail);
   Client.listen('birthdate saved', acceptSavedBirthdate);
   Client.listen('phone saved', acceptSavedPhone);
@@ -132,8 +133,8 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
     vm.isSubmitting = true;
 
     Credit.check({
-      ContactId: vm.prospect.ContactId,
-      AddressId: vm.prospect.AddressId,
+      ContactId: vm.prospect.contactId,
+      AddressId: vm.prospect.addressId,
       BirthDate: moment(vm.prospect.dob).format('MM/DD/YYYY')
     }).then(function(data) {
       var stage = data.CreditResultFound ? 'next' : 'back';
@@ -145,6 +146,8 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
       } else {
         Client.emit('stage', stage);
       }
+    }, function() {
+      vm.isSubmitting = false;
     });
   }
 
@@ -167,12 +170,12 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
         Longitude: vm.prospect.lng
       }
     }).then(function(data) {
-      vm.prospect.ContactId = data.ContactId;
-      vm.prospect.AddressId = data.AddressId;
+      vm.prospect.contactId = data.ContactId;
+      vm.prospect.addressId = data.AddressId;
       vm.isSubmitting = false;
       Client.emit('Form: valid data', {
-        ContactId: data.ContactId,
-        AddressId: data.AddressId,
+        contactId: vm.prospect.contactId,
+        addressId: vm.prospect.addressId,
         firstName: vm.prospect.firstName,
         lastName: vm.prospect.lastName,
         phone: vm.prospect.phone,
@@ -180,6 +183,8 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
       });
 
       Client.emit('stage', 'next');
+    }, function() {
+      vm.isSubmitting = false;
     })
   }
 
@@ -238,6 +243,13 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
     return vm.validCity;
   }
 
+  function acceptValidWarehouse(data) {
+    if (data) {
+      vm.prospect.warehouseId = data;
+      Client.emit('Form: valid data', { warehouseId: data });
+    }
+  }
+
   function acceptValidAddress(data) {
     // accepting valid address
     if (data) {
@@ -273,7 +285,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
     }).then(function(data) {
       return Utility.get({ utilityid: data[0].UtilityId });
     }).then(function(data) {
-      vm.prospect.utilityId = data.UtilityId;
+      vm.prospect.utilityId = data.UtilityID;
       Client.emit('Form: valid data', { utilityId: vm.prospect.utilityId });
       Utility.isSubmitting = false;
     });
