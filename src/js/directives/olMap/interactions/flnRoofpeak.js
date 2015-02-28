@@ -44,16 +44,30 @@ function flnRoofpeak_ (MapFactory, Configurator, Client) {
           mouseover(pixel);
         });
 
+        $(roof_peak_map.getViewport()).on('click', function(evt) {
+          var pixel = roof_peak_map.getEventPixel(evt.originalEvent);
+          var clicked_shape = roof_peak_map.forEachFeatureAtPixel(pixel, function(f, layer) {
+            return f;
+          });
+          // TODO: do something with clicked shape.
+          if (clicked_shape) {
+            Client.emit('stage', 'next');
+          } else {
+            console.log('can\'t proceed if you don\'t click a roofpeak, brah');
+          }
+        });
+
         feature_overlay = roof_peak_map.getOverlays().getArray()[0];
 
         function mouseover (pixel) {
-          var f = roof_peak_map.forEachFeatureAtPixel(pixel, function(feature, layer) {
+          feature = roof_peak_map.forEachFeatureAtPixel(pixel, function(f, layer) {
             return f;
           });
 
           if (feature !== highlight) {
             if (highlight) {
               feature_overlay.removeFeature(highlight);
+              delete highlight
             }
             if (feature) {
               feature_overlay.addFeature(feature);
