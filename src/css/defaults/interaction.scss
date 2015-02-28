@@ -208,6 +208,7 @@ a.btn {
     width: 2.5rem;
     min-width: 0;
     height: 2.5rem;
+    background-color: pink;
   }
   &:disabled {
     cursor: not-allowed;
@@ -215,13 +216,16 @@ a.btn {
   }
   &.close.close {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 10px;
+    right: 10px;
     min-width: 0;
-    padding-left: 1.6em;
-    padding-right: 1.6em;
+    // padding-left: 1.6em;
+    // padding-right: 1.6em;
     margin: 0;
-    border-radius: 0 0 0 4px;
+    border-radius: 0;
+    background: url('../img/close_x.svg') no-repeat 100% center center;
+    width: 80px;
+    height: 80px;
   }
   &.text {
     background: none;
@@ -280,6 +284,7 @@ label {
   font-weight: 600;
   margin-top: 1em;
   margin-bottom: 0.625em;
+  border: 1px solid red;
 }
 
 label abbr {
