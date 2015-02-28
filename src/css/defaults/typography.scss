@@ -48,8 +48,13 @@ h1 {
   line-height: 1.2em;
 }
 
-.step-zip h1 {
-  margin-bottom: .75em;
+.step-zip h1, .step-fork h1 {
+  margin-bottom: 1em;
+}
+.step-address h1 {
+  font-size: 1.2em;
+  line-height: 1.2em;
+  margin-bottom: 1em;
 }
 
 p.tiny {
