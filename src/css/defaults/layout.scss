@@ -32,7 +32,7 @@ main.main {
 }
 
 .overlay.short {
-  padding: 2em;
+  padding: 1.8em 2em 0.3em 2em;
 }
 
 .overlay.primary {
@@ -104,7 +104,7 @@ main.main {
     width: calc(18em - 1px);
   }
   .overlay.short {
-    padding: 2em;
+    padding: 1.8em 2em 0.3em 2em;
     height: auto;
     box-shadow: 0 0 8px 0 $shade-40;
     &.step-bill {
