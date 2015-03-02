@@ -101,7 +101,6 @@
   }
 
   a.questions {
-    // @include caps;
     font-size: .85rem;
     padding: 0 1.5em;
     &:hover {
@@ -119,8 +118,9 @@
     height: 1.65em;
   }
 
-  .header-address {
+  .header-detail {
     @include apercu-light;
+    display: none;
   }
 }
 
@@ -128,6 +128,15 @@
   .header {
     .chevron.right {
       display: inline-block;
+    }
+  }
+}
+
+@media screen and (min-width: $width-min-xlg) {
+  .header {
+    .header-detail {
+      @include apercu-light;
+      display: inline;
     }
   }
 }

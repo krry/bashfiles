@@ -18,10 +18,15 @@
 
 .modal .dialog {
   background: $white;
-  padding: 8em 4em;
+  padding: 4em;
   overflow: scroll;
   width: 100%;
   height: 100%;
+
+  h1 {
+    font-size: 2.25em;
+    margin-bottom: 1em;
+  }
 }
 
 .modal .dialog.small {
