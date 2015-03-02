@@ -17,23 +17,14 @@ function CreditProvider_ () {
       Loan: 'Loan'
     };
 
-    // TODO: hit the acutal API endpoint once job creation is in test
     function check(data) {
-      // return $http.post(CREDIT_CHECK_API, data);
+      var dfd = $q.defer();
 
-      var dfd = $q.defer(),
-          eligibleProducts = [products.Cash, products.Loan];
-
-      // Arbitrary logic to test when user is non-qualified (dob == 199x)
-      if (data.BirthDate.indexOf('/199') < 0) {
-        eligibleProducts.push(products.Lease, products.PPA);
-      }
-
-      dfd.resolve(parse({
-        EligibleProducts: eligibleProducts,
-        CreditResultFound: true,
-        ResponseMessage: 'Success' 
-      }));
+      $http.post(CREDIT_CHECK_API, data).then(function(resp) {
+        dfd.resolve(parse(resp.data));
+      }, function(resp) {
+        dfd.reject(resp);
+      });
 
       return dfd.promise;
     }

@@ -38,7 +38,9 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
         val = form_obj[key];
         vm.prospect[key] = val;
       }
-      $scope.$apply(); // update the views
+      setTimeout(function() {
+        $scope.$apply(); // update the views
+      }, 0);
     }
     /* jshint -W030 */
     // HACK: hardcode bill should be angular.constant
@@ -52,6 +54,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
   vm.invalidZip = true;
   vm.invalidTerritory = true;
   vm.validAddress = false;
+  vm.isSubmitting = false;
 
   vm.prevStep = prev;
   vm.nextStep = next;
@@ -59,6 +62,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
   vm.checkAddress = checkAddress;
   vm.checkCredit = checkCredit;
   vm.createContact = createContact;
+  vm.skipConfigurator = skipConfigurator;
 
   // TODO: on change of the user model due to user changing the input values and angular syncing that with the data model, run it through validators, and then save it to firebase
   // vm.$watch('user', function(){})
@@ -125,17 +129,28 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
   }
 
   function checkCredit() {
+    vm.isSubmitting = true;
+
     Credit.check({
       ContactId: vm.prospect.ContactId,
       AddressId: vm.prospect.AddressId,
       BirthDate: moment(vm.prospect.dob).format('MM/DD/YYYY')
     }).then(function(data) {
+      var stage = data.CreditResultFound ? 'next' : 'back';
+      vm.isSubmitting = false;
       Client.emit('Form: valid data', { qualified: data.qualified });
-      Client.emit('stage', 'next');
+
+      if (vm.prospect.skipped && data.qualified) {
+        Client.emit('jump to step', 'congrats');
+      } else {
+        Client.emit('stage', stage);
+      }
     });
   }
 
   function createContact() {
+    vm.isSubmitting = true;
+
     Contact.create({
       Email: vm.prospect.email,
       FirstName: vm.prospect.firstName,
@@ -153,10 +168,25 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
     }).then(function(data) {
       vm.prospect.ContactId = data.ContactId;
       vm.prospect.AddressId = data.AddressId;
-      Client.emit('Form: valid data', data);
+      vm.isSubmitting = false;
+      Client.emit('Form: valid data', {
+        ContactId: data.ContactId,
+        AddressId: data.AddressId,
+        firstName: vm.prospect.firstName,
+        lastName: vm.prospect.lastName,
+        phone: vm.prospect.phone,
+        email: vm.prospect.email
+      });
 
       Client.emit('stage', 'next');
     })
+  }
+
+  function skipConfigurator() {
+    vm.prospect.skipped = true;
+    // TODO: store this under the Session object in Firebase
+    Client.emit('Form: valid data', { skipped: true });
+    Client.emit('jump to stage', 'flannel.signup');
   }
 
   // TODO: figure out if the valid territory / valid zip dependency is appropriate for the prescribed UX
