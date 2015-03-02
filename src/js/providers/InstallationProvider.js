@@ -13,7 +13,9 @@ function InstallationProvider_ () {
     function create(data) {
       var dfd = $q.defer();
       
-      $http.post(INSTALLATION_API, data).then(function(resp) {
+      $http.post(INSTALLATION_API, data, {
+        timeout: 20000
+      }).then(function(resp) {
         dfd.resolve(resp.data);
       }, function(resp) {
         dfd.reject(resp);

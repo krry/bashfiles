@@ -139,6 +139,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
     }).then(function(data) {
       var stage = data.CreditResultFound ? 'next' : 'back';
       vm.isSubmitting = false;
+      vm.timedOut = false;
       Client.emit('Form: valid data', { qualified: data.qualified });
 
       if (vm.prospect.skipped && data.qualified) {
@@ -146,8 +147,15 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
       } else {
         Client.emit('stage', stage);
       }
-    }, function() {
+    }, function(resp) {
       vm.isSubmitting = false;
+      
+      // Timed out
+      if (resp.status === 0) {
+        vm.timedOut = true;
+      } else {
+        Client.emit('jump to step', 'congrats');
+      }
     });
   }
 

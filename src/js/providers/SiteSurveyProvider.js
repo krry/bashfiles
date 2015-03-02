@@ -21,7 +21,8 @@ function SiteSurveyProvider_ () {
 
       $http.get(GSA_API, { 
         params: params,
-        cache: true
+        cache: true,
+        timeout: 20000
       }).then(function(resp) {
         var data = JSON.parse(resp.data).AvailableTimes.TimeStrings;
         dfd.resolve(data.filter(isCurrent));
@@ -35,7 +36,9 @@ function SiteSurveyProvider_ () {
     function scheduleTime(data) {
       var dfd = $q.defer();
 
-      $http.post(GSA_API, data).then(function(resp) {
+      $http.post(GSA_API, data, {
+        timeout: 20000
+      }).then(function(resp) {
         dfd.resolve(JSON.parse(resp.data));
       }, function(resp) {
         dfd.reject(resp);

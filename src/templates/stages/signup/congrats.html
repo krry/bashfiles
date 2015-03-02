@@ -25,7 +25,10 @@
 
   <div class="col fifth three center">
     <div ng-if="!schedule.prospect.scheduledTime">
-      <h1>Congratulations - you qualified!
+      <h1 ng-if="schedule.prospect.qualified">Congratulations - you qualified!
+        <br><small>Our solar consultant will be in touch with you soon to schedule site survey, then review a final system design for your rooftop.</small>
+      </h1>
+      <h1 ng-if="!schedule.prospect.qualified">You're one step closer to going solar.
         <br><small>Our solar consultant will be in touch with you soon to schedule site survey, then review a final system design for your rooftop.</small>
       </h1>
     </div>

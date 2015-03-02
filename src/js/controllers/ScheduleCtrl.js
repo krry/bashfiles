@@ -81,13 +81,11 @@ function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation) {
     vm.prospect.installationGuid = 'CD41ADEE-4AE9-40EB-B2CD-2AE72E8EABC6';
     return SiteSurvey.getTimes({
       installationGuid: vm.prospect.installationGuid
-    }).then(parseTimes);
+    }).then(parseTimes, skipScheduling);
   }
                           
   function check() {
-    // TODO: waiting for installation POST error to clear up
-    // createInstallation();
-    return init().then(checkTimes);
+    return createInstallation().then(init).then(checkTimes);
   }
 
   function parseTimes(data) {
@@ -99,6 +97,10 @@ function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation) {
     });
 
     vm.config.startDate = vm.availableTimes[0].format('MM/D/YYYY');
+  }
+
+  function skipScheduling() {
+    Client.emit('jump to step', 'congrats');
   }
 
   function checkTimes(data) {
@@ -119,7 +121,10 @@ function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation) {
       AddressId: vm.prospect.addressId,
       UtilityId: vm.prospect.utilityId
     }).then(function(data) {
+      // TODO: store data from response when api is working
       console.log(data);
+    }, function() {
+      Client.emit('jump to step', 'congrats');
     });
   }
 }
