@@ -18,7 +18,7 @@ function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation) {
     range: 21
   };
 
-  function eventDetails() { 
+  function eventDetails() {
     return {
       subject: 'SolarCity site survey',
       begin: vm.prospect.scheduledTime.obj.format('MM/DD/YYYY h:mm:ss A'),
@@ -83,7 +83,7 @@ function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation) {
       installationGuid: vm.prospect.installationGuid
     }).then(parseTimes, skipScheduling);
   }
-                          
+
   function check() {
     return createInstallation().then(init).then(checkTimes);
   }
@@ -106,7 +106,7 @@ function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation) {
   function checkTimes(data) {
     // Immediately redirect to congrats page if no times available
     if (!data || !data.length) {
-      Client.emit('jump to step', 'congrats'); 
+      Client.emit('jump to step', 'congrats');
     } else {
       Client.emit('stage', 'next');
     }
@@ -115,7 +115,7 @@ function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation) {
   function createInstallation() {
     vm.isSubmitting = true;
 
-    Installation.create({
+    return Installation.create({
       OfficeId: vm.prospect.warehouseId,
       ContactId: vm.prospect.contactId,
       AddressId: vm.prospect.addressId,
