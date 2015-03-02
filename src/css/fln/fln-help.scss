@@ -22,7 +22,7 @@ fln-help {
   background: hsl(0, 100%, 100%);
   box-shadow: 0 0 12px -4px hsla(0, 0%, 0%, 0.8);
   border-style: none;
-  transform: translate3d(0, 14rem, 0);
+  transform: translate3d(0, 15rem, 0);
   transition: transform 250ms $easing-quick;
 
   &.shown {

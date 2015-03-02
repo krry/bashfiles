@@ -44,12 +44,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 1.9em;
+  font-size: 1.75em;
   line-height: 1.2em;
 }
 
-.step-zip h1 {
-  margin-bottom: .75em;
+.step-zip h1, .step-fork h1 {
+  margin-bottom: 1em;
+}
+.step-address h1 {
+  font-size: 1.2em;
+  line-height: 1.2em;
+  margin-bottom: 1.2em;
 }
 
 p.tiny {
@@ -60,9 +65,9 @@ p.tiny {
 h1 small,
 h2 small {
   @include apercu-light;
-  font-size: 71%;
+  font-size: 65%;
   display: block;
-  margin-top: .5em;
+  margin-top: .7em;
   line-height: 1.2;
 }
 
@@ -85,8 +90,8 @@ h4.light-weight {
 }
 
 h5 {
-  font-size: 1em;
-  // margin-bottom: .5em;
+  font-size: 0.85em;
+  margin-bottom: 1em;
 }
 
 h5, .caps {
