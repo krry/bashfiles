@@ -18,7 +18,7 @@ fln-help {
   bottom: 0;
   right: 1rem;
   width: 15rem;
-  height: 17rem;
+  height: 18rem;
   background: hsl(0, 100%, 100%);
   box-shadow: 0 0 12px -4px hsla(0, 0%, 0%, 0.8);
   border-style: none;
@@ -99,10 +99,11 @@ fln-help {
   right: 3em;
 }
 
-#live_agent_chat {
+iframe.chatframe {
   border: 0;
   background: $tint-90;
-  height: 280px;
+  height: 15em;
+  width: 100%;
 }
 
 .liveagent-online {}
