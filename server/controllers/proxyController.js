@@ -84,11 +84,30 @@ module.exports = function(app) {
     var url = [
       conf.GSA_ROOT,
       conf.GSA_API,
-      'GET-Schedule-',
-      req.query.contractGUID
+      req.query.installationGuid
     ].join('');
 
     proxyGET(url, res);
+  }
+
+  function schedule(req, res) {
+    var url = [
+      conf.GSA_ROOT,
+      conf.GSA_API,
+      req.body.installationGuid,
+      '?_DateTime=' + req.body.dateTime
+    ].join('');
+
+    proxyPOST(url, req.body, res);
+  }
+
+  function installation(req, res) {
+    var url = [
+      conf.SOLAR_WORKS_API_ROOT,
+      conf.INSTALLATION_API
+    ].join('');
+
+    proxyPOST(url, req.body, res);
   }
 
   return {
@@ -98,6 +117,8 @@ module.exports = function(app) {
     creditCheck: creditCheck,
     contact: contact,
     nearMe: nearMe,
-    gsa: gsa
+    gsa: gsa,
+    schedule: schedule,
+    installation: installation
   };
 };

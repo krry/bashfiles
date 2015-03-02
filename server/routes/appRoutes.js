@@ -15,4 +15,6 @@ module.exports = function(app) {
   app.post(conf.CLIENT.CONTACT_API, proxyController.contact);
   app.get(conf.CLIENT.NEAR_ME_API, proxyController.nearMe);
   app.get(conf.CLIENT.GSA_API, proxyController.gsa);
+  app.post(conf.CLIENT.GSA_API, proxyController.schedule);
+  app.post(conf.CLIENT.INSTALLATION_API, proxyController.installation);
 };

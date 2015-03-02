@@ -6,9 +6,9 @@
 
 ================================================== */
 
-controllers.controller("FormCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Form", "Credit", "Contact", FormCtrl_]);
+controllers.controller("FormCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Form", "Credit", "Contact", "Utility", FormCtrl_]);
 
-function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
+function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Utility) {
   var vm = this;
   var form_stream;
 
@@ -75,6 +75,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
   Client.listen('valid house', acceptValidHouse);
   Client.listen('valid state', acceptValidState);
   Client.listen('valid city', acceptValidCity);
+  Client.listen('valid warehouse', acceptValidWarehouse);
   Client.listen('email saved', acceptSavedEmail);
   Client.listen('birthdate saved', acceptSavedBirthdate);
   Client.listen('phone saved', acceptSavedPhone);
@@ -132,18 +133,28 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
     vm.isSubmitting = true;
 
     Credit.check({
-      ContactId: vm.prospect.ContactId,
-      AddressId: vm.prospect.AddressId,
+      ContactId: vm.prospect.contactId,
+      AddressId: vm.prospect.addressId,
       BirthDate: moment(vm.prospect.dob).format('MM/DD/YYYY')
     }).then(function(data) {
       var stage = data.CreditResultFound ? 'next' : 'back';
       vm.isSubmitting = false;
+      vm.timedOut = false;
       Client.emit('Form: valid data', { qualified: data.qualified });
 
       if (vm.prospect.skipped && data.qualified) {
         Client.emit('jump to step', 'congrats');
       } else {
         Client.emit('stage', stage);
+      }
+    }, function(resp) {
+      vm.isSubmitting = false;
+      
+      // Timed out
+      if (resp.status === 0) {
+        vm.timedOut = true;
+      } else {
+        Client.emit('jump to step', 'congrats');
       }
     });
   }
@@ -157,21 +168,22 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
       LastName: vm.prospect.lastName,
       PhoneNumber: vm.prospect.phone,
       Address: {
-        AddressLine1: vm.prospect.street,
+        AddressLine1: vm.prospect.home,
         AddressLine2: '',
         City: vm.prospect.city,
+        State: vm.prospect.state,
         Zip: vm.prospect.zip,
         Country: 'US',
         Latitude: vm.prospect.lat,
         Longitude: vm.prospect.lng
       }
     }).then(function(data) {
-      vm.prospect.ContactId = data.ContactId;
-      vm.prospect.AddressId = data.AddressId;
+      vm.prospect.contactId = data.ContactId;
+      vm.prospect.addressId = data.AddressId;
       vm.isSubmitting = false;
       Client.emit('Form: valid data', {
-        ContactId: data.ContactId,
-        AddressId: data.AddressId,
+        contactId: vm.prospect.contactId,
+        addressId: vm.prospect.addressId,
         firstName: vm.prospect.firstName,
         lastName: vm.prospect.lastName,
         phone: vm.prospect.phone,
@@ -179,6 +191,8 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
       });
 
       Client.emit('stage', 'next');
+    }, function() {
+      vm.isSubmitting = false;
     })
   }
 
@@ -237,6 +251,13 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
     return vm.validCity;
   }
 
+  function acceptValidWarehouse(data) {
+    if (data) {
+      vm.prospect.warehouseId = data;
+      Client.emit('Form: valid data', { warehouseId: data });
+    }
+  }
+
   function acceptValidAddress(data) {
     // accepting valid address
     if (data) {
@@ -252,9 +273,30 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
     if (data) {
       vm.invalid = false;
       vm.prospect.street = data.home;
+
       Client.emit('Form: valid house', data);
       Client.emit('jump to step', 'monthly-bill');
+
+      saveUtility();
     }
+  }
+
+  function saveUtility() {
+    if (Utility.isSubmitting) {
+      return; 
+    }
+
+    Utility.isSubmitting = true;
+    Utility.search({
+      city: vm.prospect.city,
+      zip: vm.prospect.zip
+    }).then(function(data) {
+      return Utility.get({ utilityid: data[0].UtilityId });
+    }).then(function(data) {
+      vm.prospect.utilityId = data.UtilityID;
+      Client.emit('Form: valid data', { utilityId: vm.prospect.utilityId });
+      Utility.isSubmitting = false;
+    });
   }
 
   function acceptNeighborCount(data) {

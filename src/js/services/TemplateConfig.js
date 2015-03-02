@@ -21,6 +21,7 @@ function TemplateConfig_ () {
       destination: 'flannel.configure',
       steps: [
         { step: 'zip-nearme',      partial: 'zip.html'      },
+        { step: 'out-territory',   partial: 'outside.html'  },
         { step: 'address-roof',    partial: 'address.html'  },
         { step: 'monthly-bill',    partial: 'bill.html'     },
         { step: 'intro-design',    partial: 'fork.html'     },
