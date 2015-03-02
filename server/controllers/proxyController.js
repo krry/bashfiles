@@ -84,11 +84,21 @@ module.exports = function(app) {
     var url = [
       conf.GSA_ROOT,
       conf.GSA_API,
-      'GET-Schedule-',
-      req.query.contractGUID
+      req.query.installationGuid
     ].join('');
 
     proxyGET(url, res);
+  }
+
+  function schedule(req, res) {
+    var url = [
+      conf.GSA_ROOT,
+      conf.GSA_API,
+      req.body.installationGuid,
+      '?_DateTime=' + req.body.dateTime
+    ].join('');
+
+    proxyPOST(url, req.body, res);
   }
 
   function installation(req, res) {
@@ -108,6 +118,7 @@ module.exports = function(app) {
     contact: contact,
     nearMe: nearMe,
     gsa: gsa,
+    schedule: schedule,
     installation: installation
   };
 };

@@ -8,8 +8,8 @@ function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation) {
   vm.selectTime = selectTime;
   vm.selectedDate = null;
   vm.availableTimes = [];
-  vm.init = init;
   vm.check = check;
+  vm.init = init;
   vm.save = save;
   vm.createInstallation = createInstallation;
 
@@ -67,26 +67,34 @@ function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation) {
   }
 
   function save() {
-    return SiteSurvey.scheduleTime().then(function() {
+    console.log(vm.prospect.scheduledTime);
+    return SiteSurvey.scheduleTime({
+      installationGuid: vm.prospect.installationGuid,
+      dateTime: vm.prospect.scheduledTime.obj.format(SiteSurvey.timeFormat)
+    }).then(function() {
       Client.emit('stage', 'next');
     });
   }
 
   function init() {
-    return SiteSurvey.getTimes().then(parseTimes);
+    // TODO: remove the hard coded guid once the installation POST error clears up
+    vm.prospect.installationGuid = 'CD41ADEE-4AE9-40EB-B2CD-2AE72E8EABC6';
+    return SiteSurvey.getTimes({
+      installationGuid: vm.prospect.installationGuid
+    }).then(parseTimes);
   }
-
+                          
   function check() {
     // TODO: waiting for installation POST error to clear up
     // createInstallation();
-    return SiteSurvey.getTimes().then(checkTimes);
+    return init().then(checkTimes);
   }
 
   function parseTimes(data) {
     vm.availableTimes = [];
 
     angular.forEach(data, function(date) {
-      date = moment(date, 'MM/D/YYYY h:mm:ssA');
+      date = moment(date, SiteSurvey.timeFormat);
       vm.availableTimes.push(date);
     });
 
@@ -95,7 +103,7 @@ function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation) {
 
   function checkTimes(data) {
     // Immediately redirect to congrats page if no times available
-    if (!data.length) {
+    if (!data || !data.length) {
       Client.emit('jump to step', 'congrats'); 
     } else {
       Client.emit('stage', 'next');
@@ -105,11 +113,10 @@ function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation) {
   function createInstallation() {
     vm.isSubmitting = true;
 
-    // TODO: remove this hardcode once we can get any address id to create an installation
     Installation.create({
       OfficeId: vm.prospect.warehouseId,
       ContactId: vm.prospect.contactId,
-      AddressId: 2 || vm.prospect.addressId,
+      AddressId: vm.prospect.addressId,
       UtilityId: vm.prospect.utilityId
     }).then(function(data) {
       console.log(data);

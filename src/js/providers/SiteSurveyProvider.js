@@ -10,50 +10,44 @@ providers.provider('SiteSurvey', [SiteSurveyProvider_ ]);
 
 function SiteSurveyProvider_ () {
   this.$get = ['$http', '$q', 'GSA_API', function($http, $q, GSA_API) {
-    var timeFormat = 'M/DD/YYYY h:mm:ssA';
+    var timeFormat = 'M/D/YYYY h:mm:ssA';
 
     function isCurrent(time) {
       return moment(time, timeFormat).isAfter(moment(), 'day');
     }
 
-    // TODO: replace mocked response with call to GSA api provider
-    function getTimes() {
+    function getTimes(params) {
       var dfd = $q.defer();
 
-      var times = [
-        moment().add(1, 'day').format(timeFormat),
-        moment().add(2, 'day').format(timeFormat),
-        '2/18/2015 11:00:00AM',
-        '2/19/2015 11:00:00AM',
-        '2/21/2015 9:00:00AM',
-        '2/22/2015 11:00:00AM',
-        '2/23/2015 9:00:00AM',
-        '2/23/2015 11:00:00AM',
-        '2/26/2015 8:00:00AM',
-        '2/27/2015 7:00:00AM',
-        '2/27/2015 11:00:00AM',
-        '3/2/2015 9:00:00AM',
-        '3/5/2015 7:00:00AM',
-        '3/9/2015 7:00:00AM',
-        '3/10/2015 11:00:00AM',
-        '3/12/2015 11:00:00AM'
-      ];
-
-      dfd.resolve(times.filter(isCurrent));
+      $http.get(GSA_API, { 
+        params: params,
+        cache: true
+      }).then(function(resp) {
+        var data = JSON.parse(resp.data).AvailableTimes.TimeStrings;
+        dfd.resolve(data.filter(isCurrent));
+      }, function(resp) {
+        dfd.reject(resp);
+      });
 
       return dfd.promise;
     }
 
-    // TODO: replace mocked response with call to GSA api provider
-    function scheduleTime() {
+    function scheduleTime(data) {
       var dfd = $q.defer();
-      dfd.resolve('success');
+
+      $http.post(GSA_API, data).then(function(resp) {
+        dfd.resolve(JSON.parse(resp.data));
+      }, function(resp) {
+        dfd.reject(resp);
+      });
+
       return dfd.promise;
     }
 
     return {
       getTimes: getTimes,
-      scheduleTime: scheduleTime
+      scheduleTime: scheduleTime,
+      timeFormat: timeFormat
     };
   }];
 }
