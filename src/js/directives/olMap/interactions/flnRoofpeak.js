@@ -14,7 +14,6 @@ directives.directive('flnRoofpeak', ["MapFactory", "Configurator", "Clientstream
 function flnRoofpeak_ (MapFactory, Configurator, Client) {
   return {
     restrict: 'EA',
-    controllerAs: 'Roofpeak',
     link: function flnRoofpeakLink (scope, element, attrs) {
       var base_map,
           old_view,
@@ -24,6 +23,9 @@ function flnRoofpeak_ (MapFactory, Configurator, Client) {
           roof_peak_map,
           feature_overlay,
           highlight;
+
+      // hide "next" button until user selects
+      scope.roof_peak_chosen = false;
 
       if (Configurator.map()) {
         loadRoofpeak();
@@ -46,12 +48,14 @@ function flnRoofpeak_ (MapFactory, Configurator, Client) {
 
         $(roof_peak_map.getViewport()).on('click', function(evt) {
           var pixel = roof_peak_map.getEventPixel(evt.originalEvent);
-          var clicked_shape = roof_peak_map.forEachFeatureAtPixel(pixel, function(f, layer) {
+          var target_f = roof_peak_map.forEachFeatureAtPixel(pixel, function(f, layer) {
             return f;
           });
           // TODO: do something with clicked shape.
-          if (clicked_shape) {
-            Client.emit('stage', 'next');
+          if (target_f) {
+            // show the "next" button
+            scope.roof_peak_chosen = true;
+            scope.$apply()
           } else {
             console.log('can\'t proceed if you don\'t click a roofpeak, brah');
           }
