@@ -7,6 +7,9 @@ function flnInputTerms_ () {
     },
     restrict: "E",
     templateUrl: "templates/directives/inputs/flnInputTerms.html",
-    controller: "FormCtrl as form"
+    controller: "FormCtrl as form",
+    link: function (scope, element, attrs) {
+      // $(element).find('').on('click');
+    }
   };
 }
