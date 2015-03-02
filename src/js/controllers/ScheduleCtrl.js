@@ -78,7 +78,7 @@ function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation) {
 
   function init() {
     // TODO: remove the hard coded guid once the installation POST error clears up
-    // vm.prospect.installationGuid = 'CD41ADEE-4AE9-40EB-B2CD-2AE72E8EABC6';
+    vm.prospect.installationGuid = 'CD41ADEE-4AE9-40EB-B2CD-2AE72E8EABC6';
     return SiteSurvey.getTimes({
       installationGuid: vm.prospect.installationGuid
     }).then(parseTimes, skipScheduling);
@@ -97,7 +97,6 @@ function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation) {
     });
 
     vm.config.startDate = vm.availableTimes[0].format('MM/D/YYYY');
-    return vm.availableTimes;
   }
 
   function skipScheduling() {
@@ -116,22 +115,16 @@ function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation) {
   function createInstallation() {
     vm.isSubmitting = true;
 
-    return Installation.create({
+    Installation.create({
       OfficeId: vm.prospect.warehouseId,
       ContactId: vm.prospect.contactId,
       AddressId: vm.prospect.addressId,
       UtilityId: vm.prospect.utilityId
-    }).then(storeInstallation, function(resp) {
-      if (resp.status === 412) {
-        storeInstallation(resp.data);
-      } else {
-        Client.emit('jump to step', 'congrats');
-      }
+    }).then(function(data) {
+      // TODO: store data from response when api is working
+      console.log(data);
+    }, function() {
+      Client.emit('jump to step', 'congrats');
     });
-  }
-
-  function storeInstallation(data) {
-    vm.prospect.installationGuid = data.InstallationGuid;
-    Client.emit('Form: valid data', { installationGuid: vm.prospect.installationGuid });
   }
 }
