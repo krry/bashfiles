@@ -83,7 +83,7 @@ input.zipcode {
   text-transform: uppercase;
   color: $color-input-text;
   border: 1px solid $grey-medium;
-  border-radius: 4px;
+  border-radius: 6px;
   background-color: $white-dark;
 }
 
@@ -120,7 +120,7 @@ input.zipcode {
   width: 4.5em;
   text-align: left;
   margin: 0;
-  background-color: $white;
+  // background-color: $white;
 }
 
 span.autolocate-icon {

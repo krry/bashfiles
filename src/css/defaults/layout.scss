@@ -7,7 +7,7 @@ main.main {
   width: 100%;
   z-index: 1;
   top: 2.9rem;
-  bottom: 2.5rem;
+  bottom: 2rem;
 }
 
 .overlayer {
@@ -32,12 +32,17 @@ main.main {
 }
 
 .overlay.short {
-  padding: 2em;
+  padding: 1.8em 2em 0.3em 2em;
 }
 
-.overlay.primary {
+.overlay.primary,
+.overlay.only {
   padding: 4em 2em;
   text-align: center;
+}
+
+.overlay.only {
+  background-color: $grey-lightest;
 }
 
 .overlay.secondary {
@@ -74,6 +79,10 @@ main.main {
   .primary.primary {
     width: calc(100% - 20em);
   }
+  .only.only {
+    width: auto;
+    height: 100%;
+  }
   .secondary.secondary {
     width: calc(20em - 1px);
     &.drop-top {
@@ -100,11 +109,14 @@ main.main {
   .primary.primary {
     width: calc(100% - 18em);
   }
+  .only.only {
+    width: auto;
+  }
   .secondary.secondary {
     width: calc(18em - 1px);
   }
   .overlay.short {
-    padding: 2em;
+    padding: 1.8em 2em 0.3em 2em;
     height: auto;
     box-shadow: 0 0 8px 0 $shade-40;
     &.step-bill {

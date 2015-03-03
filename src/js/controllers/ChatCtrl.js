@@ -3,14 +3,16 @@
   the chat controller
 ================================================== */
 
-controllers.controller("ChatCtrl", [ChatCtrl_]);
+controllers.controller('ChatCtrl', ['$scope', 'Form', ChatCtrl_]);
 
-function ChatCtrl_() {
+function ChatCtrl_($scope, Form) {
   var vm = this;
 
-  vm.shown = false;
+  vm.shown = true;
   vm.open = openChat;
   vm.close = closeChat;
+
+  $scope.prospect = Form.prospect;
 
   function openChat() {
     console.log('modal opening because shown is: ', vm.shown);

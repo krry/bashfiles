@@ -61,6 +61,9 @@ a.btn {
   &.aqua {
     @include btn($aqua-dark);
   }
+  &.orange {
+    @include btn($orange);
+  }
   &.red {
     @include btn($red);
   }
@@ -82,6 +85,9 @@ a.btn {
     }
     &.aqua {
       @include btn($aqua-dark, $size: 1.5rem);
+    }
+    &.orange {
+      @include btn($orange, $size: 1.5em);
     }
     &.red {
       @include btn($red, $size: 1.5rem);
@@ -107,6 +113,9 @@ a.btn {
     &.aqua {
       @include btn($aqua-dark, $size: 1.25rem);
     }
+    &.orange {
+      @include btn($orange, $size: 1.25em);
+    }
     &.red {
       @include btn($red, $size: 1.25rem);
     }
@@ -130,6 +139,9 @@ a.btn {
     }
     &.aqua {
       @include btn($aqua-dark, $size: .875rem);
+    }
+    &.orange {
+      @include btn($orange, $size: .875em);
     }
     &.red {
       @include btn($red, $size: .875rem);
@@ -155,6 +167,9 @@ a.btn {
     &.aqua {
       @include btn($aqua-dark, $size: .75rem);
     }
+    &.orange {
+      @include btn($orange, $size: .75em);
+    }
     &.red {
       @include btn($red, $size: .75rem);
     }
@@ -169,12 +184,17 @@ a.btn {
     }
   }
 
-  &.aqua.large {
-    @include btn($aqua-dark, $size: 1.25rem);
+  &.white.square.tiny.less-padded {
+    @include btn($color: $white, $size: .65rem, $corners: .25em, $pad: #{1em 2em});
+    width: 100%;
+    border-width: 1px;
+    border-color: $grey-mid;
+    border-style: solid;
+    margin-top: 0;
   }
-
-  &.white.square.small.padded {
-    @include btn($color: $white, $size: .875rem, $corners: .25em, $pad: #{1.5em 3em});
+  &.wide.wide.wide.wide {
+    padding-left: 5em;
+    padding-right: 5em;
   }
   &.nested {
     position: absolute;
@@ -197,11 +217,14 @@ a.btn {
     position: absolute;
     top: 0;
     right: 0;
-    min-width: 0;
-    padding-left: 1.6em;
-    padding-right: 1.6em;
     margin: 0;
-    border-radius: 0 0 0 4px;
+    border-radius: 0;
+    background: none;
+    border: 0;
+    outline: none;
+    background: url('../img/close_x.svg') no-repeat center center;
+    width: 3em;
+    height: 3em;
   }
   &.text {
     background: none;
@@ -258,7 +281,7 @@ label {
   display: block;
   text-indent: 0;
   font-weight: 600;
-  margin-top: 1em;
+  margin-top: 0.5em;
   margin-bottom: 0.625em;
 }
 
@@ -345,7 +368,7 @@ input[type="month"]:hover,
 input[type="time"]:hover,
 input[type="week"]:hover,
 select[multiple=multiple]:hover {
-  border-color: $grey-mid;
+  border-color: $grey-meh;
 }
 
 textarea:focus,
@@ -363,9 +386,9 @@ input[type="datetime-local"]:focus,
 input[type="month"]:focus,
 input[type="time"]:focus,
 input[type="week"]:focus {
-  border-color: $grey-mid;
+  border-color: $grey-meh;
   background-color: $color-input-bkgd-focus;
-  box-shadow: inset $shadow-input;
+  box-shadow: $shadow-input;
 }
 
 select {

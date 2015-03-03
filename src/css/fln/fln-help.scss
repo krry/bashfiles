@@ -17,12 +17,12 @@ fln-help {
   z-index: 1;
   bottom: 0;
   right: 1rem;
-  width: 16rem;
-  height: 15rem;
+  width: 15rem;
+  height: 18rem;
   background: hsl(0, 100%, 100%);
   box-shadow: 0 0 12px -4px hsla(0, 0%, 0%, 0.8);
   border-style: none;
-  transform: translate3d(0, 12rem, 0);
+  transform: translate3d(0, 15rem, 0);
   transition: transform 250ms $easing-quick;
 
   &.shown {
@@ -37,7 +37,7 @@ fln-help {
     background-color: $blue-smoke;
     border: 0;
     border-radius: 4px 4px 0 0;
-    display: block;
+    display: block !important;
     width: 100%;
     padding: .25em 1.5em;
     text-align: left;
@@ -86,3 +86,34 @@ fln-help {
 .short .help {
   margin-top: 8em;
 }
+
+.chat-trigger {
+  display: block;
+  font-size: 2em;
+}
+
+.chat-buttons {
+  position: fixed;
+  z-index: 20;
+  bottom: 2em;
+  right: 3em;
+}
+
+iframe.chatframe {
+  border: 0;
+  background: $tint-90;
+  height: 15em;
+  width: 100%;
+}
+
+.liveagent-online {}
+
+.liveagent-offline {}
+
+.ui-chatbox {
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  z-index: 10;
+}
+

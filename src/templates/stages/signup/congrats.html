@@ -1,12 +1,12 @@
 <!-- main.html for qualify stage -->
 <div class="overlay primary col" ng-controller="ScheduleCtrl as schedule">
   <div ng-if="schedule.prospect.scheduledTime">
-    <h1>We'll see you then.
-      <br><small>Our solar consultant will be in touch with you to confirm your appointment and aswer any questions you may have.</small>
-    </h1>
-    <div class="col fifth three">
-    <div class="col full center">
-      <div class="icon icon-calendar"></div>
+    <div class="col fifth three center">
+      <h1>We'll see you then.
+        <br><small>Our solar consultant will be in touch with you to confirm your appointment and aswer any questions you may have.</small>
+      </h1>
+      <div class="col full center">
+        <div class="icon icon-calendar"></div>
         <h1 class="caps">{{form.prospect.scheduledDate.month}} {{form.prospect.scheduledDate.day}}</h1>
         <p>
           {{form.prospect.scheduledTime.day}} arrival between {{form.prospect.scheduledTime.start}} to {{form.prospect.scheduledTime.end}}.<br>
@@ -23,13 +23,15 @@
     </div>
   </div>
 
-  <div ng-if="!schedule.prospect.scheduledTime">
-    <h1>Congratulations - you qualified!
-      <br><small>Our solar consultant will be in touch with you soon to schedule site survey, then review a final system design for your rooftop.</small>
-    </h1>
-  </div>
-
   <div class="col fifth three center">
+    <div ng-if="!schedule.prospect.scheduledTime">
+      <h1 ng-if="schedule.prospect.qualified">Congratulations - you qualified!
+        <br><small>Our solar consultant will be in touch with you soon to schedule site survey, then review a final system design for your rooftop.</small>
+      </h1>
+      <h1 ng-if="!schedule.prospect.qualified">You're one step closer to going solar.
+        <br><small>Our solar consultant will be in touch with you soon to schedule site survey, then review a final system design for your rooftop.</small>
+      </h1>
+    </div>
     <figure>
       <iframe width="853" height="480" src="https://www.youtube.com/embed/6-MXZiwI_0UrM?controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
     </figure>

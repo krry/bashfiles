@@ -1,8 +1,10 @@
-<button id="help-trigger" class="trigger-bar tooltip top" ng-click="toggleShown()" title="Check out our FAQ or connect with a solar consultant. That's what we're here for!">Contact us for help</button>
+<button id="liveagent_button_online_57319000000CaTc" class="trigger-bar tooltip top toggle-help liveagent-online" ng-click="toggleShown()" title="Check out our FAQ or connect with a solar consultant. That's what we're here for!">Chat with a Solar Consultant</button>
+<button id="liveagent_button_offline_57319000000CaTc" class="trigger-bar tooltip top toggle-help liveagent-offline" ng-show="chat.offline">Contact us</button>
 <div class="row">
   <div class="col full center" ng-controller="ModalCtrl as modal">
-    <button class="btn green tiny">Call</button>
-    <button class="btn green tiny">Chat</button>
-    <button class="btn green tiny" ng-click="modal.showDialog('faq')">FAQ</button>
+    <!--Chat box will be generated in this container-->
+    <div id="chat-tray" class="chat-tray" ng-show="chat.shown">
+      <iframe id="live_agent_chat" name="live_agent_chat" class="chatframe"></iframe>
+    </div>
   </div>
 </div>

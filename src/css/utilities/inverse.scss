@@ -5,6 +5,9 @@
 .inverse {
   background-color: $color-bkgd-inverse;
   color: $color-text-inverse;
+  // white text on a dark background looks weak in some browsers
+  // TODO: look into this, aim for browser parity
+  // -webkit-text-stroke: 0;
 }
 
 .inverse {

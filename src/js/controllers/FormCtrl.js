@@ -6,9 +6,9 @@
 
 ================================================== */
 
-controllers.controller("FormCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Form", "Credit", "Contact", FormCtrl_]);
+controllers.controller("FormCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Form", "Credit", "Contact", "Utility", "CREDIT_FAIL", FormCtrl_]);
 
-function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
+function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Utility, CREDIT_FAIL) {
   var vm = this;
   var form_stream;
 
@@ -38,7 +38,9 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
         val = form_obj[key];
         vm.prospect[key] = val;
       }
-      $scope.$apply(); // update the views
+      setTimeout(function() {
+        $scope.$apply(); // update the views
+      }, 0);
     }
     /* jshint -W030 */
     // HACK: hardcode bill should be angular.constant
@@ -52,6 +54,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
   vm.invalidZip = true;
   vm.invalidTerritory = true;
   vm.validAddress = false;
+  vm.isSubmitting = false;
 
   vm.prevStep = prev;
   vm.nextStep = next;
@@ -59,6 +62,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
   vm.checkAddress = checkAddress;
   vm.checkCredit = checkCredit;
   vm.createContact = createContact;
+  vm.skipConfigurator = skipConfigurator;
 
   // TODO: on change of the user model due to user changing the input values and angular syncing that with the data model, run it through validators, and then save it to firebase
   // vm.$watch('user', function(){})
@@ -71,10 +75,12 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
   Client.listen('valid house', acceptValidHouse);
   Client.listen('valid state', acceptValidState);
   Client.listen('valid city', acceptValidCity);
+  Client.listen('valid warehouse', acceptValidWarehouse);
   Client.listen('email saved', acceptSavedEmail);
   Client.listen('birthdate saved', acceptSavedBirthdate);
   Client.listen('phone saved', acceptSavedPhone);
   Client.listen('fullname saved', acceptSavedFullname);
+  Client.listen('neighbor_count saved', acceptNeighborCount);
 
   function checkZip (zip) {
     console.log('************ checkin dat zip', zip, 'boss *********')
@@ -124,38 +130,91 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
   }
 
   function checkCredit() {
+    vm.isSubmitting = true;
+
+    // TODO: remove this from production builds
+    if (vm.prospect.email === CREDIT_FAIL.EMAIL) {
+      vm.prospect.addressId = CREDIT_FAIL.ADDRESS_ID;
+      vm.prospect.dob = CREDIT_FAIL.DOB;
+    }
+
     Credit.check({
-      ContactId: vm.prospect.ContactId,
-      AddressId: vm.prospect.AddressId,
+      ContactId: vm.prospect.contactId,
+      AddressId: vm.prospect.addressId,
       BirthDate: moment(vm.prospect.dob).format('MM/DD/YYYY')
     }).then(function(data) {
+      var stage = data.CreditResultFound ? 'next' : 'back';
+      vm.isSubmitting = false;
+      vm.timedOut = false;
       Client.emit('Form: valid data', { qualified: data.qualified });
-      Client.emit('stage', 'next');
+
+      if (vm.prospect.skipped && data.qualified) {
+        Client.emit('jump to step', 'congrats');
+      } else {
+        Client.emit('stage', stage);
+      }
+    }, function(resp) {
+      vm.isSubmitting = false;
+      
+      // Timed out
+      if (resp.status === 0) {
+        vm.timedOut = true;
+      } else {
+        Client.emit('jump to step', 'congrats');
+      }
     });
   }
 
   function createContact() {
+    vm.isSubmitting = true;
+
     Contact.create({
       Email: vm.prospect.email,
       FirstName: vm.prospect.firstName,
       LastName: vm.prospect.lastName,
       PhoneNumber: vm.prospect.phone,
       Address: {
-        AddressLine1: vm.prospect.street,
+        AddressLine1: vm.prospect.home,
         AddressLine2: '',
         City: vm.prospect.city,
+        State: vm.prospect.state,
         Zip: vm.prospect.zip,
         Country: 'US',
         Latitude: vm.prospect.lat,
         Longitude: vm.prospect.lng
       }
     }).then(function(data) {
-      vm.prospect.ContactId = data.ContactId;
-      vm.prospect.AddressId = data.AddressId;
-      Client.emit('Form: valid data', data);
+      vm.prospect.contactId = data.ContactId;
+      vm.prospect.addressId = data.AddressId;
+      vm.isSubmitting = false;
+      vm.timedOut = false;
+
+      Client.emit('Form: valid data', {
+        contactId: vm.prospect.contactId,
+        addressId: vm.prospect.addressId,
+        firstName: vm.prospect.firstName,
+        lastName: vm.prospect.lastName,
+        phone: vm.prospect.phone,
+        email: vm.prospect.email
+      });
 
       Client.emit('stage', 'next');
+    }, function(resp) {
+      vm.isSubmitting = false;
+
+      if (resp.status === 0) {
+        vm.timedOut = true;
+      } else {
+        Client.emit('jump to step', 'congrats');
+      }
     })
+  }
+
+  function skipConfigurator() {
+    vm.prospect.skipped = true;
+    // TODO: store this under the Session object in Firebase
+    Client.emit('Form: valid data', { skipped: true });
+    Client.emit('jump to stage', 'flannel.signup');
   }
 
   // TODO: figure out if the valid territory / valid zip dependency is appropriate for the prescribed UX
@@ -206,6 +265,13 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
     return vm.validCity;
   }
 
+  function acceptValidWarehouse(data) {
+    if (data) {
+      vm.prospect.warehouseId = data;
+      Client.emit('Form: valid data', { warehouseId: data });
+    }
+  }
+
   function acceptValidAddress(data) {
     // accepting valid address
     if (data) {
@@ -221,9 +287,34 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact) {
     if (data) {
       vm.invalid = false;
       vm.prospect.street = data.home;
+
       Client.emit('Form: valid house', data);
       Client.emit('jump to step', 'monthly-bill');
+
+      saveUtility();
     }
+  }
+
+  function saveUtility() {
+    if (Utility.isSubmitting) {
+      return; 
+    }
+
+    Utility.isSubmitting = true;
+    Utility.search({
+      city: vm.prospect.city,
+      zip: vm.prospect.zip
+    }).then(function(data) {
+      return Utility.get({ utilityid: data[0].UtilityId });
+    }).then(function(data) {
+      vm.prospect.utilityId = data.UtilityID;
+      Client.emit('Form: valid data', { utilityId: vm.prospect.utilityId });
+      Utility.isSubmitting = false;
+    });
+  }
+
+  function acceptNeighborCount(data) {
+    vm.prospect.neighbor_count = data ? data : "";
   }
 
   function acceptSavedEmail (data) {

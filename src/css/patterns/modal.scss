@@ -18,20 +18,26 @@
 
 .modal .dialog {
   background: $white;
-  padding: 2em 4em;
+  padding: 4em;
   overflow: scroll;
-  border-radius: 4px;
   width: 100%;
   height: 100%;
+
+  h1 {
+    font-size: 2.25em;
+    margin-bottom: 1em;
+  }
 }
 
 .modal .dialog.small {
+  padding: 2.5em 4em;
   margin: 12em auto auto;
+  border-radius: 4px;
 }
 
 @media screen and (min-width: $width-min-med) {
   .modal .dialog {
-    margin: 2em;
+    margin: 0em 2em;
     width: auto;
     height: auto;
   }
@@ -39,12 +45,12 @@
 
 @media screen and (min-width: $width-min-lrg) {
   .modal .dialog {
-    margin: 4em;
+    margin: 0em 4em;
   }
 
   .modal .dialog.small {
     width: $width-min-med;
-    height: $width-min-sml;
+    // height: $width-min-sml;
     // margin: 12em auto auto;
   }
 

@@ -19,8 +19,8 @@ function DevCtrl_($scope, Client, Form) {
     Client.emit('Dev: Reset form');
   }
 
-
   function subscribeForm (form_obj) {
+    // subscribing to form
     vm.prospect = form_obj;
     Form.form_stream()
     .select(function(x) { return x.exportVal(); })
@@ -28,16 +28,20 @@ function DevCtrl_($scope, Client, Form) {
   }
 
   function streamSubscription (form_obj) {
+    // subscription made
     var key, keys, val;
     if (form_obj === null) return; // will be null if no data on firebase
-    keys = Object.keys(form_obj);  // HACK: this may fail in different js interpretters... #readabookbrah
+    keys = Object.keys(form_obj);  // HACK: this may fail in different js interpreters... #readabookbrah
     if (!angular.equals(form_obj, vm.prospect)) { // firebase different from local
       for (var i = 0; i < keys.length; i++) {
         key = keys[i];
         val = form_obj[key];
         vm.prospect[key] = val;
       }
-      $scope.$apply(); // update the views
+      setTimeout(function() {
+        $scope.$apply(); // update the views
+      }, 0);
+      console.log('prospect is:', vm.prospect);
     }
   }
 }

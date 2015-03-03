@@ -50,13 +50,21 @@ function DesignProvider_ () {
   this.$get = [ "Session", "Clientstream", function designProviderFactory(Session, Client) {
 
     // always ask the session for value, to enable direct state navigation
-    Session.ref().once('value', bootstrapDesign);
-    // center comes from Session object, which supports Proposal later
-    center_ref = Session.ref().child('map_center');
-    center_stream = center_ref.observe('value');
+    if (Session.ref()) {
+      Session.ref().once('value', bootstrapDesign);
+    } else {
+      Client.listen('Session: Loaded', function(){
+        return Session.ref().once('value', bootstrapDesign);
+      });
+    }
 
     function bootstrapDesign (ds) {
       var session_obj = ds.exportVal()
+
+      // center comes from Session object, which supports Proposal later
+      center_ref = Session.ref().child('map_center');
+      center_stream = center_ref.observe('value');
+
       map_center = session_obj.map_center;
       // make the ref when Design is first required.
       if (_ref_key) {

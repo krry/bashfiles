@@ -1,22 +1,24 @@
-controllers.controller('ScheduleCtrl', ['Form', 'Clientstream', '$q', ScheduleCtrl_]);
+controllers.controller('ScheduleCtrl', ['Form', 'Clientstream', 'SiteSurvey', 'Installation', ScheduleCtrl_]);
 
-function ScheduleCtrl_ (Form, Client, $q) {
+function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation) {
   var vm = this;
   vm.prospect = Form.prospect;
   vm.eventDetails = eventDetails;
   vm.selectDate = selectDate;
   vm.selectTime = selectTime;
   vm.selectedDate = null;
+  vm.availableTimes = [];
+  vm.check = check;
   vm.init = init;
   vm.save = save;
-  vm.init();
+  vm.createInstallation = createInstallation;
 
   vm.config = {
     startDate: moment().format('MM/D/YYYY'),
     range: 21
   };
 
-  function eventDetails() { 
+  function eventDetails() {
     return {
       subject: 'SolarCity site survey',
       begin: vm.prospect.scheduledTime.obj.format('MM/DD/YYYY h:mm:ss A'),
@@ -49,6 +51,10 @@ function ScheduleCtrl_ (Form, Client, $q) {
 
     vm.selectedDate = date;
     vm.prospect.scheduledTime = null;
+
+    if (date.availableTimes.length === 1) {
+      selectTime(date.availableTimes[0]);
+    }
   }
 
   function selectTime(time) {
@@ -60,51 +66,65 @@ function ScheduleCtrl_ (Form, Client, $q) {
     vm.prospect.scheduledTime = time;
   }
 
-  // TODO: replace mocked response with call to GSA api provider
-  function getTimes() {
-    var dfd = $q.defer();
-    dfd.resolve([
-      moment().add(1, 'day').format('M/DD/YYYY h:mm:ssA'),
-      moment().add(2, 'day').format('M/DD/YYYY h:mm:ssA'),
-      '2/18/2015 11:00:00AM',
-      '2/19/2015 11:00:00AM',
-      '2/20/2015 9:00:00AM',
-      '2/20/2015 11:00:00AM',
-      '2/23/2015 9:00:00AM',
-      '2/23/2015 11:00:00AM',
-      '2/27/2015 7:00:00AM',
-      '2/27/2015 11:00:00AM',
-      '3/2/2015 9:00:00AM'
-    ]);
-
-    return dfd.promise;
-  }
-
-  // TODO: replace mocked response with call to GSA api provider
-  function scheduleTime() {
-    var dfd = $q.defer();
-    dfd.resolve('success');
-    return dfd.promise;
-  }
-
   function save() {
-    scheduleTime().then(function() {
-      Client.emit('stage', "next");
+    console.log(vm.prospect.scheduledTime);
+    return SiteSurvey.scheduleTime({
+      installationGuid: vm.prospect.installationGuid,
+      dateTime: vm.prospect.scheduledTime.obj.format(SiteSurvey.timeFormat)
+    }).then(function() {
+      Client.emit('stage', 'next');
     });
   }
 
   function init() {
-    return getTimes().then(parseTimes);
+    // TODO: remove the hard coded guid once the installation POST error clears up
+    vm.prospect.installationGuid = 'CD41ADEE-4AE9-40EB-B2CD-2AE72E8EABC6';
+    return SiteSurvey.getTimes({
+      installationGuid: vm.prospect.installationGuid
+    }).then(parseTimes, skipScheduling);
+  }
+
+  function check() {
+    return createInstallation().then(init).then(checkTimes);
   }
 
   function parseTimes(data) {
     vm.availableTimes = [];
 
     angular.forEach(data, function(date) {
-      date = moment(date, 'MM/D/YYYY h:mm:ssA');
+      date = moment(date, SiteSurvey.timeFormat);
       vm.availableTimes.push(date);
     });
 
     vm.config.startDate = vm.availableTimes[0].format('MM/D/YYYY');
+  }
+
+  function skipScheduling() {
+    Client.emit('jump to step', 'congrats');
+  }
+
+  function checkTimes(data) {
+    // Immediately redirect to congrats page if no times available
+    if (!data || !data.length) {
+      Client.emit('jump to step', 'congrats');
+    } else {
+      Client.emit('stage', 'next');
+    }
+  }
+
+  function createInstallation() {
+    vm.isSubmitting = true;
+
+    return Installation.create({
+      OfficeId: vm.prospect.warehouseId,
+      ContactId: vm.prospect.contactId,
+      AddressId: vm.prospect.addressId,
+      UtilityId: vm.prospect.utilityId
+    }).then(function(data) {
+      // TODO: store data from response when api is working
+      console.log(data);
+    }, function() {
+      Client.emit('jump to step', 'congrats');
+    });
   }
 }

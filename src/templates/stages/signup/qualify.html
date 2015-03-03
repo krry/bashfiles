@@ -1,6 +1,6 @@
 <!-- main.html for qualify stage -->
-<div ng-controller="FormCtrl as form">
-  <div class="overlay primary col" ng-if="!form.prospect.qualified">
+<div ng-controller="ScheduleCtrl as schedule">
+  <div class="overlay primary col full center contain" ng-if="!schedule.prospect.qualified">
     <h1>Sorry, we can't approve your request for financing at this time.
       <br><small>But you can give us a call at (888) 888-8888 to discuss your options, which include adding a co-signer or purchasing the system outright.</small>
     </h1>
@@ -26,15 +26,15 @@
     </div>
   </div>
 
-  <div class="overlay primary col"  ng-if="form.prospect.qualified">
+  <div class="overlay primary col"  ng-if="schedule.prospect.qualified">
     <h1>Congratulations &mdash; you qualified!
       <br><small>Now it's time to schedule a visit from one of our in-house site surveyors so we can design a customized system and proposal just for you.</small>
     </h1>
-    <button class="std gold" ng-click="stages.next()">Schedule site survey</button>
+    <button class="std gold" ng-click="schedule.check()">Schedule site survey</button>
     <button class="std white tiny" ng-click="stages.jumpToStep('congrats')">Schedule this later</button>
   </div>
 
-  <aside class="overlay secondary col sml-full med-full lrg-full full-height" ng-if="form.prospect.qualified">
+  <aside class="overlay secondary col sml-full med-full lrg-full full-height" ng-if="schedule.prospect.qualified">
     <div>
       <strong>What's next?</strong>
     </div>

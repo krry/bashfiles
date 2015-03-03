@@ -47,5 +47,4 @@ function ModalCtrl_(Client, ModalService) {
     ModalService.activate(name);
     console.log('body is:', $('body'), 'and dialog name is:', name);
   }
-
 }

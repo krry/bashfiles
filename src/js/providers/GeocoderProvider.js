@@ -13,7 +13,7 @@ providers.provider("Geocoder", [GeocoderProvider_]);
 
 function GeocoderProvider_ () {
 
-  this.$get = [ "Clientstream", function (Client) {
+  this.$get = [ "Clientstream", "Warehouse", function (Client, Warehouse) {
 
     var geocoder,
         addy,
@@ -203,9 +203,7 @@ function GeocoderProvider_ () {
         //   // check if the valid zip is in our territory
         //   checkTerritory(addy.zip);
         // }
-        if (addy.zip) {
-          checkTerritory(addy.zip);
-        }
+        var street_present = false;
         if (addy.state) {
           Client.emit('valid state', addy.state);
         }
@@ -218,49 +216,29 @@ function GeocoderProvider_ () {
             Client.emit('Gmap: switch to satellite', true);
             addy.home = addy.stno + " " + addy.street;
             Client.emit('valid house', addy);
+            street_present = true;
           }
+        }
+        if (addy.zip && !street_present) {
+          checkTerritory(addy.zip);
         }
       }
     }
 
     function checkTerritory(zip) {
-      var randomNumber = Math.random() >= 0.1;
       // if zip is in territory, emit that
       console.log('checking if', zip, 'is in our territory');
-      // HACK: hardcoding until checkTerritory API is accessible
-      addy.zoom = 15;
-      if (randomNumber) {
-        Client.emit('valid territory', addy.zip);
-      } else Client.emit('invalid territory', 'alternatives');
 
-      // var msg,
-      //     data,
-      //     response = {};
-
-      // data = 'zip=' + zip.toString();
-      // console.log('data is ' + data);
-
-      // if (zip !== null) {
-      //   $.ajax({
-      //     url: '//scexchange.solarcity.com/scfilefactory/app_handler/checkTerritory.ashx',
-      //     // url: '//slc3web00.solarcity.com/scexchange/app_handler/checkTerritory.ashx',
-      //     type: 'POST',
-      //     data: data,
-      //     dataType: 'json',
-      //     error: function(err){
-      //       response.is = false;
-      //       response.msg = 'API not reachable';
-      //       alert('CheckTerritory API not reachable from this domain');
-      //       Client.emit('invalid territory', response);
-      //     },
-      //     success: function(data) {
-      //       // data = {'InTerritory' : 'false/true'}
-      //       // console.log(typeof data)
-      //      // console.log(data)
-      //      Client.emit('valid territory', data.InTerritory);
-      //     }
-      //   });
-      // }
+      Warehouse.get({zip: zip}).then(function(data) {
+        if (data.IsInTerritory) {
+          addy.zoom = 15;
+          Client.emit('valid territory', zip);
+          Client.emit('valid warehouse', data.WarehouseId);
+          Client.emit('jump to stage', 'address-roof');
+        } else {
+          Client.emit('stage', 'next');
+        }
+      });
     }
 
     function geocode_builder_brah () {

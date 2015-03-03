@@ -1,13 +1,16 @@
 angular.module('design_link',[]).config(["$stateProvider", function ($stateProvider) {
+  var stageName,
+      templateUrl,
+      session_ref_key;
 
   // specifics for for this state
-  var stageName = 'design_link';
+  stageName = 'design_link';
   // state definition
-  var templateUrl = "templates/";
+  templateUrl = "templates/";
   // var stageUrl = templateUrl + "/stages/" + stageName + '/';
 
   $stateProvider.state("design_link", {
-    url: "/oda/:design_ref_key",
+    url: "/oda/:session_ref_key",
     views: {
       'header@': {
         templateUrl: templateUrl + 'header.html',
@@ -17,9 +20,9 @@ angular.module('design_link',[]).config(["$stateProvider", function ($stateProvi
         templateUrl: templateUrl +'design_link.html',
         controller: function design_link_ctrl ($stateParams, $state, Clientstream, User) {
           var user_id,
-              design_ref;
-          design_ref = $stateParams.design_ref_key;
-          Clientstream.emit('ODA: Request session',design_ref);
+              session_key;
+          session_ref_key = $stateParams.session_ref_key;
+          Clientstream.emit('ODA: Request session',session_ref_key);
         },
       },
     },
