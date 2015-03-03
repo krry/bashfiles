@@ -187,6 +187,8 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
       vm.prospect.contactId = data.ContactId;
       vm.prospect.addressId = data.AddressId;
       vm.isSubmitting = false;
+      vm.timedOut = false;
+
       Client.emit('Form: valid data', {
         contactId: vm.prospect.contactId,
         addressId: vm.prospect.addressId,
@@ -197,8 +199,14 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
       });
 
       Client.emit('stage', 'next');
-    }, function() {
+    }, function(resp) {
       vm.isSubmitting = false;
+
+      if (resp.status === 0) {
+        vm.timedOut = true;
+      } else {
+        Client.emit('jump to step', 'congrats');
+      }
     })
   }
 
