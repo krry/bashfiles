@@ -15,15 +15,19 @@ function LiveagentService_ () {
     onNext: x_addDetailsToAgent,
     onCompleted: x_findOrCreateSessionByAddy,
     onError: function (argument) {
-      alert("custom_detail_stream error",argument);
+      alert("custom_detail_stream error", argument);
     },
   })
 
   function x_addDetailsToAgent (prospect_key_val) {
     var key = prospect_key_val.key;
-    var val = prospect_key_val.val;
+    var val = prospect_key_val.value;
+    var fieldName = key+'__c';
 
-    return liveagent.addCustomDetail(key, value).saveToTranscript(key+'__c');
+    console.log("adding custom detail:", key, val);
+    console.log("fieldName", fieldName);
+
+    return liveagent.addCustomDetail(key, val).saveToTranscript(fieldName);
   }
 
   function x_findOrCreateSessionByAddy () {
@@ -62,15 +66,15 @@ function LiveagentService_ () {
         if ( prospect.hasOwnProperty(key)) {
           if (key !== "location") {
             value = prospect[key].toString();
-            console.log("adding custom detail:", key, value);
             custom_detail_stream.onNext({key: key, value: value});
           }
         }
       }
       // concatenate full address for uniqueness test
-      address = [prospect.home, prospect.city, prospect.state, prospect.zip].join(' ');
+      // addy = [prospect.home, prospect.city, prospect.state, prospect.zip].join(' ').toString();
+      // console.log('addy concatentate', addy);
       // manually add a few more required fields
-      custom_detail_stream.onNext({key: "Address", value: address});
+      custom_detail_stream.onNext({key: "Address", value: [prospect.home, prospect.city, prospect.state, prospect.zip].join(' ')});
       custom_detail_stream.onCompleted();
       custom_detail_stream.dispose();
     },
