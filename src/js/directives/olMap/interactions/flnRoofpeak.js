@@ -71,7 +71,8 @@ function flnRoofpeak_ (MapFactory, Configurator, Client) {
           if (feature !== highlight) {
             if (highlight) {
               feature_overlay.removeFeature(highlight);
-              delete highlight
+              // TODO: figure out if deleting a variable is dangerous
+              delete highlight;
             }
             if (feature) {
               feature_overlay.addFeature(feature);
