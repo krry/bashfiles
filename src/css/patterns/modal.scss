@@ -12,16 +12,16 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: $shade-60;
+  background: $tint-60;
   overflow-y: scroll;
 }
 
 .modal .dialog {
-  background: $white;
+  background: $tint-80;
   padding: 4em;
   overflow: scroll;
-  width: 100%;
-  height: 100%;
+  width: 90%;
+  max-height: 50%;
 
   h1 {
     font-size: 2.25em;
@@ -31,15 +31,17 @@
 
 .modal .dialog.small {
   padding: 2.5em 4em;
-  margin: 12em auto auto;
   border-radius: 4px;
 }
 
 @media screen and (min-width: $width-min-med) {
   .modal .dialog {
     margin: 0em 2em;
-    width: auto;
-    height: auto;
+    width: 35em;
+    height: 15em;
+  }
+  .modal .dialog.small {
+    margin: 12em auto auto;
   }
 }
 
