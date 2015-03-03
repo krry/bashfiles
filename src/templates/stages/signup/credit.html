@@ -1,34 +1,45 @@
 <!-- main.html for qualify stage -->
-<div class="overlay primary col" ng-controller="FormCtrl as form">
-  <h1>Great, now let’s see what we can do for you.<br><small>Enter your date of birth to see if you qualify for our flexible financing options.</small></h1>
-  <form name="prospectForm" novalidate>
+<div ng-controller="FormCtrl as form">
+  <div class="spinner-tray" ng-show="form.isSubmitting">
+    <fln-spinner></fln-spinner>
+  </div>
+
+  <div class="overlay primary col">
+    <h1 ng-if="!form.timedOut">Great, now let’s see what we can do for you.<br><small>Enter your date of birth to see if you qualify for our flexible financing options.</small></h1>
+    <h1 ng-if="form.timedOut">Sorry! Our connection timed out. <small>Please re-enter your information and try agian.</small></h1>
+    <form name="prospectForm" novalidate>
+      <div class="row center">
+        <div class="col half padded">
+          <label for="" class="caps">Date of birth</label>
+          <fln-input-dob form="prospectForm"></fln-input-dob>
+        </div>
+      </div>
+      <div class="row center">
+        <div class="col half padded center">
+          <fln-input-terms></fln-input-terms>
+        </div>
+      </div>
+    </form>
     <div class="row center">
-      <div class="col half padded">
-        <label for="" class="caps">Date of birth</label>
-        <fln-input-dob form="prospectForm"></fln-input-dob>
-        <fln-input-terms></fln-input-terms>
+      <div class="col half padded center">
+        <button class="ib gold" ng-click="form.checkCredit(form.prospect)" ng-disabled="prospectForm.$invalid || form.isSubmitting">Qualify Me</button>
       </div>
     </div>
-  </form>
-  <div class="row center">
-    <div class="col half padded center">
-      <button class="ib gold" ng-click="form.checkCredit(form.prospect)" ng-disabled="prospectForm.$invalid">Qualify Me</button>
-    </div>
   </div>
-</div>
 
-<div class="overlay secondary col sml-full med-full">
-  <!-- <p>We need your consent to a quick credit check so we can determine what kind of savings we can offer you.</p> -->
-  <!-- <p>This is solely for the purpose of providing you with a solar system. We won't share your information with anyone else.</p> -->
+  <div class="overlay secondary col sml-full med-full">
+    <!-- <p>We need your consent to a quick credit check so we can determine what kind of savings we can offer you.</p> -->
+    <!-- <p>This is solely for the purpose of providing you with a solar system. We won't share your information with anyone else.</p> -->
 
-  <!-- TODO: remove internal jargon from this copy; prospects won't know a 'soft' from a 'hard' credit check -->
-  <p>We’ll run a soft credit check to determine what financing we can offer you. This won't affect your credit score. We'll talk through your options with you once your professional design is complete so we know your exact system size/production.</p>
-  <p>If you are not interested in financing and prefer to purchase your system, you'll want to contact a sales representative directly. Give us a call now at <strong><a href="tel:18887652489">(888) 765-2489</a></strong>.</p>
+    <!-- TODO: remove internal jargon from this copy; prospects won't know a 'soft' from a 'hard' credit check -->
+    <p>We’ll run a soft credit check to determine what financing we can offer you. This won't affect your credit score. We'll talk through your options with you once your professional design is complete so we know your exact system size/production.</p>
+    <p>If you are not interested in financing and prefer to purchase your system, you'll want to contact a sales representative directly. Give us a call now at <strong><a href="tel:18887652489">(888) 765-2489</a></strong>.</p>
 
-  <ul class="financing-options-list">
-    <li><strong>SolarPPA</strong>&nbsp;Pay only for the power your system produces with little to no upfront costs.</li>
-    <li><strong>Solar Lease</strong>&nbsp;Make a fixed monthly payment at locked-in low rate.</li>
-    <li><strong>MyPower loan</strong>&nbsp;Own your system from day one for $0 down.</li>
-    <li><strong>Purchase</strong>&nbsp;If you wish to purchase your system, skip this step. Pay cash upfront and enjoy free, clean energy for years.</li>
-  </ul>
+    <ul class="financing-options-list">
+      <li><strong>SolarPPA</strong>&nbsp;Pay only for the power your system produces with little to no upfront costs.</li>
+      <li><strong>Solar Lease</strong>&nbsp;Make a fixed monthly payment at locked-in low rate.</li>
+      <li><strong>MyPower loan</strong>&nbsp;Own your system from day one for $0 down.</li>
+      <li><strong>Purchase</strong>&nbsp;If you wish to purchase your system, skip this step. Pay cash upfront and enjoy free, clean energy for years.</li>
+    </ul>
+  </div>
 </div>

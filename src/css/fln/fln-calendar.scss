@@ -108,6 +108,11 @@
   }
 }
 
+.selection-wrapper {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
 .time-selection {
   display: inline-block;
   padding: 5px 20px;
@@ -116,6 +121,7 @@
   background: $grey-lightest;
   cursor: pointer;
   border: 4px solid transparent;
+  width: 130px;
 
   &.selected {
     border: 4px solid $green-bright;

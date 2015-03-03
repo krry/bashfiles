@@ -15,9 +15,9 @@
   "GSA_API": "/api/schedule/",
   "INSTALLATION_API": "/api/installation/partial",
   "CLIENT": {
-    "MINIFIED": "true",
-    "APP_TITLE": "The Future is Now • SolarCity",
-    "GMAP_CLIENT": "",
+    "MINIFIED": "false",
+    "APP_TITLE": "FLNL • DEV",
+    "GMAP_CLIENT": "gme-solarcity",
     "UTILITIES_API": "/api/utilities",
     "WAREHOUSE_API": "/api/warehouses",
     "RATES_API": "/api/rates",
@@ -28,7 +28,7 @@
     "INSTALLATION_API": "/api/installation",
     "CREDIT_FAIL": {
       "EMAIL": "flannel@fail.com",
-      "ADDRESS_ID": 760639,
+      "ADDRESS_ID": 906304,
       "DOB": "05/27/1943"
     }
   }

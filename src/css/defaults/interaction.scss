@@ -217,11 +217,14 @@ a.btn {
     position: absolute;
     top: 0;
     right: 0;
-    min-width: 0;
-    padding-left: 1.6em;
-    padding-right: 1.6em;
     margin: 0;
-    border-radius: 0 0 0 4px;
+    border-radius: 0;
+    background: none;
+    border: 0;
+    outline: none;
+    background: url('../img/close_x.svg') no-repeat center center;
+    width: 3em;
+    height: 3em;
   }
   &.text {
     background: none;
@@ -278,7 +281,7 @@ label {
   display: block;
   text-indent: 0;
   font-weight: 600;
-  margin-top: 1em;
+  margin-top: 0.5em;
   margin-bottom: 0.625em;
 }
 
@@ -365,7 +368,7 @@ input[type="month"]:hover,
 input[type="time"]:hover,
 input[type="week"]:hover,
 select[multiple=multiple]:hover {
-  border-color: $grey-mid;
+  border-color: $grey-meh;
 }
 
 textarea:focus,
@@ -383,9 +386,9 @@ input[type="datetime-local"]:focus,
 input[type="month"]:focus,
 input[type="time"]:focus,
 input[type="week"]:focus {
-  border-color: $grey-mid;
+  border-color: $grey-meh;
   background-color: $color-input-bkgd-focus;
-  box-shadow: inset $shadow-input;
+  box-shadow: $shadow-input;
 }
 
 select {
