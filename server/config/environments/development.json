@@ -25,6 +25,11 @@
     "CONTACT_API": "/api/contact",
     "NEAR_ME_API": "/api/nearme",
     "GSA_API": "/api/gsa",
-    "INSTALLATION_API": "/api/installation"
+    "INSTALLATION_API": "/api/installation",
+    "CREDIT_FAIL": {
+      "EMAIL": "flannel@fail.com",
+      "ADDRESS_ID": 760639,
+      "DOB": "05/27/1943"
+    }
   }
 }

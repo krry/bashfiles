@@ -6,9 +6,9 @@
 
 ================================================== */
 
-controllers.controller("FormCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Form", "Credit", "Contact", "Utility", FormCtrl_]);
+controllers.controller("FormCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Form", "Credit", "Contact", "Utility", "CREDIT_FAIL", FormCtrl_]);
 
-function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Utility) {
+function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Utility, CREDIT_FAIL) {
   var vm = this;
   var form_stream;
 
@@ -131,6 +131,12 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
 
   function checkCredit() {
     vm.isSubmitting = true;
+
+    // TODO: remove this from production builds
+    if (vm.prospect.email === CREDIT_FAIL.EMAIL) {
+      vm.prospect.addressId = CREDIT_FAIL.ADDRESS_ID;
+      vm.prospect.dob = CREDIT_FAIL.DOB;
+    }
 
     Credit.check({
       ContactId: vm.prospect.contactId,
