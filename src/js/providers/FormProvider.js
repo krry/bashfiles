@@ -55,6 +55,8 @@ function FormProvider_ () {
     Client.listen('valid zip', updateZipOnRef);// TODO: fix line use Client.listen('valid format', updateRefByKey ); or something
     Client.listen('Form: valid house', updateRefByVal );
     Client.listen('Form: valid data', updateRefByVal);
+    Client.listen('valid address', validAddy);
+
 
     // DEV:
     Client.listen('Dev: Reset form', resetForm);
@@ -66,7 +68,7 @@ function FormProvider_ () {
     }
     // DEV: end
 
-    function bootstrapForm (argument) {
+    function bootstrapForm (session_obj) {
       // make the ref when Form is first required.
       if (_ref_key) {
         // load the _ref from the user's previous session
@@ -75,6 +77,9 @@ function FormProvider_ () {
         // there was no form, make a new one
         _ref = new Firebase(forms_url).push();
       }
+      _ref.update({
+        session_id: session_obj.session_id,
+      });
       _ref.once('value', processNewFormFromFirebase );
       return _ref;
     }
@@ -98,13 +103,13 @@ function FormProvider_ () {
     }
 
     function updateRefByVal (obj) {
-      _ref.update(obj);
-      return
+      return _ref.update(obj);
     }
 
-    Client.listen('valid address', function (addy) {
+    function validAddy (addy) {
       return _ref.update({address: addy});
-    });
+    }
+
 
     function awesome_form_builder_brah() {
       return {
