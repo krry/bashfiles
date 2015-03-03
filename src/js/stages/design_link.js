@@ -12,17 +12,18 @@ angular.module('design_link',[]).config(["$stateProvider", function ($stateProvi
   $stateProvider.state("design_link", {
     url: "/oda/:session_ref_key",
     views: {
-      'header@': {
-        templateUrl: templateUrl + 'header.html',
-        controller:  'NavCtrl as nav',
-      },
       'main@': {
         templateUrl: templateUrl +'design_link.html',
+        controllerAs: "oda",
         controller: function design_link_ctrl ($stateParams, $state, Clientstream, User) {
+          var vm = this;
           var user_id,
               session_key;
           session_ref_key = $stateParams.session_ref_key;
-          Clientstream.emit('ODA: Request session',session_ref_key);
+          vm.loadUserSession = function(){
+            Clientstream.emit('ODA: Request session',session_ref_key);
+            $state.go('flannel.home');
+          }
         },
       },
     },
