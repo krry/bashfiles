@@ -1,6 +1,6 @@
-directives.directive('flnHelp', flnHelp);
+directives.directive('flnHelp', ['Liveagent', flnHelp]);
 
-function flnHelp () {
+function flnHelp (Liveagent) {
   return {
     templateUrl: 'templates/directives/widgets/flnHelp.html',
     controller: 'ChatCtrl',
@@ -44,39 +44,16 @@ function flnHelp () {
           // retrieve prospect object from Form in Firebase
           // TODO: figure out why this prospect does not have a `form_id` like the prospect in FormProvider
           prospect = scope.prospect();
+          // send prospect to Liveagent
+          Liveagent.addCustomDetails(prospect);
 
-          // parse the prospect object into addCustomDetail calls that build the Lead object in Salesforce
-          // custom details must be added before init of liveagent
-          for (var key in prospect) {
-            if ( prospect.hasOwnProperty(key)) {
-              if (key !== "location") {
-                console.log("adding custom detail:", key, value);
-                value = prospect[key].toString();
-                liveagent.addCustomDetail(key, value).saveToTranscript(key+'__c');
-              }
-            }
+          var targetConfig = {
+            buttonId: "57319000000CaTc",
+            iframeTarget: "live_agent_chat"
           }
-
-          // concatenate full address for uniqueness test
-          address = [prospect.home, prospect.city, prospect.state, prospect.zip].join(' ');
-
-          // manually add a few more required fields
-          liveagent.addCustomDetail("Address", address).saveToTranscript('Address__c');
-
-          // if a Lead exists with the same Form details, find it
-          // if no similar Lead exists, create a new one
-          liveagent.findOrCreate("ODA_Session__c")
-                   .map("Address__c", "Address", true, true, true)
-                   .showOnCreate().saveToTranscript("ODA_Session__c");
-
-          // initialize the liveagent session with a deployment id, and configuration id
-          liveagent.init('https://d.la3-c2cs-chi.salesforceliveagent.com/chat', '57219000000CaSA', '00D19000000Dtc3');
-
-          setTimeout(function(){
-            // start a chat with button id [1st parameter] within an iframe [2nd parameter]
-            liveagent.startChatWithWindow("57319000000CaTc", "live_agent_chat");
-            chatOpened = true;
-          }, 1000)
+          // try to start the Liveagent chat
+          Liveagent.start(targetConfig);
+          chatOpened = true;
         }
       });
 
