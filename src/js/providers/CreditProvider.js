@@ -20,7 +20,9 @@ function CreditProvider_ () {
     function check(data) {
       var dfd = $q.defer();
 
-      $http.post(CREDIT_CHECK_API, data).then(function(resp) {
+      $http.post(CREDIT_CHECK_API, data, {
+        timeout: 60000
+      }).then(function(resp) {
         dfd.resolve(parse(resp.data));
       }, function(resp) {
         dfd.reject(resp);

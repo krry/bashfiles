@@ -1,20 +1,20 @@
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-  Contact Provider
+  Installation Provider
 
-  Accesses the create contact API in SolarWorks
+  Accesses the installation API in SolarWorks
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
-providers.provider('Contact', [ContactProvider_ ]);
+providers.provider('Installation', [InstallationProvider_ ]);
 
-function ContactProvider_ () {
-  this.$get = ['$http', '$q', 'CONTACT_API', function($http, $q, CONTACT_API) {
+function InstallationProvider_ () {
+  this.$get = ['$http', '$q', 'INSTALLATION_API', function($http, $q, INSTALLATION_API) {
     function create(data) {
       var dfd = $q.defer();
       
-      $http.post(CONTACT_API, data, {
-        timeout: 60000
+      $http.post(INSTALLATION_API, data, {
+        timeout: 20000
       }).then(function(resp) {
         dfd.resolve(resp.data);
       }, function(resp) {
