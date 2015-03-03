@@ -125,6 +125,7 @@
   <form fln-form novalidate name="prospectForm" class="prospect-form">
     <main ui-view name="main" id="main" class="main" ng-class="{ 'scroll-y': stages.proposal }"></main>
   </form>
+  <fln-help shown="false" ng-class="{shown: shown}"></fln-help>
   <footer ui-view name="footer" id="footer" class="footer row"></footer>
   <div fln-modal class="modal" ng-show="modal.isOn()" ng-click=""></div>
 
