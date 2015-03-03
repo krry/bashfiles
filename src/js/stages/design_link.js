@@ -1,9 +1,12 @@
 angular.module('design_link',[]).config(["$stateProvider", function ($stateProvider) {
+  var stageName,
+      templateUrl,
+      session_ref_key;
 
   // specifics for for this state
-  var stageName = 'design_link';
+  stageName = 'design_link';
   // state definition
-  var templateUrl = "templates/";
+  templateUrl = "templates/";
   // var stageUrl = templateUrl + "/stages/" + stageName + '/';
 
   $stateProvider.state("design_link", {
