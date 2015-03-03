@@ -26,8 +26,11 @@ function AppCtrl_($sce, GMAP_CLIENT, MINIFIED, APP_TITLE, Client, $location) {
     var split_url_array = step_url.split('/');
     var step = split_url_array[split_url_array.length-1].split('.')[0];
     console.log('step is', step);
+    // switch (step) {
+      // case:
+    // }
     if (step === "congrats") {
-      ga('send', 'event', 'Congrats', 'Button Clicks', 'Final submit');
+      ga('send', 'event', step, 'Button Clicks', 'Final submit');
     }
     if (step === "zoom") {
       ga('send', 'event', step, 'Design Tool', 'Design tool engaged');
@@ -42,6 +45,7 @@ function AppCtrl_($sce, GMAP_CLIENT, MINIFIED, APP_TITLE, Client, $location) {
       ga('send', 'event', step, 'Design Tool', 'Polygon Completed');
     }
     // ga('send', 'pageview', '/RELATIVE-URL');
-    ga('send', 'pageview', $location.path); // relative url
+    console.log("$location", $location.$$path);
+    ga('send', 'pageview', $location.$$path); // relative url
   }
 }
