@@ -30,6 +30,7 @@
       "EMAIL": "flannel@fail.com",
       "ADDRESS_ID": 760639,
       "DOB": "05/27/1943"
-    }
+    },
+    "SFLEAD_API": "/api/sflead/"
   }
 }

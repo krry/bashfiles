@@ -9,7 +9,7 @@ module.exports = function(app) {
   app.get('/flannel/', appController.index );
   app.get('/jwt', appController.jwt );
 
-  app.post('/api/leadaddedit/', salesForceController.addEditLead);
+  app.post(conf.CLIENT.SFLEAD_API, salesForceController.addEditLead);
 
   app.get(conf.CLIENT.UTILITIES_API, proxyController.utilities);
   app.get(conf.CLIENT.WAREHOUSE_API, proxyController.warehouses);
