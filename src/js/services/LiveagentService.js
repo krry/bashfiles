@@ -64,6 +64,7 @@ function LiveagentService_ () {
       // custom details must be added before init of liveagent
       for (var key in prospect) {
         if ( prospect.hasOwnProperty(key)) {
+          var value;
           if (key !== "location") {
             value = prospect[key].toString();
             custom_detail_stream.onNext({key: key, value: value});
