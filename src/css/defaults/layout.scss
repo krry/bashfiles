@@ -2,12 +2,21 @@
 @import "../imports/sizes";
 @import "../imports/functions";
 
+body {
+  background-color: $grey-lightest;
+}
+
 main.main {
-  position: fixed;
   width: 100%;
   z-index: 1;
+  padding-top: 2.9rem;
+}
+
+main.main.main-fixed {
+  position: fixed;
   top: 2.9rem;
   bottom: 2rem;
+  margin-top: 0;
 }
 
 .overlayer {
@@ -19,7 +28,7 @@ main.main {
 }
 
 .full-height,
-.prospect-form,
+.prospect-form.form-fixed,
 .overlay.secondary,
 .overlayer {
   height: 100%;
@@ -56,11 +65,16 @@ main.main {
 
 .underlayer {
   position: fixed;
+  display: none;
   z-index: 0;
   top: 0; right: 0;
   bottom: 0; left: 0;
   width: 100%;
   height: 100%;
+}
+
+.main-fixed .underlay {
+  display: block;
 }
 
 .underlay {
@@ -102,6 +116,13 @@ main.main {
 
   .inset-right {
     box-shadow: inset 0 0 8px -2px $shade-40;
+    position: relative;
+  }
+
+  .overlay-left.overlay-left {
+    overflow: visible;
+    position: relative;
+    z-index: 1;
   }
 }
 
