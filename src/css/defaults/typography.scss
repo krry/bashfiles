@@ -44,8 +44,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 1.6;
+  font-size: 1.9;
   line-height: 1.2em;
+  border: 1px solid red;
 }
 
 .step-zip h1 {
@@ -60,7 +61,7 @@ p.tiny {
 h1 small,
 h2 small {
   @include apercu-light;
-  font-size: 70%;
+  font-size: 71%;
   display: block;
   margin-top: .5em;
   line-height: 1.2;
