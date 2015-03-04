@@ -116,3 +116,12 @@ button.tiny.gold {
   border-radius: 1.4em/50%;
   min-width: 5em;
 }
+
+button.tiny.white {
+  padding: 0.8em 0em;
+  border-radius: 1.4em/50%;
+  min-width: 17em;
+  border: 1px solid $grey-lighter;
+  color: $grey-mid;
+  line-height: 100%;
+}
