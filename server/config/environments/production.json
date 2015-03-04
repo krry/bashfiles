@@ -14,6 +14,9 @@
   "NEAR_ME_API": "/api/accounts/",
   "GSA_API": "/api/schedule/",
   "INSTALLATION_API": "/api/installation/partial",
+  "SFLOGIN_URL": "https://test.salesforce.com",
+  "SFUSERNAME": "solarcity@solarcity.com.full",
+  "SFPASSWORD": "makinSales2006;",
   "CLIENT": {
     "MINIFIED": "true",
     "APP_TITLE": "The Future is Now • SolarCity",
