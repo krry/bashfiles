@@ -41,6 +41,13 @@ function LiveagentService_ () {
               true,         // doFind
               true,         // isExactMatch
               true)         // doCreate
+              .map(
+              "Session_ID__c",
+              "session_id",
+              false,
+              false,
+              true
+              )
       .showOnCreate().saveToTranscript("ODA_Session__c");
 
     // initialize the liveagent session
@@ -57,6 +64,7 @@ function LiveagentService_ () {
       // custom details must be added before init of liveagent
       for (var key in prospect) {
         if ( prospect.hasOwnProperty(key)) {
+          var value;
           if (key !== "location") {
             value = prospect[key].toString();
             custom_detail_stream.onNext({key: key, value: value});
@@ -87,10 +95,10 @@ function LiveagentService_ () {
       } catch (e) {
         setTimeout(function(attempt){
           // attempt++;
+          console.log('attempting to start chat');
           tryStartChat(attempt, t.buttonId, t.iframeTarget);
-        }, 350);
+        }, 500);
       }
     }
   }
 }
-

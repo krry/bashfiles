@@ -1,7 +1,5 @@
-controllers.controller("FooterCtrl", FooterCtrl_);
+controllers.controller("FooterCtrl", ["Clientstream", FooterCtrl_]);
 
-function FooterCtrl_() {
+function FooterCtrl_(Client) {
   var vm = this;
-
-  // add controls for terms dialog
 }

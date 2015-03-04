@@ -12,27 +12,34 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: $shade-60;
+  background: $shade-80;
   overflow-y: scroll;
 }
 
 .modal .dialog {
   background: $white;
-  padding: 4em;
+  padding: 3em 4em;
   overflow: scroll;
   width: 100%;
   height: 100%;
 
-  h1 {
-    font-size: 2.25em;
-    margin-bottom: 1em;
+  h2 {
+    font-size: 2em;
+    margin-bottom: 2em;
+    text-align: center;
   }
 }
 
 .modal .dialog.small {
   padding: 2.5em 4em;
-  margin: 12em auto auto;
+  margin: 10em auto auto;
+  margin: 25vh auto auto;
   border-radius: 4px;
+  bottom: auto;
+}
+
+.dialog figure > img {
+  min-height: 10em;
 }
 
 @media screen and (min-width: $width-min-med) {

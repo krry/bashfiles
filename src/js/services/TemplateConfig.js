@@ -87,7 +87,6 @@ function TemplateConfig_ () {
         stage.push(hardcode(config[i].steps[j].partial));
       }
     }
-
     return partials;
   }
 
@@ -98,4 +97,3 @@ function TemplateConfig_ () {
 
   return service;
 }
-

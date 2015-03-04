@@ -215,16 +215,16 @@ a.btn {
   }
   &.close.close {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: .5em;
+    right: .5em;
     margin: 0;
     border-radius: 0;
     background: none;
     border: 0;
     outline: none;
     background: url('../img/close_x.svg') no-repeat center center;
-    width: 3em;
-    height: 3em;
+    width: 4em;
+    height: 4em;
   }
   &.text {
     background: none;

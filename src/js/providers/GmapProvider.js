@@ -31,8 +31,8 @@ function GmapFactory_ () {
       mapTypeId: google.maps.MapTypeId.TERRAIN,
       disableDefaultUI: true,
       backgroundColor: "transparent",
-      draggable: true,
-      // zoomable: false,
+      draggable: false,
+      zoomable: false,
       // scrollwheel: false,
     }
 
@@ -97,7 +97,7 @@ function GmapFactory_ () {
         position: location,
         map: map,
         draggable: false,
-        //icon: 'img/burstpin.png'
+        icon: 'img/map_pin_1.svg'
       });
     }
 

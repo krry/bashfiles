@@ -10,4 +10,5 @@
   min="1915-01-01"
   max="1998-01-01"
   ng-model="form.prospect.dob"
+  ng-model-options="{ updateOn: 'default blur', debounce: { default: 2000, blur: 0 } }"
   ng-required="true">
