@@ -95,8 +95,9 @@ function LiveagentService_ () {
       } catch (e) {
         setTimeout(function(attempt){
           // attempt++;
+          console.log('attempting to start chat');
           tryStartChat(attempt, t.buttonId, t.iframeTarget);
-        }, 350);
+        }, 500);
       }
     }
   }
