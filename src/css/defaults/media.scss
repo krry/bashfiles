@@ -31,8 +31,21 @@ figure video {
 }
 
 .video-tray {
+  position: relative;
   padding-bottom: 56.25%;
   height: 0;
+  overflow: hidden;
+  margin-top: .25em;
+  margin-bottom: .25em;
+  width: 100%;
+
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
 }
 
 img {
@@ -43,10 +56,4 @@ img {
   width: 100%;
   height: 150px;
   background: $black;
-}
-
-@media screen and (min-width: $width-min-lrg) {
-  figure:first-child:last-child.bleed-right {
-    margin: 0 -2em 1em 0;
-  }
 }
