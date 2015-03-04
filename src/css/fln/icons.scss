@@ -1,6 +1,20 @@
 @import '../imports/icons';
 
 .icon {
+  &.up {
+    @include icon('arrow-up');
+    width: 1em;
+    height: 1em;
+    margin-left: .75em;
+    margin-bottom: -.125em;
+  }
+  &.down {
+    @include icon('arrow-down');
+    width: 1em;
+    height: 1em;
+    margin-left: .75em;
+    /* margin-bottom: -.125em; */
+  }
   &.question {
     @include icon("question-mark-white");
   }

@@ -14,6 +14,9 @@
   "NEAR_ME_API": "/api/accounts/",
   "GSA_API": "/api/schedule/",
   "INSTALLATION_API": "/api/installation/partial",
+  "SFLOGIN_URL": "https://test.salesforce.com",
+  "SFUSERNAME": "solarcity@solarcity.com.full",
+  "SFPASSWORD": "makinSales2006;",
   "CLIENT": {
     "MINIFIED": "false",
     "APP_TITLE": "FLNL • DEV",
@@ -30,6 +33,7 @@
       "EMAIL": "flannel@fail.com",
       "ADDRESS_ID": 906304,
       "DOB": "05/27/1943"
-    }
+    },
+    "SFLEAD_API": "/api/sflead/"
   }
 }

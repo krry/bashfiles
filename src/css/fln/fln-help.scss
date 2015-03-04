@@ -12,13 +12,13 @@
 @import "../imports/motion";
 
 fln-help {
-  position: absolute;
+  position: fixed;
   display: block;
-  z-index: 1;
-  bottom: 2rem;
+  z-index: 3;
+  bottom: 0;
   right: 1rem;
   width: 15rem;
-  height: 18rem;
+  height: 17.5rem;
   background: hsl(0, 100%, 100%);
   box-shadow: 0 0 12px -4px hsla(0, 0%, 0%, 0.8);
   border-style: none;
@@ -32,15 +32,15 @@ fln-help {
 
   .trigger-bar {
     @include apercu-bold;
-    font-size: 1rem;
+    font-size: .875rem;
     color: $white;
-    height: 3rem;
+    height: 2.5rem;
     background-color: $blue-smoke;
     border: 0;
     border-radius: 4px 4px 0 0;
     display: block !important;
     width: 100%;
-    padding: .25em 1.5em;
+    padding: .125em 1em;
     text-align: left;
   }
 }
@@ -117,4 +117,3 @@ iframe.chatframe {
   position: fixed;
   z-index: 10;
 }
-

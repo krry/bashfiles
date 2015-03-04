@@ -39,10 +39,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
   vm.partial = Templates.partial(stage, step);
   vm.partials = flattenPartialsArray(Templates.partials);
   vm.currentStep = currentStep;
-
-  function currentStep (step) {
-    return step === step;
-  }
+  vm.fixed = false;
 
   // subscribe to the state when session is loaded
   Client.listen('Session: Loaded', bootstrapNewSession);
@@ -56,11 +53,35 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
   Client.listen('start over', startOver);
   Client.listen('spin it', setWaiting);
   Client.listen('stage', stageLayout);
+  Client.listen('step complete', fixLayout);
+
+  function fixLayout (step_url) {
+    var split_url_array = step_url.split('/');
+    var step = split_url_array[split_url_array.length-1].split('.')[0];
+    var fixedSteps = [
+      'address',
+      'bill',
+      'zoom',
+      'trace',
+      'edit',
+      'detail'
+    ];
+
+    if (fixedSteps.indexOf(step) > -1) {
+      vm.fixed = true;
+    } else {
+      vm.fixed = false;
+    }
+  }
+
+  function currentStep (step) {
+    return step === step;
+  }
 
   function stageLayout (target_state) {
     if (typeof target_state === "string" ) return;
     var stage = target_state.stage;
-    console.log("Templates.config[stage].name", Templates.config[stage].name);
+    // console.log("Templates.config[stage].name", Templates.config[stage].name);
     if (Templates.config[stage].name === "flannel.proposal") {
       vm.proposal = true;
     }

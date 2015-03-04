@@ -2,12 +2,21 @@
 @import "../imports/sizes";
 @import "../imports/functions";
 
+body {
+  background-color: $grey-lightest;
+}
+
 main.main {
-  position: fixed;
   width: 100%;
   z-index: 1;
+  padding-top: 2.9rem;
+}
+
+main.main.main-fixed {
+  position: fixed;
   top: 2.9rem;
   bottom: 2rem;
+  padding-top: 0;
 }
 
 .overlayer {
@@ -19,7 +28,7 @@ main.main {
 }
 
 .full-height,
-.prospect-form,
+.prospect-form.form-fixed,
 .overlay.secondary,
 .overlayer {
   height: 100%;
@@ -32,7 +41,7 @@ main.main {
 }
 
 .overlay.short {
-  padding: 1.8em 2em 0.3em 2em;
+  padding: .7em 2em 0.3em 2em;
 }
 
 .overlay.primary,
@@ -56,11 +65,16 @@ main.main {
 
 .underlayer {
   position: fixed;
+  display: none;
   z-index: 0;
   top: 0; right: 0;
   bottom: 0; left: 0;
   width: 100%;
   height: 100%;
+}
+
+.main-fixed .underlayer {
+  display: block;
 }
 
 .underlay {
@@ -85,14 +99,23 @@ main.main {
   }
   .secondary.secondary {
     width: calc(20em - 1px);
+    &.zip-vid {
+      padding-top: 10rem;
+    }
     &.drop-top {
       padding-top: 7rem;
+      position: absolute;
+      bottom: 0;
     }
   }
   .primary.primary,
   .secondary.secondary {
     display: inline-block;
     height: 100%;
+
+    &.bleed-right {
+      padding-right: 0;
+    }
   }
 
   .step-address.primary,
@@ -102,6 +125,13 @@ main.main {
 
   .inset-right {
     box-shadow: inset 0 0 8px -2px $shade-40;
+    position: relative;
+  }
+
+  .overlay-left.overlay-left {
+    overflow: visible;
+    position: relative;
+    z-index: 1;
   }
 }
 
@@ -116,11 +146,11 @@ main.main {
     width: calc(18em - 1px);
   }
   .overlay.short {
-    padding: 1.8em 2em 0.3em 2em;
+    padding: 1em 2em 0.3em 2em;
     height: auto;
     box-shadow: 0 0 8px 0 $shade-40;
     &.step-bill {
-      padding: 3em 2em 1em;
+      padding: 1em 2em .5em;
     }
   }
 }
