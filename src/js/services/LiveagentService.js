@@ -41,6 +41,13 @@ function LiveagentService_ () {
               true,         // doFind
               true,         // isExactMatch
               true)         // doCreate
+              .map(
+              "Session_ID__c",
+              "session_id",
+              false,
+              false,
+              true
+              )
       .showOnCreate().saveToTranscript("ODA_Session__c");
 
     // initialize the liveagent session
@@ -93,4 +100,3 @@ function LiveagentService_ () {
     }
   }
 }
-
