@@ -67,7 +67,6 @@ function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation) {
   }
 
   function save() {
-    console.log(vm.prospect.scheduledTime);
     return SiteSurvey.scheduleTime({
       installationGuid: vm.prospect.installationGuid,
       dateTime: vm.prospect.scheduledTime.obj.format(SiteSurvey.timeFormat)
@@ -78,14 +77,10 @@ function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation) {
 
   function init() {
     // TODO: remove the hard coded guid once the installation POST error clears up
-    vm.prospect.installationGuid = 'CD41ADEE-4AE9-40EB-B2CD-2AE72E8EABC6';
+    // vm.prospect.installationGuid = 'CD41ADEE-4AE9-40EB-B2CD-2AE72E8EABC6';
     return SiteSurvey.getTimes({
       installationGuid: vm.prospect.installationGuid
-    }).then(parseTimes, skipScheduling);
-  }
-
-  function check() {
-    return createInstallation().then(init).then(checkTimes);
+    }).then(parseTimes);
   }
 
   function parseTimes(data) {
@@ -97,19 +92,25 @@ function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation) {
     });
 
     vm.config.startDate = vm.availableTimes[0].format('MM/D/YYYY');
+    return vm.availableTimes;
   }
 
-  function skipScheduling() {
-    Client.emit('jump to step', 'congrats');
+  function check() {
+    return createInstallation().then(getSchedule);
+  }
+
+  function getSchedule() {
+    return init().then(checkTimes, skipScheduling);
   }
 
   function checkTimes(data) {
     // Immediately redirect to congrats page if no times available
-    if (!data || !data.length) {
-      Client.emit('jump to step', 'congrats');
-    } else {
-      Client.emit('stage', 'next');
-    }
+    var step = (!data || !data.length) ? 'congrats' : 'survey-calendar';
+    Client.emit('jump to step', step);
+  }
+
+  function skipScheduling() {
+    Client.emit('jump to step', 'congrats');
   }
 
   function createInstallation() {
@@ -120,11 +121,18 @@ function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation) {
       ContactId: vm.prospect.contactId,
       AddressId: vm.prospect.addressId,
       UtilityId: vm.prospect.utilityId
-    }).then(function(data) {
-      // TODO: store data from response when api is working
-      console.log(data);
-    }, function() {
-      Client.emit('jump to step', 'congrats');
+    }).then(storeInstallation, function(resp) {
+      if (resp.status === 412) {
+        storeInstallation(resp.data);
+        getSchedule();
+      } else {
+        Client.emit('jump to step', 'congrats');
+      }
     });
+  }
+
+  function storeInstallation(data) {
+    vm.prospect.installationGuid = data.InstallationGuid;
+    Client.emit('Form: valid data', { installationGuid: vm.prospect.installationGuid });
   }
 }
