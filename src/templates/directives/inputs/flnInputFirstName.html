@@ -1,12 +1,12 @@
 <div class="ib status" ng-hide="prospectForm.firstName.$pristine">
   <span ng-show="prospectForm.firstName.$error.required">
-    First name is required.
+    Required
   </span>
   <span ng-show="prospectForm.firstName.$error.minlength">
-    First name must be at least two characters.
+    First name, not first initial.
   </span>
-  <span ng-show="prospectForm.firstName.$error.pattern">asd
-    First name must be alphabetical.
+  <span ng-show="prospectForm.firstName.$error.pattern">
+    Letters only please, unless you are a robot.
   </span>
 </div>
 <input
