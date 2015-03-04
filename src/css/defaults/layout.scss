@@ -16,7 +16,7 @@ main.main.main-fixed {
   position: fixed;
   top: 2.9rem;
   bottom: 2rem;
-  margin-top: 0;
+  padding-top: 0;
 }
 
 .overlayer {
@@ -41,7 +41,7 @@ main.main.main-fixed {
 }
 
 .overlay.short {
-  padding: 1.8em 2em 0.3em 2em;
+  padding: .7em 2em 0.3em 2em;
 }
 
 .overlay.primary,
@@ -73,7 +73,7 @@ main.main.main-fixed {
   height: 100%;
 }
 
-.main-fixed .underlay {
+.main-fixed .underlayer {
   display: block;
 }
 
@@ -99,14 +99,23 @@ main.main.main-fixed {
   }
   .secondary.secondary {
     width: calc(20em - 1px);
+    &.zip-vid {
+      padding-top: 10rem;
+    }
     &.drop-top {
       padding-top: 7rem;
+      position: absolute;
+      bottom: 0;
     }
   }
   .primary.primary,
   .secondary.secondary {
     display: inline-block;
     height: 100%;
+
+    &.bleed-right {
+      padding-right: 0;
+    }
   }
 
   .step-address.primary,
@@ -137,11 +146,11 @@ main.main.main-fixed {
     width: calc(18em - 1px);
   }
   .overlay.short {
-    padding: 1.8em 2em 0.3em 2em;
+    padding: 1em 2em 0.3em 2em;
     height: auto;
     box-shadow: 0 0 8px 0 $shade-40;
     &.step-bill {
-      padding: 3em 2em 1em;
+      padding: 1em 2em .5em;
     }
   }
 }
