@@ -210,6 +210,35 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
     })
   }
 
+  //function to setup the lead object
+  //will be used to create or update the lead
+  //TODO get the oda from the session
+  //TODO get the firebase sessionid
+  function createLead() {
+    vm.isSubmitting = true;
+
+    Lead.create({
+      LeadId: vm.prospect.leadId,
+      FirstName: vm.prospect.firstName,
+      LastName: vm.prospect.lastName,
+      Email: vm.prospect.email,
+      Phone: vm.prospect.phone,
+      Street: vm.prospect.home,
+      City: vm.prospect.city,
+      State: vm.prospect.state,
+      PostalCode: vm.prospect.zip,
+      //OwnerId: vm.session.oda??
+      //ExternalId: vm.session.id
+    }).then(function(data) {
+      vm.prospect.leadId = data.leadId;
+      vm.isSubmitting = false;
+      Client.emit('Form: valid data', {
+        leadId: data.leadId
+      });
+    })
+  }
+
+
   function skipConfigurator() {
     vm.prospect.skipped = true;
     // TODO: store this under the Session object in Firebase
