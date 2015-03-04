@@ -10,9 +10,10 @@
 
 .footer .boilerplate {
   font-size: .55em;
-  padding: 1.375em 0 1em;
+  padding: 1.375em 0 1em 1em;
   margin-bottom: 0;
-  text-align: center;
+  text-align: left;
+  color: $grey-mid;
 
   span {
     padding: 0 1em;
