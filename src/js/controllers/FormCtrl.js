@@ -6,9 +6,9 @@
 
 ================================================== */
 
-controllers.controller("FormCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Form", "Credit", "Contact", "Utility", "CREDIT_FAIL", FormCtrl_]);
+controllers.controller("FormCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Form", "Credit", "Contact", "Utility", "Salesforce", "CREDIT_FAIL", FormCtrl_]);
 
-function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Utility, CREDIT_FAIL) {
+function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Utility, Salesforce, CREDIT_FAIL) {
   var vm = this;
   var form_stream;
 
@@ -217,7 +217,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
   function createLead() {
     vm.isSubmitting = true;
 
-    Lead.create({
+    Salesforce.createLead({
       LeadId: vm.prospect.leadId,
       FirstName: vm.prospect.firstName,
       LastName: vm.prospect.lastName,

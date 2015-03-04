@@ -2,14 +2,14 @@
 module.exports = function(app) {
   var appController   = require('../controllers/appController.js')(app),
       proxyController = require('../controllers/proxyController.js')(app),
-      salesForceController = require('../controllers/salesForceController.js')(app),
+      salesforceController = require('../controllers/salesforceController.js')(app),
       env             = process.env.NODE_ENV || 'development',
       conf            = require('../config/environments/' + env + '.json');
 
   app.get('/flannel/', appController.index );
   app.get('/jwt', appController.jwt );
 
-  app.post(conf.CLIENT.SFLEAD_API, salesForceController.addEditLead);
+  app.post(conf.CLIENT.SFLEAD_API, salesforceController.addEditLead);
 
   app.get(conf.CLIENT.UTILITIES_API, proxyController.utilities);
   app.get(conf.CLIENT.WAREHOUSE_API, proxyController.warehouses);

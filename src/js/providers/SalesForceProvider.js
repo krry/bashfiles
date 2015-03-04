@@ -1,16 +1,16 @@
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-  SalesForce Provider
+  Salesforce Provider
 
-  Accesses the salesforce controller in server/controllers
+  Accesses the Salesforce controller in server/controllers
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
-providers.provider('SalesForce', [SalesForceProvider_ ]);
+providers.provider('Salesforce', [SalesforceProvider_ ]);
 
-function SalesForceProvider_ () {
+function SalesforceProvider_ () {
   this.$get = ['$http', '$q', 'SFLEAD_API', function($http, $q, SFLEAD_API) {
-    function create(data) {
+    function createLead(data) {
       var dfd = $q.defer();
       
       $http.post(SFLEAD_API, data).then(function(resp) {
@@ -23,7 +23,7 @@ function SalesForceProvider_ () {
     }
 
     return {
-      create: create
+      createLead: createLead
     };
   }];
 }
