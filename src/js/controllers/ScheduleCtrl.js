@@ -1,3 +1,12 @@
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+  Schedule controller
+
+  Uses data from Warehouses, Contact, and Utility APIs
+  Populates the view with available appointments
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+
 controllers.controller('ScheduleCtrl', ['Form', 'Clientstream', 'SiteSurvey', 'Installation', ScheduleCtrl_]);
 
 function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation) {
