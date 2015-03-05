@@ -155,7 +155,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
       }
     }, function(resp) {
       vm.isSubmitting = false;
-      
+
       // Timed out
       if (resp.status === 0) {
         vm.timedOut = true;
@@ -210,10 +210,10 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
     })
   }
 
-  //function to setup the lead object
-  //will be used to create or update the lead
-  //TODO get the oda from the session
-  //TODO get the firebase sessionid
+  // function to setup the lead object
+  // will be used to create or update the lead
+  // TODO: get the oda from the session
+  // TODO: get the firebase sessionid
   function createLead() {
     vm.isSubmitting = true;
 
@@ -326,23 +326,29 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
 
   function saveUtility() {
     if (Utility.isSubmitting) {
-      return; 
+      return;
     }
 
     Utility.isSubmitting = true;
-    Utility.search({
+    Utility.getUtilitiesForLocation({
       city: vm.prospect.city,
       zip: vm.prospect.zip
-    }).then(function(data) {
-      return Utility.get({ utilityid: data[0].UtilityId });
-    }).then(function(data) {
+    }).then(function (data) {
+    // TODO: differentiate utilityid, UtilityId, and UtiliityID with proper names
+      vm.prospect.utility_rate = Utility.getRatesForUtility({ utilityid: data[0].UtilityId });
+      console.log("rates api resolution", data);
+      debugger;
+      return vm.prospect.utility_rate;
+    }).then(function (data) {
+      console.log("utility api rejection", data);
+      debugger;
       vm.prospect.utilityId = data.UtilityID;
       Client.emit('Form: valid data', { utilityId: vm.prospect.utilityId });
       Utility.isSubmitting = false;
     });
   }
 
-  function acceptNeighborCount(data) {
+  function acceptNeighborCount (data) {
     vm.prospect.neighbor_count = data ? data : "";
   }
 
