@@ -9,7 +9,7 @@
 providers.provider('Credit', [CreditProvider_ ]);
 
 function CreditProvider_ () {
-  this.$get = ['$http', '$q', '$timeout', 'CREDIT_CHECK_API', function($http, $q, $timeout, CREDIT_CHECK_API) {
+  this.$get = ['$http', '$q', 'CREDIT_CHECK_API', function($http, $q, CREDIT_CHECK_API) {
     var products = {
       Cash: 'Cash',
       Lease: 'Lease',

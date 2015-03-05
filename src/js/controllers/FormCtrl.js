@@ -147,9 +147,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
       Client.emit('Form: valid data', { qualified: data.qualified });
       vm.isSubmitting = false;
       vm.timedOut = false;
-
-      console.log(data);
-
+      
       // Only do this stage change if all three bureaus didn't qualify 
       if (!data.qualified) {
         Client.emit('stage', stage);
