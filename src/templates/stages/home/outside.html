@@ -1,5 +1,5 @@
-<section class="overlay primary col">
-  <h1>Sorry, we’re not in your area, yet.<br><small>Enter your email if you’d like to know when we get there.</small></h1>
+<section class="overlay primary col step-outside">
+  <h1>Sorry, we’re not in your area yet.<br><small>Enter your email and we'll let you know when we get there.</small></h1>
   <form novalidate ng-submit="">
     <div class="row center">
       <div class="col half padded">
@@ -22,7 +22,9 @@
         </label>
       </div>
     </div>
-    <button class="ib gold" ng-click="stages.next()">Notify me</button>
+    <div class="button-set">
+      <button class="ib gold" ng-click="stages.next()">Notify me</button>
+    </div>
   </form>
   <div class="row center">
     <div class="col fifth three">
@@ -36,6 +38,7 @@
       </div>
     </div>
   </div>
+  <br>
   <p>If you prefer to speak with a sales representative, call <strong><a href="tel:18887652489">(888) 765-2489</a></strong> or <a>ask us to call you</a>.</p>
 </section>
 <aside class="overlay secondary col sml-full med-full lrg-full full-height">

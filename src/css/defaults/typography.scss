@@ -44,7 +44,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 1.9em;
+  font-size: 1.85em;
   line-height: 1.2em;
 }
 
@@ -60,10 +60,11 @@ p.tiny {
 h1 small,
 h2 small {
   @include apercu-light;
-  font-size: 71%;
+  font-size: 65%;
   display: block;
   margin-top: .5em;
-  line-height: 1.2;
+  line-height: 1.3;
+  margin-bottom: 1.5em;
 }
 
 h2 {
@@ -99,8 +100,8 @@ h6 .small-caps {
 }
 
 p {
-  font-size: .875em;
-  margin: 0 auto 1em;
+  font-size: .85em;
+  margin: 0 auto;
 }
 
 blockquote {
@@ -155,13 +156,13 @@ code, kbd, pre, samp {
 
 @media screen and (min-width: $width-min-xlg) {
   html {
-    font-size: em($font-size*1.125);
+    font-size: em($font-size*1.115);
   }
 }
 
 @media screen and (min-width: $width-min-xxl) {
   html {
-    font-size: em($font-size*1.25);
+    font-size: em($font-size*1.15);
   }
 }
 
