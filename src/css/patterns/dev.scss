@@ -52,9 +52,65 @@ a.dev-trigger.dev-trigger {
   font-size: 1rem !important;
 }
 
+@media screen and (min-width: $width-min-xsm) {
+  a.dev-trigger.dev-trigger {
+    background-color: $red;
+    &:after {
+      content: "\AXSM";
+    }
+  }
+}
+
+@media screen and (min-width: $width-min-sml) {
+  a.dev-trigger.dev-trigger {
+    background-color: $ginger;
+    &:after {
+      content: "\ASML";
+    }
+  }
+}
+
+@media screen and (min-width: $width-min-med) {
+  a.dev-trigger.dev-trigger {
+    background-color: $orange;
+    &:after {
+      content: "\AMED";
+    }
+  }
+}
+
 @media screen and (min-width: $width-min-lrg) {
-  .dev-drawer {
-    width: auto;
-    max-width: auto;
+  a.dev-trigger.dev-trigger {
+    background-color: $gold;
+    &:after {
+      content: "\ALRG";
+    }
+  }
+}
+
+@media screen and (min-width: $width-min-xlg) {
+  a.dev-trigger.dev-trigger {
+    background-color: $green;
+    &:after {
+      content: "\AXLG";
+    }
+  }
+}
+
+@media screen and (min-width: $width-min-xxl) {
+  a.dev-trigger.dev-trigger {
+    background-color: $aqua-dark;
+    &:after {
+      content: "\AXXL";
+    }
+  }
+}
+
+@media screen and (min-width: $width-min-uhd) {
+  a.dev-trigger.dev-trigger {
+    background-color: $blue-dark;
+    &:after {
+      content: "\AUHD";
+    }
   }
 }
