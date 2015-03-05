@@ -89,6 +89,7 @@ main.main.main-fixed {
   margin: auto;
 }
 
+
 @media screen and (min-width: $width-min-lrg){
   .primary.primary {
     width: calc(100% - 20em);
@@ -100,7 +101,7 @@ main.main.main-fixed {
   .secondary.secondary {
     width: calc(20em - 1px);
     &.zip-vid {
-      padding-top: 10rem;
+      padding-top: 7.3rem;
     }
     &.drop-top {
       padding-top: 7rem;
