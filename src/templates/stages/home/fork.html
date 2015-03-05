@@ -2,16 +2,18 @@
   <div class="row center">
     <div class="col two center">
       <h1>Let’s configure your system.<br><small>This tool helps you get a sense of what panels could look like on your roof and how much you could save. Don’t worry, our experts will do the final system design for your rooftop.</small></h1>
-      <button class="btn std gold" ng-click="form.nextStep()">Start Configurator</button>
-      <p><strong class="caps">or</strong></p>
-      <button class="btn std gold" ng-click="form.skipConfigurator()">Skip</button>
+      <div class="button-set">
+        <button class="btn std gold" ng-click="form.nextStep()">Start Configurator</button>
+        <p class="set-or"><strong class="caps">or</strong></p>
+        <button class="btn std gold" ng-click="form.skipConfigurator()">Skip</button>
+      </div>
       <p class="small">Skip this step and go straight to qualification. Our experts will handle all the configuration for you.</p>
     </div>
   </div>
 </section>
 
 <aside class="overlay secondary col lrg-full med-full full-height drop-top">
-  <div>
+  <div class="connect-the-dots-title">
     <strong>What's next?</strong>
   </div>
   <ul class="connect-the-dots">

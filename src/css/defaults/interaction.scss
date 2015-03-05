@@ -174,7 +174,7 @@ a.btn {
       @include btn($red, $size: .75rem);
     }
     &.white {
-      @include btn($white, $size: .75rem);
+      @include btn($white, $size: .7rem);
     }
     &.green {
       @include btn($green, $size: .75rem);
