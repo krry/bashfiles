@@ -257,7 +257,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
   //will be used to create or update the lead
   //TODO get the oda from the session
   //TODO get the firebase sessionid
-  function createLead() {
+  function createLead(leadStatus, unqualifiedReason) {
     vm.isSubmitting = true;
 
     Salesforce.createLead({
@@ -270,8 +270,8 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
       City: vm.prospect.city,
       State: vm.prospect.state,
       PostalCode: vm.prospect.zip,
-      //OwnerId: vm.session.oda??
-      //ExternalId: vm.session.id
+      //OwnerId: '005300000058ZEZAA2',//oda userId
+      //ExternalId: 'externalidtest03-01'//firebasesessionID
     }).then(function(data) {
       vm.prospect.leadId = data.leadId;
       vm.isSubmitting = false;
