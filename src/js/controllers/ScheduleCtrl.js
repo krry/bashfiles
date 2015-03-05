@@ -19,12 +19,15 @@ function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation) {
   };
 
   function eventDetails() {
+    var obj = moment(new Date(vm.prospect.scheduledTime.date)),
+        format = 'MM/DD/YYYY h:mm:ss A';
+
     return {
       subject: 'SolarCity site survey',
-      begin: vm.prospect.scheduledTime.obj.format('MM/DD/YYYY h:mm:ss A'),
-      end: vm.prospect.scheduledTime.obj.clone().add(2, 'hours').format('MM/DD/YYYY h:mm:ss A'),
+      begin: obj.format(format),
+      end: obj.clone().add(2, 'hours').format(format),
       location: [
-        vm.prospect.street,
+        vm.prospect.home,
         vm.prospect.city,
         [vm.prospect.state, vm.prospect.zip].join(' ')
       ].join(', '),
@@ -67,17 +70,28 @@ function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation) {
   }
 
   function save() {
+    vm.isSubmitting = true;
+
     return SiteSurvey.scheduleTime({
       installationGuid: vm.prospect.installationGuid,
-      dateTime: vm.prospect.scheduledTime.obj.format(SiteSurvey.timeFormat)
+      dateTime: moment(new Date(vm.prospect.scheduledTime.date)).format(SiteSurvey.timeFormat)
     }).then(function() {
+      vm.timedOut = false;
+      Client.emit('Form: valid data', {
+        // Strip out Angular's $$hash key
+        scheduledTime: JSON.parse(angular.toJson(vm.prospect.scheduledTime))
+      });
       Client.emit('stage', 'next');
+    }, function(resp) {
+      vm.isSubmitting = false;
+
+      if (resp.status === 0) {
+        vm.timedOut = true;
+      }
     });
   }
 
   function init() {
-    // TODO: remove the hard coded guid once the installation POST error clears up
-    // vm.prospect.installationGuid = 'CD41ADEE-4AE9-40EB-B2CD-2AE72E8EABC6';
     return SiteSurvey.getTimes({
       installationGuid: vm.prospect.installationGuid
     }).then(parseTimes);

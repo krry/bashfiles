@@ -14,7 +14,7 @@ function ContactProvider_ () {
       var dfd = $q.defer();
       
       $http.post(CONTACT_API, data, {
-        timeout: 60000
+        timeout: 30000
       }).then(function(resp) {
         dfd.resolve(resp.data);
       }, function(resp) {

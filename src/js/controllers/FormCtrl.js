@@ -135,22 +135,23 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
     // TODO: remove this from production builds
     if (vm.prospect.email === CREDIT_FAIL.EMAIL) {
       vm.prospect.addressId = CREDIT_FAIL.ADDRESS_ID;
-      vm.prospect.dob = CREDIT_FAIL.DOB;
+      vm.prospect.dob = new Date(CREDIT_FAIL.DOB);
     }
 
-    Credit.check({
+    checkAll({
       ContactId: vm.prospect.contactId,
       AddressId: vm.prospect.addressId,
       BirthDate: moment(vm.prospect.dob).format('MM/DD/YYYY')
     }).then(function(data) {
       var stage = data.CreditResultFound ? 'next' : 'back';
+      Client.emit('Form: valid data', { qualified: data.qualified });
       vm.isSubmitting = false;
       vm.timedOut = false;
-      Client.emit('Form: valid data', { qualified: data.qualified });
 
-      if (vm.prospect.skipped && data.qualified) {
-        Client.emit('jump to step', 'congrats');
-      } else {
+      console.log(data);
+
+      // Only do this stage change if all three bureaus didn't qualify 
+      if (!data.qualified) {
         Client.emit('stage', stage);
       }
     }, function(resp) {
@@ -162,6 +163,50 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
       } else {
         Client.emit('jump to step', 'congrats');
       }
+    });
+  }
+
+  function checkAll(data) {
+    var result = {
+      CreditResultFound: false,
+      qualified: false
+    };
+
+    return checkBureau(data, result, Credit.bureaus.Experian)
+      .then(checkBureau.bind(this, data, result, Credit.bureaus.Transunion))
+      .then(checkBureau.bind(this, data, result, Credit.bureaus.Equifax));
+  }
+
+  function checkBureau(data, result, bureau) {
+    data.Bureau = bureau;
+    // Don't check again if already qualified and met min tranche
+    if (result.qualified && result.MinTrancheMet) {
+      return result;
+    }
+
+    return Credit.check(data).then(function(data) {
+      if (data.CreditResultFound) {
+        result.CreditResultFound = true;
+      }
+
+      // Set to qualified and advance the screen only on the first time of getting qualified
+      if (data.qualified && !result.qualified) {
+        result.qualified = true;
+        vm.isSubmitting = false;
+        vm.timedOut = false;
+
+        if (vm.prospect.skipped && data.qualified) {
+          Client.emit('jump to step', 'congrats');
+        } else {
+          Client.emit('stage', 'next');
+        }
+      }
+
+      if (data.MinTrancheMet) {
+        result.MinTrancheMet = data.MinTrancheMet;
+      }
+
+      return result;
     });
   }
 
