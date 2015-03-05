@@ -2,7 +2,7 @@
 
   Utility Provider
 
-  Accesses the utility API in SolarWorks
+  accesses the utility API in SolarWorks
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
@@ -10,10 +10,10 @@ providers.provider('Utility', [UtilityProvider_ ]);
 
 function UtilityProvider_ () {
   this.$get = ['$http', '$q', 'UTILITIES_API', 'RATES_API', function($http, $q, UTILITIES_API, RATES_API) {
-    function search(params) {
+    function getUtilitiesForLocation(params) {
       var dfd = $q.defer();
-      
-      $http.get(UTILITIES_API, { 
+
+      $http.get(UTILITIES_API, {
         params: params
       }).then(function(resp) {
         dfd.resolve(resp.data);
@@ -24,10 +24,10 @@ function UtilityProvider_ () {
       return dfd.promise;
     }
 
-    function get(params) {
+    function getRatesForUtility(params) {
       var dfd = $q.defer();
 
-      $http.get(RATES_API, { 
+      $http.get(RATES_API, {
         params: params
       }).then(function(resp) {
         dfd.resolve(resp.data);
@@ -39,8 +39,8 @@ function UtilityProvider_ () {
     }
 
     return {
-      search: search,
-      get: get
+      getUtilitiesForLocation: getUtilitiesForLocation,
+      getRatesForUtility: getRatesForUtility
     };
   }];
 }
