@@ -10,6 +10,13 @@ providers.provider('Salesforce', [SalesforceProvider_ ]);
 
 function SalesforceProvider_ () {
   this.$get = ['$http', '$q', 'SFLEAD_API', function($http, $q, SFLEAD_API) {
+    var statuses = {
+      contact: 'Pre credit check',
+      failCredit: 'Insufficient credit',
+      passCredit: 'Pass credit',
+      scheduledSiteSurvey: 'Scheduled site survey'
+    };
+
     function createLead(data) {
       var dfd = $q.defer();
       
@@ -23,7 +30,8 @@ function SalesforceProvider_ () {
     }
 
     return {
-      createLead: createLead
+      createLead: createLead,
+      statuses: statuses
     };
   }];
 }
