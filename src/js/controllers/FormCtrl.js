@@ -220,7 +220,7 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
       email: vm.prospect.email
     });
 
-    createLead().then(createLead.bind(this, Salesforce.statuses.contact));
+    createLead(Salesforce.statuses.contact);
 
     Contact.create({
       Email: vm.prospect.email,
@@ -286,7 +286,6 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
       });
     })
   }
-
 
   function skipConfigurator() {
     vm.prospect.skipped = true;

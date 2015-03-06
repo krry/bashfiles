@@ -18,7 +18,12 @@ function InstallationProvider_ () {
       }).then(function(resp) {
         dfd.resolve(resp.data);
       }, function(resp) {
-        dfd.reject(resp);
+        // 412 (Precondition failed) means that the installation already exists, and we can still use the returned data
+        if (resp.status === 412) {
+          dfd.resolve(resp.data);
+        } else {
+          dfd.reject(resp);
+        }
       });
 
       return dfd.promise;

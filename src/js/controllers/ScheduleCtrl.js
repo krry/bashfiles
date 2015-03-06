@@ -1,6 +1,6 @@
-controllers.controller('ScheduleCtrl', ['Form', 'Clientstream', 'SiteSurvey', 'Installation', ScheduleCtrl_]);
+controllers.controller('ScheduleCtrl', ['Form', 'Clientstream', 'SiteSurvey', 'Installation', 'Salesforce', ScheduleCtrl_]);
 
-function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation) {
+function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation, Salesforce) {
   var vm = this;
   vm.prospect = Form.prospect;
   vm.eventDetails = eventDetails;
@@ -135,14 +135,7 @@ function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation) {
       ContactId: vm.prospect.contactId,
       AddressId: vm.prospect.addressId,
       UtilityId: vm.prospect.utilityId
-    }).then(storeInstallation, function(resp) {
-      if (resp.status === 412) {
-        storeInstallation(resp.data);
-        getSchedule();
-      } else {
-        Client.emit('jump to step', 'congrats');
-      }
-    });
+    }).then(storeInstallation, skipScheduling);
   }
 
   function storeInstallation(data) {
