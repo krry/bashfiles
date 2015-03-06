@@ -17,11 +17,18 @@ function CreditProvider_ () {
       Loan: 'Loan'
     };
 
+    var bureaus = {
+      Equifax: 'Equifax',
+      Transunion: 'Transunion',
+      Experian: 'Experian'
+    };
+
     function check(data) {
       var dfd = $q.defer();
 
       $http.post(CREDIT_CHECK_API, data, {
-        timeout: 60000
+        timeout: 30000,
+        cache: true
       }).then(function(resp) {
         dfd.resolve(parse(resp.data));
       }, function(resp) {
@@ -43,7 +50,8 @@ function CreditProvider_ () {
     return {
       check: check,
       parse: parse,
-      products: products
+      products: products,
+      bureaus: bureaus
     };
   }];
 }
