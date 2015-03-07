@@ -15,7 +15,7 @@
   "GSA_API": "/api/schedule/",
   "INSTALLATION_API": "/api/installation/partial",
   "SFLOGIN_URL": "https://test.salesforce.com",
-  "SFUSERNAME": "solarcity@solarcity.com",
+  "SFUSERNAME": "solarcity@solarcity.com.full",
   "SFPASSWORD": "makinSales2006;",
   "CLIENT": {
     "MINIFIED": "true",
