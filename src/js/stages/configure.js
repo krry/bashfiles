@@ -19,8 +19,9 @@ angular.module('configure',[]).config(["$stateProvider", function ($stateProvide
       },
       // modify the new named views @ configure
       'map@flannel.configure': {
-        templateUrl: stageUrl + "map.html",
-        controller:  "OlMapCtrl as omap",
+        // templateUrl: stageUrl + "map.html",
+        // controller:  "OlMapCtrl as omap",
+        templateUrl: 'templates/stages/configure/test.html'
       },
     },
   })
