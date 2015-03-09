@@ -37,6 +37,7 @@ function newConfigurator_(View) {
   }
 
   this.setTarget = function (elem) {
+    console.debug('Configurator.setTarget(elem) => elem: ', elem);
     var g_div, o_div;
     // two target divs for the olmap and googlemap
     g_div = $(elem).find('#gmtest')[0];
@@ -47,45 +48,38 @@ function newConfigurator_(View) {
     omap = new ol.Map(omap_options);
     // set the target of the openlayers map
     omap.setTarget(o_div);
-
-    View.setCenter([0, 0]);
-    View.setZoom(1);
-
+    // shove OL map into Google's ControlPosition div
     o_div.parentNode.removeChild(o_div);
     gmap.controls[google.maps.ControlPosition.TOP_LEFT].push(o_div);
 
+    var center = View.getCenter();
+    View.setCenter(center);
+    View.setZoom(18);
     this.map = {
       omap: omap,
-      gmap: gmap, 
+      gmap: gmap,
     }
-
-    return {
-      omap: o_div,
-      gmap: g_div,
-    };
   }
-
 
   // map
   this.map = {
-    omap: (omap),
-    gmap: (gmap),
+    omap: omap,
+    gmap: gmap,
   };
 
-  View.on('change:center', function() {
-    var center = ol.proj.transform(View.getCenter(), 'EPSG:3857', 'EPSG:4326');
+  // subscribe google's zoom and center to OL resolution & center
+  View.rx_center.subscribe(function(e) {
+    var center = View.getCenter();
     gmap.setCenter(new google.maps.LatLng(center[1], center[0]));
-    console.log('center of gmap: ', gmap.getCenter());
-    console.log('center of omap:', center);
-  });
+    console.debug('View:center', center);
+    console.debug('Google:center', gmap.getCenter());
 
-  View.on('change:resolution', function() {
+  })
+  View.rx_zoom.subscribe(function() {
     gmap.setZoom(View.getZoom());
-    console.log('zoom of gmap:', gmap.getZoom());
-    console.log('zoom of omap:', View.getZoom());
+    console.debug('View:resolution', View.getZoom());
+    console.debug('Google:zoom', gmap.getZoom());
   });
-
-
 
   /* interactions */
   // draw

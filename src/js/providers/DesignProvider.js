@@ -96,6 +96,7 @@ function DesignProvider_ () {
 
     function awesome_design_builder_brah() {
       return {
+        temp_center: [-122.39858709999999,  37.7618242],
         ref:    function(key){
           if (key) {
             _ref_key = key;
