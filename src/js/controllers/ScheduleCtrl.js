@@ -1,6 +1,6 @@
-controllers.controller('ScheduleCtrl', ['Form', 'Clientstream', 'SiteSurvey', 'Installation', ScheduleCtrl_]);
+controllers.controller('ScheduleCtrl', ['Form', 'Clientstream', 'Session', 'SiteSurvey', 'Installation', 'Salesforce', ScheduleCtrl_]);
 
-function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation) {
+function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesforce) {
   var vm = this;
   vm.prospect = Form.prospect;
   vm.eventDetails = eventDetails;
@@ -19,12 +19,15 @@ function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation) {
   };
 
   function eventDetails() {
+    var obj = moment(new Date(vm.prospect.scheduledTime.date)),
+        format = 'MM/DD/YYYY h:mm:ss A';
+
     return {
       subject: 'SolarCity site survey',
-      begin: vm.prospect.scheduledTime.obj.format('MM/DD/YYYY h:mm:ss A'),
-      end: vm.prospect.scheduledTime.obj.clone().add(2, 'hours').format('MM/DD/YYYY h:mm:ss A'),
+      begin: obj.format(format),
+      end: obj.clone().add(2, 'hours').format(format),
       location: [
-        vm.prospect.street,
+        vm.prospect.home,
         vm.prospect.city,
         [vm.prospect.state, vm.prospect.zip].join(' ')
       ].join(', '),
@@ -67,25 +70,51 @@ function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation) {
   }
 
   function save() {
-    console.log(vm.prospect.scheduledTime);
+    vm.isSubmitting = true;
+
     return SiteSurvey.scheduleTime({
       installationGuid: vm.prospect.installationGuid,
-      dateTime: vm.prospect.scheduledTime.obj.format(SiteSurvey.timeFormat)
+      dateTime: moment(new Date(vm.prospect.scheduledTime.date)).format(SiteSurvey.timeFormat)
     }).then(function() {
+      vm.timedOut = false;
+      createLead(Salesforce.statuses.scheduledSiteSurvey);
+
+      Client.emit('Form: valid data', {
+        // Strip out Angular's $$hash key
+        scheduledTime: JSON.parse(angular.toJson(vm.prospect.scheduledTime))
+      });
       Client.emit('stage', 'next');
+    }, function(resp) {
+      vm.isSubmitting = false;
+
+      if (resp.status === 0) {
+        vm.timedOut = true;
+      }
+    });
+  }
+
+  function createLead(leadStatus, unqualifiedReason) {
+    return Salesforce.createLead({
+      LeadId: vm.prospect.leadId,
+      FirstName: vm.prospect.firstName,
+      LastName: vm.prospect.lastName,
+      Email: vm.prospect.email,
+      Phone: vm.prospect.phone,
+      Street: vm.prospect.home,
+      City: vm.prospect.city,
+      State: vm.prospect.state,
+      PostalCode: vm.prospect.zip,
+      LeadStatus: leadStatus,
+      UnqualifiedReason: unqualifiedReason,
+      //OwnerId: '005300000058ZEZAA2',//oda userId
+      ExternalId: Session.id()
     });
   }
 
   function init() {
-    // TODO: remove the hard coded guid once the installation POST error clears up
-    vm.prospect.installationGuid = 'CD41ADEE-4AE9-40EB-B2CD-2AE72E8EABC6';
     return SiteSurvey.getTimes({
       installationGuid: vm.prospect.installationGuid
-    }).then(parseTimes, skipScheduling);
-  }
-
-  function check() {
-    return createInstallation().then(init).then(checkTimes);
+    }).then(parseTimes);
   }
 
   function parseTimes(data) {
@@ -97,19 +126,25 @@ function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation) {
     });
 
     vm.config.startDate = vm.availableTimes[0].format('MM/D/YYYY');
+    return vm.availableTimes;
   }
 
-  function skipScheduling() {
-    Client.emit('jump to step', 'congrats');
+  function check() {
+    return createInstallation().then(getSchedule);
+  }
+
+  function getSchedule() {
+    return init().then(checkTimes, skipScheduling);
   }
 
   function checkTimes(data) {
     // Immediately redirect to congrats page if no times available
-    if (!data || !data.length) {
-      Client.emit('jump to step', 'congrats');
-    } else {
-      Client.emit('stage', 'next');
-    }
+    var step = (!data || !data.length) ? 'congrats' : 'survey-calendar';
+    Client.emit('jump to step', step);
+  }
+
+  function skipScheduling() {
+    Client.emit('jump to step', 'congrats');
   }
 
   function createInstallation() {
@@ -120,11 +155,11 @@ function ScheduleCtrl_ (Form, Client, SiteSurvey, Installation) {
       ContactId: vm.prospect.contactId,
       AddressId: vm.prospect.addressId,
       UtilityId: vm.prospect.utilityId
-    }).then(function(data) {
-      // TODO: store data from response when api is working
-      console.log(data);
-    }, function() {
-      Client.emit('jump to step', 'congrats');
-    });
+    }).then(storeInstallation, skipScheduling);
+  }
+
+  function storeInstallation(data) {
+    vm.prospect.installationGuid = data.InstallationGuid;
+    Client.emit('Form: valid data', { installationGuid: vm.prospect.installationGuid });
   }
 }

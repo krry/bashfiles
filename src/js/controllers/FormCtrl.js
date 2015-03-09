@@ -6,9 +6,9 @@
 
 ================================================== */
 
-controllers.controller("FormCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Form", "Credit", "Contact", "Utility", "Salesforce", "CREDIT_FAIL", FormCtrl_]);
+controllers.controller("FormCtrl", ["$scope", "$element", "Clientstream", "Session", "Geocoder", "Form", "Credit", "Contact", "Utility", "Salesforce", "CREDIT_FAIL", FormCtrl_]);
 
-function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Utility, Salesforce, CREDIT_FAIL) {
+function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Contact, Utility, Salesforce, CREDIT_FAIL) {
   var vm = this;
   var form_stream;
 
@@ -135,22 +135,22 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
     // TODO: remove this from production builds
     if (vm.prospect.email === CREDIT_FAIL.EMAIL) {
       vm.prospect.addressId = CREDIT_FAIL.ADDRESS_ID;
-      vm.prospect.dob = CREDIT_FAIL.DOB;
+      vm.prospect.dob = new Date(CREDIT_FAIL.DOB);
     }
 
-    Credit.check({
+    checkAll({
       ContactId: vm.prospect.contactId,
       AddressId: vm.prospect.addressId,
       BirthDate: moment(vm.prospect.dob).format('MM/DD/YYYY')
     }).then(function(data) {
       var stage = data.CreditResultFound ? 'next' : 'back';
+      Client.emit('Form: valid data', { qualified: data.qualified });
       vm.isSubmitting = false;
       vm.timedOut = false;
-      Client.emit('Form: valid data', { qualified: data.qualified });
-
-      if (vm.prospect.skipped && data.qualified) {
-        Client.emit('jump to step', 'congrats');
-      } else {
+      
+      // Only do this stage change if all three bureaus didn't qualify 
+      if (!data.qualified) {
+        createLead(Salesforce.statuses.failCredit);
         Client.emit('stage', stage);
       }
     }, function(resp) {
@@ -165,8 +165,62 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
     });
   }
 
+  function checkAll(data) {
+    var result = {
+      CreditResultFound: false,
+      qualified: false
+    };
+
+    return checkBureau(data, result, Credit.bureaus.Experian)
+      .then(checkBureau.bind(this, data, result, Credit.bureaus.Transunion))
+      .then(checkBureau.bind(this, data, result, Credit.bureaus.Equifax));
+  }
+
+  function checkBureau(data, result, bureau) {
+    data.Bureau = bureau;
+    // Don't check again if already qualified and met min tranche
+    if (result.qualified && result.MinTrancheMet) {
+      return result;
+    }
+
+    return Credit.check(data).then(function(data) {
+      if (data.CreditResultFound) {
+        result.CreditResultFound = true;
+      }
+
+      // Set to qualified and advance the screen only on the first time of getting qualified
+      if (data.qualified && !result.qualified) {
+        createLead(Salesforce.statuses.passCredit);
+        result.qualified = true;
+        vm.isSubmitting = false;
+        vm.timedOut = false;
+
+        if (vm.prospect.skipped && data.qualified) {
+          Client.emit('jump to step', 'congrats');
+        } else {
+          Client.emit('stage', 'next');
+        }
+      }
+
+      if (data.MinTrancheMet) {
+        result.MinTrancheMet = data.MinTrancheMet;
+      }
+
+      return result;
+    });
+  }
+
   function createContact() {
     vm.isSubmitting = true;
+
+    Client.emit('Form: valid data', {
+      firstName: vm.prospect.firstName,
+      lastName: vm.prospect.lastName,
+      phone: vm.prospect.phone,
+      email: vm.prospect.email
+    });
+
+    createLead(Salesforce.statuses.contact);
 
     Contact.create({
       Email: vm.prospect.email,
@@ -191,11 +245,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
 
       Client.emit('Form: valid data', {
         contactId: vm.prospect.contactId,
-        addressId: vm.prospect.addressId,
-        firstName: vm.prospect.firstName,
-        lastName: vm.prospect.lastName,
-        phone: vm.prospect.phone,
-        email: vm.prospect.email
+        addressId: vm.prospect.addressId
       });
 
       Client.emit('stage', 'next');
@@ -214,10 +264,8 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
   //will be used to create or update the lead
   //TODO get the oda from the session
   //TODO get the firebase sessionid
-  function createLead() {
-    vm.isSubmitting = true;
-
-    Salesforce.createLead({
+  function createLead(leadStatus, unqualifiedReason) {
+    return Salesforce.createLead({
       LeadId: vm.prospect.leadId,
       FirstName: vm.prospect.firstName,
       LastName: vm.prospect.lastName,
@@ -227,17 +275,17 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
       City: vm.prospect.city,
       State: vm.prospect.state,
       PostalCode: vm.prospect.zip,
-      //OwnerId: vm.session.oda??
-      //ExternalId: vm.session.id
+      LeadStatus: leadStatus,
+      UnqualifiedReason: unqualifiedReason,
+      //OwnerId: '005300000058ZEZAA2',//oda userId
+      ExternalId: Session.id()
     }).then(function(data) {
-      vm.prospect.leadId = data.leadId;
-      vm.isSubmitting = false;
+      vm.prospect.leadId = data.id;
       Client.emit('Form: valid data', {
-        leadId: data.leadId
+        leadId: vm.prospect.leadId
       });
     })
   }
-
 
   function skipConfigurator() {
     vm.prospect.skipped = true;

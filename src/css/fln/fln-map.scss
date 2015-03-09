@@ -109,6 +109,13 @@
   }
 }
 
+.inset-right {
+  box-shadow: inset 0 0 8px -2px $shade-40;
+  position: relative;
+  z-index: 0;
+}
+
+
 .fln-control-pan {
   position: absolute;
   top: 0;

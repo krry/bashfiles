@@ -123,15 +123,8 @@ main.main.main-fixed {
     width: 100%;
   }
 
-  .inset-right {
-    box-shadow: inset 0 0 8px -2px $shade-40;
-    position: relative;
-  }
-
   .overlay-left.overlay-left {
     overflow: visible;
-    position: relative;
-    z-index: 1;
   }
 }
 

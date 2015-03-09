@@ -70,10 +70,12 @@ function CalendarCtrl_ (scope) {
 
         if (timeDiff > 0 && timeDiff < (60 * 60 * 24)) {
           dates[i].availableTimes.push({
-            obj: times[j],
+            date: times[j].format('MM/DD/YYYY h:mm:ss A'),
             start: times[j].format('h A'),
             end: times[j].clone().add(2, 'hours').format('h A'),
-            day: times[j].format('dddd')
+            month: times[j].format('MMM'),
+            day: times[j].format('D'),
+            weekday: times[j].format('dddd')
           });
         }
       }
