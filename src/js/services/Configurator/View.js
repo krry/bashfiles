@@ -8,26 +8,36 @@
  *
  */
 
-angular.module('flannel').factory("View", View_);
+angular.module('flannel').factory("View", ['Design', View_]);
 
-function View_() {
-
-  var extent = [0, 0, 1024, 968];
-  var projection = new ol.proj.Projection({
-    code: 'xkcd-image',
-    units: 'pixels',
-    extent: extent
-  });
+function View_(Design) {
 
   var view = new ol.View({
-    center: [0, 0],
-    zoom: 1,
-    projection: projection,
-    center: ol.extent.getCenter(extent),
+    center: Design.temp_center,
+    projection: 'EPSG:4326',
     maxZoom: 20, // don't zoom further than google can zoom
   });
 
-  
+  console.debug('Design.temp_center', Design.temp_center);
 
+  view.rx_center = new Rx.Observable.fromEventPattern(
+    function addHandler(h) {
+      console.debug('add handler center', h);
+      return view.on('change:center', h);
+    },
+    function delHandler (h) {
+      return view.off('change:center', h);
+    }
+  );
+
+  view.rx_zoom   = new Rx.Observable.fromEventPattern(
+    function addHandler(h) {
+      return view.on('change:resolution', h);
+    },
+    function delHandler (h) {
+      return view.off('change:resolution', h);
+    }
+  );
+  
   return view
 }
