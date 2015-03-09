@@ -245,7 +245,7 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
         email: vm.prospect.email
       });
 
-      Client.emit('Stages: stage', 'next');
+      Client.emit('jump to step', 'credit-check');
     }, function(resp) {
       vm.isSubmitting = false;
 
