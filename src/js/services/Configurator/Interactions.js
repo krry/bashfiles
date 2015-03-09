@@ -8,63 +8,53 @@
 
 angular.module('flannel').factory('Interactions', ['Design', 'StyleService', Interactions_]);
 
-function Interactions_(Design, Style) {
-    // interactions
+function Interactions_(Design, Styles) {
+      // returned by Factory
     var interactions,
+      // interactions
         draw,
         modify,
         zoom,
-        dragpan;
+        dragpan,
+      // defaults
+        dragpan_opt;
 
     interactions = new ol.Collection();
+    dragpan_opt = { enableKinetic: true };
 
-    var draw = new ol.interaction.Draw({
+    // dragpan
+    interactions.dragpan = new ol.interaction.DragPan(dragpan_opt);
+    // mousewheel zoom
+    interactions.zoom    = new ol.interaction.MouseWheelZoom();
+    // draw areas
+    interactions.draw = new ol.interaction.Draw({
       source: Design.area_source,
+      features: Design.areas_collection,
       type: 'Polygon',
       geometryName: 'area',
     });
-
-    interactions.push(draw);
-    // draw
-      // add
-        // return map.addInteraction()
-      // remove
     // modify
-      // add
-        // draw.onNext('add');
-      // remove
-        // modify.onNext('remove');
-    // zoom
-      // add
-        // zoom.onNext('add', map);
-      // remove
-        // zoom.onNext('remove', map);
-    // controls
-      // add
-        // controlls.onNext('add', map);
-      // remove
-        // controlls.onNext('remove', map);
-
-
-
-  interactions.draw = new Rx.Observable.fromEventPattern(
-    function addHandler(h) {
-      console.debug('add handler center', h);
-      // return view.on('change:center', h);
-    },
-    function delHandler (h) {
-      // return view.off('change:center', h);
+    interactions.modify = new ol.interaction.Modify({
+      features: Design.areas_collection,
+      style: Styles.highlightStyleFunction,
+      // the SHIFT key must be pressed to delete vertices, so
+      // that new vertices can be drawn at the same position
+      // of existing vertices
+      deleteCondition: function(event) {
+        return ol.events.condition.shiftKeyOnly(event) &&
+            ol.events.condition.singleClick(event);
+      }
+    });
+    interactions.modify.getFeatureFromDraw = function (f_id) {
+      f_id = f_id || 0;
+      if (Design.area_source.getFeatures() === []) {
+        console.alert('you need to have a feature for modify to work on a feature');
+      }
+      Design.areas_collection.push(Design.area_source.getFeatures()[f_id]);
     }
-  );
-
-  interactions.modify   = new Rx.Observable.fromEventPattern(
-    function addHandler(h) {
-      // return view.on('change:resolution', h);
-    },
-    function delHandler (h) {
-      // return view.off('change:resolution', h);
+    interactions.modify.clearFeaturesFromModify = function() {
+      Design.areas_collection.clear();
     }
-  );
 
   return interactions;
 }
