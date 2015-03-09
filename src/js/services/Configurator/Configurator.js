@@ -11,17 +11,42 @@ angular.module('flannel').service("newConfigurator", newConfigurator_);
 
 function newConfigurator_() {
 
+    var extent = [0, 0, 1024, 968];
+    var projection = new ol.proj.Projection({
+      code: 'xkcd-image',
+      units: 'pixels',
+      extent: extent
+    });
+
     this.setTarget = function (elem) {
       return this.map.setTarget(elem);
     }
 
     this.view = new ol.View({
       center: [0, 0],
-      zoom: 1
+      zoom: 1,
+      projection: projection,
+      center: ol.extent.getCenter(extent),
     });
 
     this.map = new ol.Map({
-      view: view,
+      view: this.view,
+
+      layers: [
+    new ol.layer.Image({
+      source: new ol.source.ImageStatic({
+        attributions: [
+          new ol.Attribution({
+            html: '&copy; <a href="http://xkcd.com/license.html">xkcd</a>'
+          })
+        ],
+        url: 'http://imgs.xkcd.com/comics/online_communities.png',
+        imageExtent: extent,
+        imageSize:  [1024, 968],
+        projection: projection,
+      })
+    })
+  ],
     });
 
 
