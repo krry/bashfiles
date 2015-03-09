@@ -24,11 +24,11 @@ var timestamp = require('../util/timestamp').timestamp;
 // this glob determines the order of the concatenated scripts
 var scriptSrc = [
   'src/js/*.js',
-  'src/js/providers/*.js',
-  'src/js/services/*.js',
-  'src/js/controllers/*.js',
+  'src/js/providers/**/*.js',
+  'src/js/services/**/*.js',
+  'src/js/controllers/**/*.js',
   'src/js/directives/**/*.js',
-  'src/js/stages/*.js',
+  'src/js/stages/**/*.js',
 ];
 
 var scriptPub = './public/js';
