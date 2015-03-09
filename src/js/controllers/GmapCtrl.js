@@ -86,6 +86,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
         center = map.getCenter();
         console.log('saving center', center);
         Client.emit('center changed', center);
+        getNearMeData();
       }
     // }
   }
@@ -131,6 +132,8 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
   }
 
   function plotMarkers(data) {
+    Client.emit('clear pins', true);
+
     angular.forEach(data, function(point) {
       var location = new google.maps.LatLng(point.la, point.ln),
           production = data.kw;

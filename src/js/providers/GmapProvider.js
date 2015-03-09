@@ -18,7 +18,8 @@ function GmapFactory_ () {
     var DEFAULT,
         map,
         map_opts,
-        map_styles;
+        map_styles,
+        pins;
 
     DEFAULT = {
       LAT: 30,
@@ -183,9 +184,12 @@ function GmapFactory_ () {
       // scrollwheel: false,
     }
 
+    pins = [];
+
     Client.listen('valid territory', zoomToHood);
     Client.listen('valid house', checkMaxZoom);
     Client.listen('drop pin', dropPin);
+    Client.listen('clear pins', clearPins);
 
     function init (data) {
       map = new google.maps.Map(data, map_opts);
@@ -238,14 +242,24 @@ function GmapFactory_ () {
 
     // given a location on the map, make and drop a marker there
     function dropPin(location) {
-      var marker;
+      var pin;
 
-      marker = new google.maps.Marker({
+      pin = new google.maps.Marker({
         position: location,
         map: map,
         draggable: false,
         icon: 'img/map_pin_1.svg'
       });
+
+      pins.push(pin);
+    }
+
+    function clearPins() {
+      angular.forEach(pins, function(pin) {
+        pin.setMap(null);
+      });
+
+      pins.length = 0;
     }
 
     function gmap_assembly () {
