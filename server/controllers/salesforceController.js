@@ -25,18 +25,17 @@ module.exports = function(app) {
       PostalCode : req.body.PostalCode,
       Email : req.body.Email,
       Phone : req.body.Phone,
-      ownerId : req.body.OwnerId,
+      OwnerId : req.body.OwnerId,
       Company : req.body.FirstName + ' ' + req.body.Lastname,
       LeadSource : req.body.LeadSource,
-      LeadStatus : req.query.leadStatus,
-      Unqualified_Reason__c : req.query.unqualifiedReason,
+      Status : req.body.LeadStatus,
+      Unqualified_Reason__c : req.body.UnqualifiedReason,
       External_ID__c : req.body.ExternalId,
       External_ID_Type__c : 'FirebaseSessionId',
       Consultation_Date__c : new Date(),
       Consultation_Type__c : 'Online',
       Opportunity_Owner__c : '005300000058ZEZAA2',
     }, function(err, ret){
-      console.log('in func');
       if (err || !ret.success) {
         return console.error(err, ret);
       }
@@ -54,11 +53,11 @@ module.exports = function(app) {
       PostalCode : req.body.PostalCode,
       Email : req.body.Email,
       Phone : req.body.Phone,
-      ownerId : req.body.OwnerId,
+      OwnerId : req.body.OwnerId,
       Company : req.body.FirstName + ' ' + req.body.Lastname,
       LeadSource : req.body.LeadSource,
-      LeadStatus : req.query.leadStatus,
-      Unqualified_Reason__c : req.query.unqualifiedReason,
+      Status : req.body.LeadStatus,
+      Unqualified_Reason__c : req.body.UnqualifiedReason,
       External_ID__c : req.body.ExternalId,
       External_ID_Type__c : 'FirebaseSessionId',
       Consultation_Date__c : new Date(),

@@ -6,9 +6,9 @@
 
 ================================================== */
 
-controllers.controller("FormCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Form", "Credit", "Contact", "Utility", "Salesforce", "CREDIT_FAIL", FormCtrl_]);
+controllers.controller("FormCtrl", ["$scope", "$element", "Clientstream", "Session", "Geocoder", "Form", "Credit", "Contact", "Utility", "Salesforce", "CREDIT_FAIL", FormCtrl_]);
 
-function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Utility, Salesforce, CREDIT_FAIL) {
+function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Contact, Utility, Salesforce, CREDIT_FAIL) {
   var vm = this;
   var form_stream;
 
@@ -150,6 +150,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
       
       // Only do this stage change if all three bureaus didn't qualify 
       if (!data.qualified) {
+        createLead(Salesforce.statuses.failCredit);
         Client.emit('stage', stage);
       }
     }, function(resp) {
@@ -189,6 +190,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
 
       // Set to qualified and advance the screen only on the first time of getting qualified
       if (data.qualified && !result.qualified) {
+        createLead(Salesforce.statuses.passCredit);
         result.qualified = true;
         vm.isSubmitting = false;
         vm.timedOut = false;
@@ -210,6 +212,15 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
 
   function createContact() {
     vm.isSubmitting = true;
+
+    Client.emit('Form: valid data', {
+      firstName: vm.prospect.firstName,
+      lastName: vm.prospect.lastName,
+      phone: vm.prospect.phone,
+      email: vm.prospect.email
+    });
+
+    createLead(Salesforce.statuses.contact);
 
     Contact.create({
       Email: vm.prospect.email,
@@ -234,11 +245,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
 
       Client.emit('Form: valid data', {
         contactId: vm.prospect.contactId,
-        addressId: vm.prospect.addressId,
-        firstName: vm.prospect.firstName,
-        lastName: vm.prospect.lastName,
-        phone: vm.prospect.phone,
-        email: vm.prospect.email
+        addressId: vm.prospect.addressId
       });
 
       Client.emit('stage', 'next');
@@ -258,9 +265,7 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
   //TODO get the oda from the session
   //TODO get the firebase sessionid
   function createLead(leadStatus, unqualifiedReason) {
-    vm.isSubmitting = true;
-
-    Salesforce.createLead({
+    return Salesforce.createLead({
       LeadId: vm.prospect.leadId,
       FirstName: vm.prospect.firstName,
       LastName: vm.prospect.lastName,
@@ -270,17 +275,17 @@ function FormCtrl_($scope, $element, Client, Geocoder, Form, Credit, Contact, Ut
       City: vm.prospect.city,
       State: vm.prospect.state,
       PostalCode: vm.prospect.zip,
+      LeadStatus: leadStatus,
+      UnqualifiedReason: unqualifiedReason,
       //OwnerId: '005300000058ZEZAA2',//oda userId
-      //ExternalId: 'externalidtest03-01'//firebasesessionID
+      ExternalId: Session.id()
     }).then(function(data) {
-      vm.prospect.leadId = data.leadId;
-      vm.isSubmitting = false;
+      vm.prospect.leadId = data.id;
       Client.emit('Form: valid data', {
-        leadId: data.leadId
+        leadId: vm.prospect.leadId
       });
     })
   }
-
 
   function skipConfigurator() {
     vm.prospect.skipped = true;
