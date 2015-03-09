@@ -28,7 +28,7 @@ function flnControlPan_ () {
   };
 }
 
-function flnMapPan_ (Configurator) {
+function flnMapPan_ (newConfigurator) {
   return {
     restrict: 'A',
     scope: {
@@ -36,7 +36,7 @@ function flnMapPan_ (Configurator) {
     },
     link: function flnMapPanLink (scope, ele, attrs) {
       ele.on('click', function() {
-        return panCenter(Configurator.map().getView(), scope.direction, Configurator.map().getSize());
+        return panCenter(newConfigurator.map.getView(), scope.direction, newConfigurator.map.getSize());
       });
 
       function panCenter (view, direction, size) {
