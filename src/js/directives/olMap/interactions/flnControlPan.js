@@ -36,6 +36,7 @@ function flnMapPan_ (View, newConfigurator) {
     },
     link: function flnMapPanLink (scope, ele, attrs) {
       ele.on('click', function() {
+        var view, direction, ne, sw, vh_bump;
         view = View;
         direction = scope.direction;
         // google map corners
