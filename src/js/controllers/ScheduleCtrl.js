@@ -139,7 +139,7 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
   }
 
   function check() {
-    return createInstallation().then(getSchedule);
+    return createInstallation().then(createFullInstallation).then(getSchedule);
   }
 
   function getSchedule() {
@@ -165,6 +165,14 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
       AddressId: vm.prospect.addressId,
       UtilityId: vm.prospect.utilityId
     }).then(storeInstallation, skipScheduling);
+  }
+
+  function createFullInstallation() {
+    Installation.create({
+      FullInstallation: true,
+      InstallationGuid: vm.prospect.installationGuid,
+      LeadId: vm.prospect.leadId
+    });
   }
 
   function storeInstallation(data) {

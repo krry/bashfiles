@@ -105,7 +105,16 @@ module.exports = function(app) {
     var url = [
       conf.SOLAR_WORKS_API_ROOT,
       conf.INSTALLATION_API
-    ].join('');
+    ];
+
+    if (req.body.FullInstallation) {
+      url.push('full');
+    } else {
+      url.push('partial');
+    }
+
+    url = url.join('');
+    console.log(url);
 
     proxyPOST(url, req.body, res);
   }

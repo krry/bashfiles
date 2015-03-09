@@ -13,7 +13,7 @@
   "CONTACT_API": "/api/contact/create",
   "NEAR_ME_API": "/api/accounts/",
   "GSA_API": "/api/schedule/",
-  "INSTALLATION_API": "/api/installation/partial",
+  "INSTALLATION_API": "/api/installation/",
   "SFLOGIN_URL": "https://test.salesforce.com",
   "SFUSERNAME": "onlinesales@solarcity.com.staging",
   "SFPASSWORD": "3zZ*$Hm}F4s2AEe",
