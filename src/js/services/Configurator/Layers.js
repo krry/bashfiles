@@ -18,9 +18,8 @@ function Layers_(Design, Style) {
     layers = [ l_vector ];
 
     source.on('addfeature',function(e){
-      
       console.debug('source: addfeature',e);
-    })
+    });
 
   return layers;
 }
