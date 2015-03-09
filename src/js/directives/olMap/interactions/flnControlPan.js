@@ -28,7 +28,7 @@ function flnControlPan_ () {
   };
 }
 
-function flnMapPan_ (newConfigurator) {
+function flnMapPan_ (View, newConfigurator) {
   return {
     restrict: 'A',
     scope: {
@@ -36,27 +36,37 @@ function flnMapPan_ (newConfigurator) {
     },
     link: function flnMapPanLink (scope, ele, attrs) {
       ele.on('click', function() {
-        return panCenter(newConfigurator.map.getView(), scope.direction, newConfigurator.map.getSize());
+        view = View;
+        direction = scope.direction;
+        // google map corners
+        ne = newConfigurator.map.gmap.getBounds().getNorthEast();
+        sw = newConfigurator.map.gmap.getBounds().getSouthWest();
+        // vertical or horizontal shift of center
+        vh_bump = {
+          v: Math.abs(ne.lat() - sw.lat())/15,
+          h: Math.abs(ne.lng() - sw.lng())/15,
+        };
+        return panCenter(view, direction, vh_bump);
       });
 
-      function panCenter (view, direction, size) {
+      function panCenter (view, direction, bump) {
         var newCenter;
         var currentCenter = view.getCenter();
         switch (direction) {
           case "up":
-            currentCenter[1] = currentCenter[1]+(size[1]/10);
+            currentCenter[1] = currentCenter[1]+bump.v;
             newCenter = currentCenter;
             break;
           case "down":
-            currentCenter[1] = currentCenter[1]-(size[1]/10);
+            currentCenter[1] = currentCenter[1]-bump.v;
             newCenter = currentCenter;
             break;
           case "right":
-            currentCenter[0] = currentCenter[0]+(size[0]/10);
+            currentCenter[0] = currentCenter[0]+bump.h;
             newCenter = currentCenter;
             break;
           case "left":
-            currentCenter[0] = currentCenter[0]-(size[0]/10);
+            currentCenter[0] = currentCenter[0]-bump.h;
             newCenter = currentCenter;
             break;
         }
