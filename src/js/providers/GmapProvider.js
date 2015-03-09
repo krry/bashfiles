@@ -241,22 +241,34 @@ function GmapFactory_ () {
     }
 
     // given a location on the map, make and drop a marker there
-    function dropPin(location) {
-      var pin;
+    function dropPin(opts) {
+      var pin = {};
 
-      pin = new google.maps.Marker({
-        position: location,
+      pin.marker = new google.maps.Marker({
+        position: opts.location,
         map: map,
         draggable: false,
         icon: 'img/map_pin_1.svg'
       });
 
+      pin.infowindow = new google.maps.InfoWindow({
+        content: opts.content,
+        anchorPoint: new google.maps.Point(0, 0)
+      });
+
+      pin.listener = google.maps.event.addListener(pin.marker, 'click', function() {
+        pin.infowindow.open(map, pin.marker);
+      });
+
       pins.push(pin);
+      console.log(pins);
     }
 
     function clearPins() {
       angular.forEach(pins, function(pin) {
-        pin.setMap(null);
+        pin.marker.setMap(null);
+        pin.infowindow = null;
+        google.maps.event.removeListener(pin.listener);
       });
 
       pins.length = 0;
