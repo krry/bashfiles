@@ -13,7 +13,7 @@
 }
 
 .omap {
-  position: relative;
+  position: relative !important;
   height: 100%;
   z-index: 1;
   // background: $grey-dark;
