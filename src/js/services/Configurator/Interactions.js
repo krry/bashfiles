@@ -70,6 +70,13 @@ function Interactions_(Design, Styles) {
       Design.modify_source.removeFeature(f);
       Design.draw_source.addFeature(f);
     }
-
+    interactions.modify.clearArea = function () {
+        // get the last feature in the modify collection
+        var f = modify_source.getFeatures()[0];
+        // remove feature from modify styled layer
+        Design.modify_source.removeFeature(f);
+        // eliminate feature from areas_collection
+        Design.areas_collection.pop();
+    }
   return interactions;
 }
