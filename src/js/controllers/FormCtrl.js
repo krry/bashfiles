@@ -125,16 +125,12 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
   function checkCredit() {
     vm.isSubmitting = true;
 
-    // TODO: remove this from production builds
-    if (vm.prospect.email === CREDIT_FAIL.EMAIL) {
-      vm.prospect.addressId = CREDIT_FAIL.ADDRESS_ID;
-      vm.prospect.dob = new Date(CREDIT_FAIL.DOB);
-    }
+    saveDob();
 
     checkAll({
       ContactId: vm.prospect.contactId,
       AddressId: vm.prospect.addressId,
-      BirthDate: moment(vm.prospect.dob).format('MM/DD/YYYY')
+      BirthDate: vm.prospect.dob
     }).then(function(data) {
       var stage = data.CreditResultFound ? 'next' : 'back';
       Client.emit('Form: valid data', { qualified: data.qualified });
@@ -155,6 +151,28 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
       } else {
         Client.emit('Stages: jump to step', 'congrats');
       }
+    });
+  }
+
+  function saveDob() {
+    vm.prospect.dob =[
+      vm.prospect.month,
+      vm.prospect.day,
+      vm.prospect.year
+    ].join('/');
+
+    // TODO: remove this from production builds
+    if (vm.prospect.email === CREDIT_FAIL.EMAIL) {
+      vm.prospect.addressId = CREDIT_FAIL.ADDRESS_ID;
+      vm.prospect.dob = CREDIT_FAIL.DOB;
+    }
+
+    vm.prospect.dob = moment(new Date(vm.prospect.dob)).format('MM/DD/YYYY');
+    Client.emit('Form: valid data', {
+      month: vm.prospect.month,
+      day: vm.prospect.day,
+      year: vm.prospect.year,
+      dob: vm.prospect.dob 
     });
   }
 

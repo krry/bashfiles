@@ -1,14 +1,53 @@
-<div class="ib status" ng-hide="prospectForm.dob.$pristine">
-  <span ng-show="prospectForm.dob.$error.required">Date of birth is required.</span>
-  <span ng-show="prospectForm.dob.$error.min || prospectForm.dob.$error.max">Year of birth must be between 1915 and 1997.</span>
+<div class="status" ng-hide="prospectForm.month.$pristine">
+  <span ng-show="prospectForm.month.$error.required">Month is required.</span>
+  <span ng-show="prospectForm.month.$error.pattern">Month must be valid.</span>
 </div>
-<input
-  type="date"
-  name="dob"
-  class="birthdate"
-  step="1"
-  min="1915-01-01"
-  max="1998-01-01"
-  ng-model="form.prospect.dob"
-  ng-model-options="{ updateOn: 'default blur', debounce: { default: 2000, blur: 0 } }"
-  ng-required="true">
+<div class="status" ng-hide="prospectForm.day.$pristine">
+  <span ng-show="prospectForm.day.$error.required">Day is required.</span>
+  <span ng-show="prospectForm.day.$error.pattern">Day must be valid.</span>
+</div>
+<div class="status" ng-hide="prospectForm.year.$pristine">
+  <span ng-show="prospectForm.year.$error.required">Year is required.</span>
+  <span ng-show="prospectForm.year.$error.pattern">Year must be between 1915 and 1997.</span>
+</div>
+<div class="row">
+  <div class="col fourth padded">
+    <input
+      type="text"
+      name="month"
+      class="birthdate"
+      placeholder="mm"
+      minlength="1"
+      maxlength="2"
+      ng-pattern="/\b[1-9]\b|0[1-9]|1[012]/"
+      ng-model="form.prospect.month"
+      ng-model-options="{ updateOn: 'default change blur', debounce: { default: 2000, blur: 0 } }"
+      ng-required="true">
+  </div>
+  <div class="col fourth">
+    <input
+      type="text"
+      name="day"
+      class="birthdate"
+      placeholder="dd"
+      minlength="1"
+      maxlength="2"
+      ng-pattern="/\b[1-9]\b|0[1-9]|[1-2][0-9]|3[01]/"
+      ng-model="form.prospect.day"
+      ng-model-options="{ updateOn: 'default change blur', debounce: { default: 2000, blur: 0 } }"
+      ng-required="true">
+  </div>
+  <div class="col half padded">
+    <input
+      type="text"
+      name="year"
+      class="birthdate"
+      placeholder="yyyy"
+      minlength="4"
+      maxlength="4"
+      ng-pattern="/19(1[5-9]|[2-8][0-9]|9[0-7])/"
+      ng-model="form.prospect.year"
+      ng-model-options="{ updateOn: 'default change blur', debounce: { default: 2000, blur: 0 } }"
+      ng-required="true">
+  </div>
+</div>
