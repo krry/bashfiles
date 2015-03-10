@@ -19,7 +19,8 @@ function GmapFactory_ () {
         map,
         map_opts,
         map_styles,
-        pins;
+        pins,
+        activePin;
 
     DEFAULT = {
       LAT: 30,
@@ -257,7 +258,12 @@ function GmapFactory_ () {
       });
 
       pin.listener = google.maps.event.addListener(pin.marker, 'click', function() {
+        if (activePin) {
+          activePin.infowindow.close();
+        }
+
         pin.infowindow.open(map, pin.marker);
+        activePin = pin;
       });
 
       pins.push(pin);
@@ -265,6 +271,8 @@ function GmapFactory_ () {
     }
 
     function clearPins() {
+      activePin = null;
+      
       angular.forEach(pins, function(pin) {
         pin.marker.setMap(null);
         pin.infowindow = null;
