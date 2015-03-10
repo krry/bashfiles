@@ -14,6 +14,7 @@ directives.directive('flnOlMap', ['Clientstream', 'newConfigurator', flnOlMap_])
 function flnOlMap_ (Client, Configurator) {
   return {
     restrict: "A",
+    controller: "OlMapCtrl as omap",
     link: function flnOlMapLink(scope, ele, attrs) {
       // in the case we have a new user, the directive needs to
       // wait until it configurator is
