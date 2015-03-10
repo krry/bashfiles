@@ -23,8 +23,8 @@ See FLNL-13 for Rates API reqs. See FLNL-9 for Utilities API.
 ## Variables
 * `upfront_cost` => 0
 * `annual_consumption` => `bill * 12`
-* `utility_rate`
-* `scty_rate`
+* `utility_rate` => `Utility.getUtilitiesForLocation(zip)`
+* `scty_rate` => `Utility.getRatesForUtility(utility_id)`
 * `percent_savings`
 * `annual_production`
 * `first_year_savings`

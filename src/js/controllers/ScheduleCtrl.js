@@ -1,3 +1,12 @@
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+  Schedule controller
+
+  Uses data from Warehouses, Contact, and Utility APIs
+  Populates the view with available appointments
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+
 controllers.controller('ScheduleCtrl', ['Form', 'Clientstream', 'Session', 'SiteSurvey', 'Installation', 'Salesforce', ScheduleCtrl_]);
 
 function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesforce) {
@@ -19,7 +28,7 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
   };
 
   function eventDetails() {
-    var obj = moment(new Date(vm.prospect.scheduledTime.date)),
+    var obj = moment(new Date(vm.prospect().scheduledTime.date)),
         format = 'MM/DD/YYYY h:mm:ss A';
 
     return {
@@ -27,9 +36,9 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
       begin: obj.format(format),
       end: obj.clone().add(2, 'hours').format(format),
       location: [
-        vm.prospect.home,
-        vm.prospect.city,
-        [vm.prospect.state, vm.prospect.zip].join(' ')
+        vm.prospect().home,
+        vm.prospect().city,
+        [vm.prospect().state, vm.prospect().zip].join(' ')
       ].join(', '),
       description: [
         'A site surveyor will come to your house.',
@@ -46,14 +55,14 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
     }
 
     if (date.availableTimes.length > 0 && date.canSchedule) {
-      vm.prospect.scheduledDate = date;
+      vm.prospect().scheduledDate = date;
       Client.emit('stage', 'next');
     } else {
       date.isClicked = true;
     }
 
     vm.selectedDate = date;
-    vm.prospect.scheduledTime = null;
+    vm.prospect().scheduledTime = null;
 
     if (date.availableTimes.length === 1) {
       selectTime(date.availableTimes[0]);
@@ -61,27 +70,27 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
   }
 
   function selectTime(time) {
-    if (vm.prospect.scheduledTime) {
-      vm.prospect.scheduledTime.isSelected = false;
+    if (vm.prospect().scheduledTime) {
+      vm.prospect().scheduledTime.isSelected = false;
     }
 
     time.isSelected = true;
-    vm.prospect.scheduledTime = time;
+    vm.prospect().scheduledTime = time;
   }
 
   function save() {
     vm.isSubmitting = true;
 
     return SiteSurvey.scheduleTime({
-      installationGuid: vm.prospect.installationGuid,
-      dateTime: moment(new Date(vm.prospect.scheduledTime.date)).format(SiteSurvey.timeFormat)
+      installationGuid: vm.prospect().installationGuid,
+      dateTime: moment(new Date(vm.prospect().scheduledTime.date)).format(SiteSurvey.timeFormat)
     }).then(function() {
       vm.timedOut = false;
       createLead(Salesforce.statuses.scheduledSiteSurvey);
 
       Client.emit('Form: valid data', {
         // Strip out Angular's $$hash key
-        scheduledTime: JSON.parse(angular.toJson(vm.prospect.scheduledTime))
+        scheduledTime: JSON.parse(angular.toJson(vm.prospect().scheduledTime))
       });
       Client.emit('stage', 'next');
     }, function(resp) {
@@ -95,15 +104,15 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
 
   function createLead(leadStatus, unqualifiedReason) {
     return Salesforce.createLead({
-      LeadId: vm.prospect.leadId,
-      FirstName: vm.prospect.firstName,
-      LastName: vm.prospect.lastName,
-      Email: vm.prospect.email,
-      Phone: vm.prospect.phone,
-      Street: vm.prospect.home,
-      City: vm.prospect.city,
-      State: vm.prospect.state,
-      PostalCode: vm.prospect.zip,
+      LeadId: vm.prospect().leadId,
+      FirstName: vm.prospect().firstName,
+      LastName: vm.prospect().lastName,
+      Email: vm.prospect().email,
+      Phone: vm.prospect().phone,
+      Street: vm.prospect().home,
+      City: vm.prospect().city,
+      State: vm.prospect().state,
+      PostalCode: vm.prospect().zip,
       LeadStatus: leadStatus,
       UnqualifiedReason: unqualifiedReason,
       //OwnerId: '005300000058ZEZAA2',//oda userId
@@ -113,7 +122,7 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
 
   function init() {
     return SiteSurvey.getTimes({
-      installationGuid: vm.prospect.installationGuid
+      installationGuid: vm.prospect().installationGuid
     }).then(parseTimes);
   }
 
@@ -151,15 +160,15 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
     vm.isSubmitting = true;
 
     return Installation.create({
-      OfficeId: vm.prospect.warehouseId,
-      ContactId: vm.prospect.contactId,
-      AddressId: vm.prospect.addressId,
-      UtilityId: vm.prospect.utilityId
+      OfficeId: vm.prospect().warehouseId,
+      ContactId: vm.prospect().contactId,
+      AddressId: vm.prospect().addressId,
+      UtilityId: vm.prospect().utilityId
     }).then(storeInstallation, skipScheduling);
   }
 
   function storeInstallation(data) {
-    vm.prospect.installationGuid = data.InstallationGuid;
-    Client.emit('Form: valid data', { installationGuid: vm.prospect.installationGuid });
+    vm.prospect().installationGuid = data.InstallationGuid;
+    Client.emit('Form: valid data', { installationGuid: vm.prospect().installationGuid });
   }
 }

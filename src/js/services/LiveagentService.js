@@ -62,6 +62,7 @@ function LiveagentService_ () {
     addCustomDetails: function (prospect) {
       // parse the prospect object into addCustomDetail calls that build the Lead object in Salesforce
       // custom details must be added before init of liveagent
+      var value;
       for (var key in prospect) {
         if ( prospect.hasOwnProperty(key)) {
           var value;

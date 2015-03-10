@@ -1,30 +1,29 @@
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-  Utility Provider
+  Rates Provider
 
-  accesses the utility API in SolarWorks
+  Accesses the Rates API in SolarWorks
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
-providers.provider('Utility', [UtilityProvider_ ]);
+providers.provider('Rates', [RatesProvider_ ]);
 
-function UtilityProvider_ () {
-  this.$get = ['$http', '$q', 'UTILITIES_API', function ($http, $q, UTILITIES_API) {
+function RatesProvider_ () {
 
-    function get (params) {
+  this.$get = ['$http', '$q', 'RATES_API', function($http, $q, RATES_API) {
 
+    function get(params) {
       var dfd = $q.defer();
 
-      $http.get(UTILITIES_API, {
+      $http.get(RATES_API, {
         params: params
-      }).then(function (resp) {
+      }).then(function(resp) {
         dfd.resolve(resp.data);
       }, function(resp) {
         dfd.reject(resp);
       });
 
       return dfd.promise;
-
     }
 
     return { get : get };
