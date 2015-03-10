@@ -124,7 +124,6 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
 
   function setWaiting (data) {
     waiting = data;
-    console.log('adding to spin count', data);
     Client.emit('add to spin count', data);
     $timeout(function(){
       $scope.$apply();
