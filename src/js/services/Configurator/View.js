@@ -13,15 +13,15 @@ angular.module('flannel').factory("View", ['Design', View_]);
 function View_(Design) {
   var view, center_listner_key, zoom_listener_key;
 
+  // todo: subscribe to design.mapcenter_stream
+
   var view = new ol.View({
-    center: Design.temp_center,
+    center: Design.map_details.temp_center,
     projection: 'EPSG:4326',
     minZoom: 18, // don't zoom out past the 'EPSG:4326' projection hahahaha
     maxZoom: 20, // don't zoom further than google can zoom // TODO: set this to the maxzoom at the current location
   });
 
-  // todo: subscribe to design.mapcenter_stream
-  console.debug('Design.temp_center', Design.temp_center);
 
   view.rx_center = new Rx.Observable.fromEventPattern(
     function addHandler(h) {
