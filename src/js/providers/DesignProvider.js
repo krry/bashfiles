@@ -29,6 +29,7 @@ function DesignProvider_ () {
       areas_ref,
       areas_stream,
       feature,
+      areas_collection,
       map_center,
       center_ref,
       center_stream,
@@ -94,9 +95,25 @@ function DesignProvider_ () {
       Client.emit('Design: Loaded', data);
     }
 
+    // watch the area_collection to validate trace_complete
+    areas_collection = new ol.Collection();
+    areas_collection.on('add',function(e){
+      console.debug('add area -->',e.element);
+    });
+    areas_collection.on('change:length',function(e){
+      Client.emit('area collection count', draw_source.getFeatures().length)
+      console.debug('areacollection change:lenght -->', draw_source.getFeatures().length);
+    });
+
     function awesome_design_builder_brah() {
       return {
-        temp_center: [-122.39858709999999,  37.7618242],
+        map_details: {
+          temp_center: [-122.39858709999999,  37.7618242],
+          temp_zoom: 18,
+        },
+        areas_collection: areas_collection,
+        draw_source:   new ol.source.Vector(),
+        modify_source: new ol.source.Vector(),
         ref:    function(key){
           if (key) {
             _ref_key = key;
