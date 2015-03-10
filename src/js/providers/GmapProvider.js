@@ -267,12 +267,11 @@ function GmapFactory_ () {
       });
 
       pins.push(pin);
-      console.log(pins);
     }
 
     function clearPins() {
       activePin = null;
-      
+
       angular.forEach(pins, function(pin) {
         pin.marker.setMap(null);
         pin.infowindow = null;
