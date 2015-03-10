@@ -21,7 +21,7 @@ directives
 .directive('flnDraw', flnDraw_ )
 .directive('flnModify', flnModify_ )
 .directive('flnZoom', flnZoom_ )
-.directive('flnDragpan', flnDragPan_ );
+.directive('flnDragpan', flnDragPan_ )
 .directive('flnOmapRedo', flnOmapRedo_ );
 
 function flnDraw_ ($timeout, $compile, newConfigurator, Clientstream) {
