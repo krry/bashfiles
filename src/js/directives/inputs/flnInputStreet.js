@@ -2,14 +2,17 @@ directives.directive('flnInputStreet', [flnInputStreet_]);
 
 function flnInputStreet_ () {
   return {
-    scope: {
-      hint: "@"
-    },
     restrict: "E",
     templateUrl: "templates/directives/inputs/flnInputStreet.html",
-    controller: "FormCtrl as form",
-    link: function (scope, element, attrs) {
-      $(element).focus();
-    }
+    require: '^flnForm',
+    link: function (scope, element, attrs, FormCtrl) {
+      var elVal,
+          form
+      form = FormCtrl;
+      element.bind('blur change', function (){
+        elVal = $(element).find('input').val();
+        form.checkAddress(elVal);
+      })
+    },
   };
 }

@@ -36,7 +36,7 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
       begin: obj.format(format),
       end: obj.clone().add(2, 'hours').format(format),
       location: [
-        vm.prospect().home,
+        vm.prospect().street,
         vm.prospect().city,
         [vm.prospect().state, vm.prospect().zip].join(' ')
       ].join(', '),
@@ -56,7 +56,7 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
 
     if (date.availableTimes.length > 0 && date.canSchedule) {
       vm.prospect().scheduledDate = date;
-      Client.emit('stage', 'next');
+      Client.emit('Stages: stage', 'next');
     } else {
       date.isClicked = true;
     }
@@ -92,7 +92,7 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
         // Strip out Angular's $$hash key
         scheduledTime: JSON.parse(angular.toJson(vm.prospect().scheduledTime))
       });
-      Client.emit('stage', 'next');
+      Client.emit('Stages: stage', 'next');
     }, function(resp) {
       vm.isSubmitting = false;
 
@@ -149,11 +149,11 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
   function checkTimes(data) {
     // Immediately redirect to congrats page if no times available
     var step = (!data || !data.length) ? 'congrats' : 'survey-calendar';
-    Client.emit('jump to step', step);
+    Client.emit('Stages: jump to step', step);
   }
 
   function skipScheduling() {
-    Client.emit('jump to step', 'congrats');
+    Client.emit('Stages: jump to step', 'congrats');
   }
 
   function createInstallation() {

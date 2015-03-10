@@ -1,13 +1,18 @@
+/* ========================================================
+
+   CLIENTSTREAM
+
+   provides an emitter to handle pub/sub within the app
+
+   This stream is used throughout the app by:
+   * controllers
+   * providers
+   * services
+
+======================================================== */
 providers.provider('Clientstream', Clientstream_);
+
 function Clientstream_ () {
-  /* ================================
-    Clientstream
-
-    Create an emitter to handle pub/sub within the application.
-
-    This stream is used throughout the application.
-
-  ================================ */
   this.$get = [function ClientStreamProviderFactory () {
 
     function buts () {
@@ -18,6 +23,7 @@ function Clientstream_ () {
 
   var Stream = Emitter();
   var hasOwnProp = {}.hasOwnProperty;
+  var loggins = "kenny";
 
   function createName (name) {
       return '$' + name;
@@ -27,19 +33,23 @@ function Clientstream_ () {
       this.subjects = {};
   }
 
+  function logStream (action, name) {
+    if (loggins === "kenny") {
+      console.debug('~~stream~~', action, '=>', name);
+    }
+  }
+
   Emitter.prototype.emit = function (name, data) {
       var fnName = createName(name);
-      /* jshint -W030 */
       this.subjects[fnName] || (this.subjects[fnName] = new Rx.Subject());
-      /* jshint +W030 */
+      logStream("emit", name);
       this.subjects[fnName].onNext(data);
   };
 
   Emitter.prototype.listen = function (name, handler) {
       var fnName = createName(name);
-      /* jshint -W030 */
       this.subjects[fnName] || (this.subjects[fnName] = new Rx.Subject());
-      /* jshint +W030 */
+      logStream("listen", name);
       return this.subjects[fnName].subscribe(handler);
   };
 
