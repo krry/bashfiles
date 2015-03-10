@@ -14,7 +14,7 @@ angular.module('configure',[]).config(["$stateProvider", function ($stateProvide
         controller:  function ($scope, Clientstream) {
           Clientstream.listen('area collection count', function (data) {
             $scope.traced = data;
-            data && $scope.$apply();
+            data && ($scope.$apply());
           })
         },
       },
