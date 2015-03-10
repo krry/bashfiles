@@ -126,4 +126,7 @@ function newConfigurator_(View, Interactions, Layers) {
   this.zoomDel = function () {
     omap.removeInteraction(Interactions.zoom);
   }
+  this.redoArea = function() {
+    interactions.modify.clearArea();
+  }
 }
