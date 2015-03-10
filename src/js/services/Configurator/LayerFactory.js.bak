@@ -18,6 +18,13 @@ function ConfiguratorLayerFactory_ (Client, Design) {
     layer: function() {return layer;},
   };
 
+/* ==================================================
+
+  HEY DON'T DELETE THIS FILE
+
+  static image
+================================================== */
+
   function staticMapLayer (viewcenter, extent) {
     // get size from extent
     size = {};
