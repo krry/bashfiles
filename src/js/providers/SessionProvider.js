@@ -50,7 +50,7 @@ function SessionProvider_ (FormProvider, DesignProvider, ConfiguratorProvider) {
 
     Client.listen('User: Loaded', bootstrapSession );
     Client.listen('ODA: share_session set', bootstrapSession);
-    Client.listen('StageCtrl: restart session', restartSession);
+    Client.listen('Stages: restart session', restartSession);
     Client.listen('Form: Loaded', saveFormId);
     Client.listen('Design: Loaded', saveDesignId);
     Client.listen('center changed', storeGMapCenter);
@@ -127,8 +127,8 @@ function SessionProvider_ (FormProvider, DesignProvider, ConfiguratorProvider) {
         id:     function (){ return _ref.key(); },
         stream: function (){ return fb_observable; },
         state_stream: function (){ return state_stream; },
-        next:   function () { Client.emit('stage', "next");},
-        back:   function () { Client.emit('stage', "back");},
+        next:   function () { Client.emit('Stages: stage', "next");},
+        back:   function () { Client.emit('Stages: stage', "back");},
       };
     }
 
