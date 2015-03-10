@@ -17,7 +17,9 @@ function Interactions_(Design, Styles) {
         zoom,
         dragpan,
       // defaults
-        dragpan_opt;
+        dragpan_opt,
+      // feature being modified
+        modify_target_feature;
 
     interactions = new ol.Collection();
     dragpan_opt = { enableKinetic: true };
@@ -28,11 +30,16 @@ function Interactions_(Design, Styles) {
     interactions.zoom    = new ol.interaction.MouseWheelZoom();
     // draw areas
     interactions.draw = new ol.interaction.Draw({
-      source: Design.area_source,
-      features: Design.areas_collection,
+      source: Design.draw_source,
       type: 'Polygon',
       geometryName: 'area',
     });
+
+    // add to the collection of features that can be modified
+    interactions.draw.on('drawend', function(e){
+      Design.areas_collection.push(e.feature);
+    });
+
     // modify
     interactions.modify = new ol.interaction.Modify({
       features: Design.areas_collection,
@@ -47,13 +54,21 @@ function Interactions_(Design, Styles) {
     });
     interactions.modify.getFeatureFromDraw = function (f_id) {
       f_id = f_id || 0;
-      if (Design.area_source.getFeatures() === []) {
-        console.alert('you need to have a feature for modify to work on a feature');
+      if (Design.draw_source.getFeatures() === []) {
+        return console.alert('you need to have a feature for modify to work on a feature');
       }
-      Design.areas_collection.push(Design.area_source.getFeatures()[f_id]);
+      // get the feature we want to adjust
+      modify_target_feature = Design.draw_source.getFeatures()[f_id];
+      // move the feature to the properly styled layer
+      Design.draw_source.removeFeature(modify_target_feature);
+      Design.modify_source.addFeature(modify_target_feature);
     }
     interactions.modify.clearFeaturesFromModify = function() {
-      Design.areas_collection.clear();
+      // get the last feature in the modify collection
+      var f = modify_source.getFeatures()[0];
+      // move the feature back to the draw styled layer
+      Design.modify_source.removeFeature(f);
+      Design.draw_source.addFeature(f);
     }
 
   return interactions;
