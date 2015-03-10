@@ -86,6 +86,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
         center = map.getCenter();
         console.log('saving center', center);
         Client.emit('center changed', center);
+        getNearMeData();
       }
     // }
   }
@@ -127,16 +128,24 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
       left: sw.lng()
     };
 
+    // Safeguard against loading a large data set
+    if (Math.abs(coords.top - coords.bottom > 1) || Math.abs(coords.left - coords.right) > 1) {
+      return;
+    }
+
     return NearMe.get(coords).then(plotMarkers);
   }
 
   function plotMarkers(data) {
-    angular.forEach(data, function(point) {
-      var location = new google.maps.LatLng(point.la, point.ln),
-          production = data.kw;
+    Client.emit('clear pins', true);
 
-      Client.emit('drop pin', location);
-      // TODO: add a listener in Gmap to attach info windows to pins containing the production stats
+    angular.forEach(data, function(point) {
+      var opts = {
+        location: new google.maps.LatLng(point.la, point.ln),
+        content: point.kw + ' kW system'
+      };
+
+      Client.emit('drop pin', opts);
     });
 
     Client.emit('neighbor_count saved', data.length);
