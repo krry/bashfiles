@@ -2,14 +2,16 @@
 
   Rates Provider
 
-  accesses the utility API in SolarWorks
+  Accesses the Rates API in SolarWorks
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
 providers.provider('Rates', [RatesProvider_ ]);
 
 function RatesProvider_ () {
+
   this.$get = ['$http', '$q', 'RATES_API', function($http, $q, RATES_API) {
+
     function get(params) {
       var dfd = $q.defer();
 
@@ -24,8 +26,7 @@ function RatesProvider_ () {
       return dfd.promise;
     }
 
-    return {
-      get: get
-    };
+    return { get : get };
+
   }];
 }
