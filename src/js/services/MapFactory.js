@@ -5,9 +5,9 @@
  *Ï
  */
 
-angular.module('flannel').factory('MapFactory', ['MapService','StyleService', 'LayerService', 'Configurator', 'Clientstream', MapFactory_]);
+angular.module('flannel').factory('MapFactory', ['$rootScope','MapService', 'StyleService', 'Configurator', 'Clientstream', MapFactory_]);
 
-function MapFactory_( MapService, StyleService, LayerService, Configurator, Client ) {
+function MapFactory_($rootScope, MapService, StyleService, Configurator, Client ) {
 
   var map,
       f_collection,
