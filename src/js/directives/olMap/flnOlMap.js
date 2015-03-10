@@ -25,8 +25,8 @@ function flnOlMap_ (Client, Configurator) {
       Client.listen('Configurator: Loaded', sendElement);
 
       function sendElement (interactions) {
-        Client.emit('Spinner: spin it', true);
-        Client.emit('OlMap: map target element', ele);
+        // Client.emit('Spinner: spin it', true);
+        // Client.emit('OlMap: map target element', ele);
       }
 
 
