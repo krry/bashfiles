@@ -22,6 +22,7 @@ directives
 .directive('flnModify', flnModify_ )
 .directive('flnZoom', flnZoom_ )
 .directive('flnDragpan', flnDragPan_ );
+.directive('flnOmapRedo', flnOmapRedo_ );
 
 function flnDraw_ ($timeout, $compile, newConfigurator, Clientstream) {
   return {
@@ -102,6 +103,18 @@ function flnDragPan_ (Configurator, newConfigurator) {
       ele.on('$destroy', function dragPanDestroy (e) {
         newConfigurator.dragpanDel();
       });
+    },
+  };
+}
+
+function flnOmapRedo_ (Clientstream, newConfigurator) {
+  return {
+    restrict: "A",
+    link: function flnModifyLink (scope, ele, attrs) {
+      ele.on('click', function popThatPoly(){
+        newConfigurator.redoArea();
+        Clientstream.emit('stage', 'back');
+      })
     },
   };
 }
