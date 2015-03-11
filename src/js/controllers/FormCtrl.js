@@ -128,9 +128,9 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
     saveDob();
 
     checkAll({
-      ContactId: vm.prospect.contactId,
-      AddressId: vm.prospect.addressId,
-      BirthDate: vm.prospect.dob
+      ContactId: vm.prospect().contactId,
+      AddressId: vm.prospect().addressId,
+      BirthDate: vm.prospect().dob
     }).then(function(data) {
       var stage = data.CreditResultFound ? 'next' : 'back';
       Client.emit('Form: valid data', { qualified: data.qualified });
@@ -263,7 +263,7 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
         email: vm.prospect.email
       });
 
-      Client.emit('jump to step', 'credit-check');
+      Client.emit('Stages: jump to step', 'credit-check');
     }, function(resp) {
       vm.isSubmitting = false;
 
@@ -292,11 +292,11 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
       // OwnerId: '005300000058ZEZAA2',//oda userId
       ExternalId: Session.id()
     }).then(function(data) {
-      vm.prospect.leadId = data.leadId;
+      vm.prospect().leadId = data.id;
       vm.isSubmitting = false;
 
       Client.emit('Form: valid data', {
-        leadId: vm.prospect.leadId
+        leadId: vm.prospect().leadId
       });
     })
   }
