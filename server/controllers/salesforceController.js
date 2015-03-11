@@ -8,12 +8,14 @@ module.exports = function(app) {
   var sfLoginUrl    = conf.SFLOGIN_URL,
       sfUserName    = conf.SFUSERNAME,
       sfPassword    = conf.SFPASSWORD;
+      sfToken       = conf.SFDCSECRETTOKEN;
+
 
   var conn = new jsforce.Connection({
     loginUrl: sfLoginUrl
   });
 
-  var login = conn.login(sfUserName, sfPassword);
+  var login = conn.login(sfUserName, sfPassword+sfToken);
 
   function createLead(req){
     return conn.sobject("Lead").create({
@@ -34,7 +36,7 @@ module.exports = function(app) {
       External_ID_Type__c : 'FirebaseSessionId',
       Consultation_Date__c : new Date(),
       Consultation_Type__c : 'Online',
-      Opportunity_Owner__c : '005300000058ZEZAA2',
+      Opportunity_Owner__c : '00518000000QpDnAAK',
     }, function(err, ret){
       if (err || !ret.success) {
         return console.error(err, ret);
@@ -62,7 +64,7 @@ module.exports = function(app) {
       External_ID_Type__c : 'FirebaseSessionId',
       Consultation_Date__c : new Date(),
       Consultation_Type__c : 'Online',
-      Opportunity_Owner__c : '005300000058ZEZAA2',
+      Opportunity_Owner__c : '00518000000QpDnAAK',
     }, function(err, ret) {
       if (err || !ret.success) { 
         return console.error(err, ret); 

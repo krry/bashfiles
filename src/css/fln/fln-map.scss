@@ -10,6 +10,11 @@
   position: absolute;
   overflow: hidden;
   transition: opacity 150ms $easing-quick;
+
+  // Fixes weird styling issues with infowindow icons
+  img[src*="gstatic.com/"], img[src*="googleapis.com/"]  {
+      max-width: 99999px;
+  }
 }
 
 .omap {
