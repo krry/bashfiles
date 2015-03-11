@@ -2,10 +2,10 @@
   "PORT": 8100,
   "FLANNEL_SECRET": "sekret",
   "FIREBASE_SECRET": "hSKlMlUuwpcowWFyS3UjmSqlZQTPTmeEz62OXta9",
-  "SOLAR_WORKS_ROOT": "https://api-test.solarcity.com",
-  "SOLAR_WORKS_API_ROOT": "https://solarworksapi-test.solarcity.com",
-  "GSA_ROOT": "https://gsa-test.solarcity.com",
-  "NEAR_ME_ROOT": "https://nearme-test.solarcity.com",
+  "SOLAR_WORKS_ROOT": "https://api-staging.solarcity.com",
+  "SOLAR_WORKS_API_ROOT": "https://solarworksapi-staging.solarcity.com",
+  "GSA_ROOT": "https://gsa-staging.solarcity.com",
+  "NEAR_ME_ROOT": "https://nearme-staging.solarcity.com",
   "UTILITIES_API": "/solarbid/api/utilities/",
   "WAREHOUSE_API": "/solarbid/api/warehouses/",
   "RATES_API": "/solarbid/api/rates/",
@@ -15,12 +15,12 @@
   "GSA_API": "/api/schedule/",
   "INSTALLATION_API": "/api/installation/partial",
   "SFLOGIN_URL": "https://test.salesforce.com",
-  "SFUSERNAME": "solarcity@solarcity.com.full",
+  "SFUSERNAME": "solarcity@solarcity.com.staging",
   "SFPASSWORD": "makinSales2006;",
   "CLIENT": {
     "MINIFIED": "true",
     "APP_TITLE": "The Future is Now • SolarCity",
-    "GMAP_CLIENT": "",
+    "GMAP_CLIENT": "gme-solarcity",
     "UTILITIES_API": "/api/utilities",
     "WAREHOUSE_API": "/api/warehouses",
     "RATES_API": "/api/rates",
@@ -31,7 +31,7 @@
     "INSTALLATION_API": "/api/installation",
     "CREDIT_FAIL": {
       "EMAIL": "flannel@fail.com",
-      "ADDRESS_ID": 760639,
+      "ADDRESS_ID": 906304,
       "DOB": "05/27/1943"
     },
     "SFLEAD_API": "/api/sflead/"

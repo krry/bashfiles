@@ -1,16 +1,16 @@
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-  PROD
+  TEST
   root task
 
-  like STAGING, only more buttoned up
-  run on the heroku production instance
+  a simplified build process for the test server
+  run with `npm run test` --- see `package.json`
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
 var gulp = require('gulp');
 var runSeq = require('run-sequence').use(gulp);
 
-gulp.task('heroku:prod', function() {
+gulp.task('heroku:test', function() {
   runSeq('config', 'build');
 });
