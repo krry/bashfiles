@@ -89,7 +89,6 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
     if (!$scope.$$phase && !$scope.$root.$$phase) $scope.$apply();
 
     if (street) {
-      debugger;
       addy = {
         street: street,
         city: vm.prospect().city,
@@ -368,6 +367,9 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
 
     vm.prospect().utilityRate = data.MedianUtilityPrice;
     vm.prospect().sctyRate = data.FinancingKwhPrice;
+    vm.prospect().productionPerKW = data;
+    console.log('data from rates is:', data);
+    debugger;
 
     rates = {
       utilityRate: vm.prospect().utilityRate,

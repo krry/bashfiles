@@ -59,6 +59,8 @@ function newConfigurator_(View, Interactions, Layers) {
     console.debug('Configurator.setTarget(elem) => elem: ', elem);
     var g_div, o_div;
     // two target divs for the olmap and googlemap
+    // TODO: use a directive or link function to select the elements
+    // DOM selection or manipulation should not occur in a service
     g_div = $(elem).find('#gmtest')[0];
     o_div = $(elem).find('#oltest')[0];
     // create the maps

@@ -24,6 +24,7 @@ var timestamp = require('../util/timestamp').timestamp;
 // this glob determines the order of the concatenated scripts
 var scriptSrc = [
   'src/js/*.js',
+  'src/js/constants/**/*.js',
   'src/js/providers/**/*.js',
   'src/js/services/**/*.js',
   'src/js/controllers/**/*.js',
