@@ -18,7 +18,9 @@ function GmapFactory_ () {
     var DEFAULT,
         map,
         map_opts,
-        map_styles;
+        map_styles,
+        pins,
+        activePin;
 
     DEFAULT = {
       LAT: 30,
@@ -183,9 +185,12 @@ function GmapFactory_ () {
       // scrollwheel: false,
     }
 
+    pins = [];
+
     Client.listen('valid territory', zoomToHood);
     Client.listen('valid house', checkMaxZoom);
     Client.listen('drop pin', dropPin);
+    Client.listen('clear pins', clearPins);
 
     function init (data) {
       map = new google.maps.Map(data, map_opts);
@@ -237,15 +242,43 @@ function GmapFactory_ () {
     }
 
     // given a location on the map, make and drop a marker there
-    function dropPin(location) {
-      var marker;
+    function dropPin(opts) {
+      var pin = {};
 
-      marker = new google.maps.Marker({
-        position: location,
+      pin.marker = new google.maps.Marker({
+        position: opts.location,
         map: map,
         draggable: false,
         icon: 'img/map_pin_1.svg'
       });
+
+      pin.infowindow = new google.maps.InfoWindow({
+        content: opts.content,
+        anchorPoint: new google.maps.Point(0, 0)
+      });
+
+      pin.listener = google.maps.event.addListener(pin.marker, 'click', function() {
+        if (activePin) {
+          activePin.infowindow.close();
+        }
+
+        pin.infowindow.open(map, pin.marker);
+        activePin = pin;
+      });
+
+      pins.push(pin);
+    }
+
+    function clearPins() {
+      activePin = null;
+
+      angular.forEach(pins, function(pin) {
+        pin.marker.setMap(null);
+        pin.infowindow = null;
+        google.maps.event.removeListener(pin.listener);
+      });
+
+      pins.length = 0;
     }
 
     function gmap_assembly () {
