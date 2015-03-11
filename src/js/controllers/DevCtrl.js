@@ -11,7 +11,7 @@ function DevCtrl_($scope, Client, Form) {
   Client.listen('Form: Loaded', subscribeForm);
 
   vm.reloadApp = function reloadApp () {
-    location.hash = '';
+    location.hash = 'my-home';
     location.reload(true);
   }
 

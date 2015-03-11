@@ -10,7 +10,7 @@ module.exports = function(app) {
       conf            = require('../config/environments/' + env + '.json');
 
   if (protected_envs.indexOf(env) > -1) {
-    app.get('/flannel/', auth.basic, appController.index );
+    app.get('/flannel/', appController.index );
   } else {
     app.get('/flannel/', appController.index );
   }

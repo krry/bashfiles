@@ -1,9 +1,9 @@
-directives.directive('flnSpinner', flnSpinner);
+directives.directive('flnSpinner', [flnSpinner_]);
 
-function flnSpinner () {
+function flnSpinner_ () {
   return {
-    restrict: "E",
-    replace: "true",
+    restrict: 'E',
+    replace: 'true',
     templateUrl: 'templates/directives/widgets/flnSpinner.html',
   };
 }
