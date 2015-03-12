@@ -58,6 +58,7 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
   vm.prevStep = prev;
   vm.nextStep = next;
   vm.checkZip = checkZip;
+  vm.saveBill = saveBill;
   vm.checkAddress = checkAddress;
   vm.checkCredit = checkCredit;
   vm.createContact = createContact;
@@ -173,7 +174,7 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
       month: vm.prospect.month,
       day: vm.prospect.day,
       year: vm.prospect.year,
-      dob: vm.prospect.dob 
+      dob: vm.prospect.dob
     });
   }
 
@@ -279,6 +280,7 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
   }
 
   function createLead(leadStatus, unqualifiedReason) {
+    // TODO: handle duplicate error and bubble up feedback to user
     return Salesforce.createLead({
       LeadId: vm.prospect.leadId,
       FirstName: vm.prospect.firstName,
@@ -301,7 +303,7 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
       Client.emit('Form: valid data', {
         leadId: vm.prospect.leadId
       });
-    })
+    });
   }
 
   function skipConfigurator() {
@@ -407,6 +409,11 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
     };
 
     Client.emit('Form: valid data', rates);
+  }
+
+  function saveBill (data) {
+    console.log("bill", data);
+    Client.emit('Form: valid data', { bill: data });
   }
 
   function acceptNeighborCount (data) {
