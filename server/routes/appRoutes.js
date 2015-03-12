@@ -1,3 +1,6 @@
+var auth = require('../auth');
+var env  = process.env.NODE_ENV || 'development';
+var protected_envs = ['development', 'test', 'stage', 'train'];
 
 module.exports = function(app) {
   var appController   = require('../controllers/appController.js')(app),
@@ -6,7 +9,12 @@ module.exports = function(app) {
       env             = process.env.NODE_ENV || 'development',
       conf            = require('../config/environments/' + env + '.json');
 
-  app.get('/flannel/', appController.index );
+  if (protected_envs.indexOf(env) > -1) {
+    app.get('/flannel/', appController.index );
+  } else {
+    app.get('/flannel/', appController.index );
+  }
+
   app.get('/jwt', appController.jwt );
 
   app.post(conf.CLIENT.SFLEAD_API, salesforceController.addEditLead);

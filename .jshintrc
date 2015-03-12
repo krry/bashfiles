@@ -1,10 +1,3 @@
-// to bypass "Expected an assignment or function call and instead saw an expression." for lines like `target && (setElement(target))`
-// wrap the line like:
-// /* jshint -W030 */
-// target && (setElement(target))
-// /* jshint +W030 */
-
-
 {
     // JSHint Default Configuration File (as on JSHint website)
     // See http://jshint.com/docs/ for more details
@@ -51,7 +44,7 @@
     "moz"           : false,     // true: Allow Mozilla specific syntax (extends and overrides esnext features)
                                  // (ex: `for each`, multiple try/catch, function expression…)
     "evil"          : false,     // true: Tolerate use of `eval` and `new Function()`
-    "expr"          : false,     // true: Tolerate `ExpressionStatement` as Programs
+    "expr"          : true,      // true: Tolerate `ExpressionStatement` as Programs
     "funcscope"     : false,     // true: Tolerate defining variables inside control statements
     "globalstrict"  : false,     // true: Allow global "use strict" (also enables 'strict')
     "iterator"      : false,     // true: Tolerate using the `__iterator__` property
@@ -98,6 +91,7 @@
         "providers"   : true,
         "directives"  : true,
         "controllers" : true,
+        "constants"   : true,
         "service"     : true,
         "ol"          : true,
         "request"     : true,
@@ -110,6 +104,7 @@
         "moment"      : true,
         "ga"          : true,
         "ics"         : true,
+        "Chart"       : true,
         "liveagent"   : true
     } // additional predefined global variables
 }

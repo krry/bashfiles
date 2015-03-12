@@ -1,4 +1,4 @@
-<div class="ib status" ng-hide="prospectForm.firstName.$pristine">
+<div class="status" ng-hide="prospectForm.firstName.$pristine">
   <span ng-show="prospectForm.firstName.$error.required">
     Required
   </span>
@@ -14,7 +14,7 @@
   name="firstName"
   class="full-name"
   focus="true"
-  placeholder="{{hint}}"
+  placeholder="First name"
   autocomplete="on"
   autocorrect="off"
   ng-model="form.prospect.firstName"

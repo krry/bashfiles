@@ -50,7 +50,7 @@ main.main.main-fixed {
 }
 
 .overlay.only {
-  background-color: $grey-lightest;
+  /* background-color: $grey-lightest; */
 }
 
 .overlay.secondary {
@@ -64,7 +64,6 @@ main.main.main-fixed {
 
 .underlayer {
   position: fixed;
-  display: none;
   z-index: 0;
   top: 0; right: 0;
   bottom: 0; left: 0;

@@ -32,7 +32,6 @@ function MapService_ ($q, Client, StyleService) {
   // the omap center get and set functions are also hacky
   Client.listen('center changed', setOmapCenter);
 
-
   function getOmapCenter () {
     return service.omapCenter;
   }

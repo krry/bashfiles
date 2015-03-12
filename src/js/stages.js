@@ -22,6 +22,7 @@ angular.module('stages',[
       },
     }
   })
+
 }]).run([function ui_router_run() {
   // this runs after all the dependencies are bootstrapped
 }]);

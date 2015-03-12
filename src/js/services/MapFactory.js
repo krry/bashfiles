@@ -5,9 +5,9 @@
  *Ï
  */
 
-angular.module('flannel').factory('MapFactory', ['MapService','StyleService', 'LayerService', 'Configurator', 'Clientstream', MapFactory_]);
+angular.module('flannel').factory('MapFactory', ['$rootScope','MapService', 'StyleService', 'Configurator', 'Clientstream', MapFactory_]);
 
-function MapFactory_( MapService, StyleService, LayerService, Configurator, Client ) {
+function MapFactory_($rootScope, MapService, StyleService, Configurator, Client ) {
 
   var map,
       f_collection,
@@ -53,18 +53,24 @@ function MapFactory_( MapService, StyleService, LayerService, Configurator, Clie
   function roofArea (ol_map, target_element, feature) {
     var projection = Configurator.map().getView().getProjection();
     // TODO: restore this function from the now defunct MapService
-    map = MapService.setRoofmap({
-    view: new ol.View({
-      projection: projection,
-      center: ol.extent.getCenter(projection.getExtent()),
-      zoom: 1,
-    }),
-    extent: projection.getExtent(),
-    layers: [f_layer],
-    overlays: [f_overlay],
-    target: target_element[0],
-    interactions: [],
-    controls: [],
+    map = new ol.Map({
+      view: new ol.View({
+        projection: projection,
+        center: ol.extent.getCenter(projection.getExtent()),
+        zoom: Configurator.map().getView().getZoom(),
+        }),
+    // map = MapService.setRoofmap({
+    // view: new ol.View({
+    //   projection: projection,
+    //   center: ol.extent.getCenter(projection.getExtent()),
+    //   zoom: 0,
+    // }),
+      extent: projection.getExtent(),
+      layers: [f_layer],
+      overlays: [f_overlay],
+      target: target_element[0],
+      interactions: [],
+      controls: [],
     });
 
     map.setSize(ol_map.getSize());
@@ -82,15 +88,15 @@ function MapFactory_( MapService, StyleService, LayerService, Configurator, Clie
     var feature_parts = deconstructFeat(feature);
     f_source.addFeatures(feature_parts.point);
     f_source.addFeatures(feature_parts.segment);
-    map.getView().fitGeometry(
-      feature.getGeometry(),
-      map.getSize(),
-      // pad the edges, this is a target for interface optimization
-      // TODO: pass the `font-size` of the `<body>` as an argument to this function; use it to set the padding to achieve a responsive layout for the remapFeature
-      {
-        padding: [35, 35, 35, 35],
-      }
-    );
+    // map.getView().fitGeometry(
+    //   feature.getGeometry(),
+    //   map.getSize(),
+    //   // pad the edges, this is a target for interface optimization
+    //   // TODO: pass the `font-size` of the `<body>` as an argument to this function; use it to set the padding to achieve a responsive layout for the remapFeature
+    //   {
+    //     padding: [35, 35, 35, 35],
+    //   }
+    // );
   }
 
 // create new features

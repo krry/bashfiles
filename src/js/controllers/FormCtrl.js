@@ -6,9 +6,10 @@
 
 ================================================== */
 
-controllers.controller("FormCtrl", ["$scope", "$element", "Clientstream", "Session", "Geocoder", "Form", "Credit", "Contact", "Utility", "Salesforce", "CREDIT_FAIL", FormCtrl_]);
+controllers.controller("FormCtrl", ["$scope", "$element", "Clientstream", "Session", "Geocoder", "Form", "Credit", "Contact", "Utility", "Rates", "Salesforce", "CREDIT_FAIL", "defaultValues", FormCtrl_]);
 
-function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Contact, Utility, Salesforce, CREDIT_FAIL) {
+function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Contact, Utility, Rates, Salesforce, CREDIT_FAIL, defaultValues) {
+
   var vm = this;
   var form_stream;
 
@@ -42,10 +43,8 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
         $scope.$apply(); // update the views
       }, 0);
     }
-    /* jshint -W030 */
     // HACK: hardcode bill should be angular.constant
-    !form_obj.bill && Client.emit('Form: valid data', {bill: 100});
-    /* jshint +W030 */
+    !form_obj.bill && Client.emit('Form: valid data', {});
   }
 
   /* end bootstrap */
@@ -59,23 +58,16 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
   vm.prevStep = prev;
   vm.nextStep = next;
   vm.checkZip = checkZip;
+  vm.saveBill = saveBill;
   vm.checkAddress = checkAddress;
   vm.checkCredit = checkCredit;
   vm.createContact = createContact;
   vm.skipConfigurator = skipConfigurator;
 
-  // TODO: on change of the user model due to user changing the input values and angular syncing that with the data model, run it through validators, and then save it to firebase
-  // vm.$watch('user', function(){})
-
-  Client.listen('outside US', acceptValidZip);
-  // Client.listen('valid zip', acceptValidZip);
+  Client.listen('zip rejected', rejectZip);
   Client.listen('valid latlng', acceptValidLatLng);
-  Client.listen('valid territory', acceptValidTerritory);
-  Client.listen('valid address', acceptValidAddress);
-  Client.listen('valid house', acceptValidHouse);
-  Client.listen('valid state', acceptValidState);
-  Client.listen('valid city', acceptValidCity);
-  Client.listen('valid warehouse', acceptValidWarehouse);
+  Client.listen('Geocoder: valid warehouse', acceptValidWarehouse);
+  Client.listen('Geocoder: valid house', acceptValidHouse);
   Client.listen('email saved', acceptSavedEmail);
   Client.listen('birthdate saved', acceptSavedBirthdate);
   Client.listen('phone saved', acceptSavedPhone);
@@ -83,28 +75,30 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
   Client.listen('neighbor_count saved', acceptNeighborCount);
 
   function checkZip (zip) {
-    console.log('************ checkin dat zip', zip, 'boss *********')
+    console.log('********* checkin dat zip', zip, 'boss *********')
     if (typeof zip !== "undefined" && zip.length === 5) {
-      Client.emit('spin it', true);
+      Client.emit('Spinner: spin it', true);
       Geocoder.sendGeocodeRequest(zip);
     }
     else { return false; }
   }
 
-  function checkAddress (prospect) {
-    console.log('checking address for', prospect);
+  function checkAddress (street) {
+    // TODO: ensure that form is pulling latest prospect from Firebase
     var addy;
-    if (prospect !== {}) {
+
+    if (!$scope.$$phase && !$scope.$root.$$phase) $scope.$apply();
+
+    if (street) {
       addy = {
-        street: vm.prospect.street,
+        street: street,
         city: vm.prospect.city,
         state: vm.prospect.state,
         zip: vm.prospect.zip,
-      }
-      if (addy.street) {
-        Client.emit('spin it', true);
-        Geocoder.sendGeocodeRequest(addy);
-      }
+      };
+
+      Client.emit('Spinner: spin it', true);
+      Geocoder.sendGeocodeRequest(addy);
     }
   }
 
@@ -132,36 +126,55 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
   function checkCredit() {
     vm.isSubmitting = true;
 
-    // TODO: remove this from production builds
-    if (vm.prospect.email === CREDIT_FAIL.EMAIL) {
-      vm.prospect.addressId = CREDIT_FAIL.ADDRESS_ID;
-      vm.prospect.dob = new Date(CREDIT_FAIL.DOB);
-    }
+    saveDob();
 
     checkAll({
       ContactId: vm.prospect.contactId,
       AddressId: vm.prospect.addressId,
-      BirthDate: moment(vm.prospect.dob).format('MM/DD/YYYY')
+      BirthDate: vm.prospect.dob
     }).then(function(data) {
       var stage = data.CreditResultFound ? 'next' : 'back';
+      vm.prospect.qualified = data.qualified;
       Client.emit('Form: valid data', { qualified: data.qualified });
       vm.isSubmitting = false;
       vm.timedOut = false;
-      
-      // Only do this stage change if all three bureaus didn't qualify 
+
+      // Only do this stage change if all three bureaus didn't qualify
       if (!data.qualified) {
         createLead(Salesforce.statuses.failCredit);
-        Client.emit('stage', stage);
+        Client.emit('Stages: stage', stage);
       }
     }, function(resp) {
       vm.isSubmitting = false;
-      
+
       // Timed out
       if (resp.status === 0) {
         vm.timedOut = true;
       } else {
-        Client.emit('jump to step', 'congrats');
+        Client.emit('Stages: jump to step', 'congrats');
       }
+    });
+  }
+
+  function saveDob() {
+    vm.prospect.dob =[
+      vm.prospect.month,
+      vm.prospect.day,
+      vm.prospect.year
+    ].join('/');
+
+    // TODO: remove this from production builds
+    if (vm.prospect.email === CREDIT_FAIL.EMAIL) {
+      vm.prospect.addressId = CREDIT_FAIL.ADDRESS_ID;
+      vm.prospect.dob = CREDIT_FAIL.DOB;
+    }
+
+    vm.prospect.dob = moment(new Date(vm.prospect.dob)).format('MM/DD/YYYY');
+    Client.emit('Form: valid data', {
+      month: vm.prospect.month,
+      day: vm.prospect.day,
+      year: vm.prospect.year,
+      dob: vm.prospect.dob
     });
   }
 
@@ -190,15 +203,17 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
 
       // Set to qualified and advance the screen only on the first time of getting qualified
       if (data.qualified && !result.qualified) {
+        vm.prospect.qualified = data.qualified;
+        Client.emit('Form: valid data', { qualified: data.qualified });
         createLead(Salesforce.statuses.passCredit);
         result.qualified = true;
         vm.isSubmitting = false;
         vm.timedOut = false;
 
         if (vm.prospect.skipped && data.qualified) {
-          Client.emit('jump to step', 'congrats');
+          Client.emit('Stages: jump to step', 'congrats');
         } else {
-          Client.emit('stage', 'next');
+          Client.emit('Stages: stage', 'next');
         }
       }
 
@@ -228,7 +243,7 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
       LastName: vm.prospect.lastName,
       PhoneNumber: vm.prospect.phone,
       Address: {
-        AddressLine1: vm.prospect.home,
+        AddressLine1: vm.prospect.street,
         AddressLine2: '',
         City: vm.prospect.city,
         State: vm.prospect.state,
@@ -245,73 +260,63 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
 
       Client.emit('Form: valid data', {
         contactId: vm.prospect.contactId,
-        addressId: vm.prospect.addressId
+        addressId: vm.prospect.addressId,
+        firstName: vm.prospect.firstName,
+        lastName: vm.prospect.lastName,
+        phone: vm.prospect.phone,
+        email: vm.prospect.email
       });
 
-      Client.emit('stage', 'next');
+      Client.emit('Stages: jump to step', 'credit-check');
     }, function(resp) {
       vm.isSubmitting = false;
 
       if (resp.status === 0) {
         vm.timedOut = true;
       } else {
-        Client.emit('jump to step', 'congrats');
+        Client.emit('Stages: jump to step', 'congrats');
       }
     })
   }
 
-  //function to setup the lead object
-  //will be used to create or update the lead
-  //TODO get the oda from the session
-  //TODO get the firebase sessionid
   function createLead(leadStatus, unqualifiedReason) {
+    // TODO: handle duplicate error and bubble up feedback to user
     return Salesforce.createLead({
       LeadId: vm.prospect.leadId,
       FirstName: vm.prospect.firstName,
       LastName: vm.prospect.lastName,
       Email: vm.prospect.email,
       Phone: vm.prospect.phone,
-      Street: vm.prospect.home,
+      Street: vm.prospect.street,
       City: vm.prospect.city,
       State: vm.prospect.state,
       PostalCode: vm.prospect.zip,
       LeadStatus: leadStatus,
       UnqualifiedReason: unqualifiedReason,
-      //OwnerId: '005300000058ZEZAA2',//oda userId
+      // TODO: get the oda from the session
+      // OwnerId: '005300000058ZEZAA2',//oda userId
       ExternalId: Session.id()
     }).then(function(data) {
       vm.prospect.leadId = data.id;
+      vm.isSubmitting = false;
+
       Client.emit('Form: valid data', {
         leadId: vm.prospect.leadId
       });
-    })
+    });
   }
 
   function skipConfigurator() {
     vm.prospect.skipped = true;
-    // TODO: store this under the Session object in Firebase
     Client.emit('Form: valid data', { skipped: true });
-    Client.emit('jump to stage', 'flannel.signup');
+    Client.emit('Stages: jump to stage', 'flannel.signup');
   }
 
-  // TODO: figure out if the valid territory / valid zip dependency is appropriate for the prescribed UX
-  function acceptValidTerritory(data) {
-    // accepting valid territory
-    // acceptValidZip(data);
-    vm.invalidTerritory = !data;
-    vm.invalid = vm.invalidZip && vm.invalidTerritory;
-    if (vm.validZip) vm.valid = data;
-    Client.emit('jump to step', 'address-roof');
-  }
-
-  function acceptValidZip(data) {
-    // accepting valid zip
-    if (data) {
-      vm.invalidZip = !data;
-      vm.invalid = vm.invalidZip && vm.invalidTerritory;
-      vm.prospect.zip = data;
-    } else vm.invalidZip = true;
-    return !vm.invalidZip;
+  function rejectZip(data) {
+    vm.invalidZip = data;
+    vm.invalid = vm.invalidZip;
+    Client.emit('Spinner: spin it', false);
+    return vm.invalidZip;
   }
 
   function acceptValidLatLng(data) {
@@ -324,73 +329,94 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
     return vm.validLatLng;
   }
 
-  function acceptValidState(data) {
-    // accepting valid state
-    if (data) {
-      vm.validState = true;
-      vm.prospect.state = data;
-    } else vm.validState = false;
-    return vm.validState;
-  }
-
-  function acceptValidCity(data) {
-    // accepting valid city
-    if (data) {
-      vm.validCity = true;
-      vm.prospect.city = data;
-    } else vm.validCity = false;
-    return vm.validCity;
-  }
-
   function acceptValidWarehouse(data) {
     if (data) {
-      vm.prospect.warehouseId = data;
-      Client.emit('Form: valid data', { warehouseId: data });
-    }
-  }
+      vm.invalidTerritory = !data;
+      vm.invalid = vm.invalidZip && vm.invalidTerritory;
 
-  function acceptValidAddress(data) {
-    // accepting valid address
-    if (data) {
-      vm.validAddress = true;
-      vm.prospect.address = data;
-    } else vm.validAddress = false;
-    return vm.validAddress;
+      Client.emit('Stages: jump to step', 'address-roof');
+      vm.prospect.warehouseId = data.warehouseId;
+      Client.emit('Form: valid data', {
+        zip: data.zip,
+        warehouseId: data.warehouseId
+      });
+    }
   }
 
   function acceptValidHouse(data) {
     // sync full address
     // accepting valid house
-    if (data) {
+    if (data && !vm.validAddress) {
       vm.invalid = false;
-      vm.prospect.street = data.home;
-
-      Client.emit('Form: valid house', data);
-      Client.emit('jump to step', 'monthly-bill');
-
-      saveUtility();
+      vm.validAddress = true;
+      vm.prospect.street = data.street;
+      vm.prospect.zip = data.zip;
+      vm.prospect.state = data.state;
+      vm.prospect.city = data.city;
+      Client.emit('Form: valid data', data);
+      Client.emit('Stages: jump to step', 'monthly-bill');
+      console.log('valid house accepted', data);
+      getUtilities();
     }
   }
 
-  function saveUtility() {
+  function getUtilities() {
     if (Utility.isSubmitting) {
-      return; 
+      return;
     }
 
     Utility.isSubmitting = true;
-    Utility.search({
+
+    return Utility.get({
       city: vm.prospect.city,
       zip: vm.prospect.zip
-    }).then(function(data) {
-      return Utility.get({ utilityid: data[0].UtilityId });
-    }).then(function(data) {
-      vm.prospect.utilityId = data.UtilityID;
-      Client.emit('Form: valid data', { utilityId: vm.prospect.utilityId });
-      Utility.isSubmitting = false;
-    });
+    }).then(getUtilityRates).then(saveUtility);
   }
 
-  function acceptNeighborCount(data) {
+  function saveUtility (data) {
+    console.log(data);
+    vm.prospect.utilityId = data;
+    Client.emit('Form: valid data', {utilityId: data});
+  }
+
+  function getUtilityRates (data) {
+    var utilityId = data[0].UtilityId;
+    Rates.get({ utilityid: utilityId }).then(saveRates);
+    return utilityId;
+  }
+
+  function saveRates (data) {
+    var rates;
+
+    // data from Rates API:
+    // CashAvailable: true
+    // FinancingKwhPrice: 0.15
+    // LeaseAvailable: true
+    // MedianUtilityPrice: 0.2233
+    // MyPowerAvailable: true
+    // PPAAvailable: true
+    // UtilityAverageSystemEfficiency: 1468
+    // UtilityID: 3
+
+    vm.prospect.utilityRate = data.MedianUtilityPrice;
+    vm.prospect.sctyRate = data.FinancingKwhPrice;
+    vm.prospect.kwhPerKw = data.UtilityAverageSystemEfficiency;
+
+    rates = {
+      utilityRate: vm.prospect.utilityRate,
+      sctyRate: vm.prospect.sctyRate,
+      kwhPerKw: vm.prospect.kwhPerKw,
+    };
+
+    Client.emit('Form: valid data', rates);
+  }
+
+  function saveBill (data) {
+    console.log("bill", data);
+    Client.emit('Form: valid data', { bill: data });
+  }
+
+  function acceptNeighborCount (data) {
     vm.prospect.neighbor_count = data ? data : "";
   }
 
@@ -408,13 +434,11 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
   }
 
   function prev () {
-    Client.emit('stage', "back");
+    Client.emit('Stages: stage', "back");
   }
 
   function next () {
     // TODO: currently not checking if valid
-    /* jshint -W030 */
-    Client.emit('stage', "next");
-    /* jshint +W030 */
+    Client.emit('Stages: stage', "next");
   }
 }

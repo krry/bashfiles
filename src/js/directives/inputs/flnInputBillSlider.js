@@ -1,12 +1,18 @@
-directives.directive('flnInputBillSlider', [flnInputBillSlider_]);
+directives.directive('flnInputBillSlider', ['Form', flnInputBillSlider_]);
 
-function flnInputBillSlider_ () {
+function flnInputBillSlider_ (Form) {
   return {
-    scope: {
-      hint: "@"
-    },
     restrict: "E",
-    controller: "FormCtrl as form",
     templateUrl: "templates/directives/inputs/flnInputBillSlider.html",
+    require: '^flnForm',
+    link: function (scope, element, attrs, FormCtrl) {
+      var prospect = Form.prospect;
+
+      $('#bill-slider').on({
+        change: function () {
+          FormCtrl.saveBill(prospect.bill);
+        }
+      });
+    }
   };
 }

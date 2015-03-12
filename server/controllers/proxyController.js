@@ -102,9 +102,12 @@ module.exports = function(app) {
   }
 
   function installation(req, res) {
+    var installationType = req.body.FullInstallation ? 'full': 'partial';
+
     var url = [
       conf.SOLAR_WORKS_API_ROOT,
-      conf.INSTALLATION_API
+      conf.INSTALLATION_API,
+      installationType
     ].join('');
 
     proxyPOST(url, req.body, res);
