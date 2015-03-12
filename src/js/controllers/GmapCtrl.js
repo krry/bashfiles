@@ -73,7 +73,6 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
     if (data && map.getMapTypeId() !== "hybrid") {
       Client.emit('Spinner: add to spin count', true);
       map.setMapTypeId(google.maps.MapTypeId.HYBRID);
-      // Gmap.checkMaxZoom()
     }
   }
 
