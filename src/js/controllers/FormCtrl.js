@@ -33,11 +33,11 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
     var key, keys, val;
     if (form_obj === null) return; // will be null if no data on firebase
     keys = Object.keys(form_obj);  // HACK: this may fail in different js interpretters... #readabookbrah
-    if (!angular.equals(form_obj, vm.prospect())) { // firebase different from local
+    if (!angular.equals(form_obj, vm.prospect)) { // firebase different from local
       for (var i = 0; i < keys.length; i++) {
         key = keys[i];
         val = form_obj[key];
-        vm.prospect()[key] = val;
+        vm.prospect[key] = val;
       }
       setTimeout(function() {
         $scope.$apply(); // update the views
@@ -125,18 +125,15 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
   function checkCredit() {
     vm.isSubmitting = true;
 
-    // TODO: remove this from production builds
-    if (vm.prospect.email === CREDIT_FAIL.EMAIL) {
-      vm.prospect.addressId = CREDIT_FAIL.ADDRESS_ID;
-      vm.prospect.dob = new Date(CREDIT_FAIL.DOB);
-    }
+    saveDob();
 
     checkAll({
       ContactId: vm.prospect.contactId,
       AddressId: vm.prospect.addressId,
-      BirthDate: moment(vm.prospect.dob).format('MM/DD/YYYY')
+      BirthDate: vm.prospect.dob
     }).then(function(data) {
       var stage = data.CreditResultFound ? 'next' : 'back';
+      vm.prospect.qualified = data.qualified;
       Client.emit('Form: valid data', { qualified: data.qualified });
       vm.isSubmitting = false;
       vm.timedOut = false;
@@ -155,6 +152,28 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
       } else {
         Client.emit('Stages: jump to step', 'congrats');
       }
+    });
+  }
+
+  function saveDob() {
+    vm.prospect.dob =[
+      vm.prospect.month,
+      vm.prospect.day,
+      vm.prospect.year
+    ].join('/');
+
+    // TODO: remove this from production builds
+    if (vm.prospect.email === CREDIT_FAIL.EMAIL) {
+      vm.prospect.addressId = CREDIT_FAIL.ADDRESS_ID;
+      vm.prospect.dob = CREDIT_FAIL.DOB;
+    }
+
+    vm.prospect.dob = moment(new Date(vm.prospect.dob)).format('MM/DD/YYYY');
+    Client.emit('Form: valid data', {
+      month: vm.prospect.month,
+      day: vm.prospect.day,
+      year: vm.prospect.year,
+      dob: vm.prospect.dob 
     });
   }
 
@@ -183,6 +202,8 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
 
       // Set to qualified and advance the screen only on the first time of getting qualified
       if (data.qualified && !result.qualified) {
+        vm.prospect.qualified = data.qualified;
+        Client.emit('Form: valid data', { qualified: data.qualified });
         createLead(Salesforce.statuses.passCredit);
         result.qualified = true;
         vm.isSubmitting = false;
@@ -245,7 +266,7 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
         email: vm.prospect.email
       });
 
-      Client.emit('Stages: stage', 'next');
+      Client.emit('Stages: jump to step', 'credit-check');
     }, function(resp) {
       vm.isSubmitting = false;
 
@@ -274,7 +295,7 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
       // OwnerId: '005300000058ZEZAA2',//oda userId
       ExternalId: Session.id()
     }).then(function(data) {
-      vm.prospect.leadId = data.leadId;
+      vm.prospect.leadId = data.id;
       vm.isSubmitting = false;
 
       Client.emit('Form: valid data', {
