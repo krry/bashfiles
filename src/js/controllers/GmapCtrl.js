@@ -84,6 +84,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
         center = map.getCenter();
         // saving center of gmap
         Client.emit('center changed', center);
+        // TODO: prevent nearme call when advancing from checkZip to checkAddress directly
         getNearMeData();
       }
     // }

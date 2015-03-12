@@ -7,7 +7,7 @@ angular.module('stages',[
   'signup',
 ])
 .config(["$locationProvider", "$stateProvider", "$urlRouterProvider", function ($locationProvider, $stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/my-home'); // if users arrive somewhere other than the root URL, send them to the root.
+  // $urlRouterProvider.otherwise('/my-home'); // if users arrive somewhere other than the root URL, send them to the root.
   $stateProvider.state('flannel', {
     url: "/",
     abstract: true,
@@ -22,6 +22,7 @@ angular.module('stages',[
       },
     }
   })
+
 }]).run([function ui_router_run() {
   // this runs after all the dependencies are bootstrapped
 }]);

@@ -104,8 +104,10 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
 
   function setWaiting (data) {
     waiting = data;
+
     console.log('adding to spin count', data);
     Client.emit('Spinner: add to spin count', data);
+
     $timeout(function(){
       $scope.$apply();
     }, 0);
@@ -114,13 +116,13 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
   // listen for stage change requests from ui-router
   function startOver (data) {
     console.log('heard that startover', data);
+
     Client.emit('erase area', data);
-    /* jshint -W030 */
+
     $scope.view_sync && Client.emit('Stages: stage', {
       stage: 1,
       step: 0
     });
-    /* jshint +W030 */
   }
 
   function popContinueModal (result) {

@@ -41,9 +41,7 @@ function SessionProvider_ (FormProvider, DesignProvider, ConfiguratorProvider) {
   _user_key = null;
 
   this.setRefKey = function setRefKey(key){
-    /* jshint -W030 */
     key && (_ref_key = key);
-    /* jshint +W030 */
   };
 
   this.$get = ["Clientstream", function SessionProviderFactory(Client) {
@@ -123,7 +121,7 @@ function SessionProvider_ (FormProvider, DesignProvider, ConfiguratorProvider) {
           key && (_user_key = key);
           /* jshint +W030 */
         },
-        ref: function () {return _ref;},
+        ref:    function () {return _ref;},
         id:     function (){ return _ref.key(); },
         stream: function (){ return fb_observable; },
         state_stream: function (){ return state_stream; },

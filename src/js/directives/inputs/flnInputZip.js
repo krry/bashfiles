@@ -11,7 +11,7 @@ function flnInputZip_ () {
       form = FormCtrl;
       element.bind('blur change', function () {
         elVal = $(element).find('input').val();
-        if (form.prospect().zip !== elVal) form.checkZip(elVal);
+        if (form.prospect.zip !== elVal) form.checkZip(elVal);
       })
     },
   };

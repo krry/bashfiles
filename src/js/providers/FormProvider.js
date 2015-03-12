@@ -58,7 +58,7 @@ function FormProvider_ () {
     Client.listen('Dev: Reset form', resetForm);
 
     function resetForm () {
-      var form_obj = {bill: 100};
+      var form_obj = {};
       _ref.set(form_obj);
       _ref.once('value', processNewFormFromFirebase );
     }

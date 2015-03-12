@@ -1,5 +1,5 @@
 <!-- main.html for qualify stage -->
-<div class="overlay only col full center contain" ng-controller="ProposalCtrl as props">
+<div fln-proposal class="overlay only col full center contain">
   <div class="row padded">
     <div class="col full center">
       <h2>Looking good! You may be eligible to go solar for $0 down.<br><small>This is you on solar.</small></h2>
@@ -14,21 +14,21 @@
         <div class="col third center padded utes">
           <label for="current_rate">Current Utility Rate</label>
           <figure>
-            <span id="current_rate" class="cents">{{ 100* props.prospect.utilityRate | number: 0}}</span>
+            <span id="current_rate" class="cents">{{ 100* proposal.prospect.utilityRate | number: 0}}</span>
           </figure>
           <label class="units">per kwh average in your zip code</label>
         </div>
         <div class="col third center padded">
           <label for="scty_rate">SolarCity Rate</label>
           <figure>
-            <span id="scty_rate" class="cents">{{ 100 * props.prospect.sctyRate }}</span>
+            <span id="scty_rate" class="cents">{{ 100 * proposal.prospect.sctyRate }}</span>
           </figure>
           <label class="units">per kWh with our recommended financing plan</label>
         </div>
         <div class="col third center padded">
           <label for="est_savings">Estimated Savings</label>
           <figure>
-            <span id="est_savings" class="dollars">{{ props.prospect.firstYearSavings }}</span>
+            <span id="est_savings" class="dollars">{{ proposal.prospect.firstYearSavings }}</span>
           </figure>
           <label class="units">year one</label>
         </div>
@@ -37,17 +37,17 @@
         <div class="col half center padded">
           <label for="ppa_plan">No Upfront Cost</label>
           <figure>
-            <span id="ppa_plan" class="dollars">{{props.prospect.upfrontCost}}</span>
+            <span id="ppa_plan" class="dollars">{{proposal.prospect.upfrontCost}}</span>
           </figure>
           <label class="units">with our recommended financing plan</label>
         </div>
         <div class="col half center padded">
           <label for="est_energy_mix">Estimated Energy Mix</label>
-          <figure>
+          <figure class="chart-tray">
             <span id="est_energy_mix" class="icon pie"></span>
             <canvas id="powerRatioChart" width="48" height="48"></canvas>
           </figure>
-          <label class="units">{{ props.prospect.percentSolar }}% solar power<br>{{ props.prospect.percentUtility }}% utility power</label>
+          <label class="units">{{ proposal.prospect.percentSolar }}% solar power<br>{{ proposal.prospect.percentUtility }}% utility power</label>
         </div>
       </div>
     </div>
@@ -56,8 +56,8 @@
     <div class="col fifth two center">
       <!-- <button class="btn std">Share my design</button> -->
       <button class="btn white square tiny less-padded">Save my Solar Proposal</button>
-      <!-- <button class="btn white outline">{{prop.proposal_share}}</button> -->
-      <!-- <a href="/#{{prop.proposal_share}}">link to share</a> -->
+      <!-- <button class="btn white outline">{{share.proposal_share}}</button> -->
+      <!-- <a href="/#{{share.proposal_share}}">link to share</a> -->
     </div>
     <div class="col fifth three left padded">
       <p>After your complete your site survey, we will send you your final system design and proposal with the <a>financing options</a> that are available to you.</p>

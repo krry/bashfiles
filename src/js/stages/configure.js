@@ -12,15 +12,17 @@ angular.module('configure',[]).config(["$stateProvider", function ($stateProvide
       'main@': {
         templateUrl: stageUrl + "main.html",
         controller:  function ($scope, Clientstream) {
-          Clientstream.listen('drawing closed', function (data) {
+          Clientstream.listen('area collection count', function (data) {
             $scope.traced = data;
+            data && ($scope.$apply());
           })
         },
       },
       // modify the new named views @ configure
       'map@flannel.configure': {
-        templateUrl: stageUrl + "map.html",
-        controller:  "OlMapCtrl as omap",
+        // templateUrl: stageUrl + "map.html",
+        // controller:  "OlMapCtrl as omap",
+        templateUrl: 'templates/stages/configure/test.html'
       },
     },
   })
