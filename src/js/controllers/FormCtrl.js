@@ -229,10 +229,10 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
     vm.isSubmitting = true;
 
     Client.emit('Form: valid data', {
-      firstName: vm.prospect().firstName,
-      lastName: vm.prospect().lastName,
-      phone: vm.prospect().phone,
-      email: vm.prospect().email
+      firstName: vm.prospect.firstName,
+      lastName: vm.prospect.lastName,
+      phone: vm.prospect.phone,
+      email: vm.prospect.email
     });
 
     createLead(Salesforce.statuses.contact);
