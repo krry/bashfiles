@@ -33,16 +33,16 @@ function Clientstream_ () {
       this.subjects = {};
   }
 
-  function logStream (action, name) {
+  function logStream (action, name, data) {
     if (loggins === "kenny") {
-      console.debug('~~stream~~', action, '=>', name);
+      console.debug('~~stream~~', action, '=>', name, data);
     }
   }
 
   Emitter.prototype.emit = function (name, data) {
       var fnName = createName(name);
       this.subjects[fnName] || (this.subjects[fnName] = new Rx.Subject());
-      logStream("emit", name);
+      logStream("emit", name, data);
       this.subjects[fnName].onNext(data);
   };
 
