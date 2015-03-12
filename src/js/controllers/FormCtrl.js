@@ -155,24 +155,24 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
   }
 
   function saveDob() {
-    vm.prospect().dob =[
-      vm.prospect().month,
-      vm.prospect().day,
-      vm.prospect().year
+    vm.prospect.dob =[
+      vm.prospect.month,
+      vm.prospect.day,
+      vm.prospect.year
     ].join('/');
 
     // TODO: remove this from production builds
-    if (vm.prospect().email === CREDIT_FAIL.EMAIL) {
-      vm.prospect().addressId = CREDIT_FAIL.ADDRESS_ID;
-      vm.prospect().dob = CREDIT_FAIL.DOB;
+    if (vm.prospect.email === CREDIT_FAIL.EMAIL) {
+      vm.prospect.addressId = CREDIT_FAIL.ADDRESS_ID;
+      vm.prospect.dob = CREDIT_FAIL.DOB;
     }
 
-    vm.prospect().dob = moment(new Date(vm.prospect().dob)).format('MM/DD/YYYY');
+    vm.prospect.dob = moment(new Date(vm.prospect.dob)).format('MM/DD/YYYY');
     Client.emit('Form: valid data', {
-      month: vm.prospect().month,
-      day: vm.prospect().day,
-      year: vm.prospect().year,
-      dob: vm.prospect().dob 
+      month: vm.prospect.month,
+      day: vm.prospect.day,
+      year: vm.prospect.year,
+      dob: vm.prospect.dob 
     });
   }
 
