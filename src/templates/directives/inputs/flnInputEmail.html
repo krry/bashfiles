@@ -1,4 +1,4 @@
-<div class="ib status" ng-hide="prospectForm.email.$pristine">
+<div class="status" ng-hide="prospectForm.email.$pristine">
   <span ng-show="prospectForm.email.$error.required && prospectForm.email.$invalid">Email address is required.</span>
   <span ng-show="prospectForm.email.$error.pattern">Email address must be valid.</span>
   <span ng-show="prospectForm.email.$error.MailgunInProgress">Validating email address</span>
@@ -10,7 +10,7 @@
   name="email"
   id="prospect_email"
   class="email"
-  placeholder="{{hint}}"
+  placeholder="your-name@example.com"
   autocapitalize="none"
   autocomplete="on"
   autocorrect="off"

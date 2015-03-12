@@ -1,6 +1,6 @@
 <button
   title="Check out our FAQ or connect with a solar consultant. That's what we're here for!"
-  id="liveagent_button_online_57319000000CaTc"
+  id="liveagent_button_online_573180000008OIF"
   class="trigger-bar tooltip top toggle-help liveagent-online"
   ng-click="toggleShown()">
   Chat with a Solar Consultant
@@ -8,8 +8,11 @@
   <span class="icon down" ng-show="shown"></span>
 </button>
 <button
-  id="liveagent_button_offline_57319000000CaTc"
-  class="trigger-bar tooltip top toggle-help liveagent-offline" ng-show="chat.offline">Contact us&nbsp;<span class="icon up-down"></span>
+  id="liveagent_button_offline_573180000008OIF"
+  class="trigger-bar tooltip top toggle-help liveagent-offline" ng-show="chat.offline">
+  Contact us
+  <span class="icon up" ng-hide="shown"></span>
+  <span class="icon down" ng-show="shown"></span>
 </button>
 <div class="row">
   <div class="col full center" ng-controller="ModalCtrl as modal">

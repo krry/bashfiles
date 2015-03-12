@@ -6,6 +6,7 @@
   position: fixed;
   top: 0; right: 0; bottom: 0;
   width: 75%;
+  max-width: 30em;
   z-index: 12;
   background-color: $glass-smoked;
   transform: translate3d(100%, 0, 0);
@@ -32,7 +33,7 @@ a.dev-trigger.dev-trigger {
   font-size: .875em;
   padding: .75em;
   text-align: center;
-  color: $glass-smoked;
+  color: $white;
   background: $glass-amber;
   box-shadow: 0px 0 6px -3px saturate($gold-bright, .2);
   &:hover {
@@ -40,7 +41,7 @@ a.dev-trigger.dev-trigger {
     border: 0;
   }
   &.triggered {
-    color: $glass-amber;
+    color: $white;
     background-color: $glass-smoked;
   }
   &:hover.triggered {

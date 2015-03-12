@@ -11,6 +11,7 @@ angular.module('flannel', [
   'flannel.firebase',
   'flannel.controllers',
   'flannel.directives',
+  'flannel.constants',
   'nouislider'
 ]).config(['$sceDelegateProvider', '$sceProvider', '$httpProvider', 'UserProvider', 'MailgunProvider', function($sceDelegateProvider, $sceProvider, $httpProvider, UserProvider, MailgunProvider) {
   // hack: sorta hacky... but maybe not.
@@ -68,3 +69,4 @@ var providers   = angular.module('flannel.providers',[]);
 var controllers = angular.module('flannel.controllers',[]);
 var directives  = angular.module('flannel.directives',[]);
 var options     = angular.module('flannel.options',[]);
+var constants   = angular.module('flannel.constants', []);

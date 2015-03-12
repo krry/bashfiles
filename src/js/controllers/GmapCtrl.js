@@ -22,13 +22,11 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
   google.maps.event.addDomListenerOnce(window, "load", activate);
 
   // stream listeners
-  // Client.listen('gmap shown', showMap);
   Client.listen('center changed', applyCenter);
-  Client.listen('max zoom found', applyMaxZoom);
-  Client.listen('valid territory', checkMapVisibility);
+  Client.listen('Gmap: max zoom found', applyMaxZoom);
   Client.listen('Gmap: switch to satellite', switchToSatellite);
-  Client.listen('add to spin count', setSpinCount);
-  Client.listen('get nearme data', getNearMeData);
+  Client.listen('Spinner: add to spin count', setSpinCount);
+  Client.listen('Gmap: get nearme data', getNearMeData);
 
   function init (el) {
     map = Gmap.init(el);
@@ -64,7 +62,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
     console.log('hiding spinner');
     // TODO: ensure that the spinner stays up until the tiles are actually loaded
     // switching from TERRAIN to HYBRID map causes an extra `tilesloaded` event to be emitted, prematurely hiding the spinner for the HYBRID map load
-    Client.emit('spin it', false);
+    Client.emit('Spinner: spin it', false);
     if (spinnerEventCount < 1) {
       if (spinnerEventCount < 0) spinnerEventCount = 0;
       console.log('spinner counter', spinnerEventCount);
@@ -73,9 +71,8 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
 
   function switchToSatellite (data) {
     if (data && map.getMapTypeId() !== "hybrid") {
-      Client.emit('add to spin count', true);
+      Client.emit('Spinner: add to spin count', true);
       map.setMapTypeId(google.maps.MapTypeId.HYBRID);
-      // Gmap.checkMaxZoom()
     }
   }
 
@@ -84,8 +81,9 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
     // if ($element.mouseUp()) {
       if (map.getCenter() !== center){
         center = map.getCenter();
-        console.log('saving center', center);
+        // saving center of gmap
         Client.emit('center changed', center);
+        // TODO: prevent nearme call when advancing from checkZip to checkAddress directly
         getNearMeData();
       }
     // }
@@ -93,9 +91,11 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
 
   function applyCenter (location) {
     if (location !== center) {
-      console.log('applying center', location);
+      // applying location as center of gmap
+      if (!vm.shown) {
+        vm.shown = true;
+      }
       map.setCenter(location);
-      // Client.emit('center changed', location);
     } else return false;
   }
 
@@ -113,7 +113,9 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
   }
 
   function getNearMeData() {
+
     console.log("getting nearme data");
+
     var bounds = map.getBounds(),
         ne = bounds.getNorthEast(),
         sw = bounds.getSouthWest(),
@@ -121,6 +123,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
 
     console.log('map bounds:', ne);
     console.log('map bounds:', sw);
+
     coords = {
       top: ne.lat(),
       right: ne.lng(),
@@ -145,16 +148,10 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
         content: point.kw + ' kW system'
       };
 
-      Client.emit('drop pin', opts);
+      Client.emit('Gmap: drop pin', opts);
     });
 
     Client.emit('neighbor_count saved', data.length);
-  }
-
-  function checkMapVisibility (data) {
-    if (!vm.shown) {
-      vm.shown = true;
-    }
   }
 
   function autolocate () {

@@ -185,11 +185,12 @@ function GmapFactory_ () {
       // scrollwheel: false,
     }
 
+    Client.listen('Geocoder: valid warehouse', zoomToHood);
+    Client.listen('Geocoder: valid house', checkMaxZoom);
+    Client.listen('Gmap: drop pin', dropPin);
+
     pins = [];
 
-    Client.listen('valid territory', zoomToHood);
-    Client.listen('valid house', checkMaxZoom);
-    Client.listen('drop pin', dropPin);
     Client.listen('clear pins', clearPins);
 
     function init (data) {
@@ -197,10 +198,11 @@ function GmapFactory_ () {
       return map;
     }
 
-    function zoomToHood (zip) {
+    function zoomToHood (data) {
+      var zip = data.zip;
       console.log('zooming into neighborhood in zipcode', zip);
-      Client.emit('max zoom found', 16);
-      Client.emit('get nearme data', true);
+      Client.emit('Gmap: max zoom found', 16);
+      Client.emit('Gmap: get nearme data', true);
     }
 
     function checkMaxZoom(addy) {
@@ -210,7 +212,6 @@ function GmapFactory_ () {
           location;
 
       location = addy.location;
-
       // zoom = map.getZoom();
       // console.log('old zoom level:', zoom);
 
@@ -233,10 +234,10 @@ function GmapFactory_ () {
         if (response.status !== google.maps.MaxZoomStatus.OK) {
           console.log("max zoom failed:", response.status);
           // HACK: hardcode fallback when zoom ain't
-          Client.emit('max zoom found', 17);
+          Client.emit('Gmap: max zoom found', 17);
         } else {
           console.log("max zoom at location:", response.zoom);
-          Client.emit('max zoom found', response.zoom);
+          Client.emit('Gmap: max zoom found', response.zoom);
         }
       });
     }

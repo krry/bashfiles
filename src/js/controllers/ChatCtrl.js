@@ -12,7 +12,7 @@ function ChatCtrl_($scope, Form) {
   vm.open = openChat;
   vm.close = closeChat;
 
-  $scope.prospect = Form.prospect;
+  $scope.prospect = Form.prospect();
 
   function openChat() {
     console.log('modal opening because shown is: ', vm.shown);

@@ -1,5 +1,4 @@
 module.exports = function(app) {
-
   // http://stackoverflow.com/questions/6953286/node-js-encrypting-data-that-needs-to-be-decrypted
   var crypto = require('crypto');
   var algorithm = 'aes256'; // or any other algorithm supported by OpenSSL

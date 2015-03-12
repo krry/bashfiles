@@ -49,20 +49,16 @@ function FormProvider_ () {
     // console.log('ref_key in sessionProvider being set:', key);
   };
 
-  this.$get = ["Clientstream",function formProviderFactory(Client) {
+  this.$get = ["Clientstream", function formProviderFactory (Client) {
 
     Client.listen('Session: Loaded', bootstrapForm);
-    Client.listen('valid zip', updateZipOnRef);// TODO: fix line use Client.listen('valid format', updateRefByKey ); or something
-    Client.listen('Form: valid house', updateRefByVal );
     Client.listen('Form: valid data', updateRefByVal);
-    Client.listen('valid address', validAddy);
-
 
     // DEV:
     Client.listen('Dev: Reset form', resetForm);
 
     function resetForm () {
-      var form_obj = {bill: 100};
+      var form_obj = {};
       _ref.set(form_obj);
       _ref.once('value', processNewFormFromFirebase );
     }
@@ -97,32 +93,22 @@ function FormProvider_ () {
       Client.emit('Form: Loaded', data);
     }
 
-
-    function updateZipOnRef (zip) {
-      return _ref.update({zip: zip});
-    }
-
     function updateRefByVal (obj) {
       return _ref.update(obj);
     }
 
-    function validAddy (addy) {
-      return _ref.update({address: addy});
-    }
-
-
     function awesome_form_builder_brah() {
       return {
-        ref:    function(key){
+        ref: function (key) {
           if (key) {
             _ref = new Firebase(forms_url).child(key);
             _ref.once('value', processNewFormFromFirebase );
           }
           return _ref;
         },
-        id:     function(){ return _ref.key(); },
-        form_stream: function(){ return _ref_stream; },
-        prospect: function(){ return prospect; },
+        id: function () { return _ref.key(); },
+        form_stream: function () { return _ref_stream; },
+        prospect: function () { return prospect; },
       };
     }
 
