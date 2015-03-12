@@ -17,15 +17,16 @@
 }
 
 .modal .dialog {
-  background: $tint-80;
+  background: $tint-90;
+  background: $white;
   padding: 4em;
   overflow: scroll;
   width: 90%;
   max-height: 50%;
 
   h2 {
-    font-size: 2em;
-    margin-bottom: 2em;
+    /* font-size: 2em; */
+    /* margin-bottom: 2em; */
     text-align: center;
   }
 }
@@ -57,7 +58,11 @@
 
 @media screen and (min-width: $width-min-lrg) {
   .modal .dialog {
-    margin: 0em 4em;
+    margin: 3em 10%;
+    max-height: 100%;
+    width: 100%;
+    max-width: 80%;
+    height: auto;
   }
 
   .modal .dialog.small {
