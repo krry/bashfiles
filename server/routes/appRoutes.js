@@ -19,6 +19,7 @@ module.exports = function(app) {
 
   app.post(conf.CLIENT.SFLEAD_API, salesforceController.addEditLead);
 
+  app.get(conf.CLIENT.AHJ_API, proxyController.ahj);
   app.get(conf.CLIENT.UTILITIES_API, proxyController.utilities);
   app.get(conf.CLIENT.WAREHOUSE_API, proxyController.warehouses);
   app.get(conf.CLIENT.RATES_API, proxyController.rates);

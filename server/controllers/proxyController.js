@@ -20,6 +20,16 @@ module.exports = function(app) {
     }).pipe(res);
   }
 
+  function ahj(req, res) {
+    var url = [
+      conf.AHJ_API,
+      '/ahjs/near.json?',
+      querystring.stringify(req.query)
+    ].join('');
+
+    proxyGET(url, res);
+  }
+
   function utilities(req, res) {
     var url = [
       conf.SOLAR_WORKS_ROOT,
@@ -114,6 +124,7 @@ module.exports = function(app) {
   }
 
   return {
+    ahj: ahj,
     utilities: utilities,
     warehouses: warehouses,
     rates: rates,
