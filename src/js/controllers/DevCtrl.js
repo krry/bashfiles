@@ -7,7 +7,7 @@ controllers.controller("DevCtrl", ["$scope", "Clientstream", "Form", DevCtrl_]);
 
 function DevCtrl_($scope, Client, Form) {
   var vm = this;
-
+  vm.prospect = Form.prospect;
   Client.listen('Form: Loaded', subscribeForm);
 
   vm.reloadApp = function reloadApp () {
@@ -21,7 +21,7 @@ function DevCtrl_($scope, Client, Form) {
 
   function subscribeForm (form_obj) {
     // subscribing to form
-    vm.prospect = form_obj;
+    // vm.prospect = form_obj;
     Form.form_stream()
     .select(function(x) { return x.exportVal(); })
     .subscribe(streamSubscription);
@@ -36,7 +36,7 @@ function DevCtrl_($scope, Client, Form) {
       for (var i = 0; i < keys.length; i++) {
         key = keys[i];
         val = form_obj[key];
-        vm.prospect()[key] = val;
+        // vm.prospect()[key] = val;
       }
       setTimeout(function() {
         $scope.$apply(); // update the views

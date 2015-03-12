@@ -6,9 +6,9 @@
 
 ================================================== */
 
-controllers.controller("FormCtrl", ["$scope", "$element", "Clientstream", "Session", "Geocoder", "Form", "Credit", "Contact", "Utility", "Rates", "Salesforce", "CREDIT_FAIL", FormCtrl_]);
+controllers.controller("FormCtrl", ["$scope", "$element", "Clientstream", "Session", "Geocoder", "Form", "Credit", "Contact", "Utility", "Rates", "Salesforce", "CREDIT_FAIL", "defaultValues", FormCtrl_]);
 
-function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Contact, Utility, Rates, Salesforce, CREDIT_FAIL) {
+function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Contact, Utility, Rates, Salesforce, CREDIT_FAIL, defaultValues) {
 
   var vm = this;
   var form_stream;
@@ -44,7 +44,7 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
       }, 0);
     }
     // HACK: hardcode bill should be angular.constant
-    !form_obj.bill && Client.emit('Form: valid data', {bill: 100});
+    !form_obj.bill && Client.emit('Form: valid data', {});
   }
 
   /* end bootstrap */
@@ -91,9 +91,9 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
     if (street) {
       addy = {
         street: street,
-        city: vm.prospect().city,
-        state: vm.prospect().state,
-        zip: vm.prospect().zip,
+        city: vm.prospect.city,
+        state: vm.prospect.state,
+        zip: vm.prospect.zip,
       };
 
       Client.emit('Spinner: spin it', true);
@@ -126,15 +126,15 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
     vm.isSubmitting = true;
 
     // TODO: remove this from production builds
-    if (vm.prospect().email === CREDIT_FAIL.EMAIL) {
-      vm.prospect().addressId = CREDIT_FAIL.ADDRESS_ID;
-      vm.prospect().dob = new Date(CREDIT_FAIL.DOB);
+    if (vm.prospect.email === CREDIT_FAIL.EMAIL) {
+      vm.prospect.addressId = CREDIT_FAIL.ADDRESS_ID;
+      vm.prospect.dob = new Date(CREDIT_FAIL.DOB);
     }
 
     checkAll({
-      ContactId: vm.prospect().contactId,
-      AddressId: vm.prospect().addressId,
-      BirthDate: moment(vm.prospect().dob).format('MM/DD/YYYY')
+      ContactId: vm.prospect.contactId,
+      AddressId: vm.prospect.addressId,
+      BirthDate: moment(vm.prospect.dob).format('MM/DD/YYYY')
     }).then(function(data) {
       var stage = data.CreditResultFound ? 'next' : 'back';
       Client.emit('Form: valid data', { qualified: data.qualified });
@@ -188,7 +188,7 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
         vm.isSubmitting = false;
         vm.timedOut = false;
 
-        if (vm.prospect().skipped && data.qualified) {
+        if (vm.prospect.skipped && data.qualified) {
           Client.emit('Stages: jump to step', 'congrats');
         } else {
           Client.emit('Stages: stage', 'next');
@@ -216,33 +216,33 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
     createLead(Salesforce.statuses.contact);
 
     Contact.create({
-      Email: vm.prospect().email,
-      FirstName: vm.prospect().firstName,
-      LastName: vm.prospect().lastName,
-      PhoneNumber: vm.prospect().phone,
+      Email: vm.prospect.email,
+      FirstName: vm.prospect.firstName,
+      LastName: vm.prospect.lastName,
+      PhoneNumber: vm.prospect.phone,
       Address: {
-        AddressLine1: vm.prospect().street,
+        AddressLine1: vm.prospect.street,
         AddressLine2: '',
-        City: vm.prospect().city,
-        State: vm.prospect().state,
-        Zip: vm.prospect().zip,
+        City: vm.prospect.city,
+        State: vm.prospect.state,
+        Zip: vm.prospect.zip,
         Country: 'US',
-        Latitude: vm.prospect().lat,
-        Longitude: vm.prospect().lng
+        Latitude: vm.prospect.lat,
+        Longitude: vm.prospect.lng
       }
     }).then(function(data) {
-      vm.prospect().contactId = data.ContactId;
-      vm.prospect().addressId = data.AddressId;
+      vm.prospect.contactId = data.ContactId;
+      vm.prospect.addressId = data.AddressId;
       vm.isSubmitting = false;
       vm.timedOut = false;
 
       Client.emit('Form: valid data', {
-        contactId: vm.prospect().contactId,
-        addressId: vm.prospect().addressId,
-        firstName: vm.prospect().firstName,
-        lastName: vm.prospect().lastName,
-        phone: vm.prospect().phone,
-        email: vm.prospect().email
+        contactId: vm.prospect.contactId,
+        addressId: vm.prospect.addressId,
+        firstName: vm.prospect.firstName,
+        lastName: vm.prospect.lastName,
+        phone: vm.prospect.phone,
+        email: vm.prospect.email
       });
 
       Client.emit('Stages: stage', 'next');
@@ -259,22 +259,22 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
 
   function createLead(leadStatus, unqualifiedReason) {
     return Salesforce.createLead({
-      LeadId: vm.prospect().leadId,
-      FirstName: vm.prospect().firstName,
-      LastName: vm.prospect().lastName,
-      Email: vm.prospect().email,
-      Phone: vm.prospect().phone,
-      Street: vm.prospect().street,
-      City: vm.prospect().city,
-      State: vm.prospect().state,
-      PostalCode: vm.prospect().zip,
+      LeadId: vm.prospect.leadId,
+      FirstName: vm.prospect.firstName,
+      LastName: vm.prospect.lastName,
+      Email: vm.prospect.email,
+      Phone: vm.prospect.phone,
+      Street: vm.prospect.street,
+      City: vm.prospect.city,
+      State: vm.prospect.state,
+      PostalCode: vm.prospect.zip,
       LeadStatus: leadStatus,
       UnqualifiedReason: unqualifiedReason,
       // TODO: get the oda from the session
       // OwnerId: '005300000058ZEZAA2',//oda userId
       ExternalId: Session.id()
     }).then(function(data) {
-      vm.prospect().leadId = data.leadId;
+      vm.prospect.leadId = data.leadId;
       vm.isSubmitting = false;
 
       Client.emit('Form: valid data', {
@@ -284,7 +284,7 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
   }
 
   function skipConfigurator() {
-    vm.prospect().skipped = true;
+    vm.prospect.skipped = true;
     Client.emit('Form: valid data', { skipped: true });
     Client.emit('Stages: jump to stage', 'flannel.signup');
   }
@@ -299,8 +299,8 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
   function acceptValidLatLng(data) {
     if (data) {
       vm.validLatLng = true;
-      vm.prospect().lat = data.lat;
-      vm.prospect().lng = data.lng;
+      vm.prospect.lat = data.lat;
+      vm.prospect.lng = data.lng;
       Client.emit('Form: valid data', data);
     } else vm.validLatLng = false;
     return vm.validLatLng;
@@ -312,7 +312,7 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
       vm.invalid = vm.invalidZip && vm.invalidTerritory;
 
       Client.emit('Stages: jump to step', 'address-roof');
-      vm.prospect().warehouseId = data;
+      vm.prospect.warehouseId = data.warehouseId;
       Client.emit('Form: valid data', {
         zip: data.zip,
         warehouseId: data.warehouseId
@@ -326,10 +326,10 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
     if (data && !vm.validAddress) {
       vm.invalid = false;
       vm.validAddress = true;
-      vm.prospect().street = data.street;
-      vm.prospect().zip = data.zip;
-      vm.prospect().state = data.state;
-      vm.prospect().city = data.city;
+      vm.prospect.street = data.street;
+      vm.prospect.zip = data.zip;
+      vm.prospect.state = data.state;
+      vm.prospect.city = data.city;
       Client.emit('Form: valid data', data);
       Client.emit('Stages: jump to step', 'monthly-bill');
       console.log('valid house accepted', data);
@@ -345,14 +345,14 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
     Utility.isSubmitting = true;
 
     return Utility.get({
-      city: vm.prospect().city,
-      zip: vm.prospect().zip
+      city: vm.prospect.city,
+      zip: vm.prospect.zip
     }).then(getUtilityRates).then(saveUtility);
   }
 
   function saveUtility (data) {
     console.log(data);
-    vm.prospect().utilityId = data;
+    vm.prospect.utilityId = data;
     Client.emit('Form: valid data', {utilityId: data});
   }
 
@@ -365,35 +365,44 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
   function saveRates (data) {
     var rates;
 
-    vm.prospect().utilityRate = data.MedianUtilityPrice;
-    vm.prospect().sctyRate = data.FinancingKwhPrice;
-    vm.prospect().productionPerKW = data;
-    console.log('data from rates is:', data);
-    debugger;
+    // data from Rates API:
+    // CashAvailable: true
+    // FinancingKwhPrice: 0.15
+    // LeaseAvailable: true
+    // MedianUtilityPrice: 0.2233
+    // MyPowerAvailable: true
+    // PPAAvailable: true
+    // UtilityAverageSystemEfficiency: 1468
+    // UtilityID: 3
+
+    vm.prospect.utilityRate = data.MedianUtilityPrice;
+    vm.prospect.sctyRate = data.FinancingKwhPrice;
+    vm.prospect.kwhPerKw = data.UtilityAverageSystemEfficiency;
 
     rates = {
-      utilityRate: vm.prospect().utilityRate,
-      sctyRate: vm.prospect().sctyRate
+      utilityRate: vm.prospect.utilityRate,
+      sctyRate: vm.prospect.sctyRate,
+      kwhPerKw: vm.prospect.kwhPerKw,
     };
 
     Client.emit('Form: valid data', rates);
   }
 
   function acceptNeighborCount (data) {
-    vm.prospect().neighbor_count = data ? data : "";
+    vm.prospect.neighbor_count = data ? data : "";
   }
 
   function acceptSavedEmail (data) {
-    vm.prospect().email = data ? data : "";
+    vm.prospect.email = data ? data : "";
   }
   function acceptSavedBirthdate (data) {
-    vm.prospect().birthdate = data ? data : "";
+    vm.prospect.birthdate = data ? data : "";
   }
   function acceptSavedPhone (data) {
-    vm.prospect().phone = data ? data : "";
+    vm.prospect.phone = data ? data : "";
   }
   function acceptSavedFullname (data) {
-    vm.prospect().fullname = data ? data : "";
+    vm.prospect.fullname = data ? data : "";
   }
 
   function prev () {
