@@ -170,8 +170,8 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
   function createFullInstallation() {
     Installation.create({
       FullInstallation: true,
-      InstallationGuid: vm.prospect().installationGuid,
-      LeadId: vm.prospect().leadId
+      InstallationGuid: vm.prospect.installationGuid,
+      LeadId: vm.prospect.leadId
     });
   }
 

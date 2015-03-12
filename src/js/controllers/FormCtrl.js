@@ -33,11 +33,11 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
     var key, keys, val;
     if (form_obj === null) return; // will be null if no data on firebase
     keys = Object.keys(form_obj);  // HACK: this may fail in different js interpretters... #readabookbrah
-    if (!angular.equals(form_obj, vm.prospect())) { // firebase different from local
+    if (!angular.equals(form_obj, vm.prospect)) { // firebase different from local
       for (var i = 0; i < keys.length; i++) {
         key = keys[i];
         val = form_obj[key];
-        vm.prospect()[key] = val;
+        vm.prospect[key] = val;
       }
       setTimeout(function() {
         $scope.$apply(); // update the views
@@ -128,11 +128,12 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
     saveDob();
 
     checkAll({
-      ContactId: vm.prospect().contactId,
-      AddressId: vm.prospect().addressId,
-      BirthDate: vm.prospect().dob
+      ContactId: vm.prospect.contactId,
+      AddressId: vm.prospect.addressId,
+      BirthDate: vm.prospect.dob
     }).then(function(data) {
       var stage = data.CreditResultFound ? 'next' : 'back';
+      vm.prospect.qualified = data.qualified;
       Client.emit('Form: valid data', { qualified: data.qualified });
       vm.isSubmitting = false;
       vm.timedOut = false;
@@ -201,6 +202,8 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
 
       // Set to qualified and advance the screen only on the first time of getting qualified
       if (data.qualified && !result.qualified) {
+        vm.prospect.qualified = data.qualified;
+        Client.emit('Form: valid data', { qualified: data.qualified });
         createLead(Salesforce.statuses.passCredit);
         result.qualified = true;
         vm.isSubmitting = false;
@@ -292,11 +295,11 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
       // OwnerId: '005300000058ZEZAA2',//oda userId
       ExternalId: Session.id()
     }).then(function(data) {
-      vm.prospect().leadId = data.id;
+      vm.prospect.leadId = data.id;
       vm.isSubmitting = false;
 
       Client.emit('Form: valid data', {
-        leadId: vm.prospect().leadId
+        leadId: vm.prospect.leadId
       });
     })
   }
