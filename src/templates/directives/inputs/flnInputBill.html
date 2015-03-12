@@ -1,8 +1,8 @@
 <input
   type="tel"
   class="bill"
-  ng-model="form.prospect.bill"
-  ng-model-options="{ updateOn: 'default blur', debounce: { default: 0, blur: 0 } }"
-  ng-cloak
   focus="true"
-  value="100">
+  value="100"
+  ng-model="form.prospect.bill"
+  ng-model-options="{ updateOn: 'default blur change', debounce: 0 }"
+  ng-cloak>
