@@ -1,6 +1,6 @@
-directives.directive('flnHelp', ['Liveagent', flnHelp]);
+directives.directive('flnHelp', ['Liveagent', 'Form', flnHelp]);
 
-function flnHelp (Liveagent) {
+function flnHelp (Liveagent, Form) {
   return {
     templateUrl: 'templates/directives/widgets/flnHelp.html',
     controller: 'ChatCtrl',
@@ -43,7 +43,7 @@ function flnHelp (Liveagent) {
 
           // retrieve prospect object from Form in Firebase
           // TODO: figure out why this prospect does not have a `form_id` like the prospect in FormProvider
-          prospect = scope.prospect();
+          prospect = Form.prospect;
           // send prospect to Liveagent
           Liveagent.addCustomDetails(prospect);
 
