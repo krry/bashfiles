@@ -11,7 +11,11 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
       spinnerEventCount;
 
   vm = this;
+
+  // default the gmap to hidden so it doesn't peek from behind other divs
   vm.shown = false;
+
+  // expose autolocate function to the directives
   vm.autolocate = autolocate;
 
   mapEl = $element[0];
@@ -114,16 +118,13 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
 
   function getNearMeData() {
 
-    console.log("getting nearme data");
-
+    // get nearme data for the current map's bounding box
     var bounds = map.getBounds(),
         ne = bounds.getNorthEast(),
         sw = bounds.getSouthWest(),
         coords;
 
-    console.log('map bounds:', ne);
-    console.log('map bounds:', sw);
-
+    // use NE and SW corners of map to set bounding box coordinates
     coords = {
       top: ne.lat(),
       right: ne.lng(),
@@ -131,27 +132,45 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
       left: sw.lng()
     };
 
-    // Safeguard against loading a large data set
+    // safeguard against loading too large of an area
     if (Math.abs(coords.top - coords.bottom > 1) || Math.abs(coords.left - coords.right) > 1) {
       return;
     }
 
+    // send the coordinates to NearMe, then plot the returned data as pins
     return NearMe.get(coords).then(plotMarkers);
   }
 
   function plotMarkers(data) {
+    // clear any old pins from the map
     Client.emit('clear pins', true);
 
+    // parse the JSON response from NearMe API
     angular.forEach(data, function(point) {
+      // for each object in the response send the location and content to
       var opts = {
         location: new google.maps.LatLng(point.la, point.ln),
         content: point.kw + ' kW system'
       };
 
+      // ask GmapProvider to make and drop a new pin
       Client.emit('Gmap: drop pin', opts);
     });
 
+    // let the view model know how many pins were found
     Client.emit('neighbor_count saved', data.length);
+
+    // make sure we got enough pins to be compelling
+    setMapZoomByNearMeResponse(data.length);
+  }
+
+  function setMapZoomByNearMeResponse(pins) {
+    /* if less than 50 customers are returned for the given map
+       zoom up a level and get the pins for a wider area      */
+    if (pins < 50) {
+      map.setZoom(map.getZoom()-1);
+      getNearMeData();
+    }
   }
 
   function autolocate () {
