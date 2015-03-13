@@ -2,7 +2,7 @@
  * this is an object
  * name: fln_area
  *
- *Ï
+ *
  */
 
 angular.module('flannel').factory('MapFactory', ['$rootScope','MapService', 'StyleService', 'Configurator', 'Clientstream', MapFactory_]);

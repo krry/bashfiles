@@ -14,21 +14,21 @@
         <div class="col third center padded utes">
           <label for="current_rate">Current Utility Rate</label>
           <figure>
-            <span id="current_rate" class="cents">{{ 100* proposal.prospect.utilityRate | number: 0}}</span>
+            <span id="current_rate" class="cents">{{ 100* proposal.prospect.utilityRate | number: 1}}</span>
           </figure>
           <label class="units">per kwh average in your zip code</label>
         </div>
         <div class="col third center padded">
           <label for="scty_rate">SolarCity Rate</label>
           <figure>
-            <span id="scty_rate" class="cents">{{ 100 * proposal.prospect.sctyRate | number:0 }}</span>
+            <span id="scty_rate" class="cents">{{ 100 * proposal.prospect.sctyRate | number: 1 }}</span>
           </figure>
           <label class="units">per kWh with our recommended financing plan</label>
         </div>
         <div class="col third center padded">
           <label for="est_savings">Estimated Savings</label>
           <figure>
-            <span id="est_savings" class="dollars">{{ proposal.prospect.firstYearSavings | number: 0}}</span>
+            <span id="est_savings" class="dollars">{{ proposal.prospect.firstYearSavings | number: 0 }}</span>
           </figure>
           <label class="units">year one</label>
         </div>
@@ -47,7 +47,7 @@
             <span id="est_energy_mix" class="icon pie"></span>
             <canvas id="powerRatioChart" width="48" height="48"></canvas>
           </figure>
-          <label class="units">{{ proposal.prospect.percentSolar }}% solar power<br>{{ proposal.prospect.percentUtility }}% utility power</label>
+          <label class="units">{{ proposal.prospect.percentSolar | number: 0 }}% solar power<br>{{ proposal.prospect.percentUtility | number: 0 }}% utility power</label>
         </div>
       </div>
     </div>
