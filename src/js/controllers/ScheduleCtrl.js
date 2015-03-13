@@ -7,9 +7,9 @@
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
-controllers.controller('ScheduleCtrl', ['Form', 'Clientstream', 'Session', 'SiteSurvey', 'Installation', 'Salesforce', 'Ahj', ScheduleCtrl_]);
+controllers.controller('ScheduleCtrl', ['Form', 'Clientstream', 'Session', 'SiteSurvey', 'Installation', 'Salesforce', 'Ahj', 'SurveyQuestions', ScheduleCtrl_]);
 
-function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesforce, Ahj) {
+function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesforce, Ahj, SurveyQuestions) {
   var vm = this;
   vm.prospect = Form.prospect;
   vm.eventDetails = eventDetails;
@@ -26,6 +26,7 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
   vm.answeredQuestions = answeredQuestions;
   vm.getHOAs = getHOAs;
   vm.checkHOA = checkHOA;
+  vm.saveAnswers = saveAnswers;
 
   vm.config = {
     startDate: moment().format('MM/D/YYYY'),
@@ -206,7 +207,7 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
 
   function populateHOAs(data) {
     vm.HOAs.length = 0;
-    vm.HOAs.push({ AHJName: 'Select your HOA', id: 0 });
+    vm.HOAs.push({ AHJName: 'Select your homeowners association', id: 0 });
     vm.HOAs.push.apply(vm.HOAs, data);
     vm.HOAs.push({ AHJName: 'None of the above', id: -1 });
     vm.selectedAhj = vm.HOAs[0];
@@ -215,5 +216,28 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
   function checkHOA(id) {
     vm.prospect.hoaName = (id < 0) ? '' : null;
     vm.prospect.ahjId = (id > 0) ? id : null; 
+  }
+
+  function saveAnswers() {
+    vm.isSubmitting = true;
+
+    SurveyQuestions.save({
+      InstallationGUID: vm.prospect.installationGuid,
+      AtticAccessible: vm.prospect.attic,
+      HasPets: vm.prospect.pets,
+      BelongsToHOA: vm.prospect.hoa,
+      AhjID: vm.prospect.ahjId,
+      HoaName: vm.prospect.hoaName
+    }).then(function() {
+      vm.isSubmitting = false;
+      vm.timedOut = false;
+      Client.emit('Stages: stage', 'next');
+    }).then(function(resp) {
+      vm.isSubmitting = false;
+
+      if (resp.status === 0) {
+        vm.timedOut = true;
+      }
+    })
   }
 }

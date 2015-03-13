@@ -1,5 +1,9 @@
 <!-- main.html for qualify stage -->
 <div class="overlay primary col" ng-controller="ScheduleCtrl as schedule" ng-init="schedule.getHOAs()">
+  <div class="spinner-tray" ng-show="schedule.isSubmitting">
+    <fln-spinner></fln-spinner>
+  </div>
+  
   <div class="col fourth three center">
     <h1>About your site visit.
       <br><small>We just need to know a few bits of information before our site surveyor shows up at your home. Please check those that apply:</small>
@@ -18,7 +22,7 @@
         <fln-input-hoa-dropdown></fln-input-hoa-dropdown>
         <fln-input-hoa-freeform></fln-input-hoa-freeform>
       </div>
-      <button class="std gold" ng-click="stages.next()" ng-disabled="!schedule.answeredQuestions()">Done</button>
+      <button class="std gold" ng-click="schedule.saveAnswers()" ng-disabled="!schedule.answeredQuestions()">Done</button>
     </form>
   </div>
 </div>

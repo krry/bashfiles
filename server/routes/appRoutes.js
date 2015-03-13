@@ -25,6 +25,7 @@ module.exports = function(app) {
   app.get(conf.CLIENT.RATES_API, proxyController.rates);
   app.post(conf.CLIENT.CREDIT_CHECK_API, proxyController.creditCheck);
   app.post(conf.CLIENT.CONTACT_API, proxyController.contact);
+  app.post(conf.CLIENT.SURVEY_QUESTIONS_API, proxyController.surveyQuestions);
   app.get(conf.CLIENT.NEAR_ME_API, proxyController.nearMe);
   app.get(conf.CLIENT.GSA_API, proxyController.gsa);
   app.post(conf.CLIENT.GSA_API, proxyController.schedule);

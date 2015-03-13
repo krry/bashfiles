@@ -79,6 +79,15 @@ module.exports = function(app) {
     proxyPOST(url, req.body, res);
   }
 
+  function surveyQuestions(req, res) {
+    var url = [
+      conf.SOLAR_WORKS_API_ROOT,
+      conf.SURVEY_QUESTIONS_API
+    ].join('');
+
+    proxyPOST(url, req.body, res);
+  }
+
   function nearMe(req, res) {
     var url = [
       conf.NEAR_ME_ROOT,
@@ -130,6 +139,7 @@ module.exports = function(app) {
     rates: rates,
     creditCheck: creditCheck,
     contact: contact,
+    surveyQuestions: surveyQuestions,
     nearMe: nearMe,
     gsa: gsa,
     schedule: schedule,
