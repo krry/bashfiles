@@ -232,12 +232,12 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
       vm.isSubmitting = false;
       vm.timedOut = false;
       Client.emit('Stages: stage', 'next');
-    }).then(function(resp) {
+    }, function(resp) {
       vm.isSubmitting = false;
 
       if (resp.status === 0) {
         vm.timedOut = true;
       }
-    })
+    });
   }
 }

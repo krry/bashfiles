@@ -3,10 +3,13 @@
   <div class="spinner-tray" ng-show="schedule.isSubmitting">
     <fln-spinner></fln-spinner>
   </div>
-  
+
   <div class="col fourth three center">
-    <h1>About your site visit.
+    <h1 ng-if="!schedule.timedOut">About your site visit.
       <br><small>We just need to know a few bits of information before our site surveyor shows up at your home. Please check those that apply:</small>
+    </h1>
+    <h1 ng-if="schedule.timedOut">
+      Sorry! Our connection timed out. <small>Please try again.</small>
     </h1>
     <form name="prospectForm">
       <div class="col fourth three center survey-question">
