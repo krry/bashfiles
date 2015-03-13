@@ -29,137 +29,23 @@ function GmapFactory_ () {
 
     map_styles = [
       {
-        "featureType": "road.highway",
-        "elementType": "geometry.stroke",
-        "stylers": [
-          { "color": "#9F9E9E" }
-        ]
-      },{
-        "featureType": "road.highway",
-        "elementType": "geometry.fill",
-        "stylers": [
-          { "color": "#9F9E9E" }
-        ]
-      },{
-        "featureType": "road.arterial",
-        "elementType": "geometry.stroke",
-        "stylers": [
-          { "color": "#9F9E9E" }
-        ]
-      },{
-        "featureType": "road.local",
-        "elementType": "geometry.stroke",
-        "stylers": [
-          { "color": "#9F9E9E" }
-        ]
-      },{
-        "featureType": "road.local",
-        "elementType": "geometry.fill",
-        "stylers": [
-          { "color": "#9f9e9e" }
-        ]
-      },{
-        "featureType": "road.arterial",
-        "elementType": "geometry.stroke",
-        "stylers": [
-          { "color": "#9F9E9E" }
-        ]
-      },{
-        "featureType": "road.arterial",
-        "elementType": "geometry.fill",
-        "stylers": [
-          { "color": "#9f9e9e" }
-        ]
-      },{
-        "featureType": "water",
-        "elementType": "geometry.fill",
-        "stylers": [
-          { "color": "#444444" }
-        ]
-      },{
-        "featureType": "landscape.natural.terrain",
-        "elementType": "geometry.fill",
-        "stylers": [
-          { "color": "#CECAC8" }
-        ]
-      },{
-        "featureType": "poi.park",
-        "elementType": "geometry.fill",
-        "stylers": [
-          { "color": "#CECAC8" }
-        ]
-      },{
         "featureType": "poi",
         "stylers": [
           { "visibility": "off" }
         ]
       },{
-        "featureType": "transit.line",
+        "featureType": "water",
         "stylers": [
-          { "color": "#9f9e9e" }
+          { "color": "#444444" }
         ]
       },{
         "featureType": "transit.station",
-        "stylers": [
-          { "visibility": "off" }
-        ]
-      },{
-        "featureType": "road.local",
-        "elementType": "labels.text.stroke",
-        "stylers": [
-          { "color": "#E9E5DC" }
-        ]
-      },{
-        "featureType": "road.arterial",
-        "elementType": "labels.text.stroke",
-        "stylers": [
-          { "color": "#E9E5DC" }
-        ]
-      },{
-        "featureType": "road.local",
-        "elementType": "labels.text.fill",
-        "stylers": [
-          { "color": "#777777" }
-        ]
-      },{
-        "featureType": "road.arterial",
-        "elementType": "labels.text.fill",
-        "stylers": [
-          { "color": "#666666" }
-        ]
-      },{
-        "featureType": "road.highway",
-        "elementType": "labels.text.fill",
-        "stylers": [
-          { "color": "#666666" }
-        ]
-      },{
-        "featureType": "road.highway",
-        "elementType": "labels.text.stroke",
-        "stylers": [
-          { "color": "#E9E5DC" }
-        ]
-      },{
-        "featureType": "road.highway",
         "elementType": "labels.icon",
         "stylers": [
           { "visibility": "off" }
         ]
       },{
-        "featureType": "landscape.natural",
-        "elementType": "geometry.fill",
-        "stylers": [
-          { "color": "#D9D5CC" }
-        ]
-      },{
-        "featureType": "water",
-        "elementType": "labels.text",
-        "stylers": [
-          { "visibility": "off" }
-        ]
-      },{
-        "featureType": "landscape.natural",
-        "elementType": "labels.icon",
+        "featureType": "transit.line",
         "stylers": [
           { "visibility": "off" }
         ]
@@ -169,7 +55,21 @@ function GmapFactory_ () {
         "stylers": [
           { "visibility": "off" }
         ]
-      }
+      },{
+        "featureType": "water",
+        "elementType": "labels",
+        "stylers": [
+          { "visibility": "off" }
+        ]
+      },{
+        "featureType": "administrative.locality",
+        "elementType": "labels",
+        "stylers": [
+          { "visibility": "off" }
+        ]
+      },{
+        "featureType": "administrative.neighborhood",
+        "elementType": "labels"  }
     ];
 
     map_opts = {
@@ -180,7 +80,7 @@ function GmapFactory_ () {
       disableDefaultUI: true,
       backgroundColor: "transparent",
       draggable: false,
-      zoomable: false,
+      zoomable: true,
       styles: map_styles,
       // scrollwheel: false,
     }
