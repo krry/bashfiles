@@ -1,18 +1,25 @@
 <!-- main.html for qualify stage -->
-<div class="overlay primary col" ng-controller="ScheduleCtrl as schedule">
+<div class="overlay primary col" ng-controller="ScheduleCtrl as schedule" ng-init="schedule.getHOAs()">
   <div class="col fourth three center">
     <h1>About your site visit.
       <br><small>We just need to know a few bits of information before our site surveyor shows up at your home. Please check those that apply:</small>
     </h1>
-    <div class="col fourth three center">
-      <div class="col fifth three">
-        My attic is accessible.
+    <form name="prospectForm">
+      <div class="col fourth three center survey-question">
+        <fln-input-attic></fln-input-attic>
       </div>
-      <div class="col fifth two">
-        <input type="radio" name="attic" ng-value="true">Yes
+      <div class="col fourth three center survey-question">
+        <fln-input-pets></fln-input-pets>
       </div>
-    </div>
-    <button class="std gold" ng-click="stages.next()">Done</button>
+      <div class="col fourth three center survey-question">
+        <fln-input-hoa></fln-input-hoa>
+      </div>
+      <div class="col fifth three center">
+        <fln-input-hoa-dropdown></fln-input-hoa-dropdown>
+        <fln-input-hoa-freeform></fln-input-hoa-freeform>
+      </div>
+      <button class="std gold" ng-click="stages.next()" ng-disabled="!schedule.answeredQuestions()">Done</button>
+    </form>
   </div>
 </div>
 
