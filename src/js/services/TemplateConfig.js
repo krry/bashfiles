@@ -20,42 +20,109 @@ function TemplateConfig_ () {
       name: 'flannel.home',
       destination: 'flannel.configure',
       steps: [
-        { step: 'zip-nearme',      partial: 'zip.html'      },
-        { step: 'out-territory',   partial: 'outside.html'  },
-        { step: 'address-roof',    partial: 'address.html'  },
-        { step: 'monthly-bill',    partial: 'bill.html'     },
-        { step: 'intro-design',    partial: 'fork.html'     },
+        {
+          staticLayout: true,
+          step: 'zip-nearme',
+          partial: 'zip.html'
+        },
+        {
+          staticLayout: true,
+          step: 'out-territory',
+          partial: 'outside.html'
+        },
+        {
+          staticLayout: false,
+          step: 'address-roof',
+          partial: 'address.html'
+        },
+        {
+          staticLayout: false,
+          step: 'monthly-bill',
+          partial: 'bill.html'
+        },
+        {
+          staticLayout: true,
+          step: 'intro-design',
+          partial: 'fork.html'
+        },
       ],
     },
     {
       name: 'flannel.configure',
       destination: 'flannel.proposal',
       steps: [
-        { step: 'zoom-lock-roof',  partial: 'zoom.html'     },
-        { step: 'trace-area',      partial: 'trace.html'    },
-        { step: 'edit-area',       partial: 'edit.html'     },
-        { step: 'detail-area',     partial: 'detail.html'   },
-        // { step: 'area-slope',      partial: 'slope.html'    },
-        // { step: 'complete-area',   partial: 'complete.html' },
+        {
+          staticLayout: false,
+          step: 'zoom-lock-roof',
+          partial: 'zoom.html'
+        },
+        {
+          staticLayout: false,
+          step: 'trace-area',
+          partial: 'trace.html'
+        },
+        {
+          staticLayout: false,
+          step: 'edit-area',
+          partial: 'edit.html'
+        },
+        {
+          staticLayout: false,
+          step: 'detail-area',
+          partial: 'detail.html'
+        },
       ],
     },
     {
       name: 'flannel.proposal',
       destination: 'flannel.signup',
       steps: [
-        { step: 'review-proposal', partial: 'proposal.html' },
+        {
+          staticLayout: true,
+          step: 'review-proposal',
+          partial: 'proposal.html'
+        },
       ],
     },
     {
       name: 'flannel.signup',
       destination: '',
       steps: [
-        { step: 'create-contact',  partial: 'contact.html'  },
-        { step: 'credit-check',    partial: 'credit.html'   },
-        { step: 'qualify',         partial: 'qualify.html'  },
-        { step: 'survey-calendar', partial: 'calendar.html' },
-        { step: 'schedule-survey', partial: 'schedule.html' },
-        { step: 'congrats',        partial: 'congrats.html' }
+        {
+          staticLayout: true,
+          step: 'create-contact',
+          partial: 'contact.html'
+        },
+        {
+          staticLayout: true,
+          step: 'credit-check',
+          partial: 'credit.html'
+        },
+        {
+          staticLayout: true,
+          step: 'qualify',
+          partial: 'qualify.html'
+        },
+        {
+          staticLayout: true,
+          step: 'survey-calendar',
+          partial: 'calendar.html'
+        },
+        {
+          staticLayout: true,
+          step: 'schedule-survey',
+          partial: 'schedule.html'
+        },
+        {
+          staticLayout: true,
+          step: 'survey-questions',
+          partial: 'questions.html'
+        },
+        {
+          staticLayout: true,
+          step: 'congrats',
+          partial: 'congrats.html'
+        },
       ],
     },
   ];

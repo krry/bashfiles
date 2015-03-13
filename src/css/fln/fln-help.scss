@@ -32,7 +32,7 @@ fln-help {
 
   .trigger-bar {
     @include apercu-bold;
-    font-size: .875rem;
+    font-size: .75rem;
     color: $white;
     height: 2.5rem;
     background-color: $blue-smoke;
@@ -40,8 +40,11 @@ fln-help {
     border-radius: 4px 4px 0 0;
     display: block !important;
     width: 100%;
-    padding: .125em 1em;
+    padding: .25em 1em;
     text-align: left;
+    .icon {
+      float: right;
+    }
   }
 }
 

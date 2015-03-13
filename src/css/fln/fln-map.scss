@@ -10,13 +10,18 @@
   position: absolute;
   overflow: hidden;
   transition: opacity 150ms $easing-quick;
+
+  // Fixes weird styling issues with infowindow icons
+  img[src*="gstatic.com/"], img[src*="googleapis.com/"]  {
+      max-width: 99999px;
+  }
 }
 
 .omap {
-  position: relative;
+  position: relative !important;
   height: 100%;
   z-index: 1;
-  background: $grey-dark;
+  // background: $grey-dark;
 }
 
 .instructions {
@@ -108,6 +113,13 @@
     }
   }
 }
+
+.inset-right {
+  box-shadow: inset 0 0 8px -2px $shade-40;
+  position: relative;
+  z-index: 0;
+}
+
 
 .fln-control-pan {
   position: absolute;

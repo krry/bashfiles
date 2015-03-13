@@ -18,22 +18,18 @@ function GeocoderProvider_ () {
     var geocoder,
         addy,
         addyKeys,
-        territoryChecked;
+        territoryChecked,
+        old_location;
 
     territoryChecked = false;
     addy = {};
     addyKeys = [' zip', 'city', 'state', 'street' ];
 
-    Client.listen('valid territory', function(){
-      console.log('caching valid territory');
-      territoryChecked = true;
-    })
-
     // send a latlng object and receive an address
     function reverseGeocode(latLng) {
       var location;
       var geocoder = new google.maps.Geocoder();
-      geocoder.geocode({'location': latLng}, function(results, status){
+      geocoder.geocode({'location': latLng}, function (results, status){
         if (status === google.maps.GeocoderStatus.OK) {
           if (results[0]) {
             location = results[0].geometry.location;
@@ -62,7 +58,6 @@ function GeocoderProvider_ () {
 
       addyStr = "";
       numbersOnly = new RegExp('^[0-9]');
-      // components = { "country": "US" };
       geocoder = new google.maps.Geocoder();
 
       // if the request is string...
@@ -128,7 +123,6 @@ function GeocoderProvider_ () {
           console.log('geocode successful:', results);
           // cache the location as the center
           addy.location = results[0].geometry.location;
-          Client.emit('center changed', addy.location);
           console.log('center plotted at:', addy.location);
           // parse the results into an address
           parseLocation(results[0]);
@@ -160,7 +154,8 @@ function GeocoderProvider_ () {
     // send results to parseLocation from geocodeAddress
     function parseLocation(results) {
       var parsedress,
-          response;
+          response,
+          new_location;
 
       parsedress = results.address_components
       console.log('parsing address', results.address_components);
@@ -181,7 +176,7 @@ function GeocoderProvider_ () {
         }}
         if (parsedress[i].types[0]==="route") {
           if (typeof parsedress[i].short_name !== "undefined") {
-            addy.street = parsedress[i].short_name;
+            addy.road = parsedress[i].short_name;
         }}
         if (parsedress[i].types[0]==="street_number") {
           if (typeof parsedress[i].long_name !== "undefined") {
@@ -194,34 +189,31 @@ function GeocoderProvider_ () {
 
       // return values of address components to be saved in form fields
       if (addy.country !== 'US') {
-        Client.emit('outside US', false);
+        Client.emit('zip rejected', true);
+        return;
       }
       else {
-        // TODO: determine whether the zip checks are happening in the right order
-        // if (addy.zip && !territoryChecked) {
-        //   Client.emit('valid zip', addy.zip);
-        //   // check if the valid zip is in our territory
-        //   checkTerritory(addy.zip);
-        // }
-        var street_present = false;
-        if (addy.state) {
-          Client.emit('valid state', addy.state);
+        new_location = !old_location || ((old_location.lat() !== addy.location.lat()) || (old_location.lng() !== addy.location.lng()));
+        // check if there is a cached location
+        if (new_location) {
+          processGeocodedLocation(addy);
         }
-        if (addy.city) {
-          Client.emit('valid city', addy.city);
-        }
-        if (addy.street) {
-          Client.emit('valid address', addy.street);
-          if (addy.stno) {
-            Client.emit('Gmap: switch to satellite', true);
-            addy.home = addy.stno + " " + addy.street;
-            Client.emit('valid house', addy);
-            street_present = true;
-          }
-        }
-        if (addy.zip && !street_present) {
-          checkTerritory(addy.zip);
-        }
+        Client.emit('center changed', addy.location);
+        old_location = addy.location;
+      }
+    }
+
+    function processGeocodedLocation(addy) {
+      if (addy.road && addy.stno) {
+        Client.emit('Gmap: switch to satellite', true);
+        addy.street = addy.stno + " " + addy.road;
+        Client.emit('Geocoder: valid house', addy);
+        return addy;
+      }
+
+      if (addy.zip && addy.state && addy.city) {
+        Client.emit('Form: valid data', addy);
+        return checkTerritory(addy.zip);
       }
     }
 
@@ -229,14 +221,20 @@ function GeocoderProvider_ () {
       // if zip is in territory, emit that
       console.log('checking if', zip, 'is in our territory');
 
-      Warehouse.get({zip: zip}).then(function(data) {
+      Warehouse.get({ zip: zip }).then(function (data) {
         if (data.IsInTerritory) {
           addy.zoom = 15;
-          Client.emit('valid territory', zip);
-          Client.emit('valid warehouse', data.WarehouseId);
-          Client.emit('jump to stage', 'address-roof');
+          Client.emit('Stages: jump to step', 'address-roof');
+          Client.emit('Geocoder: valid warehouse', {
+            warehouseId: data.WarehouseId,
+            zip: zip
+          });
         } else {
-          Client.emit('stage', 'next');
+          Client.emit('Geocoder: invalid territory', {
+            dialog:'alternatives',
+            data: zip,
+          });
+          Client.emit('Stages: stage', 'next');
         }
       });
     }

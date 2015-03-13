@@ -1,6 +1,6 @@
-directives.directive('flnHelp', ['Liveagent', flnHelp]);
+directives.directive('flnHelp', ['Liveagent', 'Form', flnHelp]);
 
-function flnHelp (Liveagent) {
+function flnHelp (Liveagent, Form) {
   return {
     templateUrl: 'templates/directives/widgets/flnHelp.html',
     controller: 'ChatCtrl',
@@ -8,7 +8,7 @@ function flnHelp (Liveagent) {
     link: function(scope, element, attrs) {
       // TRACK: when a user requests an ODA, track that
       // var step = Stage.step; // fetch the current step from the StageCtrl
-      // element.find('#liveagent_button_online_57319000000CaTc').on('click', function () {
+      // element.find('#liveagent_button_online_573180000008OIF').on('click', function () {
         // ga('send', 'event', step, 'Button Clicks', 'ODA Session Activated');
       // });
 
@@ -25,13 +25,13 @@ function flnHelp (Liveagent) {
       window._laq.push(
         function(){
           liveagent.showWhenOnline(
-            '57319000000CaTc',
-            document.getElementById('liveagent_button_online_57319000000CaTc')
+            '573180000008OIF',
+            document.getElementById('liveagent_button_online_573180000008OIF')
           );
 
           liveagent.showWhenOffline(
-            '57319000000CaTc',
-            document.getElementById('liveagent_button_offline_57319000000CaTc')
+            '573180000008OIF',
+            document.getElementById('liveagent_button_offline_573180000008OIF')
           );
         }
       );
@@ -43,12 +43,12 @@ function flnHelp (Liveagent) {
 
           // retrieve prospect object from Form in Firebase
           // TODO: figure out why this prospect does not have a `form_id` like the prospect in FormProvider
-          prospect = scope.prospect();
+          prospect = Form.prospect;
           // send prospect to Liveagent
           Liveagent.addCustomDetails(prospect);
 
           var targetConfig = {
-            buttonId: "57319000000CaTc",
+            buttonId: "573180000008OIF",
             iframeTarget: "live_agent_chat"
           }
           // try to start the Liveagent chat

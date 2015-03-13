@@ -32,27 +32,16 @@ var zoom_options = {
 directives
 .directive('flnControlZoom', flnControlZoom_ );
 
-function flnControlZoom_ (Clientstream, Configurator) {
+function flnControlZoom_ (newConfigurator) {
   return {
     restrict: 'E',
     link: function flnControlZoomLink (scope, ele, attrs) {
-      var zoomControl;
-      Clientstream.listen('Configurator: Map ready', function function_name (argument) {
-        // create a new zoom controller
-        zoomControl = new ol.control.Zoom(zoom_options);
-        // get the scroll zoom interaction
-        var scroll_zoom = Configurator.interactions().scroll_zoom;
-        // add it to the map
-        var controls = Configurator.map().getControls();
-        while (controls.getArray().length > 0 ){ // hack: directive fires twice, prevent double controls
-          controls.pop();
-        }
-        Configurator.map().addControl(zoomControl);
-        Configurator.map().addInteraction(scroll_zoom);
-      })
-      // remove it from the map when the directive gets destroyed
+
+      var zoomControl = new ol.control.Zoom(zoom_options);
+      newConfigurator.map.omap.addControl(zoomControl);
+
       ele.on('$destroy', function (e) {
-        Configurator.map().removeControl(zoomControl);
+        newConfigurator.map.omap.removeControl(zoomControl);
       });
     },
   };

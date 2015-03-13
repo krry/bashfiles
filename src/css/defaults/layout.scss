@@ -29,8 +29,7 @@ main.main.main-fixed {
 
 .full-height,
 .prospect-form.form-fixed,
-.overlay.secondary,
-.overlayer {
+.overlay.secondary {
   height: 100%;
 }
 
@@ -51,7 +50,7 @@ main.main.main-fixed {
 }
 
 .overlay.only {
-  background-color: $grey-lightest;
+  /* background-color: $grey-lightest; */
 }
 
 .overlay.secondary {
@@ -65,7 +64,6 @@ main.main.main-fixed {
 
 .underlayer {
   position: fixed;
-  display: none;
   z-index: 0;
   top: 0; right: 0;
   bottom: 0; left: 0;
@@ -127,15 +125,8 @@ main.main.main-fixed {
     width: 100%;
   }
 
-  .inset-right {
-    box-shadow: inset 0 0 8px -2px $shade-40;
-    position: relative;
-  }
-
   .overlay-left.overlay-left {
     overflow: visible;
-    position: relative;
-    z-index: 1;
   }
 }
 

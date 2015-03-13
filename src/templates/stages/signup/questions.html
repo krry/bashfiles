@@ -1,0 +1,45 @@
+<!-- main.html for qualify stage -->
+<div class="overlay primary col" ng-controller="ScheduleCtrl as schedule" ng-init="schedule.getHOAs()">
+  <div class="spinner-tray" ng-show="schedule.isSubmitting">
+    <fln-spinner></fln-spinner>
+  </div>
+
+  <div class="col fourth three center">
+    <h1 ng-if="!schedule.timedOut">About your site visit.
+      <br><small>We just need to know a few bits of information before our site surveyor shows up at your home. Please check those that apply:</small>
+    </h1>
+    <h1 ng-if="schedule.timedOut">
+      Sorry! Our connection timed out. <small>Please try again.</small>
+    </h1>
+    <form name="prospectForm">
+      <div class="col fourth three center survey-question">
+        <fln-input-attic></fln-input-attic>
+      </div>
+      <div class="col fourth three center survey-question">
+        <fln-input-pets></fln-input-pets>
+      </div>
+      <div class="col fourth three center survey-question">
+        <fln-input-hoa></fln-input-hoa>
+      </div>
+      <div class="col fifth three center">
+        <fln-input-hoa-dropdown></fln-input-hoa-dropdown>
+        <fln-input-hoa-freeform></fln-input-hoa-freeform>
+      </div>
+      <button class="std gold" ng-click="schedule.saveAnswers()" ng-disabled="!schedule.answeredQuestions()">Done</button>
+    </form>
+  </div>
+</div>
+
+<aside class="overlay secondary col sml-full med-full lrg-full full-height drop-top" ng-controller="ScheduleCtrl as schedule">
+  <div>
+    <strong>What's next?</strong>
+  </div>
+  <ul>
+    <li>A site surveyor will come to your house. Someone over 18 must be home to open the door and answer any questions.</li>
+    <li>The site surveyor will study your roof as well as your current energy consumption. This will take 1-2 hours, but you only need to be there to answer the door.</li>
+    <li>In a few days you'll receive your final system design from our experts.</li>
+    <li>Review your professional design, final proposal and contract.</li>
+    <li>Sign up and schedule your install.</li>
+    <li>Turn it on.</li>
+  </ul>
+</aside>

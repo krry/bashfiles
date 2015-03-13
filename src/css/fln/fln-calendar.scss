@@ -1,5 +1,6 @@
 @import "../imports/colors";
 @import "../imports/sizes";
+@import "../imports/fonts";
 
 .calendar {
   $box-width: 100px;
@@ -111,9 +112,11 @@
 .selection-wrapper {
   max-width: 300px;
   margin: 0 auto;
+  text-align: left;
 }
 
 .time-selection {
+  text-align: center;
   display: inline-block;
   padding: 5px 20px;
   margin: 5px;
@@ -137,4 +140,28 @@
     font-weight: bold;
     margin-left: 15px;
   }
+}
+
+.survey-question {
+  margin: 15px 0;
+
+  .choice {
+    display: inline-block;
+  }
+
+  label {
+    font-size: 1rem;
+    padding-left: 10px;
+  }
+}
+
+.hoa-dropdown {
+  @include apercu-light;
+  width: 100%;
+  font-weight: normal;
+  text-transform: initial;
+}
+
+input[type="text"].hoa-input {
+  font-size: 1rem;
 }

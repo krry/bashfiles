@@ -24,7 +24,11 @@ function SiteSurveyProvider_ () {
         cache: true,
         timeout: 20000
       }).then(function(resp) {
-        var data = JSON.parse(resp.data).AvailableTimes.TimeStrings;
+        var data = JSON.parse(resp.data);
+        try {
+          data = JSON.parse(data);
+        } catch(e) {}
+        data = data.AvailableTimes.TimeStrings;
         dfd.resolve(data.filter(isCurrent));
       }, function(resp) {
         dfd.reject(resp);
@@ -39,7 +43,11 @@ function SiteSurveyProvider_ () {
       $http.post(GSA_API, data, {
         timeout: 20000
       }).then(function(resp) {
-        dfd.resolve(JSON.parse(resp.data));
+        var data = JSON.parse(resp.data);
+        try {
+          data = JSON.parse(data);
+        } catch(e) {}
+        dfd.resolve(data);
       }, function(resp) {
         dfd.reject(resp);
       });
