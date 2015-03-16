@@ -20,6 +20,16 @@ module.exports = function(app) {
     }).pipe(res);
   }
 
+  function ahj(req, res) {
+    var url = [
+      conf.AHJ_API,
+      '/ahjs/near.json?',
+      querystring.stringify(req.query)
+    ].join('');
+
+    proxyGET(url, res);
+  }
+
   function utilities(req, res) {
     var url = [
       conf.SOLAR_WORKS_ROOT,
@@ -64,6 +74,15 @@ module.exports = function(app) {
     var url = [
       conf.SOLAR_WORKS_API_ROOT,
       conf.CONTACT_API
+    ].join('');
+
+    proxyPOST(url, req.body, res);
+  }
+
+  function surveyQuestions(req, res) {
+    var url = [
+      conf.SOLAR_WORKS_API_ROOT,
+      conf.SURVEY_QUESTIONS_API
     ].join('');
 
     proxyPOST(url, req.body, res);
@@ -114,11 +133,13 @@ module.exports = function(app) {
   }
 
   return {
+    ahj: ahj,
     utilities: utilities,
     warehouses: warehouses,
     rates: rates,
     creditCheck: creditCheck,
     contact: contact,
+    surveyQuestions: surveyQuestions,
     nearMe: nearMe,
     gsa: gsa,
     schedule: schedule,
