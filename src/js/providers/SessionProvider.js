@@ -51,6 +51,7 @@ function SessionProvider_ (FormProvider, DesignProvider, ConfiguratorProvider) {
     Client.listen('Stages: restart session', restartSession);
     Client.listen('Form: Loaded', saveFormId);
     Client.listen('Design: Loaded', saveDesignId);
+    Client.listen('Form: saved lead id', saveLeadId);
     Client.listen('center changed', storeGMapCenter);
 
     function bootstrapSession (user_data) {
@@ -86,6 +87,9 @@ function SessionProvider_ (FormProvider, DesignProvider, ConfiguratorProvider) {
         // last known position of googleMap or olMap
         DesignProvider.setCenter(data.map_center);
       }
+      if (data.lead_id) {
+        FormProvider.setLeadId(data.lead_id);
+      }
       return Client.emit('Session: Loaded', data);
     }
 
@@ -99,6 +103,10 @@ function SessionProvider_ (FormProvider, DesignProvider, ConfiguratorProvider) {
     }
     function saveDesignId (data) {
       _ref.update({design_id: data.design_id});
+    }
+
+    function saveLeadId(data) {
+      _ref.update({lead_id: data.lead_id });
     }
 
     function storeGMapCenter (location) {
