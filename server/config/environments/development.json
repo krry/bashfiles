@@ -22,6 +22,7 @@
   "SFDCSECRETTOKEN": "4wA0xsJPpxziT6RTzG838eoGS",
   "CLIENT": {
     "MINIFIED": "false",
+    "URL_ROOT": "localhost:8100",
     "APP_TITLE": "FLNL • DEV",
     "GMAP_CLIENT": "gme-solarcity",
     "AHJ_API": "/api/ahj",
