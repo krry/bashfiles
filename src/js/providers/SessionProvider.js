@@ -88,6 +88,7 @@ function SessionProvider_ (FormProvider, DesignProvider, ConfiguratorProvider) {
         // last known position of googleMap or olMap
         DesignProvider.setCenter(data.map_center);
       }
+      Client.emit('dev: Session: Loaded', _ref);
       return Client.emit('Session: Loaded', data);
     }
 
