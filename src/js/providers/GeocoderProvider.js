@@ -230,11 +230,12 @@ function GeocoderProvider_ () {
             zip: zip
           });
         } else {
-          Client.emit('Geocoder: invalid territory', {
-            dialog:'alternatives',
-            data: zip,
-          });
-          Client.emit('Stages: stage', 'next');
+          // Immediately offload if not in territory
+          Client.emit('Geocoder: invalid territory', true);
+          Client.emit('Stages: jump to stage', 'flannel.signup');
+          setTimeout(function() {
+            Client.emit('Stages: jump to step', 'qualify');
+          }, 0);
         }
       });
     }

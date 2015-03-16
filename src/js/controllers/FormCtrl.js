@@ -68,6 +68,7 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
   Client.listen('valid latlng', acceptValidLatLng);
   Client.listen('Geocoder: valid warehouse', acceptValidWarehouse);
   Client.listen('Geocoder: valid house', acceptValidHouse);
+  Client.listen('Geocoder: invalid territory', outOfTerritory);
   Client.listen('email saved', acceptSavedEmail);
   Client.listen('birthdate saved', acceptSavedBirthdate);
   Client.listen('phone saved', acceptSavedPhone);
@@ -116,10 +117,12 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
   }
 
   function outOfTerritory (data) {
-    if (!data) {
+    if (data) {
       vm.invalid = true;
       vm.invalidZip = false;
       vm.invalidTerritory = true;
+      vm.prospect.invalidTerritory = true;
+      Client.emit('Form: valid data', { invalidTerritory: true });
     }
   }
 
