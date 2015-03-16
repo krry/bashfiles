@@ -302,9 +302,8 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
       if (data.id) {
         vm.prospect.leadId = data.id;
 
-        Client.emit('Form: valid data', {
-          leadId: vm.prospect.leadId
-        });
+        Client.emit('Form: valid data', { leadId: vm.prospect.leadId });
+        Client.emit('Form: saved lead id', { lead_id: vm.prospect.leadId });
       }
     });
   }

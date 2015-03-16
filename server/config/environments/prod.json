@@ -22,6 +22,7 @@
   "SFDCSECRETTOKEN": "4wA0xsJPpxziT6RTzG838eoGS",
   "CLIENT": {
     "MINIFIED": "true",
+    "URL_ROOT": "go.solarcity.com",
     "APP_TITLE": "The Future is Now • SolarCity",
     "GMAP_CLIENT": "",
     "AHJ_API": "/api/ahj",
