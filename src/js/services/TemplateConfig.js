@@ -115,6 +115,11 @@ function TemplateConfig_ () {
         },
         {
           staticLayout: true,
+          step: 'survey-questions',
+          partial: 'questions.html'
+        },
+        {
+          staticLayout: true,
           step: 'congrats',
           partial: 'congrats.html'
         },

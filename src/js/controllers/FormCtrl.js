@@ -297,12 +297,15 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
       // OwnerId: '005300000058ZEZAA2',//oda userId
       ExternalId: Session.id()
     }).then(function(data) {
-      vm.prospect.leadId = data.id;
       vm.isSubmitting = false;
 
-      Client.emit('Form: valid data', {
-        leadId: vm.prospect.leadId
-      });
+      if (data.id) {
+        vm.prospect.leadId = data.id;
+
+        Client.emit('Form: valid data', {
+          leadId: vm.prospect.leadId
+        });
+      }
     });
   }
 
