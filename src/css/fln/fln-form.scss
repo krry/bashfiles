@@ -100,8 +100,13 @@ input.zipcode {
   }
 }
 
-input.street {
-  width: 14em;
+input.street,
+input.email {
+  max-width: 14em;
+}
+
+input.email {
+  text-align: center;
 }
 
 input.city {

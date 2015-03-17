@@ -25,6 +25,13 @@ function GeocoderProvider_ () {
     addy = {};
     addyKeys = [' zip', 'city', 'state', 'street' ];
 
+    Client.listen('Stages: restart session', resetCache);
+
+    function resetCache() {
+      territoryChecked = false;
+      addy = {};
+    }
+
     // send a latlng object and receive an address
     function reverseGeocode(latLng) {
       var location;
@@ -230,11 +237,9 @@ function GeocoderProvider_ () {
             zip: zip
           });
         } else {
-          Client.emit('Geocoder: invalid territory', {
-            dialog:'alternatives',
-            data: zip,
-          });
-          Client.emit('Stages: stage', 'next');
+          // if not in territory, collect email, show alternatives
+          Client.emit('Geocoder: invalid territory', true);
+          // Client.emit('Stages: jump to step', 'outside');
         }
       });
     }

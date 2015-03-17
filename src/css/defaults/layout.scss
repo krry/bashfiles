@@ -90,6 +90,7 @@ main.main.main-fixed {
 
 @media screen and (min-width: $width-min-lrg){
   .primary.primary {
+    width: 75%;
     width: calc(100% - 20em);
   }
   .only.only {
@@ -97,14 +98,20 @@ main.main.main-fixed {
     height: 100%;
   }
   .secondary.secondary {
+    width: 25%;
     width: calc(20em - 1px);
+<<<<<<< HEAD
     &.zip-vid {
       padding-top: 7.3rem;
     }
     &.drop-top {
+=======
+
+    .drop-top {
+>>>>>>> develop
       padding-top: 7rem;
-      position: absolute;
-      bottom: 0;
+      /* position: absolute; */
+      /* bottom: 0; */
     }
     &.territory-map {
       padding-top: 7.3rem;
