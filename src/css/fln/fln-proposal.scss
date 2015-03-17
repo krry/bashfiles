@@ -1,3 +1,92 @@
+@import "../imports/colors";
+@import "../imports/typography";
+@import "../imports/fonts";
+
+.proposal-page {
+  strong + p {
+    margin-top: .25em;
+  }
+  strong + dl {
+    margin-top: 0;
+  }
+}
+
+.proposal.proposal {
+  background-color: $white;
+  color: $green;
+  border-radius: 2px;
+  margin-bottom: .75rem;
+  .row:not(:last-child) {
+    border-bottom: 2px solid $grey-lightest;
+  }
+  .col:not(.fifth) {
+    border-right: 2px solid $grey-lightest;
+    // TODO: figure out how to avoid this important shit
+    padding: 1em !important;
+    // margin: 1em 0;
+  }
+  .col:last-child {
+    border-right: 0;
+  }
+  .utes {
+    color: $grey-dark;
+  }
+  label:first-child {
+    @include apercu-light;
+    font-size: .875em;
+    margin: .25em 0 -.25em;
+    color: $grey-dark;
+  }
+  label:last-child {
+    @include apercu-light;
+    @include caps;
+    font-size: .6em;
+    margin: .25em 0;
+    letter-spacing: 0.5px;
+    color: $grey-dark;
+  }
+  figure {
+    margin: 0;
+  }
+  figure span.cents,
+  figure span.dollars {
+    @include apercu-bold;
+    font-size: 3em;
+  }
+
+}
+
+.aerial {
+  background: $black url('../img/aerial.png') no-repeat center center;
+  background-size: contain;
+  height: 17em;
+}
+
 .chart-tray {
   padding: .5em 0;
+}
+
+.cents:after {
+  content: "¢";
+  font-size: .5em;
+  position: relative;
+  vertical-align: 1.5em;
+}
+
+.dollars:before {
+  content: "$";
+  position: relative;
+  vertical-align: 1.5em;
+  font-size: .5em;
+}
+
+.financing-option {
+  padding: .75em 1.5em;
+  border: 2px solid $gold;
+  border-radius: .5em;
+
+  em {
+    font-size: .75em;
+    text-align: right;
+  }
 }

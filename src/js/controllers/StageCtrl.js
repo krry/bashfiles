@@ -22,7 +22,8 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
       step,
       state_ref,
       session_stream,
-      waiting;
+      waiting,
+      help_steps;
 
   stage = 0;
   step  = 0;
@@ -39,7 +40,26 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
   vm.partial = Templates.partial(stage, step);
   vm.partials = flattenPartialsArray(Templates.partials);
   vm.currentStep = currentStep;
+
+  // determines whether view layout is fixed or static
   vm.fixed = !Templates.config[stage].steps[step].staticLayout;
+
+  // determines whether the help/chat popup is visible or not
+  vm.helpActivated = false;
+  help_steps = [
+    'intro-design',
+    'zoom-lock-roof',
+    'trace-area',
+    'edit-area',
+    'detail-area',
+    'review-proposal',
+    'create-contact',
+    'credit-check',
+    'qualify',
+    'survey-calendar',
+    'schedule-survey',
+    'congrats'
+  ];
 
   // subscribe to the state when session is loaded
   Client.listen('Session: Loaded', bootstrapNewSession);
@@ -176,6 +196,12 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
         step: step
       });
     }
+
+    // once the user advances to the fork step, show the help/chat popup
+    if (help_steps.indexOf(Templates.config[stage].steps[step].step) > -1) {
+      vm.helpActivated = true;
+    }
+
   }
 
   // user flow controls
