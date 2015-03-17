@@ -16,7 +16,8 @@ function ModalCtrl_(Client, ModalService) {
   vm.toggle      = toggleModal;
   vm.showDialog  = showDialog;
 
-  Client.listen('Geocoder: invalid territory', showDialog);
+  // Showing full page instead of modal when territory is invalid
+  // Client.listen('Geocoder: invalid territory', showDialog);
 
   // turn modal state on
   function openModal() {
