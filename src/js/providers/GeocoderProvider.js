@@ -25,6 +25,13 @@ function GeocoderProvider_ () {
     addy = {};
     addyKeys = [' zip', 'city', 'state', 'street' ];
 
+    Client.listen('Stages: restart session', resetCache);
+
+    function resetCache() {
+      territoryChecked = false;
+      addy = {};
+    }
+
     // send a latlng object and receive an address
     function reverseGeocode(latLng) {
       var location;
