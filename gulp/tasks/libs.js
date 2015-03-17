@@ -51,6 +51,7 @@ var libSrc = [
   './src/js/rxjs-firebase/rx.firebase.js',
   './src/lib/moment/moment.js',
   './src/js/mailgun/mailgun_validator.js',
+  './src/lib/Chart.js/Chart.js'
 ];
 
 var libPub = './public/lib';

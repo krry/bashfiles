@@ -1,11 +1,10 @@
-/*
- * this is the Configurator for the map.
- * name: Configurator
- *
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-    inject it as you deem necessary... necessarily.
- *
- */
+  Configurator
+
+  consumed by the OpenLayers map to enable configuration
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
 providers.provider("Configurator", ConfiguratorFactory_);
 
@@ -156,7 +155,7 @@ function ConfiguratorFactory_() {
       // Client.emit('static tiles loaded', true);
 
       map = new ol.Map(configurator_options);
-      Client.emit('spin it', false);
+      Client.emit('Spinner: spin it', false);
       Client.emit('Configurator: Map ready', map);
     }
 

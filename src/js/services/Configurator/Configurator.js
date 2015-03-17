@@ -59,6 +59,8 @@ function newConfigurator_(View, Interactions, Layers) {
     console.debug('Configurator.setTarget(elem) => elem: ', elem);
     var g_div, o_div;
     // two target divs for the olmap and googlemap
+    // TODO: use a directive or link function to select the elements
+    // DOM selection or manipulation should not occur in a service
     g_div = $(elem).find('#gmtest')[0];
     o_div = $(elem).find('#oltest')[0];
     // create the maps
@@ -81,22 +83,24 @@ function newConfigurator_(View, Interactions, Layers) {
     gmap.addListener('projection_changed', function(){
       console.log('proj_changed, now fix the projection of the layers');
       gmap_projection = gmap.getProjection();
-      console.debug(gmap.getProjection())
-    })
+      // console.debug(gmap.getProjection());
+      google.maps.event.trigger(gmap, 'resize');
+      omap.updateSize();
+    });
   }
 
   // View subscriptions
   function handleCenter(e) {
     var center = View.getCenter();
     gmap.setCenter(new google.maps.LatLng(center[1], center[0]));
-    console.debug('View:center', center);
-    console.debug('Google:center', gmap.getCenter());
+    // console.debug('View:center', center);
+    // console.debug('Google:center', gmap.getCenter());
   }
 
   function handleZoom(e) {
     gmap.setZoom(View.getZoom());
-    console.debug('View:resolution', View.getZoom());
-    console.debug('Google:zoom', gmap.getZoom());
+    // console.debug('View:resolution', View.getZoom());
+    // console.debug('Google:zoom', gmap.getZoom());
   }
 
   /* Interaction handlers */

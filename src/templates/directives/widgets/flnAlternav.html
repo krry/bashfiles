@@ -1,7 +1,7 @@
 <nav class="alternav">
   <ul class="row">
     <li class="col third"><a ng-click="form.prevStep()"></a></li>
-    <li class="col third" ng-show="alternatives === 'true'" ng-controller="ModalCtrl as modal"><a ng-click="modal.showDialog('alternatives')"></a></li>
+    <li class="col third" ng-show="alternatives === 'true'" ng-controller="ModalCtrl as modal"><a ng-click="modal.showDialog({dialog: 'alternatives', data: ''})"></a></li>
     <li class="col third"><a ng-click="form.nextStep()"></a></li>
   </ul>
 </nav>

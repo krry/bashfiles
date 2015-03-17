@@ -37,9 +37,11 @@ function FormProvider_ () {
       _ref_stream,
       // TODO: sync this with firebase instead of caching it locally
       prospect,
+      lead_id,
       forms_url;
 
   _ref_key  =  null;
+  lead_id = null;
   forms_url = 'https://scty.firebaseio.com/forms/'; // hack: hardcode // todo: make this constant value
 
   this.setRefKey = function(key){
@@ -49,20 +51,20 @@ function FormProvider_ () {
     // console.log('ref_key in sessionProvider being set:', key);
   };
 
-  this.$get = ["Clientstream",function formProviderFactory(Client) {
+  this.setLeadId = function(id) {
+    lead_id = id;
+  };
+
+  this.$get = ["Clientstream", function formProviderFactory (Client) {
 
     Client.listen('Session: Loaded', bootstrapForm);
-    Client.listen('valid zip', updateZipOnRef);// TODO: fix line use Client.listen('valid format', updateRefByKey ); or something
-    Client.listen('Form: valid house', updateRefByVal );
     Client.listen('Form: valid data', updateRefByVal);
-    Client.listen('valid address', validAddy);
-
 
     // DEV:
     Client.listen('Dev: Reset form', resetForm);
 
     function resetForm () {
-      var form_obj = {bill: 100};
+      var form_obj = {};
       _ref.set(form_obj);
       _ref.once('value', processNewFormFromFirebase );
     }
@@ -79,6 +81,7 @@ function FormProvider_ () {
       }
       _ref.update({
         session_id: session_obj.session_id,
+        leadId: lead_id
       });
       _ref.once('value', processNewFormFromFirebase );
       return _ref;
@@ -97,32 +100,22 @@ function FormProvider_ () {
       Client.emit('Form: Loaded', data);
     }
 
-
-    function updateZipOnRef (zip) {
-      return _ref.update({zip: zip});
-    }
-
     function updateRefByVal (obj) {
       return _ref.update(obj);
     }
 
-    function validAddy (addy) {
-      return _ref.update({address: addy});
-    }
-
-
     function awesome_form_builder_brah() {
       return {
-        ref:    function(key){
+        ref: function (key) {
           if (key) {
             _ref = new Firebase(forms_url).child(key);
             _ref.once('value', processNewFormFromFirebase );
           }
           return _ref;
         },
-        id:     function(){ return _ref.key(); },
-        form_stream: function(){ return _ref_stream; },
-        prospect: function(){ return prospect; },
+        id: function () { return _ref.key(); },
+        form_stream: function () { return _ref_stream; },
+        prospect: function () { return prospect; },
       };
     }
 

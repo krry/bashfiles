@@ -6,10 +6,11 @@
 
 ================================================== */
 
-controllers.controller("NavCtrl", ["$scope", "$state", NavCtrl_]);
+controllers.controller("NavCtrl", ["$scope", "$state", "Form", NavCtrl_]);
 
-function NavCtrl_($scope, $state) {
+function NavCtrl_($scope, $state, Form) {
   var vm = this;
+  vm.prospect = Form.prospect;
 
   vm.onActiveStage = onActiveStage;
 

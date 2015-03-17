@@ -1,6 +1,6 @@
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-  STAGING
+  STAGE
   root task
 
   a simplified build process for the staging server
@@ -11,6 +11,6 @@
 var gulp = require('gulp');
 var runSeq = require('run-sequence').use(gulp);
 
-gulp.task('heroku:staging', function() {
+gulp.task('heroku:stage', function() {
   runSeq('config', 'build');
 });

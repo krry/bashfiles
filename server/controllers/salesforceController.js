@@ -8,12 +8,14 @@ module.exports = function(app) {
   var sfLoginUrl    = conf.SFLOGIN_URL,
       sfUserName    = conf.SFUSERNAME,
       sfPassword    = conf.SFPASSWORD;
+      sfToken       = conf.SFDCSECRETTOKEN;
+
 
   var conn = new jsforce.Connection({
     loginUrl: sfLoginUrl
   });
 
-  var login = conn.login(sfUserName, sfPassword);
+  var login = conn.login(sfUserName, sfPassword+sfToken);
 
   function createLead(req){
     return conn.sobject("Lead").create({
@@ -25,18 +27,17 @@ module.exports = function(app) {
       PostalCode : req.body.PostalCode,
       Email : req.body.Email,
       Phone : req.body.Phone,
-      ownerId : req.body.OwnerId,
-      Company : req.body.FirstName + ' ' + req.body.Lastname,
-      LeadSource : req.body.LeadSource,
-      LeadStatus : req.query.leadStatus,
-      Unqualified_Reason__c : req.query.unqualifiedReason,
+      OwnerId : req.body.OwnerId,
+      Company : req.body.FirstName + ' ' + req.body.LastName,
+      LeadSource : 'Online',
+      Status : req.body.LeadStatus,
+      Unqualified_Reason__c : req.body.UnqualifiedReason,
       External_ID__c : req.body.ExternalId,
       External_ID_Type__c : 'FirebaseSessionId',
       Consultation_Date__c : new Date(),
       Consultation_Type__c : 'Online',
-      Opportunity_Owner__c : '005300000058ZEZAA2',
+      Opportunity_Owner__c : '00518000000QpDnAAK',
     }, function(err, ret){
-      console.log('in func');
       if (err || !ret.success) {
         return console.error(err, ret);
       }
@@ -54,16 +55,16 @@ module.exports = function(app) {
       PostalCode : req.body.PostalCode,
       Email : req.body.Email,
       Phone : req.body.Phone,
-      ownerId : req.body.OwnerId,
-      Company : req.body.FirstName + ' ' + req.body.Lastname,
-      LeadSource : req.body.LeadSource,
-      LeadStatus : req.query.leadStatus,
-      Unqualified_Reason__c : req.query.unqualifiedReason,
+      OwnerId : req.body.OwnerId,
+      Company : req.body.FirstName + ' ' + req.body.LastName,
+      LeadSource : 'Online',
+      Status : req.body.LeadStatus,
+      Unqualified_Reason__c : req.body.UnqualifiedReason,
       External_ID__c : req.body.ExternalId,
       External_ID_Type__c : 'FirebaseSessionId',
       Consultation_Date__c : new Date(),
       Consultation_Type__c : 'Online',
-      Opportunity_Owner__c : '005300000058ZEZAA2',
+      Opportunity_Owner__c : '00518000000QpDnAAK',
     }, function(err, ret) {
       if (err || !ret.success) { 
         return console.error(err, ret); 

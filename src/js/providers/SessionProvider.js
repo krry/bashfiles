@@ -41,18 +41,17 @@ function SessionProvider_ (FormProvider, DesignProvider, ConfiguratorProvider) {
   _user_key = null;
 
   this.setRefKey = function setRefKey(key){
-    /* jshint -W030 */
     key && (_ref_key = key);
-    /* jshint +W030 */
   };
 
   this.$get = ["Clientstream", function SessionProviderFactory(Client) {
 
     Client.listen('User: Loaded', bootstrapSession );
     Client.listen('ODA: share_session set', bootstrapSession);
-    Client.listen('StageCtrl: restart session', restartSession);
+    Client.listen('Stages: restart session', restartSession);
     Client.listen('Form: Loaded', saveFormId);
     Client.listen('Design: Loaded', saveDesignId);
+    Client.listen('Form: saved lead id', saveLeadId);
     Client.listen('center changed', storeGMapCenter);
 
     function bootstrapSession (user_data) {
@@ -89,6 +88,9 @@ function SessionProvider_ (FormProvider, DesignProvider, ConfiguratorProvider) {
         DesignProvider.setCenter(data.map_center);
       }
       Client.emit('dev: Session: Loaded', _ref);
+      if (data.lead_id) {
+        FormProvider.setLeadId(data.lead_id);
+      }
       return Client.emit('Session: Loaded', data);
     }
 
@@ -102,6 +104,10 @@ function SessionProvider_ (FormProvider, DesignProvider, ConfiguratorProvider) {
     }
     function saveDesignId (data) {
       _ref.update({design_id: data.design_id});
+    }
+
+    function saveLeadId(data) {
+      _ref.update({lead_id: data.lead_id });
     }
 
     function storeGMapCenter (location) {
@@ -124,12 +130,12 @@ function SessionProvider_ (FormProvider, DesignProvider, ConfiguratorProvider) {
           key && (_user_key = key);
           /* jshint +W030 */
         },
-        ref: function () {return _ref;},
+        ref:    function () {return _ref;},
         id:     function (){ return _ref.key(); },
         stream: function (){ return fb_observable; },
         state_stream: function (){ return state_stream; },
-        next:   function () { Client.emit('stage', "next");},
-        back:   function () { Client.emit('stage', "back");},
+        next:   function () { Client.emit('Stages: stage', "next");},
+        back:   function () { Client.emit('Stages: stage', "back");},
       };
     }
 
