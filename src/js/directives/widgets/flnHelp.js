@@ -5,18 +5,19 @@ function flnHelp (Liveagent) {
     templateUrl: 'templates/directives/widgets/flnHelp.html',
     controller: 'ChatCtrl',
     controllerAs: 'chat',
-    link: function(scope, element, attrs) {
+    link: function(scope, element, attrs, ChatCtrl) {
       // TRACK: when a user requests an ODA, track that
       // var step = Stage.step; // fetch the current step from the StageCtrl
       // element.find('#liveagent_button_online_573180000008OIF').on('click', function () {
         // ga('send', 'event', step, 'Button Clicks', 'ODA Session Activated');
       // });
 
-      var chatbox,
+      var chat,
           prospect,
           value,
           chatOpened = false;
 
+      scope.prospect = ChatCtrl.prospect;
       scope.toggleShown = toggleShown;
 
       // find the liveagent buttons in the window, wire the agent status logic to them
@@ -43,9 +44,9 @@ function flnHelp (Liveagent) {
 
           // retrieve prospect object from Form in Firebase
           // TODO: figure out why this prospect does not have a `form_id` like the prospect in FormProvider
-          prospect = scope.prospect();
+
           // send prospect to Liveagent
-          Liveagent.addCustomDetails(prospect);
+          Liveagent.addCustomDetails(scope.prospect);
 
           var targetConfig = {
             buttonId: "573180000008OIF",
