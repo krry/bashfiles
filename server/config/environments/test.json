@@ -6,7 +6,7 @@
   "SOLAR_WORKS_API_ROOT": "https://solarworksapi-test.solarcity.com",
   "GSA_ROOT": "https://gsa-test.solarcity.com",
   "NEAR_ME_ROOT": "https://nearme-test.solarcity.com",
-  "AHJ_API": "https://ahj-test.solarcity.local",
+  "AHJ_API": "https://ahj.solarcity.com",
   "UTILITIES_API": "/solarbid/api/utilities/",
   "WAREHOUSE_API": "/solarbid/api/warehouses/",
   "RATES_API": "/solarbid/api/rates/",
@@ -22,6 +22,7 @@
   "SFDCSECRETTOKEN": "4wA0xsJPpxziT6RTzG838eoGS",
   "CLIENT": {
     "MINIFIED": "false",
+    "URL_ROOT": "go-test.solarcity.com",
     "APP_TITLE": "FLNL • DEV",
     "GMAP_CLIENT": "gme-solarcity",
     "AHJ_API": "/api/ahj",
