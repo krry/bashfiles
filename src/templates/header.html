@@ -6,7 +6,7 @@
     </li>
     <li class="chevron right caps col" ng-class="{ active: nav.onActiveStage('flannel.home') }">
       <span>Your Home</span>
-      <span class="header-detail" ng-show="nav.prospect.zip && nav.onActiveStage('flannel.home')">
+      <span class="header-detail" ng-show="nav.prospect.zip">
         <span>&bull;</span>
         <span ng-bind="nav.prospect.street" class="header-street"></span>
         <span ng-bind="nav.prospect.zip" class="header-zip"></span>
