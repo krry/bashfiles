@@ -6,9 +6,9 @@
 
 ================================================== */
 
-controllers.controller("FormCtrl", ["$scope", "$element", "Clientstream", "Session", "Geocoder", "Form", "Credit", "Contact", "Utility", "Rates", "Salesforce", "CREDIT_FAIL", "defaultValues", FormCtrl_]);
+controllers.controller("FormCtrl", ["$scope", "$location", "$element", "Clientstream", "Session", "Geocoder", "Form", "Credit", "Contact", "Utility", "Rates", "Salesforce", "CREDIT_FAIL", "URL_ROOT", "defaultValues", FormCtrl_]);
 
-function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Contact, Utility, Rates, Salesforce, CREDIT_FAIL, defaultValues) {
+function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form, Credit, Contact, Utility, Rates, Salesforce, CREDIT_FAIL, URL_ROOT, defaultValues) {
 
   var vm = this;
   var form_stream;
@@ -18,6 +18,7 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
   /* bootstrap the controller's model from the form provider, listen for changes */
   Client.listen('Form: Loaded', bootstrapForm);
   Client.listen('geocode results', badZip);
+  Client.listen('Stages: restart session', resetForm);
 
   function bootstrapForm (form_obj) {
     // subscribe to the stream
@@ -68,6 +69,7 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
   Client.listen('valid latlng', acceptValidLatLng);
   Client.listen('Geocoder: valid warehouse', acceptValidWarehouse);
   Client.listen('Geocoder: valid house', acceptValidHouse);
+  Client.listen('Geocoder: invalid territory', outOfTerritory);
   Client.listen('email saved', acceptSavedEmail);
   Client.listen('birthdate saved', acceptSavedBirthdate);
   Client.listen('phone saved', acceptSavedPhone);
@@ -76,7 +78,8 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
 
   function checkZip (zip) {
     console.log('********* checkin dat zip', zip, 'boss *********')
-    if (typeof zip !== "undefined" && zip.length === 5) {
+    /* jshint eqnull:true */
+    if (zip != null && zip.length === 5) {
       Client.emit('Spinner: spin it', true);
       Geocoder.sendGeocodeRequest(zip);
     }
@@ -116,11 +119,25 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
   }
 
   function outOfTerritory (data) {
-    if (!data) {
+    if (data) {
       vm.invalid = true;
       vm.invalidZip = false;
       vm.invalidTerritory = true;
+      vm.prospect.invalidTerritory = true;
+      Client.emit('Form: valid data', { invalidTerritory: true });
     }
+  }
+
+  function resetForm() {
+    var obj = {};
+    for (var prop in vm.prospect) {
+      if (vm.prospect.hasOwnProperty(prop)) {
+        vm.prospect[prop] = null;
+        obj[prop] = null;
+      }
+    }
+    console.log(vm.prospect);
+    Client.emit('Form: valid data', obj);
   }
 
   function checkCredit() {
@@ -280,6 +297,7 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
   }
 
   function createLead(leadStatus, unqualifiedReason) {
+    createHotloadLink();
     // TODO: handle duplicate error and bubble up feedback to user
     return Salesforce.createLead({
       LeadId: vm.prospect.leadId,
@@ -293,17 +311,30 @@ function FormCtrl_($scope, $element, Client, Session, Geocoder, Form, Credit, Co
       PostalCode: vm.prospect.zip,
       LeadStatus: leadStatus,
       UnqualifiedReason: unqualifiedReason,
+      OdaHotloadLink: vm.prospect.odaHotloadLink,
       // TODO: get the oda from the session
       // OwnerId: '005300000058ZEZAA2',//oda userId
       ExternalId: Session.id()
     }).then(function(data) {
-      vm.prospect.leadId = data.id;
       vm.isSubmitting = false;
 
-      Client.emit('Form: valid data', {
-        leadId: vm.prospect.leadId
-      });
+      if (data.id) {
+        vm.prospect.leadId = data.id;
+
+        Client.emit('Form: valid data', { leadId: vm.prospect.leadId });
+        Client.emit('Form: saved lead id', { lead_id: vm.prospect.leadId });
+      }
     });
+  }
+
+  function createHotloadLink() {
+    vm.prospect.odaHotloadLink = [
+      $location.protocol(),
+      '://',
+      URL_ROOT,
+      '/flannel#/oda/',
+      Session.id()
+    ].join('');
   }
 
   function skipConfigurator() {

@@ -7,9 +7,9 @@
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
-controllers.controller('ScheduleCtrl', ['Form', 'Clientstream', 'Session', 'SiteSurvey', 'Installation', 'Salesforce', ScheduleCtrl_]);
+controllers.controller('ScheduleCtrl', ['Form', 'Clientstream', 'Session', 'SiteSurvey', 'Installation', 'Salesforce', 'Ahj', 'SurveyQuestions', ScheduleCtrl_]);
 
-function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesforce) {
+function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesforce, Ahj, SurveyQuestions) {
   var vm = this;
   vm.prospect = Form.prospect;
   vm.eventDetails = eventDetails;
@@ -17,10 +17,16 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
   vm.selectTime = selectTime;
   vm.selectedDate = null;
   vm.availableTimes = [];
+  vm.HOAs = [];
+  vm.selectedAhj = { id: -1 };
   vm.check = check;
   vm.init = init;
   vm.save = save;
   vm.createInstallation = createInstallation;
+  vm.answeredQuestions = answeredQuestions;
+  vm.getHOAs = getHOAs;
+  vm.checkHOA = checkHOA;
+  vm.saveAnswers = saveAnswers;
 
   vm.config = {
     startDate: moment().format('MM/D/YYYY'),
@@ -178,5 +184,60 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
   function storeInstallation(data) {
     vm.prospect.installationGuid = data.InstallationGuid;
     Client.emit('Form: valid data', { installationGuid: vm.prospect.installationGuid });
+  }
+
+  function answeredQuestions() {
+    /* jshint eqnull:true */
+    var hasAnsweredQuestions = (vm.prospect.hoa != null && vm.prospect.pets != null && vm.prospect.attic != null),
+        hasSelectedHOA = vm.prospect.hoa ? (vm.prospect.ahjId != null || vm.prospect.hoaName != null) : true;
+
+    return (hasAnsweredQuestions && hasSelectedHOA); 
+  }
+
+  function getHOAs() {
+    Ahj.get({
+      latitude: vm.prospect.lat,
+      longitude: vm.prospect.lng
+    }).then(function(data) {
+      if (data.length > 0) {
+        populateHOAs(data);
+      }
+    });
+  }
+
+  function populateHOAs(data) {
+    vm.HOAs.length = 0;
+    vm.HOAs.push({ AHJName: 'Select your homeowners association', id: 0 });
+    vm.HOAs.push.apply(vm.HOAs, data);
+    vm.HOAs.push({ AHJName: 'None of the above', id: -1 });
+    vm.selectedAhj = vm.HOAs[0];
+  }
+
+  function checkHOA(id) {
+    vm.prospect.hoaName = (id < 0) ? '' : null;
+    vm.prospect.ahjId = (id > 0) ? id : null; 
+  }
+
+  function saveAnswers() {
+    vm.isSubmitting = true;
+
+    SurveyQuestions.save({
+      InstallationGUID: vm.prospect.installationGuid,
+      AtticAccessible: vm.prospect.attic,
+      HasPets: vm.prospect.pets,
+      BelongsToHOA: vm.prospect.hoa,
+      AhjID: vm.prospect.ahjId,
+      HoaName: vm.prospect.hoaName
+    }).then(function() {
+      vm.isSubmitting = false;
+      vm.timedOut = false;
+      Client.emit('Stages: stage', 'next');
+    }, function(resp) {
+      vm.isSubmitting = false;
+
+      if (resp.status === 0) {
+        vm.timedOut = true;
+      }
+    });
   }
 }
