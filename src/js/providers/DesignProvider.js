@@ -109,8 +109,16 @@ function DesignProvider_ () {
       } else if (areas_obj === "remove by client") {
         _ref
           .child('areas')
+          .child(0) // HACK: only works for one roof area
+          .set(null);
+      } else {
+        // set local, used by filter
+        area_wkts[areas_obj.id] = areas_obj.wkt;
+        // update remote
+        _ref
+          .child('areas')
           .child(areas_obj.id)
-          .set(areas_obj.wkt)
+          .set(areas_obj.wkt);
       }
     });
 
