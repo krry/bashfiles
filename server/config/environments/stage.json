@@ -5,7 +5,7 @@
   "SOLAR_WORKS_ROOT": "https://api-staging.solarcity.com",
   "SOLAR_WORKS_API_ROOT": "https://solarworksapi-staging.solarcity.com",
   "GSA_ROOT": "https://gsa-staging.solarcity.com",
-  "NEAR_ME_ROOT": "https://50.200.39.30",
+  "NEAR_ME_ROOT": "http://50.200.39.30",
   "AHJ_API": "https://ahj.solarcity.com",
   "UTILITIES_API": "/solarbid/api/utilities/",
   "WAREHOUSE_API": "/solarbid/api/warehouses/",
