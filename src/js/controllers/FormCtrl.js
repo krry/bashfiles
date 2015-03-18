@@ -75,6 +75,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
   Client.listen('phone saved', acceptSavedPhone);
   Client.listen('fullname saved', acceptSavedFullname);
   Client.listen('neighbor_count saved', acceptNeighborCount);
+  Client.listen('Form: save lead', createLead);
 
   function checkZip (zip) {
     console.log('********* checkin dat zip', zip, 'boss *********')
@@ -314,6 +315,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
       LeadStatus: leadStatus,
       UnqualifiedReason: unqualifiedReason,
       OdaHotloadLink: vm.prospect.odaHotloadLink,
+      Skipped: vm.prospect.skipped,
       // TODO: get the oda from the session
       // OwnerId: '005300000058ZEZAA2',//oda userId
       ExternalId: Session.id()

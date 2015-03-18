@@ -92,7 +92,7 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
       dateTime: moment(new Date(vm.prospect.scheduledTime.date)).format(SiteSurvey.timeFormat)
     }).then(function() {
       vm.timedOut = false;
-      createLead(Salesforce.statuses.scheduledSiteSurvey);
+      Client.emit('Form: save lead', Salesforce.statuses.scheduledSiteSurvey);
 
       Client.emit('Form: valid data', {
         // Strip out Angular's $$hash key
@@ -105,24 +105,6 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
       if (resp.status === 0) {
         vm.timedOut = true;
       }
-    });
-  }
-
-  function createLead(leadStatus, unqualifiedReason) {
-    return Salesforce.createLead({
-      LeadId: vm.prospect.leadId,
-      FirstName: vm.prospect.firstName,
-      LastName: vm.prospect.lastName,
-      Email: vm.prospect.email,
-      Phone: vm.prospect.phone,
-      Street: vm.prospect.home,
-      City: vm.prospect.city,
-      State: vm.prospect.state,
-      PostalCode: vm.prospect.zip,
-      LeadStatus: leadStatus,
-      UnqualifiedReason: unqualifiedReason,
-      //OwnerId: '005300000058ZEZAA2',//oda userId
-      ExternalId: Session.id()
     });
   }
 
