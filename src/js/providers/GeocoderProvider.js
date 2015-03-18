@@ -237,12 +237,9 @@ function GeocoderProvider_ () {
             zip: zip
           });
         } else {
-          // Immediately offload if not in territory
+          // if not in territory, collect email, show alternatives
           Client.emit('Geocoder: invalid territory', true);
-          Client.emit('Stages: jump to stage', 'flannel.signup');
-          setTimeout(function() {
-            Client.emit('Stages: jump to step', 'qualify');
-          }, 0);
+          // Client.emit('Stages: jump to step', 'outside');
         }
       });
     }

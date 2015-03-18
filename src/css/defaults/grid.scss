@@ -50,11 +50,15 @@
 }
 
 .row.padded {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 
   &:last-child {
     padding-bottom: 0;
   }
+}
+
+.row.padded-less {
+  margin-bottom: 1rem;
 }
 
 /* add this class to columns, grid blocks, child items */
