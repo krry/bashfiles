@@ -6,9 +6,9 @@
  *
  */
 
-angular.module('flannel').factory('Interactions', ['Design', 'StyleService', Interactions_]);
+angular.module('flannel').factory('Interactions', ['Design', 'Layers', 'StyleService', 'AreaService', Interactions_]);
 
-function Interactions_(Design, Styles) {
+function Interactions_(Design, Layers, Styles, AreaService) {
     // returned by Factory
   var interactions,
     // interactions
@@ -21,9 +21,9 @@ function Interactions_(Design, Styles) {
     // feature being modified
       modify_target_feature;
 
-  interactions = new ol.Collection();
+  interactions = {};
   dragpan_opt = { enableKinetic: true };
-
+  interactions.current = null;
   // dragpan
   interactions.dragpan = new ol.interaction.DragPan(dragpan_opt);
   // mousewheel zoom
@@ -35,14 +35,21 @@ function Interactions_(Design, Styles) {
     geometryName: 'area',
   });
 
-  // add to the collection of features that can be modified
+  // get the feature, and pass it along on the wire
+
+  console.log('Design.rx_areas.onNext', Design.rx_areas.onNext)
   interactions.draw.on('drawend', function(e){
-    Design.areas_collection.push(e.feature);
+    var feature = e.feature;
+    debugger;
+    Design.rx_areas_source.onNext({
+      id: '0', //HACK: hardcode for single roof area
+      wkt: AreaService.getWkt(feature),
+    })
   });
 
   // modify
   interactions.modify = new ol.interaction.Modify({
-    features: Design.areas_collection,
+    features: Layers.area_collection,
     style: Styles.highlightStyleFunction,
     // the SHIFT key must be pressed to delete vertices, so
     // that new vertices can be drawn at the same position
@@ -52,31 +59,10 @@ function Interactions_(Design, Styles) {
           ol.events.condition.singleClick(event);
     }
   });
-  interactions.modify.getFeatureFromDraw = function (f_id) {
-    f_id = f_id || 0;
-    if (Design.draw_source.getFeatures() === []) {
-      return console.alert('you need to have a feature for modify to work on a feature');
-    }
-    // get the feature we want to adjust
-    modify_target_feature = Design.draw_source.getFeatures()[f_id];
-    // move the feature to the properly styled layer
-    Design.draw_source.removeFeature(modify_target_feature);
-    Design.modify_source.addFeature(modify_target_feature);
-  }
-  interactions.modify.clearFeaturesFromModify = function() {
-    // get the last feature in the modify collection
-    var f = modify_source.getFeatures()[0];
-    // move the feature back to the draw styled layer
-    Design.modify_source.removeFeature(f);
-    Design.draw_source.addFeature(f);
-  }
+
   interactions.modify.clearArea = function () {
-      // get the last feature in the modify collection
-      var f = modify_source.getFeatures()[0];
-      // remove feature from modify styled layer
-      Design.modify_source.removeFeature(f);
-      // eliminate feature from areas_collection
-      Design.areas_collection.pop();
+    Design.rx_area.onNext("remove by client");
   }
+
   return interactions;
 }

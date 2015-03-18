@@ -26,11 +26,13 @@ function View_(Design, Client) {
   }
 
   var view = new ol.View({
-    center: Design.map_center,
+    center: Design.map_details.center,
     projection: 'EPSG:4326',
     minZoom: 18, // don't zoom out past the 'EPSG:4326' projection hahahaha
     maxZoom: 20, // don't zoom further than google can zoom // TODO: set this to the maxzoom at the current location
   });
+
+  console.debug('view.getCenter()',view.getCenter());
 
   // wait for configurator to set the center before setting the listeners
   view.once('change:center', function() {

@@ -83,29 +83,58 @@ function DesignProvider_ () {
       .observe('value')
       .distinctUntilChanged()
 
-    rx_areas = _ref.child('areas')
-      .observe('value')
+
+    var observable = new Rx.Observable.fromEventPattern(
+      function add(h) {
+        _ref.child('areas').on('value', h)
+      },
+      function remove(h) {
+        _ref.child('areas').off('value', h)
+      }
+    )
+
+    var observer = Rx.Observer.create(function (x) {
+      return x;
+    })
+
+    rx_areas = Rx.Subject.create(observer, observable)
+    rx_areas
       .map(function (ds) {
         var id, wkt;
-        if (!area_wkts) {
+        console.log('mapping observer', ds.exportVal());
+        if (!area_wkts) { // area_wkts null during startup
+        console.debug('mapping null');
+
+          area_wkts = [];
           return null
-        } else if (areas_wkt && ds.exportVal() !== null) {
+        } else if (area_wkts && ds.exportVal()[0] === null) {
+          // area_wkts set & there's a value on the object
+          console.debug('mapping remove by remote', ds.exportVal()[0]);
+
           return "remove by remote"
         } else {
+        console.debug('mapping', {
+          id: ds.ref().key(),
+          wkt: ds.exportVal().wkt
+        });
+
           return {
             id: ds.ref().key(),
-            wkt: ds.exportVal().wkt
+            wkt: ds.exportVal()[0].wkt
           }
         }
       })
       .filter(function (areas_obj) {
         if (!areas_obj) return false; // filter when we have a new design
+        console.debug('filter not false')
         return true                   // otherwise, pass it along as is
-      });
+      })
 
-    rx_areas.subscribe(function (areas_obj) {
+
+    .subscribe(function (areas_obj) {
+      console.log('subscriber', areas_obj.exportVal())
       if (areas_obj === "remove by remote") {
-        areas_wkt[areas_obj.id] = null;
+        area_wkts[areas_obj.id] = null;
       } else if (areas_obj === "remove by client") {
         _ref
           .child('areas')
@@ -113,6 +142,9 @@ function DesignProvider_ () {
           .set(null);
       } else {
         // set local, used by filter
+        console.error('asssss')
+        area_wkts = [];
+
         area_wkts[areas_obj.id] = areas_obj.wkt;
         // update remote
         _ref
@@ -122,6 +154,7 @@ function DesignProvider_ () {
       }
     });
 
+    console.log(rx_areas);
 
 /////////
 
@@ -143,8 +176,6 @@ function DesignProvider_ () {
       var session_obj = ds.exportVal()
       map_center = session_obj.map_center; // TODO: get rid of this dependency
 
-
-
       // make the ref when Design is first required.
       if (_ref_key) {
         // load the _ref from the user's previous session
@@ -159,16 +190,6 @@ function DesignProvider_ () {
       // areas_stream
       areas_ref = _ref.child('areas');
       areas_stream = areas_ref.observe('value');
-      // DEV: start
-      areas_stream.subscribe(function (ds) {
-        var areas = ds.exportVal();
-        console.debug('********************************* lets add a feat', areas);
-        var saved_feature;
-        if (areas[0] && areas[0].wkt) {
-          saved_feature = featFromTxt(areas[0].wkt, 'area');
-        }
-        areas_collection.push(saved_feature);
-      })
       // setup map_details stream
       rx_center     = _ref.child('center')
         .observe('value')
@@ -202,27 +223,7 @@ function DesignProvider_ () {
     }
 
     // watch the area_collection to validate trace_complete
-    areas_collection = new ol.Collection();
-    areas_collection.on('add',function(e){
-      var f = e.element;
-      console.debug('adding to areas collection', f, f.getKeys());
-      var fb_obj = {
-        wkt: getWkt(f),
-      }
-      // make a _ref to the area on firebase
-      var f_ref = _ref.child('areas/0')
-      f_ref.set(fb_obj);
-      // set the id of the feature to the Key on firebase
-      wireFeatureWithRefAndWKTListeners(f, f_ref);
-    });
 
-    areas_collection.on('change:length',function(e){
-      var f = e.element;
-      // must emit to let the "next" know the number of features
-      // when features > 0, user can move forward in flow
-      Client.emit('area collection count', draw_source.getFeatures().length)
-      console.debug('areacollection change:length -->', draw_source.getFeatures().length);
-    });
 
     // stream functions
     // TODO: use filter if necessary, or remove
@@ -269,7 +270,7 @@ function DesignProvider_ () {
     function awesome_design_builder_brah() {
       return {
         map_details: {
-
+          center: [-122, 37],
         },
         areas_collection: areas_collection,
         draw_source:      new ol.source.Vector(),
@@ -277,6 +278,7 @@ function DesignProvider_ () {
         rx_center:        rx_center,
         rx_zoom:          rx_zoom,
         rx_areas:         rx_areas,
+        rx_areas_source:  observer,
         ref:    function(key){
           if (key) {
             _ref_key = key;
