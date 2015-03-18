@@ -74,10 +74,12 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
   }
 
   function switchToSatellite (data) {
-    if (data && map.getMapTypeId() !== "hybrid") {
-      Client.emit('Spinner: add to spin count', true);
-      map.setMapTypeId(google.maps.MapTypeId.HYBRID);
-    }
+    Gmap.loaded.then(function() {
+      if (data && map.getMapTypeId() !== "hybrid") {
+        Client.emit('Spinner: add to spin count', true);
+        map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+      }
+    });
   }
 
   function saveCenter () {
@@ -99,46 +101,62 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
       if (!vm.shown) {
         vm.shown = true;
       }
-      map.setCenter(location);
+      Gmap.loaded.then(function() {
+        map.setCenter(location);
+      });
     } else return false;
   }
 
   function saveZoom () {
-    var zoom = map.getZoom();
-    console.log('saving zoom as', zoom);
-    if (mapOpts.zoom !== zoom){
-      mapOpts.zoom = zoom;
-    }
+    Gmap.loaded.then(function() {
+      var zoom = map.getZoom();
+      console.log('saving zoom as', zoom);
+      if (mapOpts.zoom !== zoom){
+        mapOpts.zoom = zoom;
+      }
+    });
   }
 
   function applyMaxZoom (zoom) {
-    console.log('setting zoom to', zoom);
-    map.setZoom(zoom);
+    Gmap.loaded.then(function() {
+      console.log('setting zoom to', zoom);
+      map.setZoom(zoom);
+    });
   }
 
   function getNearMeData() {
+    return Gmap.loaded.then(function() {
+      // get nearme data for the current map's bounding box
+      var bounds = map.getBounds(),
+          ne,
+          sw,
+          coords;
 
-    // get nearme data for the current map's bounding box
-    var bounds = map.getBounds(),
-        ne = bounds.getNorthEast(),
-        sw = bounds.getSouthWest(),
-        coords;
+      // Bounds can be undefined even if the map is loaded but the tiles are not
+      /* jshint eqnull:true */
+      if (bounds == null) {
+        return;
+      }
 
-    // use NE and SW corners of map to set bounding box coordinates
-    coords = {
-      top: ne.lat(),
-      right: ne.lng(),
-      bottom: sw.lat(),
-      left: sw.lng()
-    };
+      ne = bounds.getNorthEast();
+      sw = bounds.getSouthWest();
 
-    // safeguard against loading too large of an area
-    if (Math.abs(coords.top - coords.bottom > 1) || Math.abs(coords.left - coords.right) > 1) {
-      return;
-    }
+      // use NE and SW corners of map to set bounding box coordinates
+      coords = {
+        top: ne.lat(),
+        right: ne.lng(),
+        bottom: sw.lat(),
+        left: sw.lng()
+      };
 
-    // send the coordinates to NearMe, then plot the returned data as pins
-    return NearMe.get(coords).then(plotMarkers);
+      // safeguard against loading too large of an area
+      if (Math.abs(coords.top - coords.bottom > 1) || Math.abs(coords.left - coords.right) > 1) {
+        return;
+      }
+
+      // send the coordinates to NearMe, then plot the returned data as pins
+      return NearMe.get(coords).then(plotMarkers);
+    });
   }
 
   function plotMarkers(data) {
