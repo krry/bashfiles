@@ -73,16 +73,25 @@ function DesignProvider_ (FIREBASE_URL) {
 
   this.$get = [ "Session", "Clientstream", function designProviderFactory(Session, Client) {
 
-    _ref = new Firebase(designs_url).child(_ref_key);
+    _ref = _ref_key ? new Firebase(designs_url).child(_ref_key) : new Firebase(designs_url).push();
 
     rx_center     = _ref.child('map_details/center')
       .observe('value')
       .distinctUntilChanged()
 
+    rx_center
+      .filter(function (ds) {
+        if (!map_center) return true; // design loading for first time on this client
+        if (map_center !== ds.exportVal()) return true; // remote update
+        console.error('you have weird remote center on design_ref');
+      })
+      .map(function function_name(ds) {
+        return ds.exportVal();
+      });
+
     rx_zoom       = _ref.child('map_details/zoom_level')
       .observe('value')
       .distinctUntilChanged()
-
 
     var observable = new Rx.Observable.fromEventPattern(
       function add(h) {
@@ -97,13 +106,13 @@ function DesignProvider_ (FIREBASE_URL) {
       return x;
     })
 
-    rx_areas = Rx.Subject.create(observer, observable)
+    rx_areas = Rx.Subject.create(observer, observable);
     rx_areas
       .map(function (ds) {
         var id, wkt;
         console.log('mapping observer', ds.exportVal());
         if (!area_wkts) { // area_wkts null during startup
-        console.debug('mapping null');
+
 
           area_wkts = [];
           return null
@@ -270,7 +279,7 @@ function DesignProvider_ (FIREBASE_URL) {
     function awesome_design_builder_brah() {
       return {
         map_details: {
-          center: [-122, 37],
+          center: map_center,
         },
         areas_collection: areas_collection,
         draw_source:      new ol.source.Vector(),
