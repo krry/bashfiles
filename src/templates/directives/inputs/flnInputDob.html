@@ -11,11 +11,11 @@
   <span ng-show="prospectForm.year.$error.pattern">Year must be between 1915 and 1997.</span>
 </div>
 <div class="row">
-  <div class="col fourth padded">
+  <div class="col full center">
     <input
       type="text"
       name="month"
-      class="birthdate"
+      class="birthdate month ib"
       placeholder="mm"
       minlength="1"
       maxlength="2"
@@ -23,12 +23,10 @@
       ng-model="form.prospect.month"
       ng-model-options="{ updateOn: 'default change blur', debounce: { default: 2000, blur: 0 } }"
       ng-required="true">
-  </div>
-  <div class="col fourth">
     <input
       type="text"
       name="day"
-      class="birthdate"
+      class="birthdate day ib"
       placeholder="dd"
       minlength="1"
       maxlength="2"
@@ -36,12 +34,10 @@
       ng-model="form.prospect.day"
       ng-model-options="{ updateOn: 'default change blur', debounce: { default: 2000, blur: 0 } }"
       ng-required="true">
-  </div>
-  <div class="col half padded">
     <input
       type="text"
       name="year"
-      class="birthdate"
+      class="birthdate ib year"
       placeholder="yyyy"
       minlength="4"
       maxlength="4"
