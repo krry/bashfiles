@@ -21,7 +21,8 @@
       return function() {
         query.off(eventType, listener);
       }
-    }).publish().refCount();
+    // }).publish().refCount();
+    });
   };
 })();
 
@@ -108,6 +109,3 @@ Emitter.prototype.dispose = function () {
   }
   this.subjects = {};
 }
-
-
-

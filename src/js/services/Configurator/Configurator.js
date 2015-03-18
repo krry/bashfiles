@@ -36,7 +36,7 @@ function newConfigurator_(View, Interactions, Layers) {
   });
 
   omap_options = {
-    layers: Layers,
+    layers: Layers.array,
     controls:  omap_controls,
     interactions: [],
     view: View
@@ -54,6 +54,7 @@ function newConfigurator_(View, Interactions, Layers) {
   // subscribe google's zoom and center to OL View's resolution & center
   View.rx_center.subscribe(handleCenter)
   View.rx_zoom.subscribe(handleZoom);
+  // make sure features are removed from correct interaction layers.
 
   function setTargetOfMaps(elem) {
     console.debug('Configurator.setTarget(elem) => elem: ', elem);
@@ -72,7 +73,7 @@ function newConfigurator_(View, Interactions, Layers) {
     o_div.parentNode.removeChild(o_div);
     gmap.controls[google.maps.ControlPosition.TOP_LEFT].push(o_div);
     // initialize the map
-    var center = View.getCenter();
+    var center = View.getCenter(); // TODO: get the center from the session first
     View.setCenter(center);
     View.setZoom(18);
     this.map = {
@@ -81,9 +82,9 @@ function newConfigurator_(View, Interactions, Layers) {
     }
     // TODO: be prepared to fix projection of OLmap for zoom < 17 (currently disallowed by map_options)
     gmap.addListener('projection_changed', function(){
-      console.log('proj_changed, now fix the projection of the layers');
+      // the proj_changed, now fix the projection of the layers
       gmap_projection = gmap.getProjection();
-      // console.debug(gmap.getProjection());
+      // resize the target element
       google.maps.event.trigger(gmap, 'resize');
       omap.updateSize();
     });
@@ -91,32 +92,35 @@ function newConfigurator_(View, Interactions, Layers) {
 
   // View subscriptions
   function handleCenter(e) {
+    // HACK: // TODO: why does center sometimes come back as a function? (jfl mar11);
     var center = View.getCenter();
     gmap.setCenter(new google.maps.LatLng(center[1], center[0]));
-    // console.debug('View:center', center);
-    // console.debug('Google:center', gmap.getCenter());
   }
 
   function handleZoom(e) {
     gmap.setZoom(View.getZoom());
-    // console.debug('View:resolution', View.getZoom());
-    // console.debug('Google:zoom', gmap.getZoom());
   }
 
   /* Interaction handlers */
+  // Configurator is responsible for orchestrating the layers and interactions
+  // it is not responsible for managing the Area polygons.6
+
   this.drawAdd = function () {
     omap.addInteraction(Interactions.draw);
+    omap.addLayer(Layers.draw);
   }
   this.drawDel = function () {
     omap.removeInteraction(Interactions.draw);
   }
   this.modifyAdd = function () {
-    Interactions.modify.getFeatureFromDraw();
+    omap.removeLayer(Layers.draw);
+    omap.addLayer(Layers.modify);
     omap.addInteraction(Interactions.modify);
   }
   this.modifyDel = function () {
-   Interactions.modify.clearFeaturesFromModify();
     omap.removeInteraction(Interactions.modify);
+    omap.removeLayer(Layers.modify);
+    omap.addLayer(Layers.draw);
   }
   this.dragpanAdd = function () {
     omap.addInteraction(Interactions.dragpan);
