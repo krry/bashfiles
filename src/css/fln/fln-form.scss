@@ -63,7 +63,13 @@ input.phone {
 }
 
 input.birthdate {
-  padding: .33em .75em;
+  padding: .25em .5em;
+  width: auto;
+  max-width: 3em;
+  text-align: center;
+  &.year {
+    max-width: 3.5em;
+  }
 }
 
 input.terms {
@@ -101,11 +107,8 @@ input.zipcode {
 }
 
 input.street,
-input.email {
+.step-zip input.email {
   max-width: 14em;
-}
-
-input.email {
   text-align: center;
 }
 
