@@ -52,6 +52,10 @@
   figure span.dollars {
     @include apercu-bold;
     font-size: 3em;
+    &:before,
+    &:after {
+      @include apercu-light;
+    }
   }
 
 }
@@ -68,16 +72,16 @@
 
 .cents:after {
   content: "¢";
-  font-size: .5em;
   position: relative;
-  vertical-align: 1.5em;
+  font-size: .5em;
+  vertical-align: 0em;
 }
 
 .dollars:before {
   content: "$";
   position: relative;
-  vertical-align: 1.5em;
   font-size: .5em;
+  vertical-align: .75em;
 }
 
 .financing-option {

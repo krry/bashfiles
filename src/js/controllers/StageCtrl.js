@@ -153,7 +153,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
     } else if (result === 'resume') {
       // load all the form data?
       // do nothing?
-      return
+      return;
     }
   }
 

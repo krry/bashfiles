@@ -51,8 +51,8 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
   /* end bootstrap */
 
   vm.gmapShown = false;
-  vm.invalidZip = true;
-  vm.invalidTerritory = true;
+  vm.invalidZip = false;
+  vm.invalidTerritory = false;
   vm.validAddress = false;
   vm.isSubmitting = false;
 
