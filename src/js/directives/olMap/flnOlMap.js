@@ -14,16 +14,18 @@ directives.directive('flnOlMap', ['Clientstream', 'newConfigurator', flnOlMap_])
 function flnOlMap_ (Client, Configurator) {
   return {
     restrict: "A",
+    controller: "OlMapCtrl as omap",
     link: function flnOlMapLink(scope, ele, attrs) {
       // in the case we have a new user, the directive needs to
       // wait until it configurator is
       // loaded before attaching configurator to map
-      Configurator.map.setTarget(ele[0]);
+      // Configurator.map.setTarget(ele[0]);
 
 
       Client.listen('Configurator: Loaded', sendElement);
+
       function sendElement (interactions) {
-        // Client.emit('spin it', true);
+        // Client.emit('Spinner: spin it', true);
         // Client.emit('OlMap: map target element', ele);
       }
 
@@ -37,18 +39,14 @@ function flnOlMap_ (Client, Configurator) {
   };
 }
 
-directives.directive('flnTestMap', ['Clientstream', flnTestMap_]);
+directives.directive('flnTestMap', [flnTestMap_]);
 
-function flnTestMap_ (Client) {
+function flnTestMap_ () {
   return {
     restrict: "A",
     templateUrl: 'templates/directives/test/flnTest.html',
-    link: function flnTestMapLink(scope, ele, attrs) {
-    },
     controller: function ($scope, $element, $attrs, newConfigurator) {
-
       newConfigurator.setTarget($element);
-
     },
   };
 }

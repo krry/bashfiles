@@ -1,15 +1,24 @@
 <!-- main.html for qualify stage -->
-<div ng-controller="ScheduleCtrl as schedule">
+<div ng-controller="ScheduleCtrl as schedule" class="overlay">
   <div class="spinner-tray" ng-show="schedule.isSubmitting">
     <fln-spinner></fln-spinner>
   </div>
-    
-  <div class="overlay only primary col full center contain" ng-if="!schedule.prospect.qualified">
-    <h1>Sorry, we can't approve your request for financing at this time.
-      <br><small>But you can give us a call at (888) 765-2489 to discuss your options, which include adding a co-signer or purchasing the system outright.</small>
-    </h1>
+  <div class="row center">
+  <div class="overlay only primary col fourth three center contain" ng-if="!schedule.prospect.qualified">
+    <div class="row padded">
+      <div class="col full center" ng-if="!schedule.prospect.invalidTerritory">
+        <h1>Sorry, we can't approve your request for financing at this time.
+          <br><small>But you can give us a call at (888) 765-2489 to discuss your options, which include adding a co-signer or purchasing the system outright.</small>
+        </h1>
 
-    <p>We're always looking to expand our financing options to a broader audience. We'll be in touch if our requirements change. Plus, there are lots of other great ways you can get involved with the solar movement.</p>
+        <p>We're always looking to expand our financing options to a broader audience. We'll be in touch if our requirements change. Plus, there are lots of other great ways you can get involved with the solar movement.</p>
+      </div>
+      <div class="col full center" ng-if="schedule.prospect.invalidTerritory">
+        <h1>We haven't made it to {{schedule.prospect.zip}} yet.</h1>
+
+        <p>But you can still get involved with the solar movement, today. Here are some ways to join the SolarCity family.</p>
+      </div>
+    </div>
     <div class="row padded">
       <div class="col half padded">
         <figure class="video-tray">
@@ -24,7 +33,7 @@
     <div class="row padded">
       <div class="col half padded">
         <figure class="video-tray">
-          <iframe frameborder="0" allowfullscreen src="https://www.youtube.com/embed/remJeBMSptE?controls=0&amp;showinfo=0"></iframe>
+          <iframe frameborder="0" allowfullscreen src="http://www.youtube.com/embed/remJeBMSptE?controls=0&amp;showinfo=0"></iframe>
         </figure>
       </div>
       <div class="col half padded">

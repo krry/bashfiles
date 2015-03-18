@@ -29,8 +29,7 @@ main.main.main-fixed {
 
 .full-height,
 .prospect-form.form-fixed,
-.overlay.secondary,
-.overlayer {
+.overlay.secondary {
   height: 100%;
 }
 
@@ -51,7 +50,7 @@ main.main.main-fixed {
 }
 
 .overlay.only {
-  background-color: $grey-lightest;
+  /* background-color: $grey-lightest; */
 }
 
 .overlay.secondary {
@@ -65,7 +64,6 @@ main.main.main-fixed {
 
 .underlayer {
   position: fixed;
-  display: none;
   z-index: 0;
   top: 0; right: 0;
   bottom: 0; left: 0;
@@ -91,6 +89,7 @@ main.main.main-fixed {
 
 @media screen and (min-width: $width-min-lrg){
   .primary.primary {
+    width: 75%;
     width: calc(100% - 20em);
   }
   .only.only {
@@ -98,14 +97,13 @@ main.main.main-fixed {
     height: 100%;
   }
   .secondary.secondary {
+    width: 25%;
     width: calc(20em - 1px);
-    &.zip-vid {
-      padding-top: 10rem;
-    }
-    &.drop-top {
+
+    .drop-top {
       padding-top: 7rem;
-      position: absolute;
-      bottom: 0;
+      /* position: absolute; */
+      /* bottom: 0; */
     }
   }
   .primary.primary,

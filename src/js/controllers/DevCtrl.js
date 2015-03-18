@@ -7,11 +7,11 @@ controllers.controller("DevCtrl", ["$scope", "Clientstream", "Form", DevCtrl_]);
 
 function DevCtrl_($scope, Client, Form) {
   var vm = this;
-
+  vm.prospect = Form.prospect;
   Client.listen('Form: Loaded', subscribeForm);
 
   vm.reloadApp = function reloadApp () {
-    location.hash = '';
+    location.hash = 'my-home';
     location.reload(true);
   }
 
@@ -21,7 +21,7 @@ function DevCtrl_($scope, Client, Form) {
 
   function subscribeForm (form_obj) {
     // subscribing to form
-    vm.prospect = form_obj;
+    // vm.prospect = form_obj;
     Form.form_stream()
     .select(function(x) { return x.exportVal(); })
     .subscribe(streamSubscription);
@@ -32,16 +32,16 @@ function DevCtrl_($scope, Client, Form) {
     var key, keys, val;
     if (form_obj === null) return; // will be null if no data on firebase
     keys = Object.keys(form_obj);  // HACK: this may fail in different js interpreters... #readabookbrah
-    if (!angular.equals(form_obj, vm.prospect)) { // firebase different from local
+    if (!angular.equals(form_obj, vm.prospect())) { // firebase different from local
       for (var i = 0; i < keys.length; i++) {
         key = keys[i];
         val = form_obj[key];
-        vm.prospect[key] = val;
+        // vm.prospect()[key] = val;
       }
       setTimeout(function() {
         $scope.$apply(); // update the views
       }, 0);
-      console.log('prospect is:', vm.prospect);
+      console.log('prospect is:', vm.prospect());
     }
   }
 }

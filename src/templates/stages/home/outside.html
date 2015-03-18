@@ -33,7 +33,7 @@
           <button class="std white display-inline-block tiny" ng-click="stages.prev()">Try another ZIP</button>
         </div>
         <div class="col half padded center" ng-controller="ModalCtrl as modal">
-          <button class="std white display-inline-block tiny" ng-click="modal.showDialog('alternatives')">Ways to get involved</button>
+          <button class="std white display-inline-block tiny" ng-click="modal.showDialog({dialog: 'alternatives', data: ''})">Ways to get involved</button>
         </div>
       </div>
     </div>
@@ -44,6 +44,6 @@
 <aside class="overlay secondary col sml-full med-full lrg-full full-height">
   <p class="">We have offices in 17 states today, and we are expanding to new territories every month. We hope to be in your neighborhood soon!</p>
   <figure>
-    <img src="" alt="">
+    <img src="" alt="States in which SolarCity is active">
   </figure>
 </aside>

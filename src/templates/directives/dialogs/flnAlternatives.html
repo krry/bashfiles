@@ -1,7 +1,14 @@
 <button ng-click="modal.close()" class="close"></button>
-<div class="row padded">
+<div class="row padded-less">
   <div class="col full center">
-    <h1>You can still get involved with the solar movement, today.<br><small>Here are some other ways to join the SolarCity family.</small></h1>
+    <div ng-show="modal.dialogData">
+      <h1>You can still get involved with the solar movement today.<small>Here are some other ways to join the SolarCity family.</small></h1>
+      <!-- <h2>We haven't made it to {{modal.dialogData}} yet.</h2> -->
+    </div>
+    <div ng-show="!modal.dialogData">
+      <h2>Sorry, we need the property owner's permission to install a solar power system.</h2>
+      <p>But you can still get involved with the solar movement, today. Here are some other ways to join the SolarCity family.</p>
+    </div>
   </div>
 </div>
 <div class="row padded">
@@ -15,10 +22,10 @@
     <p>Build a successful business that makes a difference by sharing the benefits of clean, affordable energy with family and friends.</p>
   </div>
 </div>
-<div class="row padded">
+<div class="row padded-less">
   <div class="col half padded">
     <figure class="video-tray">
-      <iframe frameborder="0" allowfullscreen src="https://www.youtube.com/embed/remJeBMSptE?controls=0&amp;showinfo=0"></iframe>
+      <iframe frameborder="0" allowfullscreen src="http://www.youtube.com/embed/remJeBMSptE?controls=0&amp;showinfo=0"></iframe>
     </figure>
   </div>
   <div class="col half padded">
@@ -27,5 +34,3 @@
   </div>
 </div>
 <div fln-social></div>
-<div fln-alternav alternatives="false"></div>
-</div>

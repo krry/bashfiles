@@ -12,8 +12,9 @@ angular.module('configure',[]).config(["$stateProvider", function ($stateProvide
       'main@': {
         templateUrl: stageUrl + "main.html",
         controller:  function ($scope, Clientstream) {
-          Clientstream.listen('drawing closed', function (data) {
+          Clientstream.listen('area collection count', function (data) {
             $scope.traced = data;
+            data && ($scope.$apply());
           })
         },
       },

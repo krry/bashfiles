@@ -52,9 +52,9 @@ function LiveagentService_ () {
 
     // initialize the liveagent session
     liveagent.init(
-      'https://d.la3-c2cs-chi.salesforceliveagent.com/chat',
-      '57219000000CaSA',  // deployment id
-      '00D19000000Dtc3'   // configuration id
+      'https://d.la3-c1cs-chi.salesforceliveagent.com/chat',
+      '572180000008OIA',  // deployment id
+      '00D180000000ckO'   // configuration id
     );
   }
 
@@ -62,20 +62,16 @@ function LiveagentService_ () {
     addCustomDetails: function (prospect) {
       // parse the prospect object into addCustomDetail calls that build the Lead object in Salesforce
       // custom details must be added before init of liveagent
+      var value;
       for (var key in prospect) {
         if ( prospect.hasOwnProperty(key)) {
-          var value;
           if (key !== "location") {
             value = prospect[key].toString();
             custom_detail_stream.onNext({key: key, value: value});
           }
         }
       }
-      // concatenate full address for uniqueness test
-      // addy = [prospect.home, prospect.city, prospect.state, prospect.zip].join(' ').toString();
-      // console.log('addy concatentate', addy);
-      // manually add a few more required fields
-      custom_detail_stream.onNext({key: "Address", value: [prospect.home, prospect.city, prospect.state, prospect.zip].join(' ')});
+      custom_detail_stream.onNext({key: "Address", value: [prospect.street, prospect.city, prospect.state, prospect.zip].join(' ')});
       custom_detail_stream.onCompleted();
       custom_detail_stream.dispose();
     },

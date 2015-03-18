@@ -20,6 +20,16 @@ module.exports = function(app) {
     }).pipe(res);
   }
 
+  function ahj(req, res) {
+    var url = [
+      conf.AHJ_API,
+      '/ahjs/near.json?',
+      querystring.stringify(req.query)
+    ].join('');
+
+    proxyGET(url, res);
+  }
+
   function utilities(req, res) {
     var url = [
       conf.SOLAR_WORKS_ROOT,
@@ -69,6 +79,15 @@ module.exports = function(app) {
     proxyPOST(url, req.body, res);
   }
 
+  function surveyQuestions(req, res) {
+    var url = [
+      conf.SOLAR_WORKS_API_ROOT,
+      conf.SURVEY_QUESTIONS_API
+    ].join('');
+
+    proxyPOST(url, req.body, res);
+  }
+
   function nearMe(req, res) {
     var url = [
       conf.NEAR_ME_ROOT,
@@ -102,20 +121,25 @@ module.exports = function(app) {
   }
 
   function installation(req, res) {
+    var installationType = req.body.FullInstallation ? 'full': 'partial';
+
     var url = [
       conf.SOLAR_WORKS_API_ROOT,
-      conf.INSTALLATION_API
+      conf.INSTALLATION_API,
+      installationType
     ].join('');
 
     proxyPOST(url, req.body, res);
   }
 
   return {
+    ahj: ahj,
     utilities: utilities,
     warehouses: warehouses,
     rates: rates,
     creditCheck: creditCheck,
     contact: contact,
+    surveyQuestions: surveyQuestions,
     nearMe: nearMe,
     gsa: gsa,
     schedule: schedule,

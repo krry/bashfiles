@@ -11,7 +11,11 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
       spinnerEventCount;
 
   vm = this;
+
+  // default the gmap to hidden so it doesn't peek from behind other divs
   vm.shown = false;
+
+  // expose autolocate function to the directives
   vm.autolocate = autolocate;
 
   mapEl = $element[0];
@@ -22,13 +26,11 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
   google.maps.event.addDomListenerOnce(window, "load", activate);
 
   // stream listeners
-  // Client.listen('gmap shown', showMap);
   Client.listen('center changed', applyCenter);
-  Client.listen('max zoom found', applyMaxZoom);
-  Client.listen('valid territory', checkMapVisibility);
+  Client.listen('Gmap: max zoom found', applyMaxZoom);
   Client.listen('Gmap: switch to satellite', switchToSatellite);
-  Client.listen('add to spin count', setSpinCount);
-  Client.listen('get nearme data', getNearMeData);
+  Client.listen('Spinner: add to spin count', setSpinCount);
+  Client.listen('Gmap: get nearme data', getNearMeData);
 
   function init (el) {
     map = Gmap.init(el);
@@ -64,7 +66,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
     console.log('hiding spinner');
     // TODO: ensure that the spinner stays up until the tiles are actually loaded
     // switching from TERRAIN to HYBRID map causes an extra `tilesloaded` event to be emitted, prematurely hiding the spinner for the HYBRID map load
-    Client.emit('spin it', false);
+    Client.emit('Spinner: spin it', false);
     if (spinnerEventCount < 1) {
       if (spinnerEventCount < 0) spinnerEventCount = 0;
       console.log('spinner counter', spinnerEventCount);
@@ -73,9 +75,8 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
 
   function switchToSatellite (data) {
     if (data && map.getMapTypeId() !== "hybrid") {
-      Client.emit('add to spin count', true);
+      Client.emit('Spinner: add to spin count', true);
       map.setMapTypeId(google.maps.MapTypeId.HYBRID);
-      // Gmap.checkMaxZoom()
     }
   }
 
@@ -84,17 +85,21 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
     // if ($element.mouseUp()) {
       if (map.getCenter() !== center){
         center = map.getCenter();
-        console.log('saving center', center);
+        // saving center of gmap
         Client.emit('center changed', center);
+        // TODO: prevent nearme call when advancing from checkZip to checkAddress directly
+        getNearMeData();
       }
     // }
   }
 
   function applyCenter (location) {
     if (location !== center) {
-      console.log('applying center', location);
+      // applying location as center of gmap
+      if (!vm.shown) {
+        vm.shown = true;
+      }
       map.setCenter(location);
-      // Client.emit('center changed', location);
     } else return false;
   }
 
@@ -112,14 +117,14 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
   }
 
   function getNearMeData() {
-    console.log("getting nearme data");
+
+    // get nearme data for the current map's bounding box
     var bounds = map.getBounds(),
         ne = bounds.getNorthEast(),
         sw = bounds.getSouthWest(),
         coords;
 
-    console.log('map bounds:', ne);
-    console.log('map bounds:', sw);
+    // use NE and SW corners of map to set bounding box coordinates
     coords = {
       top: ne.lat(),
       right: ne.lng(),
@@ -127,24 +132,44 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
       left: sw.lng()
     };
 
+    // safeguard against loading too large of an area
+    if (Math.abs(coords.top - coords.bottom > 1) || Math.abs(coords.left - coords.right) > 1) {
+      return;
+    }
+
+    // send the coordinates to NearMe, then plot the returned data as pins
     return NearMe.get(coords).then(plotMarkers);
   }
 
   function plotMarkers(data) {
-    angular.forEach(data, function(point) {
-      var location = new google.maps.LatLng(point.la, point.ln),
-          production = data.kw;
+    // clear any old pins from the map
+    Client.emit('clear pins', true);
 
-      Client.emit('drop pin', location);
-      // TODO: add a listener in Gmap to attach info windows to pins containing the production stats
+    // parse the JSON response from NearMe API
+    angular.forEach(data, function(point) {
+      // for each object in the response send the location and content to
+      var opts = {
+        location: new google.maps.LatLng(point.la, point.ln),
+        content: point.kw + ' kW system'
+      };
+
+      // ask GmapProvider to make and drop a new pin
+      Client.emit('Gmap: drop pin', opts);
     });
 
+    // let the view model know how many pins were found
     Client.emit('neighbor_count saved', data.length);
+
+    // make sure we got enough pins to be compelling
+    setMapZoomByNearMeResponse(data.length);
   }
 
-  function checkMapVisibility (data) {
-    if (!vm.shown) {
-      vm.shown = true;
+  function setMapZoomByNearMeResponse(pins) {
+    /* if less than 50 customers are returned for the given map
+       zoom up a level and get the pins for a wider area      */
+    if (pins < 50) {
+      map.setZoom(map.getZoom()-1);
+      getNearMeData();
     }
   }
 

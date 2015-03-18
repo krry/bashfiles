@@ -1,7 +1,8 @@
 <nav class="alternav">
-  <ul class="row">
-    <li class="col third"><a ng-click="form.prevStep()"></a></li>
-    <li class="col third" ng-show="alternatives === 'true'" ng-controller="ModalCtrl as modal"><a ng-click="modal.showDialog('alternatives')"></a></li>
-    <li class="col third"><a ng-click="form.nextStep()"></a></li>
+  <ul class="row center">
+    <li class="col third two center">
+      <button id="restart_button" class="tiny white ib">Try another zip</button>
+      <button ng-click="modal.showDialog({ dialog: 'alternatives', data: 'outside' })" class="tiny white ib">Ways to get involved</button>
+    </li>
   </ul>
 </nav>

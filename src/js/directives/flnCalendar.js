@@ -8,6 +8,7 @@ function flnCalendar_ () {
       availableTimes: '=availableTimes',
       selectFn: '&selectFn'
     },
-    controller: 'CalendarCtrl as calendar'
+    controller: 'CalendarCtrl',
+    controllerAs: 'calendar'
   };
 }
