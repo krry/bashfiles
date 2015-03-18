@@ -13,7 +13,7 @@ function Layers_(Design, Styles, AreaService, Client) {
   var layers, l_draw, area_collection, source;
 
   area_collection = new ol.Collection();
-  draw_source = Design.draw_source;
+  draw_source   = Design.draw_source;
   modify_source = Design.modify_source;
 
   l_draw = new ol.layer.Vector({
@@ -28,13 +28,13 @@ function Layers_(Design, Styles, AreaService, Client) {
 
   area_collection.on('add', function (e) {
     // add to sources
-    var feature = e.target;
+    var feature = e.element;
     draw_source.addFeature(feature);
     modify_source.addFeature(feature);
   });
   area_collection.on('remove', function (e) {
     // remove from sources
-    var feature = e.target;
+    var feature = e.element;
     draw_source.removeFeature(feature);
     modify_source.removeFeature(feature);
   });
