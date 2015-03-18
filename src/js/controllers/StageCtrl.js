@@ -92,7 +92,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
   function bootstrapNewSession (session_data) {
     // bootstrap a new session, start it's streams up
     session_stream = Session.state_stream()
-      // .filter(function() { return $scope.view_sync; }) // don't listen to changes you're making
+      .filter(function() { return $scope.view_sync; }) // don't listen to changes you're making
       .select(function(x){ return x.exportVal();    }) // just watch the value of the state
       .subscribe(streamSubscription);
     // anounce you're watching the streams, send the new data
