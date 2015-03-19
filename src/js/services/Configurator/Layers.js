@@ -48,7 +48,7 @@ function Layers_(Design, Styles, AreaService, Client) {
 
   Design.rx_areas
     .map(function (ds) {
-      return ds.exportVal()[0];
+      return ds.exportVal();
     })
     .subscribe(function (areas_object) {
     var feature;
@@ -59,9 +59,13 @@ function Layers_(Design, Styles, AreaService, Client) {
       area_collection.pop();
     }
     else {
-      debugger;
-      console.debug('adding from firebase');
       console.log(areas_object)
+      if (areas_object === null) {
+        console.debug('areas_object is null because the fb_ref has no area yet')
+        // handle this case if it continues to be an issue
+        return
+      }
+      // make sure your area string looks right
       feature = AreaService.wireUp(0, areas_object.wkt );
       area_collection.push(feature);
     }

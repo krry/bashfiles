@@ -58,6 +58,8 @@ function newConfigurator_(View, Interactions, Layers) {
     // View subscriptions
   function handleCenter() {
     var center = View.getCenter();
+    console.log('*************** gmap handling view:center change ***********')
+    console.log('*************** setting', center, 'to ---> ', {lat:center[1], lng:center[0]} );
     gmap.setCenter(new google.maps.LatLng(center[1], center[0]));
   }
 

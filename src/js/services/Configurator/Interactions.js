@@ -41,8 +41,7 @@ function Interactions_(Design, Layers, Styles, AreaService) {
   interactions.draw.on('drawend', function(e){
     var feature = e.feature;
     debugger;
-    Design.rx_areas_source.onNext({
-      id: '0', //HACK: hardcode for single roof area
+    Design.ref().child('areas').child('0').set({ // HACK: one area only
       wkt: AreaService.getWkt(feature),
     })
   });
