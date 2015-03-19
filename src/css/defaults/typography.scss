@@ -107,7 +107,13 @@ h6 .small-caps {
 p {
   font-size: .85em;
   margin: 0 auto;
+  
+  &.small {
+    font-size: .8em;
+    font-family: "Apercu Bold";
+  }
 }
+
 
 blockquote {
   @include apercu-medium-italic;
