@@ -87,6 +87,10 @@ main.main.main-fixed {
   margin: auto;
 }
 
+.territory-map p {
+  font-size: 0.75em;
+}
+
 
 @media screen and (min-width: $width-min-lrg){
   .primary.primary {
@@ -102,7 +106,6 @@ main.main.main-fixed {
     width: calc(20em - 1px);
     .drop-top {
       padding-top: 5rem;
-      border: 1px solid red;
       /* position: absolute; */
       /* bottom: 0; */
     }
