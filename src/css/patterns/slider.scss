@@ -18,8 +18,8 @@
   display: inline-block;
   width: 75%;
   max-width: 18em;
-  margin-left: 1em;
-  margin-bottom: .25em;
+  margin-left: 0em;
+  margin-bottom: 0.5em;
 }
 
 .noUi-target {
@@ -37,20 +37,21 @@
     // change the colors as the number changes of
     // the slider, the handle, and the bill figure
     // on blur, revert to the gradient background
-  // background-image: linear-gradient(to right, $green, $green-bright, $gold, $orange, $ginger, $red, $red-dark);
+  background-image: linear-gradient(to right, $green, $green-bright, $gold, $orange, $ginger, $red, $red-dark);
   height: 2em;
   box-shadow: none;
-  background-color: $black;
+  // background-color: $black;
 }
 
 .noUi-horizontal {
   height: 0.3em;
-  margin-top: .75em;
+  margin-top: 1em;
 }
 
 .noUi-base {
-  padding: 1em 0;
-  margin-top: -1em;
+  padding: 0;
+  padding-top: 0.1em;
+  margin-top: 0em;
   position: relative;
 }
 
@@ -63,12 +64,12 @@
   position: relative;
   z-index: 1;
   top: -12px;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   // background: $tint-90;
   background-color: $white;
   // TODO: make border-color respond to horiz position of slider
-  border: 2px solid $black;
+  border: 2px solid $grey-darker;
   border-radius: 50%;
   box-shadow: none;
   cursor: pointer;
@@ -113,12 +114,12 @@
   border: 2px solid inherit;
   margin: 0 0 0 .75em;
   &:before {
-    // content: "\0024";
-    // position: relative;
-    // top: -.125em;
+    content: "\0024";
+    position: relative;
+    top: -.125em;
   }
   &:after {
-    content: "/month";
+    // content: "/month";
   }
 }
 
@@ -128,7 +129,7 @@
   }
   .noUi-horizontal .noUi-handle {
     // top: -16px;
-    width: 30px;
-    height: 30px;
+    // width: 30px;
+    // height: 30px;
   }
 }
