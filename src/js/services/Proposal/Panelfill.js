@@ -7,7 +7,7 @@ function PanelfillSvc ($http, $q) {
   // open to the web
   // var baseUrl = "http://scexchange.solarcity.com/scfilefactory/testfill.aspx";
   // only avail inhouse
-  var baseUrl = "http://slc3web00/scexchangestaging/testfill.aspx";
+  var baseUrl = "http://slc3web00/scexchange/testfill.aspx";
 
   var points_for_panelfill,
       points_array,
