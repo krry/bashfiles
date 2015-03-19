@@ -57,7 +57,6 @@ function FormProvider_ () {
 
     Client.listen('Session: Loaded', bootstrapForm);
     Client.listen('Form: valid data', updateRefByVal);
-    Client.listen('Form: create new', createNewForm);
 
     // DEV:
     Client.listen('Dev: Reset form', resetForm);
@@ -68,11 +67,6 @@ function FormProvider_ () {
       _ref.once('value', processNewFormFromFirebase );
     }
     // DEV: end
-
-    function createNewForm(session_obj) {
-      _ref_key = null;
-      bootstrapForm(session_obj);
-    }
 
     function bootstrapForm (session_obj) {
       // make the ref when Form is first required.
