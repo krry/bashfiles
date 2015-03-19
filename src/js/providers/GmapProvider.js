@@ -1,8 +1,8 @@
 /* =========================================================
 
-  GmapProvider
+  GmapFactory
 
-  provides a gmap
+  manufactures a gmap
 
   emits results to the Clientstream
   to which gmap controllers listen
@@ -106,7 +106,6 @@ function GmapFactory_ () {
       var zip = data.zip;
       console.log('zooming into neighborhood in zipcode', zip);
       Client.emit('Gmap: max zoom found', 16);
-      Client.emit('Gmap: get nearme data', true);
     }
 
     function checkMaxZoom(addy) {

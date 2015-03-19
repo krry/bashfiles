@@ -30,7 +30,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
   Client.listen('Gmap: max zoom found', applyMaxZoom);
   Client.listen('Gmap: switch to satellite', switchToSatellite);
   Client.listen('Spinner: add to spin count', setSpinCount);
-  Client.listen('Gmap: get nearme data', getNearMeData);
+  // Client.listen('Gmap: get nearme data', getNearMeData);
 
   function init (el) {
     map = Gmap.init(el);
@@ -89,8 +89,6 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
         center = map.getCenter();
         // saving center of gmap
         Client.emit('center changed', center);
-        // TODO: prevent nearme call when advancing from checkZip to checkAddress directly
-        getNearMeData();
       }
     // }
   }
@@ -121,6 +119,9 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
     Gmap.loaded.then(function() {
       console.log('setting zoom to', zoom);
       map.setZoom(zoom);
+      mapOpts.zoom = zoom;
+      // TODO: prevent nearme call when advancing from checkZip to checkAddress directly
+      if (zoom < 17 && zoom > 4) getNearMeData();
     });
   }
 
@@ -154,40 +155,42 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
         return;
       }
 
-      // send the coordinates to NearMe, then plot the returned data as pins
-      return NearMe.get(coords).then(plotMarkers);
+      // send the coordinates to NearMe, then check if there are enough, then plot the pins if so
+      return NearMe.get(coords).then(getEnoughPins).then(plotMarkers);
     });
+  }
+
+  function getEnoughPins(data) {
+    if (data.length >= 50) {
+      return data;
+    } else {
+      map.setZoom(map.getZoom() - 1);
+      return;
+    }
   }
 
   function plotMarkers(data) {
-    // clear any old pins from the map
-    Client.emit('clear pins', true);
-
-    // parse the JSON response from NearMe API
-    angular.forEach(data, function(point) {
-      // for each object in the response send the location and content to
-      var opts = {
-        location: new google.maps.LatLng(point.la, point.ln),
-        content: point.kw + ' kW system'
-      };
-
-      // ask GmapProvider to make and drop a new pin
-      Client.emit('Gmap: drop pin', opts);
-    });
-
-    // let the view model know how many pins were found
-    Client.emit('neighbor_count saved', data.length);
-
-    // make sure we got enough pins to be compelling
-    setMapZoomByNearMeResponse(data.length);
-  }
-
-  function setMapZoomByNearMeResponse(pins) {
-    /* if less than 50 customers are returned for the given map
-       zoom up a level and get the pins for a wider area      */
-    if (pins < 50) {
-      map.setZoom(map.getZoom()-1);
+    var opts;
+    if (!data) {
       getNearMeData();
+    } else {
+      // clear any old pins from the map
+      Client.emit('clear pins', true);
+
+      // parse the JSON response from NearMe API
+      angular.forEach(data, function(point) {
+        // for each object in the response send the location and content to
+        opts = {
+          location: new google.maps.LatLng(point.la, point.ln),
+          content: point.kw + ' kW system'
+        };
+
+        // ask GmapProvider to make and drop a new pin
+        Client.emit('Gmap: drop pin', opts);
+      });
+
+      // let the view model know how many pins were found
+      Client.emit('neighbor_count saved', data.length);
     }
   }
 
