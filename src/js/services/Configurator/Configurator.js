@@ -8,7 +8,7 @@
  */
 
 angular.module('flannel').service('newConfigurator', ['View', 'Interactions', 'Layers', newConfigurator_]);
-
+var maps
 function newConfigurator_(View, Interactions, Layers) {
   var gmap,
       omap,
@@ -54,7 +54,16 @@ function newConfigurator_(View, Interactions, Layers) {
   // subscribe google's zoom and center to OL View's resolution & center
   View.rx_center.subscribe(handleCenter)
   View.rx_zoom.subscribe(handleZoom);
-  // make sure features are removed from correct interaction layers.
+
+    // View subscriptions
+  function handleCenter() {
+    var center = View.getCenter();
+    gmap.setCenter(new google.maps.LatLng(center[1], center[0]));
+  }
+
+  function handleZoom(e) {
+    gmap.setZoom(View.getZoom());
+  }
 
   function setTargetOfMaps(elem) {
     console.debug('Configurator.setTarget(elem) => elem: ', elem);
@@ -80,6 +89,7 @@ function newConfigurator_(View, Interactions, Layers) {
       omap: omap,
       gmap: gmap,
     }
+    maps = this.map
     // TODO: be prepared to fix projection of OLmap for zoom < 17 (currently disallowed by map_options)
     gmap.addListener('projection_changed', function(){
       // the proj_changed, now fix the projection of the layers
@@ -88,17 +98,6 @@ function newConfigurator_(View, Interactions, Layers) {
       google.maps.event.trigger(gmap, 'resize');
       omap.updateSize();
     });
-  }
-
-  // View subscriptions
-  function handleCenter(e) {
-    // HACK: // TODO: why does center sometimes come back as a function? (jfl mar11);
-    var center = View.getCenter();
-    gmap.setCenter(new google.maps.LatLng(center[1], center[0]));
-  }
-
-  function handleZoom(e) {
-    gmap.setZoom(View.getZoom());
   }
 
   /* Interaction handlers */
