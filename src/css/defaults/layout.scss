@@ -101,7 +101,8 @@ main.main.main-fixed {
     width: 25%;
     width: calc(20em - 1px);
     .drop-top {
-      padding-top: 7rem;
+      padding-top: 5rem;
+      border: 1px solid red;
       /* position: absolute; */
       /* bottom: 0; */
     }
@@ -127,6 +128,10 @@ main.main.main-fixed {
   .overlay-left.overlay-left {
     overflow: visible;
   }
+
+  .step-address h3 {
+    width: 85%;
+  }
 }
 
 @media screen and (min-width: $width-min-xlg){
@@ -146,5 +151,8 @@ main.main.main-fixed {
     &.step-bill {
       padding: 1em 2em .5em;
     }
+  }
+  .step-address h3 {
+    width: 75%;
   }
 }
