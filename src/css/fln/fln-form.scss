@@ -76,18 +76,6 @@ input.terms {
   margin: 0 10px;
 }
 
-input.bill {
-  font-family: "Apercu Bold";
-  font-size: 2em;
-  width: 3em;
-  padding: .25em;
-  margin: 0 .125em;
-  text-align: right;
-  color: $green;
-  border: 0px solid $white;
-  background-color: $white;
-}
-
 input.zipcode {
   text-transform: uppercase;
   color: $color-input-text;

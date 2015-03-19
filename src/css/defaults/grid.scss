@@ -157,6 +157,10 @@
   vertical-align: bottom !important;
 }
 
+.col.sml-center {
+  text-align: center;
+}
+
 /* > 536px --- bigger than iPhone portrait */
 @media screen and (min-width: $width-min-med) {
   /* let .half .third etc. express themselves */
@@ -182,10 +186,20 @@
       padding: 0;
     }
   }
+  .col.med-left {
+    text-align: left;
+  }
+  .col.med-right {
+    text-align: right;
+  }
 }
 
 /* > 768px --- phablets */
 @media screen and (min-width: $width-min-lrg) {
+  .col.half {
+    width: 49.9%;
+  }
+
   ul.row {
     margin: 0;
     padding: 0;
@@ -209,6 +223,15 @@
       padding: 0;
     }
   }
+
+  .col.lrg-right {
+    text-align: right;
+  }
+
+  .col.lrg-left {
+    text-align: left;
+  }
+
 // }
 
 // /* > 1024px */
