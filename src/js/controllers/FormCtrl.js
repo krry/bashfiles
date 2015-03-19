@@ -65,10 +65,6 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
   vm.createContact = createContact;
   vm.skipConfigurator = skipConfigurator;
 
-  window.x = function() {
-    return Form.id();
-  }
-
   Client.listen('zip rejected', rejectZip);
   Client.listen('valid latlng', acceptValidLatLng);
   Client.listen('Geocoder: valid warehouse', acceptValidWarehouse);
