@@ -42,8 +42,8 @@ function LiveagentService_ () {
               true,         // isExactMatch
               true)         // doCreate
               .map(
-              "Session_ID__c",
-              "session_id",
+              "odaHotloadLink__c",
+              "odaHotloadLink",
               false,
               false,
               true
