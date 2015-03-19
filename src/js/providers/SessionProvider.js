@@ -105,7 +105,7 @@ function SessionProvider_ (FormProvider, DesignProvider, FIREBASE_URL) {
 
     function storeGMapCenter (location) {
       if (location.lat()) { // TODO: make this work for Gmap & Configurator
-        _ref.child('map_center').set([ location.lat(), location.lng(), ]);
+        _ref.child('map_center').set({lat: location.lat(), lng: location.lng()});
       } else {
         console.error('unhandled center changed event');
       }
