@@ -12,7 +12,8 @@ angular.module('flannel', [
   'flannel.controllers',
   'flannel.directives',
   'flannel.constants',
-  'nouislider'
+  'nouislider',
+  'ui.utils.masks'
 ]).config(['$sceDelegateProvider', '$sceProvider', '$httpProvider', 'UserProvider', 'MailgunProvider', function($sceDelegateProvider, $sceProvider, $httpProvider, UserProvider, MailgunProvider) {
   // hack: sorta hacky... but maybe not.
   // http://stackoverflow.com/questions/20588114/how-to-use-cookiesprovider-in-angular-config
