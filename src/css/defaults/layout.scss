@@ -109,46 +109,13 @@ main.main.main-fixed {
   font-size: 0.75em;
 }
 
-/* .step-bill .text-wrap {
-  margin-top: 0.5em;
-  text-align: center;
+.step-bill h3 {
+  margin-bottom: 0;
 }
-
-.step-bill .text-wrap h3 {
-  margin: 0;
-  width: 100%;
-}
-.step-bill .bill-slider {
-  width: 12em;
-}
-.step-bill .bill-box {
-  margin: 0 auto;
-  height: 40px;
-  padding-left: 1em;
-}
-.step-bill .bill-box input.bill {
-  padding: 0;
-  width: 2em;
-  height: 40px;
-}
-
 .step-bill button.tiny.gold {
-  margin-top: 0.25em;
+  margin: 0;
 }
 
-
-
-@media screen and (min-width: $width-min-sml){
-  .step-bill .bill-slider {
-    width: 10em;
-  }
-}
-
-@media screen and (min-width: $width-min-med){
-  .step-bill .bill-slider {
-    width: 18em;
-  }
-} */
 
 @media screen and (min-width: $width-min-lrg){
   .primary.primary {
@@ -190,10 +157,9 @@ main.main.main-fixed {
     overflow: visible;
   }
 
-  /* .step-address h3 {
+  .step-address h3 {
     width: 85%;
-  } */
-
+  }
 
 }
 
@@ -215,19 +181,9 @@ main.main.main-fixed {
       padding: 1em 2em .5em;
     }
   }
-  /* .step-address h3 {
+  .step-address h3 {
     width: 75%;
   }
-
-  .step-bill .text-wrap h3 {
-    width: auto;
-    float: left;
-    padding-top: 0.35em;
-  }
-  .step-bill .control-wrap {
-    float: left;
-    padding-left: 1em;
-  } */
 }
 
 /* prevents the CTA in the tallest right rail from falling out of reach on short screens */
