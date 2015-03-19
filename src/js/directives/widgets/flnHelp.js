@@ -1,6 +1,6 @@
-directives.directive('flnHelp', ['$location', 'Liveagent', 'Session', 'URL_ROOT', flnHelp]);
+directives.directive('flnHelp', ['$location', 'Liveagent', 'Session', 'Clientstream', 'URL_ROOT', flnHelp]);
 
-function flnHelp ($location, Liveagent, Session, URL_ROOT) {
+function flnHelp ($location, Liveagent, Session, Client, URL_ROOT) {
   return {
     templateUrl: 'templates/directives/widgets/flnHelp.html',
     controller: 'ChatCtrl',
@@ -45,13 +45,7 @@ function flnHelp ($location, Liveagent, Session, URL_ROOT) {
           // retrieve prospect object from Form in Firebase
           // TODO: figure out why this prospect does not have a `form_id` like the prospect in FormProvider
 
-          scope.prospect.odaHotloadLink = [
-            $location.protocol(),
-            '://',
-            URL_ROOT,
-            '/flannel#/oda/',
-            Session.id()
-          ].join('');
+          Client.emit('create hotload link', true);
 
           // send prospect to Liveagent
           Liveagent.addCustomDetails(scope.prospect);

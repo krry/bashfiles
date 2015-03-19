@@ -65,6 +65,10 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
   vm.createContact = createContact;
   vm.skipConfigurator = skipConfigurator;
 
+  window.x = function() {
+    return Form.id();
+  }
+
   Client.listen('zip rejected', rejectZip);
   Client.listen('valid latlng', acceptValidLatLng);
   Client.listen('Geocoder: valid warehouse', acceptValidWarehouse);
@@ -76,6 +80,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
   Client.listen('fullname saved', acceptSavedFullname);
   Client.listen('neighbor_count saved', acceptNeighborCount);
   Client.listen('Form: save lead', createLead);
+  Client.listen('create hotload link', createHotloadLink);
 
   function checkZip (zip) {
     console.log('********* checkin dat zip', zip, 'boss *********')
@@ -139,8 +144,6 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
         obj[prop] = null;
       }
     }
-    console.log(vm.prospect);
-    Client.emit('Form: valid data', obj);
   }
 
   function checkCredit() {
@@ -320,13 +323,10 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
       // OwnerId: '005300000058ZEZAA2',//oda userId
       ExternalId: Session.id()
     }).then(function(data) {
-      vm.isSubmitting = false;
-
       if (data.id) {
         vm.prospect.leadId = data.id;
 
         Client.emit('Form: valid data', { leadId: vm.prospect.leadId });
-        Client.emit('Form: saved lead id', { lead_id: vm.prospect.leadId });
       }
     });
   }
