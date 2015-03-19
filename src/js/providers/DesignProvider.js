@@ -59,6 +59,7 @@ function DesignProvider_ (FIREBASE_URL) {
   }
 
   _ref_key = null;
+
   designs_url = FIREBASE_URL + 'designs/';
 
   this.setRefKey = function(key){
@@ -66,9 +67,14 @@ function DesignProvider_ (FIREBASE_URL) {
     key && (_ref_key = key);
     /* jshint +W030 */
   };
-
+  this.map_details = {
+    center: [0,0],
+    zoom_level: 18
+  }
   this.setCenter = function(center) {
-    map_center = center;
+    debugger;
+    // what's calling this setCenter? SessionProvider_
+    this.map_details.center = center;
   }
 
   this.$get = [ "Session", "Clientstream", function designProviderFactory(Session, Client) {
@@ -102,26 +108,27 @@ function DesignProvider_ (FIREBASE_URL) {
       }
     )
 
-    var observer = Rx.Observer.create(function (x) {
+    var rx_areas_source = Rx.Observer.create(function (x) {
       return x;
     })
 
-    rx_areas = Rx.Subject.create(observer, observable);
+    rx_areas = Rx.Subject.create(rx_areas_source, observable);
     rx_areas
       .map(function (ds) {
-        var id, wkt;
+        if (ds.exportVal() === null) return ;
+        var id, wkt;0
         console.log('mapping observer', ds.exportVal());
         if (!area_wkts) { // area_wkts null during startup
 
 
           area_wkts = [];
           return null
-        } else if (area_wkts && ds.exportVal()[0] === null) {
+        } else if (area_wkts && ds.exportVal() === null) {
           // area_wkts set & there's a value on the object
-          console.debug('mapping remove by remote', ds.exportVal()[0]);
+          console.debug('mapping remove by remote', ds.exportVal());
 
           return "remove by remote"
-        } else {
+        } else  {
         console.debug('mapping', {
           id: ds.ref().key(),
           wkt: ds.exportVal().wkt
@@ -129,7 +136,7 @@ function DesignProvider_ (FIREBASE_URL) {
 
           return {
             id: ds.ref().key(),
-            wkt: ds.exportVal()[0].wkt
+            wkt: ds.exportVal().wkt
           }
         }
       })
@@ -151,7 +158,6 @@ function DesignProvider_ (FIREBASE_URL) {
           .set(null);
       } else {
         // set local, used by filter
-        console.error('asssss')
         area_wkts = [];
 
         area_wkts[areas_obj.id] = areas_obj.wkt;
@@ -168,15 +174,15 @@ function DesignProvider_ (FIREBASE_URL) {
 /////////
 
     // always ask the session for value, to enable direct state navigation
-    if (Session.ref()) {
-      Session.ref().once('value', bootstrapDesign);
-    } else {
-      console.debug('**** Design: waiting for Session');
-      Client.listen('Session: Loaded', function(){
-        console.log('loading design after session:')
-        return Session.ref().once('value', bootstrapDesign);
-      });
-    }
+    // if (Session.ref()) {
+    //   Session.ref().once('value', bootstrapDesign);
+    // } else {
+    //   console.debug('**** Design: waiting for Session');
+    //   Client.listen('Session: Loaded', function(){
+    //     console.log('loading design after session:')
+    //     return Session.ref().once('value', bootstrapDesign);
+    //   });
+    // }
 
     function bootstrapDesign (ds) {
 
@@ -287,7 +293,7 @@ function DesignProvider_ (FIREBASE_URL) {
         rx_center:        rx_center,
         rx_zoom:          rx_zoom,
         rx_areas:         rx_areas,
-        rx_areas_source:  observer,
+        rx_areas_source:  rx_areas_source,
         ref:    function(key){
           if (key) {
             _ref_key = key;
