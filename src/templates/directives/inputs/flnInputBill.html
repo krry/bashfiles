@@ -3,6 +3,8 @@
   class="bill"
   focus="true"
   value="100"
+  maxlength="3"
+  ng-pattern="/\d/"
   ng-model="form.prospect.bill"
   ng-model-options="{ updateOn: 'default blur change', debounce: 0 }"
   ng-cloak>
