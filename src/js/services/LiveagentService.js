@@ -47,6 +47,12 @@ function LiveagentService_ () {
               false,
               false,
               true)
+              .map(
+              "Session_ID__c",
+              "session_id",
+              false,
+              false,
+              true)
       .showOnCreate().saveToTranscript("ODA_Session__c");
 
     liveagent.findOrCreate("Lead")
