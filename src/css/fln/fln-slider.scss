@@ -63,9 +63,9 @@
 .noUi-horizontal .noUi-handle {
   position: relative;
   z-index: 1;
-  top: -16px;
-  width: 44px;
-  height: 44px;
+  top: -12px;
+  width: 28px;
+  height: 28px;
   // background: $tint-90;
   background-color: $white;
   // TODO: make border-color respond to horiz position of slider
@@ -75,20 +75,30 @@
   cursor: pointer;
 }
 
-.noUi-handle:before, .noUi-handle:after {
+.noUi-handle:before {
   content: "";
   display: block;
   position: absolute;
-  height: 18px;
-  width: 18px;
+  height: 12px;
+  width: 12px;
   background: hsl(0, 0%, 0%);
   left: 50%;
   top: 50%;
-  margin: -9px 0 0 -9px;
+  margin: -6px 0 0 -6px;
   border-radius: 50%;
 }
-.noUi-handle:before {
-  display: none;
+
+.noUi-handle:after {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 48px;
+  width: 48px;
+  background: transparent;
+  left: 50%;
+  top: 50%;
+  margin: -24px 0 0 -24px;
+  border-radius: 50%;
 }
 
 /* .noUi-handle:after {
@@ -146,41 +156,19 @@ input.bill {
 }
 
 .slider-align {
-  line-height: 42px;
+  line-height: 2em;
 }
 
 @media screen and (min-width: $width-min-sml) {
-  .noUi-horizontal .noUi-handle {
-    top: -19px;
-    width: 44px;
-    height: 44px;
-  }
-
-  .noUi-handle:before, .noUi-handle:after {
-    height: 18px;
-    width: 18px;
-    margin: -9px 0 0 -9px;
-  }
-  fln-input-bill-slider {
-    margin-bottom: .5em;
+  .bill-box {
+    margin-bottom: 1em;
   }
 }
 @media screen and (min-width: $width-min-med) {
   .bill-slider {
     max-width: 16em;
   }
-  .noUi-horizontal .noUi-handle {
-    top: -19px;
-    width: 44px;
-    height: 44px;
-  }
-
-  .noUi-handle:before, .noUi-handle:after {
-    height: 18px;
-    width: 18px;
-    margin: -9px 0 0 -9px;
-  }
-  fln-input-bill-slider {
+  .bill-box {
     margin-bottom: 0;
   }
 }
@@ -188,42 +176,12 @@ input.bill {
   .bill-slider {
     max-width: 12em;
   }
-  .noUi-horizontal .noUi-handle {
-    top: -12px;
-    width: 30px;
-    height: 30px;
-  }
-
-  .noUi-handle:before, .noUi-handle:after {
-    height: 12px;
-    width: 12px;
-    margin: -6px 0 0 -6px;
-  }
-  .slider-align {
-    line-height: 36px;
-  }
 }
 @media screen and (min-width: $width-min-xlg) {
   .bill-slider {
     max-width: 14em;
   }
-  .noUi-horizontal .noUi-handle {
-    top: -18px;
-    width: 44px;
-    height: 44px;
-  }
-  .noUi-handle:before, .noUi-handle:after {
-    height: 18px;
-    width: 18px;
-    margin: -9px 0 0 -9px;
-  }
-  .slider-align {
-    line-height: 40px;
-  }
 }
 
 @media screen and (min-width: $width-min-xxl) {
-  .slider-align {
-    line-height: 44px;
-  }
 }
