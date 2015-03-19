@@ -71,12 +71,15 @@ input.terms {
 }
 
 input.bill {
+  font-family: "Apercu Bold";
+  font-size: 2em;
   width: 3em;
   padding: .25em;
   margin: 0 .125em;
   text-align: right;
   color: $green;
-  border: 2px solid $green;
+  border: 0px solid $white;
+  background-color: $white;
 }
 
 input.zipcode {
