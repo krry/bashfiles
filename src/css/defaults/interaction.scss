@@ -199,7 +199,7 @@ a.btn {
   &.nested {
     position: absolute;
     right: .5rem;
-    top: 0.425rem;
+    top: 0.45rem;
     margin: 0;
   }
   &.round {
@@ -239,6 +239,9 @@ a.btn {
       background: none;
       color: $aqua-dark;
     }
+  }
+  &.center.white.tiny.std {
+    margin: 3em auto 0;
   }
 }
 

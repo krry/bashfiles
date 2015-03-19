@@ -1,5 +1,5 @@
 .step-fork .button-set {
-  padding: 1em;
+  padding: 0.7em;
 }
 .step-fork .button-set .set-or {
   padding: 0.5em;
@@ -13,7 +13,7 @@
   padding: 2em 0 1em;
 
   button.ib + button.ib {
-    margin-left: 2em;
+    // margin-left: 2em;
   }
 }
 
@@ -22,4 +22,7 @@
 }
 .step-outside .button-set button {
   margin: 0;
+}
+.step-outside input.email {
+  text-align: center;
 }

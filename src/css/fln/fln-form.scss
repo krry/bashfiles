@@ -76,15 +76,6 @@ input.terms {
   margin: 0 10px;
 }
 
-input.bill {
-  width: 3em;
-  padding: .25em;
-  margin: 0 .125em;
-  text-align: right;
-  color: $green;
-  border: 2px solid $green;
-}
-
 input.zipcode {
   text-transform: uppercase;
   color: $color-input-text;
@@ -131,6 +122,11 @@ input.zipcode {
   // background-color: $white;
 }
 
+.step-address input.zipcode {
+  border-radius: 4px;
+  width: 14em;
+}
+
 span.autolocate-icon {
   display: inline-block;
   opacity: 1;
@@ -157,4 +153,25 @@ label .ib.status {
   margin-left: 2em;
   float: right;
   color: $shade-40;
+}
+
+.status {
+  font-size: .75em;
+  float: right;
+  margin-top: -.75em;
+  &.center {
+    float: none;
+    width: 100%;
+    text-align: center;
+    display: block;
+    margin-bottom: .5em;
+  }
+}
+
+
+@media screen and (min-width: $width-min-med){
+  .step-address input.zipcode {
+    border-radius: 4px;
+    width: 6em;
+  }
 }
