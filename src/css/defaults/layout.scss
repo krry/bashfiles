@@ -87,6 +87,28 @@ main.main.main-fixed {
   margin: auto;
 }
 
+.territory-map {
+
+}
+.territory-map p {
+  font-size: 0.75em;
+  padding-top: 5.3rem;
+}
+.territory-map figure {
+  background-image: url('../img/map_regions.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  height: 200px;
+}
+
+.video-vision .video-tray {
+  border: none;
+}
+.video-vision p {
+  font-size: 0.75em;
+}
+
 
 @media screen and (min-width: $width-min-lrg){
   .primary.primary {
@@ -101,12 +123,12 @@ main.main.main-fixed {
     width: 25%;
     width: calc(20em - 1px);
     .drop-top {
-      padding-top: 7rem;
+      padding-top: 5rem;
       /* position: absolute; */
       /* bottom: 0; */
     }
     &.territory-map {
-      padding-top: 7.3rem;
+      // padding-top: 7.3rem;
     }
   }
   .primary.primary,
@@ -127,6 +149,10 @@ main.main.main-fixed {
   .overlay-left.overlay-left {
     overflow: visible;
   }
+
+  .step-address h3 {
+    width: 85%;
+  }
 }
 
 @media screen and (min-width: $width-min-xlg){
@@ -146,5 +172,8 @@ main.main.main-fixed {
     &.step-bill {
       padding: 1em 2em .5em;
     }
+  }
+  .step-address h3 {
+    width: 75%;
   }
 }

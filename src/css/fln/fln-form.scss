@@ -134,6 +134,11 @@ input.zipcode {
   // background-color: $white;
 }
 
+.step-address input.zipcode {
+  border-radius: 4px;
+  width: 14em;
+}
+
 span.autolocate-icon {
   display: inline-block;
   opacity: 1;
@@ -160,4 +165,12 @@ label .ib.status {
   margin-left: 2em;
   float: right;
   color: $shade-40;
+}
+
+
+@media screen and (min-width: $width-min-med){
+  .step-address input.zipcode {
+    border-radius: 4px;
+    width: 6em;
+  }
 }

@@ -39,6 +39,7 @@ figure video {
   margin-top: .25em;
   margin-bottom: .25em;
   width: 100%;
+  border: 1px solid #cccccc;
 
   iframe {
     position: absolute;
@@ -48,7 +49,7 @@ figure video {
 
   &.zip-vid {
     /* margin-top: 6rem; */
-    margin-top: 7.3rem;
+    margin-top: 5.3rem;
   }
 }
 
