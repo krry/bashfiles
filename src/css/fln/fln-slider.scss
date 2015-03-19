@@ -17,9 +17,9 @@
 .bill-slider {
   display: inline-block;
   width: 75%;
-  max-width: 12em;
-  margin-left: 1em;
-  margin-bottom: .25em;
+  max-width: 18em;
+  margin-left: 0em;
+  margin-bottom: 0.5em;
 }
 
 .noUi-target {
@@ -37,20 +37,21 @@
     // change the colors as the number changes of
     // the slider, the handle, and the bill figure
     // on blur, revert to the gradient background
-  // background-image: linear-gradient(to right, $green, $green-bright, $gold, $orange, $ginger, $red, $red-dark);
-  height: 2em;
+  /* background-image: linear-gradient(to right, $green, $green-bright, $gold, $orange, $ginger, $red, $red-dark); */
+  /* height: 2em; */
   box-shadow: none;
   background-color: $black;
 }
 
 .noUi-horizontal {
   height: 0.3em;
-  margin-top: .75em;
+  margin-top: 1em;
 }
 
 .noUi-base {
-  padding: 1em 0;
-  margin-top: -1em;
+  padding: 0;
+  padding-top: 0.1em;
+  margin-top: 0em;
   position: relative;
 }
 
@@ -68,7 +69,7 @@
   // background: $tint-90;
   background-color: $white;
   // TODO: make border-color respond to horiz position of slider
-  border: 2px solid $black;
+  border: 2px solid $grey-darker;
   border-radius: 50%;
   box-shadow: none;
   cursor: pointer;
@@ -107,7 +108,6 @@
 } */
 
 .bill {
-  line-height: 42px;
   margin-bottom: 0;
 }
 
@@ -128,7 +128,6 @@ input.bill {
 }
 
 .bill-box {
-  line-height: 42px;
   display: inline-block;
   vertical-align: bottom;
   color: $green;
@@ -146,6 +145,10 @@ input.bill {
   }
 }
 
+.slider-align {
+  line-height: 42px;
+}
+
 @media screen and (min-width: $width-min-sml) {
   .noUi-horizontal .noUi-handle {
     top: -19px;
@@ -157,6 +160,9 @@ input.bill {
     height: 18px;
     width: 18px;
     margin: -9px 0 0 -9px;
+  }
+  fln-input-bill-slider {
+    margin-bottom: .5em;
   }
 }
 @media screen and (min-width: $width-min-med) {
@@ -174,6 +180,9 @@ input.bill {
     width: 18px;
     margin: -9px 0 0 -9px;
   }
+  fln-input-bill-slider {
+    margin-bottom: 0;
+  }
 }
 @media screen and (min-width: $width-min-lrg) {
   .bill-slider {
@@ -190,6 +199,9 @@ input.bill {
     width: 12px;
     margin: -6px 0 0 -6px;
   }
+  .slider-align {
+    line-height: 36px;
+  }
 }
 @media screen and (min-width: $width-min-xlg) {
   .bill-slider {
@@ -205,10 +217,13 @@ input.bill {
     width: 18px;
     margin: -9px 0 0 -9px;
   }
+  .slider-align {
+    line-height: 40px;
+  }
 }
 
 @media screen and (min-width: $width-min-xxl) {
-  .bill {
-    line-height: 48px;
+  .slider-align {
+    line-height: 44px;
   }
 }
