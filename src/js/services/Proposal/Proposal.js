@@ -4,9 +4,9 @@
  *
  */
 
-angular.module('flannel').service('Proposal', [ 'Design', 'Panelfill', 'Clientstream', Proposal_]);
+angular.module('flannel').service('Proposal', [ 'Session', 'Panelfill', 'Clientstream', Proposal_]);
 var map
-function Proposal_(Design, Panelfill, Client) {
+function Proposal_(Session, Panelfill, Client) {
   // var map;
   // center = Design.map_details.center;
   var map_options = {
@@ -21,12 +21,14 @@ function Proposal_(Design, Panelfill, Client) {
   };
 
   // var _ref = new Firebase('https://scty.firebaseio.com/designs/butts')
-  Design.ref().child('areas/0/wkt').once('value', function (ds) {
-    var wkt_txt = ds.exportVal();
-    console.log('wkt_txt in design', wkt_txt)
-    Panelfill.getFilled(wkt_txt)
-    .then(processTwoDArray);
-  })
+  Session.ref().parent().parent().child('designs')
+    .child(Session.ref().key()).child('areas/0/wkt')
+      .once('value', function (ds) {
+      var wkt_txt = ds.exportVal();
+      console.log('wkt_txt in design', wkt_txt)
+      Panelfill.getFilled(wkt_txt)
+      .then(processTwoDArray);
+  });
 
   var panels_array;
 
