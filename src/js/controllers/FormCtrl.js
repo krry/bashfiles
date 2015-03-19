@@ -81,6 +81,8 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
     /* jshint eqnull:true */
     if (zip != null && zip.length === 5) {
       Client.emit('Spinner: spin it', true);
+      vm.prospect.street = null;
+      Client.emit('Form: valid data', {street: null});
       Geocoder.sendGeocodeRequest(zip);
     }
     else { return false; }
