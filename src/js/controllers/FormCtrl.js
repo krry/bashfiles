@@ -363,7 +363,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
   function acceptValidWarehouse(data) {
     if (data) {
       vm.invalidTerritory = !data;
-      vm.invalid = vm.invalidZip && vm.invalidTerritory;
+      vm.invalidZip = !data;
 
       Client.emit('Stages: jump to step', 'address-roof');
       vm.prospect.warehouseId = data.warehouseId;
