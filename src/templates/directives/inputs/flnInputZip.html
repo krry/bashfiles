@@ -14,7 +14,6 @@
   ng-required="true"
   ng-maxlength="5"
   ng-pattern="/^\d{5}(?:[-\s]\d{4})?$/"
-  ng-hide="!form.invalidZip && form.invalidTerritory"
   ng-change="form.checkZip(form.prospect.zip)"
   bind-key="form.checkZip(form.prospect.zip)"
   key="13">
