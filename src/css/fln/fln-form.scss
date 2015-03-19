@@ -155,6 +155,19 @@ label .ib.status {
   color: $shade-40;
 }
 
+.status {
+  font-size: .75em;
+  float: right;
+  margin-top: -.75em;
+  &.center {
+    float: none;
+    width: 100%;
+    text-align: center;
+    display: block;
+    margin-bottom: .5em;
+  }
+}
+
 
 @media screen and (min-width: $width-min-med){
   .step-address input.zipcode {

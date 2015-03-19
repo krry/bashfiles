@@ -7,7 +7,12 @@
     <div class="col full padded center sml-full">
       <span class="nest">
         <fln-input-street></fln-input-street>
-        <button class="btn gold nested round" ng-click="form.checkAddress(form.prospect.street)"><span class="icon search"></span></button>
+        <button
+          class="btn gold nested round"
+          ng-click="form.checkAddress(form.prospect.street)"
+          tabindex="-1">
+          <span class="icon search"></span>
+        </button>
       </span>&nbsp;
       <fln-input-zip hint="Zipcode"></fln-input-zip>
     </div>

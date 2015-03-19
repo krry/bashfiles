@@ -9,6 +9,7 @@ function flnInputStreet_ () {
       var elVal,
           form
       form = FormCtrl;
+      element.focus();
       element.bind('blur change', function (){
         elVal = $(element).find('input').val();
         form.checkAddress(elVal);
