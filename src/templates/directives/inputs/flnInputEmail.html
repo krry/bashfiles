@@ -1,10 +1,3 @@
-<div class="status" ng-hide="prospectForm.email.$pristine">
-  <span ng-show="prospectForm.email.$error.required && prospectForm.email.$invalid">Email address is required.</span>
-  <span ng-show="prospectForm.email.$error.pattern">Email address must be valid.</span>
-  <span ng-show="prospectForm.email.$error.MailgunInProgress">Validating email address</span>
-  <span ng-show="prospectForm.email.$error.MailgunEmailValid">Did you mean <a ng-click="replaceEmailWithSuggestion(did_you_mean)">{{ did_you_mean }}</a>?</span>
-  <span ng-show="Mailgun.mailgunStatus">Validation error: {{ Mailgun.mailgunStatus }}</span>
-</div>
 <input
   type="text"
   name="email"
@@ -18,3 +11,10 @@
   ng-required="true"
   ng-pattern="/^[_a-zA-Z0-9]+(\.[_a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,4})$/"
   ng-model-options="{ updateOn: 'default change blur', debounce: { default: 1000, blur: 0 } }">
+<div class="status" ng-hide="prospectForm.email.$pristine">
+  <span ng-show="prospectForm.email.$error.required && prospectForm.email.$invalid">Required.</span>
+  <span ng-show="prospectForm.email.$error.pattern">That's not an email address.</span>
+  <span ng-show="prospectForm.email.$error.MailgunInProgress">Validating email address</span>
+  <span ng-show="prospectForm.email.$error.MailgunEmailValid">Did you mean <a ng-click="replaceEmailWithSuggestion(did_you_mean)">{{ did_you_mean }}</a>?</span>
+  <span ng-show="Mailgun.mailgunStatus">Validation error: {{ Mailgun.mailgunStatus }}</span>
+</div>

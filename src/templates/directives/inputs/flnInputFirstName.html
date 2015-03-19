@@ -1,14 +1,3 @@
-<div class="status" ng-hide="prospectForm.firstName.$pristine">
-  <span ng-show="prospectForm.firstName.$error.required">
-    Required
-  </span>
-  <span ng-show="prospectForm.firstName.$error.minlength">
-    First name, not first initial.
-  </span>
-  <span ng-show="prospectForm.firstName.$error.pattern">
-    Letters only please, unless you are a robot.
-  </span>
-</div>
 <input
   type="text"
   name="firstName"
@@ -22,3 +11,14 @@
   ng-required="true"
   ng-minlength="2"
   ng-pattern="/^([A-Za-z]|_|-|\.|\s)+$/">
+<div class="status" ng-hide="prospectForm.firstName.$pristine">
+  <span ng-show="prospectForm.firstName.$error.required">
+    Required
+  </span>
+  <span ng-show="prospectForm.firstName.$error.minlength">
+    First name, not first initial.
+  </span>
+  <span ng-show="prospectForm.firstName.$error.pattern">
+    Letters only please, unless you are a robot.
+  </span>
+</div>

@@ -1,15 +1,3 @@
-<div class="status" ng-hide="prospectForm.month.$pristine">
-  <span ng-show="prospectForm.month.$error.required">Month is required.</span>
-  <span ng-show="prospectForm.month.$error.pattern">Month must be valid.</span>
-</div>
-<div class="status" ng-hide="prospectForm.day.$pristine">
-  <span ng-show="prospectForm.day.$error.required">Day is required.</span>
-  <span ng-show="prospectForm.day.$error.pattern">Day must be valid.</span>
-</div>
-<div class="status" ng-hide="prospectForm.year.$pristine">
-  <span ng-show="prospectForm.year.$error.required">Year is required.</span>
-  <span ng-show="prospectForm.year.$error.pattern">Year must be between 1915 and 1997.</span>
-</div>
 <div class="row">
   <div class="col full center">
     <input
@@ -46,4 +34,16 @@
       ng-model-options="{ updateOn: 'default change blur', debounce: { default: 2000, blur: 0 } }"
       ng-required="true">
   </div>
+</div>
+<div class="status center" ng-hide="prospectForm.month.$pristine">
+  <span ng-show="prospectForm.month.$error.required">Month is required.</span>
+  <span ng-show="prospectForm.month.$error.pattern">Month must be valid.</span>
+</div>
+<div class="status center" ng-hide="prospectForm.day.$pristine">
+  <span ng-show="prospectForm.day.$error.required">Day is required.</span>
+  <span ng-show="prospectForm.day.$error.pattern">Day must be valid.</span>
+</div>
+<div class="status center" ng-hide="prospectForm.year.$pristine">
+  <span ng-show="prospectForm.year.$error.required">Year is required.</span>
+  <span ng-show="prospectForm.year.$error.pattern">Year must be between 1915 and 1997.</span>
 </div>

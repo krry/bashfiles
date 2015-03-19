@@ -41,7 +41,10 @@ $grey-darker:   #333333;  // rgb(051, 051, 051)  hsl(0, 0%, 20%)
 $grey-darkest:  #171717;  // rgb(023, 023, 023)  hsl(0, 0%, 9%)
 $black:         #000000;  // rgb(000, 000, 000)  hsl(0, 0%, 0%)
 
-// TODO: build @mixins that accept an opacity: 0<->1 and return a tint or a shade at that opacity
+@mixin shade($opacity: .5) {
+  color: transparentize($black, 1 - $opacity);
+}
+
 $shade-05: rgba(0, 0, 0, .05);
 $shade-10: rgba(0, 0, 0, .10);
 $shade-20: rgba(0, 0, 0, .20);
@@ -50,6 +53,10 @@ $shade-60: rgba(0, 0, 0, .60);
 $shade-80: rgba(0, 0, 0, .80);
 $shade-90: rgba(0, 0, 0, .90);
 $shade-95: rgba(0, 0, 0, .95);
+
+@mixin tint($opacity: .5) {
+  color: transparentize($white, 1 - $opacity);
+}
 
 $tint-10:  rgba(255, 255, 255, .10);
 $tint-20:  rgba(255, 255, 255, .20);
@@ -73,8 +80,8 @@ $color-bkgd-main:            $white;
 // $color-bkgd-primary:         $tint-90;
 $color-bkgd-footer:          $grey-lightest;
 $color-bkgd-primary:         $white;
-$color-link-main:            $aqua-dark;
-$color-link-visited-main:    $blue-dark;
+$color-link-main:            $green-dark;
+$color-link-visited-main:    $blue-mid;
 
 $color-highlight:            $aqua-dark;
 
