@@ -87,16 +87,26 @@ main.main.main-fixed {
   margin: auto;
 }
 
+.territory-map {
+
+}
 .territory-map p {
   font-size: 0.75em;
+  padding-top: 5.3rem;
 }
-
 .territory-map figure {
   background-image: url('../img/map_regions.png');
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
   height: 200px;
+}
+
+.video-vision .video-tray {
+  border: none;
+}
+.video-vision p {
+  font-size: 0.75em;
 }
 
 
@@ -118,7 +128,7 @@ main.main.main-fixed {
       /* bottom: 0; */
     }
     &.territory-map {
-      padding-top: 7.3rem;
+      // padding-top: 7.3rem;
     }
   }
   .primary.primary,
