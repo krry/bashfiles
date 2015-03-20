@@ -47,19 +47,28 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
   // determines whether the help/chat popup is visible or not
   vm.helpActivated = false;
   help_steps = [
-    'intro-design',
-    'zoom-lock-roof',
-    'trace-area',
-    'edit-area',
-    'detail-area',
-    'review-proposal',
+    'zip-nearme',
+    'address-roof',
+    'monthly-bill',
     'create-contact',
     'credit-check',
-    'qualify',
-    'survey-calendar',
-    'schedule-survey',
     'congrats'
   ];
+  // TODO: restore these once configurator is back
+  // help_steps = [
+  //   'intro-design',
+  //   'zoom-lock-roof',
+  //   'trace-area',
+  //   'edit-area',
+  //   'detail-area',
+  //   'review-proposal',
+  //   'create-contact',
+  //   'credit-check',
+  //   'qualify',
+  //   'survey-calendar',
+  //   'schedule-survey',
+  //   'congrats'
+  // ];
 
   // subscribe to the state when session is loaded
   Client.listen('Session: Loaded', bootstrapNewSession);
