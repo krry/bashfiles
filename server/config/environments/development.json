@@ -20,6 +20,7 @@
   "SFUSERNAME": "onlinesales@solarcity.com.full",
   "SFPASSWORD": "3zZ*$Hm}F4s2AEe",
   "SFDCSECRETTOKEN": "4wA0xsJPpxziT6RTzG838eoGS",
+  "SFDCRECORDTYPEID": "012180000008VBfAAM",
   "CLIENT": {
     "MINIFIED": "false",
     "URL_ROOT": "localhost:8100",

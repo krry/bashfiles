@@ -20,6 +20,7 @@
   "SFUSERNAME": "onlinesales@solarcity.com.staging",
   "SFPASSWORD": "3zZ*$Hm}F4s2AEe",
   "SFDCSECRETTOKEN": "kIJ22eDM8OZ5LgxZGpGY9ikm",
+  "SFDCRECORDTYPEID": "0121900000009OfAAI",
   "CLIENT": {
     "MINIFIED": "true",
     "URL_ROOT": "go-stage.solarcity.com",
