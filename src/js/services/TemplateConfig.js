@@ -53,11 +53,6 @@ function TemplateConfig_ () {
         },
         {
           staticLayout: true,
-          step: 'qualify',
-          partial: 'qualify.html'
-        },
-        {
-          staticLayout: true,
           step: 'congrats',
           partial: 'congrats.html'
         },

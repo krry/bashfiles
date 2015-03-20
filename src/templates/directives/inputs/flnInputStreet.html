@@ -9,6 +9,6 @@
   ng-model="form.prospect.street"
   ng-model-options="{ debounce: 500 }"
   ng-minlength="4"
-  ng-change="form.checkAddress(form.prospect.street)"
+  ng-blur="form.checkAddress(form.prospect.street)"
   bind-key="form.checkAddress(form.prospect.street)"
   key="13">
