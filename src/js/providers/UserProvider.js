@@ -21,16 +21,16 @@
 
 ============================================================ */
 
-providers.provider("User", [ "SessionProvider", UserProvider_]);
+providers.provider("User", [ "SessionProvider", "FIREBASE_URL", UserProvider_]);
 
-function UserProvider_ (SessionProvider) {
+function UserProvider_ (SessionProvider, FIREBASE_URL) {
   var _ref,
       _ref_key,
       users_url,
       fb_observable,
       state_stream;
 
-  users_url = "https://scty.firebaseio.com/users/";
+  users_url = FIREBASE_URL + "users/";
 
   this.setRefKey = function(key){
     _ref_key = key;

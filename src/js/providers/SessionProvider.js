@@ -24,9 +24,9 @@
 
   ================================ */
 
-providers.provider("Session", ['FormProvider', 'DesignProvider', SessionProvider_]);
+providers.provider("Session", ['FormProvider', 'DesignProvider', 'FIREBASE_URL', SessionProvider_]);
 
-function SessionProvider_ (FormProvider, DesignProvider, ConfiguratorProvider) {
+function SessionProvider_ (FormProvider, DesignProvider, FIREBASE_URL) {
   console.log('Session Provider started')
 
   var _ref,
@@ -36,7 +36,7 @@ function SessionProvider_ (FormProvider, DesignProvider, ConfiguratorProvider) {
       fb_observable,
       state_stream;
 
-  sessions_url = 'https://scty.firebaseio.com/sessions/';
+  sessions_url = FIREBASE_URL + 'sessions/';
   _ref_key = null;
   _user_key = null;
 

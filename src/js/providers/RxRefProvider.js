@@ -13,10 +13,10 @@ providers.provider('rx_ref',
     existing_user = user_id;
   };
 
-  this.$get = ['FBURL',
-    function rx_rf(FBURL) {
+  this.$get = ['FIREBASE_URL',
+    function rx_rf(FIREBASE_URL) {
       console.log('args',arguments);
-      return new Firebase('https://scty.firebaseio.com/designs/1234/').observe('value');
+      return new Firebase(FIREBASE_URL + 'designs/1234/').observe('value');
     } ];
   }
 );

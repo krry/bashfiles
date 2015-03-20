@@ -1,7 +1,7 @@
 {
   "PORT": 8100,
   "FLANNEL_SECRET": "sekret",
-  "FIREBASE_SECRET": "hSKlMlUuwpcowWFyS3UjmSqlZQTPTmeEz62OXta9",
+  "FIREBASE_SECRET": "BhRazMynd8ZFy4aVolpxQG2OgoWz3Yfabn9k45NF",
   "SOLAR_WORKS_ROOT": "https://api-test.solarcity.com",
   "SOLAR_WORKS_API_ROOT": "https://solarworksapi-test.solarcity.com",
   "GSA_ROOT": "https://gsa-test.solarcity.com",
@@ -26,6 +26,7 @@
     "URL_ROOT": "localhost:8100",
     "APP_TITLE": "FLNL • DEV",
     "GMAP_CLIENT": "gme-solarcity",
+    "FIREBASE_URL": "https://scty-int.firebaseio.com/",
     "AHJ_API": "/api/ahj",
     "UTILITIES_API": "/api/utilities",
     "WAREHOUSE_API": "/api/warehouses",

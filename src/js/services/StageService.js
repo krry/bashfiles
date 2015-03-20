@@ -1,4 +1,4 @@
-function StageService_ ($state, FBURL, TemplateConfig) {
+function StageService_ ($state, FIREBASE_URL, TemplateConfig) {
   /* ================================
     StageService
 

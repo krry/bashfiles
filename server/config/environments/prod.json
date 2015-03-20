@@ -1,7 +1,7 @@
 {
   "PORT": 8100,
   "FLANNEL_SECRET": "sekret",
-  "FIREBASE_SECRET": "hSKlMlUuwpcowWFyS3UjmSqlZQTPTmeEz62OXta9",
+  "FIREBASE_SECRET": "He9v9CvnWIeD22lacnKTGa9O7fbKkDLos1766OdR",
   "SOLAR_WORKS_ROOT": "https://api.solarcity.com",
   "SOLAR_WORKS_API_ROOT": "https://solarworksapi.solarcity.com",
   "GSA_ROOT": "https://gsa.solarcity.com",
@@ -26,6 +26,7 @@
     "URL_ROOT": "go.solarcity.com",
     "APP_TITLE": "The Future is Now • SolarCity",
     "GMAP_CLIENT": "",
+    "FIREBASE_URL": "https://scty-prod.firebaseio.com/",
     "AHJ_API": "/api/ahj",
     "UTILITIES_API": "/api/utilities",
     "WAREHOUSE_API": "/api/warehouses",

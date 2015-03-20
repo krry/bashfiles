@@ -1,6 +1,6 @@
-providers.provider('Design', DesignProvider_);
+providers.provider('Design', ['FIREBASE_URL', DesignProvider_]);
 
-function DesignProvider_ () {
+function DesignProvider_ (FIREBASE_URL) {
   /* ================================
     Design
       structures the user flow, e.g.:
@@ -73,7 +73,7 @@ function DesignProvider_ () {
 
 
   _ref_key = null;
-  designs_url = 'https://scty.firebaseio.com/designs/';
+  designs_url = FIREBASE_URL + 'designs/';
 
   this.setRefKey = function(key){
     /* jshint -W030 */
