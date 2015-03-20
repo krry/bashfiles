@@ -18,8 +18,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
   /* bootstrap the controller's model from the form provider, listen for changes */
   Client.listen('Form: Loaded', bootstrapForm);
   Client.listen('geocode results', badZip);
-  Client.listen('Stages: restart session', resetForm);
-  Client.listen('Dev: Reset form', resetForm);
+  Client.listen('Stages: restart session', restartForm);
 
   function bootstrapForm (form_obj) {
     // subscribe to the stream
@@ -133,7 +132,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
     }
   }
 
-  function resetForm() {
+  function restartForm() {
     var obj = {};
     for (var prop in vm.prospect) {
       if (vm.prospect.hasOwnProperty(prop)) {
@@ -141,7 +140,6 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
         obj[prop] = null;
       }
     }
-    Form.resetForm();
   }
 
   function checkCredit() {

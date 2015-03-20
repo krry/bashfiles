@@ -57,6 +57,7 @@ function FormProvider_ () {
 
     Client.listen('Session: Loaded', bootstrapForm);
     Client.listen('Form: valid data', updateRefByVal);
+    Client.listen('Dev: Reset form', resetForm);
 
     function resetForm () {
       var form_obj = {};
