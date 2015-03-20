@@ -63,6 +63,7 @@ input.phone {
 }
 
 input.birthdate {
+  font-size: 2em;
   padding: .25em .5em;
   width: auto;
   max-width: 3em;
@@ -73,7 +74,7 @@ input.birthdate {
 }
 
 input.terms {
-  margin: 0 10px;
+  margin: 2em 1em 0 0;
 }
 
 input.zipcode {
