@@ -33,9 +33,9 @@ function LiveagentService_ () {
   function x_findOrCreateSessionByAddy () {
     // if a Lead exists with the same Form details, find it
     // if no similar Lead exists, create a new one
+    // http://www.salesforce.com/us/developer/docs/live_agent_dev/Content/live_agent_creating_records_API_map.htm
     liveagent.findOrCreate("ODA_Session__c")
              .map(
-              // http://www.salesforce.com/us/developer/docs/live_agent_dev/Content/live_agent_creating_records_API_map.htm
               "Address__c", // FieldName
               "Address",    // DetailName
               true,         // doFind
@@ -46,9 +46,32 @@ function LiveagentService_ () {
               "odaHotloadLink",
               false,
               false,
-              true
-              )
+              true)
+              .map(
+              "Session_ID__c",
+              "session_id",
+              false,
+              false,
+              true)
       .showOnCreate().saveToTranscript("ODA_Session__c");
+
+    liveagent.findOrCreate("Lead")
+             .map(
+              "Address",    // FieldName
+              "Address",    // DetailName
+              true,         // doFind
+              true,         // isExactMatch
+              false)        // doCreate
+      .showOnCreate().saveToTranscript("Related_Lead__c");
+
+    liveagent.findOrCreate("Opportunity")
+             .map(
+              "Address__c", // FieldName
+              "Address",    // DetailName
+              true,         // doFind
+              true,         // isExactMatch
+              false)        // doCreate
+      .showOnCreate().saveToTranscript("Related_Opportunity__c");
 
     // initialize the liveagent session
     liveagent.init(

@@ -164,6 +164,8 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
         Client.emit('Stages: stage', stage);
       }
     }, function(resp) {
+      // Darius said to use 'saved proposal' for now when the api call fails
+      createLead(Salesforce.statuses.savedProposal);
       vm.isSubmitting = false;
 
       // Timed out
@@ -363,7 +365,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
   function acceptValidWarehouse(data) {
     if (data) {
       vm.invalidTerritory = !data;
-      vm.invalid = vm.invalidZip && vm.invalidTerritory;
+      vm.invalidZip = !data;
 
       Client.emit('Stages: jump to step', 'address-roof');
       vm.prospect.warehouseId = data.warehouseId;

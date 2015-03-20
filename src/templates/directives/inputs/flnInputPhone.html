@@ -7,11 +7,11 @@
   autocorrect="off"
   placeholder="(___) ___-____"
   ng-model="form.prospect.phone"
-  ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"
+  ng-model-options="{ updateOn: 'default blur', debounce: { default: 0, blur: 0 } }"
   ng-required="true"
-  ng-minlength="10"
-  ng-maxlength="10"
-  ng-pattern="/\b\d{10}\b/">
+  ng-minlength="14"
+  ng-maxlength="14"
+  ui-us-phone-number>
 <div class="status" ng-hide="prospectForm.phone.$pristine">
   <span ng-show="prospectForm.phone.$error.required">
     Required

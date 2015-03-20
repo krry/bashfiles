@@ -26,11 +26,6 @@ function TemplateConfig_ () {
           partial: 'zip.html'
         },
         {
-          staticLayout: true,
-          step: 'out-territory',
-          partial: 'outside.html'
-        },
-        {
           staticLayout: false,
           step: 'address-roof',
           partial: 'address.html'

@@ -19,22 +19,6 @@ label + button {
   margin-top: 2em !important;
 }
 
-// Address fields
-input.zipcode {
-  text-transform: uppercase;
-  color: $color-input-text;
-  border: 1px solid $grey-medium;
-  border-radius: 4px;
-  background-color: $white-dark;
-  &.big {
-    text-align: center;
-    font-size: 2.5em;
-    width: 7em;
-    padding: 0.6em 1em;
-    margin: 1em auto;
-  }
-}
-
 span.autolocate-icon {
   display: inline-block;
   opacity: 1;
@@ -76,12 +60,19 @@ input.terms {
   margin: 0 10px;
 }
 
+// Address fields
 input.zipcode {
-  text-transform: uppercase;
   color: $color-input-text;
   border: 1px solid $grey-medium;
-  border-radius: 6px;
+  border-radius: 4px;
   background-color: $white-dark;
+  &.big {
+    text-align: center;
+    font-size: 2.5em;
+    width: 7em;
+    padding: 0.6em 1em;
+    margin: 1em auto;
+  }
 }
 
 .step-zip {

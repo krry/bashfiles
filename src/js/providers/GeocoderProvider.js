@@ -239,7 +239,6 @@ function GeocoderProvider_ () {
         } else {
           // if not in territory, collect email, show alternatives
           Client.emit('Geocoder: invalid territory', true);
-          // Client.emit('Stages: jump to step', 'outside');
         }
       });
     }

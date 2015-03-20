@@ -1,19 +1,15 @@
-directives.directive('flnInputStreet', [flnInputStreet_]);
+directives.directive('flnInputStreet', ["$timeout", flnInputStreet_]);
 
-function flnInputStreet_ () {
+function flnInputStreet_ ($timeout) {
   return {
     restrict: "E",
     templateUrl: "templates/directives/inputs/flnInputStreet.html",
     require: '^flnForm',
-    link: function (scope, element, attrs, FormCtrl) {
-      var elVal,
-          form
-      form = FormCtrl;
-      element.focus();
-      element.bind('blur change', function (){
-        elVal = $(element).find('input').val();
-        form.checkAddress(elVal);
-      })
+    link: function (scope, element, attrs) {
+      scope.focus = attrs.focus;
+      $timeout(function (){
+        // element[0].focus();
+      }, 0);
     },
   };
 }
