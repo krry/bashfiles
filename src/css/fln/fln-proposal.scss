@@ -85,12 +85,20 @@
 }
 
 .financing-option {
-  padding: .75em 1.5em;
+  padding: 1em 1.5em 2em 1.5em;
   border: 2px solid $gold;
   border-radius: .5em;
 
   em {
     font-size: .75em;
     text-align: right;
+  }
+  h3 {
+    font-family:'Apercu Light';
+    font-size: 1.4em;
+    letter-spacing: 0.05em;
+  }
+  p {
+    line-height: 160%;
   }
 }
