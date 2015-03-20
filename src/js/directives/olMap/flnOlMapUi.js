@@ -107,7 +107,7 @@ function flnDragPan_ (Configurator, newConfigurator) {
   };
 }
 
-function flnOmapClearPoly_ () {
+function flnOmapClearPoly_ (Design) {
   return {
     restrict: "A",
     link: function (scope, ele, attrs) {

@@ -6,9 +6,9 @@
  *
  */
 
-angular.module('flannel').factory('Interactions', ['Design', 'Layers', 'StyleService', 'AreaService', Interactions_]);
+angular.module('flannel').factory('Interactions', ['Design', 'StyleService', 'AreaService', Interactions_]);
 
-function Interactions_(Design, Layers, Styles, AreaService) {
+function Interactions_(Design, Styles, AreaService) {
     // returned by Factory
   var interactions,
     // interactions
@@ -17,9 +17,8 @@ function Interactions_(Design, Layers, Styles, AreaService) {
       zoom,
       dragpan,
     // defaults
-      dragpan_opt,
-    // feature being modified
-      modify_target_feature;
+      dragpan_opt;
+
 
   interactions = {};
   dragpan_opt = { enableKinetic: true };
@@ -30,25 +29,23 @@ function Interactions_(Design, Layers, Styles, AreaService) {
   interactions.zoom    = new ol.interaction.MouseWheelZoom();
   // draw areas
   interactions.draw = new ol.interaction.Draw({
-    source: Design.draw_source,
+    // features: Design.areas_collection,
     type: 'Polygon',
     geometryName: 'area',
   });
 
   // get the feature, and pass it along on the wire
-
-  console.log('Design.rx_areas.onNext', Design.rx_areas.onNext)
   interactions.draw.on('drawend', function(e){
     var feature = e.feature;
-    debugger;
+    Design.setWkt(AreaService.getWkt(feature));
     Design.ref().child('areas').child('0').set({ // HACK: one area only
-      wkt: AreaService.getWkt(feature),
+      wkt: Design.getWkt(),
     })
   });
 
   // modify
   interactions.modify = new ol.interaction.Modify({
-    features: Layers.area_collection,
+    features: Design.areas_collection,
     style: Styles.highlightStyleFunction,
     // the SHIFT key must be pressed to delete vertices, so
     // that new vertices can be drawn at the same position
@@ -60,7 +57,7 @@ function Interactions_(Design, Layers, Styles, AreaService) {
   });
 
   interactions.modify.clearArea = function () {
-    Design.rx_area.onNext("remove by client");
+    Design.rx_areas.onNext("remove by client");
   }
 
   return interactions;

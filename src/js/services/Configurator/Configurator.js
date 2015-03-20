@@ -8,7 +8,7 @@
  */
 
 angular.module('flannel').service('newConfigurator', ['View', 'Interactions', 'Layers', newConfigurator_]);
-var maps
+
 function newConfigurator_(View, Interactions, Layers) {
   var gmap,
       omap,
@@ -136,6 +136,6 @@ function newConfigurator_(View, Interactions, Layers) {
     omap.removeInteraction(Interactions.zoom);
   }
   this.redoArea = function() {
-    interactions.modify.clearArea();
+    Interactions.modify.clearArea();
   }
 }

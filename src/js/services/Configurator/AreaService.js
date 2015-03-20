@@ -26,18 +26,18 @@ function AreaService_(Design) {
     return wkt.readGeometry(txt);
   }
 
-  this.wireUp = function(id, wkt) {
-    var feature = featFromTxt(wkt, 'area');
-    if (id) {
-      feature.setId(id)
-    } else {
-      feature.setId(0);
-    }
+  this.wireUp = function(id, feature) {
+    // var feature = featFromTxt(wkt, 'area');
+    id = id || 0;
+    feature.setId(id);
     feature.set('wkt', getWkt(feature));
     feature.on('change:wkt', function (evt) {
-      Design.areas_ref().child('0/wkt').set(feature.get('wkt'));
+      Design.ref()
+        .child('areas').child(id).child('wkt')
+        .set(feature.get('wkt'));
     })
     feature.getGeometry().on('change', function (g) {
+      Design.busy = true;
       feature.set('wkt', getWkt(feature));
     });
     return feature
