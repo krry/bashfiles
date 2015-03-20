@@ -102,3 +102,24 @@
     line-height: 160%;
   }
 }
+
+.faq-item {
+
+  figure img {
+    margin-top: 0.25em;
+    width: 300px;
+    height: 170px;
+  }
+  p {
+    line-height: 160%;
+  }
+  dt {
+    font-family: 'Apercu Medium';
+  }
+  ul {
+    margin: 0.5em 0;
+  }
+  li {
+    line-height: 160%;
+  }
+}
