@@ -44,6 +44,24 @@
     border-radius: 50%;
     float: right;
     margin-right: 1em;
+    &.icon-house {
+      background-image: url('../img/icon-proposal-house.svg');
+    }
+    &.icon-coin {
+      background-image: url('../img/icon-proposal-coins.svg');
+    }
+    &.icon-document {
+      background-image: url('../img/icon-proposal-document.svg');
+    }
+    &.icon-bulb {
+      background-image: url('../img/icon-proposal-bulb.svg');
+    }
+    &.icon-graph {
+      background-image: url('../img/icon-proposal-graph.svg');
+    }
+    &.icon-palm {
+      background-image: url('../img/icon-proposal-palm.svg');
+    }
   }
   &.search {
     @include icon('address-search');
