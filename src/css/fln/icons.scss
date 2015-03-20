@@ -15,6 +15,11 @@
     margin-left: .75em;
     /* margin-bottom: -.125em; */
   }
+  &.down-blk {
+    @include icon('arrow-down-blk');
+    width: 1em;
+    height: 1em;
+  }
   &.question {
     @include icon("question-mark-white");
   }
