@@ -22,7 +22,7 @@ directives
 .directive('flnModify', flnModify_ )
 .directive('flnZoom', flnZoom_ )
 .directive('flnDragpan', flnDragPan_ )
-.directive('flnOmapRedo', flnOmapRedo_ );
+.directive('flnOmapClearPoly', flnOmapClearPoly_ );
 
 function flnDraw_ ($timeout, $compile, newConfigurator, Clientstream) {
   return {
@@ -107,13 +107,13 @@ function flnDragPan_ (Configurator, newConfigurator) {
   };
 }
 
-function flnOmapRedo_ (Clientstream, newConfigurator) {
+function flnOmapClearPoly_ (Clientstream, newConfigurator) {
   return {
     restrict: "A",
-    link: function flnModifyLink (scope, ele, attrs) {
+    link: function (scope, ele, attrs) {
       ele.on('click', function popThatPoly(){
         newConfigurator.redoArea();
-        Clientstream.emit('stage', 'back');
+        Clientstream.emit('Stages: stage', 'back');
       })
     },
   };
