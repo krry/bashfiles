@@ -29,7 +29,7 @@
   // box-shadow: 0 .5em .25em -.25em $shade-20;
   box-shadow: 0 0 .75em -.25em $shade-60;
   margin-left: -2em;
-  padding: 3em 2.7em 1em 2.7em;
+  padding: 3em 2.7em 2em 2.7em;
   line-height: 120%;
 }
 .instructions button.gold {
@@ -40,6 +40,10 @@
   border: 1px solid #ccc;
   width: 286px;
   height: 143px;
+}
+.instructions button.tiny.white {
+  min-width: 8em;
+  margin: 0 auto;
 }
 
 .area-detail {
