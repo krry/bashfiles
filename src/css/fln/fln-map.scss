@@ -146,46 +146,46 @@
     pointer-events: auto;
     position: absolute;
     margin: auto;
-    width: 2.5em;
-    height: 2.5em;
+    width: 3.5em;
+    height: 3.5em;
     overflow: auto;
     // opacity: .5;
     padding: 0;
     min-width: 0;
-    border-radius: 7px;
+    border-radius: 50%;
     background-color: none;
 
     &.pan-up {
       top: 1em;
       right: 0;
       left: 0;
-      background: url('../img/arrow-up.svg') no-repeat center;
-      background-size: 70% auto;
-      background-color: $tint-20;
+      background: url('../img/arrow-up-blk.svg') no-repeat center;
+      background-size: 50% auto;
+      background-color: $tint-40;
     }
     &.pan-down {
       right: 0;
       bottom: 1em;
       left: 0;
-      background: url('../img/arrow-down.svg') no-repeat center;
-      background-size: 70% auto;
-      background-color: $tint-20;
+      background: url('../img/arrow-down-blk.svg') no-repeat center;
+      background-size: 50% auto;
+      background-color: $tint-40;
     }
     &.pan-right {
       top: 0;
       bottom: 0;
-      right: 1em;
-      background: url('../img/arrow-right.svg') no-repeat center;
-      background-size: 70% auto;
-      background-color: $tint-20;
+      right: 3.5em;
+      background: url('../img/arrow-right-blk.svg') no-repeat center;
+      background-size: 50% auto;
+      background-color: $tint-40;
     }
     &.pan-left {
       top: 0;
       left: 1em;
       bottom: 0;
-      background: url('../img/arrow-left.svg') no-repeat center;
-      background-size: 70% auto;
-      background-color: $tint-20;
+      background: url('../img/arrow-left-blk.svg') no-repeat center;
+      background-size: 50% auto;
+      background-color: $tint-40;
     }
     &:hover,
     &:active {
