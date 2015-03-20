@@ -36,8 +36,10 @@
   min-width: 10em;
   margin-top: 2em;
 }
-.instructions figure {
+.instructions figure img {
   border: 1px solid #ccc;
+  width: 286px;
+  height: 143px;
 }
 
 .area-detail {
@@ -81,8 +83,8 @@
     .fln-zoom-out {
       // position: relative;
       color: transparent;
-      height: 2em;
-      width: 2em;
+      height: 2.3em;
+      width: 2.3em;
       padding: 0;
       border-radius: .2em;
       background: $white no-repeat center center;
