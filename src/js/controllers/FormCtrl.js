@@ -19,6 +19,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
   Client.listen('Form: Loaded', bootstrapForm);
   Client.listen('geocode results', badZip);
   Client.listen('Stages: restart session', resetForm);
+  Client.listen('Dev: Reset form', resetForm);
 
   function bootstrapForm (form_obj) {
     // subscribe to the stream
@@ -140,6 +141,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
         obj[prop] = null;
       }
     }
+    Form.resetForm();
   }
 
   function checkCredit() {

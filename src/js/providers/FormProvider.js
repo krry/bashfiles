@@ -58,9 +58,6 @@ function FormProvider_ () {
     Client.listen('Session: Loaded', bootstrapForm);
     Client.listen('Form: valid data', updateRefByVal);
 
-    // DEV:
-    Client.listen('Dev: Reset form', resetForm);
-
     function resetForm () {
       var form_obj = {};
       _ref.set(form_obj);
@@ -113,6 +110,7 @@ function FormProvider_ () {
         id: function () { return _ref.key(); },
         form_stream: function () { return _ref_stream; },
         prospect: function () { return prospect; },
+        resetForm: resetForm
       };
     }
 
