@@ -127,8 +127,16 @@ main.main.main-fixed {
 .step-bill h3 {
   margin-bottom: 0;
 }
+
 .step-bill button.tiny.gold {
-  margin: 0;
+  margin: 1em 0 0 0;
+}
+
+
+@media screen and (min-width: $width-min-med){
+  .step-bill button.tiny.gold {
+    margin: 0;
+  }
 }
 
 

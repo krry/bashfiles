@@ -105,10 +105,12 @@
 
 .faq-item {
 
-  figure img {
-    margin-top: 0.25em;
-    width: 300px;
-    height: 170px;
+  figure {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-color: pink;
+    height: 200px;
   }
   p {
     line-height: 160%;
@@ -121,5 +123,21 @@
   }
   li {
     line-height: 160%;
+  }
+
+  &.faq-sell figure {
+    background-image: url('../img/top5-SellMyHome.jpg');
+  }
+  &.faq-cost figure {
+    background-image: url('../img/top5-WhatItCosts.jpg');
+  }
+  &.faq-look figure {
+    background-image: url('../img/top5-HowItLooks.jpg');
+  }
+  &.faq-environment figure {
+    background-image: url('../img/top5-EnvironmentalImpact.jpg');
+  }
+  &.faq-work figure {
+    background-image: url('../img/top5-HowItWorks.jpg');
   }
 }
