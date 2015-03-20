@@ -52,7 +52,6 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
     'monthly-bill',
     'create-contact',
     'credit-check',
-    'qualify',
     'congrats'
   ];
   // TODO: restore these once configurator is back
