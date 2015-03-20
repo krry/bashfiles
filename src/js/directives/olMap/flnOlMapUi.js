@@ -107,13 +107,12 @@ function flnDragPan_ (Configurator, newConfigurator) {
   };
 }
 
-function flnOmapClearPoly_ (Clientstream, newConfigurator) {
+function flnOmapClearPoly_ () {
   return {
     restrict: "A",
     link: function (scope, ele, attrs) {
       ele.on('click', function popThatPoly(){
-        newConfigurator.redoArea();
-        Clientstream.emit('Stages: stage', 'back');
+        Design.rx_areas.onNext('removed by client');
       })
     },
   };
