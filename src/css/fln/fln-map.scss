@@ -54,8 +54,8 @@
 
   .ol-overlaycontainer-stopevent {
     position: absolute;
-    top: .75em;
-    left: .75em;
+    top: 4em;
+    left: 1.5em;
     background-color: $tint-40;
     border-radius: .35em;
     // background: rgba(255,255,255,0.3);
@@ -65,7 +65,7 @@
   }
 
   .ol-control {
-    padding: .25em;
+    // padding: .25em;
     position: static;
     border-radius: .5em;
   }
@@ -84,9 +84,11 @@
       height: 2em;
       width: 2em;
       padding: 0;
-      border-radius: .25em;
+      border-radius: .2em;
       background: $white no-repeat center center;
       background-size: 90% auto;
+      border: 0;
+      display: block;
       // @include apercu-bold;
       // font-size: 1.25em;
       // padding: .375em .75em;
@@ -94,7 +96,7 @@
       // border: 3px solid;
       // line-height: inherit;
       // min-width: 0;
-      // margin-bottom: .25em;
+      margin: .35em;
 
       &:hover {
         // color: $grey-mid;
