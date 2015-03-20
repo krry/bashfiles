@@ -12,6 +12,13 @@ function Layers_(Design, Styles, AreaService, Client) {
 
   var layers, l_draw, area_collection, source;
 
+  rx_drawcount = new Rx.Subject();
+
+
+  Design.all_the_areas.subscribe(function (area) {
+    console.log(area," was just added");
+  })
+
   area_collection = new ol.Collection();
   draw_source   = Design.draw_source;
   modify_source = Design.modify_source;
@@ -38,12 +45,9 @@ function Layers_(Design, Styles, AreaService, Client) {
     draw_source.removeFeature(feature);
     modify_source.removeFeature(feature);
   });
+
   area_collection.on('change:length',function(e){
-    var f = e.element;
-    // must emit to let the "next" know the number of features
-    // when features > 0, user can move forward in flow
-    Client.emit('area collection count', l_draw.getFeatures().length)
-    // console.debug('areacollection change:length -->', draw_source.getFeatures().length);
+    rx_drawcount.onNext(this.getLength());
   })
 
   Design.rx_areas
@@ -66,7 +70,7 @@ function Layers_(Design, Styles, AreaService, Client) {
         return
       }
       // make sure your area string looks right
-      feature = AreaService.wireUp(0, areas_object.wkt );
+      feature = AreaService.wireUp(0, areas_object[0].wkt );
       area_collection.push(feature);
     }
   })
@@ -76,6 +80,7 @@ function Layers_(Design, Styles, AreaService, Client) {
     modify: l_modify,
     array: [ l_draw, l_modify ],
     area_collection:  area_collection,
+    rx_drawcount: rx_drawcount,
   };
 
   return layers;

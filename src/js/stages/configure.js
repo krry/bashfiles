@@ -11,10 +11,10 @@ angular.module('configure',[]).config(["$stateProvider", function ($stateProvide
       // replace the main ui-view @ index
       'main@': {
         templateUrl: stageUrl + "main.html",
-        controller:  function ($scope, Clientstream) {
-          Clientstream.listen('area collection count', function (data) {
-            $scope.traced = data;
-            data && ($scope.$apply());
+        controller:  function ($scope, Layers) {
+          Layers.rx_drawcount.subscribe(function (x) {
+              $scope.traced = x
+              $scope.$apply();
           })
         },
       },
