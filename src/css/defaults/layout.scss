@@ -87,13 +87,15 @@ main.main.main-fixed {
   margin: auto;
 }
 
-.territory-map {
+.drop-top {
+  padding-top: 5.1rem;
+  font-size: 0.85em;
+  line-height: 120%;
+}
+.drop-top p {
+  margin-bottom: 0.75em;
+}
 
-}
-.territory-map p {
-  font-size: 0.75em;
-  padding-top: 5.3rem;
-}
 .territory-map figure {
   background-image: url('../img/map_regions.png');
   background-repeat: no-repeat;
@@ -129,14 +131,6 @@ main.main.main-fixed {
   .secondary.secondary {
     width: 25%;
     width: calc(20em - 1px);
-    .drop-top {
-      padding-top: 5rem;
-      /* position: absolute; */
-      /* bottom: 0; */
-    }
-    &.territory-map {
-      /* padding-top: 7.3rem; */
-    }
   }
   .primary.primary,
   .secondary.secondary {
