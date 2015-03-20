@@ -22,10 +22,30 @@ function View_(Design, Session, Client) {
   // this bootstraps the view in the case of direct state navigation
   Client.listen('Session: Loaded', function bootstrapViewCenter(data) {
     view.setCenter([data.map_center.lng, data.map_center.lat]);
-  })
+
+    view.on('change:center', function(){
+      Design.ref().child('map_details/center').update({
+        lat: view.getCenter()[1],
+        lng: view.getCenter()[0],
+      });
+    });
+
+    view.on('change:resolution', function(){
+      Design.ref().child('map_details/zoom_level').set(view.getZoom());
+    });
+
+  });
+
+
+
+  /*Client.listen('Design: Loaded', function bootstrapView(design_data) {
+      view.setCenter([design_data.map_details.center.lng,
+        design_data.map_details.center.lat]);
+      view.setZoom(design_data.map_details.zoom_level);
+  });*/
 
   // wait for configurator to set the center before setting the listeners
-  view.once('change:center', function() {
+  /*view.once('change:center', function() {
     // update the map_center from remote
     Design.ref().child('map_details/center').observe('value')
     .throttle(100)
@@ -37,10 +57,10 @@ function View_(Design, Session, Client) {
         lng: view.getCenter()[0],
       })
     })
-  });
+  });*/
 
   // wait for configurator to set the zoom before setting the listeners
-  view.once('change:resolution', function() {
+  /*view.once('change:resolution', function() {
     // update zoom from remote
     Design.ref().child('map_details/zoom_level').observe('value')
     .throttle(100)
@@ -49,27 +69,29 @@ function View_(Design, Session, Client) {
     view.on('change:resolution', function(){
       Design.ref().child('map_details/zoom_level').set(view.getZoom());
     })
-  });
+  });*/
 
   // update center from remote
-  function handleCenter (d){
+  Design.rx_center.subscribe(function handleCenter (d){
     if (!d.exists()) {
+      debugger;
       Session.ref().child('map_center').once('value', function (ds) {
         data = ds.exportVal()
         var center = [data.lng, data.lat]
         view.setCenter(center)
       })
-      return
+      return;
     }
+    debugger;
     var center = [d.exportVal().lng, d.exportVal().lat];
     view.setCenter(center);
-  }
+  });
 
   // update zoom level from remote
-  function handleZoom (d){
+  Design.rx_zoom.subscribe(function handleZoom (d){
     var zoom = d.exportVal()
     view.setZoom(zoom)
-  }
+  });
 
   view.rx_center = new Rx.Observable.fromEventPattern(
     function addHandler(h) {

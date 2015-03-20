@@ -26,7 +26,6 @@ function DesignProvider_ (FIREBASE_URL) {
 
   ================================ */
 
-  var rx_areas = new Rx.Subject();
 
   var _ref,
       _ref_key,
@@ -91,56 +90,74 @@ function DesignProvider_ (FIREBASE_URL) {
     // }
     Client.listen('Session: Loaded', bootstrapDesign);
 
-    function bootstrapDesign (ds) {
+
+    var rx_center = new Rx.Subject();
+    var rx_zoom = new Rx.Subject();
+    var rx_areas = new Rx.Subject();
+
+
+    function bootstrapDesign (data) {
           _ref = _ref_key ? new Firebase(designs_url).child(_ref_key) : new Firebase(designs_url).push();
+
+
+
+          _ref.child('areas/0').on('value', function (ds) {
+            rx_areas.onNext(ds.exportVal());
+          });
+
+          _ref.child('map_details/center').on('value', function (ds) {
+            rx_center.onNext(ds);
+          });
+
+          _ref.child('map_details/zoom_level').on('value', function (ds){
+            rx_zoom.onNext(ds);
+          });
+
+
+          /*
+          rx_center     = _ref.child('map_details/center')
+            .observe('value')
+            .distinctUntilChanged();
+
+          rx_center
+            .filter(function (ds) {
+              if (!map_center) return true; // design loading for first time on this client
+              if (map_center !== ds.exportVal()) return true; // remote update
+              console.error('you have weird remote center on design_ref');
+            })
+            .map(function function_name(ds) {
+              return ds.exportVal();
+            });
+
+            rx_zoom       = _ref.child('map_details/zoom_level')
+              .observe('value')
+              .distinctUntilChanged();*/
+
+            _ref.once('value', loadDesign);
     }
 
     // load design & notify app design is loaded
     function loadDesign (ds) {
-
+          var data = ds.exportVal();
+          data.design_id = _ref.key();
+          Client.emit('Design: Loaded', data);
     }
 
-    _ref.child('areas/0').on('value', function (ds) {
-      rx_areas.onNext(ds.exportVal());
-    })
-
-
-    rx_center     = _ref.child('map_details/center')
-      .observe('value')
-      .distinctUntilChanged()
-
-    rx_center
-      .filter(function (ds) {
-        if (!map_center) return true; // design loading for first time on this client
-        if (map_center !== ds.exportVal()) return true; // remote update
-        console.error('you have weird remote center on design_ref');
-      })
-      .map(function function_name(ds) {
-        return ds.exportVal();
-      });
-
-    rx_zoom       = _ref.child('map_details/zoom_level')
-      .observe('value')
-      .distinctUntilChanged()
-
-    var observable = new Rx.Observable.fromEventPattern(
+    /*var observable = new Rx.Observable.fromEventPattern(
       function add(h) {
         _ref.child('areas').on('value', h)
       },
       function remove(h) {
         _ref.child('areas').off('value', h)
       }
-    )
-
-
-
+    )*/
 
     // watch the area_collection to validate trace_complete
     var _wkt;
     function awesome_design_builder_brah() {
       return {
         // dev
-        rx_areas: rx_areas,
+        //rx_areas: rx_areas,
         // dev end
         map_details: {
           center: map_center,

@@ -57,9 +57,12 @@ function Layers_(Design, Styles, AreaService, Client) {
     if (areas_collection.getLength()) {
       console.log('areaslength')
       if (area === 'removed by client') {
-        areas_collection.pop()
+        areas_collection.pop();
         Client.emit('Stages: stage', 'back'); // TODO: move this to a subscription in StagesCtrl
       } else {
+        if (area === null) {
+          //
+        }
         if (area.wkt === feature.get('wkt')) {
           console.log('area the same as feature')
           return Design.busy = false;
