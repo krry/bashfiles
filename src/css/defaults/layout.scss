@@ -45,7 +45,7 @@ main.main.main-fixed {
 
 .overlay.primary,
 .overlay.only {
-  padding: 4em 2em;
+  padding: 4em 2em 7em 2em;
   text-align: center;
 }
 
@@ -87,6 +87,36 @@ main.main.main-fixed {
   margin: auto;
 }
 
+.territory-map {
+
+}
+.territory-map p {
+  font-size: 0.75em;
+  padding-top: 5.3rem;
+}
+.territory-map figure {
+  background-image: url('../img/map_regions.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  height: 200px;
+}
+
+.video-vision .video-tray {
+  border: none;
+}
+.video-vision p {
+  font-size: 0.75em;
+}
+
+.step-bill h3 {
+  margin-bottom: 0;
+}
+.step-bill button.tiny.gold {
+  margin: 0;
+}
+
+
 @media screen and (min-width: $width-min-lrg){
   .primary.primary {
     width: 75%;
@@ -99,11 +129,13 @@ main.main.main-fixed {
   .secondary.secondary {
     width: 25%;
     width: calc(20em - 1px);
-
     .drop-top {
-      padding-top: 7rem;
+      padding-top: 5rem;
       /* position: absolute; */
       /* bottom: 0; */
+    }
+    &.territory-map {
+      /* padding-top: 7.3rem; */
     }
   }
   .primary.primary,
@@ -124,6 +156,11 @@ main.main.main-fixed {
   .overlay-left.overlay-left {
     overflow: visible;
   }
+
+  .step-address h3 {
+    width: 85%;
+  }
+
 }
 
 @media screen and (min-width: $width-min-xlg){
@@ -142,6 +179,20 @@ main.main.main-fixed {
     box-shadow: 0 0 8px 0 $shade-40;
     &.step-bill {
       padding: 1em 2em .5em;
+    }
+  }
+  .step-address h3 {
+    width: 75%;
+  }
+}
+
+/* prevents the CTA in the tallest right rail from falling out of reach on short screens */
+@media screen and (max-height: 778px) {
+  .overlay-left.overlay-left {
+    overflow-y: scroll;
+    .instructions {
+      margin-left: 0;
+      padding: 2em;
     }
   }
 }
