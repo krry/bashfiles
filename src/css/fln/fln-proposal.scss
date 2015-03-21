@@ -6,8 +6,17 @@
   strong + p {
     margin-top: .25em;
   }
+  dt {
+    font-family: 'Apercu Medium';
+  }
   strong + dl {
     margin-top: 0;
+  }
+  ul {
+    margin: 0.5em 0;
+  }
+  ul li, p {
+    line-height: 160%;
   }
 }
 
@@ -63,7 +72,7 @@
 .aerial {
   background: $black url('../img/aerial.png') no-repeat center center;
   background-size: cover;
-  height: 17em;
+  height: 18.5em;
 }
 
 .chart-tray {

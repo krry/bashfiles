@@ -55,7 +55,7 @@ main.main.main-fixed {
 }
 
 .overlay.proposal-page {
-  background-color: #f5f6f6;
+  background-color: $grey-lightest;
 }
 
 .overlay.secondary {
@@ -130,6 +130,13 @@ main.main.main-fixed {
 
 .step-bill button.tiny.gold {
   margin: 1em 0 0 0;
+}
+
+.fine-print {
+  font-size: 0.7em;
+  text-align: left;
+  margin-top: 10em;
+  color: $grey-meh;
 }
 
 
