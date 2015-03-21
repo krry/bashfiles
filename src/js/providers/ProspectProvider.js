@@ -26,14 +26,14 @@
 
 ========================================================= */
 
-providers.provider("Prospect", [ProspectProvider_]);
+providers.provider("Prospect", ['FIREBASE_URL', ProspectProvider_]);
 
-function ProspectProvider_ () {
+function ProspectProvider_ (FIREBASE_URL) {
 
   var prospect_ref,
       fb_observable;
 
-  prospect_ref = new Firebase("https://scty.firebaseio.com/prospects/").push();
+  prospect_ref = new Firebase(FIREBASE_URL + "prospects/").push();
 
   fb_observable = prospect_ref.observe('value').skip(1);
 

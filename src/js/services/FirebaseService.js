@@ -1,6 +1,6 @@
 angular.module('flannel.firebase', [])
 // a simple utility to create references to Firebase paths
-.factory('firebaseRef', ['FBURL', function (FBURL) {
+.factory('firebaseRef', ['FIREBASE_URL', function (FIREBASE_URL) {
   /**
    * @function
    * @name firebaseRef
@@ -8,7 +8,7 @@ angular.module('flannel.firebase', [])
    * @return a Firebase instance
    */
   return function(path) {
-    return new Firebase(pathRef([FBURL].concat(Array.prototype.slice.call(arguments))));
+    return new Firebase(pathRef([FIREBASE_URL].concat(Array.prototype.slice.call(arguments))));
   };
 }])
 // a simple utility to create $firebase objects from angularFire
