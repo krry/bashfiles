@@ -72,7 +72,7 @@
     border: none;
     width: 2em;
     height: 2em;
-    background-position: center -1px;
+    background-position: center center;
   }
   &.chat {
     @include icon('help-chat');
