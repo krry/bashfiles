@@ -9,7 +9,7 @@
 angular.module('flannel').factory("View", ['Design', 'Session', 'Clientstream', View_]);
 
 function View_(Design, Session, Client) {
-  var view, center_listner_key, zoom_listener_key;
+  var view, center, center_listner_key, zoom_listener_key;
 
   Client.listen('Configurator: target set', function () {
     Design.ref() && Design.rx_zoom.onNext(view.getZoom());
@@ -26,7 +26,6 @@ function View_(Design, Session, Client) {
   });
   // this bootstraps the view in the case of direct state navigation
    Client.listen('Design: Loaded', function bootstrapViewCenter(data) {
-    //view.setCenter([data.map_center.lng, data.map_center.lat]);
     view.on('change:center', function(){
       Design.ref().child('map_details/center').update({
         lat: view.getCenter()[1],
@@ -38,7 +37,6 @@ function View_(Design, Session, Client) {
       Design.ref().child('map_details/zoom_level').set(view.getZoom());
     });
   });
-
 
   // update center from remote
   Design.rx_center.subscribe(function subViewCenterToRemote (center_val){

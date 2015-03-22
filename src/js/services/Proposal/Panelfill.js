@@ -17,11 +17,13 @@ function PanelfillSvc ($http, $q) {
   Panelfill.getFilled = function(wkt_txt) {
     var deferred = $q.defer();
     var x = {};
+      var points, area;
 
     // turn text into polygon message
-    points_for_panelfill = fillMessageForSingleArea(wkt_txt)['m'][0]; //HACK: reused code, ignore obstructions
+    points_for_panelfill = fillMessageForSingleArea(wkt_txt).m[0]; //HACK: reused code, ignore obstructions
     function fillMessageForSingleArea(wkt_txt){
       var result = {};
+
       // add area points object
       result.m = {};
       var id = parseInt(0);
@@ -29,7 +31,7 @@ function PanelfillSvc ($http, $q) {
       result.m[id][0] = result.m[id][0].split('((')[1];
       result.m[id].splice(-1); // remove the last point, it's a dupe of the 1st
       return result;
-    };
+    }
     // then put the points into an array
     points = convertPolyPointsToArrayOfPoints(points_for_panelfill);
     function convertPolyPointsToArrayOfPoints(poly_points){
@@ -39,7 +41,7 @@ function PanelfillSvc ($http, $q) {
         result.push(poly_points[i].split(' '));
       }
       return result;
-    };
+    }
 
     area = {
       id: 0,
@@ -59,6 +61,7 @@ function PanelfillSvc ($http, $q) {
          "TestJSON": x
       },
       success: function(dt){
+        var panelfill_points;
         var t = JSON.parse(dt);
         panelfill_points = t[0]; // HACK: ignoring setbacks that come with this message
         deferred.resolve(panelfill_points);

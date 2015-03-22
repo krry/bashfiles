@@ -114,11 +114,6 @@ function SessionProvider_ (FormProvider, DesignProvider, FIREBASE_URL) {
 
     function awesome_session_builder_brah () {
       return {
-        // TODO: enable hotswap sessions
-        // setRefKey: function (key){
-        //   console.log('Session.setRefKey method called', key)
-        //   key && (_ref_key = key);
-        // },
         setUserKey: function (key){
           /* jshint -W030 */
           key && (_user_key = key);

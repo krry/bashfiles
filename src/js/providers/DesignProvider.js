@@ -82,16 +82,7 @@ function DesignProvider_ (FIREBASE_URL) {
     var rx_zoom = new Rx.Subject();
     var rx_areas = new Rx.Subject();
 
-    rx_center.subscribe(function (c) {
-      if (c === null || c.lat === 0) return;
-      // var center =;
-
-      Session.ref() && Session.ref().update(c);
-    });
-
     Client.listen('Design: Loaded', saveDesignIdToSession);
-
-
     Client.listen('Session: Loaded', bootstrapDesign);
 
     // always ask the session for value, to enable direct state navigation
@@ -104,41 +95,21 @@ function DesignProvider_ (FIREBASE_URL) {
       });
     }
 
+    rx_center.subscribe(subSessionMapCenterToDesignMapCenter);
+
+    function subSessionMapCenterToDesignMapCenter(c) {
+      if (c === null || c.lat === 0) return;
+      Session.ref() && Session.ref().update(c);
+    }
 
     function bootstrapDesign (data) {
-
       // get a reference to firebase
       _ref = _ref_key ?
         // use the one you're given in config
         new Firebase(designs_url).child(_ref_key) :
         // or get a new one.
         new Firebase(designs_url).push();
-
-
-
-
-
       _ref.once('value', loadDesign);
-
-      /*
-      rx_center     = _ref.child('map_details/center')
-        .observe('value')
-        .distinctUntilChanged();
-
-      rx_center
-        .filter(function (ds) {
-          if (!map_center) return true; // design loading for first time on this client
-          if (map_center !== ds.exportVal()) return true; // remote update
-          console.error('you have weird remote center on design_ref');
-        })
-        .map(function function_name(ds) {
-          return ds.exportVal();
-        });
-
-      rx_zoom       = _ref.child('map_details/zoom_level')
-        .observe('value')
-        .distinctUntilChanged();*/
-
     }
 
     // load design & notify app design is loaded
@@ -157,10 +128,8 @@ function DesignProvider_ (FIREBASE_URL) {
 
       var data = ds.exportVal() || {};
       data.design_id = _ref.key();
-
       Client.emit('Design: Loaded', data);
     }
-
 
     function saveDesignIdToSession(d) {
       Session.ref().update({design_id: d.design_id});

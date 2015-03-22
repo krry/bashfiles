@@ -87,9 +87,10 @@ function newConfigurator_(Client, View, Interactions, Layers) {
       omap: omap,
       gmap: gmap,
     }
-    maps = this.map
-    // TODO: be prepared to fix projection of OLmap for zoom < 17 (currently disallowed by map_options)
+    maps = this.map; // HACK... this shouldn't be public. only here for testing
+
     gmap.addListener('projection_changed', function(){
+      // TODO: be prepared to fix projection of OLmap for zoom < 17 (currently disallowed by map_options)
       // the proj_changed, now fix the projection of the layers
       gmap_projection = gmap.getProjection();
       // resize the target element
