@@ -24,9 +24,9 @@
 
   ================================ */
 
-providers.provider("Session", ['FormProvider', 'DesignProvider', SessionProvider_]);
+providers.provider("Session", ['FormProvider', 'DesignProvider', 'FIREBASE_URL', SessionProvider_]);
 
-function SessionProvider_ (FormProvider, DesignProvider, ConfiguratorProvider) {
+function SessionProvider_ (FormProvider, DesignProvider, FIREBASE_URL) {
   console.log('Session Provider started')
 
   var _ref,
@@ -36,7 +36,7 @@ function SessionProvider_ (FormProvider, DesignProvider, ConfiguratorProvider) {
       fb_observable,
       state_stream;
 
-  sessions_url = 'https://scty.firebaseio.com/sessions/';
+  sessions_url = FIREBASE_URL + 'sessions/';
   _ref_key = null;
   _user_key = null;
 
@@ -51,7 +51,6 @@ function SessionProvider_ (FormProvider, DesignProvider, ConfiguratorProvider) {
     Client.listen('Stages: restart session', restartSession);
     Client.listen('Form: Loaded', saveFormId);
     Client.listen('Design: Loaded', saveDesignId);
-    Client.listen('Form: saved lead id', saveLeadId);
     Client.listen('center changed', storeGMapCenter);
 
     function bootstrapSession (user_data) {
@@ -87,27 +86,21 @@ function SessionProvider_ (FormProvider, DesignProvider, ConfiguratorProvider) {
         // last known position of googleMap or olMap
         DesignProvider.setCenter(data.map_center);
       }
-      Client.emit('dev: Session: Loaded', _ref);
-      if (data.lead_id) {
-        FormProvider.setLeadId(data.lead_id);
-      }
       return Client.emit('Session: Loaded', data);
     }
 
     function restartSession () {
-      var state_obj = {stage: 0, step: 0};
-      _ref.child('state').set(state_obj);
+      FormProvider.nullRefKey();
+      _ref_key = null;
+      bootstrapSession({ user_id: _user_key });
     }
 
     function saveFormId (data) {
       _ref.update({form_id: data.form_id});
     }
+
     function saveDesignId (data) {
       _ref.update({design_id: data.design_id});
-    }
-
-    function saveLeadId(data) {
-      _ref.update({lead_id: data.lead_id });
     }
 
     function storeGMapCenter (location) {

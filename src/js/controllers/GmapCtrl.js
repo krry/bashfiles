@@ -30,7 +30,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
   Client.listen('Gmap: max zoom found', applyMaxZoom);
   Client.listen('Gmap: switch to satellite', switchToSatellite);
   Client.listen('Spinner: add to spin count', setSpinCount);
-  Client.listen('Gmap: get nearme data', getNearMeData);
+  // Client.listen('Gmap: get nearme data', getNearMeData);
 
   function init (el) {
     map = Gmap.init(el);
@@ -74,10 +74,12 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
   }
 
   function switchToSatellite (data) {
-    if (data && map.getMapTypeId() !== "hybrid") {
-      Client.emit('Spinner: add to spin count', true);
-      map.setMapTypeId(google.maps.MapTypeId.HYBRID);
-    }
+    Gmap.loaded.then(function() {
+      if (data && map.getMapTypeId() !== "hybrid") {
+        Client.emit('Spinner: add to spin count', true);
+        map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+      }
+    });
   }
 
   function saveCenter () {
@@ -87,8 +89,6 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
         center = map.getCenter();
         // saving center of gmap
         Client.emit('center changed', center);
-        // TODO: prevent nearme call when advancing from checkZip to checkAddress directly
-        getNearMeData();
       }
     // }
   }
@@ -99,77 +99,98 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
       if (!vm.shown) {
         vm.shown = true;
       }
-      map.setCenter(location);
+      Gmap.loaded.then(function() {
+        map.setCenter(location);
+      });
     } else return false;
   }
 
   function saveZoom () {
-    var zoom = map.getZoom();
-    console.log('saving zoom as', zoom);
-    if (mapOpts.zoom !== zoom){
-      mapOpts.zoom = zoom;
-    }
+    Gmap.loaded.then(function() {
+      var zoom = map.getZoom();
+      console.log('saving zoom as', zoom);
+      if (mapOpts.zoom !== zoom){
+        mapOpts.zoom = zoom;
+      }
+    });
   }
 
   function applyMaxZoom (zoom) {
-    console.log('setting zoom to', zoom);
-    map.setZoom(zoom);
+    Gmap.loaded.then(function() {
+      console.log('setting zoom to', zoom);
+      map.setZoom(zoom);
+      mapOpts.zoom = zoom;
+      // TODO: prevent nearme call when advancing from checkZip to checkAddress directly
+      if (zoom < 17 && zoom > 4) getNearMeData();
+    });
   }
 
   function getNearMeData() {
+    return Gmap.loaded.then(function() {
+      // get nearme data for the current map's bounding box
+      var bounds = map.getBounds(),
+          ne,
+          sw,
+          coords;
 
-    // get nearme data for the current map's bounding box
-    var bounds = map.getBounds(),
-        ne = bounds.getNorthEast(),
-        sw = bounds.getSouthWest(),
-        coords;
+      // Bounds can be undefined even if the map is loaded but the tiles are not
+      /* jshint eqnull:true */
+      if (bounds == null) {
+        return;
+      }
 
-    // use NE and SW corners of map to set bounding box coordinates
-    coords = {
-      top: ne.lat(),
-      right: ne.lng(),
-      bottom: sw.lat(),
-      left: sw.lng()
-    };
+      ne = bounds.getNorthEast();
+      sw = bounds.getSouthWest();
 
-    // safeguard against loading too large of an area
-    if (Math.abs(coords.top - coords.bottom > 1) || Math.abs(coords.left - coords.right) > 1) {
+      // use NE and SW corners of map to set bounding box coordinates
+      coords = {
+        top: ne.lat(),
+        right: ne.lng(),
+        bottom: sw.lat(),
+        left: sw.lng()
+      };
+
+      // safeguard against loading too large of an area
+      if (Math.abs(coords.top - coords.bottom > 1) || Math.abs(coords.left - coords.right) > 1) {
+        return;
+      }
+
+      // send the coordinates to NearMe, then check if there are enough, then plot the pins if so
+      return NearMe.get(coords).then(getEnoughPins).then(plotMarkers);
+    });
+  }
+
+  function getEnoughPins(data) {
+    if (data.length >= 50) {
+      return data;
+    } else {
+      map.setZoom(map.getZoom() - 1);
       return;
     }
-
-    // send the coordinates to NearMe, then plot the returned data as pins
-    return NearMe.get(coords).then(plotMarkers);
   }
 
   function plotMarkers(data) {
-    // clear any old pins from the map
-    Client.emit('clear pins', true);
-
-    // parse the JSON response from NearMe API
-    angular.forEach(data, function(point) {
-      // for each object in the response send the location and content to
-      var opts = {
-        location: new google.maps.LatLng(point.la, point.ln),
-        content: point.kw + ' kW system'
-      };
-
-      // ask GmapProvider to make and drop a new pin
-      Client.emit('Gmap: drop pin', opts);
-    });
-
-    // let the view model know how many pins were found
-    Client.emit('neighbor_count saved', data.length);
-
-    // make sure we got enough pins to be compelling
-    setMapZoomByNearMeResponse(data.length);
-  }
-
-  function setMapZoomByNearMeResponse(pins) {
-    /* if less than 50 customers are returned for the given map
-       zoom up a level and get the pins for a wider area      */
-    if (pins < 50) {
-      map.setZoom(map.getZoom()-1);
+    var opts;
+    if (!data) {
       getNearMeData();
+    } else {
+      // clear any old pins from the map
+      Client.emit('clear pins', true);
+
+      // parse the JSON response from NearMe API
+      angular.forEach(data, function(point) {
+        // for each object in the response send the location and content to
+        opts = {
+          location: new google.maps.LatLng(point.la, point.ln),
+          content: point.kw + ' kW system'
+        };
+
+        // ask GmapProvider to make and drop a new pin
+        Client.emit('Gmap: drop pin', opts);
+      });
+
+      // let the view model know how many pins were found
+      Client.emit('neighbor_count saved', data.length);
     }
   }
 

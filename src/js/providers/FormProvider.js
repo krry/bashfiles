@@ -28,21 +28,19 @@
 
 ================================ */
 
-providers.provider("Form", FormProvider_);
+providers.provider("Form", ['FIREBASE_URL', FormProvider_]);
 
-function FormProvider_ () {
+function FormProvider_ (FIREBASE_URL) {
 
   var _ref,
       _ref_key,
       _ref_stream,
       // TODO: sync this with firebase instead of caching it locally
       prospect,
-      lead_id,
       forms_url;
 
   _ref_key  =  null;
-  lead_id = null;
-  forms_url = 'https://scty.firebaseio.com/forms/'; // hack: hardcode // todo: make this constant value
+  forms_url = FIREBASE_URL + 'forms/'; // hack: hardcode // todo: make this constant value
 
   this.setRefKey = function(key){
     /* jshint -W030 */
@@ -51,8 +49,8 @@ function FormProvider_ () {
     // console.log('ref_key in sessionProvider being set:', key);
   };
 
-  this.setLeadId = function(id) {
-    lead_id = id;
+  this.nullRefKey = function(key) {
+    _ref_key = null;
   };
 
   this.$get = ["Clientstream", function formProviderFactory (Client) {
@@ -80,8 +78,7 @@ function FormProvider_ () {
         _ref = new Firebase(forms_url).push();
       }
       _ref.update({
-        session_id: session_obj.session_id,
-        leadId: lead_id
+        session_id: session_obj.session_id
       });
       _ref.once('value', processNewFormFromFirebase );
       return _ref;

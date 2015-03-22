@@ -5,7 +5,6 @@
 .calendar {
   $box-width: 100px;
   $box-border: 2px;
-  $tan: #f9f2d6;
 
   width: 7 * $box-width;
   margin: 0 auto;
@@ -26,14 +25,15 @@
 
     &.tooltip {
       &:before {
-        border-color: $tan transparent;
+        border-color: $shade-80 transparent;
       }
 
       &:after {
         left: -50%;
-        width: 220%;
-        background: $tan;
-        color: $grey-darkest;
+        width: 200%;
+        background: $shade-80;
+        color: $white;
+        font-weight: 600;
       }
     }
   }
@@ -74,7 +74,7 @@
   }
 
   .legend {
-    margin: 40px 0 0;
+    margin: 1em 0 0;
     text-align: left;
     text-transform: uppercase;
     font-weight: bold;
@@ -85,7 +85,7 @@
     }
   }
 
-  @media screen and (max-width: 7 * $box-width) {
+  @media screen and (max-width: 1094px) {
     width: 100%;
 
     .date {

@@ -89,9 +89,6 @@
     padding: 0 1.72rem 0 2rem;
     line-height: 2.9rem;
     display: none;
-    &.active {
-      display: inline-block;
-    }
   }
 
   .top-five {
@@ -109,6 +106,10 @@
     }
   }
 
+  .questions-extended {
+    display: none;
+  }
+
   .icon.question {
     margin-right: -0.3em;
     margin-bottom: -0.46em;
@@ -121,6 +122,17 @@
   .header-detail {
     @include apercu-light;
     display: none;
+  }
+}
+
+@media screen and (min-width: $width-min-med) {
+  .header {
+    .chevron.right.active {
+      display: inline-block;
+    }
+    .questions-extended {
+      display: inline;
+    }
   }
 }
 

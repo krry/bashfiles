@@ -1,8 +1,8 @@
 /* =========================================================
 
-  GmapProvider
+  GmapFactory
 
-  provides a gmap
+  manufactures a gmap
 
   emits results to the Clientstream
   to which gmap controllers listen
@@ -13,14 +13,16 @@ providers.provider("Gmap", GmapFactory_);
 
 function GmapFactory_ () {
 
-  this.$get = ["Clientstream", function (Client) {
+  this.$get = ["$q", "Clientstream", function ($q, Client) {
 
     var DEFAULT,
         map,
         map_opts,
         map_styles,
         pins,
-        activePin;
+        activePin,
+        dfd,
+        loaded;
 
     DEFAULT = {
       LAT: 30,
@@ -83,18 +85,20 @@ function GmapFactory_ () {
       zoomable: true,
       styles: map_styles,
       // scrollwheel: false,
-    }
+    };
+
+    pins = [];
+    dfd = $q.defer();
+    loaded = dfd.promise;
 
     Client.listen('Geocoder: valid warehouse', zoomToHood);
     Client.listen('Geocoder: valid house', checkMaxZoom);
     Client.listen('Gmap: drop pin', dropPin);
-
-    pins = [];
-
     Client.listen('clear pins', clearPins);
 
     function init (data) {
       map = new google.maps.Map(data, map_opts);
+      dfd.resolve(map);
       return map;
     }
 
@@ -102,7 +106,6 @@ function GmapFactory_ () {
       var zip = data.zip;
       console.log('zooming into neighborhood in zipcode', zip);
       Client.emit('Gmap: max zoom found', 16);
-      Client.emit('Gmap: get nearme data', true);
     }
 
     function checkMaxZoom(addy) {
@@ -144,42 +147,46 @@ function GmapFactory_ () {
 
     // given a location on the map, make and drop a marker there
     function dropPin(opts) {
-      var pin = {};
+      loaded.then(function() {
+        var pin = {};
 
-      pin.marker = new google.maps.Marker({
-        position: opts.location,
-        map: map,
-        draggable: false,
-        icon: 'img/map_pin_1.svg'
+        pin.marker = new google.maps.Marker({
+          position: opts.location,
+          map: map,
+          draggable: false,
+          icon: 'img/map_pin_1.svg'
+        });
+
+        pin.infowindow = new google.maps.InfoWindow({
+          content: opts.content,
+          anchorPoint: new google.maps.Point(0, 0)
+        });
+
+        pin.listener = google.maps.event.addListener(pin.marker, 'click', function() {
+          if (activePin) {
+            activePin.infowindow.close();
+          }
+
+          pin.infowindow.open(map, pin.marker);
+          activePin = pin;
+        });
+
+        pins.push(pin);
       });
-
-      pin.infowindow = new google.maps.InfoWindow({
-        content: opts.content,
-        anchorPoint: new google.maps.Point(0, 0)
-      });
-
-      pin.listener = google.maps.event.addListener(pin.marker, 'click', function() {
-        if (activePin) {
-          activePin.infowindow.close();
-        }
-
-        pin.infowindow.open(map, pin.marker);
-        activePin = pin;
-      });
-
-      pins.push(pin);
     }
 
     function clearPins() {
-      activePin = null;
+      loaded.then(function() {
+        activePin = null;
 
-      angular.forEach(pins, function(pin) {
-        pin.marker.setMap(null);
-        pin.infowindow = null;
-        google.maps.event.removeListener(pin.listener);
+        angular.forEach(pins, function(pin) {
+          pin.marker.setMap(null);
+          pin.infowindow = null;
+          google.maps.event.removeListener(pin.listener);
+        });
+
+        pins.length = 0;
       });
-
-      pins.length = 0;
     }
 
     function gmap_assembly () {
@@ -187,6 +194,7 @@ function GmapFactory_ () {
         map: map,
         opts: map_opts,
         init: init,
+        loaded: loaded
         // function: function,
       };
     }

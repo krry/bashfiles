@@ -8,7 +8,7 @@ exports.config = {
   /**
    * Array of application names.
    */
-  app_name : ['Flannel local development'], // This should be an environment variable
+  app_name : ['Online selling - ' + process.env.NODE_ENV], // This should be an environment variable
   /**
    * Your New Relic license key.
    */
@@ -19,6 +19,6 @@ exports.config = {
      * issues with the agent, 'info' and higher will impose the least overhead on
      * production applications.
      */
-    level : 'info'
+    level : 'trace'
   }
 };

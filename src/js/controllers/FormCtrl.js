@@ -26,6 +26,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
     // .distinctUntilChanged()
     .select(function(x) { return x.exportVal();})
     .subscribe(streamSubscription)
+
     // let session provider know you're subscribed, so it can make the
     Client.emit('Form: subscribed to form_stream', form_obj);
   }
@@ -75,12 +76,16 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
   Client.listen('phone saved', acceptSavedPhone);
   Client.listen('fullname saved', acceptSavedFullname);
   Client.listen('neighbor_count saved', acceptNeighborCount);
+  Client.listen('Form: save lead', createLead);
+  Client.listen('create hotload link', createHotloadLink);
 
   function checkZip (zip) {
     console.log('********* checkin dat zip', zip, 'boss *********')
     /* jshint eqnull:true */
     if (zip != null && zip.length === 5) {
       Client.emit('Spinner: spin it', true);
+      vm.prospect.street = null;
+      Client.emit('Form: valid data', {street: null});
       Geocoder.sendGeocodeRequest(zip);
     }
     else { return false; }
@@ -136,8 +141,6 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
         obj[prop] = null;
       }
     }
-    console.log(vm.prospect);
-    Client.emit('Form: valid data', obj);
   }
 
   function checkCredit() {
@@ -162,6 +165,8 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
         Client.emit('Stages: stage', stage);
       }
     }, function(resp) {
+      // Darius said to use 'saved proposal' for now when the api call fails
+      createLead(Salesforce.statuses.savedProposal);
       vm.isSubmitting = false;
 
       // Timed out
@@ -312,17 +317,15 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
       LeadStatus: leadStatus,
       UnqualifiedReason: unqualifiedReason,
       OdaHotloadLink: vm.prospect.odaHotloadLink,
+      Skipped: vm.prospect.skipped,
       // TODO: get the oda from the session
       // OwnerId: '005300000058ZEZAA2',//oda userId
       ExternalId: Session.id()
     }).then(function(data) {
-      vm.isSubmitting = false;
-
       if (data.id) {
         vm.prospect.leadId = data.id;
 
         Client.emit('Form: valid data', { leadId: vm.prospect.leadId });
-        Client.emit('Form: saved lead id', { lead_id: vm.prospect.leadId });
       }
     });
   }
@@ -363,7 +366,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
   function acceptValidWarehouse(data) {
     if (data) {
       vm.invalidTerritory = !data;
-      vm.invalid = vm.invalidZip && vm.invalidTerritory;
+      vm.invalidZip = !data;
 
       Client.emit('Stages: jump to step', 'address-roof');
       vm.prospect.warehouseId = data.warehouseId;
