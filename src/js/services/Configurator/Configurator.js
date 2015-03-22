@@ -7,9 +7,9 @@
  *
  */
 
-angular.module('flannel').service('newConfigurator', ['View', 'Interactions', 'Layers', newConfigurator_]);
+angular.module('flannel').service('newConfigurator', ['Clientstream','View', 'Interactions', 'Layers', newConfigurator_]);
 
-function newConfigurator_(View, Interactions, Layers) {
+function newConfigurator_(Client, View, Interactions, Layers) {
   var gmap,
       omap,
       // defaults
@@ -51,21 +51,13 @@ function newConfigurator_(View, Interactions, Layers) {
     gmap: gmap,
   };
 
-  // // subscribe google's zoom and center to OL View's resolution & center
-  // View.rx_center.subscribe(subGoogleMapToViewCenter)
-  // View.rx_zoom.subscribe(subGoogleMapToViewZoomLevel);
-
-    // View subscriptions
+  // View subscriptions
   function subGoogleMapToViewCenter() {
     var center = View.getCenter();
-    console.log('*************** gmap handling view:center change ***********')
-    console.log('*************** setting', center, 'to ---> ', {lat:center[1], lng:center[0]} );
     gmap.setCenter(new google.maps.LatLng(center[1], center[0]));
   }
 
   function subGoogleMapToViewZoomLevel(e) {
-    console.log('*************** gmap handling view:resolution change ***********')
-    debugger;
     gmap.setZoom(View.getZoom());
   }
 
@@ -90,11 +82,7 @@ function newConfigurator_(View, Interactions, Layers) {
     // subscribe google's zoom and center to OL View's resolution & center
     View.rx_center.subscribe(subGoogleMapToViewCenter)
     View.rx_zoom.subscribe(subGoogleMapToViewZoomLevel);
-debugger;
-    // var center = View.getCenter(); // TODO: get the center from the session first
-    // gmap.setCenter(  new google.maps.LatLng(center[1], center[0]) )
-    // View.setCenter(center);
-    // View.setZoom(18);
+
     this.map = {
       omap: omap,
       gmap: gmap,
@@ -108,6 +96,8 @@ debugger;
       google.maps.event.trigger(gmap, 'resize');
       omap.updateSize();
     });
+
+    Client.emit('Configurator: target set');
   }
 
   /* Interaction handlers */

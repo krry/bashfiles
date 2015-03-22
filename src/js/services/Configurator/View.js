@@ -11,6 +11,13 @@ angular.module('flannel').factory("View", ['Design', 'Session', 'Clientstream', 
 function View_(Design, Session, Client) {
   var view, center_listner_key, zoom_listener_key;
 
+
+  Client.listen('Configurator: target set', function () {
+    Design.rx_zoom.onNext(view.getZoom());
+    Design.rx_center.onNext({lng: view.getCenter()[0], lat: view.getCenter()[1] } );
+  })
+
+
   center = [0, 0]; // default center allows configurator to startup without Firebase connection
 
   view = new ol.View({
@@ -49,7 +56,6 @@ function View_(Design, Session, Client) {
       return;
     } else {
       var center = [center_val.lng, center_val.lat];
-      console.debug('setting center  ', center_val);
       view.setCenter(center);
     }
     // debugger;
@@ -59,9 +65,11 @@ function View_(Design, Session, Client) {
 
   // update zoom level from remote
   Design.rx_zoom.subscribe(function handleZoom (zoom_val){
-    if (zoom_val === null) return;
-    console.debug('setting zoom value ', zoom_val);
-    view.setZoom(zoom_val);
+    if (zoom_val === null) {
+      return view.setZoom(18);
+    } else {
+      return view.setZoom(zoom_val);
+    }
   });
 
   /*Client.listen('Design: Loaded', function bootstrapView(design_data) {

@@ -133,8 +133,8 @@ function DesignProvider_ (FIREBASE_URL) {
     }
 
     // load design & notify app design is loaded
+    var design
     function loadDesign (ds) {
-
       _ref.child('areas/0').on('value', function (ds) {
         rx_areas.onNext(ds.exportVal());
       });
@@ -147,9 +147,9 @@ function DesignProvider_ (FIREBASE_URL) {
         rx_zoom.onNext(ds.exportVal());
       });
 
-      var data = ds.exportVal();
-
+      var data = ds.exportVal() || {};
       data.design_id = _ref.key();
+
       Client.emit('Design: Loaded', data);
       // rx_zoom.onNext(data.map_details.zoom_level);
       // rx_center.onNext(data.map_details.center);
@@ -169,6 +169,9 @@ function DesignProvider_ (FIREBASE_URL) {
 
     function awesome_design_builder_brah() {
       return {
+        design: function () {
+          return design;
+        },
         // dev
         //rx_areas: rx_areas,
         // dev end
