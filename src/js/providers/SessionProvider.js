@@ -72,7 +72,7 @@ function SessionProvider_ (FormProvider, DesignProvider, FIREBASE_URL) {
     }
 
     function loadSession (ds){
-      var data = ds.exportVal();
+      var data = ds.exportVal() || {};
       data.session_id = _ref.key();
       DesignProvider.setRefKey(_ref.key());
       if (data.form_id) {
