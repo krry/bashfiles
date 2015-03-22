@@ -27,7 +27,6 @@ angular.module('proposal', []).config(["$stateProvider", function ($stateProvide
         templateUrl: stageUrl + "main.html",
         controller: function ($scope, share_links) {
           var vm = this;
-          debugger;
           wireShareLinks();
 
           function wireShareLinks() {

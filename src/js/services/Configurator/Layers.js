@@ -54,9 +54,6 @@ function Layers_(Design, Styles, AreaService, Client) {
   // update based on changes at firebase
   Design.rx_areas.subscribe(function (area) {
     // we have a feature
-    debugger
-
-
     if (area && areas_collection.getLength()) {
       console.log('areaslength')
       if (area === 'removed by client') {
