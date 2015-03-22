@@ -82,6 +82,16 @@ function DesignProvider_ (FIREBASE_URL) {
     var rx_zoom = new Rx.Subject();
     var rx_areas = new Rx.Subject();
 
+    rx_center.subscribe(function (c) {
+      if (c === null || c.lat === 0) return;
+      // var center =;
+
+      Session.ref() && Session.ref().update(c);
+    });
+
+    Client.listen('Design: Loaded', saveDesignIdToSession);
+
+
     Client.listen('Session: Loaded', bootstrapDesign);
 
     // always ask the session for value, to enable direct state navigation
@@ -90,7 +100,6 @@ function DesignProvider_ (FIREBASE_URL) {
     } else {
       console.debug('**** Design: waiting for Session');
       Client.listen('Session: Loaded', function(){
-        console.log('loading design after session:')
         return Session.ref().once('value', bootstrapDesign);
       });
     }
@@ -133,7 +142,6 @@ function DesignProvider_ (FIREBASE_URL) {
     }
 
     // load design & notify app design is loaded
-    var design
     function loadDesign (ds) {
       _ref.child('areas/0').on('value', function (ds) {
         rx_areas.onNext(ds.exportVal());
@@ -151,30 +159,15 @@ function DesignProvider_ (FIREBASE_URL) {
       data.design_id = _ref.key();
 
       Client.emit('Design: Loaded', data);
-      // rx_zoom.onNext(data.map_details.zoom_level);
-      // rx_center.onNext(data.map_details.center);
-      // rx_areas.onNext(ds.exportVal());
     }
 
-    /*var observable = new Rx.Observable.fromEventPattern(
-      function add(h) {
-        _ref.child('areas').on('value', h)
-      },
-      function remove(h) {
-        _ref.child('areas').off('value', h)
-      }
-    )*/
 
-    // watch the area_collection to validate trace_complete
+    function saveDesignIdToSession(d) {
+      Session.ref().update({design_id: d.design_id});
+    }
 
     function awesome_design_builder_brah() {
       return {
-        design: function () {
-          return design;
-        },
-        // dev
-        //rx_areas: rx_areas,
-        // dev end
         map_details: {
           center: map_center,
         },
