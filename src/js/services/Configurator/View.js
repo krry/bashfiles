@@ -20,9 +20,8 @@ function View_(Design, Session, Client) {
     maxZoom: 20, // don't zoom further than google can zoom // TODO: set this to the maxzoom at the current location
   });
   // this bootstraps the view in the case of direct state navigation
-  Client.listen('Session: Loaded', function bootstrapViewCenter(data) {
-    view.setCenter([data.map_center.lng, data.map_center.lat]);
-
+   Client.listen('Design: Loaded', function bootstrapViewCenter(data) {
+    //view.setCenter([data.map_center.lng, data.map_center.lat]);
     view.on('change:center', function(){
       Design.ref().child('map_details/center').update({
         lat: view.getCenter()[1],
@@ -33,10 +32,37 @@ function View_(Design, Session, Client) {
     view.on('change:resolution', function(){
       Design.ref().child('map_details/zoom_level').set(view.getZoom());
     });
-
   });
 
 
+  // update center from remote
+  Design.rx_center.subscribe(function subViewCenterToRemote (center_val){
+    if (center_val === null) {
+        console.log('no d.exists() wait for session & set mapcenter **********************')
+
+      Session.ref().child('map_center').once('value', function (ds) {
+        data = ds.exportVal()
+        var center = [data.lng, data.lat]
+        console.log('setting mapcenter now brah ************************************')
+        view.setCenter(center)
+      })
+      return;
+    } else {
+      var center = [center_val.lng, center_val.lat];
+      console.debug('setting center  ', center_val);
+      view.setCenter(center);
+    }
+    // debugger;
+    // var center = [d.exportVal().lng, d.exportVal().lat];
+    // view.setCenter(center);
+  });
+
+  // update zoom level from remote
+  Design.rx_zoom.subscribe(function handleZoom (zoom_val){
+    if (zoom_val === null) return;
+    console.debug('setting zoom value ', zoom_val);
+    view.setZoom(zoom_val);
+  });
 
   /*Client.listen('Design: Loaded', function bootstrapView(design_data) {
       view.setCenter([design_data.map_details.center.lng,
@@ -49,7 +75,7 @@ function View_(Design, Session, Client) {
     // update the map_center from remote
     Design.ref().child('map_details/center').observe('value')
     .throttle(100)
-    .subscribe(handleCenter);
+    .subscribe(subViewCenterToRemote);
     // notify remote of map_center change
     view.on('change:center', function(){
       Design.ref().child('map_details/center').update({
@@ -71,27 +97,6 @@ function View_(Design, Session, Client) {
     })
   });*/
 
-  // update center from remote
-  Design.rx_center.subscribe(function handleCenter (d){
-    if (!d.exists()) {
-      debugger;
-      Session.ref().child('map_center').once('value', function (ds) {
-        data = ds.exportVal()
-        var center = [data.lng, data.lat]
-        view.setCenter(center)
-      })
-      return;
-    }
-    debugger;
-    var center = [d.exportVal().lng, d.exportVal().lat];
-    view.setCenter(center);
-  });
-
-  // update zoom level from remote
-  Design.rx_zoom.subscribe(function handleZoom (d){
-    var zoom = d.exportVal()
-    view.setZoom(zoom)
-  });
 
   view.rx_center = new Rx.Observable.fromEventPattern(
     function addHandler(h) {

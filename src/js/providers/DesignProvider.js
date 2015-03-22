@@ -78,69 +78,82 @@ function DesignProvider_ (FIREBASE_URL) {
 
   this.$get = [ "Session", "Clientstream", function designProviderFactory(Session, Client) {
 
-    // always ask the session for value, to enable direct state navigation
-    // if (Session.ref()) {
-    //   Session.ref().once('value', bootstrapDesign);
-    // } else {
-    //   console.debug('**** Design: waiting for Session');
-    //   Client.listen('Session: Loaded', function(){
-    //     console.log('loading design after session:')
-    //     return Session.ref().once('value', bootstrapDesign);
-    //   });
-    // }
-    Client.listen('Session: Loaded', bootstrapDesign);
-
-
     var rx_center = new Rx.Subject();
     var rx_zoom = new Rx.Subject();
     var rx_areas = new Rx.Subject();
 
+    Client.listen('Session: Loaded', bootstrapDesign);
+
+    // always ask the session for value, to enable direct state navigation
+    if (Session.ref()) {
+      Session.ref().once('value', bootstrapDesign);
+    } else {
+      console.debug('**** Design: waiting for Session');
+      Client.listen('Session: Loaded', function(){
+        console.log('loading design after session:')
+        return Session.ref().once('value', bootstrapDesign);
+      });
+    }
+
 
     function bootstrapDesign (data) {
-          _ref = _ref_key ? new Firebase(designs_url).child(_ref_key) : new Firebase(designs_url).push();
+
+      // get a reference to firebase
+      _ref = _ref_key ?
+        // use the one you're given in config
+        new Firebase(designs_url).child(_ref_key) :
+        // or get a new one.
+        new Firebase(designs_url).push();
 
 
 
-          _ref.child('areas/0').on('value', function (ds) {
-            rx_areas.onNext(ds.exportVal());
-          });
-
-          _ref.child('map_details/center').on('value', function (ds) {
-            rx_center.onNext(ds);
-          });
-
-          _ref.child('map_details/zoom_level').on('value', function (ds){
-            rx_zoom.onNext(ds);
-          });
 
 
-          /*
-          rx_center     = _ref.child('map_details/center')
-            .observe('value')
-            .distinctUntilChanged();
+      _ref.once('value', loadDesign);
 
-          rx_center
-            .filter(function (ds) {
-              if (!map_center) return true; // design loading for first time on this client
-              if (map_center !== ds.exportVal()) return true; // remote update
-              console.error('you have weird remote center on design_ref');
-            })
-            .map(function function_name(ds) {
-              return ds.exportVal();
-            });
+      /*
+      rx_center     = _ref.child('map_details/center')
+        .observe('value')
+        .distinctUntilChanged();
 
-            rx_zoom       = _ref.child('map_details/zoom_level')
-              .observe('value')
-              .distinctUntilChanged();*/
+      rx_center
+        .filter(function (ds) {
+          if (!map_center) return true; // design loading for first time on this client
+          if (map_center !== ds.exportVal()) return true; // remote update
+          console.error('you have weird remote center on design_ref');
+        })
+        .map(function function_name(ds) {
+          return ds.exportVal();
+        });
 
-            _ref.once('value', loadDesign);
+      rx_zoom       = _ref.child('map_details/zoom_level')
+        .observe('value')
+        .distinctUntilChanged();*/
+
     }
 
     // load design & notify app design is loaded
     function loadDesign (ds) {
-          var data = ds.exportVal();
-          data.design_id = _ref.key();
-          Client.emit('Design: Loaded', data);
+
+      _ref.child('areas/0').on('value', function (ds) {
+        rx_areas.onNext(ds.exportVal());
+      });
+
+      _ref.child('map_details/center').on('value', function (ds) {
+        rx_center.onNext(ds.exportVal());
+      });
+
+      _ref.child('map_details/zoom_level').on('value', function (ds){
+        rx_zoom.onNext(ds.exportVal());
+      });
+
+      var data = ds.exportVal();
+
+      data.design_id = _ref.key();
+      Client.emit('Design: Loaded', data);
+      // rx_zoom.onNext(data.map_details.zoom_level);
+      // rx_center.onNext(data.map_details.center);
+      // rx_areas.onNext(ds.exportVal());
     }
 
     /*var observable = new Rx.Observable.fromEventPattern(
@@ -153,7 +166,7 @@ function DesignProvider_ (FIREBASE_URL) {
     )*/
 
     // watch the area_collection to validate trace_complete
-    var _wkt;
+
     function awesome_design_builder_brah() {
       return {
         // dev
@@ -168,7 +181,6 @@ function DesignProvider_ (FIREBASE_URL) {
         rx_center:        rx_center,
         rx_zoom:          rx_zoom,
         rx_areas:         rx_areas,
-        // rx_areas_source:  rx_areas_source,
         setWkt: function name(txt) {
           _wkt = txt
         },

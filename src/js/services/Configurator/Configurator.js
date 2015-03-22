@@ -51,19 +51,21 @@ function newConfigurator_(View, Interactions, Layers) {
     gmap: gmap,
   };
 
-  // subscribe google's zoom and center to OL View's resolution & center
-  View.rx_center.subscribe(handleCenter)
-  View.rx_zoom.subscribe(handleZoom);
+  // // subscribe google's zoom and center to OL View's resolution & center
+  // View.rx_center.subscribe(subGoogleMapToViewCenter)
+  // View.rx_zoom.subscribe(subGoogleMapToViewZoomLevel);
 
     // View subscriptions
-  function handleCenter() {
+  function subGoogleMapToViewCenter() {
     var center = View.getCenter();
     console.log('*************** gmap handling view:center change ***********')
     console.log('*************** setting', center, 'to ---> ', {lat:center[1], lng:center[0]} );
     gmap.setCenter(new google.maps.LatLng(center[1], center[0]));
   }
 
-  function handleZoom(e) {
+  function subGoogleMapToViewZoomLevel(e) {
+    console.log('*************** gmap handling view:resolution change ***********')
+    debugger;
     gmap.setZoom(View.getZoom());
   }
 
@@ -84,9 +86,15 @@ function newConfigurator_(View, Interactions, Layers) {
     o_div.parentNode.removeChild(o_div);
     gmap.controls[google.maps.ControlPosition.TOP_LEFT].push(o_div);
     // initialize the map
-    var center = View.getCenter(); // TODO: get the center from the session first
-    View.setCenter(center);
-    View.setZoom(18);
+
+    // subscribe google's zoom and center to OL View's resolution & center
+    View.rx_center.subscribe(subGoogleMapToViewCenter)
+    View.rx_zoom.subscribe(subGoogleMapToViewZoomLevel);
+debugger;
+    // var center = View.getCenter(); // TODO: get the center from the session first
+    // gmap.setCenter(  new google.maps.LatLng(center[1], center[0]) )
+    // View.setCenter(center);
+    // View.setZoom(18);
     this.map = {
       omap: omap,
       gmap: gmap,

@@ -37,9 +37,8 @@ function Interactions_(Design, Styles, AreaService) {
   // get the feature, and pass it along on the wire
   interactions.draw.on('drawend', function(e){
     var feature = e.feature;
-    Design.setWkt(AreaService.getWkt(feature));
     Design.ref().child('areas').child('0').set({ // HACK: one area only
-      wkt: Design.getWkt(),
+      wkt: AreaService.getWkt(feature),
     })
   });
 

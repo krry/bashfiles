@@ -54,22 +54,23 @@ function Layers_(Design, Styles, AreaService, Client) {
   // update based on changes at firebase
   Design.rx_areas.subscribe(function (area) {
     // we have a feature
-    if (areas_collection.getLength()) {
+    debugger
+
+
+    if (area && areas_collection.getLength()) {
       console.log('areaslength')
       if (area === 'removed by client') {
         areas_collection.pop();
         Client.emit('Stages: stage', 'back'); // TODO: move this to a subscription in StagesCtrl
       } else {
-        if (area === null) {
-          //
-        }
+
         if (area.wkt === feature.get('wkt')) {
           console.log('area the same as feature')
           return Design.busy = false;
         }
         // or change the shape of the shape if you're not busy
-        console.log(AreaService.getGeom(area.wkt))
-        return !Design.busy && feature.setGeometry(AreaService.getGeom(area.wkt));
+        // console.log(AreaService.getGeom(area.wkt))
+        return area && feature.setGeometry(AreaService.getGeom(area.wkt));
       }
     } else if (area !== null){
       // we don't have a feature
