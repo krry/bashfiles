@@ -10,13 +10,14 @@ function DevCtrl_($scope, Client, Form) {
   vm.prospect = Form.prospect;
   Client.listen('Form: Loaded', subscribeForm);
 
-  vm.reloadApp = function reloadApp () {
-    location.hash = 'my-home';
-    location.reload(true);
-  }
-
   vm.resetForm = function resetForm () {
     Client.emit('Dev: Reset form');
+  }
+
+  vm.reloadApp = function reloadApp () {
+    Client.emit('Dev: Reset form');
+    location.hash = 'my-home';
+    location.reload(true);
   }
 
   function subscribeForm (form_obj) {

@@ -11,6 +11,13 @@ angular.module('stages',[
   $stateProvider.state('flannel', {
     url: "/",
     abstract: true,
+    resolve: {
+      // Resolve ensures we authenticate before going to the root controller
+      // This only fires once since the root only instantiates once 
+      init: ['Auth', function(Auth) {
+        return Auth.authenticate();
+      }]
+    },
     views: {
       'header@': {
         templateUrl: 'templates/header.html',

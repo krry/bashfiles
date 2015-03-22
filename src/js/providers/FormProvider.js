@@ -28,9 +28,9 @@
 
 ================================ */
 
-providers.provider("Form", FormProvider_);
+providers.provider("Form", ['FIREBASE_URL', FormProvider_]);
 
-function FormProvider_ () {
+function FormProvider_ (FIREBASE_URL) {
 
   var _ref,
       _ref_key,
@@ -40,7 +40,7 @@ function FormProvider_ () {
       forms_url;
 
   _ref_key  =  null;
-  forms_url = 'https://scty.firebaseio.com/forms/'; // hack: hardcode // todo: make this constant value
+  forms_url = FIREBASE_URL + 'forms/'; // hack: hardcode // todo: make this constant value
 
   this.setRefKey = function(key){
     /* jshint -W030 */
@@ -57,8 +57,6 @@ function FormProvider_ () {
 
     Client.listen('Session: Loaded', bootstrapForm);
     Client.listen('Form: valid data', updateRefByVal);
-
-    // DEV:
     Client.listen('Dev: Reset form', resetForm);
 
     function resetForm () {
@@ -113,6 +111,7 @@ function FormProvider_ () {
         id: function () { return _ref.key(); },
         form_stream: function () { return _ref_stream; },
         prospect: function () { return prospect; },
+        resetForm: resetForm
       };
     }
 

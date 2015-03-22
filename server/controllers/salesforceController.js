@@ -8,7 +8,8 @@ module.exports = function(app) {
   var sfLoginUrl    = conf.SFLOGIN_URL,
       sfUserName    = conf.SFUSERNAME,
       sfPassword    = conf.SFPASSWORD,
-      sfToken       = conf.SFDCSECRETTOKEN;
+      sfToken       = conf.SFDCSECRETTOKEN,
+      sfRecordType  = conf.SFDCRECORDTYPEID;
 
 
   var conn = new jsforce.Connection({
@@ -38,7 +39,8 @@ module.exports = function(app) {
       External_ID_Type__c : 'FirebaseSessionId',
       Consultation_Date__c : new Date(),
       Consultation_Type__c : 'Online',
-      Opportunity_Owner__c : '00518000000QpDnAAK'
+      Opportunity_Owner__c : '00518000000QpDnAAK',
+      RecordTypeId : sfRecordType
     };
   }
 
