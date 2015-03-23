@@ -6,16 +6,14 @@
 
 ================================================== */
 
-controllers.controller("FormCtrl", ["$scope", "$state", "$location", "$element", "Clientstream", "Session", "Geocoder", "Form", "Credit", "Contact", "Utility", "Rates", "Salesforce", "CREDIT_FAIL", "URL_ROOT", "defaultValues", FormCtrl_]);
+controllers.controller("FormCtrl", ["$scope", "$location", "$element", "Clientstream", "Session", "Geocoder", "Form", "Credit", "Contact", "Utility", "Rates", "Salesforce", "CREDIT_FAIL", "URL_ROOT", "defaultValues", FormCtrl_]);
 
-function FormCtrl_($scope, $state, $location, $element, Client, Session, Geocoder, Form, Credit, Contact, Utility, Rates, Salesforce, CREDIT_FAIL, URL_ROOT, defaultValues) {
+function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form, Credit, Contact, Utility, Rates, Salesforce, CREDIT_FAIL, URL_ROOT, defaultValues) {
 
   var vm = this;
   var form_stream;
 
   vm.prospect = Form.prospect;
-
-  console.log($state.get());
 
   /* bootstrap the controller's model from the form provider, listen for changes */
   Client.listen('Form: Loaded', bootstrapForm);
@@ -28,7 +26,6 @@ function FormCtrl_($scope, $state, $location, $element, Client, Session, Geocode
     // .distinctUntilChanged()
     .select(function(x) { return x.exportVal();})
     .subscribe(streamSubscription)
-
     // let session provider know you're subscribed, so it can make the
     Client.emit('Form: subscribed to form_stream', form_obj);
   }
