@@ -17,11 +17,20 @@
   }
 }
 
+[fln-configurator] {
+  height: 100%;
+}
+
 .omap {
   position: relative !important;
+  height: 100% !important;
+  z-index: 1;
+}
+
+.ogmap {
+  // i got it for the lowlow
   height: 100%;
   z-index: 1;
-  // background: $grey-dark;
 }
 
 .instructions {
@@ -183,4 +192,9 @@
       background-color: $tint-40;
     }
   }
+}
+
+.panelfill {
+  height: 18em;
+  width: 100%;
 }
