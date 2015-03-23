@@ -83,7 +83,6 @@ function DesignProvider_ (FIREBASE_URL) {
     var rx_areas = new Rx.Subject();
 
     Client.listen('Design: Loaded', saveDesignIdToSession);
-    Client.listen('Session: Loaded', bootstrapDesign);
 
     // always ask the session for value, to enable direct state navigation
     if (Session.ref()) {
@@ -103,7 +102,8 @@ function DesignProvider_ (FIREBASE_URL) {
     }
 
     function bootstrapDesign (data) {
-      // get a reference to firebase
+      var data = data.exportVal()
+      data.design_id && (_ref_key = data.design_id);
       _ref = _ref_key ?
         // use the one you're given in config
         new Firebase(designs_url).child(_ref_key) :
