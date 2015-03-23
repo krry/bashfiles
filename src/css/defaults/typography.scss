@@ -86,6 +86,10 @@ h4.light-weight {
   @include apercu-light;
 }
 
+h4.padding-less {
+  margin-bottom: 0.25em;
+}
+
 h5 {
   font-size: 1em;
   // margin-bottom: .5em;
@@ -103,7 +107,15 @@ h6 .small-caps {
 p {
   font-size: .85em;
   margin: 0 auto;
+
+  &.small {
+    font-size: .8em;
+  }
+  &.left {
+    text-align: left;
+  }
 }
+
 
 blockquote {
   @include apercu-medium-italic;

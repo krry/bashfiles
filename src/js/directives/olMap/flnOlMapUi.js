@@ -22,12 +22,12 @@ directives
 .directive('flnModify', flnModify_ )
 .directive('flnZoom', flnZoom_ )
 .directive('flnDragpan', flnDragPan_ )
-.directive('flnOmapRedo', flnOmapRedo_ );
+.directive('flnOmapClearPoly', flnOmapClearPoly_ );
 
 function flnDraw_ ($timeout, $compile, newConfigurator, Clientstream) {
   return {
     restrict: "EA",
-    controller: function flnDrawCtrl ($scope, $element, $attrs) {
+    link: function flnDrawCtrl (scope, element, attrs) {
       var tips, tip_step, listener_key;
       listner_key = newConfigurator.drawAdd();
       function addDrawTips(){ // TODO: this should be it's own directive
@@ -64,7 +64,7 @@ function flnDraw_ ($timeout, $compile, newConfigurator, Clientstream) {
       //   */
       //   $compile(map_div)($scope);
       }
-      $element.on('$destroy', function drawDestroy (e) {
+      element.on('$destroy', function drawDestroy (e) {
         newConfigurator.drawDel();
       });
     },
@@ -107,13 +107,12 @@ function flnDragPan_ (Configurator, newConfigurator) {
   };
 }
 
-function flnOmapRedo_ (Clientstream, newConfigurator) {
+function flnOmapClearPoly_ (Design) {
   return {
     restrict: "A",
-    link: function flnModifyLink (scope, ele, attrs) {
+    link: function (scope, ele, attrs) {
       ele.on('click', function popThatPoly(){
-        newConfigurator.redoArea();
-        Clientstream.emit('stage', 'back');
+        Design.rx_areas.onNext('removed by client');
       })
     },
   };

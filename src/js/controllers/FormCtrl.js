@@ -26,7 +26,6 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
     // .distinctUntilChanged()
     .select(function(x) { return x.exportVal();})
     .subscribe(streamSubscription)
-
     // let session provider know you're subscribed, so it can make the
     Client.emit('Form: subscribed to form_stream', form_obj);
   }
