@@ -70,6 +70,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
   Client.listen('Stages: jump to stage', jumpToStage);
   Client.listen('Stages: stage', stageListen);
   Client.listen('Stages: step', stepListen);
+  Client.listen('Router: state change success', stepFinish);
   Client.listen('start over', startOver);
   Client.listen('Spinner: spin it', setWaiting);
   Client.listen('Stages: stage', stageLayout);
@@ -175,9 +176,9 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
     }
   }
 
-  function stepListen (target_step) {
-    // console.log('heard that step emission', target_step);
-    step = target_step;
+  function stepFinish(opts) {
+    stage = opts.stage;
+    step = opts.step;
 
     $timeout( function () {
       // unlock the view
@@ -185,10 +186,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
       $scope.$apply();
     }, 1);
 
-    console.log(Templates.config[stage].steps[step], stage, step, "\n\n\n\n\n");
-
-    // update the view
-    $state.go(Templates.config[stage].name + '.' + Templates.config[stage].steps[step].step);
+    console.log(Templates.config[stage], Templates.config[stage].steps[step]);
     vm.fixed = !Templates.config[stage].steps[step].staticLayout;
 
     // update firebase
@@ -203,7 +201,16 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
     if (help_steps.indexOf(Templates.config[stage].steps[step].step) > -1) {
       vm.helpActivated = true;
     }
+  }
 
+  function stepListen (target_step) {
+    // console.log('heard that step emission', target_step);
+    step = target_step;
+
+    // update the view
+    $state.go(Templates.config[stage].name + '.' + Templates.config[stage].steps[step].step).then(function() {
+      stepFinish({ stage: stage, step: step });
+    });
   }
 
   // user flow controls
@@ -230,6 +237,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
   }
 
   function jumpToStep (target) {
+    console.log($state.get());
     // console.log('trying to jump to:', target, 'step');
     var steps = Templates.config[stage].steps;
     for (var i = 0; i < steps.length; i++) {
