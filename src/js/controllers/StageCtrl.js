@@ -185,8 +185,10 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
       $scope.$apply();
     }, 1);
 
+    console.log(Templates.config[stage].steps[step], stage, step, "\n\n\n\n\n");
+
     // update the view
-    vm.partial = Templates.partial(stage, step);
+    $state.go(Templates.config[stage].name + '.' + Templates.config[stage].steps[step].step);
     vm.fixed = !Templates.config[stage].steps[step].staticLayout;
 
     // update firebase

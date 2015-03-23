@@ -7,7 +7,7 @@ angular.module('stages',[
   'signup',
 ])
 .config(["$locationProvider", "$stateProvider", "$urlRouterProvider", function ($locationProvider, $stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/my-home'); // if users arrive somewhere other than the root URL, send them to the root.
+  $urlRouterProvider.otherwise('/my-home/zip-nearme'); // if users arrive somewhere other than the root URL, send them to the root.
   $stateProvider.state('flannel', {
     url: "/",
     abstract: true,
