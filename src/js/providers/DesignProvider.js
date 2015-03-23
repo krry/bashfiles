@@ -69,8 +69,8 @@ function DesignProvider_ (FIREBASE_URL) {
     /* jshint +W030 */
   };
   this.map_details = {
-    center: [0,1],
-    zoom_level: 18
+    // center: null,
+    // zoom_level: 18
   }
   this.setCenter = function(center) {
     this.map_details.center = center;

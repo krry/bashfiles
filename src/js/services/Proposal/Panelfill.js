@@ -1,6 +1,8 @@
 angular.module('flannel').service('Panelfill', PanelfillSvc);
 
 function PanelfillSvc ($http, $q) {
+  // TODO: Revisit naming of this and Proposal service... to whatever it should be. 
+
   // this Service provides Api access
   var Panelfill = {};
 

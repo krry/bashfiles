@@ -5,10 +5,9 @@
  */
 
 angular.module('flannel').service('Proposal', [ 'Session', 'Panelfill', 'Clientstream', Proposal_]);
-var map
+
 function Proposal_(Session, Panelfill, Client) {
-  // var map;
-  // center = Design.map_details.center;
+  // TODO: Revisit naming of this and Panelfill API service... to whatever it should be.
   var map_options = {
     zoom: 20,
     mapTypeId: google.maps.MapTypeId.SATELLITE,
@@ -20,7 +19,6 @@ function Proposal_(Session, Panelfill, Client) {
     draggable: false,
   };
 
-  // var _ref = new Firebase('https://scty.firebaseio.com/designs/butts')
   Session.ref().parent().parent().child('designs')
     .child(Session.ref().key()).child('areas/0/wkt')
       .once('value', function (ds) {
@@ -50,11 +48,11 @@ function Proposal_(Session, Panelfill, Client) {
     }
     return new google.maps.Polygon({
       paths: panel_coords,
-      strokeColor: '#FF0000',
-      strokeOpacity: 0.8,
-      strokeWeight: 3,
-      fillColor: '#FF0000',
-      fillOpacity: 0.35,
+      strokeColor: '#e7f3fc',
+      strokeOpacity: 0.3,
+      strokeWeight: 1,
+      fillColor: '#000000',
+      fillOpacity: 0.75,
     });
   }
 
