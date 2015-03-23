@@ -26,6 +26,7 @@ function DesignProvider_ (FIREBASE_URL) {
 
   ================================ */
 
+
   var _ref,
       _ref_key,
       _ref_stream,
@@ -59,6 +60,7 @@ function DesignProvider_ (FIREBASE_URL) {
   }
 
   _ref_key = null;
+
   designs_url = FIREBASE_URL + 'designs/';
 
   this.setRefKey = function(key){
@@ -66,97 +68,21 @@ function DesignProvider_ (FIREBASE_URL) {
     key && (_ref_key = key);
     /* jshint +W030 */
   };
-
+  this.map_details = {
+    // center: null,
+    // zoom_level: 18
+  }
   this.setCenter = function(center) {
-    map_center = center;
+    this.map_details.center = center;
   }
 
   this.$get = [ "Session", "Clientstream", function designProviderFactory(Session, Client) {
 
-    _ref = new Firebase(designs_url).child(_ref_key);
+    var rx_center = new Rx.Subject();
+    var rx_zoom = new Rx.Subject();
+    var rx_areas = new Rx.Subject();
 
-    rx_center     = _ref.child('map_details/center')
-      .observe('value')
-      .distinctUntilChanged()
-
-    rx_zoom       = _ref.child('map_details/zoom_level')
-      .observe('value')
-      .distinctUntilChanged()
-
-
-    var observable = new Rx.Observable.fromEventPattern(
-      function add(h) {
-        _ref.child('areas').on('value', h)
-      },
-      function remove(h) {
-        _ref.child('areas').off('value', h)
-      }
-    )
-
-    var observer = Rx.Observer.create(function (x) {
-      return x;
-    })
-
-    rx_areas = Rx.Subject.create(observer, observable)
-    rx_areas
-      .map(function (ds) {
-        var id, wkt;
-        console.log('mapping observer', ds.exportVal());
-        if (!area_wkts) { // area_wkts null during startup
-        console.debug('mapping null');
-
-          area_wkts = [];
-          return null
-        } else if (area_wkts && ds.exportVal()[0] === null) {
-          // area_wkts set & there's a value on the object
-          console.debug('mapping remove by remote', ds.exportVal()[0]);
-
-          return "remove by remote"
-        } else {
-        console.debug('mapping', {
-          id: ds.ref().key(),
-          wkt: ds.exportVal().wkt
-        });
-
-          return {
-            id: ds.ref().key(),
-            wkt: ds.exportVal()[0].wkt
-          }
-        }
-      })
-      .filter(function (areas_obj) {
-        if (!areas_obj) return false; // filter when we have a new design
-        console.debug('filter not false')
-        return true                   // otherwise, pass it along as is
-      })
-
-
-    .subscribe(function (areas_obj) {
-      console.log('subscriber', areas_obj.exportVal())
-      if (areas_obj === "remove by remote") {
-        area_wkts[areas_obj.id] = null;
-      } else if (areas_obj === "remove by client") {
-        _ref
-          .child('areas')
-          .child(0) // HACK: only works for one roof area
-          .set(null);
-      } else {
-        // set local, used by filter
-        console.error('asssss')
-        area_wkts = [];
-
-        area_wkts[areas_obj.id] = areas_obj.wkt;
-        // update remote
-        _ref
-          .child('areas')
-          .child(areas_obj.id)
-          .set(areas_obj.wkt);
-      }
-    });
-
-    console.log(rx_areas);
-
-/////////
+    Client.listen('Design: Loaded', saveDesignIdToSession);
 
     // always ask the session for value, to enable direct state navigation
     if (Session.ref()) {
@@ -164,121 +90,68 @@ function DesignProvider_ (FIREBASE_URL) {
     } else {
       console.debug('**** Design: waiting for Session');
       Client.listen('Session: Loaded', function(){
-        console.log('loading design after session:')
         return Session.ref().once('value', bootstrapDesign);
       });
     }
 
-    function bootstrapDesign (ds) {
+    rx_center.subscribe(subSessionMapCenterToDesignMapCenter);
 
-      // center comes from Session object, which supports Proposal later
-      center_ref = Session.ref().child('map_center');
-      var session_obj = ds.exportVal()
-      map_center = session_obj.map_center; // TODO: get rid of this dependency
+    function subSessionMapCenterToDesignMapCenter(c) {
+      if (c === null || c.lat === 0) return;
+      Session.ref() && Session.ref().update(c);
+    }
 
-      // make the ref when Design is first required.
-      if (_ref_key) {
-        // load the _ref from the user's previous session
-        _ref = new Firebase(designs_url).child(_ref_key);
-      } else {
-        // there was no design yet, make a new one
-        _ref = new Firebase(designs_url).push();
-      }
-      // firebase design ref
-      _ref.once('value', loadDesign );
-      _ref_stream = _ref.observe('value');
-      // areas_stream
-      areas_ref = _ref.child('areas');
-      areas_stream = areas_ref.observe('value');
-      // setup map_details stream
-      rx_center     = _ref.child('center')
-        .observe('value')
-        .distinctUntilChanged();
-      rx_zoom       = _ref.child('zoom')
-        .observe('value')
-        .distinctUntilChanged();
-      // watch for keys added to the _ref
-      // setup streams for the ref
-      child_stream  = _ref.observe('child_added')
-      // don't share similar data
-      .distinctUntilChanged()
-      .filter(_filter)
-      // package the data for all subscribers
-      // .map(_map);
-      // subscribe to stream for updates
-      child_stream.subscribe(_ref_subscriber);
-      // DEV: end
-      return _ref;
+    function bootstrapDesign (data) {
+      var data = data.exportVal()
+      data.design_id && (_ref_key = data.design_id);
+      _ref = _ref_key ?
+        // use the one you're given in config
+        new Firebase(designs_url).child(_ref_key) :
+        // or get a new one.
+        new Firebase(designs_url).push();
+      _ref.once('value', loadDesign);
     }
 
     // load design & notify app design is loaded
     function loadDesign (ds) {
-    //   console.log('load design');
-    //   var data = ds.exportVal() || {};
-    //   _ref_key = ds.ref().key();
-    //   data.design_id = _ref_key;
-    //   // data.map_center = map_center;
-    //   console.log('data in Design load', data);
-    //   // Client.emit('Design: Loaded', data);
+      _ref.child('areas/0').on('value', function (ds) {
+        rx_areas.onNext(ds.exportVal());
+      });
+
+      _ref.child('map_details/center').on('value', function (ds) {
+        rx_center.onNext(ds.exportVal());
+      });
+
+      _ref.child('map_details/zoom_level').on('value', function (ds){
+        rx_zoom.onNext(ds.exportVal());
+      });
+
+      var data = ds.exportVal() || {};
+      data.design_id = _ref.key();
+      Client.emit('Design: Loaded', data);
     }
 
-    // watch the area_collection to validate trace_complete
-
-
-    // stream functions
-    // TODO: use filter if necessary, or remove
-    function _filter(ds) {
-      return true;
-    }
-    // map data to easier format
-    function _map(c, p) {
-      console.log('_map Design');
-      var data      = {}
-      data._ref_key = c.snapshot.key();
-      data.data     = c.snapshot.exportVal();
-      data.snapshot = c.snapshot;
-      p && (data.prevname = p);
-      return data
-    }
-    // subscribe to this ref
-    function _ref_subscriber (d) {
-      var child_ref_key = d._ref_key;
-      if (child_ref_key === 'areas') {
-        console.log('Design: stream areas')
-        // setup areas streams
-        // streams.areas.add    = d.snapshot.ref().observe('child_added');
-        // streams.areas.remove = d.snapshot.ref().observe('child_removed');
-        // streams.areas.change = d.snapshot.ref().observe('child_changed');
-        Client.emit('Design: stream areas', streams);
-      } else if (child_ref_key === 'panel_fill') {
-        console.log('Design: stream panelfill')
-        // setup panelfill stream
-        // streams.panelfill.add    = d.snapshot.ref().observe('child_added');
-        // streams.panelfill.remove = d.snapshot.ref().observe('child_removed');
-        // Client.emit('Design: stream panelfill', streams);
-        // streams.panelfill.change = d.snapshot.ref().observe('child_changed');
-      } else if (child_ref_key === 'map_details') {
-        // don't worry about this here.
-        console.log('Design: stream map_details');
-        Client.emit('Design: stream map_details', {rx_zoom: rx_zoom, rx_center: rx_center});
-
-      } else {
-        console.log('i don\'t know this refkey on design object', child_ref_key);
-      }
+    function saveDesignIdToSession(d) {
+      Session.ref().update({design_id: d.design_id});
     }
 
     function awesome_design_builder_brah() {
       return {
         map_details: {
-          center: [-122, 37],
+          center: map_center,
         },
-        areas_collection: areas_collection,
+        areas_collection: new ol.Collection(),
         draw_source:      new ol.source.Vector(),
         modify_source:    new ol.source.Vector(),
         rx_center:        rx_center,
         rx_zoom:          rx_zoom,
         rx_areas:         rx_areas,
-        rx_areas_source:  observer,
+        setWkt: function name(txt) {
+          _wkt = txt
+        },
+        getWkt: function () {
+          return _wkt
+        },
         ref:    function(key){
           if (key) {
             _ref_key = key;

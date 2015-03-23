@@ -72,15 +72,16 @@ function SessionProvider_ (FormProvider, DesignProvider, FIREBASE_URL) {
     }
 
     function loadSession (ds){
-      var data = ds.exportVal();
+      var data = ds.exportVal() || {};
       data.session_id = _ref.key();
+      DesignProvider.setRefKey(_ref.key());
       if (data.form_id) {
         // update form's _ref_key if the user has a form
         FormProvider.setRefKey(data.form_id);
       }
       if (data.design_id) {
         // update design's _ref_key if the user has already started design
-        DesignProvider.setRefKey(data.design_id);
+        // DesignProvider.setRefKey(data.design_id);
       }
       if (data.map_center) {
         // last known position of googleMap or olMap
@@ -105,7 +106,7 @@ function SessionProvider_ (FormProvider, DesignProvider, FIREBASE_URL) {
 
     function storeGMapCenter (location) {
       if (location.lat()) { // TODO: make this work for Gmap & Configurator
-        _ref.child('map_center').set([ location.lat(), location.lng(), ]);
+        _ref.child('map_center').set({lat: location.lat(), lng: location.lng()});
       } else {
         console.error('unhandled center changed event');
       }
@@ -113,11 +114,6 @@ function SessionProvider_ (FormProvider, DesignProvider, FIREBASE_URL) {
 
     function awesome_session_builder_brah () {
       return {
-        // TODO: enable hotswap sessions
-        // setRefKey: function (key){
-        //   console.log('Session.setRefKey method called', key)
-        //   key && (_ref_key = key);
-        // },
         setUserKey: function (key){
           /* jshint -W030 */
           key && (_user_key = key);

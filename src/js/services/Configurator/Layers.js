@@ -10,11 +10,15 @@ angular.module('flannel').factory('Layers', ['Design', 'StyleService', 'AreaServ
 
 function Layers_(Design, Styles, AreaService, Client) {
 
-  var layers, l_draw, area_collection, source;
+  var layers, l_draw, areas_collection, source;
 
-  area_collection = new ol.Collection();
-  draw_source   = Design.draw_source;
-  modify_source = Design.modify_source;
+  var rx_drawcount = new Rx.Subject(); // the next button subscribes to this
+
+  var feature; // we modify this shape
+
+  areas_collection = Design.areas_collection
+  draw_source      = Design.draw_source;
+  modify_source    = Design.modify_source;
 
   l_draw = new ol.layer.Vector({
     source: draw_source,
@@ -26,52 +30,56 @@ function Layers_(Design, Styles, AreaService, Client) {
     style:  Styles.highlightStyleFunction,
   });
 
-  area_collection.on('add', function (e) {
+  areas_collection.on('add', function (e) {
     // add to sources
-    var feature = e.element;
+    feature = e.element;
+    feature = AreaService.wireUp(0, feature);
     draw_source.addFeature(feature);
     modify_source.addFeature(feature);
   });
-  area_collection.on('remove', function (e) {
+
+  areas_collection.on('remove', function (e) {
     // remove from sources
     var feature = e.element;
+    Design.ref().child('areas/0/wkt').remove()
     draw_source.removeFeature(feature);
     modify_source.removeFeature(feature);
   });
-  area_collection.on('change:length',function(e){
-    var f = e.element;
-    // must emit to let the "next" know the number of features
-    // when features > 0, user can move forward in flow
-    Client.emit('area collection count', l_draw.getFeatures().length)
-    // console.debug('areacollection change:length -->', draw_source.getFeatures().length);
+
+  // broadcast to the templates to enable/disable clicking of "next" button
+  areas_collection.on('change:length',function(e){
+    rx_drawcount.onNext(this.getLength());
   })
 
-  Design.rx_areas
-    .map(function (ds) {
-      return ds.exportVal()[0];
-    })
-    .subscribe(function (areas_object) {
-    var feature;
-    if (areas_object === "remove by remote") {
-      area_collection.pop();
+  // update based on changes at firebase
+  Design.rx_areas.subscribe(function (area) {
+    if (area && areas_collection.getLength()) {
+      // we have a message, and a feature on the client
+      if (area === 'removed by client') {
+        // sent by 'clear polygon' button
+        areas_collection.pop();
+        Client.emit('Stages: stage', 'back'); // TODO: move this to a subscription in StagesCtrl
+      } else {
+        // sent by remote
+        if (area.wkt === feature.get('wkt')) {
+          console.log('area the same as feature')
+          return Design.busy = false;
+        }
+        return area && feature.setGeometry(AreaService.getGeom(area.wkt));
+      }
+    } else if (area !== null){
+      // we don't have a feature
+      feature = AreaService.featFromTxt(area.wkt, 'area');
+      return areas_collection.push(feature);
     }
-    else if (areas_object === "remove by client") {
-      area_collection.pop();
-    }
-    else {
-      debugger;
-      console.debug('adding from firebase');
-      console.log(areas_object)
-      feature = AreaService.wireUp(0, areas_object.wkt );
-      area_collection.push(feature);
-    }
-  })
+  });
 
   layers = {
     draw : l_draw,
     modify: l_modify,
     array: [ l_draw, l_modify ],
-    area_collection:  area_collection,
+    areas_collection:  areas_collection,
+    rx_drawcount: rx_drawcount,
   };
 
   return layers;

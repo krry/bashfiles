@@ -38,20 +38,3 @@ function flnOlMap_ (Client, Configurator) {
     },
   };
 }
-
-directives.directive('flnTestMap', ['Clientstream', flnTestMap_]);
-
-function flnTestMap_ (Client) {
-  return {
-    restrict: "A",
-    templateUrl: 'templates/directives/test/flnTest.html',
-    controller: function ($scope, $element, $attrs, newConfigurator) {
-      newConfigurator.setTarget($element);
-      Client.listen('draw_busy', function (arg) {
-        $scope.draw_busy = arg;
-        $scope.$apply();
-      });
-      
-    },
-  };
-}

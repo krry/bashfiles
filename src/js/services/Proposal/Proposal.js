@@ -4,11 +4,10 @@
  *
  */
 
-angular.module('flannel').service('Proposal', [ 'Design', 'Panelfill', 'Clientstream', Proposal_]);
-var map
-function Proposal_(Design, Panelfill, Client) {
-  // var map;
-  // center = Design.map_details.center;
+angular.module('flannel').service('Proposal', [ 'Session', 'Panelfill', 'Clientstream', Proposal_]);
+
+function Proposal_(Session, Panelfill, Client) {
+  // TODO: Revisit naming of this and Panelfill API service... to whatever it should be.
   var map_options = {
     zoom: 20,
     mapTypeId: google.maps.MapTypeId.SATELLITE,
@@ -20,13 +19,14 @@ function Proposal_(Design, Panelfill, Client) {
     draggable: false,
   };
 
-  // var _ref = new Firebase('https://scty.firebaseio.com/designs/butts')
-  Design.ref().child('areas/0/wkt').once('value', function (ds) {
-    var wkt_txt = ds.exportVal();
-    console.log('wkt_txt in design', wkt_txt)
-    Panelfill.getFilled(wkt_txt)
-    .then(processTwoDArray);
-  })
+  Session.ref().parent().parent().child('designs')
+    .child(Session.ref().key()).child('areas/0/wkt')
+      .once('value', function (ds) {
+      var wkt_txt = ds.exportVal();
+      console.log('wkt_txt in design', wkt_txt)
+      Panelfill.getFilled(wkt_txt)
+      .then(processTwoDArray);
+  });
 
   var panels_array;
 
@@ -48,11 +48,11 @@ function Proposal_(Design, Panelfill, Client) {
     }
     return new google.maps.Polygon({
       paths: panel_coords,
-      strokeColor: '#FF0000',
-      strokeOpacity: 0.8,
-      strokeWeight: 3,
-      fillColor: '#FF0000',
-      fillOpacity: 0.35,
+      strokeColor: '#e7f3fc',
+      strokeOpacity: 0.3,
+      strokeWeight: 1,
+      fillColor: '#000000',
+      fillOpacity: 0.75,
     });
   }
 
