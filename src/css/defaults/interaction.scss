@@ -174,7 +174,7 @@ a.btn {
       @include btn($red, $size: .75rem);
     }
     &.white {
-      @include btn($white, $size: .75rem);
+      @include btn($white, $size: .7rem);
     }
     &.green {
       @include btn($green, $size: .75rem);
@@ -199,7 +199,7 @@ a.btn {
   &.nested {
     position: absolute;
     right: .5rem;
-    top: 0.425rem;
+    top: 0.45rem;
     margin: 0;
   }
   &.round {
@@ -215,16 +215,16 @@ a.btn {
   }
   &.close.close {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: .5em;
+    right: .5em;
     margin: 0;
     border-radius: 0;
     background: none;
     border: 0;
     outline: none;
     background: url('../img/close_x.svg') no-repeat center center;
-    width: 3em;
-    height: 3em;
+    width: 4em;
+    height: 4em;
   }
   &.text {
     background: none;
@@ -239,6 +239,9 @@ a.btn {
       background: none;
       color: $aqua-dark;
     }
+  }
+  &.center.white.tiny.std {
+    margin: 3em auto 0;
   }
 }
 

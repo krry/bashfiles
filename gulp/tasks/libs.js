@@ -43,6 +43,8 @@ var libSrc = [
   './src/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
   './src/lib/angular-bootstrap/ui-bootstrap.js',
   './src/lib/angular-bootstrap/ui-bootstrap.min.js',
+  './src/lib/angular-input-masks/angular-input-masks.min.js',
+  './src/lib/angular-input-masks/angular-input-masks.us.min.js',
   './src/lib/firebase/firebase-debug.js',
   './src/lib/firebase/firebase.js',
   './src/lib/angularfire/dist/angularfire.js',
@@ -51,6 +53,7 @@ var libSrc = [
   './src/js/rxjs-firebase/rx.firebase.js',
   './src/lib/moment/moment.js',
   './src/js/mailgun/mailgun_validator.js',
+  './src/lib/Chart.js/Chart.js'
 ];
 
 var libPub = './public/lib';

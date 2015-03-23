@@ -3,11 +3,11 @@
 </fln-draw>
 <fln-control-zoom></fln-control-zoom>
 <fln-control-pan></fln-control-pan>
-<div>
+<div class="position-relative">
   <div ui-view name="instructions" class="instructions">
     <h4>Trace the sunny side of your roof.</h4>
     <p>Start by clicking at one corner of the section, then click another corner. Each click will place points. The tool will connect the dots for you. You can always adjust them later if you want.</p>
-    <figure><img src="" alt=""></figure>
+    <figure><img src="img/trace.gif" alt="Trace the sunny part of your roof" loop=infinite></figure>
     <p>Remember to choose the section that gets the best sunlight from the south.</p>
     <button class="gold" ng-hide="!traced" ng-click="stages.next()">Next</button>
   </div>

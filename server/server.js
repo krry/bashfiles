@@ -28,6 +28,7 @@ var newrelic     = require('newrelic'),
     publicFolder,
     oneYear;
 
+console.log('env on server is:', env);
 nconf.argv().env().file({file: './server/config/environments/' + env + '.json'});
 
 // db = require('./config/db.js'); // for the db config, this is ignored by git

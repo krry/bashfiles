@@ -1,8 +1,8 @@
 /* =========================================================
 
-  GmapProvider
+  GmapFactory
 
-  provides a gmap
+  manufactures a gmap
 
   emits results to the Clientstream
   to which gmap controllers listen
@@ -13,42 +13,99 @@ providers.provider("Gmap", GmapFactory_);
 
 function GmapFactory_ () {
 
-  this.$get = ["Clientstream", function (Client) {
+  this.$get = ["$q", "Clientstream", function ($q, Client) {
 
     var DEFAULT,
         map,
-        mapOpts;
+        map_opts,
+        map_styles,
+        pins,
+        activePin,
+        dfd,
+        loaded;
 
     DEFAULT = {
       LAT: 30,
       LNG: -123,
     };
 
-    mapOpts = {
+    map_styles = [
+      {
+        "featureType": "poi",
+        "stylers": [
+          { "visibility": "off" }
+        ]
+      },{
+        "featureType": "water",
+        "stylers": [
+          { "color": "#444444" }
+        ]
+      },{
+        "featureType": "transit.station",
+        "elementType": "labels.icon",
+        "stylers": [
+          { "visibility": "off" }
+        ]
+      },{
+        "featureType": "transit.line",
+        "stylers": [
+          { "visibility": "off" }
+        ]
+      },{
+        "featureType": "road",
+        "elementType": "labels.icon",
+        "stylers": [
+          { "visibility": "off" }
+        ]
+      },{
+        "featureType": "water",
+        "elementType": "labels",
+        "stylers": [
+          { "visibility": "off" }
+        ]
+      },{
+        "featureType": "administrative.locality",
+        "elementType": "labels",
+        "stylers": [
+          { "visibility": "off" }
+        ]
+      },{
+        "featureType": "administrative.neighborhood",
+        "elementType": "labels"  }
+    ];
+
+    map_opts = {
       zoom: 4,
       minZoom: 4,
       center: new google.maps.LatLng(DEFAULT.LAT, DEFAULT.LNG),
       mapTypeId: google.maps.MapTypeId.TERRAIN,
       disableDefaultUI: true,
       backgroundColor: "transparent",
-      draggable: true,
-      // zoomable: false,
+      draggable: false,
+      zoomable: true,
+      styles: map_styles,
       // scrollwheel: false,
-    }
+    };
 
-    Client.listen('valid territory', zoomToHood);
-    Client.listen('valid house', checkMaxZoom);
-    Client.listen('drop pin', dropPin);
+    pins = [];
+    dfd = $q.defer();
+    loaded = dfd.promise;
+
+    Client.listen('Geocoder: valid warehouse', zoomToHood);
+    Client.listen('Geocoder: valid house', checkMaxZoom);
+    Client.listen('Gmap: drop pin', dropPin);
+    Client.listen('clear pins', clearPins);
 
     function init (data) {
-      map = new google.maps.Map(data, mapOpts);
+      map = new google.maps.Map(data, map_opts);
+      dfd.resolve(map);
       return map;
     }
 
-    function zoomToHood (zip) {
+    function zoomToHood (data) {
+      var zip = data.zip;
       console.log('zooming into neighborhood in zipcode', zip);
-      Client.emit('max zoom found', 16);
-      Client.emit('get nearme data', true);
+      Client.emit('Gmap: max zoom found', 16);
     }
 
     function checkMaxZoom(addy) {
@@ -58,7 +115,6 @@ function GmapFactory_ () {
           location;
 
       location = addy.location;
-
       // zoom = map.getZoom();
       // console.log('old zoom level:', zoom);
 
@@ -81,31 +137,64 @@ function GmapFactory_ () {
         if (response.status !== google.maps.MaxZoomStatus.OK) {
           console.log("max zoom failed:", response.status);
           // HACK: hardcode fallback when zoom ain't
-          Client.emit('max zoom found', 17);
+          Client.emit('Gmap: max zoom found', 17);
         } else {
           console.log("max zoom at location:", response.zoom);
-          Client.emit('max zoom found', response.zoom);
+          Client.emit('Gmap: max zoom found', response.zoom);
         }
       });
     }
 
     // given a location on the map, make and drop a marker there
-    function dropPin(location) {
-      var marker;
+    function dropPin(opts) {
+      loaded.then(function() {
+        var pin = {};
 
-      marker = new google.maps.Marker({
-        position: location,
-        map: map,
-        draggable: false,
-        //icon: 'img/burstpin.png'
+        pin.marker = new google.maps.Marker({
+          position: opts.location,
+          map: map,
+          draggable: false,
+          icon: 'img/map_pin_1.svg'
+        });
+
+        pin.infowindow = new google.maps.InfoWindow({
+          content: opts.content,
+          anchorPoint: new google.maps.Point(0, 0)
+        });
+
+        pin.listener = google.maps.event.addListener(pin.marker, 'click', function() {
+          if (activePin) {
+            activePin.infowindow.close();
+          }
+
+          pin.infowindow.open(map, pin.marker);
+          activePin = pin;
+        });
+
+        pins.push(pin);
+      });
+    }
+
+    function clearPins() {
+      loaded.then(function() {
+        activePin = null;
+
+        angular.forEach(pins, function(pin) {
+          pin.marker.setMap(null);
+          pin.infowindow = null;
+          google.maps.event.removeListener(pin.listener);
+        });
+
+        pins.length = 0;
       });
     }
 
     function gmap_assembly () {
       return {
         map: map,
-        opts: mapOpts,
+        opts: map_opts,
         init: init,
+        loaded: loaded
         // function: function,
       };
     }

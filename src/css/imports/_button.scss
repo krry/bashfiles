@@ -4,7 +4,7 @@
 @import "functions";
 @import "typography";
 
-@mixin btn($color: $color-button-bkgd, $size: 0.83rem, $corners: #{1.5em/50%}, $pad: #{1em 2.6em 1em}) {
+@mixin btn($color: $color-button-bkgd, $size: 0.83rem, $corners: #{1.8em/50%}, $pad: #{1.3em 2.6em 1.3em}) {
 
   @include apercu-medium;
   @include caps;
@@ -115,4 +115,14 @@ button.tiny.gold {
   padding: 0.94em 2.5em 0.935em;
   border-radius: 1.4em/50%;
   min-width: 5em;
+}
+
+button.tiny.white {
+  padding: 0.8em 0em;
+  border-radius: 1.4em/50%;
+  min-width: 17em;
+  border: 1px solid $grey-lighter;
+  color: $grey-mid;
+  line-height: 100%;
+  margin: 0.5em;
 }

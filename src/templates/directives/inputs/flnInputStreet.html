@@ -1,14 +1,14 @@
 <input
   type="text"
-  name="address"
+  name="street"
   id="prospect_street"
   class="street"
   minlength="4"
-  focus="true"
-  placeholder="{{hint}}"
+  autofocus
+  placeholder="Your street address"
   ng-model="form.prospect.street"
-  ng-model-options="{ updateOn: 'default blur change', debounce: { default: 4000, blur: 0, change: 1000 } }"
+  ng-model-options="{ debounce: 500 }"
   ng-minlength="4"
-  ng-valid="form.checkAddress(form.prospect)"
-  ng-change="form.checkAddress(form.prospect)"
-  ng-blur="form.checkAddress(form.prospect)">
+  ng-blur="form.checkAddress(form.prospect.street)"
+  bind-key="form.checkAddress(form.prospect.street)"
+  key="13">

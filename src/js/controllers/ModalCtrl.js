@@ -16,7 +16,8 @@ function ModalCtrl_(Client, ModalService) {
   vm.toggle      = toggleModal;
   vm.showDialog  = showDialog;
 
-  Client.listen('invalid territory', showDialog);
+  // Showing full page instead of modal when territory is invalid
+  // Client.listen('Geocoder: invalid territory', showDialog);
 
   // turn modal state on
   function openModal() {
@@ -42,9 +43,13 @@ function ModalCtrl_(Client, ModalService) {
   }
 
   // select which dialog displays in the modal state
-  function showDialog(name) {
+  function showDialog(obj) {
+    var dialog = obj.dialog;
+    if (obj.data) {
+      vm.dialogData = obj.data;
+    }
     ModalService.set(true);
-    ModalService.activate(name);
-    console.log('body is:', $('body'), 'and dialog name is:', name);
+    ModalService.activate(dialog);
+    console.log('body is:', $('body'), 'and dialog is:', dialog);
   }
 }

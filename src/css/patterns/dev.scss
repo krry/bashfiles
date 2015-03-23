@@ -6,11 +6,12 @@
   position: fixed;
   top: 0; right: 0; bottom: 0;
   width: 75%;
+  max-width: 30em;
   z-index: 12;
   background-color: $glass-smoked;
   transform: translate3d(100%, 0, 0);
   transition: transform 250ms $easing-quick;
-  box-shadow: -4px 0 8px -4px $shade-40;
+  // box-shadow: -4px 0 8px -4px $shade-40;
   &.shown {
     transform: translate3d(0, 0, 0);
   }
@@ -32,7 +33,7 @@ a.dev-trigger.dev-trigger {
   font-size: .875em;
   padding: .75em;
   text-align: center;
-  color: $glass-smoked;
+  color: $white;
   background: $glass-amber;
   box-shadow: 0px 0 6px -3px saturate($gold-bright, .2);
   &:hover {
@@ -40,7 +41,7 @@ a.dev-trigger.dev-trigger {
     border: 0;
   }
   &.triggered {
-    color: $glass-amber;
+    color: $white;
     background-color: $glass-smoked;
   }
   &:hover.triggered {
@@ -52,9 +53,65 @@ a.dev-trigger.dev-trigger {
   font-size: 1rem !important;
 }
 
+@media screen and (min-width: $width-min-xsm) {
+  a.dev-trigger.dev-trigger {
+    background-color: $red;
+    &:after {
+      content: "\AXSM";
+    }
+  }
+}
+
+@media screen and (min-width: $width-min-sml) {
+  a.dev-trigger.dev-trigger {
+    background-color: $ginger;
+    &:after {
+      content: "\ASML";
+    }
+  }
+}
+
+@media screen and (min-width: $width-min-med) {
+  a.dev-trigger.dev-trigger {
+    background-color: $orange;
+    &:after {
+      content: "\AMED";
+    }
+  }
+}
+
 @media screen and (min-width: $width-min-lrg) {
-  .dev-drawer {
-    width: auto;
-    max-width: auto;
+  a.dev-trigger.dev-trigger {
+    background-color: $gold;
+    &:after {
+      content: "\ALRG";
+    }
+  }
+}
+
+@media screen and (min-width: $width-min-xlg) {
+  a.dev-trigger.dev-trigger {
+    background-color: $green;
+    &:after {
+      content: "\AXLG";
+    }
+  }
+}
+
+@media screen and (min-width: $width-min-xxl) {
+  a.dev-trigger.dev-trigger {
+    background-color: $aqua-dark;
+    &:after {
+      content: "\AXXL";
+    }
+  }
+}
+
+@media screen and (min-width: $width-min-uhd) {
+  a.dev-trigger.dev-trigger {
+    background-color: $blue-dark;
+    &:after {
+      content: "\AUHD";
+    }
   }
 }

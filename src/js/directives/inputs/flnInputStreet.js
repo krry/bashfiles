@@ -1,15 +1,15 @@
-directives.directive('flnInputStreet', [flnInputStreet_]);
+directives.directive('flnInputStreet', ["$timeout", flnInputStreet_]);
 
-function flnInputStreet_ () {
+function flnInputStreet_ ($timeout) {
   return {
-    scope: {
-      hint: "@"
-    },
     restrict: "E",
     templateUrl: "templates/directives/inputs/flnInputStreet.html",
-    controller: "FormCtrl as form",
+    require: '^flnForm',
     link: function (scope, element, attrs) {
-      $(element).focus();
-    }
+      scope.focus = attrs.focus;
+      $timeout(function (){
+        // element[0].focus();
+      }, 0);
+    },
   };
 }

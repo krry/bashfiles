@@ -12,16 +12,17 @@
 @import "../imports/motion";
 
 fln-help {
-  position: absolute;
+  position: fixed;
   display: block;
-  z-index: 1;
+  z-index: 3;
   bottom: 0;
   right: 1rem;
   width: 15rem;
-  height: 18rem;
+  height: 17.5rem;
   background: hsl(0, 100%, 100%);
   box-shadow: 0 0 12px -4px hsla(0, 0%, 0%, 0.8);
   border-style: none;
+  border-radius: 4px 4px 0 0;
   transform: translate3d(0, 15rem, 0);
   transition: transform 250ms $easing-quick;
 
@@ -31,17 +32,24 @@ fln-help {
 
   .trigger-bar {
     @include apercu-bold;
-    font-size: 1rem;
+    font-size: .75rem;
     color: $white;
-    height: 3rem;
+    height: 2.5rem;
     background-color: $blue-smoke;
     border: 0;
     border-radius: 4px 4px 0 0;
     display: block !important;
     width: 100%;
-    padding: .25em 1.5em;
+    padding: .25em 1em;
     text-align: left;
+    .icon {
+      float: right;
+    }
   }
+}
+
+button.trigger-bar span.icon {
+  float: right;
 }
 
 .help {
@@ -116,4 +124,3 @@ iframe.chatframe {
   position: fixed;
   z-index: 10;
 }
-

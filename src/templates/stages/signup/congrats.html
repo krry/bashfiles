@@ -1,15 +1,15 @@
 <!-- main.html for qualify stage -->
 <div class="overlay primary col" ng-controller="ScheduleCtrl as schedule">
   <div ng-if="schedule.prospect.scheduledTime">
-    <div class="col fifth three center">
+    <div class="col fourth three center">
       <h1>We'll see you then.
-        <br><small>Our solar consultant will be in touch with you to confirm your appointment and aswer any questions you may have.</small>
+        <br><small>Our solar consultant will be in touch with you to confirm your appointment and answer any questions you may have.</small>
       </h1>
       <div class="col full center">
         <div class="icon icon-calendar"></div>
-        <h1 class="caps">{{form.prospect.scheduledDate.month}} {{form.prospect.scheduledDate.day}}</h1>
+        <h1 class="caps">{{form.prospect.scheduledTime.month}} {{form.prospect.scheduledTime.day}}</h1>
         <p>
-          {{form.prospect.scheduledTime.day}} arrival between {{form.prospect.scheduledTime.start}} to {{form.prospect.scheduledTime.end}}.<br>
+          {{form.prospect.scheduledTime.weekday}} arrival between {{form.prospect.scheduledTime.start}} to {{form.prospect.scheduledTime.end}}.<br>
           Survey may take 1 &mdash; 2 hours.
         </p>
         <div class="calendar-links caps">
@@ -23,7 +23,7 @@
     </div>
   </div>
 
-  <div class="col fifth three center">
+  <div class="col fourth three center">
     <div ng-if="!schedule.prospect.scheduledTime">
       <h1 ng-if="schedule.prospect.qualified">Congratulations - you qualified!
         <br><small>Our solar consultant will be in touch with you soon to schedule site survey, then review a final system design for your rooftop.</small>
@@ -32,8 +32,8 @@
         <br><small>Our solar consultant will be in touch with you soon to schedule site survey, then review a final system design for your rooftop.</small>
       </h1>
     </div>
-    <figure>
-      <iframe width="853" height="480" src="https://www.youtube.com/embed/6-MXZiwI_0UrM?controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+    <figure class="video-tray">
+      <iframe frameborder="0" allowfullscreen src="http://www.youtube.com/embed/MXZiwI_0UrM?controls=0&amp;showinfo=0"></iframe>
     </figure>
     <p>In the meantime, please visit <a href="https://mysolarcity.com">mysolarcity.com</a> to create an account so that you can stay up to date on the progress of your project.</p>
     <h3><a href="https://mysolarcity.com">Go to MySolarCity</a></h3>
@@ -43,7 +43,7 @@
 </div>
 
 <aside class="overlay secondary col sml-full med-full lrg-full full-height" ng-controller="ScheduleCtrl as schedule">
-  <div>
+  <div class="drop-top">
     <strong>What's next?</strong>
   </div>
   <ul>

@@ -10,18 +10,34 @@
   position: absolute;
   overflow: hidden;
   transition: opacity 150ms $easing-quick;
+
+  // Fixes weird styling issues with infowindow icons
+  img[src*="gstatic.com/"], img[src*="googleapis.com/"]  {
+      max-width: 99999px;
+  }
+}
+
+[fln-configurator] {
+  height: 100%;
 }
 
 .omap {
-  position: relative;
+  position: relative !important;
+  height: 100% !important;
+  z-index: 1;
+}
+
+.ogmap {
+  // i got it for the lowlow
   height: 100%;
   z-index: 1;
-  background: $grey-dark;
 }
 
 .instructions {
   background: $white;
   // box-shadow: 0 .5em .25em -.25em $shade-20;
+  box-shadow: 0 0 .75em -.25em $shade-60;
+  margin-left: -1em;
   padding: 3em 1.5em;
 }
 
@@ -107,6 +123,13 @@
   }
 }
 
+.inset-right {
+  box-shadow: inset 0 0 8px -2px $shade-40;
+  position: relative;
+  z-index: 0;
+}
+
+
 .fln-control-pan {
   position: absolute;
   top: 0;
@@ -169,4 +192,9 @@
       background-color: $tint-40;
     }
   }
+}
+
+.panelfill {
+  height: 18em;
+  width: 100%;
 }

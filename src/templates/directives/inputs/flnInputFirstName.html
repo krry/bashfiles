@@ -1,24 +1,25 @@
-<div class="ib status" ng-hide="prospectForm.firstName.$pristine">
-  <span ng-show="prospectForm.firstName.$error.required">
-    First name is required.
-  </span>
-  <span ng-show="prospectForm.firstName.$error.minlength">
-    First name must be at least two characters.
-  </span>
-  <span ng-show="prospectForm.firstName.$error.pattern">asd
-    First name must be alphabetical.
-  </span>
-</div>
 <input
   type="text"
   name="firstName"
   class="full-name"
   focus="true"
-  placeholder="{{hint}}"
+  placeholder="First name"
   autocomplete="on"
   autocorrect="off"
+  autofocus
   ng-model="form.prospect.firstName"
   ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"
   ng-required="true"
   ng-minlength="2"
   ng-pattern="/^([A-Za-z]|_|-|\.|\s)+$/">
+<div class="status" ng-hide="prospectForm.firstName.$pristine">
+  <span ng-show="prospectForm.firstName.$error.required">
+    Required
+  </span>
+  <span ng-show="prospectForm.firstName.$error.minlength">
+    First name, not first initial.
+  </span>
+  <span ng-show="prospectForm.firstName.$error.pattern">
+    Letters only please, unless you are a robot.
+  </span>
+</div>

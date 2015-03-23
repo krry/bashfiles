@@ -1,18 +1,22 @@
 @import "../imports/colors";
 
 .footer {
-  position: fixed;
-  z-index: 1;
+  z-index: 2;
   background: $color-bkgd-footer;
-  bottom: 0;
   width: 100%;
+}
+
+.footer-fixed {
+  bottom: 0;
+  position: fixed;
 }
 
 .footer .boilerplate {
   font-size: .55em;
-  padding: 1.375em 0 1em;
+  padding: 1.375em 0 1em 1em;
   margin-bottom: 0;
-  text-align: center;
+  text-align: left;
+  color: $grey-meh;
 
   span {
     padding: 0 1em;

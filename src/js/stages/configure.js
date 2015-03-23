@@ -11,16 +11,16 @@ angular.module('configure',[]).config(["$stateProvider", function ($stateProvide
       // replace the main ui-view @ index
       'main@': {
         templateUrl: stageUrl + "main.html",
-        controller:  function ($scope, Clientstream) {
-          Clientstream.listen('drawing closed', function (data) {
-            $scope.traced = data;
+        controller:  function ($scope, Layers) {
+          Layers.rx_drawcount.subscribe(function (x) {
+              $scope.traced = x
+              $scope.$apply();
           })
         },
       },
       // modify the new named views @ configure
       'map@flannel.configure': {
-        templateUrl: stageUrl + "map.html",
-        controller:  "OlMapCtrl as omap",
+        templateUrl: 'templates/stages/configure/map.html'
       },
     },
   })

@@ -22,7 +22,8 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
       step,
       state_ref,
       session_stream,
-      waiting;
+      waiting,
+      help_steps;
 
   stage = 0;
   step  = 0;
@@ -40,28 +41,48 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
   vm.partials = flattenPartialsArray(Templates.partials);
   vm.currentStep = currentStep;
 
-  function currentStep (step) {
-    return step === step;
-  }
+  // determines whether view layout is fixed or static
+  vm.fixed = !Templates.config[stage].steps[step].staticLayout;
+
+  // determines whether the help/chat popup is visible or not
+  vm.helpActivated = false;
+  help_steps = [
+    'intro-design',
+    'zoom-lock-roof',
+    'trace-area',
+    'edit-area',
+    'detail-area',
+    'review-proposal',
+    'create-contact',
+    'credit-check',
+    'qualify',
+    'survey-calendar',
+    'schedule-survey',
+    'congrats'
+  ];
 
   // subscribe to the state when session is loaded
   Client.listen('Session: Loaded', bootstrapNewSession);
   Client.listen('Modal: continue design? result', popContinueModal); // result of modal button press
 
   // register listeners for stage, step, and start over events
-  Client.listen('jump to step', jumpToStep);
-  Client.listen('jump to stage', jumpToStage);
-  Client.listen('stage', stageListen);
-  Client.listen('step', stepListen);
+  Client.listen('Stages: jump to step', jumpToStep);
+  Client.listen('Stages: jump to stage', jumpToStage);
+  Client.listen('Stages: stage', stageListen);
+  Client.listen('Stages: step', stepListen);
   Client.listen('start over', startOver);
-  Client.listen('spin it', setWaiting);
-  Client.listen('stage', stageLayout);
+  Client.listen('Spinner: spin it', setWaiting);
+  Client.listen('Stages: stage', stageLayout);
+
+  function currentStep (step) {
+    return step === step;
+  }
 
   function stageLayout (target_state) {
     if (typeof target_state === "string" ) return;
     var stage = target_state.stage;
-    console.log("Templates.config[stage].name", Templates.config[stage].name);
-    if (Templates.config[stage].name === "flannel.proposal") {
+    // console.log("Templates.config[stage].name", Templates.config[stage].name);
+    if (Templates.config[stage].name === 'flannel.proposal') {
       vm.proposal = true;
     }
   }
@@ -71,11 +92,11 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
   function bootstrapNewSession (session_data) {
     // bootstrap a new session, start it's streams up
     session_stream = Session.state_stream()
-      // .filter(function() { return $scope.view_sync; }) // don't listen to changes you're making
+      .filter(function() { return $scope.view_sync; }) // don't listen to changes you're making
       .select(function(x){ return x.exportVal();    }) // just watch the value of the state
       .subscribe(streamSubscription);
     // anounce you're watching the streams, send the new data
-    Client.emit('Stage: subscribed to statestream', session_data);
+    Client.emit('Stages: subscribed to statestream', session_data);
     if (session_data.state.stage !== 0 || session_data.state.step !== 0) {
       Modal.set(true);
       return Modal.activate('continue');
@@ -89,11 +110,11 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
     // $scope.view_sync = false; // TODO: why isn't this necessary anymore?
     if (data.stage !== stage) {
       console.log('data.stage', data.stage,'diff from client stage', stage);
-      Client.emit('stage', data);
+      Client.emit('Stages: stage', data);
     }
     else if (data.step !== step) {
       console.log('same stage, but data.step', data.step, 'diff from client step', step, $scope.view_sync);
-      Client.emit('step', data.step);
+      Client.emit('Stages: step', data.step);
     }
   }
 
@@ -103,8 +124,10 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
 
   function setWaiting (data) {
     waiting = data;
+
     console.log('adding to spin count', data);
-    Client.emit('add to spin count', data);
+    Client.emit('Spinner: add to spin count', data);
+
     $timeout(function(){
       $scope.$apply();
     }, 0);
@@ -113,24 +136,24 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
   // listen for stage change requests from ui-router
   function startOver (data) {
     console.log('heard that startover', data);
+
     Client.emit('erase area', data);
-    /* jshint -W030 */
-    $scope.view_sync && Client.emit('stage', {
+
+    $scope.view_sync && Client.emit('Stages: stage', {
       stage: 1,
       step: 0
     });
-    /* jshint +W030 */
   }
 
   function popContinueModal (result) {
     // close the modal
     Modal.set(false);
     if (result === 'restart') {
-      return Client.emit('StageCtrl: restart session', true);
+      return Client.emit('Stages: restart session', true);
     } else if (result === 'resume') {
       // load all the form data?
       // do nothing?
-      return
+      return;
     }
   }
 
@@ -147,7 +170,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
       name = Templates.config[stage].name;
       $state.go(name).then(function(){
         // trigger step changes afterwards
-        Client.emit('step', target_state.step)
+        Client.emit('Stages: step', target_state.step)
       });
     }
   }
@@ -155,29 +178,38 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
   function stepListen (target_step) {
     // console.log('heard that step emission', target_step);
     step = target_step;
+
     $timeout( function () {
       // unlock the view
       $scope.view_sync = true;
       $scope.$apply();
     }, 1);
+
     // update the view
     vm.partial = Templates.partial(stage, step);
-    /* jshint -W030 */
+    vm.fixed = !Templates.config[stage].steps[step].staticLayout;
+
     // update firebase
-    $scope.view_sync && Session.ref().child('state').update({
-      stage: stage,
-      step: step
-    });
-    /* jshint +W030 */
-    Client.emit('step complete', vm.partial);
+    if ($scope.view_sync) {
+      Session.ref().child('state').update({
+        stage: stage,
+        step: step
+      });
+    }
+
+    // once the user advances to the fork step, show the help/chat popup
+    if (help_steps.indexOf(Templates.config[stage].steps[step].step) > -1) {
+      vm.helpActivated = true;
+    }
+
   }
 
   // user flow controls
   function next () {
     if ( step + 1 < Templates.config[stage].steps.length ) {
-      Client.emit('step', step + 1);
+      Client.emit('Stages: step', step + 1);
     } else if (stage + 1 < Templates.config.length ) {
-      Client.emit('stage', {
+      Client.emit('Stages: stage', {
         stage: stage + 1,
         step:  0,
       })
@@ -186,9 +218,9 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
 
   function prev () {
     if ( step - 1 >= 0 ) {
-      Client.emit('step', step - 1);
+      Client.emit('Stages: step', step - 1);
     } else if (stage - 1 >= 0 ) {
-      Client.emit('stage', {
+      Client.emit('Stages: stage', {
         stage: stage - 1,
         step:  Templates.config[stage - 1].steps.length -1,
       })
@@ -200,7 +232,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
     var steps = Templates.config[stage].steps;
     for (var i = 0; i < steps.length; i++) {
       if ( target === steps[i].step ) {
-        Client.emit('step', i);
+        Client.emit('Stages: step', i);
       }
     }
   }
@@ -210,7 +242,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
     var stages = Templates.config;
     for (var i = 0; i < stages.length; i++) {
       if ( target !== i && target === Templates.config[i].name) {
-        Client.emit('stage', {
+        Client.emit('Stages: stage', {
           stage: i,
           step: 0
         });

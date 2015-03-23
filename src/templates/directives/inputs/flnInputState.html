@@ -4,8 +4,7 @@
   id="prospect_state"
   class="state"
   maxlength="2"
-  placeholder="{{hint}}"
-  ng-bind="form.prospect.state"
+  placeholder="US"
+  ng-bind="form.prospect().state"
   ng-required="true"
-  ng-maxlength="2"
-  ng-valid="form.checkAddress(form.prospect)"></span>
+  ng-maxlength="2"></span>

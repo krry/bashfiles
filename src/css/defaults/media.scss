@@ -1,5 +1,6 @@
 @import "../imports/colors";
 @import "../imports/sizes";
+@import "../imports/typography";
 
 // image, video, multimedia content size limitations
 img, embed, object, video {
@@ -26,14 +27,32 @@ figure embed,
 figure video {
   width: 100%;
   display: block;
-  min-height: 9em;
   height: auto;
-  background-color: $black;
+  background-color: transparent;
 }
 
 .video-tray {
-  padding-bottom: 56.25%;
+  position: relative;
+  padding-bottom: 56.1%;
   height: 0;
+  overflow: hidden;
+  margin-top: .25em;
+  margin-bottom: .25em;
+  width: 100%;
+  
+  iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  &.zip-vid {
+    /* margin-top: 6rem; */
+    margin-top: 5.3rem;
+  }
+  &.framed {
+    border: 1px solid #cccccc;
+  }
 }
 
 img {
@@ -43,11 +62,15 @@ img {
 .video-container {
   width: 100%;
   height: 150px;
-  background: $black;
+  background: transparent;
 }
 
-@media screen and (min-width: $width-min-lrg) {
-  figure:first-child:last-child.bleed-right {
-    margin: 0 -2em 1em 0;
+.states {
+  text-align: center;
+  margin: 1em 0;
+
+  span {
+    @include caps();
+    font-size: .75em;
   }
 }

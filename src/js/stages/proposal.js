@@ -25,13 +25,16 @@ angular.module('proposal', []).config(["$stateProvider", function ($stateProvide
     views: {
       'main@': {
         templateUrl: stageUrl + "main.html",
-        controllerAs: 'prop',
         controller: function ($scope, share_links) {
-          console.log('share_links', share_links)
           var vm = this;
-          vm.proposal_share = share_links.data.proposal_share;
-          console.log(vm.proposal_share)
-        }
+          wireShareLinks();
+          function wireShareLinks() {
+            console.log('share_links', share_links);
+            vm.proposal_share = share_links.data.proposal_share;
+            console.log(vm.proposal_share);
+          }
+        },
+        controllerAs: 'share'
       },
     }
   })

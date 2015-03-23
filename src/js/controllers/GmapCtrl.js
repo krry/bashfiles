@@ -11,7 +11,11 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
       spinnerEventCount;
 
   vm = this;
+
+  // default the gmap to hidden so it doesn't peek from behind other divs
   vm.shown = false;
+
+  // expose autolocate function to the directives
   vm.autolocate = autolocate;
 
   mapEl = $element[0];
@@ -22,13 +26,11 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
   google.maps.event.addDomListenerOnce(window, "load", activate);
 
   // stream listeners
-  // Client.listen('gmap shown', showMap);
   Client.listen('center changed', applyCenter);
-  Client.listen('max zoom found', applyMaxZoom);
-  Client.listen('valid territory', checkMapVisibility);
+  Client.listen('Gmap: max zoom found', applyMaxZoom);
   Client.listen('Gmap: switch to satellite', switchToSatellite);
-  Client.listen('add to spin count', setSpinCount);
-  Client.listen('get nearme data', getNearMeData);
+  Client.listen('Spinner: add to spin count', setSpinCount);
+  // Client.listen('Gmap: get nearme data', getNearMeData);
 
   function init (el) {
     map = Gmap.init(el);
@@ -64,7 +66,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
     console.log('hiding spinner');
     // TODO: ensure that the spinner stays up until the tiles are actually loaded
     // switching from TERRAIN to HYBRID map causes an extra `tilesloaded` event to be emitted, prematurely hiding the spinner for the HYBRID map load
-    Client.emit('spin it', false);
+    Client.emit('Spinner: spin it', false);
     if (spinnerEventCount < 1) {
       if (spinnerEventCount < 0) spinnerEventCount = 0;
       console.log('spinner counter', spinnerEventCount);
@@ -72,11 +74,12 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
   }
 
   function switchToSatellite (data) {
-    if (data && map.getMapTypeId() !== "hybrid") {
-      Client.emit('add to spin count', true);
-      map.setMapTypeId(google.maps.MapTypeId.HYBRID);
-      // Gmap.checkMaxZoom()
-    }
+    Gmap.loaded.then(function() {
+      if (data && map.getMapTypeId() !== "hybrid") {
+        Client.emit('Spinner: add to spin count', true);
+        map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+      }
+    });
   }
 
   function saveCenter () {
@@ -84,7 +87,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
     // if ($element.mouseUp()) {
       if (map.getCenter() !== center){
         center = map.getCenter();
-        console.log('saving center', center);
+        // saving center of gmap
         Client.emit('center changed', center);
       }
     // }
@@ -92,59 +95,102 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
 
   function applyCenter (location) {
     if (location !== center) {
-      console.log('applying center', location);
-      map.setCenter(location);
-      // Client.emit('center changed', location);
+      // applying location as center of gmap
+      if (!vm.shown) {
+        vm.shown = true;
+      }
+      Gmap.loaded.then(function() {
+        map.setCenter(location);
+      });
     } else return false;
   }
 
   function saveZoom () {
-    var zoom = map.getZoom();
-    console.log('saving zoom as', zoom);
-    if (mapOpts.zoom !== zoom){
-      mapOpts.zoom = zoom;
-    }
+    Gmap.loaded.then(function() {
+      var zoom = map.getZoom();
+      console.log('saving zoom as', zoom);
+      if (mapOpts.zoom !== zoom){
+        mapOpts.zoom = zoom;
+      }
+    });
   }
 
   function applyMaxZoom (zoom) {
-    console.log('setting zoom to', zoom);
-    map.setZoom(zoom);
+    Gmap.loaded.then(function() {
+      console.log('setting zoom to', zoom);
+      map.setZoom(zoom);
+      mapOpts.zoom = zoom;
+      // TODO: prevent nearme call when advancing from checkZip to checkAddress directly
+      if (zoom < 17 && zoom > 4) getNearMeData();
+    });
   }
 
   function getNearMeData() {
-    console.log("getting nearme data");
-    var bounds = map.getBounds(),
-        ne = bounds.getNorthEast(),
-        sw = bounds.getSouthWest(),
-        coords;
+    return Gmap.loaded.then(function() {
+      // get nearme data for the current map's bounding box
+      var bounds = map.getBounds(),
+          ne,
+          sw,
+          coords;
 
-    console.log('map bounds:', ne);
-    console.log('map bounds:', sw);
-    coords = {
-      top: ne.lat(),
-      right: ne.lng(),
-      bottom: sw.lat(),
-      left: sw.lng()
-    };
+      // Bounds can be undefined even if the map is loaded but the tiles are not
+      /* jshint eqnull:true */
+      if (bounds == null) {
+        return;
+      }
 
-    return NearMe.get(coords).then(plotMarkers);
+      ne = bounds.getNorthEast();
+      sw = bounds.getSouthWest();
+
+      // use NE and SW corners of map to set bounding box coordinates
+      coords = {
+        top: ne.lat(),
+        right: ne.lng(),
+        bottom: sw.lat(),
+        left: sw.lng()
+      };
+
+      // safeguard against loading too large of an area
+      if (Math.abs(coords.top - coords.bottom > 1) || Math.abs(coords.left - coords.right) > 1) {
+        return;
+      }
+
+      // send the coordinates to NearMe, then check if there are enough, then plot the pins if so
+      return NearMe.get(coords).then(getEnoughPins).then(plotMarkers);
+    });
+  }
+
+  function getEnoughPins(data) {
+    if (data.length >= 50) {
+      return data;
+    } else {
+      map.setZoom(map.getZoom() - 1);
+      return;
+    }
   }
 
   function plotMarkers(data) {
-    angular.forEach(data, function(point) {
-      var location = new google.maps.LatLng(point.la, point.ln),
-          production = data.kw;
+    var opts;
+    if (!data) {
+      getNearMeData();
+    } else {
+      // clear any old pins from the map
+      Client.emit('clear pins', true);
 
-      Client.emit('drop pin', location);
-      // TODO: add a listener in Gmap to attach info windows to pins containing the production stats
-    });
+      // parse the JSON response from NearMe API
+      angular.forEach(data, function(point) {
+        // for each object in the response send the location and content to
+        opts = {
+          location: new google.maps.LatLng(point.la, point.ln),
+          content: point.kw + ' kW system'
+        };
 
-    Client.emit('neighbor_count saved', data.length);
-  }
+        // ask GmapProvider to make and drop a new pin
+        Client.emit('Gmap: drop pin', opts);
+      });
 
-  function checkMapVisibility (data) {
-    if (!vm.shown) {
-      vm.shown = true;
+      // let the view model know how many pins were found
+      Client.emit('neighbor_count saved', data.length);
     }
   }
 

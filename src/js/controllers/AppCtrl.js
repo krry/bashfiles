@@ -20,32 +20,32 @@ function AppCtrl_($sce, GMAP_CLIENT, MINIFIED, APP_TITLE, Client, $location) {
   vm.appTitle = APP_TITLE;
 
   console.log('****** loading google analytics trackers ******');
-  Client.listen('step complete', notifyTrackerAboutStep);
+  Client.listen('Stages: step complete', notifyTrackerAboutStep);
 
-  function notifyTrackerAboutStep (step_url) {
-    var split_url_array = step_url.split('/');
-    var step = split_url_array[split_url_array.length-1].split('.')[0];
-    console.log('step is', step);
-    // switch (step) {
-      // case:
-    // }
+  function notifyTrackerAboutStep (step) {
+    // TODO: convert these ifs into a switch
     if (step === "congrats") {
-      ga('send', 'event', step, 'Button Clicks', 'Final submit');
+      //ga('send', 'event', step, 'Button Clicks', 'Final submit');
+      dataLayer.push({'event': 'final_submit'});
     }
     if (step === "zoom") {
-      ga('send', 'event', step, 'Design Tool', 'Design tool engaged');
+      //ga('send', 'event', step, 'Design Tool', 'Design tool engaged');
+      dataLayer.push({'event': 'design_tool_engaged'});
     }
     if (step === "detail") {
-      ga('send', 'event', step, 'Design Tool', 'Roof alignment determined');
+      //ga('send', 'event', step, 'Design Tool', 'Roof alignment determined');
+      dataLayer.push({'event': 'roof_alignment_determined'});
     }
     if (step === "slope") {
-      ga('send', 'event', step, 'Design Tool', 'Roof slope determined');
+      //ga('send', 'event', step, 'Design Tool', 'Roof slope determined');
+      dataLayer.push({'event': 'roof_slope_determined'});
     }
     if (step === "complete") {
-      ga('send', 'event', step, 'Design Tool', 'Polygon Completed');
+      //ga('send', 'event', step, 'Design Tool', 'Polygon Completed');
+      dataLayer.push({'event': 'polygon_completed'});
     }
-    // ga('send', 'pageview', '/RELATIVE-URL');
     console.log("$location", $location.$$path);
-    ga('send', 'pageview', $location.$$path); // relative url
+    //ga('send', 'pageview', $location.$$path); // relative url
+    dataLayer.push({'event':'pageview', 'pageURL':$location.$$path});
   }
 }

@@ -1,11 +1,10 @@
-/*
- * this is the Configurator for the map.
- * name: Configurator
- *
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-    inject it as you deem necessary... necessarily.
- *
- */
+  Configurator
+
+  consumed by the OpenLayers map to enable configuration
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
 providers.provider("Configurator", ConfiguratorFactory_);
 
@@ -34,11 +33,11 @@ function ConfiguratorFactory_() {
   this.$get = ["$window", "StyleService", "Clientstream", "Design", function ($window, Styles, Client, Design) {
 
     // bootstrap configurator with details abt. design_stream, map_center, (// todo:) zoom_level
-    Client.listen('Design: Loaded', bootstrapConfigurator);
-    Client.listen('OlMap: map target element', setElement);
+    // Client.listen('Design: Loaded', bootstrapConfigurator);
+    // Client.listen('OlMap: map target element', setElement);
 
     // map event listeners
-    Client.listen('erase area', area_pop);
+    // Client.listen('erase area', area_pop);
 
     // defaults
     default_controls = ol.control.defaults({
@@ -156,7 +155,7 @@ function ConfiguratorFactory_() {
       // Client.emit('static tiles loaded', true);
 
       map = new ol.Map(configurator_options);
-      Client.emit('spin it', false);
+      Client.emit('Spinner: spin it', false);
       Client.emit('Configurator: Map ready', map);
     }
 
