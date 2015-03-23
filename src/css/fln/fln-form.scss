@@ -47,6 +47,7 @@ input.phone {
 }
 
 input.birthdate {
+  font-size: 2em;
   padding: .25em .5em;
   width: auto;
   max-width: 3em;
@@ -57,7 +58,7 @@ input.birthdate {
 }
 
 input.terms {
-  margin: 0 10px;
+  margin: 2em 1em 0 0;
 }
 
 // Address fields
@@ -109,8 +110,6 @@ input.state {
 input.zipcode {
   width: 4.5em;
   text-align: left;
-  margin: 0;
-  // background-color: $white;
 }
 
 .step-address input.zipcode {

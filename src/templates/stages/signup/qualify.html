@@ -8,15 +8,14 @@
     <div class="row padded">
       <div class="col full center" ng-if="!schedule.prospect.invalidTerritory">
         <h1>Sorry, we can't approve your request for financing at this time.
-          <br><small>But you can give us a call at (888) 765-2489 to discuss your options, which include adding a co-signer or purchasing the system outright.</small>
+          <br><small>But you can give us a call at (650) 288-0975 to discuss your options, which include adding a co-signer or purchasing the system outright.</small>
         </h1>
-
-        <p>We're always looking to expand our financing options to a broader audience. We'll be in touch if our requirements change. Plus, there are lots of other great ways you can get involved with the solar movement.</p>
+      </div>
+      <div class="col full">
+        <p class="left">We're always looking to expand our financing options to a broader audience. We'll be in touch if our requirements change. Plus, there are lots of other great ways you can get involved with the solar movement.</p>
       </div>
       <div class="col full center" ng-if="schedule.prospect.invalidTerritory">
-        <h1>We haven't made it to {{schedule.prospect.zip}} yet.</h1>
-
-        <p>But you can still get involved with the solar movement, today. Here are some ways to join the SolarCity family.</p>
+        <h1>We haven't made it to {{schedule.prospect.zip}} yet.<br><small>But you can still get involved with the solar movement, today. Here are some ways to join the SolarCity family.</small></h1>
       </div>
     </div>
     <div class="row padded">
@@ -26,8 +25,8 @@
         </figure>
       </div>
       <div class="col half padded">
-        <h3><a>Become a Solar Ambassador</a></h3>
-        <p>Build a successful business that makes a difference by sharing the benefits of clean, affordable energy with family and friends.</p>
+        <h4><a href="https://mysolarcity.com/Ambassador/register">Become a Solar Ambassador</a></h4>
+        <p>Spread the word about clean more affordable energy from SolarCity and you could earn up to $250 for every referral that installs.</p>
       </div>
     </div>
     <div class="row padded">
@@ -37,7 +36,7 @@
         </figure>
       </div>
       <div class="col half padded">
-        <h3><a>Invest in Solar Bonds</a></h3>
+        <h4><a href="https://solarbonds.solarcity.com">Invest in Solar Bonds</a></h4>
         <p>Help support the growth of solar energy and earn attractive returns. Solar Bonds are open to everyone.</p>
       </div>
     </div>
@@ -52,10 +51,10 @@
   </div>
 
   <aside class="overlay secondary col sml-full med-full lrg-full full-height" ng-if="schedule.prospect.qualified">
-    <div>
+    <div class="connect-the-dots-title drop-top">
       <strong>What's next?</strong>
     </div>
-    <ul>
+    <ul class="connect-the-dots">
       <li>Schedule your site survey.</li>
       <li>A site surveyor will come to your house. Someone over 18 must be home to open the door and answer any questions.</li>
       <li>The site surveyor will study your roof as well as your current energy consumption. This will take 1-2 hours, but you only need to be there to answer the door.</li>

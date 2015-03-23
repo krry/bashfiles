@@ -288,6 +288,13 @@ label {
   margin-bottom: 0.625em;
 }
 
+label.field-label {
+  font-family: "Apercu Light";
+  text-transform: uppercase;
+  color: $grey-dark;
+  //letter-spacing: 0.25em;
+}
+
 label abbr {
   display: none;
 }
@@ -413,6 +420,7 @@ select {
     }
   }
 }
+
 
 // input placeholders
 ::placeholder {
