@@ -152,8 +152,8 @@
     pointer-events: auto;
     position: absolute;
     margin: auto;
-    width: 3.5em;
-    height: 3.5em;
+    width: 3em;
+    height: 3em;
     overflow: auto;
     // opacity: .5;
     padding: 0;
@@ -166,32 +166,32 @@
       right: 0;
       left: 0;
       background: url('../img/arrow-up-blk.svg') no-repeat center;
-      background-size: 50% auto;
-      background-color: $tint-40;
+      background-size: 70% auto;
+      background-color: $tint-80;
     }
     &.pan-down {
       right: 0;
       bottom: 1em;
       left: 0;
       background: url('../img/arrow-down-blk.svg') no-repeat center;
-      background-size: 50% auto;
-      background-color: $tint-40;
+      background-size: 70% auto;
+      background-color: $tint-80;
     }
     &.pan-right {
       top: 0;
       bottom: 0;
       right: 3.5em;
       background: url('../img/arrow-right-blk.svg') no-repeat center;
-      background-size: 50% auto;
-      background-color: $tint-40;
+      background-size: 70% auto;
+      background-color: $tint-80;
     }
     &.pan-left {
       top: 0;
       left: 1em;
       bottom: 0;
       background: url('../img/arrow-left-blk.svg') no-repeat center;
-      background-size: 50% auto;
-      background-color: $tint-40;
+      background-size: 70% auto;
+      background-color: $tint-80;
     }
     &:hover,
     &:active {
