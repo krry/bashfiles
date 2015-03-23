@@ -186,7 +186,6 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
       $scope.$apply();
     }, 1);
 
-    console.log(Templates.config[stage], Templates.config[stage].steps[step]);
     vm.fixed = !Templates.config[stage].steps[step].staticLayout;
 
     // update firebase
@@ -237,7 +236,6 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
   }
 
   function jumpToStep (target) {
-    console.log($state.get());
     // console.log('trying to jump to:', target, 'step');
     var steps = Templates.config[stage].steps;
     for (var i = 0; i < steps.length; i++) {
