@@ -6,8 +6,17 @@
   strong + p {
     margin-top: .25em;
   }
+  dt {
+    font-family: 'Apercu Medium';
+  }
   strong + dl {
     margin-top: 0;
+  }
+  ul {
+    margin: 0.5em 0;
+  }
+  ul li, p {
+    line-height: 160%;
   }
 }
 
@@ -62,8 +71,8 @@
 
 .aerial {
   background: $black url('../img/aerial.png') no-repeat center center;
-  background-size: contain;
-  height: 17em;
+  background-size: cover;
+  height: 18.5em;
 }
 
 .chart-tray {
@@ -85,12 +94,59 @@
 }
 
 .financing-option {
-  padding: .75em 1.5em;
+  padding: 1em 1.5em 2em 1.5em;
   border: 2px solid $gold;
   border-radius: .5em;
 
   em {
     font-size: .75em;
     text-align: right;
+  }
+  h3 {
+    font-family:'Apercu Light';
+    font-size: 1.4em;
+    letter-spacing: 0.05em;
+  }
+  p {
+    line-height: 160%;
+  }
+}
+
+.faq-item {
+
+  figure {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-color: pink;
+    height: 200px;
+  }
+  p {
+    line-height: 160%;
+  }
+  dt {
+    font-family: 'Apercu Medium';
+  }
+  ul {
+    margin: 0.5em 0;
+  }
+  li {
+    line-height: 160%;
+  }
+
+  &.faq-sell figure {
+    background-image: url('../img/top5-SellMyHome.jpg');
+  }
+  &.faq-cost figure {
+    background-image: url('../img/top5-WhatItCosts.jpg');
+  }
+  &.faq-look figure {
+    background-image: url('../img/top5-HowItLooks.jpg');
+  }
+  &.faq-environment figure {
+    background-image: url('../img/top5-EnvironmentalImpact.jpg');
+  }
+  &.faq-work figure {
+    background-image: url('../img/top5-HowItWorks.jpg');
   }
 }

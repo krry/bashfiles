@@ -52,13 +52,13 @@ uiload {
   border-radius: 50px;
   top: 50px;
   left: 50px;
-  background: #ebb600; }
+  background: rgba(0,0,0,0.2); }
 
 .uil-sunny-light > div {
   position: absolute;
   width: 0;
   height: 0;
-  border-left: 25px solid #13ab4a;
+  border-left: 25px solid rgba(0,0,0,0.2);
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent; }
 

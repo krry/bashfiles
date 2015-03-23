@@ -21,7 +21,7 @@
   background: $white;
   padding: 4em;
   overflow: scroll;
-  width: 90%;
+  width: 90;
   max-height: 50%;
 
   h2 {
@@ -76,5 +76,13 @@
 
   .modal .dialog.center-vertical {
     bottom: auto;
+  }
+}
+
+@media screen and (min-width: $width-min-xlg) {
+  .modal .dialog {
+    max-width: $width-page;
+    margin-left: auto;
+    margin-right: auto;
   }
 }

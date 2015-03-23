@@ -37,8 +37,22 @@
   background: $white;
   // box-shadow: 0 .5em .25em -.25em $shade-20;
   box-shadow: 0 0 .75em -.25em $shade-60;
-  margin-left: -1em;
-  padding: 3em 1.5em;
+  margin-left: -2em;
+  padding: 3em 2em 2em 2.5em;
+  line-height: 120%;
+}
+.instructions button.gold {
+  min-width: 10em;
+  margin-top: 2em;
+}
+.instructions figure img {
+  border: none;
+  width: 286px;
+  height: 143px;
+}
+.instructions button.tiny.white {
+  min-width: 8em;
+  margin: 0 auto;
 }
 
 .area-detail {
@@ -55,8 +69,8 @@
 
   .ol-overlaycontainer-stopevent {
     position: absolute;
-    top: .75em;
-    left: .75em;
+    top: 4em;
+    left: 1.5em;
     background-color: $tint-40;
     border-radius: .35em;
     // background: rgba(255,255,255,0.3);
@@ -66,7 +80,7 @@
   }
 
   .ol-control {
-    padding: .25em;
+    // padding: .25em;
     position: static;
     border-radius: .5em;
   }
@@ -82,12 +96,14 @@
     .fln-zoom-out {
       // position: relative;
       color: transparent;
-      height: 2em;
-      width: 2em;
+      height: 2.3em;
+      width: 2.3em;
       padding: 0;
-      border-radius: .25em;
+      border-radius: .2em;
       background: $white no-repeat center center;
       background-size: 90% auto;
+      border: 0;
+      display: block;
       // @include apercu-bold;
       // font-size: 1.25em;
       // padding: .375em .75em;
@@ -95,7 +111,7 @@
       // border: 3px solid;
       // line-height: inherit;
       // min-width: 0;
-      // margin-bottom: .25em;
+      margin: .35em;
 
       &:hover {
         // color: $grey-mid;
@@ -145,46 +161,46 @@
     pointer-events: auto;
     position: absolute;
     margin: auto;
-    width: 2.5em;
-    height: 2.5em;
+    width: 3em;
+    height: 3em;
     overflow: auto;
     // opacity: .5;
     padding: 0;
     min-width: 0;
-    border-radius: 7px;
+    border-radius: 50%;
     background-color: none;
 
     &.pan-up {
       top: 1em;
       right: 0;
       left: 0;
-      background: url('../img/arrow-up.svg') no-repeat center;
+      background: url('../img/arrow-up-blk.svg') no-repeat center;
       background-size: 70% auto;
-      background-color: $tint-20;
+      background-color: $tint-80;
     }
     &.pan-down {
       right: 0;
       bottom: 1em;
       left: 0;
-      background: url('../img/arrow-down.svg') no-repeat center;
+      background: url('../img/arrow-down-blk.svg') no-repeat center;
       background-size: 70% auto;
-      background-color: $tint-20;
+      background-color: $tint-80;
     }
     &.pan-right {
       top: 0;
       bottom: 0;
-      right: 1em;
-      background: url('../img/arrow-right.svg') no-repeat center;
+      right: 3.5em;
+      background: url('../img/arrow-right-blk.svg') no-repeat center;
       background-size: 70% auto;
-      background-color: $tint-20;
+      background-color: $tint-80;
     }
     &.pan-left {
       top: 0;
       left: 1em;
       bottom: 0;
-      background: url('../img/arrow-left.svg') no-repeat center;
+      background: url('../img/arrow-left-blk.svg') no-repeat center;
       background-size: 70% auto;
-      background-color: $tint-20;
+      background-color: $tint-80;
     }
     &:hover,
     &:active {
