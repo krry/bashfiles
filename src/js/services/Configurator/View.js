@@ -55,7 +55,7 @@ function View_(Design, Session, Client) {
   // update zoom level from remote
   Design.rx_zoom.subscribe(function handleZoom (zoom_val){
     if (zoom_val === null) {
-      return view.setZoom(18);
+      return view.setZoom(19);
     } else {
       return view.setZoom(zoom_val);
     }
