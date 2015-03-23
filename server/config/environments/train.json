@@ -1,7 +1,7 @@
 {
   "PORT": 8100,
   "FLANNEL_SECRET": "sekret",
-  "FIREBASE_SECRET": "hSKlMlUuwpcowWFyS3UjmSqlZQTPTmeEz62OXta9",
+  "FIREBASE_SECRET": "rYs9IptsNKOVuDSm64YM4yXHhCkWYBfSAKSKpiYx",
   "SOLAR_WORKS_ROOT": "https://api-staging.solarcity.com",
   "SOLAR_WORKS_API_ROOT": "https://solarworksapi-staging.solarcity.com",
   "GSA_ROOT": "https://gsa-staging.solarcity.com",
@@ -20,11 +20,13 @@
   "SFUSERNAME": "onlinesales@solarcity.com.staging",
   "SFPASSWORD": "3zZ*$Hm}F4s2AEe",
   "SFDCSECRETTOKEN": "kIJ22eDM8OZ5LgxZGpGY9ikm",
+  "SFDCRECORDTYPEID": "0121900000009OfAAI",
   "CLIENT": {
     "MINIFIED": "true",
     "URL_ROOT": "go-train.solarcity.com",
     "APP_TITLE": "The Future is Now • SolarCity",
     "GMAP_CLIENT": "gme-solarcity",
+    "FIREBASE_URL": "https://scty-stage.firebaseio.com/",
     "AHJ_API": "/api/ahj",
     "UTILITIES_API": "/api/utilities",
     "WAREHOUSE_API": "/api/warehouses",

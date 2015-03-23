@@ -47,28 +47,19 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
   // determines whether the help/chat popup is visible or not
   vm.helpActivated = false;
   help_steps = [
-    'zip-nearme',
-    'address-roof',
-    'monthly-bill',
+    'intro-design',
+    'zoom-lock-roof',
+    'trace-area',
+    'edit-area',
+    'detail-area',
+    'review-proposal',
     'create-contact',
     'credit-check',
+    'qualify',
+    'survey-calendar',
+    'schedule-survey',
     'congrats'
   ];
-  // TODO: restore these once configurator is back
-  // help_steps = [
-  //   'intro-design',
-  //   'zoom-lock-roof',
-  //   'trace-area',
-  //   'edit-area',
-  //   'detail-area',
-  //   'review-proposal',
-  //   'create-contact',
-  //   'credit-check',
-  //   'qualify',
-  //   'survey-calendar',
-  //   'schedule-survey',
-  //   'congrats'
-  // ];
 
   // subscribe to the state when session is loaded
   Client.listen('Session: Loaded', bootstrapNewSession);
@@ -101,7 +92,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
   function bootstrapNewSession (session_data) {
     // bootstrap a new session, start it's streams up
     session_stream = Session.state_stream()
-      // .filter(function() { return $scope.view_sync; }) // don't listen to changes you're making
+      .filter(function() { return $scope.view_sync; }) // don't listen to changes you're making
       .select(function(x){ return x.exportVal();    }) // just watch the value of the state
       .subscribe(streamSubscription);
     // anounce you're watching the streams, send the new data

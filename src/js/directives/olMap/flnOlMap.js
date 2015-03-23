@@ -38,15 +38,3 @@ function flnOlMap_ (Client, Configurator) {
     },
   };
 }
-
-directives.directive('flnTestMap', [flnTestMap_]);
-
-function flnTestMap_ () {
-  return {
-    restrict: "A",
-    templateUrl: 'templates/directives/test/flnTest.html',
-    controller: function ($scope, $element, $attrs, newConfigurator) {
-      newConfigurator.setTarget($element);
-    },
-  };
-}
