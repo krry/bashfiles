@@ -181,6 +181,10 @@ function GeocoderProvider_ () {
           if (typeof parsedress[i].long_name !== "undefined") {
             addy.city = parsedress[i].long_name;
         }}
+        if (parsedress[i].types[0]==="neighborhood") {
+          if (typeof parsedress[i].long_name !== "undefined") {
+            addy.city = parsedress[i].long_name;
+        }}
         if (parsedress[i].types[0]==="route") {
           if (typeof parsedress[i].short_name !== "undefined") {
             addy.road = parsedress[i].short_name;
