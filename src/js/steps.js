@@ -27,7 +27,9 @@ angular.module('flannel').config(["$stateProvider", "TemplateConfigProvider", fu
 
     $stateProvider.state(route.stageName + '.' + route.stepName, {
       url: '/' + route.stepName,
-      views: views
+      views: views,
+      stage: route.stage,
+      step: route.step
     });
   }
 

@@ -22,6 +22,7 @@
   "SFDCSECRETTOKEN": "dZEBJngoA1IpzUcP02Ol7pRa",
   "SFDCRECORDTYPEID": "01214000000AVgoAAG",
   "CLIENT": {
+    "ENV": "prod",
     "MINIFIED": "true",
     "URL_ROOT": "go.solarcity.com",
     "APP_TITLE": "The Future is Now • SolarCity",

@@ -137,7 +137,7 @@ function GmapFactory_ () {
         if (response.status !== google.maps.MaxZoomStatus.OK) {
           console.log("max zoom failed:", response.status);
           // HACK: hardcode fallback when zoom ain't
-          Client.emit('Gmap: max zoom found', 17);
+          Client.emit('Gmap: max zoom found', 20);
         } else {
           console.log("max zoom at location:", response.zoom);
           Client.emit('Gmap: max zoom found', response.zoom);

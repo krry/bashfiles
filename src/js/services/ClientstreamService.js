@@ -35,7 +35,11 @@ function Clientstream_ () {
 
   function logStream (action, name, data) {
     if (loggins === "kenny") {
-      console.debug('~~stream~~', action, '=>', name, data);
+      if (data) {
+        console.debug('~~stream~~', action, '=>', name, data);
+      } else {
+        console.debug('~~stream~~', action, '=>', name);
+      }
     }
   }
 

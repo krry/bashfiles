@@ -11,8 +11,8 @@ directives.directive('flnPanelfill', [flnPanelfill_]);
 function flnPanelfill_ () {
   return {
     restrict: "A",
-    controller: function ($scope, $element, $attrs, Proposal) {
-      Proposal.setTarget();
+    controller: function ($scope, $element, $attrs, $stateParams, Proposal) {
+      Proposal.setTarget($stateParams.design_key);
     },
     templateUrl: 'templates/directives/olmap/flnPanelfill.html',
   };

@@ -72,6 +72,9 @@ function Layers_(Design, Styles, AreaService, Client) {
       feature = AreaService.featFromTxt(area.wkt, 'area');
       return areas_collection.push(feature);
     }
+    else if (area === null && areas_collection.getLength()) {
+      Design.rx_areas.onNext('removed by client');
+    }
   });
 
   layers = {

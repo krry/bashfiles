@@ -9,11 +9,13 @@
 .footer-fixed {
   bottom: 0;
   position: fixed;
+  /* border-top: 1px solid $grey-medium; */
+  box-shadow: 0 0 4px $color-header-shadow;
 }
 
 .footer .boilerplate {
   font-size: .55em;
-  padding: 1.375em 0 1em 1em;
+  padding: 1em;
   margin-bottom: 0;
   text-align: left;
   color: $grey-meh;
