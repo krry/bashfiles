@@ -24,7 +24,7 @@
   background-color: $white;
   color: $green;
   border-radius: 2px;
-  margin-bottom: .75rem;
+  margin-bottom: 1rem;
   .row:not(:last-child) {
     border-bottom: 2px solid $grey-lightest;
   }
@@ -93,6 +93,13 @@
   vertical-align: .75em;
 }
 
+.proposal-page .financing-options {
+  width: 80%;
+  font-size: .95em;
+  line-height: 1.4;
+  margin: -.25em 0 0 0;
+}
+
 .financing-option {
   padding: 1em 1.5em 2em 1.5em;
   border: 2px solid $gold;
@@ -113,7 +120,6 @@
 }
 
 .faq-item {
-
   figure {
     background-repeat: no-repeat;
     background-position: center center;

@@ -4,7 +4,7 @@
  *
  */
 
-angular.module('flannel').service('Proposal', [ 'Session', 'Panelfill', 'Clientstream', Proposal_]);
+angular.module('flannel').service('Proposal', ['Session', 'Panelfill', 'Clientstream', Proposal_]);
 
 function Proposal_(Session, Panelfill, Client) {
   // TODO: Revisit naming of this and Panelfill API service... to whatever it should be.
@@ -30,6 +30,8 @@ function Proposal_(Session, Panelfill, Client) {
 
   var panels_array;
 
+  var rx_panel_count = new Rx.Subject();
+  this.rx_panel_count = rx_panel_count
   function processTwoDArray(data) {
     // data = data.slice(230) // hack;
     panels_array = []
@@ -62,17 +64,23 @@ function Proposal_(Session, Panelfill, Client) {
     Client.listen('panelfill', function function_name(p_array) {
       // for the map boundaries
       p_array.forEach(maxBounds);
+
       function maxBounds(polygon){
         var point_array = polygon.getPath().getArray();
         point_array.forEach(compareAgainstMax);
       }
+
       function compareAgainstMax(pt){
         bounds.extend(pt);
       }
+
       map.setCenter(bounds.getCenter());
+
       p_array.forEach(function(polygon){
         polygon.setMap(map);
-      })
-    })
+      });
+
+      rx_panel_count.onNext(p_array.length);
+    });
   }
 }

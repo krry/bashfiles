@@ -433,12 +433,12 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
 
     vm.prospect.utilityRate = data.MedianUtilityPrice;
     vm.prospect.sctyRate = data.FinancingKwhPrice;
-    vm.prospect.kwhPerKw = data.UtilityAverageSystemEfficiency;
+    vm.prospect.averageYield = data.UtilityAverageSystemEfficiency;
 
     rates = {
       utilityRate: vm.prospect.utilityRate,
       sctyRate: vm.prospect.sctyRate,
-      kwhPerKw: vm.prospect.kwhPerKw,
+      averageYield: vm.prospect.averageYield,
     };
 
     Client.emit('Form: valid data', rates);
