@@ -88,10 +88,15 @@ function ProposalCtrl_ ($scope, Session, Form, Client, defaultValues, Proposal) 
 
     // calculate percentage of energy coming from solar
 
+    // if the system significantly outsizes the customer's needs, don't let the chart look weird
+    if (annual_consumption < annual_production) {
+      percent_solar = defaultValues.percent_solar;
+    }
     // if the system will produce less than 80% of the customer's energy needs, we'll calculate the percentage
-    if (((annual_consumption-annual_production)/annual_consumption) < 0.8) {
+    else if (((annual_consumption-annual_production)/annual_consumption) < 0.8) {
       percent_solar = 100 * (annual_consumption - annual_production) / annual_consumption; // %
     }
+
     // if the system would produce more than 80%, we limit it at 80%
     else {
       percent_solar = defaultValues.percent_solar;
