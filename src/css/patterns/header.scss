@@ -146,11 +146,19 @@
 @media screen and (min-width: $width-min-xlg) {
   .header {
     .logo {
-      background-position: left -9px;
+      background-position: left -7px;
     }
     .header-detail {
       @include apercu-light;
       display: inline;
+    }
+  }
+}
+
+@media screen and (min-width: $width-min-xxl) {
+  .header {
+    .logo {
+      background-position: left -8px;
     }
   }
 }
