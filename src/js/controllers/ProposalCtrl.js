@@ -52,8 +52,6 @@ function ProposalCtrl_ ($scope, Session, Form, Client, defaultValues, Proposal) 
   }
 
   function calculateProposal () {
-<<<<<<< HEAD
-
 
     // calculate upfront cost
     upfront_cost = defaultValues.upfront_cost;
@@ -66,14 +64,6 @@ function ProposalCtrl_ ($scope, Session, Form, Client, defaultValues, Proposal) 
     vm.prospect.annualConsumption = annual_consumption;
     Client.emit('Form: valid data', { annualConsumption: annual_consumption });
 
-
-=======
-    // calculate upfront cost
-    upfront_cost = defaultValues.upfront_cost; // $
-    vm.prospect.upfrontCost = upfront_cost;
-    Client.emit('Form: valid data', { upfrontCost: 0 });
-
->>>>>>> origin/release/propoda
     // grab rate estimates from the Form object
     utility_rate = vm.prospect.utilityRate || defaultValues.utility_rate; // MedianUtilityPrice
     vm.prospect.utilityRate = utility_rate; // $
