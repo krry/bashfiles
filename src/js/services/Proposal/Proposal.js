@@ -31,10 +31,10 @@ function Proposal_(Session, Panelfill, Client) {
   var panels_array;
 
   var rx_panel_count = new Rx.Subject();
-  this.rx_panel_count = rx_panel_count
+  this.rx_panel_count = rx_panel_count;
   function processTwoDArray(data) {
     // data = data.slice(230) // hack;
-    panels_array = []
+    panels_array = [];
     for (var i = 0; i < data.length; i++) {
       panels_array.push(makePanel(data[i]));
     }
