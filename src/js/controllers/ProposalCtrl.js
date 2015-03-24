@@ -96,7 +96,6 @@ function ProposalCtrl_ ($scope, Session, Form, Client, defaultValues, Proposal) 
     else if (((annual_consumption-annual_production)/annual_consumption) < 0.8) {
       percent_solar = 100 * (annual_consumption - annual_production) / annual_consumption; // %
     }
-
     // if the system would produce more than 80%, we limit it at 80%
     else {
       percent_solar = defaultValues.percent_solar;
@@ -112,7 +111,9 @@ function ProposalCtrl_ ($scope, Session, Form, Client, defaultValues, Proposal) 
     drawPowerChart();
 
     // create the sharelink
-    vm.share_link = "http://localhost:8100/flannel#/share/"+Session.id()+"/"+bill+"/"+utility_rate+"/"+scty_rate;
+    share_link = "http://localhost:8100/flannel#/share/"+Session.id()+"/"+bill+"/"+utility_rate+"/"+scty_rate;
+    vm.prospect.share_link = share_link;
+    Client.emit("Proposal: sharable proposal url", share_link);
   }
 
   function drawPowerChart () {
