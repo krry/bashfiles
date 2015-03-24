@@ -2,20 +2,26 @@
 @import "../imports/colors";
 @import "../imports/motion";
 
-.dev-drawer {
+.dev-drawer,
+.oda-drawer {
   position: fixed;
   top: 0; right: 0; bottom: 0;
   width: 75%;
   max-width: 30em;
   z-index: 12;
-  background-color: $glass-smoked;
   transform: translate3d(100%, 0, 0);
   transition: transform 250ms $easing-quick;
-  // box-shadow: -4px 0 8px -4px $shade-40;
   &.shown {
     transform: translate3d(0, 0, 0);
   }
 }
+.dev-drawer {
+  background-color: $color-dev-tools;
+}
+.oda-drawer {
+  background-color: $color-oda-tools;
+}
+
 
 .dev-controls {
   padding: 1em 4em 2em;
@@ -23,29 +29,46 @@
   overflow: scroll;
 }
 
-a.dev-trigger.dev-trigger {
+a.dev-trigger.dev-trigger,
+a.oda-trigger.oda-trigger {
   position: absolute;
   margin: auto;
   overflow: auto;
-  top: 6em;
   right: 100%;
   border-radius: 8px 0 0 8px;
   font-size: .875em;
   padding: .75em;
   text-align: center;
   color: $white;
-  background: $glass-amber;
-  box-shadow: 0px 0 6px -3px saturate($gold-bright, .2);
+  background: $glass-red;
   &:hover {
-    background: saturate($glass-amber, 10%);
+    background: saturate($glass-red, 10%);
     border: 0;
   }
+}
+
+a.dev-trigger.dev-trigger {
+  bottom: 6em;
+  box-shadow: 0px 0 6px -3px $shade-80;
   &.triggered {
     color: $white;
-    background-color: $glass-smoked;
+    background-color: $color-dev-tools;
   }
   &:hover.triggered {
-    background: lighten($glass-smoked, 10%);
+    background: lighten($color-dev-tools, 10%);
+  }
+}
+
+a.oda-trigger.oda-trigger {
+  top: 6em;
+  font-size: 1.25em;
+  box-shadow: 0px 0 6px -3px saturate($blue-bright, .2);
+  &.triggered {
+    color: $white;
+    background-color: $color-oda-tools;
+  }
+  &:hover.triggered {
+    background: lighten($color-oda-tools, 10%);
   }
 }
 
@@ -56,6 +79,9 @@ a.dev-trigger.dev-trigger {
 @media screen and (min-width: $width-min-xsm) {
   a.dev-trigger.dev-trigger {
     background-color: $red;
+    &:hover {
+      background: saturate($red, 10%);
+    }
     &:after {
       content: "\AXSM";
     }
@@ -65,6 +91,9 @@ a.dev-trigger.dev-trigger {
 @media screen and (min-width: $width-min-sml) {
   a.dev-trigger.dev-trigger {
     background-color: $ginger;
+    &:hover {
+      background: saturate($ginger, 10%);
+    }
     &:after {
       content: "\ASML";
     }
@@ -74,6 +103,9 @@ a.dev-trigger.dev-trigger {
 @media screen and (min-width: $width-min-med) {
   a.dev-trigger.dev-trigger {
     background-color: $orange;
+    &:hover {
+      background: saturate($orange, 10%);
+    }
     &:after {
       content: "\AMED";
     }
@@ -83,6 +115,9 @@ a.dev-trigger.dev-trigger {
 @media screen and (min-width: $width-min-lrg) {
   a.dev-trigger.dev-trigger {
     background-color: $gold;
+    &:hover {
+      background: saturate($gold, 10%);
+    }
     &:after {
       content: "\ALRG";
     }
@@ -92,6 +127,9 @@ a.dev-trigger.dev-trigger {
 @media screen and (min-width: $width-min-xlg) {
   a.dev-trigger.dev-trigger {
     background-color: $green;
+    &:hover {
+      background: saturate($green, 10%);
+    }
     &:after {
       content: "\AXLG";
     }
@@ -101,6 +139,9 @@ a.dev-trigger.dev-trigger {
 @media screen and (min-width: $width-min-xxl) {
   a.dev-trigger.dev-trigger {
     background-color: $aqua-dark;
+    &:hover {
+      background: saturate($aqua-dark, 10%);
+    }
     &:after {
       content: "\AXXL";
     }
@@ -110,6 +151,9 @@ a.dev-trigger.dev-trigger {
 @media screen and (min-width: $width-min-uhd) {
   a.dev-trigger.dev-trigger {
     background-color: $blue-dark;
+    &:hover {
+      background: saturate($blue-dark, 10%);
+    }
     &:after {
       content: "\AUHD";
     }

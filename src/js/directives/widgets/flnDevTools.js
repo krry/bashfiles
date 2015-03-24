@@ -6,28 +6,20 @@ function flnDevTools_ () {
     controller: 'DevCtrl',
     controllerAs: 'dev',
     link: function(scope, element, attrs) {
-      scope.toggleUserObject = toggleUserObject;
       scope.toggleDevPanel = toggleDevPanel;
-      scope.userShown = true;
-      scope.userShownTriggerText = "hide";
-      scope.panelShown = false;
-      scope.panelShownTriggerText = "dev";
+      scope.devPanelShown = false;
+      scope.devPanelShownTriggerText = "dev";
 
       // TODO: register a dev tools service so directives outside the dev panel can interact with it. see the ModalService and ModalCtrl
 
-      function toggleUserObject() {
-        scope.userShown = !scope.userShown;
-        scope.userShownTriggerText = (scope.userShown) ? "hide" : "show";
-      }
-
       function toggleDevPanel() {
         var trigger = $(element).find('.dev-trigger');
-        scope.panelShown = !scope.panelShown;
-        if (scope.panelShown) {
-          scope.panelShownTriggerText = "undev";
+        scope.devPanelShown = !scope.devPanelShown;
+        if (scope.devPanelShown) {
+          scope.devPanelShownTriggerText = "undev";
           $(trigger).addClass('triggered');
         } else {
-          scope.panelShownTriggerText = "dev";
+          scope.devPanelShownTriggerText = "dev";
           $(trigger).removeClass('triggered');
         }
         // TODO: wire up esc key to hide dev panel when shown
