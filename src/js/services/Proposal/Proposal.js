@@ -31,8 +31,7 @@ function Proposal_(Session, Panelfill, Client) {
       });
     } else {
       // debugger;
-      design_id = "-JkzqbNe6y7UJr7ebTCu"
-      
+
       var ref = new Firebase('https://scty.firebaseio.com').child('designs')
         .child(design_id)
         .child('areas/0/wkt')
@@ -76,7 +75,7 @@ function Proposal_(Session, Panelfill, Client) {
     });
   }
 
-  this.setTarget = function setTarget(element, design_id) {
+  this.setTarget = function setTarget(design_id) {
     getStarted(design_id);
     map = new google.maps.Map(document.getElementById('gmap'), map_options);
     var bounds = new google.maps.LatLngBounds()

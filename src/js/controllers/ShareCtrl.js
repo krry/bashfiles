@@ -10,8 +10,6 @@ controllers.controller('ShareCtrl', ['Clientstream', 'defaultValues', '$statePar
 
 function ShareCtrl_ (Client, defaultValues, $stateParams) {
 
-  console.log($stateParams.design_ref_key)
-
   // http://localhost:8100/flannel#/share/-JkzqbNe6y7UJr7ebTCu/100/0.2233/0.15
   var vm = this;
   vm.prospect = {};
@@ -41,12 +39,10 @@ function ShareCtrl_ (Client, defaultValues, $stateParams) {
     annual_consumption = (bill * 12) || defaultValues.annual_consumption;
     vm.prospect.annualConsumption = annual_consumption;
 
-
     // calculate annual production in $$ of electricity from panel fill API
     // annual_production = vm.prospect.annualProduction;
     annual_production = defaultValues.annual_production;
     vm.prospect.annualProduction = annual_production;
-
 
     // grab rate estimates from the Form object
     utility_rate = $stateParams.utilityRate || defaultValues.utility_rate; // MedianUtilityPrice
@@ -78,7 +74,6 @@ function ShareCtrl_ (Client, defaultValues, $stateParams) {
     // calculate percentage of energy not coming from solar
     percent_utility = 100 - percent_solar;
     vm.prospect.percentUtility = percent_utility;
-
 
     drawPowerChart();
   }
