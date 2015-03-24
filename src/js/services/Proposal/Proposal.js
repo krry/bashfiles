@@ -21,6 +21,7 @@ function Proposal_(Session, Panelfill, Client) {
 
   function getStarted(design_id) {
     if (Session.ref()) {
+      // typical use case for user in flow
       Session.ref().parent().parent().child('designs')
         .child(Session.ref().key()).child('areas/0/wkt')
           .once('value', function (ds) {
@@ -30,8 +31,7 @@ function Proposal_(Session, Panelfill, Client) {
           .then(processTwoDArray);
       });
     } else {
-      // debugger;
-
+      // share proposal link
       var ref = new Firebase('https://scty.firebaseio.com').child('designs')
         .child(design_id)
         .child('areas/0/wkt')

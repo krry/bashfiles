@@ -6,9 +6,9 @@
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
-controllers.controller('ShareCtrl', ['Clientstream', 'defaultValues', '$stateParams', ShareCtrl_]);
+controllers.controller('ShareCtrl', ['Clientstream', 'defaultValues', '$stateParams', 'Proposal', ShareCtrl_]);
 
-function ShareCtrl_ (Client, defaultValues, $stateParams) {
+function ShareCtrl_ (Client, defaultValues, $stateParams, Proposal) {
 
   // http://localhost:8100/flannel#/share/-JkzqbNe6y7UJr7ebTCu/100/0.2233/0.15
   var vm = this;
@@ -25,8 +25,18 @@ function ShareCtrl_ (Client, defaultValues, $stateParams) {
       percent_utility,
       bill;
 
-  console.debug('defaults', defaultValues);
-  calculateProposal();
+
+  Proposal.rx_panel_count.subscribe(subProposalToPanelCount)
+
+  // calculate annual production in $$ of electricity from panel fill API
+  function subProposalToPanelCount (count) {
+    vm.prospect.panelCapacity = 0.25 || defaultValues.panel_capacity;
+    vm.prospect.systemSize = count * vm.prospect.panelCapacity || defaultValues.system_size;
+    vm.prospect.annualProduction = vm.prospect.systemSize * vm.prospect.averageYield || defaultValues.annual_production;
+
+    console.log("subProposalToPanelCount", count);
+    calculateProposal();
+  }
 
   function calculateProposal () {
     // calculate upfront cost

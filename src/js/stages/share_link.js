@@ -1,5 +1,4 @@
 angular.module('share_link',[]).config(["$stateProvider", function ($stateProvider) {
-
   // state definition
 
   $stateProvider.state("share_proposal", {
@@ -7,7 +6,7 @@ angular.module('share_link',[]).config(["$stateProvider", function ($stateProvid
     views: {
       'main@': {
         templateUrl: 'templates/stages/share/share_proposal.html',
-        controllerAs: "share-proposal",
+        controllerAs: "share",
         controller: 'ShareCtrl',
       },
     },
