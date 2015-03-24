@@ -32,14 +32,14 @@ function Proposal_(Session, Panelfill, Client) {
       });
     } else {
       // share proposal link
-      var ref = new Firebase('https://scty.firebaseio.com').child('designs')
+      var ref = new Firebase('https://scty-int.firebaseio.com').child('designs')
         .child(design_id)
         .child('areas/0/wkt')
           .once('value', function (ds) {
-          var wkt_txt = ds.exportVal();
-          console.log('wkt_txt in design', wkt_txt)
-          Panelfill.getFilled(wkt_txt)
-          .then(processTwoDArray);
+            var wkt_txt = ds.exportVal();
+            console.log('wkt_txt in design', wkt_txt)
+            Panelfill.getFilled(wkt_txt)
+            .then(processTwoDArray);
       });
     }
   }

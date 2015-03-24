@@ -6,9 +6,9 @@
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
-controllers.controller('ProposalCtrl', ['$scope', 'Form', 'Clientstream', 'defaultValues', 'Proposal', ProposalCtrl_]);
+controllers.controller('ProposalCtrl', ['$scope', 'Session', 'Form', 'Clientstream', 'defaultValues', 'Proposal', ProposalCtrl_]);
 
-function ProposalCtrl_ ($scope, Form, Client, defaultValues, Proposal) {
+function ProposalCtrl_ ($scope, Session, Form, Client, defaultValues, Proposal) {
   var vm = this;
   vm.prospect = Form.prospect;
 
@@ -24,7 +24,6 @@ function ProposalCtrl_ ($scope, Form, Client, defaultValues, Proposal) {
       bill;
 
   calculateProposal();
-  console.debug('defaults', defaultValues);
 
   Proposal.rx_panel_count.subscribe(subProposalToPanelCount)
 
@@ -43,15 +42,15 @@ function ProposalCtrl_ ($scope, Form, Client, defaultValues, Proposal) {
   }
 
   function calculateProposal () {
-    // calculate upfront cost
-    console.log("calculateProposal", annual_production);
 
+
+    // calculate upfront cost
     upfront_cost = defaultValues.upfront_cost;
     vm.prospect.upfrontCost = upfront_cost;
     Client.emit('Form: valid data', { upfrontCost: 0 });
 
     // calculate annual consumption in $$ of electricity from monthly bill estimate
-    bill = vm.prospect.bill;
+    bill = vm.prospect.bill || 100; // HACK: DEV: this bill is hardcoded for dev
     annual_consumption = (bill * 12) || defaultValues.annual_consumption;
     vm.prospect.annualConsumption = annual_consumption;
     Client.emit('Form: valid data', { annualConsumption: annual_consumption });
@@ -91,6 +90,9 @@ function ProposalCtrl_ ($scope, Form, Client, defaultValues, Proposal) {
     vm.prospect.percentUtility = percent_utility;
     Client.emit('Form: valid data', { percentUtility: percent_utility });
     drawPowerChart();
+
+    // create the sharelink
+    vm.share_link = "http://localhost:8100/flannel#/share/"+Session.id()+"/"+bill+"/"+utility_rate+"/"+scty_rate;
   }
 
   function drawPowerChart () {
