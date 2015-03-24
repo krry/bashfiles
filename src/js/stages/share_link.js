@@ -4,6 +4,9 @@ angular.module('share_link',[]).config(["$stateProvider", function ($stateProvid
   $stateProvider.state("share_proposal", {
     url: "/share/:design_key/:bill/:utilityRate/:sctyRate",
     views: {
+      'header@': {
+        templateUrl: 'templates/stages/share/share_header.html',
+      },
       'main@': {
         templateUrl: 'templates/stages/share/share_proposal.html',
         controllerAs: "share",

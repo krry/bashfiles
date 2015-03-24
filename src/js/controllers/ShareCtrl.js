@@ -1,8 +1,8 @@
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-  Proposal Controller
+  Share Controller
 
-  Controls the views of proposal data
+  Controls the views of shared proposal
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
@@ -30,8 +30,13 @@ function ShareCtrl_ (Client, defaultValues, $stateParams, Proposal) {
 
   // calculate annual production in $$ of electricity from panel fill API
   function subProposalToPanelCount (count) {
-    vm.prospect.panelCapacity = 0.25 || defaultValues.panel_capacity;
+    // power of each panel
+    vm.prospect.panelCapacity = defaultValues.panel_capacity;
+
+    // number of panels filled from Panelfill API
     vm.prospect.systemSize = count * vm.prospect.panelCapacity || defaultValues.system_size;
+
+    // estimated production of that system in a year => power of system * yearly yield per kW in that region
     vm.prospect.annualProduction = vm.prospect.systemSize * vm.prospect.averageYield || defaultValues.annual_production;
 
     console.log("subProposalToPanelCount", count);
@@ -43,43 +48,40 @@ function ShareCtrl_ (Client, defaultValues, $stateParams, Proposal) {
     upfront_cost = defaultValues.upfront_cost;
     vm.prospect.upfrontCost = upfront_cost;
 
-
-    // calculate annual consumption in $$ of electricity from monthly bill estimate
-    bill = $stateParams.bill;
-    annual_consumption = (bill * 12) || defaultValues.annual_consumption;
-    vm.prospect.annualConsumption = annual_consumption;
-
-    // calculate annual production in $$ of electricity from panel fill API
-    // annual_production = vm.prospect.annualProduction;
-    annual_production = defaultValues.annual_production;
-    vm.prospect.annualProduction = annual_production;
-
     // grab rate estimates from the Form object
     utility_rate = $stateParams.utilityRate || defaultValues.utility_rate; // MedianUtilityPrice
     vm.prospect.utilityRate = utility_rate;
+
+    // calculate annual consumption in $$ of electricity from monthly bill estimate
+    bill = $stateParams.bill;
+    annual_consumption = ((bill * 12) / utility_rate) || defaultValues.annual_consumption; // kWh
+    vm.prospect.annualConsumption = annual_consumption;
+    annual_production = vm.prospect.annualProduction;
 
     scty_rate = $stateParams.sctyRate || defaultValues.scty_rate; // FinancingKwhPrice
     vm.prospect.sctyRate = scty_rate;
 
     // calculate estimated first year savings from annual consumption and production estimates
-    // first_year_savings = (annual_production < annual_consumption * 0.8) ? (bill * 12) - (annual_production * scty_rate) : (bill * 12) - (annual_consumption * 0.8 * scty_rate);
-    if (annual_production < annual_consumption * 0.8) {
-      first_year_savings = annual_consumption - (annual_production * scty_rate);
-    } else {
-      // first_year_savings = (bill * 12) - (annual_consumption * 0.8 * scty_rate);
-      // first_year_savings = (bill * 12) - (bill * 12 * 0.8 * scty_rate);
-      first_year_savings = annual_consumption * 0.2 * scty_rate;
+    // if a prospect would offset less than 80% of their energy needs, first year savings are the yearly spend minus the offset costs at scty rate
+    if (annual_production < (annual_consumption * 0.8)) {
+      first_year_savings = annual_production * (utility_rate - scty_rate); // $/yr
+    }
+    // else if they could offset more than that, we make sure they don't
+    else {
+      first_year_savings = annual_consumption * .8 * (utility_rate - scty_rate); // $/yr
     }
     vm.prospect.firstYearSavings = first_year_savings;
 
-
     // calculate percentage of energy coming from solar
-    // percent_solar = ((annual_production / annual_consumption) < 0.8) ? annual_production * 100 / annual_consumption : 80;
-    if ((annual_production/annual_consumption) > 0.8) {
-      percent_solar = annual_production * 100 / annual_consumption;
-    } else percent_solar = defaultValues.percent_solar;
-    vm.prospect.percentSolar = percent_solar;
+    if (((annual_consumption-annual_production)/annual_consumption) < 0.8) {
+      percent_solar = 100 * (annual_consumption - annual_production) / annual_consumption; // %
+    }
+    // if the system would produce more than 80%, we limit it at 80%
+    else {
+      percent_solar = defaultValues.percent_solar;
+    }
 
+    vm.prospect.percentSolar = percent_solar;
 
     // calculate percentage of energy not coming from solar
     percent_utility = 100 - percent_solar;
