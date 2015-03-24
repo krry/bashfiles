@@ -7,7 +7,7 @@
   autofocus
   placeholder="Your street address"
   ng-model="form.prospect().street"
-  ng-model-options="{ debounce: 500 }"
+  ng-model-options="{ debounce: 100 }"
   ng-minlength="4"
   ng-blur="form.checkAddress(form.prospect().street)"
   bind-key="form.checkAddress(form.prospect().street)"
