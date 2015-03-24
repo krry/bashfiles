@@ -19,7 +19,6 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
   Client.listen('Form: Loaded', bootstrapForm);
   Client.listen('geocode results', badZip);
   Client.listen('Stages: restart session', resetForm);
-  Client.listen("Proposal: sharable proposal url", saveProposalShareLinkToSalesforce);
 
   function bootstrapForm (form_obj) {
     // subscribe to the stream
@@ -78,6 +77,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
   Client.listen('neighbor_count saved', acceptNeighborCount);
   Client.listen('Form: save lead', createLead);
   Client.listen('create hotload link', createHotloadLink);
+  Client.listen('Modal: email submitted', saveProposalShareLinkToSalesforce)
 
   function checkZip (zip) {
     console.log('********* checkin dat zip', zip, 'boss *********')
@@ -330,10 +330,12 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
     });
   }
 
-  function saveProposalShareLinkToSalesforce(share_link) {
+  function saveProposalShareLinkToSalesforce(email_string) {
     createHotloadLink();
+    vm.prospect.email = email_string;
+
     return Salesforce.createLead({
-      Share_Proposal_Link__c: share_link,
+      Share_Proposal_Link__c: vm.prospect.share_link,
       LeadSource: 'Online',
       LastName: 'flannelflywheel',
       Company: 'flannelflywheel',

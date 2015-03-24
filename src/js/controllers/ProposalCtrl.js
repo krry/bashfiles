@@ -113,7 +113,7 @@ function ProposalCtrl_ ($scope, Session, Form, Client, defaultValues, Proposal) 
     // create the sharelink
     share_link = "http://localhost:8100/flannel#/share/"+Session.id()+"/"+bill+"/"+utility_rate+"/"+scty_rate;
     vm.prospect.share_link = share_link;
-    Client.emit("Proposal: sharable proposal url", share_link);
+    Client.emit('Form: valid data', {proposal_share_link: share_link});
   }
 
   function drawPowerChart () {
