@@ -8,7 +8,7 @@
   width: 100%;
   height: 100%;
   // HACK: might gotta revert this
-  /* position: absolute; */
+  position: absolute;
   overflow: hidden;
   transition: opacity 150ms $easing-quick;
 
