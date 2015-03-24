@@ -19,22 +19,39 @@ function Proposal_(Session, Panelfill, Client) {
     draggable: false,
   };
 
-  Session.ref().parent().parent().child('designs')
-    .child(Session.ref().key()).child('areas/0/wkt')
-      .once('value', function (ds) {
-      var wkt_txt = ds.exportVal();
-      console.log('wkt_txt in design', wkt_txt)
-      Panelfill.getFilled(wkt_txt)
-      .then(processTwoDArray);
-  });
+  function getStarted(design_id) {
+    if (Session.ref()) {
+      // typical use case for user in flow
+      Session.ref().parent().parent().child('designs')
+        .child(Session.ref().key()).child('areas/0/wkt')
+          .once('value', function (ds) {
+          var wkt_txt = ds.exportVal();
+          console.log('wkt_txt in design', wkt_txt)
+          Panelfill.getFilled(wkt_txt)
+          .then(processTwoDArray);
+      });
+    } else {
+      // share proposal link
+      var ref = new Firebase('https://scty-int.firebaseio.com').child('designs')
+        .child(design_id)
+        .child('areas/0/wkt')
+          .once('value', function (ds) {
+            var wkt_txt = ds.exportVal();
+            console.log('wkt_txt in design', wkt_txt)
+            Panelfill.getFilled(wkt_txt)
+            .then(processTwoDArray);
+      });
+    }
+  }
+
 
   var panels_array;
 
   var rx_panel_count = new Rx.Subject();
-  this.rx_panel_count = rx_panel_count
+  this.rx_panel_count = rx_panel_count;
   function processTwoDArray(data) {
     // data = data.slice(230) // hack;
-    panels_array = []
+    panels_array = [];
     for (var i = 0; i < data.length; i++) {
       panels_array.push(makePanel(data[i]));
     }
@@ -58,7 +75,8 @@ function Proposal_(Session, Panelfill, Client) {
     });
   }
 
-  this.setTarget = function setTarget(element) {
+  this.setTarget = function setTarget(design_id) {
+    getStarted(design_id);
     map = new google.maps.Map(document.getElementById('gmap'), map_options);
     var bounds = new google.maps.LatLngBounds()
     Client.listen('panelfill', function function_name(p_array) {

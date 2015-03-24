@@ -77,6 +77,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
   Client.listen('neighbor_count saved', acceptNeighborCount);
   Client.listen('Form: save lead', createLead);
   Client.listen('create hotload link', createHotloadLink);
+  Client.listen('Modal: email submitted', saveProposalShareLinkToSalesforce)
 
   function checkZip (zip) {
     console.log('********* checkin dat zip', zip, 'boss *********')
@@ -324,6 +325,34 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
       if (data.id) {
         vm.prospect.leadId = data.id;
 
+        Client.emit('Form: valid data', { leadId: vm.prospect.leadId });
+      }
+    });
+  }
+
+  function saveProposalShareLinkToSalesforce(email_string) {
+    createHotloadLink();
+    vm.prospect.email = email_string;
+
+    return Salesforce.createLead({
+      Share_Proposal_Link__c: vm.prospect.share_link,
+      LeadSource: 'Online',
+      LastName: 'flannelflywheel',
+      Company: 'flannelflywheel',
+      LeadId: vm.prospect.leadId,
+      Email: vm.prospect.email,
+      Street: vm.prospect.street,
+      City: vm.prospect.city,
+      State: vm.prospect.state,
+      PostalCode: vm.prospect.zip,
+      LeadStatus: 'Pre credit check',
+      OdaHotloadLink: vm.prospect.odaHotloadLink,
+      // TODO: get the oda from the session
+      // OwnerId: '005300000058ZEZAA2',//oda userId
+      ExternalId: Session.id()
+    }).then(function(data) {
+      if (data.id) {
+        vm.prospect.leadId = data.id;
         Client.emit('Form: valid data', { leadId: vm.prospect.leadId });
       }
     });
