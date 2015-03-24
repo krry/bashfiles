@@ -61,11 +61,11 @@ function TemplateConfig_ () {
           step: 'edit-area',
           partial: 'edit.html'
         },
-        {
-          staticLayout: false,
-          step: 'detail-area',
-          partial: 'detail.html'
-        },
+        // {
+        //   staticLayout: false,
+        //   step: 'detail-area',
+        //   partial: 'detail.html'
+        // },
       ],
     },
     {
@@ -122,7 +122,7 @@ function TemplateConfig_ () {
     },
   ];
 
-  partials = partial_constructor(config);  
+  partials = partial_constructor(config);
 
   function partial_constructor (config) {
     var stage,
