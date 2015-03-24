@@ -1,6 +1,7 @@
 angular.module('stages',[
   'flannel.providers',
   'design_link',
+  'share_link',
   'home',
   'configure',
   'proposal',
@@ -13,7 +14,7 @@ angular.module('stages',[
     abstract: true,
     resolve: {
       // Resolve ensures we authenticate before going to the root controller
-      // This only fires once since the root only instantiates once 
+      // This only fires once since the root only instantiates once
       init: ['Auth', function(Auth) {
         return Auth.authenticate();
       }]

@@ -19,14 +19,32 @@ function Proposal_(Session, Panelfill, Client) {
     draggable: false,
   };
 
-  Session.ref().parent().parent().child('designs')
-    .child(Session.ref().key()).child('areas/0/wkt')
-      .once('value', function (ds) {
-      var wkt_txt = ds.exportVal();
-      console.log('wkt_txt in design', wkt_txt)
-      Panelfill.getFilled(wkt_txt)
-      .then(processTwoDArray);
-  });
+  function getStarted(design_id) {
+    if (Session.ref()) {
+      Session.ref().parent().parent().child('designs')
+        .child(Session.ref().key()).child('areas/0/wkt')
+          .once('value', function (ds) {
+          var wkt_txt = ds.exportVal();
+          console.log('wkt_txt in design', wkt_txt)
+          Panelfill.getFilled(wkt_txt)
+          .then(processTwoDArray);
+      });
+    } else {
+      // debugger;
+      design_id = "-JkzqbNe6y7UJr7ebTCu"
+      
+      var ref = new Firebase('https://scty.firebaseio.com').child('designs')
+        .child(design_id)
+        .child('areas/0/wkt')
+          .once('value', function (ds) {
+          var wkt_txt = ds.exportVal();
+          console.log('wkt_txt in design', wkt_txt)
+          Panelfill.getFilled(wkt_txt)
+          .then(processTwoDArray);
+      });
+    }
+  }
+
 
   var panels_array;
 
@@ -58,7 +76,8 @@ function Proposal_(Session, Panelfill, Client) {
     });
   }
 
-  this.setTarget = function setTarget(element) {
+  this.setTarget = function setTarget(element, design_id) {
+    getStarted(design_id);
     map = new google.maps.Map(document.getElementById('gmap'), map_options);
     var bounds = new google.maps.LatLngBounds()
     Client.listen('panelfill', function function_name(p_array) {
