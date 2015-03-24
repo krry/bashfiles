@@ -50,7 +50,7 @@ function PanelfillSvc ($http, $q) {
       pitch: 0,
       points: points
     };
-    var msg = {}
+    var msg = {};
     msg.m = [area]; // this can be an array of areas
     msg.o = [];     // likewise, this can be obstruction_array
 

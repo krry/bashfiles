@@ -15,12 +15,13 @@ angular.module('design_link',[]).config(["$stateProvider", function ($stateProvi
       'main@': {
         templateUrl: templateUrl +'design_link.html',
         controllerAs: "oda",
-        controller: function design_link_ctrl ($rootScope, $stateParams, $state, Clientstream, User) {
+        controller: function design_link_ctrl ($stateParams, $state, Clientstream, User) {
           var vm = this;
           var user_id,
               session_key;
-          $rootScope.isInOdaMode = true;
+
           session_ref_key = $stateParams.session_ref_key;
+
           vm.loadUserSession = function(){
             Clientstream.emit('ODA: Request session',session_ref_key);
             $state.go('flannel.home.zip-nearme');

@@ -2,102 +2,80 @@
   <h2>ODA Toolbox</h2>
   <a class="btn blue" ng-click="oda.jumpToConfigurator()">Jump to Configurator</a>
   <a class="btn blue" ng-click="oda.jumpToProposal()">Jump to Proposal</a>
-  <!-- <a class="btn red" ui-sref="home">Reload app</a> -->
-
+  <dl class="row">
+    <div class="col half">
+      <dt>percent utility</dt>
+      <dd>{{ dev.prospect().percentUtility }}%</dd>
+      <dt>utility rate</dt>
+      <dd class="cents">{{ dev.prospect().utilityRate | number: 2 }}</dd>
+      <dt>utility ID</dt>
+      <dd>{{ dev.prospect().utilityId }}</dd>
+      <dt>warehouse ID</dt>
+      <dd>{{ dev.prospect().warehouseId }}</dd>
+      <dt>average yield</dt>
+      <dd>{{ dev.prospect().averageYield }} kWh/kW/year</dd>
+      <dt>panels</dt>
+      <dd>{{ dev.prospect.panelCount }} panels @ {{ dev.prospect.panelCapacity }} kW/panel</dd>
+    </div>
+    <div class="col half">
+      <dt>percent solar</dt>
+      <dd>{{ dev.prospect().percentSolar }}%</dd>
+      <dt>scty rate</dt>
+      <dd class="cents">{{ dev.prospect().sctyRate | number: 2 }}</dd>
+      <dt>annual consumption</dt>
+      <dd>{{ dev.prospect().annualConsumption | number: 0 }} kWh</dd>
+      <dt>system size</dt>
+      <dd>{{ dev.prospect().systemSize | number: 2 }} kW</dd>
+      <dt>annual production</dt>
+      <dd>{{ dev.prospect().annualProduction}} kWh/year</dd>
+      <dt>first year savings</dt>
+      <dd class="dollars">{{ dev.prospect().firstYearSavings | number: 2}}</dd>
+    </div>
+  </dl>
+  <hr>
   <div>
     <h4>Current prospect info:</h4>
     <label class="inline" for="dev_zip">
       <span>zip</span>
-      <input type="tel" id="dev_zip" ng-model="oda.prospect().zip">
+      <input type="tel" id="dev_zip" ng-model="dev.prospect().zip">
     </label>
     <label class="inline" for="dev_city">
       <span>city</span>
-      <input type="text" id="dev_city" ng-model="oda.prospect().city">
+      <input type="text" id="dev_city" ng-model="dev.prospect().city">
     </label>
     <label class="inline" for="dev_state">
       <span>state</span>
-      <input type="text" id="dev_state" ng-model="oda.prospect().state">
+      <input type="text" id="dev_state" ng-model="dev.prospect().state">
     </label>
     <label class="inline" for="dev_street">
       <span>street address</span>
-      <input type="text" id="dev_street" ng-model="oda.prospect().street">
+      <input type="text" id="dev_street" ng-model="dev.prospect().street">
     </label>
     <label class="inline" for="dev_bill">
       <span>bill</span>
-      <input type="tel" id="dev_bill" ng-model="oda.prospect().bill">
-    </label>
-    <label class="inline" for="dev_utilityRate">
-      <span>utility rate</span>
-      <input type="tel" id="dev_utilityRate" ng-model="oda.prospect().utilityRate">
-    </label>
-    <label class="inline" for="dev_sctyRate">
-      <span>scty rate</span>
-      <input type="tel" id="dev_sctyRate" ng-model="oda.prospect().sctyRate">
-    </label>
-    <label class="inline" for="dev_warehouseId">
-      <span>warehouse ID</span>
-      <input type="tel" id="dev_warehouseId" ng-model="oda.prospect().warehouseId">
-    </label>
-    <label class="inline" for="dev_utilityId">
-      <span>utility ID</span>
-      <input type="tel" id="dev_utilityId" ng-model="oda.prospect().utilityId">
-    </label>
-    <label class="inline" for="dev_annualConsumption">
-      <span>annual consumption</span>
-      <input type="tel" id="dev_annualConsumption" ng-model="oda.prospect().annualConsumption">
-    </label>
-    <label class="inline" for="dev_annualProduction">
-      <span>annual production</span>
-      <input type="tel" id="dev_annualProduction" ng-model="oda.prospect().annualProduction">
-    </label>
-    <label class="inline" for="dev_averageYield">
-      <span>average yield</span>
-      <input type="tel" id="dev_averageYield" ng-model="oda.prospect().averageYield">
-    </label>
-    <label class="inline" for="dev_panelCapacity">
-      <span>average yield</span>
-      <input type="tel" id="dev_panelCapacity" ng-model="oda.prospect().panelCapacity">
-    </label>
-    <label class="inline" for="dev_firstYearSavings">
-      <span>first year savings</span>
-      <input type="tel" id="dev_firstYearSavings" ng-model="oda.prospect().firstYearSavings">
-    </label>
-    <label class="inline" for="dev_percentSolar">
-      <span>percent solar</span>
-      <input type="tel" id="dev_percentSolar" ng-model="oda.prospect().percentSolar">
-    </label>
-    <label class="inline" for="dev_percentUtility">
-      <span>percent utility</span>
-      <input type="tel" id="dev_percentUtility" ng-model="oda.prospect().percentUtility">
+      <input type="tel" id="dev_bill" ng-model="dev.prospect().bill">
     </label>
     <label class="inline" for="dev_firstName">
       <span>first name</span>
-      <input type="text" id="dev_firstName" ng-model="oda.prospect().firstName">
+      <input type="text" id="dev_firstName" ng-model="dev.prospect().firstName">
     </label>
     <label class="inline" for="dev_lastName">
       <span>last name</span>
-      <input type="text" id="dev_lastName" ng-model="oda.prospect().lastName">
+      <input type="text" id="dev_lastName" ng-model="dev.prospect().lastName">
     </label>
     <label class="inline" for="dev_email">
       <span>email</span>
-      <input type="email" id="dev_email" ng-model="oda.prospect().email">
+      <input type="email" id="dev_email" ng-model="dev.prospect().email">
     </label>
     <label class="inline" for="dev_phone">
       <span>phone</span>
-      <input type="tel" id="dev_phone" ng-model="oda.prospect().phone">
+      <input type="tel" id="dev_phone" ng-model="dev.prospect().phone">
     </label>
     <label class="inline" for="dev_dob">
       <span>dob</span>
-      <input type="text" id="dev_dob" ng-model="oda.prospect().dob">
+      <input type="text" id="dev_dob" ng-model="dev.prospect().dob">
     </label>
   </div>
-
-  <h4>App status</h4>
-  <ul>
-    <li ng-show="{{view_sync}}">View synced</li>
-    <li ng-hide="{{view_sync}}">View not synced</li>
-  </ul>
-
 </div>
 
 <a class="oda-trigger" ng-click="toggleOdaPanel()">{{odaPanelShownTriggerText}}</a>
