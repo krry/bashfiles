@@ -9,15 +9,20 @@
 
 ================================================== */
 
-controllers.controller("AppCtrl", ['$sce', 'GMAP_CLIENT', 'MINIFIED', 'APP_TITLE', 'Clientstream', '$location', AppCtrl_]);
+controllers.controller("AppCtrl", ['$rootScope', '$sce', 'GMAP_CLIENT', 'MINIFIED', 'APP_TITLE', 'ENV', 'Clientstream', '$location', AppCtrl_]);
 
-function AppCtrl_($sce, GMAP_CLIENT, MINIFIED, APP_TITLE, Client, $location) {
+function AppCtrl_($rootScope, $sce, GMAP_CLIENT, MINIFIED, APP_TITLE, ENV, Client, $location) {
   var vm = this;
-  vm.gmapClient = GMAP_CLIENT;
-  // console.log("vm.gmapClient is", vm.gmapClient);
-  // vm.gmapClient = $sce.trustAs("resource_url", "http://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false&client="+GMAP_CLIENT);
   vm.minified = MINIFIED;
   vm.appTitle = APP_TITLE;
+  vm.gmapClient = GMAP_CLIENT;
+  // vm.gmapClient = $sce.trustAs("resource_url", "http://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false&client="+GMAP_CLIENT);
+
+  // if user is an ODA, trigger ODA mode to show ODA tools
+  vm.isInOdaMode = $rootScope.isInOdaMode;
+
+  // if development environment, trigger dev mode to show dev tools
+  vm.isInDevMode = (ENV === "development") ? true : false;
 
   console.log('****** loading google analytics trackers ******');
   Client.listen('Stages: step complete', notifyTrackerAboutStep);

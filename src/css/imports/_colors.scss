@@ -70,7 +70,9 @@ $tint-95:  rgba(255, 255, 255, .95);
 
 $glass-smoked:  transparentize($grey-darkest, 0.07);
 $glass-frosted: transparentize($grey-lightest, 0.07);
+$glass-green:   transparentize($green-dark, 0.07);
 $glass-amber:   transparentize($gold, 0.07);
+$glass-red:     transparentize($red-dark, 0.07);
 $gold-bright:   lighten($gold, .2);
 
 $color-text-main:            $grey-darker;
@@ -114,5 +116,8 @@ $color-header-bkgd:          $green-dark;
 // $color-header-shadow:        rgba(42, 54, 59, 0.5);
 // $color-header-shadow:        rgba(22, 48, 62, 0.5);
 $color-header-shadow:        transparentize($grey-darker, 0.5);
+
+$color-dev-tools:            $glass-smoked;
+$color-oda-tools:            $glass-red;
 
 $shadow-input: 0px 0px 4px rgba(0,0,0,0.15);

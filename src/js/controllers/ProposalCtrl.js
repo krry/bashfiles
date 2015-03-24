@@ -30,7 +30,7 @@ function ProposalCtrl_ ($scope, Form, Client, defaultValues, Proposal) {
 
   // calculate annual production in $$ of electricity from panel fill API
   function subProposalToPanelCount (count) {
-    vm.prospect.panelCapacity = .25 || defaultValues.panel_capacity;
+    vm.prospect.panelCapacity = 0.25 || defaultValues.panel_capacity;
     vm.prospect.systemSize = count * vm.prospect.panelCapacity || defaultValues.system_size;
     vm.prospect.annualProduction = vm.prospect.systemSize * vm.prospect.averageYield || defaultValues.annual_production;
 
