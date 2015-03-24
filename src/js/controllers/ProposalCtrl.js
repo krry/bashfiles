@@ -58,12 +58,6 @@ function ProposalCtrl_ ($scope, Session, Form, Client, defaultValues, Proposal) 
     vm.prospect.upfrontCost = upfront_cost;
     Client.emit('Form: valid data', { upfrontCost: 0 });
 
-    // calculate annual consumption in $$ of electricity from monthly bill estimate
-    bill = vm.prospect.bill || 100; // HACK: DEV: this bill is hardcoded for dev
-    annual_consumption = (bill * 12) || defaultValues.annual_consumption;
-    vm.prospect.annualConsumption = annual_consumption;
-    Client.emit('Form: valid data', { annualConsumption: annual_consumption });
-
     // grab rate estimates from the Form object
     utility_rate = vm.prospect.utilityRate || defaultValues.utility_rate; // MedianUtilityPrice
     vm.prospect.utilityRate = utility_rate; // $
