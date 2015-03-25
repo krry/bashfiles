@@ -61,11 +61,11 @@ function TemplateConfig_ () {
           step: 'edit-area',
           partial: 'edit.html'
         },
-        // {
-        //   staticLayout: false,
-        //   step: 'detail-area',
-        //   partial: 'detail.html'
-        // },
+        {
+          staticLayout: false,
+          step: 'detail-area',
+          partial: 'detail.html'
+        },
       ],
     },
     {
