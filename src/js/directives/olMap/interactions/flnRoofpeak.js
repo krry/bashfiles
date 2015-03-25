@@ -75,10 +75,7 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill) {
               arrayOfPoints = AreaService.getWkt(target_f).split('LINESTRING')[1].replace('(', '').replace(')', '').split(',');
             }
 
-            Design.ref().child('areas').child('0').set({ // HACK: one area only
-                  wkt: AreaService.getWkt(feature),
-                  ridge: arrayOfPoints,
-                })
+            Design.ref().child('areas').child('0').child('ridge').set(arrayOfPoints);
 
             debugger;
             scope.$apply()
