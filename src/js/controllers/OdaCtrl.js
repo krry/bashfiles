@@ -10,12 +10,23 @@ function OdaCtrl_($scope, Client, Form) {
   vm.prospect = Form.prospect;
   Client.listen('Form: Loaded', subscribeForm);
 
+  vm.jumpToHome = function jumpToHome () {
+    Client.emit('Stages: jump to stage', 'flannel.home');
+  }
+
   vm.jumpToConfigurator = function jumpToConfigurator () {
-    Client.emit('Stages: jump to stage', 'configure');
+    Client.emit('Stages: jump to stage', 'flannel.configure');
   }
 
   vm.jumpToProposal = function jumpToProposal () {
-    Client.emit('Stages: jump to stage', 'proposal');
+    Client.emit('Stages: jump to stage', 'flannel.proposal');
+  }
+
+  vm.jumpToSchedule = function jumpToSchedule () {
+    Client.emit('Stages: jump to stage', 'flannel.signup');
+    setTimeout(function () {
+      Client.emit('Stages: jump to step', 'survey-calendar');
+    }, 0)
   }
 
   function subscribeForm (form_obj) {

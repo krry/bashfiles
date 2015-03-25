@@ -1,8 +1,13 @@
 <div class="dev-controls">
   <h2>ODA Toolbox</h2>
-  <a class="btn blue" ng-click="oda.jumpToConfigurator()">Jump to Configurator</a>
-  <a class="btn blue" ng-click="oda.jumpToProposal()">Jump to Proposal</a>
-  <dl class="row">
+  <ul>
+    <h4>Jump to:</h4>
+    <a class="btn blue" ng-click="oda.jumpToHome()">Find Home</a>
+    <a class="btn blue" ng-click="oda.jumpToConfigurator()">Start Configurator</a>
+    <a class="btn blue" ng-click="oda.jumpToProposal()">View Proposal</a>
+    <a class="btn blue" ng-click="oda.jumpToSchedule()">Schedule Survey</a>
+  </ul>
+  <dl class="row" ng-show="dev.prospect.utilityRate">
     <div class="col half">
       <dt>percent utility</dt>
       <dd>{{ dev.prospect().percentUtility }}%</dd>
