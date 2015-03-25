@@ -103,4 +103,3 @@ function UserProvider_ (SessionProvider, FIREBASE_URL) {
     return new user_builder_brah();
 
 }]}
-

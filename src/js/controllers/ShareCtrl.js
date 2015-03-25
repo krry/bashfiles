@@ -1,16 +1,18 @@
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-  Proposal Controller
+  Share Controller
 
-  Controls the views of proposal data
+  Controls the views of shared proposal
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
-controllers.controller('ProposalCtrl', ['$scope', 'Session', 'Form', 'Clientstream', 'defaultValues', 'Proposal', ProposalCtrl_]);
+controllers.controller('ShareCtrl', ['Clientstream', 'defaultValues', '$stateParams', 'Proposal', ShareCtrl_]);
 
-function ProposalCtrl_ ($scope, Session, Form, Client, defaultValues, Proposal) {
+function ShareCtrl_ (Client, defaultValues, $stateParams, Proposal) {
+
+  // http://localhost:8100/flannel#/share/-JkzqbNe6y7UJr7ebTCu/100/0.2233/0.15
   var vm = this;
-  vm.prospect = Form.prospect;
+  vm.prospect = {};
 
   var upfront_cost,
       annual_consumption,
@@ -23,58 +25,43 @@ function ProposalCtrl_ ($scope, Session, Form, Client, defaultValues, Proposal) 
       percent_utility,
       bill;
 
-  calculateProposal();
 
   Proposal.rx_panel_count.subscribe(subProposalToPanelCount)
 
   // calculate annual production in $$ of electricity from panel fill API
   function subProposalToPanelCount (count) {
-    // number of panels filled from Panelfill API
-    vm.prospect.panelCount = count;
-
     // power of each panel
     vm.prospect.panelCapacity = defaultValues.panel_capacity;
 
-    // system size in kW => number of panels * power of each panel
-    vm.prospect.systemSize = (count * vm.prospect.panelCapacity) || defaultValues.system_size;
+    // number of panels filled from Panelfill API
+    vm.prospect.systemSize = count * vm.prospect.panelCapacity || defaultValues.system_size;
 
     // estimated production of that system in a year => power of system * yearly yield per kW in that region
-    vm.prospect.annualProduction = (vm.prospect.systemSize * vm.prospect.averageYield) || defaultValues.annual_production; // kWh
+    vm.prospect.annualProduction = vm.prospect.systemSize * vm.prospect.averageYield || defaultValues.annual_production;
 
-    // save the new figures to Firebase
-    Client.emit('Form: valid data', {
-      systemSize: vm.prospect.systemSize,
-      annualProduction: vm.prospect.annualProduction
-    });
-
-    // once panel count is in, recalculate all figures
+    console.log("subProposalToPanelCount", count);
     calculateProposal();
   }
 
   function calculateProposal () {
-
     // calculate upfront cost
     upfront_cost = defaultValues.upfront_cost;
     vm.prospect.upfrontCost = upfront_cost;
-    Client.emit('Form: valid data', { upfrontCost: 0 });
 
     // grab rate estimates from the Form object
-    utility_rate = vm.prospect.utilityRate || defaultValues.utility_rate; // MedianUtilityPrice
-    vm.prospect.utilityRate = utility_rate; // $
+    utility_rate = $stateParams.utilityRate || defaultValues.utility_rate; // MedianUtilityPrice
+    vm.prospect.utilityRate = utility_rate;
 
-    scty_rate = vm.prospect.sctyRate || defaultValues.scty_rate; // FinancingKwhPrice
-    vm.prospect.sctyRate = scty_rate; // $
-
-    // calculate annual consumption in kWh of electricity from monthly bill estimate over 12 months divided by the rate
-    bill = vm.prospect.bill;
+    // calculate annual consumption in $$ of electricity from monthly bill estimate
+    bill = $stateParams.bill;
     annual_consumption = ((bill * 12) / utility_rate) || defaultValues.annual_consumption; // kWh
     vm.prospect.annualConsumption = annual_consumption;
-    Client.emit('Form: valid data', { annualConsumption: annual_consumption });
-
     annual_production = vm.prospect.annualProduction;
 
-    // calculate estimated first year savings from annual consumption and production estimates
+    scty_rate = $stateParams.sctyRate || defaultValues.scty_rate; // FinancingKwhPrice
+    vm.prospect.sctyRate = scty_rate;
 
+    // calculate estimated first year savings from annual consumption and production estimates
     // if a prospect would offset less than 80% of their energy needs, first year savings are the yearly spend minus the offset costs at scty rate
     if (annual_production < (annual_consumption * 0.8)) {
       first_year_savings = annual_production * (utility_rate - scty_rate); // $/yr
@@ -84,10 +71,8 @@ function ProposalCtrl_ ($scope, Session, Form, Client, defaultValues, Proposal) 
       first_year_savings = annual_consumption * .8 * (utility_rate - scty_rate); // $/yr
     }
     vm.prospect.firstYearSavings = first_year_savings;
-    Client.emit('Form: valid data', { firstYearSavings: first_year_savings });
 
     // calculate percentage of energy coming from solar
-
     // if the system significantly outsizes the customer's needs, don't let the chart look weird
     if (annual_consumption < annual_production) {
       percent_solar = defaultValues.percent_solar;
@@ -102,18 +87,12 @@ function ProposalCtrl_ ($scope, Session, Form, Client, defaultValues, Proposal) 
     }
 
     vm.prospect.percentSolar = percent_solar;
-    Client.emit('Form: valid data', { percentSolar: percent_solar });
 
     // calculate percentage of energy not coming from solar
     percent_utility = 100 - percent_solar;
     vm.prospect.percentUtility = percent_utility;
-    Client.emit('Form: valid data', { percentUtility: percent_utility });
-    drawPowerChart();
 
-    // create the sharelink
-    share_link = "http://localhost:8100/flannel#/share/"+Session.id()+"/"+bill+"/"+utility_rate+"/"+scty_rate;
-    vm.prospect.share_link = share_link;
-    Client.emit('Form: valid data', {proposal_share_link: share_link});
+    drawPowerChart();
   }
 
   function drawPowerChart () {
@@ -139,7 +118,7 @@ function ProposalCtrl_ ($scope, Session, Form, Client, defaultValues, Proposal) 
         highlight: '#EFEFEF',
         label: 'Dirty Power'
       }
-    ];
+    ]
 
     charty = new Chart(chartEl).Pie(chartData, chartOpts);
   }

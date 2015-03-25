@@ -23,9 +23,8 @@
   left: 0;
   right: 0;
   z-index: 10;
-  box-shadow: 0 2px 8px -2px $shade-40;
   height: 2.9rem;
-  box-shadow: 0 1px 5px $color-header-shadow;
+  box-shadow: 0 1px 3px $color-header-shadow;
 
   a, span, ul, li {
     display: inline-block;
@@ -71,7 +70,7 @@
 
   .logo {
     background-image: url('../img/logo-white.svg');
-    background-position: left -10px;
+    background-position: left -7px;
     background-repeat: no-repeat;
     background-size: auto 130%;
     width: 9.8rem;
@@ -146,6 +145,9 @@
 
 @media screen and (min-width: $width-min-xlg) {
   .header {
+    .logo {
+      background-position: left -9px;
+    }
     .header-detail {
       @include apercu-light;
       display: inline;

@@ -7,6 +7,7 @@
 .map {
   width: 100%;
   height: 100%;
+  // HACK: might gotta revert this
   position: absolute;
   overflow: hidden;
   transition: opacity 150ms $easing-quick;
@@ -28,9 +29,10 @@
 }
 
 .ogmap {
-  // i got it for the lowlow
   height: 100%;
   z-index: 1;
+  /* we can zoom the map like this */
+  /* transform: scale(1.5) translateZ(0px) !important;   */
 }
 
 .instructions {

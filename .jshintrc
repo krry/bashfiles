@@ -105,6 +105,8 @@
         "ga"          : true,
         "ics"         : true,
         "Chart"       : true,
-        "liveagent"   : true
+        "liveagent"   : true,
+        "dataLayer"   : true,
+        "chartData"   : true
     } // additional predefined global variables
 }

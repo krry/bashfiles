@@ -1,9 +1,8 @@
-
 <!-- main.html for qualify stage -->
-<div fln-proposal class="overlay only col full center contain proposal-page">
+<div fln-share class="overlay only col full center contain proposal-page">
   <div class="row padded">
     <div class="col full center">
-      <h1>Looking good! You may be eligible to go solar for $0 down.<br><small>This is you on solar.</small></h1>
+      <h1>This is you on solar.</h1>
     </div>
   </div>
   <div class="proposal row">
@@ -15,21 +14,21 @@
         <div class="col third center padded utes">
           <label for="current_rate">Current Utility Rate</label>
           <figure>
-            <span id="current_rate" class="cents">{{ 100* proposal.prospect.utilityRate | number: 1}}</span>
+            <span id="current_rate" class="cents">{{ 100* share.prospect.utilityRate | number: 1}}</span>
           </figure>
           <label class="units">per kwh average in<br>your zip code</label>
         </div>
         <div class="col third center padded">
           <label for="scty_rate">SolarCity Cost</label>
           <figure>
-            <span id="scty_rate" class="cents">{{ 100 * proposal.prospect.sctyRate | number: 1 }}</span>
+            <span id="scty_rate" class="cents">{{ 100 * share.prospect.sctyRate | number: 1 }}</span>
           </figure>
           <label class="units">per kWh with our recommended financing plan</label>
         </div>
         <div class="col third center padded">
           <label for="est_savings">Estimated Savings</label>
           <figure>
-            <span id="est_savings" class="dollars">{{ proposal.prospect.firstYearSavings | number: 0 }}</span>
+            <span id="est_savings" class="dollars">{{ share.prospect.firstYearSavings | number: 0 }}</span>
           </figure>
           <label class="units">year one</label>
         </div>
@@ -38,7 +37,7 @@
         <div class="col half center padded">
           <label for="ppa_plan">No Upfront Cost</label>
           <figure>
-            <span id="ppa_plan" class="dollars">{{proposal.prospect.upfrontCost}}</span>
+            <span id="ppa_plan" class="dollars">{{share.prospect.upfrontCost}}</span>
           </figure>
           <label class="units">with our recommended<br>financing plan</label>
         </div>
@@ -48,23 +47,9 @@
             <span id="est_energy_mix" class="icon pie"></span>
             <canvas id="powerRatioChart" width="48" height="48"></canvas>
           </figure>
-          <label class="units">{{ proposal.prospect.percentSolar | number: 0 }}% clean solar power<br>{{ proposal.prospect.percentUtility | number: 0 }}% utility power</label>
+          <label class="units">{{ share.prospect.percentSolar | number: 0 }}% clean solar power<br>{{ share.prospect.percentUtility | number: 0 }}% utility power</label>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="row padded-less">
-    <div ng-controller="ModalCtrl as modal" class="col fifth two center">
-      <button class="btn white square tiny center less-padded" ng-click="modal.showDialog({dialog:'share-proposal', data: ''})">Save my Solar Proposal</button>
-      <!-- <a class="btn white tiny less-padded" href="/#{{proposal.share_link}}">link to share</a> -->
-    </div>
-    <div class="col fifth three left padded">
-      <p class="financing-options">After you complete your site survey, we'll send you your final system design and proposal with the <a ng-click="modal.showDialog({dialog: 'financing', data: ''})">financing options</a> that are available to you.</p>
-    </div>
-  </div>
-  <div class="row padded">
-    <div class="col full center">
-      <button class="btn gold wide small" ng-click="stages.next()">Continue</button>
     </div>
   </div>
   <!-- TODO: build a helper class to put down arrows in .jump-down <hr>s -->
