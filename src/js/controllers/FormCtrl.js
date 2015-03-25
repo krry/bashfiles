@@ -77,15 +77,20 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
   Client.listen('neighbor_count saved', acceptNeighborCount);
   Client.listen('Form: save lead', createLead);
   Client.listen('create hotload link', createHotloadLink);
-  Client.listen('Modal: email submitted', saveProposalShareLinkToSalesforce)
+  Client.listen('Modal: email submitted', saveProposalShareLinkToSalesforce);
+  Client.listen('Form: final near me data', setFinalNearMeData);
 
   function checkZip (zip) {
     console.log('********* checkin dat zip', zip, 'boss *********')
     /* jshint eqnull:true */
     if (zip != null && zip.length === 5) {
+      // Only invalidate the zip if the street has changed - this allows the back button to function correctly
+      if (zip !== vm.prospect.zip) {
+        vm.prospect.street = null;
+        Client.emit('Form: valid data', {street: null});
+      }
+
       Client.emit('Spinner: spin it', true);
-      vm.prospect.street = null;
-      Client.emit('Form: valid data', {street: null});
       Geocoder.sendGeocodeRequest(zip);
     }
     else { return false; }
@@ -493,6 +498,10 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
   }
   function acceptSavedFullname (data) {
     vm.prospect.fullname = data ? data : "";
+  }
+
+  function setFinalNearMeData(data) {
+    vm.finalNearMeData = data;
   }
 
   function prev () {
