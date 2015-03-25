@@ -29,9 +29,10 @@
 }
 
 .ogmap {
-  // i got it for the lowlow
   height: 100%;
   z-index: 1;
+  /* we can zoom the map like this */
+  /* transform: scale(1.5) translateZ(0px) !important;   */
 }
 
 .instructions {
