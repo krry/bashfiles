@@ -5,9 +5,9 @@
  *
  */
 
-angular.module('flannel').factory('MapFactory', ['$rootScope','MapService', 'StyleService', 'Configurator', 'Clientstream', MapFactory_]);
+angular.module('flannel').factory('MapFactory', ['$rootScope','MapService', 'StyleService', 'Design', 'Clientstream', 'AreaService', MapFactory_]);
 
-function MapFactory_($rootScope, MapService, StyleService, Configurator, Client ) {
+function MapFactory_($rootScope, MapService, StyleService, Design, Client , AreaService) {
 
   var map,
       f_collection,
@@ -26,7 +26,7 @@ function MapFactory_($rootScope, MapService, StyleService, Configurator, Client 
     features: f_collection,
   });
 
-  if (Configurator.map()) {
+  if (typeof maps !== 'undefined') {
     createRoofpeakLayer();
   } else {
     Client.listen('Configurator: Map ready', createRoofpeakLayer);
@@ -35,7 +35,7 @@ function MapFactory_($rootScope, MapService, StyleService, Configurator, Client 
   function createRoofpeakLayer () {
     f_layer = new ol.layer.Vector({
       source: f_source,
-      projection: Configurator.map().getView().getProjection(),
+      projection: maps.omap.getView().getProjection(),
       style:  StyleService.remap,
       name: 'roof_area_layer',
     });
@@ -51,31 +51,33 @@ function MapFactory_($rootScope, MapService, StyleService, Configurator, Client 
       });
 
   function roofArea (ol_map, target_element, feature) {
-    var projection = Configurator.map().getView().getProjection();
+    var projection = maps.omap.getView().getProjection();
     // TODO: restore this function from the now defunct MapService
-    map = new ol.Map({
-      view: new ol.View({
-        projection: projection,
-        center: ol.extent.getCenter(projection.getExtent()),
-        zoom: Configurator.map().getView().getZoom(),
-        }),
-    // map = MapService.setRoofmap({
-    // view: new ol.View({
-    //   projection: projection,
-    //   center: ol.extent.getCenter(projection.getExtent()),
-    //   zoom: 0,
-    // }),
-      extent: projection.getExtent(),
-      layers: [f_layer],
-      overlays: [f_overlay],
-      target: target_element[0],
-      interactions: [],
-      controls: [],
-    });
-
-    map.setSize(ol_map.getSize());
+    // map = new ol.Map({
+    //   view: new ol.View({
+    //     projection: projection,
+    //     center: ol.extent.getCenter(projection.getExtent()),
+    //     zoom: maps.omap.getView().getZoom(),
+    //     }),
+    // // map = MapService.setRoofmap({
+    // // view: new ol.View({
+    // //   projection: projection,
+    // //   center: ol.extent.getCenter(projection.getExtent()),
+    // //   zoom: 0,
+    // // }),
+    //   extent: projection.getExtent(),
+    //   layers: [f_layer],
+    //   overlays: [f_overlay],
+    //   target: target_element[0],
+    //   interactions: [],
+    //   controls: [],
+    // });
+    //
+    // map.setSize(ol_map.getSize());
+    map = maps.omap
     remapFeature(map, feature);
-
+    map.addLayer(f_layer)
+    map.addOverlay(f_overlay)
     return map;
   }
 

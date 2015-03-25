@@ -9,9 +9,9 @@ this directive enables opens a layer that:
 
 ================================================== */
 
-directives.directive('flnRoofpeak', ["MapFactory", "Configurator", "Clientstream", flnRoofpeak_]);
-
-function flnRoofpeak_ (MapFactory, Configurator, Client) {
+directives.directive('flnRoofpeak', ["MapFactory", "Design", "Clientstream", "AreaService", "Panelfill", flnRoofpeak_]);
+var loadit
+function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill) {
   return {
     restrict: 'EA',
     link: function flnRoofpeakLink (scope, element, attrs) {
@@ -24,21 +24,28 @@ function flnRoofpeak_ (MapFactory, Configurator, Client) {
           feature_overlay,
           highlight;
 
+      Design.areas_collection.on('add', function (e) {
+        debugger;
+      })
+
       // hide "next" button until user selects
       scope.roof_peak_chosen = false;
 
-      if (Configurator.map()) {
+      if (typeof maps !== 'undefined') {
         loadRoofpeak();
       } else {
-        Client.listen('OlMapCtrl: remote feature added', loadRoofpeak);
+        Client.listen('Configurator: target set', loadRoofpeak);
       }
+      loadit = loadRoofpeak
       function loadRoofpeak() {
-        base_map = Configurator.map();
+        // base_map = Configurator.map();
+        base_map = maps.omap
         old_view = base_map.getView();
-        feature = Configurator.features()[0];
+        // feature = Configurator.features()[0];
+        feature = Design.areas_collection.item(0);
         lay_over_element = $('#roof_peak');
         lay_over_element.show();
-        ol_map = Configurator.map();
+        ol_map = base_map;
         roof_peak_map = MapFactory.roofArea(ol_map, lay_over_element, feature);
 
         $(roof_peak_map.getViewport()).on('mousemove', function(evt) {
@@ -55,6 +62,8 @@ function flnRoofpeak_ (MapFactory, Configurator, Client) {
           if (target_f) {
             // show the "next" button
             scope.roof_peak_chosen = true;
+            console.log(AreaService.getWkt(target_f));
+            debugger;
             scope.$apply()
           } else {
             console.log('can\'t proceed if you don\'t click a roofpeak, brah');
