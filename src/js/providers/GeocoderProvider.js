@@ -23,7 +23,7 @@ function GeocoderProvider_ () {
 
     territoryChecked = false;
     addy = {};
-    addyKeys = [' zip', 'city', 'state', 'street' ];
+    addyKeys = ['zip', 'city', 'state', 'street' ];
 
     Client.listen('Stages: restart session', resetCache);
 
@@ -90,31 +90,23 @@ function GeocoderProvider_ () {
         // TODO: check if request obj would overwrite more valuable cached addy
         console.log('geocode requested for object', request);
         addy = request;
+
+        addyKeys.forEach(function(key) {
+          addy[key] = addy[key] || '';
+        });
+
+        addyStr = [
+          addy.street,
+          addy.city,
+          [addy.state, addy.zip].join(' ')
+        ].join(', ');
       }
       // else error state
       else {
         Client.emit('invalid geocode request', false);
       }
 
-      if (addy !== {} && typeof addy !== "undefined") {
-        for (var key in request) {
-          if (request.hasOwnProperty(key)){
-            // if it has a key named 'zip', 'city', 'state', or 'address', run it through the addy object stringifier
-            if (addyKeys.indexOf(key) > -1) {
-              console.log("appending", key,"to addy string");
-              if (request[key]){
-                if (addyStr.length === 0) {
-                  addyStr = request[key];
-                }
-                else {
-                  addyStr = addyStr + " " + request[key];
-                }
-              }
-              // components[key] = request[key];
-            } // else { do nothing }
-          }
-        }
-
+      if (addyStr) {
         geocodeRequest = { "address": addyStr };
         console.log('sending', geocodeRequest, 'to geocoder');
         geocoder.geocode(geocodeRequest, handleGeocodeResults);

@@ -125,12 +125,18 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
     });
   }
 
-  function getNearMeData() {
+  function getNearMeData(data) {
+    // Reset the view state while we are still getting the data
+    // This prevents old data from lingering in the view while we're processing the new location
+    Client.emit('neighbor_count saved', 0);
+    Client.emit('Form: final near me data', false);
+
     return Gmap.loaded.then(function() {
       // get nearme data for the current map's bounding box
       var bounds = map.getBounds(),
           ne,
           sw,
+          area,
           coords;
 
       // Bounds can be undefined even if the map is loaded but the tiles are not
@@ -151,8 +157,10 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
       };
 
       // safeguard against loading too large of an area
-      if (Math.abs(coords.top - coords.bottom > 1) || Math.abs(coords.left - coords.right) > 1) {
-        return;
+      area = Math.abs(coords.top - coords.bottom) * Math.abs(coords.left - coords.right);
+      if (area > 0.8) {
+        // If can't get a larger area, just plot what we have from the last call
+        return plotMarkers(data, true);
       }
 
       // send the coordinates to NearMe, then check if there are enough, then plot the pins if so
@@ -169,11 +177,12 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
     }
   }
 
-  function plotMarkers(data) {
+  function plotMarkers(data, isFinalData) {
     var opts;
-    if (!data) {
-      getNearMeData();
+    if (!data && !isFinalData) {
+      getNearMeData(data);
     } else {
+      data = data || [];
       // clear any old pins from the map
       Client.emit('clear pins', true);
 
@@ -191,6 +200,10 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
 
       // let the view model know how many pins were found
       Client.emit('neighbor_count saved', data.length);
+
+      if (isFinalData) {
+        Client.emit('Form: final near me data', true);
+      }
     }
   }
 
