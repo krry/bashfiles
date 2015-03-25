@@ -59,10 +59,27 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill) {
             return f;
           });
           // TODO: do something with clicked shape.
-          if (target_f) {
+          if (target_f &&
+              AreaService.getWkt(target_f).split('POLYGON').length == 1) {  //this second condition covers if a polygon was selected
             // show the "next" button
             scope.roof_peak_chosen = true;
             console.log(AreaService.getWkt(target_f));
+
+            var testLineString = AreaService.getWkt(target_f).split('LINESTRING');
+            var arrayOfPoints = [];
+            if (testLineString.length == 1) { //then we have a point
+              arrayOfPoints = AreaService.getWkt(target_f).split('POINT')[1].replace('(', '').replace(')', '').split('TRAVIS');
+
+            }
+            else {  //we have a line!
+              arrayOfPoints = AreaService.getWkt(target_f).split('LINESTRING')[1].replace('(', '').replace(')', '').split(',');
+            }
+
+            Design.ref().child('areas').child('0').set({ // HACK: one area only
+                  wkt: AreaService.getWkt(feature),
+                  ridge: arrayOfPoints,
+                })
+
             debugger;
             scope.$apply()
           } else {
