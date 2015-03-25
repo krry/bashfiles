@@ -18,9 +18,9 @@ function AppCtrl_($location, $sce, GMAP_CLIENT, MINIFIED, APP_TITLE, ENV, Client
   vm.gmapClient = GMAP_CLIENT;
 
   // if user is an ODA, trigger ODA mode to show ODA tools
-  Client.listen('ODA: Request session', function(data){
+  if (window.location.href.indexOf('oda') > -1) {
     vm.isInOdaMode = true;
-  });
+  }
 
   // if development environment, trigger dev mode to show dev tools
   vm.isInDevMode = (ENV === "development") ? true : false;
