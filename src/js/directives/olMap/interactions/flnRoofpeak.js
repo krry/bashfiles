@@ -10,7 +10,7 @@ this directive enables opens a layer that:
 ================================================== */
 
 directives.directive('flnRoofpeak', ["MapFactory", "Design", "Clientstream", "AreaService", "Panelfill", flnRoofpeak_]);
-var loadit
+
 function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill) {
   return {
     restrict: 'EA',
@@ -36,12 +36,12 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill) {
       } else {
         Client.listen('Configurator: target set', loadRoofpeak);
       }
-      loadit = loadRoofpeak
+
       function loadRoofpeak() {
-        // base_map = Configurator.map();
+
         base_map = maps.omap
         old_view = base_map.getView();
-        // feature = Configurator.features()[0];
+
         feature = Design.areas_collection.item(0);
         lay_over_element = $('#roof_peak');
         lay_over_element.show();
