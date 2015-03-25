@@ -84,7 +84,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
     console.log('********* checkin dat zip', zip, 'boss *********')
     /* jshint eqnull:true */
     if (zip != null && zip.length === 5) {
-      // Only invalidate the zip if the street has changed - this allows the back button to function correctly
+      // Only invalidate the street if the zip has changed - this allows the back button to function correctly
       if (zip !== vm.prospect.zip) {
         vm.prospect.street = null;
         Client.emit('Form: valid data', {street: null});
@@ -100,7 +100,9 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
     // TODO: ensure that form is pulling latest prospect from Firebase
     var addy;
 
-    if (!$scope.$$phase && !$scope.$root.$$phase) $scope.$apply();
+    setTimeout(function() {
+      $scope.$apply();
+    }, 0);
 
     if (street) {
       addy = {

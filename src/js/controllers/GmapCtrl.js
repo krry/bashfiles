@@ -158,7 +158,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
 
       // safeguard against loading too large of an area
       area = Math.abs(coords.top - coords.bottom) * Math.abs(coords.left - coords.right);
-      if (area > 1) {
+      if (area > 0.8) {
         // If can't get a larger area, just plot what we have from the last call
         return plotMarkers(data, true);
       }
