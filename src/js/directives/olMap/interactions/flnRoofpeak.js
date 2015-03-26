@@ -38,6 +38,7 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
       newConfigurator.roofpeakAdd();
       // listen to mousemovements to highlight
       newConfigurator.configurator().then(function(map){
+        Client.emit('roofpeak', Design.areas_collection.item(0));
         $(map.getViewport()).on('mousemove', function(evt) {
           var pixel = map.getEventPixel(evt.originalEvent);
           mouseover(pixel);

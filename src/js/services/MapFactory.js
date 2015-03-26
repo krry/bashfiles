@@ -20,29 +20,27 @@ function MapFactory_($rootScope, MapService, StyleService, Design, Client , Area
   f_layer      = Layers.r_layer;
   f_collection = new ol.Collection([]);
 
-  if (typeof maps !== 'undefined') {
-    // createRoofpeakLayer();
-  } else {
-    // Client.listen('Configurator: Map ready', createRoofpeakLayer);
-  }
+  Client.listen('roofpeak', function (feature) {
+    var removeus = f_source.getFeatures()
+    removeus.forEach(function(f) {
+      f_source.removeFeature(f);
+    })
 
-  Design.areas_collection.on('add', function (e) {
-    var feature = e.element;
-    console.log("feature added and observed by mapfactory")
     // remap the feature
     remapFeature(feature);
-    // add the feature's parts as .set('parttype') on the feature
-  })
-
-  f_source.on('addfeature', function  (fe) {
-    console.log('feature added to f_source', fe)
   })
 
   function roofArea (feature) {
+
     return remapFeature(feature);
   }
 
   function remapFeature (feature) {
+    if (!feature) {
+      return Client.listen('areas in collection', function function_name (f) {
+        remapFeature(f);
+      })
+    }
     var feature_parts = deconstructFeat(feature);
     f_source.addFeatures(feature_parts.point);
     f_source.addFeatures(feature_parts.segment);
