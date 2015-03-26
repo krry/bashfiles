@@ -24,26 +24,82 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
           feature_overlay,
           highlight;
 
-      newConfigurator.roofpeakAdd();
+      feature_overlay = Design.roofpeak_overlay;
 
-      element.on('$destroy', function dragPanDestroy (e) {
-        newConfigurator.roofpeakDel();
+      // save the map
+      newConfigurator.configurator().then(function(map) {
+        base_map = map;
       });
 
       // hide "next" button until user selects
       scope.roof_peak_chosen = false;
 
-      Client.listen('Configurator: target set', function bootstrapRoofpeak () {
-        // if (typeof maps !== 'undefined' && typeof maps.omap !== 'undefined') {
-        //   // loadRoofpeak();
-        //   Client.listen('Configurator: target set', loadRoofpeak);
-        // } else {
-        //   alert('maps not there...')
-          // Client.listen('areas in collection', loadRoofpeak);
-        // }
+      // add the "interaction" on the map
+      newConfigurator.roofpeakAdd();
+      // listen to mousemovements to highlight
+      newConfigurator.configurator().then(function(map){
+        $(map.getViewport()).on('mousemove', function(evt) {
+          var pixel = map.getEventPixel(evt.originalEvent);
+          mouseover(pixel);
+          function mouseover (pixel) {
+            feature = map.forEachFeatureAtPixel(pixel, function(f, layer) {
+              return f;
+            });
+
+            if (feature !== highlight) {
+              if (highlight) {
+                feature_overlay.removeFeature(highlight);
+                // TODO: figure out if deleting a variable is dangerous
+                delete highlight;
+              }
+              if (feature) {
+                feature_overlay.addFeature(feature);
+              }
+              highlight = feature;
+            }
+          }
+        });
+      });
+      // handle clicks on the map
+      newConfigurator.configurator().then(function(map){
+        $(map.getViewport()).on('click', function(evt) {
+          var pixel = map.getEventPixel(evt.originalEvent);
+          var target_f = map.forEachFeatureAtPixel(pixel, function(f, layer) {
+            return f;
+          });
+          // TODO: do something with clicked shape.
+          if (target_f &&
+              AreaService.getWkt(target_f).split('POLYGON').length == 1) {  //this second condition covers if a polygon was selected
+            // show the "next" button
+            scope.roof_peak_chosen = true;
+            console.log(AreaService.getWkt(target_f));
+
+            var testLineString = AreaService.getWkt(target_f).split('LINESTRING');
+            var arrayOfPoints = [];
+            if (testLineString.length == 1) { //then we have a point
+              arrayOfPoints = AreaService.getWkt(target_f).split('POINT')[1].replace('(', '').replace(')', '').split('TRAVIS');
+
+            }
+            else {  //we have a line!
+              arrayOfPoints = AreaService.getWkt(target_f).split('LINESTRING')[1].replace('(', '').replace(')', '').split(',');
+            }
+
+            Design.ref().child('areas').child('0').child('ridge').set(arrayOfPoints);
+            debugger;
+
+            scope.$apply()
+          } else {
+            console.log('can\'t proceed if you don\'t click a roofpeak, brah');
+          }
+        });
       })
 
-      // Client.listen('areas in collection', loadRoofpeak);
+
+
+      // remove listeners and such
+      element.on('$destroy', function dragPanDestroy (e) {
+        newConfigurator.roofpeakDel();
+      });
 
 
       function loadRoofpeak() {
@@ -57,61 +113,11 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
         ol_map = base_map;
         roof_peak_map = MapFactory.roofArea(feature);
 
-        // $(roof_peak_map.getViewport()).on('mousemove', function(evt) {
-        //   var pixel = roof_peak_map.getEventPixel(evt.originalEvent);
-        //   mouseover(pixel);
-        // });
 
-        // $(roof_peak_map.getViewport()).on('click', function(evt) {
-        //   var pixel = roof_peak_map.getEventPixel(evt.originalEvent);
-        //   var target_f = roof_peak_map.forEachFeatureAtPixel(pixel, function(f, layer) {
-        //     return f;
-        //   });
-        //   // TODO: do something with clicked shape.
-        //   if (target_f &&
-        //       AreaService.getWkt(target_f).split('POLYGON').length == 1) {  //this second condition covers if a polygon was selected
-        //     // show the "next" button
-        //     scope.roof_peak_chosen = true;
-        //     console.log(AreaService.getWkt(target_f));
-
-        //     var testLineString = AreaService.getWkt(target_f).split('LINESTRING');
-        //     var arrayOfPoints = [];
-        //     if (testLineString.length == 1) { //then we have a point
-        //       arrayOfPoints = AreaService.getWkt(target_f).split('POINT')[1].replace('(', '').replace(')', '').split('TRAVIS');
-
-        //     }
-        //     else {  //we have a line!
-        //       arrayOfPoints = AreaService.getWkt(target_f).split('LINESTRING')[1].replace('(', '').replace(')', '').split(',');
-        //     }
-
-        //     Design.ref().child('areas').child('0').child('ridge').set(arrayOfPoints);
-
-        //     debugger;
-        //     scope.$apply()
-        //   } else {
-        //     console.log('can\'t proceed if you don\'t click a roofpeak, brah');
-        //   }
-        // });
 
         feature_overlay = roof_peak_map.getOverlays().getArray()[0];
 
-        function mouseover (pixel) {
-          feature = roof_peak_map.forEachFeatureAtPixel(pixel, function(f, layer) {
-            return f;
-          });
 
-          if (feature !== highlight) {
-            if (highlight) {
-              feature_overlay.removeFeature(highlight);
-              // TODO: figure out if deleting a variable is dangerous
-              delete highlight;
-            }
-            if (feature) {
-              feature_overlay.addFeature(feature);
-            }
-            highlight = feature;
-          }
-        }
 
         roof_peak_map.setTarget(lay_over_element[0]);
         lay_over_element.width(ol_map.getSize()[0]); // (jesse) HACK: we shouldn't have to do this... but we do.

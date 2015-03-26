@@ -26,32 +26,21 @@ function MapFactory_($rootScope, MapService, StyleService, Design, Client , Area
     // Client.listen('Configurator: Map ready', createRoofpeakLayer);
   }
 
-  // Design.areas_collection.on('add', function (e) {
-  //   var feature = e.element;
-  //   console.log("feature added and observed by mapfactory")
-  //   // remap the feature
-  //   remapFeature(feature);
-  //   // add the feature's parts as .set('parttype') on the feature
-  // })
+  Design.areas_collection.on('add', function (e) {
+    var feature = e.element;
+    console.log("feature added and observed by mapfactory")
+    // remap the feature
+    remapFeature(feature);
+    // add the feature's parts as .set('parttype') on the feature
+  })
 
   f_source.on('addfeature', function  (fe) {
     console.log('feature added to f_source', fe)
   })
 
-
   function roofArea (feature) {
-    // get the feature on the collection
-    // pass teh feature to the remap
-    // put the results in the correct layers
-    remapFeature(feature);
-    // these two adds should be removed from this function
-    // map.addLayer(f_layer)
-    // map.addOverlay(f_overlay)
-    //
-    return map;
+    return remapFeature(feature);
   }
-
-// control the map
 
   function remapFeature (feature) {
     var feature_parts = deconstructFeat(feature);
@@ -60,10 +49,8 @@ function MapFactory_($rootScope, MapService, StyleService, Design, Client , Area
   }
 
 // create new features
-
   function construct (wkt_arr, style_param) {
     // for each on array,
-
     var feat;
     var txt;
     var result = [];

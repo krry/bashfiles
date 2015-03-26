@@ -173,6 +173,8 @@ function newConfigurator_($q, Client, View, Interactions, Layers, MapFactory) {
       // add the overlay
       map.addOverlay(Layers.roofpeak_overlay)
       // setup listers on the layer
+      $(map.getViewport()).addClass('roofpeak')
+
     })
   }
   this.roofpeakDel = function() {
@@ -183,6 +185,8 @@ function newConfigurator_($q, Client, View, Interactions, Layers, MapFactory) {
       // remove the overlay
       map.removeOverlay(Layers.roofpeak_overlay);
       // disable listeners??
+      $(map.getViewport()).removeClass('roofpeak')
+
     })
   }
 }
