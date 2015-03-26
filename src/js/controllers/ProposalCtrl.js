@@ -106,7 +106,7 @@ function ProposalCtrl_ ($scope, Form, Client, defaultValues, Proposal) {
     chartData = [
       {
         value: percent_solar,
-        color: '#008752',
+        color: '#17c188',
         highlight: '#559933',
         label: 'Solar Power'
       },
