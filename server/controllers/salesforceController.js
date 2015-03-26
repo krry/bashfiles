@@ -40,7 +40,8 @@ module.exports = function(app) {
       Consultation_Date__c : new Date(),
       Consultation_Type__c : 'Online',
       Opportunity_Owner__c : '00518000000QpDnAAK',
-      RecordTypeId : sfRecordType
+      RecordTypeId : sfRecordType,
+      Share_Proposal_Link__c: req.body.Share_Proposal_Link__c
     };
   }
 

@@ -75,9 +75,9 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
   Client.listen('phone saved', acceptSavedPhone);
   Client.listen('fullname saved', acceptSavedFullname);
   Client.listen('neighbor_count saved', acceptNeighborCount);
+  Client.listen('Modal: email submitted', acceptEmailFromShare);
   Client.listen('Form: save lead', createLead);
   Client.listen('create hotload link', createHotloadLink);
-  Client.listen('Modal: email submitted', saveProposalShareLinkToSalesforce);
   Client.listen('Form: final near me data', setFinalNearMeData);
 
   function checkZip (zip) {
@@ -312,9 +312,12 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
     createHotloadLink();
     // TODO: handle duplicate error and bubble up feedback to user
     return Salesforce.createLead({
+      // LeadSource: 'Online',
+      // LastName: 'flannelflywheel',
+      // Company: 'flannelflywheel',
       LeadId: vm.prospect.leadId,
       FirstName: vm.prospect.firstName,
-      LastName: vm.prospect.lastName,
+      LastName: vm.prospect.lastName || 'flannelflywheel',
       Email: vm.prospect.email,
       Phone: vm.prospect.phone,
       Street: vm.prospect.street,
@@ -325,41 +328,13 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
       UnqualifiedReason: unqualifiedReason,
       OdaHotloadLink: vm.prospect.odaHotloadLink,
       Skipped: vm.prospect.skipped,
-      // TODO: get the oda from the session
-      // OwnerId: '005300000058ZEZAA2',//oda userId
-      ExternalId: Session.id()
-    }).then(function(data) {
-      if (data.id) {
-        vm.prospect.leadId = data.id;
-
-        Client.emit('Form: valid data', { leadId: vm.prospect.leadId });
-      }
-    });
-  }
-
-  function saveProposalShareLinkToSalesforce(email_string) {
-    createHotloadLink();
-    vm.prospect.email = email_string;
-
-    return Salesforce.createLead({
       Share_Proposal_Link__c: vm.prospect.share_link,
-      LeadSource: 'Online',
-      LastName: 'flannelflywheel',
-      Company: 'flannelflywheel',
-      LeadId: vm.prospect.leadId,
-      Email: vm.prospect.email,
-      Street: vm.prospect.street,
-      City: vm.prospect.city,
-      State: vm.prospect.state,
-      PostalCode: vm.prospect.zip,
-      LeadStatus: 'Pre credit check',
-      OdaHotloadLink: vm.prospect.odaHotloadLink,
-      // TODO: get the oda from the session
       // OwnerId: '005300000058ZEZAA2',//oda userId
       ExternalId: Session.id()
     }).then(function(data) {
       if (data.id) {
         vm.prospect.leadId = data.id;
+
         Client.emit('Form: valid data', { leadId: vm.prospect.leadId });
       }
     });
@@ -370,7 +345,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
       $location.protocol(),
       '://',
       URL_ROOT,
-      '/flannel#/oda/',
+      '/#/oda/',
       Session.id()
     ].join('');
   }
@@ -500,6 +475,11 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
   }
   function acceptSavedFullname (data) {
     vm.prospect.fullname = data ? data : "";
+  }
+
+  function acceptEmailFromShare(data) {
+    vm.prospect.email = data;
+    createLead('Pre credit check');
   }
 
   function setFinalNearMeData(data) {

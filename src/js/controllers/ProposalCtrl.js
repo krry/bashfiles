@@ -6,9 +6,9 @@
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
-controllers.controller('ProposalCtrl', ['$scope', 'Session', 'Form', 'Clientstream', 'defaultValues', 'Proposal', ProposalCtrl_]);
+controllers.controller('ProposalCtrl', ['URL_ROOT', '$location', '$scope', 'Session', 'Form', 'Clientstream', 'defaultValues', 'Proposal', ProposalCtrl_]);
 
-function ProposalCtrl_ ($scope, Session, Form, Client, defaultValues, Proposal) {
+function ProposalCtrl_ (URL_ROOT, $location, $scope, Session, Form, Client, defaultValues, Proposal) {
   var vm = this;
   vm.prospect = Form.prospect;
 
@@ -111,7 +111,12 @@ function ProposalCtrl_ ($scope, Session, Form, Client, defaultValues, Proposal) 
     drawPowerChart();
 
     // create the sharelink
-    share_link = "http://localhost:8100/flannel#/share/"+Session.id()+"/"+bill+"/"+utility_rate+"/"+scty_rate;
+    share_link = [$location.protocol() ,
+    "://",      URL_ROOT ,
+    "#/share/", Session.id(),
+    "/",        bill,
+    "/",        utility_rate,
+    "/",        scty_rate].join('');
     vm.prospect.share_link = share_link;
     Form.ref() && Client.emit('Form: valid data', {proposal_share_link: share_link});
   }
