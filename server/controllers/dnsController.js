@@ -1,7 +1,7 @@
 module.exports = function(app) {
   var dns            = require('dns'),
       Q              = require('q'),
-      env            = 'int',
+      env            = process.env.NODE_ENV || 'development',
       conf           = require('../config/environments/' + env + '.json'),
       addresses      = [],
       PROTOCOL_REGEX = /http(s)*:\/\//;
