@@ -5,116 +5,61 @@
  *
  */
 
-angular.module('flannel').factory('MapFactory', ['$rootScope','MapService', 'StyleService', 'Configurator', 'Clientstream', MapFactory_]);
+angular.module('flannel').factory('MapFactory', ['$rootScope','MapService', 'StyleService', 'Design', 'Clientstream', 'AreaService', 'Layers', MapFactory_]);
 
-function MapFactory_($rootScope, MapService, StyleService, Configurator, Client ) {
+function MapFactory_($rootScope, MapService, StyleService, Design, Client , AreaService, Layers) {
 
   var map,
       f_collection,
+      f_source,
+      f_overlay,
       f_layer;
 
+  f_overlay    = Design.r_overlay;
+  f_source     = Design.roofpeak_source;
+  f_layer      = Layers.r_layer;
   f_collection = new ol.Collection([]);
 
-  // TODO:
+  Client.listen('roofpeak', function (feature) {
+    var removeus = f_source.getFeatures()
+    removeus.forEach(function(f) {
+      f_source.removeFeature(f);
+    })
 
-  // dev hacks //
-  var wkt = new ol.format.WKT();
+    // remap the feature
+    remapFeature(feature);
+  })
 
-  // end hacks //
+  function roofArea (feature) {
 
-  var f_source = new ol.source.Vector({
-    features: f_collection,
-  });
-
-  if (Configurator.map()) {
-    createRoofpeakLayer();
-  } else {
-    Client.listen('Configurator: Map ready', createRoofpeakLayer);
+    return remapFeature(feature);
   }
 
-  function createRoofpeakLayer () {
-    f_layer = new ol.layer.Vector({
-      source: f_source,
-      projection: Configurator.map().getView().getProjection(),
-      style:  StyleService.remap,
-      name: 'roof_area_layer',
-    });
-  }
-
-  function setTarget (element) {
-    // set the map's target to render in browser
-    map.setTarget(element);
-  }
-
-  var f_overlay = new ol.FeatureOverlay({
-        style:  StyleService.remapHighlight,
-      });
-
-  function roofArea (ol_map, target_element, feature) {
-    var projection = Configurator.map().getView().getProjection();
-    // TODO: restore this function from the now defunct MapService
-    map = new ol.Map({
-      view: new ol.View({
-        projection: projection,
-        center: ol.extent.getCenter(projection.getExtent()),
-        zoom: Configurator.map().getView().getZoom(),
-        }),
-    // map = MapService.setRoofmap({
-    // view: new ol.View({
-    //   projection: projection,
-    //   center: ol.extent.getCenter(projection.getExtent()),
-    //   zoom: 0,
-    // }),
-      extent: projection.getExtent(),
-      layers: [f_layer],
-      overlays: [f_overlay],
-      target: target_element[0],
-      interactions: [],
-      controls: [],
-    });
-
-    map.setSize(ol_map.getSize());
-    remapFeature(map, feature);
-
-    return map;
-  }
-
-// control the map
-
-  function remapFeature (map, feature) {
-    // get the view...
-    var view = map.getView();
-    // turn feature into constituent parts
+  function remapFeature (feature) {
+    if (!feature) {
+      return Client.listen('areas in collection', function function_name (f) {
+        remapFeature(f);
+      })
+    }
     var feature_parts = deconstructFeat(feature);
     f_source.addFeatures(feature_parts.point);
     f_source.addFeatures(feature_parts.segment);
-    // map.getView().fitGeometry(
-    //   feature.getGeometry(),
-    //   map.getSize(),
-    //   // pad the edges, this is a target for interface optimization
-    //   // TODO: pass the `font-size` of the `<body>` as an argument to this function; use it to set the padding to achieve a responsive layout for the remapFeature
-    //   {
-    //     padding: [35, 35, 35, 35],
-    //   }
-    // );
   }
 
 // create new features
-
   function construct (wkt_arr, style_param) {
     // for each on array,
-
     var feat;
     var txt;
     var result = [];
     if (style_param === "corner") {
       txt = makePointTxt(wkt_arr);
-      feat = featFromTxt(txt, "corner");
+      feat = AreaService.featFromTxt(txt, "corner");
 
       result.push(feat);
     } else if (style_param === "segment") {
       txt = makeLineStringTxt(wkt_arr[0], wkt_arr[1]);
-      feat = featFromTxt(txt, "segment");
+      feat = AreaService.featFromTxt(txt, "segment");
 
       result.push(feat);
     }
@@ -151,7 +96,7 @@ function MapFactory_($rootScope, MapService, StyleService, Configurator, Client 
 
   function deconstructFeat (feature) {
 
-    var wkt_txt = wkt.writeFeature(feature);
+    var wkt_txt = AreaService.getWkt(feature);
     // make points & line segments from the original feature
 
     var pts_txt_arr = polygonToPoints(wkt_txt);

@@ -30,12 +30,30 @@ function Layers_(Design, Styles, AreaService, Client) {
     style:  Styles.highlightStyleFunction,
   });
 
+  // layer for roofpeak
+  r_layer = new ol.layer.Vector({
+    source: Design.roofpeak_source,
+    style:  Styles.remap,
+    name: 'roof_area_layer',
+  });
+
+
+  modify_overlay = Design.modify_overlay;
+  roofpeak_overlay =  Design.roofpeak_overlay;
+
+  // var modify_overlay = new ol.FeatureOverlay({
+  //   features: Design.areas_collection,
+  //   style:    Styles.highlightStyleFunction,
+  // })
+
   areas_collection.on('add', function (e) {
     // add to sources
     feature = e.element;
     feature = AreaService.wireUp(0, feature);
     draw_source.addFeature(feature);
-    modify_source.addFeature(feature);
+    // modify_source.addFeature(feature);
+    modify_overlay.addFeature(feature);
+    Client.emit('areas in collection', feature)
   });
 
   areas_collection.on('remove', function (e) {
@@ -43,7 +61,8 @@ function Layers_(Design, Styles, AreaService, Client) {
     var feature = e.element;
     Design.ref().child('areas/0/wkt').remove()
     draw_source.removeFeature(feature);
-    modify_source.removeFeature(feature);
+    // modify_source.removeFeature(feature);
+    modify_overlay.removeFeature(feature);
   });
 
   // broadcast to the templates to enable/disable clicking of "next" button
@@ -55,7 +74,7 @@ function Layers_(Design, Styles, AreaService, Client) {
   Design.rx_areas.subscribe(function (area) {
     if (area && areas_collection.getLength()) {
       // we have a message, and a feature on the client
-      if (area === 'removed by client') {
+      if (area === 'removed by client') { // TODO: this should be a global Var for Remove Feature From Client
         // sent by 'clear polygon' button
         areas_collection.pop();
         Client.emit('Stages: stage', 'back'); // TODO: move this to a subscription in StagesCtrl
@@ -72,14 +91,20 @@ function Layers_(Design, Styles, AreaService, Client) {
       feature = AreaService.featFromTxt(area.wkt, 'area');
       return areas_collection.push(feature);
     }
+    else if (area === null && areas_collection.getLength()) {
+      Design.rx_areas.onNext('removed by client');
+    }
   });
 
   layers = {
     draw : l_draw,
     modify: l_modify,
-    array: [ l_draw, l_modify ],
+    roofpeak: r_layer,
+    roofpeak_overlay: Design.roofpeak_overlay,
+    collection: new ol.Collection(),
     areas_collection:  areas_collection,
     rx_drawcount: rx_drawcount,
+    modify_overlay: Design.modify_overlay,
   };
 
   return layers;

@@ -7,7 +7,7 @@
 
 ================================================== */
 
-angular.module('flannel').factory('TemplateConfig', TemplateConfig_);
+angular.module('flannel').provider('TemplateConfig', TemplateConfig_);
 
 function TemplateConfig_ () {
 
@@ -23,22 +23,22 @@ function TemplateConfig_ () {
         {
           staticLayout: true,
           step: 'zip-nearme',
-          partial: 'zip.html'
+          partial: 'zip.html',
         },
         {
           staticLayout: false,
           step: 'address-roof',
-          partial: 'address.html'
+          partial: 'address.html',
         },
         {
           staticLayout: false,
           step: 'monthly-bill',
-          partial: 'bill.html'
+          partial: 'bill.html',
         },
         {
           staticLayout: true,
           step: 'intro-design',
-          partial: 'fork.html'
+          partial: 'fork.html',
         },
       ],
     },
@@ -124,12 +124,6 @@ function TemplateConfig_ () {
 
   partials = partial_constructor(config);
 
-  service = {
-    partials: partials,
-    partial: partial,
-    config: config,
-  };
-
   function partial_constructor (config) {
     var stage,
         name,
@@ -157,5 +151,17 @@ function TemplateConfig_ () {
     return partials[stg][stp];
   }
 
-  return service;
+  this.config = config;
+  this.partial = partial;
+  this.partials = partials;
+
+  this.$get = function() {
+    service = {
+      partials: partials,
+      partial: partial,
+      config: config,
+    };
+
+    return service;
+  };
 }

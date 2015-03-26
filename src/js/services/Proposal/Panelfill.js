@@ -1,7 +1,7 @@
 angular.module('flannel').service('Panelfill', PanelfillSvc);
 
 function PanelfillSvc ($http, $q) {
-  // TODO: Revisit naming of this and Proposal service... to whatever it should be. 
+  // TODO: Revisit naming of this and Proposal service... to whatever it should be.
 
   // this Service provides Api access
   var Panelfill = {};
@@ -50,9 +50,9 @@ function PanelfillSvc ($http, $q) {
       pitch: 0,
       points: points
     };
-    var msg = {}
+    var msg = {};
     msg.m = [area]; // this can be an array of areas
-    msg.o = [];             // likewise, this can be obstruction_aray
+    msg.o = [];     // likewise, this can be obstruction_array
 
 
     x = JSON.stringify(msg);
@@ -69,7 +69,6 @@ function PanelfillSvc ($http, $q) {
         deferred.resolve(panelfill_points);
       }
     });
-
     return deferred.promise;
   };
 

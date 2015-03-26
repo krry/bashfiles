@@ -4,16 +4,18 @@
   z-index: 2;
   background: $color-bkgd-footer;
   width: 100%;
+  position: relative;
 }
 
 .footer-fixed {
   bottom: 0;
   position: fixed;
+  box-shadow: 0 0 4px $color-header-shadow;
 }
 
 .footer .boilerplate {
   font-size: .55em;
-  padding: 1.375em 0 1em 1em;
+  padding: 1em;
   margin-bottom: 0;
   text-align: left;
   color: $grey-meh;

@@ -7,9 +7,9 @@
  *
  */
 
-angular.module('flannel').service('newConfigurator', ['Clientstream','View', 'Interactions', 'Layers', newConfigurator_]);
+angular.module('flannel').service('newConfigurator', ['$q','Clientstream','View', 'Interactions', 'Layers', 'MapFactory', newConfigurator_]);
 
-function newConfigurator_(Client, View, Interactions, Layers) {
+function newConfigurator_($q, Client, View, Interactions, Layers, MapFactory) {
   var gmap,
       omap,
       // defaults
@@ -36,9 +36,9 @@ function newConfigurator_(Client, View, Interactions, Layers) {
   });
 
   omap_options = {
-    layers: Layers.array,
+    layers: Layers.collection,
+    interactions: Interactions.collection,
     controls:  omap_controls,
-    interactions: [],
     view: View
   }
 
@@ -62,6 +62,7 @@ function newConfigurator_(Client, View, Interactions, Layers) {
   }
 
   function setTargetOfMaps(g_div, o_div) {
+
     console.debug('Configurator.setTarget(g_div, o_div) => g_div, o_div: ', g_div, o_div);
 
     // two target divs for the olmap and googlemap
@@ -96,8 +97,17 @@ function newConfigurator_(Client, View, Interactions, Layers) {
       google.maps.event.trigger(gmap, 'resize');
       omap.updateSize();
     });
-
+    maps.omap.updateSize()
     Client.emit('Configurator: target set');
+  }
+
+  var result = $q.defer()
+  Client.listen('Configurator: target set', function (argument) {
+    result.resolve(omap);
+  })
+
+  this.configurator = function() {
+    return result.promise
   }
 
   /* Interaction handlers */
@@ -105,35 +115,78 @@ function newConfigurator_(Client, View, Interactions, Layers) {
   // it is not responsible for managing the Area polygons.6
 
   this.drawAdd = function () {
-    omap.addInteraction(Interactions.draw);
-    omap.addLayer(Layers.draw);
+    Layers.collection.push(Layers.draw);
+    Interactions.collection.push(Interactions.draw);
+    if (typeof maps !== 'undefined') { if ( maps.omap) {maps.omap.updateSize()}}
   }
   this.drawDel = function () {
-    omap.removeInteraction(Interactions.draw);
+    Layers.collection.remove(Layers.draw);
+    Interactions.collection.remove(Interactions.draw);
+    if (typeof maps !== 'undefined') { if ( maps.omap) {maps.omap.updateSize()}}
   }
   this.modifyAdd = function () {
-    omap.removeLayer(Layers.draw);
-    omap.addLayer(Layers.modify);
-    omap.addInteraction(Interactions.modify);
+    // Layers.collection.remove(Layers.draw);
+    Layers.collection.push(Layers.modify);
+    Interactions.collection.push(Interactions.modify);
+    result.promise.then(function (map) {
+      map.updateSize()
+      Interactions.modify_overlay.setMap(maps.omap);
+    })
+    // if (typeof maps !== 'undefined') { if ( maps.omap) {
+    //   maps.omap.updateSize()
+    // }}
   }
   this.modifyDel = function () {
-    omap.removeInteraction(Interactions.modify);
-    omap.removeLayer(Layers.modify);
-    omap.addLayer(Layers.draw);
+    Interactions.collection.remove(Interactions.modify);
+    Layers.collection.remove(Layers.modify);
+    Interactions.modify_overlay.setMap(null)
+
+    if (typeof maps !== 'undefined') { if ( maps.omap) {
+      maps.omap.updateSize()
+    }}
   }
   this.dragpanAdd = function () {
-    omap.addInteraction(Interactions.dragpan);
+    Interactions.collection.push(Interactions.dragpan);
+    if (typeof maps !== 'undefined') { if ( maps.omap) {maps.omap.updateSize()}}
   }
   this.dragpanDel = function () {
-    omap.removeInteraction(Interactions.dragpan);
+    Interactions.collection.remove(Interactions.dragpan);
+    if (typeof maps !== 'undefined') { if ( maps.omap) {maps.omap.updateSize()}}
   }
   this.zoomAdd = function () {
-    omap.addInteraction(Interactions.zoom);
+    Interactions.collection.push(Interactions.zoom);
+    if (typeof maps !== 'undefined') { if ( maps.omap) {maps.omap.updateSize()}}
   }
   this.zoomDel = function () {
-    omap.removeInteraction(Interactions.zoom);
+    Interactions.collection.remove(Interactions.zoom);
+    if (typeof maps !== 'undefined') { if ( maps.omap) {maps.omap.updateSize()}}
   }
   this.redoArea = function() {
     Interactions.modify.clearArea();
+    if (typeof maps !== 'undefined') { if ( maps.omap) {maps.omap.updateSize()}}
+  }
+  this.roofpeakAdd = function() {
+    result.promise.then(function (map) {
+      map.updateSize()
+      // add the layer
+      map.addLayer(Layers.roofpeak)
+      // add the overlay
+      map.addOverlay(Layers.roofpeak_overlay)
+      // setup listers on the layer
+      $(map.getViewport()).addClass('roofpeak')
+
+    })
+  }
+  this.roofpeakDel = function() {
+    result.promise.then(function (map) {
+      map.updateSize();
+      // remove the layer
+      map.removeLayer(Layers.roofpeak);
+      // remove the overlay
+      map.removeOverlay(Layers.roofpeak_overlay);
+      // disable listeners??
+      $(map.getViewport()).removeClass('roofpeak')
+
+    })
   }
 }

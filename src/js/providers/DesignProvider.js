@@ -76,7 +76,7 @@ function DesignProvider_ (FIREBASE_URL) {
     this.map_details.center = center;
   }
 
-  this.$get = [ "Session", "Clientstream", function designProviderFactory(Session, Client) {
+  this.$get = [ "Session", "Clientstream", "StyleService", function designProviderFactory(Session, Client, Styles) {
 
     var rx_center = new Rx.Subject();
     var rx_zoom = new Rx.Subject();
@@ -141,8 +141,15 @@ function DesignProvider_ (FIREBASE_URL) {
           center: map_center,
         },
         areas_collection: new ol.Collection(),
+        // sources
         draw_source:      new ol.source.Vector(),
         modify_source:    new ol.source.Vector(),
+        roofpeak_source:  new ol.source.Vector(),
+        // overlays
+        modify_overlay:   new ol.FeatureOverlay({style: Styles.highlightStyleFunction}),
+        roofpeak_overlay:   new ol.FeatureOverlay({style: Styles.remapHighlight}),
+        // streams
+
         rx_center:        rx_center,
         rx_zoom:          rx_zoom,
         rx_areas:         rx_areas,

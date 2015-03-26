@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="ins_x5F_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 286 143" enable-background="new 0 0 286 143" xml:space="preserve">
+<symbol  id="New_Symbol_40" viewBox="-69.2 -52.8 138.4 105.6">
+	<polygon fill="#CCCCCC" points="-68.9,22.8 -20.4,-5.1 -50.1,-52.5 	"/>
+	<polygon fill="#CCCCCC" points="50.1,52.5 20.4,5.1 68.9,-22.8 	"/>
+	<polygon fill="#999999" points="-68.9,22.8 -20.4,-5.1 20.4,5.1 50.1,52.5 	"/>
+	<polygon fill="#FFFFFF" points="-50.1,-52.5 -20.4,-5.1 20.4,5.1 68.9,-22.8 	"/>
+	<polygon fill="none" stroke="#4D4D4D" stroke-width="0.5" stroke-miterlimit="10" points="-68.9,22.8 -50.1,-52.5 68.9,-22.8 
+		50.1,52.5 	"/>
+	<g>
+		<g>
+			<polygon fill="#CCCCCC" stroke="#4D4D4D" stroke-width="0.5" stroke-miterlimit="10" points="11,10.8 14.7,-4.1 29.8,-0.6 
+				26,14.3 			"/>
+		</g>
+		<g>
+			<polygon fill="#333333" points="15.7,7.9 17.5,0.5 25.1,2.3 23.2,9.7 			"/>
+		</g>
+	</g>
+</symbol>
+<rect fill="#FFFFFF" width="286" height="143"/>
+<use xlink:href="#New_Symbol_40"  width="138.4" height="105.6" x="-69.2" y="-52.8" transform="matrix(1.0007 0 0 -1.0007 143.05 71.45)" overflow="visible"/>
+<g>
+	<g>
+		<text transform="matrix(1 0 0 1 27.0076 32.5181)" fill="#202323" font-family="'Apercu-Light'" font-size="13">worst area</text>
+	</g>
+	<g>
+		<g>
+			<path fill="none" stroke="#212222" stroke-miterlimit="10" d="M95,29.5c0,0,15.9-3.4,21.2,15.7"/>
+			<g>
+				<polygon fill="#212222" points="112.5,45 117.2,50.1 119.3,43.4 				"/>
+			</g>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		<text transform="matrix(1 0 0 1 199.7715 116.9492)" fill="#202323" font-family="'Apercu-Light'" font-size="13">best area</text>
+	</g>
+	<g>
+		<g>
+			<path fill="none" stroke="#212222" stroke-miterlimit="10" d="M194.1,113.7c0,0-15.9,3.4-21.2-15.7"/>
+			<g>
+				<polygon fill="#212222" points="176.6,98.2 171.9,93.1 169.8,99.8 				"/>
+			</g>
+		</g>
+	</g>
+</g>
+</svg>

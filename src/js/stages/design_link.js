@@ -19,12 +19,22 @@ angular.module('design_link',[]).config(["$stateProvider", function ($stateProvi
           var vm = this;
           var user_id,
               session_key;
+
           session_ref_key = $stateParams.session_ref_key;
+
           vm.loadUserSession = function(){
             Clientstream.emit('ODA: Request session',session_ref_key);
-            $state.go('flannel.home');
+            $state.go('flannel.home.zip-nearme');
           }
         },
+      },
+      'header@': {
+        templateUrl: 'templates/header.html',
+        controller: 'NavCtrl as nav',
+      },
+      'footer@': {
+        templateUrl: 'templates/footer.html',
+        controller: 'FooterCtrl as footer',
       },
     },
   })

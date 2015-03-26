@@ -22,6 +22,7 @@
   "SFDCSECRETTOKEN": "4wA0xsJPpxziT6RTzG838eoGS",
   "SFDCRECORDTYPEID": "012180000008VBfAAM",
   "CLIENT": {
+    "ENV": "development",
     "MINIFIED": "false",
     "URL_ROOT": "localhost:8100",
     "APP_TITLE": "FLNL • DEV",

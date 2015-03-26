@@ -185,10 +185,10 @@ a.btn {
   }
 
   &.white.square.tiny.less-padded {
-    @include btn($color: $white, $size: .65rem, $corners: .25em, $pad: #{1em 2em});
+    @include btn($color: $white, $size: .7rem, $corners: .5em, $pad: #{1em 2em});
     width: 100%;
     border-width: 1px;
-    border-color: $grey-mid;
+    border-color: $grey-medium;
     border-style: solid;
     margin-top: 0;
   }
@@ -240,7 +240,7 @@ a.btn {
       color: $aqua-dark;
     }
   }
-  &.center.white.tiny.std {
+  &.center.white.tiny {
     margin: 3em auto 0;
   }
 }
@@ -286,6 +286,13 @@ label {
   font-weight: 600;
   margin-top: 0.5em;
   margin-bottom: 0.625em;
+}
+
+label.field-label {
+  font-family: "Apercu Light";
+  text-transform: uppercase;
+  color: $grey-dark;
+  //letter-spacing: 0.25em;
 }
 
 label abbr {
@@ -413,6 +420,7 @@ select {
     }
   }
 }
+
 
 // input placeholders
 ::placeholder {

@@ -2,7 +2,9 @@
   <div ng-hide="form.invalidTerritory || form.invalidZip">
     <h3 ng-show="form.prospect.neighbor_count">Wow! <span id="neighbor_count" ng-bind="form.prospect.neighbor_count">hundreds</span> of your neighbors near&nbsp;<fln-input-city></fln-input-city>&nbsp;<fln-input-state></fln-input-state>&nbsp;have gone solar with us. Let’s take a closer look at your&nbsp;house.</h3>
 
-    <h1 ng-hide="form.prospect.neighbor_count">Let’s take a closer look at your house.</h1>
+    <h1 ng-show="!form.prospect.neighbor_count && form.finalNearMeData">Be the first in your neighborhood to go solar!</h1>
+
+    <h1 ng-show="!form.prospect.neighbor_count && !form.finalNearMeData">Let’s take a closer look at your house.</h1>
   </div>
 
   <h1 ng-show="form.invalidTerritory">We're not in that neighborhood yet. Care to try another?</h1>
@@ -14,7 +16,7 @@
         <fln-input-street focus="true"></fln-input-street>
         <button
           class="btn gold nested round"
-          ng-click="form.checkAddress(form.prospect.street)"
+          ng-click="form.checkAddress(form.prospect().street)"
           tabindex="-1">
           <span class="icon search"></span>
         </button>

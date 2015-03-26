@@ -32,16 +32,21 @@ var zoom_options = {
 directives
 .directive('flnControlZoom', flnControlZoom_ );
 
-function flnControlZoom_ (newConfigurator) {
+function flnControlZoom_ (newConfigurator, Interactions) {
   return {
     restrict: 'E',
     link: function flnControlZoomLink (scope, ele, attrs) {
 
       var zoomControl = new ol.control.Zoom(zoom_options);
-      newConfigurator.map.omap.addControl(zoomControl);
+
+      newConfigurator.configurator().then(function (map) {
+          map.addControl(zoomControl);
+      })
 
       ele.on('$destroy', function (e) {
-        newConfigurator.map.omap.removeControl(zoomControl);
+        newConfigurator.configurator().then(function (map) {
+          map.removeControl(zoomControl);
+      })
       });
     },
   };

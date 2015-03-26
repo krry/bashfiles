@@ -74,8 +74,9 @@
     box-shadow: none;
 
     @if $color == $white {
-      color: $grey-darker;
-      background-color: darken($color, 3%);
+      color: $grey-dark;
+      border-color: $grey-mid;
+      background-color: darken($color, 1%);
     }
   }
 

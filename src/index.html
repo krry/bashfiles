@@ -42,8 +42,8 @@
   <!-- openlayers v3 -->
   <!-- <script src="lib/ol.js"></script> -->
   <!-- <script src="lib/ol-debug.js"></script> -->
-  <!-- <script src="http://openlayers.org/en/v3.3.0/build/ol-debug.js" type="text/javascript"></script> -->
-  <script src="http://openlayers.org/en/v3.2.1/build/ol.js" type="text/javascript"></script>
+  <script src="http://openlayers.org/en/v3.3.0/build/ol-debug.js" type="text/javascript"></script>
+  <!-- <script src="http://openlayers.org/en/v3.2.1/build/ol.js" type="text/javascript"></script> -->
 
   <!-- jQuery -->
   <script src="lib/jquery.js"></script>
@@ -148,7 +148,8 @@
     </script>
 	<!-- End Google Tag Manager -->
 
-  <div fln-dev-tools ng-class="{shown: panelShown}" class="dev-drawer inverse"></div>
+  <div fln-dev-tools ng-show="app.isInDevMode" ng-class="{shown: devPanelShown}" class="dev-drawer inverse"></div>
+  <div fln-oda-tools ng-show="app.isInOdaMode" ng-class="{shown: odaPanelShown}" class="oda-drawer inverse"></div>
   <header ui-view name="header" id="header" class="header"></header>
   <form fln-form novalidate name="prospectForm" class="prospect-form" ng-class="{ 'form-fixed': stages.fixed }">
     <main ui-view name="main" id="main" class="main" ng-class="{ 'scroll-y': stages.proposal, 'main-fixed': stages.fixed }"></main>
@@ -172,8 +173,8 @@
   <script src="lib/nouislider.min.js"></script>
 
   <!-- firebase related -->
-  <script src="lib/firebase-debug.js"></script>
-  <!-- <script src="lib/firebase.js"></script> -->
+  <!-- <script src="lib/firebase-debug.js"></script> -->
+  <script src="lib/firebase.js"></script>
   <script src="lib/angularfire.js"></script>
   <!-- <script src="lib/angularfire.min.js"></script> -->
   <script src="lib/rx.angular.js"></script>

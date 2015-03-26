@@ -1,0 +1,154 @@
+<!-- main.html for qualify stage -->
+<div fln-share class="overlay only col full center contain proposal-page">
+  <div class="row padded">
+    <div class="col full center">
+      <h1>This is you on solar.</h1>
+    </div>
+  </div>
+  <div class="proposal row">
+    <div fln-panelfill class="col fifth two">
+      <!-- TODO: render the design here instead of this placeholder -->
+    </div>
+    <div class="col fifth three">
+      <div class="row">
+        <div class="col third center padded utes">
+          <label for="current_rate">Current Utility Rate</label>
+          <figure>
+            <span id="current_rate" class="cents">{{ 100* share.prospect.utilityRate | number: 1}}</span>
+          </figure>
+          <label class="units">per kwh average in<br>your zip code</label>
+        </div>
+        <div class="col third center padded">
+          <label for="scty_rate">SolarCity Cost</label>
+          <figure>
+            <span id="scty_rate" class="cents">{{ 100 * share.prospect.sctyRate | number: 1 }}</span>
+          </figure>
+          <label class="units">per kWh with our recommended financing plan</label>
+        </div>
+        <div class="col third center padded">
+          <label for="est_savings">Estimated Savings</label>
+          <figure>
+            <span id="est_savings" class="dollars">{{ share.prospect.firstYearSavings | number: 0 }}</span>
+          </figure>
+          <label class="units">year one</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col half center padded">
+          <label for="ppa_plan">No Upfront Cost</label>
+          <figure>
+            <span id="ppa_plan" class="dollars">{{share.prospect.upfrontCost}}</span>
+          </figure>
+          <label class="units">with our recommended<br>financing plan</label>
+        </div>
+        <div class="col half center padded">
+          <label for="est_energy_mix">Estimated Energy Mix</label>
+          <figure class="chart-tray">
+            <span id="est_energy_mix" class="icon pie"></span>
+            <canvas id="powerRatioChart" width="48" height="48"></canvas>
+          </figure>
+          <label class="units">{{ share.prospect.percentSolar | number: 0 }}% clean solar power<br>{{ share.prospect.percentUtility | number: 0 }}% utility power</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- TODO: build a helper class to put down arrows in .jump-down <hr>s -->
+  <!-- <hr class="jump-down"> -->
+  <div class="row padded">
+    <div class="col full center">
+      <span class="icon down-blk"></span>
+    </div>
+  </div>
+  <div class="row padded center">
+    <div class="col third two center">
+      <br>
+      <h1><small>Signing up with America's #1 full-service solar provider means premium<br> service every step of the way.</small></h1>
+      <br>
+    </div>
+  </div>
+  <div class="row padded">
+    <div class="col half padded">
+      <div class="row">
+        <div class="col fifth center">
+          <span class="icon benefit-icons icon-house"></span>
+        </div>
+        <div class="col fifth four">
+          <strong>Unmatched aesthetics</strong>
+          <p>Reducing your home's energy costs shouldn't also reduce its curb appeal. Our ZEP mounting system seamlessly integrates with your roof for a low-profile design that gives your home a sleek look.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col half padded">
+      <div class="row">
+        <div class="col fifth center">
+          <span class="icon benefit-icons icon-coin"></span>
+        </div>
+        <div class="col fifth four">
+          <strong>Ongoing Rewards</strong>
+          <p>We make sharing the benefits of clean energy easy and fun. Our Solar Ambassador program rewards you for every referral who signs up with SolarCity. You can build a business and help the environment!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row padded">
+    <div class="col half padded">
+      <div class="row">
+        <div class="col fifth center">
+          <span class="icon benefit-icons icon-document"></span>
+        </div>
+        <div class="col fifth four">
+          <strong>Lifetime system protection</strong>
+          <dl class="horizontal">
+            <dt>System monitoring</dt>
+            <dd>Our exclusive 24-7 monitoring ensures your system is always working. It'll even alert us if problems arise.</dd>
+            <dt>Warranty for life</dt>
+            <dd>We cover any damage and take care of repairs for the life of our agreement.</dd>
+            <dt>Performance guarantee</dt>
+            <dd>We make sure the system is protected and performing as promised. It's clean energy with no worries!</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="col half padded">
+      <div class="row">
+        <div class="col fifth center">
+          <span class="icon benefit-icons icon-bulb"></span>
+        </div>
+        <div class="col fifth four">
+          <strong>Environmental</strong>
+          <p>Over 20 years, the average 5 kWh solar power system offsets 50 tons of CO<sub>2</sub>. That's the equivalent of:</p>
+          <ul>
+            <li>Driving a car 125,000 miles</li>
+            <li>CO<sub>2</sub> absorbed by 60 trees</li>
+            <li>40,000 gallons of water used to make electricity</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row padded">
+    <div class="col half padded">
+      <div class="row">
+        <div class="col fifth center">
+          <span class="icon benefit-icons icon-graph"></span>
+        </div>
+        <div class="col fifth four">
+          <strong>Cutting-edge insights</strong>
+          <p>Our custom app lets you see everything from system production to home energy consumption to when your site surveyor is scheduled to arrive. It's a one-stop shop to keep everything you need to know about your system in the palm of your hand.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col half padded">
+      <div class="row">
+        <div class="col fifth center">
+          <span class="icon benefit-icons icon-palm"></span>
+        </div>
+        <div class="col fifth four">
+          <strong>GivePower</strong>
+          <p>Your decision to go solar also helps bring the gift of power to the developing world. For every megawatt of solar energy SolarCity installs on customers' homes, we'll donate a clean energy system to a school in need through the GivePower program. To date, GivePower has brought light to over 400 schools. And we're just getting started.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="fine-print">The figures on this page are only estimates, subject to change after review from a solar consultant. System size and production may be affected by shading, roof type, compliance fire codes and other factors. A solar power system is customized for your home, so pricing and savings vary based on location, system size, government rebates and local utility rates. Savings on your total electricity costs is not guaranteed. Financing terms vary by location and are not available in all areas. $0 due upon contract signing. No security deposit required. A 3 kW system starts at $25-$100 per month with an annual increase of 0-2.9% each year for 20-30 years, on approved credit. SolarCity Corporation will repair or replace broken warranted components.</div>
+</div>
