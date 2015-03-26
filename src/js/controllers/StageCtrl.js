@@ -98,7 +98,7 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
       .subscribe(streamSubscription);
     // anounce you're watching the streams, send the new data
     Client.emit('Stages: subscribed to statestream', session_data);
-    if ( $location.path().indexOf('share') > -1 && (session_data.state.stage !== 0 || session_data.state.step !== 0 )) {
+    if ( $location.path().indexOf('share') < 0 && (session_data.state.stage !== 0 || session_data.state.step !== 0 )) {
       Modal.set(true);
       return Modal.activate('continue');
     }
