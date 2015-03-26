@@ -7,9 +7,9 @@
  *
  */
 
-angular.module('flannel').service('newConfigurator', ['$q','Clientstream','View', 'Interactions', 'Layers', newConfigurator_]);
+angular.module('flannel').service('newConfigurator', ['$q','Clientstream','View', 'Interactions', 'Layers', 'MapFactory', newConfigurator_]);
 
-function newConfigurator_($q, Client, View, Interactions, Layers) {
+function newConfigurator_($q, Client, View, Interactions, Layers, MapFactory) {
   var gmap,
       omap,
       // defaults
@@ -128,7 +128,7 @@ function newConfigurator_($q, Client, View, Interactions, Layers) {
     // Layers.collection.remove(Layers.draw);
     Layers.collection.push(Layers.modify);
     Interactions.collection.push(Interactions.modify);
-    result.promise.then(function function_name (map) {
+    result.promise.then(function (map) {
       map.updateSize()
       Interactions.modify_overlay.setMap(maps.omap);
     })
@@ -164,5 +164,25 @@ function newConfigurator_($q, Client, View, Interactions, Layers) {
   this.redoArea = function() {
     Interactions.modify.clearArea();
     if (typeof maps !== 'undefined') { if ( maps.omap) {maps.omap.updateSize()}}
+  }
+  this.roofpeakAdd = function() {
+    result.promise.then(function (map) {
+      map.updateSize()
+      // add the layer
+      map.addLayer(Layers.roofpeak)
+      // add the overlay
+      map.addOverlay(Layers.roofpeak_overlay)
+      // setup listers on the layer
+    })
+  }
+  this.roofpeakDel = function() {
+    result.promise.then(function (map) {
+      map.updateSize();
+      // remove the layer
+      map.removeLayer(Layers.roofpeak);
+      // remove the overlay
+      map.removeOverlay(Layers.roofpeak_overlay);
+      // disable listeners??
+    })
   }
 }

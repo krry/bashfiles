@@ -40,6 +40,9 @@ function Interactions_(Design, Styles, AreaService) {
   // get the feature, and pass it along on the wire
   interactions.draw.on('drawend', function(e){
     var feature = e.feature;
+    // DEV: TODO: because we don't remove the original feature, we don't have a
+    // way to track the event of removing a polygon. instead the app thinks we just
+    // change the existing polygon to a new polygon.
     Design.ref().child('areas').child('0').set({ // HACK: one area only
       wkt: AreaService.getWkt(feature),
     })

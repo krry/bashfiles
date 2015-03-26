@@ -5,100 +5,58 @@
  *
  */
 
-angular.module('flannel').factory('MapFactory', ['$rootScope','MapService', 'StyleService', 'Design', 'Clientstream', 'AreaService', MapFactory_]);
+angular.module('flannel').factory('MapFactory', ['$rootScope','MapService', 'StyleService', 'Design', 'Clientstream', 'AreaService', 'Layers', MapFactory_]);
 
-function MapFactory_($rootScope, MapService, StyleService, Design, Client , AreaService) {
+function MapFactory_($rootScope, MapService, StyleService, Design, Client , AreaService, Layers) {
 
   var map,
       f_collection,
+      f_source,
+      f_overlay,
       f_layer;
 
+  f_overlay    = Design.r_overlay;
+  f_source     = Design.roofpeak_source;
+  f_layer      = Layers.r_layer;
   f_collection = new ol.Collection([]);
 
-  // TODO:
-
-  // dev hacks //
-  var wkt = new ol.format.WKT();
-
-  // end hacks //
-
-  var f_source = new ol.source.Vector({
-    features: f_collection,
-  });
-
   if (typeof maps !== 'undefined') {
-    createRoofpeakLayer();
+    // createRoofpeakLayer();
   } else {
-    Client.listen('Configurator: Map ready', createRoofpeakLayer);
+    // Client.listen('Configurator: Map ready', createRoofpeakLayer);
   }
 
-  function createRoofpeakLayer () {
-    f_layer = new ol.layer.Vector({
-      source: f_source,
-      projection: maps.omap.getView().getProjection(),
-      style:  StyleService.remap,
-      name: 'roof_area_layer',
-    });
-  }
+  // Design.areas_collection.on('add', function (e) {
+  //   var feature = e.element;
+  //   console.log("feature added and observed by mapfactory")
+  //   // remap the feature
+  //   remapFeature(feature);
+  //   // add the feature's parts as .set('parttype') on the feature
+  // })
 
-  function setTarget (element) {
-    // set the map's target to render in browser
-    map.setTarget(element);
-  }
+  f_source.on('addfeature', function  (fe) {
+    console.log('feature added to f_source', fe)
+  })
 
-  var f_overlay = new ol.FeatureOverlay({
-        style:  StyleService.remapHighlight,
-      });
 
-  function roofArea (ol_map, target_element, feature) {
-    var projection = maps.omap.getView().getProjection();
-    // TODO: restore this function from the now defunct MapService
-    // map = new ol.Map({
-    //   view: new ol.View({
-    //     projection: projection,
-    //     center: ol.extent.getCenter(projection.getExtent()),
-    //     zoom: maps.omap.getView().getZoom(),
-    //     }),
-    // // map = MapService.setRoofmap({
-    // // view: new ol.View({
-    // //   projection: projection,
-    // //   center: ol.extent.getCenter(projection.getExtent()),
-    // //   zoom: 0,
-    // // }),
-    //   extent: projection.getExtent(),
-    //   layers: [f_layer],
-    //   overlays: [f_overlay],
-    //   target: target_element[0],
-    //   interactions: [],
-    //   controls: [],
-    // });
+  function roofArea (feature) {
+    // get the feature on the collection
+    // pass teh feature to the remap
+    // put the results in the correct layers
+    remapFeature(feature);
+    // these two adds should be removed from this function
+    // map.addLayer(f_layer)
+    // map.addOverlay(f_overlay)
     //
-    // map.setSize(ol_map.getSize());
-    map = maps.omap
-    remapFeature(map, feature);
-    map.addLayer(f_layer)
-    map.addOverlay(f_overlay)
     return map;
   }
 
 // control the map
 
-  function remapFeature (map, feature) {
-    // get the view...
-    var view = map.getView();
-    // turn feature into constituent parts
+  function remapFeature (feature) {
     var feature_parts = deconstructFeat(feature);
     f_source.addFeatures(feature_parts.point);
     f_source.addFeatures(feature_parts.segment);
-    // map.getView().fitGeometry(
-    //   feature.getGeometry(),
-    //   map.getSize(),
-    //   // pad the edges, this is a target for interface optimization
-    //   // TODO: pass the `font-size` of the `<body>` as an argument to this function; use it to set the padding to achieve a responsive layout for the remapFeature
-    //   {
-    //     padding: [35, 35, 35, 35],
-    //   }
-    // );
   }
 
 // create new features
@@ -111,12 +69,12 @@ function MapFactory_($rootScope, MapService, StyleService, Design, Client , Area
     var result = [];
     if (style_param === "corner") {
       txt = makePointTxt(wkt_arr);
-      feat = featFromTxt(txt, "corner");
+      feat = AreaService.featFromTxt(txt, "corner");
 
       result.push(feat);
     } else if (style_param === "segment") {
       txt = makeLineStringTxt(wkt_arr[0], wkt_arr[1]);
-      feat = featFromTxt(txt, "segment");
+      feat = AreaService.featFromTxt(txt, "segment");
 
       result.push(feat);
     }
@@ -153,7 +111,7 @@ function MapFactory_($rootScope, MapService, StyleService, Design, Client , Area
 
   function deconstructFeat (feature) {
 
-    var wkt_txt = wkt.writeFeature(feature);
+    var wkt_txt = AreaService.getWkt(feature);
     // make points & line segments from the original feature
 
     var pts_txt_arr = polygonToPoints(wkt_txt);
