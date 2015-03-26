@@ -139,8 +139,6 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
           area,
           coords;
 
-      console.log(bounds);
-
       // Bounds can be undefined even if the map is loaded but the tiles are not
       /* jshint eqnull:true */
       if (bounds == null) {
