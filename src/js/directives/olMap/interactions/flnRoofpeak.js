@@ -86,7 +86,7 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
             }
 
             Design.ref().child('areas').child('0').child('ridge').set(arrayOfPoints);
-            debugger;
+
 
             scope.$apply()
           } else {
