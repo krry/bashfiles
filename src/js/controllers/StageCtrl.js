@@ -91,6 +91,10 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
   $scope.view_sync = true;
 
   function bootstrapNewSession (session_data) {
+    var hasAdvanced = (session_data.state.stage !== 0 || session_data.state.step !== 0 ),
+        zipParam = getParameterByName('zip'),
+        isOnHome = $state.is('flannel.home.zip-nearme') || $state.is('flannel.home.address-roof');
+
     // bootstrap a new session, start it's streams up
     session_stream = Session.state_stream()
       .filter(function() { return $scope.view_sync; }) // don't listen to changes you're making
@@ -98,9 +102,19 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
       .subscribe(streamSubscription);
     // anounce you're watching the streams, send the new data
     Client.emit('Stages: subscribed to statestream', session_data);
-    if ( $location.path().indexOf('share') < 0 && (session_data.state.stage !== 0 || session_data.state.step !== 0 )) {
+
+    // Only show the continue modal if the user is on the home page (zip or address page) and has advanced in the flow
+    // Else, on other pages, we let that page's url take precedence
+    // Landing on the static proposal page will also prevent the modal from showing up
+    if (isOnHome && hasAdvanced) {
       Modal.set(true);
       return Modal.activate('continue');
+    }
+    // Advance to the address page if there is a zip parameter and the user hasn't advanced in the flow before
+    else if (zipParam && !hasAdvanced) {
+      setTimeout(function() {
+        Client.emit('check zip', zipParam);
+      }, 0);
     }
   }
 
@@ -278,5 +292,12 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
     }
 
     return partials;
+  }
+
+  function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
   }
 }
