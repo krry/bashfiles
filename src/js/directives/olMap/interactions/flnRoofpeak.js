@@ -48,7 +48,7 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
           // highlight && feature_overlay.removeFeature(highlight);
           // highlight = AreaService.featFromTxt(selected_wkt);
           highlight = selected_f;
-          feature_overlay.addFeature(selected_f);
+          feature_overlay.addFeature(highlight);
         } else {
           scope.roof_peak_chosen = false;
         }
