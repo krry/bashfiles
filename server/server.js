@@ -38,8 +38,10 @@ app.publicRoot = __dirname + '/../public';
 oneYear = 1*365.25*24*60*60*1000; // 1 yr = 31557600000ms
 
 app.use(cookieParser(nconf.get('FLANNEL_SECRET')));
+app.get('/', require('./controllers/appController.js')(app).index);
 app.use(express.static(app.publicRoot, {maxAge: oneYear}));
 app.settings.nconf = nconf;
+
 
 portfinder.getPort(function (err, port) {
   if (env === "development") {

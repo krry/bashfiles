@@ -21,6 +21,9 @@ function Interactions_(Design, Styles, AreaService) {
 
 
   interactions = {};
+  interactions.collection = new ol.Collection();
+  interactions.controls   = new ol.Collection();
+
   dragpan_opt = { enableKinetic: true };
   interactions.current = null;
   // dragpan
@@ -37,15 +40,25 @@ function Interactions_(Design, Styles, AreaService) {
   // get the feature, and pass it along on the wire
   interactions.draw.on('drawend', function(e){
     var feature = e.feature;
+    // DEV: TODO: because we don't remove the original feature, we don't have a
+    // way to track the event of removing a polygon. instead the app thinks we just
+    // change the existing polygon to a new polygon.
     Design.ref().child('areas').child('0').set({ // HACK: one area only
       wkt: AreaService.getWkt(feature),
     })
   });
 
   // modify
-  interactions.modify = new ol.interaction.Modify({
+  var modify_overlay = new ol.FeatureOverlay({
     features: Design.areas_collection,
+    style:    Styles.highlightStyleFunction,
+  })
+  interactions.modify_overlay = modify_overlay;
+  interactions.modify = new ol.interaction.Modify({
+    // features: Design.areas_collection,
+    features: modify_overlay.getFeatures(),
     style: Styles.highlightStyleFunction,
+
     // the SHIFT key must be pressed to delete vertices, so
     // that new vertices can be drawn at the same position
     // of existing vertices

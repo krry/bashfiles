@@ -13,9 +13,9 @@
 
 ================================================== */
 
-controllers.controller("StageCtrl", ["$scope", "$state", "$timeout", "TemplateConfig", "Session", "Clientstream", "ModalService", StageCtrl_]);
+controllers.controller("StageCtrl", ["$scope", "$location", "$state", "$timeout", "TemplateConfig", "Session", "Clientstream", "ModalService", StageCtrl_]);
 
-function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal) {
+function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Client, Modal) {
   var vm,
       session_ref,
       stage,
@@ -98,7 +98,7 @@ function StageCtrl_($scope, $state, $timeout, Templates, Session, Client, Modal)
       .subscribe(streamSubscription);
     // anounce you're watching the streams, send the new data
     Client.emit('Stages: subscribed to statestream', session_data);
-    if (session_data.state.stage !== 0 || session_data.state.step !== 0) {
+    if ( $location.path().indexOf('share') < 0 && (session_data.state.stage !== 0 || session_data.state.step !== 0 )) {
       Modal.set(true);
       return Modal.activate('continue');
     }
