@@ -3,6 +3,8 @@
 // =-=-=-=-=-=-=-=-=-
 // SCTY COLOR PALETTE
 
+
+$green-link:    #2eb17b;  
 $gold:          #ffbd48;  // rgb(238, 177, 017)  hsl(43.4, 86.7%, 50%)
 $green:         #008752;  // rgb(000, 135, 082)  hsl(156.4, 100%, 26.5%)
 $green-bright:  #13ab4a;  // rgb(019, 171, 074)  hsl(141.7, 80%, 37.3%)
@@ -83,8 +85,8 @@ $color-bkgd-main:            $white;
 $color-bkgd-footer:          $grey-lightest;
 $color-bkgd-primary:         $white;
 
-$color-link-main:            $green-dark;
-$color-link-visited-main:    $green-dark;
+$color-link-main:            $green-link;
+$color-link-visited-main:    $green-link;
 
 $color-highlight:            $green-dark;
 
