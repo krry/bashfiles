@@ -21,6 +21,9 @@ function Interactions_(Design, Styles, AreaService) {
 
 
   interactions = {};
+  interactions.collection = new ol.Collection();
+  interactions.controls   = new ol.Collection();
+
   dragpan_opt = { enableKinetic: true };
   interactions.current = null;
   // dragpan
@@ -43,9 +46,16 @@ function Interactions_(Design, Styles, AreaService) {
   });
 
   // modify
-  interactions.modify = new ol.interaction.Modify({
+  var modify_overlay = new ol.FeatureOverlay({
     features: Design.areas_collection,
+    style:    Styles.highlightStyleFunction,
+  })
+  interactions.modify_overlay = modify_overlay;
+  interactions.modify = new ol.interaction.Modify({
+    // features: Design.areas_collection,
+    features: modify_overlay.getFeatures(),
     style: Styles.highlightStyleFunction,
+
     // the SHIFT key must be pressed to delete vertices, so
     // that new vertices can be drawn at the same position
     // of existing vertices

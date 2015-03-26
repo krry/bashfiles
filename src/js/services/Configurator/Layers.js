@@ -20,6 +20,8 @@ function Layers_(Design, Styles, AreaService, Client) {
   draw_source      = Design.draw_source;
   modify_source    = Design.modify_source;
 
+
+
   l_draw = new ol.layer.Vector({
     source: draw_source,
     style:  Styles.defaultStyleFunction,
@@ -30,12 +32,22 @@ function Layers_(Design, Styles, AreaService, Client) {
     style:  Styles.highlightStyleFunction,
   });
 
+
+  var modify_overlay = Design.modify_overlay;
+
+  // var modify_overlay = new ol.FeatureOverlay({
+  //   features: Design.areas_collection,
+  //   style:    Styles.highlightStyleFunction,
+  // })
+
   areas_collection.on('add', function (e) {
     // add to sources
     feature = e.element;
     feature = AreaService.wireUp(0, feature);
     draw_source.addFeature(feature);
-    modify_source.addFeature(feature);
+    // modify_source.addFeature(feature);
+    modify_overlay.addFeature(feature);
+    Client.emit('areas in collection', feature)
   });
 
   areas_collection.on('remove', function (e) {
@@ -80,9 +92,10 @@ function Layers_(Design, Styles, AreaService, Client) {
   layers = {
     draw : l_draw,
     modify: l_modify,
-    array: [ l_draw, l_modify ],
+    collection: new ol.Collection(),
     areas_collection:  areas_collection,
     rx_drawcount: rx_drawcount,
+    modify_overlay: Design.modify_overlay,
   };
 
   return layers;
