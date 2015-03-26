@@ -24,11 +24,41 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
           feature_overlay,
           highlight;
 
+      scope.roof_peak_chosen = false;
       feature_overlay = Design.roofpeak_overlay;
 
+      Design.rx_selectedpeak.subscribe(subToPeakSelected);
+      function subToPeakSelected (ridgevalue) {
+        var selected_wkt, selected_f
+        if (ridgevalue && ridgevalue.hasOwnProperty(0)) {
+          // validate the button that lets user progress forward
+          scope.roof_peak_chosen = true;
+          // create feature from details
+          if (ridgevalue.hasOwnProperty(1)) {
+            // create a line segment string
+            selected_wkt = "LINESTRING(" + ridgevalue[0] + ',' + ridgevalue[1] + ")";
+            selected_f = AreaService.featFromTxt(selected_wkt, 'segment');
+          } else {
+            // create a point string
+            selected_wkt = "POINT(" + ridgevalue[0] + ")";
+            selected_f = AreaService.featFromTxt(selected_wkt, 'corner');
+          }
+          // highlight the view
+          highlight && feature_overlay.getFeatures().remove(highlight)
+          // highlight && feature_overlay.removeFeature(highlight);
+          // highlight = AreaService.featFromTxt(selected_wkt);
+          highlight = selected_f;
+          feature_overlay.addFeature(highlight);
+        } else {
+          scope.roof_peak_chosen = false;
+        }
+        console.log( "selected wkt \n\n" +  selected_wkt)
+        scope.$apply();
+      }
       // save the map
       newConfigurator.configurator().then(function(map) {
         base_map = map;
+        $(map.getViewport()).addClass('roofpeak')
       });
 
       // hide "next" button until user selects
@@ -47,11 +77,9 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
               return f;
             });
 
-            if (feature !== highlight) {
+            if (feature !== highlight && !scope.roof_peak_chosen) {
               if (highlight) {
                 feature_overlay.removeFeature(highlight);
-                // TODO: figure out if deleting a variable is dangerous
-                delete highlight;
               }
               if (feature) {
                 feature_overlay.addFeature(feature);
@@ -69,25 +97,24 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
             return f;
           });
           // TODO: do something with clicked shape.
+          var testLineString, arrayOfPoints;
           if (target_f &&
               AreaService.getWkt(target_f).split('POLYGON').length == 1) {  //this second condition covers if a polygon was selected
-            // show the "next" button
-            scope.roof_peak_chosen = true;
             console.log(AreaService.getWkt(target_f));
 
-            var testLineString = AreaService.getWkt(target_f).split('LINESTRING');
-            var arrayOfPoints = [];
-            if (testLineString.length == 1) { //then we have a point
+            testLineString = AreaService.getWkt(target_f).split('LINESTRING');
+            arrayOfPoints = [];
+            if (testLineString.length === 1) { //then we have a point
               arrayOfPoints = AreaService.getWkt(target_f).split('POINT')[1].replace('(', '').replace(')', '').split('TRAVIS');
-
             }
             else {  //we have a line!
               arrayOfPoints = AreaService.getWkt(target_f).split('LINESTRING')[1].replace('(', '').replace(')', '').split(',');
             }
-
             Design.ref().child('areas').child('0').child('ridge').set(arrayOfPoints);
 
 
+            feature_overlay.addFeature(target_f);
+            // debugger;
             scope.$apply()
           } else {
             console.log('can\'t proceed if you don\'t click a roofpeak, brah');
@@ -95,44 +122,11 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
         });
       })
 
-
-
-      // remove listeners and such
       element.on('$destroy', function dragPanDestroy (e) {
+        // get rid of the peak layer & styling
         newConfigurator.roofpeakDel();
+
       });
-
-
-      function loadRoofpeak() {
-
-        base_map = maps.omap
-        old_view = base_map.getView();
-
-        feature = Design.areas_collection.item(0);
-        lay_over_element = $('#roof_peak');
-        lay_over_element.show();
-        ol_map = base_map;
-        roof_peak_map = MapFactory.roofArea(feature);
-
-
-
-        feature_overlay = roof_peak_map.getOverlays().getArray()[0];
-
-
-
-        roof_peak_map.setTarget(lay_over_element[0]);
-        lay_over_element.width(ol_map.getSize()[0]); // (jesse) HACK: we shouldn't have to do this... but we do.
-        roof_peak_map.updateSize();
-        element.on('$destroy', function () {
-          console.log('should remove the roofpeak now');
-          base_map.setView(old_view);
-          lay_over_element.html('');
-          lay_over_element.hide();
-          // remove the map
-          // save any details to firebase?
-        });
-      }
-
     }
   };
 }

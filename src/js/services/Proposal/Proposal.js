@@ -5,6 +5,8 @@
  */
 
 angular.module('flannel').service('Proposal', ['Session', 'Panelfill', 'Clientstream', Proposal_]);
+var proposal_map;
+
 
 function Proposal_(Session, Panelfill, Client) {
   // TODO: Revisit naming of this and Panelfill API service... to whatever it should be.
@@ -17,28 +19,44 @@ function Proposal_(Session, Panelfill, Client) {
     disableDefaultUI: true,
     keyboardShortcuts: false,
     draggable: false,
+  tilt: 45,
   };
 
   function getStarted(design_id) {
     if (Session.ref()) {
+    var ridge;
       // typical use case for user in flow
+    Session.ref().parent().parent().child('designs')
+    .child(Session.ref().key()).child('areas/0/ridge')
+      .once('value', function (ds) {
+          ridge = ds.exportVal();
+    });
+
       Session.ref().parent().parent().child('designs')
         .child(Session.ref().key()).child('areas/0/wkt')
           .once('value', function (ds) {
           var wkt_txt = ds.exportVal();
           console.log('wkt_txt in design', wkt_txt)
-          Panelfill.getFilled(wkt_txt)
+          Panelfill.getFilled(wkt_txt, ridge)
           .then(processTwoDArray);
       });
     } else {
       // share proposal link
+    var ridge;
+      // typical use case for user in flow
+    Session.ref().parent().parent().child('designs')
+    .child(Session.ref().key()).child('areas/0/ridge')
+      .once('value', function (ds) {
+          ridge = ds.exportVal();
+    });
+
       var ref = new Firebase('https://scty-int.firebaseio.com').child('designs')
         .child(design_id)
         .child('areas/0/wkt')
           .once('value', function (ds) {
             var wkt_txt = ds.exportVal();
             console.log('wkt_txt in design', wkt_txt)
-            Panelfill.getFilled(wkt_txt)
+            Panelfill.getFilled(wkt_txt, ridge)
             .then(processTwoDArray);
       });
     }
@@ -76,8 +94,9 @@ function Proposal_(Session, Panelfill, Client) {
   }
 
   this.setTarget = function setTarget(design_id) {
+    proposal_map = new google.maps.Map(document.getElementById('gmap'), map_options);
     getStarted(design_id);
-    map = new google.maps.Map(document.getElementById('gmap'), map_options);
+
     var bounds = new google.maps.LatLngBounds()
     Client.listen('panelfill', function function_name(p_array) {
       // for the map boundaries
@@ -92,10 +111,10 @@ function Proposal_(Session, Panelfill, Client) {
         bounds.extend(pt);
       }
 
-      map.setCenter(bounds.getCenter());
+      proposal_map.setCenter(bounds.getCenter());
 
       p_array.forEach(function(polygon){
-        polygon.setMap(map);
+        polygon.setMap(proposal_map);
       });
 
       rx_panel_count.onNext(p_array.length);
