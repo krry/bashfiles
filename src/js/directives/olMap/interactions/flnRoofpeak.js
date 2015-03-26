@@ -29,18 +29,36 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
 
       Design.rx_selectedpeak.subscribe(subToPeakSelected);
       function subToPeakSelected (ridgevalue) {
+        var selected_wkt, selected_f
         if (ridgevalue && ridgevalue.hasOwnProperty(0)) {
           // validate the button that lets user progress forward
           scope.roof_peak_chosen = true;
+          // create feature from details
+          if (ridgevalue.hasOwnProperty(1)) {
+            // create a line segment string
+            selected_wkt = "LINESTRING(" + ridgevalue[0] + ',' + ridgevalue[1] + ")";
+            selected_f = AreaService.featFromTxt(selected_wkt, 'segment');
+          } else {
+            // create a point string
+            selected_wkt = "POINT(" + ridgevalue[0] + ")";
+            selected_f = AreaService.featFromTxt(selected_wkt, 'corner');
+          }
           // highlight the view
+          highlight && feature_overlay.getFeatures().remove(highlight)
+          // highlight && feature_overlay.removeFeature(highlight);
+          // highlight = AreaService.featFromTxt(selected_wkt);
+          highlight = selected_f;
+          feature_overlay.addFeature(selected_f);
         } else {
           scope.roof_peak_chosen = false;
         }
+        console.log( "selected wkt \n\n" +  selected_wkt)
         scope.$apply();
       }
       // save the map
       newConfigurator.configurator().then(function(map) {
         base_map = map;
+        $(map.getViewport()).addClass('roofpeak')
       });
 
       // hide "next" button until user selects
@@ -59,7 +77,7 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
               return f;
             });
 
-            if (feature !== highlight) {
+            if (feature !== highlight && !scope.roof_peak_chosen) {
               if (highlight) {
                 feature_overlay.removeFeature(highlight);
               }
@@ -86,7 +104,7 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
 
             testLineString = AreaService.getWkt(target_f).split('LINESTRING');
             arrayOfPoints = [];
-            if (testLineString.length == 1) { //then we have a point
+            if (testLineString.length === 1) { //then we have a point
               arrayOfPoints = AreaService.getWkt(target_f).split('POINT')[1].replace('(', '').replace(')', '').split('TRAVIS');
             }
             else {  //we have a line!
@@ -94,11 +112,9 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
             }
             Design.ref().child('areas').child('0').child('ridge').set(arrayOfPoints);
 
-            // feature_overlay.removeFeature(highlight);
-            // feature_overlay.setFeatures([])
 
             feature_overlay.addFeature(target_f);
-            debugger;
+            // debugger;
             scope.$apply()
           } else {
             console.log('can\'t proceed if you don\'t click a roofpeak, brah');
@@ -109,6 +125,7 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
       element.on('$destroy', function dragPanDestroy (e) {
         // get rid of the peak layer & styling
         newConfigurator.roofpeakDel();
+
       });
     }
   };

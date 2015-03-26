@@ -5,6 +5,16 @@ function flnConfigurator (Client, newConfigurator) {
     restrict: "A",
     templateUrl: 'templates/directives/configurator/flnConfigurator.html',
     controller: function ($scope, $element, $attrs, newConfigurator) {
+
+    newConfigurator.configurator().then(function (map) {
+      Client.emit('Configurator: update mapsize', map)
+      $(map.getViewport()).addClass('roofpeak')
+    })
+      Client.listen('Configurator: update mapsize', function(){
+        maps.omap.updateSize();
+        var c = maps.omap.getView().getCenter()
+        maps.gmap.setCenter({lat:c[1], lng:c[0]});
+      })
       Client.listen('draw_busy', function (arg) {
         $scope.draw_busy = arg;
         $scope.$apply();
@@ -16,6 +26,23 @@ function flnConfigurator (Client, newConfigurator) {
       o_div = $(element).find('#oltest')[0];
 
       newConfigurator.setTarget(g_div, o_div);
+
+      Client.listen('Configurator: target set', function(argument) {
+        var c = maps.omap.getView().getCenter()
+        maps.gmap.setCenter({lat:c[1], lng:c[0]});
+      });
+
+      $(window).resize(function() {
+        var c = maps.omap.getView().getCenter()
+        maps.gmap.setCenter({lat:c[1], lng:c[0]});
+        maps.omap.updateSize()
+      });
+
+      google.maps.event.addDomListenerOnce(window, "load", function () {
+        var c = maps.omap.getView().getCenter()
+        maps.gmap.setCenter({lat:c[1], lng:c[0]});
+        maps.omap.updateSize()
+      });
     }
   };
 }
