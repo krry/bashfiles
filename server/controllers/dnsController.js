@@ -25,15 +25,23 @@ module.exports = function(app) {
 
     dns.resolve4(address, function (err, addresses) {
       if (err) {
-        dfd.reject(err);
-        throw err;
+        return dfd.resolve({
+          address: address,
+          error: err,
+          addresses: [],
+          hostnames: []
+        });
       }
 
       addresses.forEach(function (a) {
         dns.reverse(a, function (err, hostnames) {
           if (err) {
-            dfd.reject(err);
-            throw err;
+            return dfd.resolve({
+              address: address,
+              error: err,
+              addresses: addresses,
+              hostnames: []
+            });
           }
 
           dfd.resolve({
@@ -55,6 +63,10 @@ module.exports = function(app) {
         addresses: result.addresses,
         hostnames: result.hostnames
       };
+
+      if (result.error) {
+        map[result.address].error = result.error;
+      }
     });
 
     return map;
