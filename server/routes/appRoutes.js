@@ -6,6 +6,7 @@ module.exports = function(app) {
   var appController   = require('../controllers/appController.js')(app),
       proxyController = require('../controllers/proxyController.js')(app),
       salesforceController = require('../controllers/salesforceController.js')(app),
+      dnsController   = require('../controllers/dnsController.js')(app),
       env             = process.env.NODE_ENV || 'development',
       conf            = require('../config/environments/' + env + '.json');
 
@@ -14,6 +15,8 @@ module.exports = function(app) {
   } else {
     app.get('/flannel/', appController.index );
   }
+
+  app.get('/dns', dnsController.index);
 
   app.get('/jwt', appController.jwt );
 
