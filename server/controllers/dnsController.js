@@ -1,7 +1,7 @@
 module.exports = function(app) {
   var dns            = require('dns'),
       Q              = require('q'),
-      env            = process.env.NODE_ENV || 'development',
+      env            = 'int',
       conf           = require('../config/environments/' + env + '.json'),
       addresses      = [],
       PROTOCOL_REGEX = /http(s)*:\/\//;
@@ -16,7 +16,7 @@ module.exports = function(app) {
     return Q.all(addresses.map(dnsLookup)).then(function(results) {
       res.json(mapResults(results));
     }, function(err) {
-      res.json(err);
+      res.json({ addresses: addresses, error: err });
     });
   }
 
