@@ -16,7 +16,7 @@ module.exports = function(app) {
     return Q.all(addresses.map(dnsLookup)).then(function(results) {
       res.json(mapResults(results));
     }, function(err) {
-      res.json(err);
+      res.json({ addresses: addresses, error: err });
     });
   }
 
