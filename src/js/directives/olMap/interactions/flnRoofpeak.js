@@ -29,7 +29,7 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
 
       Design.rx_selectedpeak.subscribe(subToPeakSelected);
       function subToPeakSelected (ridgevalue) {
-        var selected_wkt, selected_f
+        var selected_wkt, selected_f, current_highlight;
         if (ridgevalue && ridgevalue.hasOwnProperty(0)) {
           // validate the button that lets user progress forward
           scope.roof_peak_chosen = true;
@@ -43,13 +43,18 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
             selected_wkt = "POINT(" + ridgevalue[0] + ")";
             selected_f = AreaService.featFromTxt(selected_wkt, 'corner');
           }
+          // highlight = feature_overlay.getFeatures().item(0);
           // highlight the view
-          highlight && feature_overlay.getFeatures().remove(highlight)
-          // highlight && feature_overlay.removeFeature(highlight);
-          // highlight = AreaService.featFromTxt(selected_wkt);
+          if (feature_overlay.getFeatures().getLength()) {
+            feature_overlay.getFeatures().clear()
+          }
+          if (selected_f) {
+            feature_overlay.addFeature(selected_f);
+          }
           highlight = selected_f;
-          feature_overlay.addFeature(highlight);
+
         } else {
+          alert('falsey')
           scope.roof_peak_chosen = false;
         }
         console.log( "selected wkt \n\n" +  selected_wkt)
@@ -64,10 +69,10 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
       // hide "next" button until user selects
       scope.roof_peak_chosen = false;
 
-      // add the "interaction" on the map
-      newConfigurator.roofpeakAdd();
       // listen to mousemovements to highlight
       newConfigurator.configurator().then(function(map){
+        // add the "interaction" on the map
+        newConfigurator.roofpeakAdd();
         Client.emit('roofpeak', Design.areas_collection.item(0));
         $(map.getViewport()).on('mousemove', function(evt) {
           var pixel = map.getEventPixel(evt.originalEvent);

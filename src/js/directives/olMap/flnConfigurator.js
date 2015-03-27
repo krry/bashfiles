@@ -6,9 +6,15 @@ function flnConfigurator (Client, newConfigurator) {
     templateUrl: 'templates/directives/configurator/flnConfigurator.html',
     controller: function ($scope, $element, $attrs, newConfigurator) {
 
+    Client.listen('roofpeak', function (argument) {
+
+      console.log('dics!!!!!!!!!!!!!!!!!!!!!')
+      $(maps.omap.getViewport()).addClass('roofpeak');
+    })
+
     newConfigurator.configurator().then(function (map) {
       Client.emit('Configurator: update mapsize', map)
-      $(map.getViewport()).addClass('roofpeak')
+
     })
       Client.listen('Configurator: update mapsize', function(){
         maps.omap.updateSize();
