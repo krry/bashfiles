@@ -29,7 +29,7 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
 
       Design.rx_selectedpeak.subscribe(subToPeakSelected);
       function subToPeakSelected (ridgevalue) {
-        var selected_wkt, selected_f
+        var selected_wkt, selected_f, current_highlight;
         if (ridgevalue && ridgevalue.hasOwnProperty(0)) {
           // validate the button that lets user progress forward
           scope.roof_peak_chosen = true;
@@ -43,12 +43,16 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
             selected_wkt = "POINT(" + ridgevalue[0] + ")";
             selected_f = AreaService.featFromTxt(selected_wkt, 'corner');
           }
+          // highlight = feature_overlay.getFeatures().item(0);
           // highlight the view
-          highlight && feature_overlay.getFeatures().remove(highlight)
-          // highlight && feature_overlay.removeFeature(highlight);
-          // highlight = AreaService.featFromTxt(selected_wkt);
+          if (feature_overlay.getFeatures().getLength()) {
+            feature_overlay.getFeatures().clear()
+          }
+          if (selected_f) {
+            feature_overlay.addFeature(selected_f);
+          }
           highlight = selected_f;
-          feature_overlay.addFeature(highlight);
+
         } else {
           scope.roof_peak_chosen = false;
         }
