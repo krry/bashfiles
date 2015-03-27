@@ -23,11 +23,13 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
       state_ref,
       session_stream,
       waiting,
-      help_steps;
+      help_steps,
+      unlockODA;
 
   stage = 0;
   step  = 0;
   waiting = false;
+  unlockODA = false;
 
   vm = this;
   vm.next = next;
@@ -74,6 +76,7 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
   Client.listen('start over', startOver);
   Client.listen('Spinner: spin it', setWaiting);
   Client.listen('Stages: stage', stageLayout);
+  Client.listen('ODA: Request session', unlockODAState);
 
   function currentStep (step) {
     return step === step;
@@ -105,7 +108,6 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
 
     // Only show the continue modal if the user is on the home page (zip or address page) and has advanced in the flow
     // Else, on other pages, we let that page's url take precedence
-    // Landing on the static proposal page will also prevent the modal from showing up
     if (isOnHome && hasAdvanced) {
       Modal.set(true);
       return Modal.activate('continue');
@@ -123,6 +125,10 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
     // you're about to emit messages that making changes to the templates. Lock the view so that
     // messages don't arrive in the meantime.
     // $scope.view_sync = false; // TODO: why isn't this necessary anymore?
+
+    // Don't let session object overtake the app on share proposal and design link states
+    if ($state.is('share_proposal') || ($state.is('design_link') && !unlockODA)) return;
+
     if (data.stage !== stage) {
       console.log('data.stage', data.stage,'diff from client stage', stage);
       Client.emit('Stages: stage', data);
@@ -299,5 +305,9 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
         results = regex.exec(location.search);
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+  }
+
+  function unlockODAState() {
+    unlockODA = true;
   }
 }
