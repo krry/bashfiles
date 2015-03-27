@@ -1,6 +1,7 @@
+<label for="prospect_hoa">Select your HOA</label>
 <select name="AhjId"
    class="hoa-dropdown"
-   ng-model="schedule.selectedAhj" 
+   ng-model="schedule.selectedAhj"
    ng-show="schedule.prospect.hoa && schedule.HOAs.length > 1"
    ng-options="HOA.AHJName for HOA in schedule.HOAs"
    ng-change="schedule.checkHOA(schedule.selectedAhj.id)"

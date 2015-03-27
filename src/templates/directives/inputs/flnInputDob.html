@@ -1,21 +1,27 @@
 <div class="row">
   <div class="col full center">
+    <div class="field month ib">
+      <label for="prospect_month" class="field-label show-hide" ng-show="form.focused.month">Month</label>
+      <input
+        type="text"
+        id="prospect_month"
+        name="month"
+        class="birthdate ib month"
+        placeholder="mm"
+        minlength="1"
+        maxlength="2"
+        autofocus
+        ng-pattern="/\b[1-9]\b|0[1-9]|1[012]/"
+        ng-model="form.prospect.month"
+        ng-model-options="{ updateOn: 'default change blur', debounce: { default: 1000, blur: 0 } }"
+        ng-required="true">
+    </div>
+    <label for="prospect_day" class="field-label">Day</label>
     <input
       type="text"
-      name="month"
-      class="birthdate month ib"
-      placeholder="mm"
-      minlength="1"
-      maxlength="2"
-      autofocus
-      ng-pattern="/\b[1-9]\b|0[1-9]|1[012]/"
-      ng-model="form.prospect.month"
-      ng-model-options="{ updateOn: 'default change blur', debounce: { default: 1000, blur: 0 } }"
-      ng-required="true">
-    <input
-      type="text"
+      id="prospect_day"
       name="day"
-      class="birthdate day ib"
+      class="birthdate ib day"
       placeholder="dd"
       minlength="1"
       maxlength="2"
@@ -23,8 +29,10 @@
       ng-model="form.prospect.day"
       ng-model-options="{ updateOn: 'default change blur', debounce: { default: 1000, blur: 0 } }"
       ng-required="true">
+    <label for="prospect_year" class="field-label">Year</label>
     <input
       type="text"
+      id="prospect_year"
       name="year"
       class="birthdate ib year"
       placeholder="yyyy"

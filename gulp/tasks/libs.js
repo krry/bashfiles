@@ -35,6 +35,8 @@ var libSrc = [
   './src/lib/matthewlein-jQuery-widowFix/js/jquery.widowFix-1.3.2.min.js',
   './src/lib/angular/angular.js',
   './src/lib/angular/angular.min.js',
+  './src/lib/angular-animate/angular-animate.js',
+  './src/lib/angular-animate/angular-animate.min.js',
   './src/lib/angular-touch/angular-touch.js',
   './src/lib/angular-ui-router/release/angular-ui-router.min.js',
   './src/lib/angular-cookies/angular-cookies.js',

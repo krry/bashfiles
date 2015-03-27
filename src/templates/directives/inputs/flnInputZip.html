@@ -1,18 +1,23 @@
-<input
-  type="tel"
-  name="zip"
-  id="prospect_zip"
-  class="zipcode"
-  autocomplete="off"
-  autocorrect="off"
-  required="true"
-  maxlength="5"
-  placeholder="{{hint}}"
-  ng-model="form.prospect.zip"
-  ng-model-options="{ updateOn: 'default change blur', debounce: { default: 500, change: 0, blur: 0 } }"
-  ng-required="true"
-  ng-maxlength="5"
-  ng-pattern="/^\d{5}(?:[-\s]\d{4})?$/"
-  ng-change="form.checkZip(form.prospect.zip)"
-  bind-key="form.checkZip(form.prospect.zip)"
-  key="13">
+<div class="field zip ib">
+  <label for="prospect_zip" class="field-label show-hide" ng-show="form.focused.zip">Zipcode</label>
+  <input
+    type="tel"
+    name="zip"
+    id="prospect_zip"
+    class="zipcode"
+    autocomplete="off"
+    autocorrect="off"
+    required="true"
+    maxlength="5"
+    placeholder="{{hint}}"
+    ng-model="form.prospect.zip"
+    ng-model-options="{ updateOn: 'default change blur', debounce: { default: 0, change: 0, blur: 0 } }"
+    ng-focus="form.showLabel('zip')"
+    ng-blur="form.showLabel('zip')"
+    ng-required="true"
+    ng-maxlength="5"
+    ng-pattern="/^\d{5}(?:[-\s]\d{4})?$/"
+    ng-change="form.checkZip(form.prospect.zip)"
+    bind-key="form.checkZip(form.prospect.zip)"
+    key="13">
+</div>

@@ -12,6 +12,7 @@
 @import "../imports/colors";
 @import "../imports/links";
 @import "../imports/functions";
+@import "../imports/typography";
 @import "../imports/button";
 
 
@@ -281,18 +282,25 @@ select {
 
 label {
   font-size: .75em;
-  display: block;
+  /* display: block; */
   text-indent: 0;
   font-weight: 600;
-  margin-top: 0.5em;
-  margin-bottom: 0.625em;
+  /* margin-top: 0.5em; */
+  margin-bottom: 0.25em;
 }
 
 label.field-label {
-  font-family: "Apercu Light";
+  @include apercu-light;
   text-transform: uppercase;
-  color: $grey-dark;
+  color: $grey-mid;
+  text-align: left;
   //letter-spacing: 0.25em;
+}
+
+.field {
+  position: relative;
+  margin-bottom: 1em;
+  padding-bottom: 1em;
 }
 
 label abbr {

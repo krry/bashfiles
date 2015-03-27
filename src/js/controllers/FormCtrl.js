@@ -55,6 +55,12 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
   vm.invalidTerritory = false;
   vm.validAddress = false;
   vm.isSubmitting = false;
+  vm.focused = {};
+  vm.showLabel = showLabel;
+
+  function showLabel(field_name) {
+    vm.focused[field_name] = !vm.focused[field_name];
+  }
 
   vm.prevStep = prev;
   vm.nextStep = next;
