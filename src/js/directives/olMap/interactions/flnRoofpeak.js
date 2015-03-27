@@ -54,7 +54,6 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
           highlight = selected_f;
 
         } else {
-          alert('falsey')
           scope.roof_peak_chosen = false;
         }
         console.log( "selected wkt \n\n" +  selected_wkt)
