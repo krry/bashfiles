@@ -65,7 +65,7 @@ main.main.main-fixed {
 }
 
 .overlay.proposal-page {
-  background-color: $grey-lightest;
+  background-color: $white-dark;
 }
 
 .overlay.secondary {
@@ -115,11 +115,11 @@ main.main.main-fixed {
 }
 
 .territory-map figure {
-  background-image: url('../img/map_regions.png');
+  background-image: url('../img/map_regions_2-01.svg');
   background-repeat: no-repeat;
-  background-position: center center;
+  background-position: top center;
   background-size: contain;
-  height: 200px;
+  height: 180px;
 }
 
 .video-vision .video-tray {

@@ -66,6 +66,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
   vm.skipConfigurator = skipConfigurator;
 
   Client.listen('zip rejected', rejectZip);
+  Client.listen('check zip', checkZip);
   Client.listen('valid latlng', acceptValidLatLng);
   Client.listen('Geocoder: valid warehouse', acceptValidWarehouse);
   Client.listen('Geocoder: valid house', acceptValidHouse);
@@ -479,7 +480,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
 
   function acceptEmailFromShare(data) {
     vm.prospect.email = data;
-    createLead('Pre credit check');
+    createLead(Salesforce.statuses.savedProposal);
   }
 
   function setFinalNearMeData(data) {
