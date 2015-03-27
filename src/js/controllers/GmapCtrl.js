@@ -23,9 +23,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
   mapOpts = Gmap.opts;
   spinnerEventCount = 0;
   maxNearMeCalls = 10;
-
-  // once window loads, activate map using defaults
-  google.maps.event.addDomListenerOnce(window, "load", activate);
+  activate();
 
   // stream listeners
   Client.listen('center changed', applyCenter);
