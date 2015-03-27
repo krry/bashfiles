@@ -7,8 +7,6 @@ function flnConfigurator (Client, newConfigurator) {
     controller: function ($scope, $element, $attrs, newConfigurator) {
 
     Client.listen('roofpeak', function (argument) {
-
-      console.log('dics!!!!!!!!!!!!!!!!!!!!!')
       $(maps.omap.getViewport()).addClass('roofpeak');
     })
 
