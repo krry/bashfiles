@@ -117,9 +117,9 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
     }
     // Advance to the address page if there is a zip parameter and the user hasn't advanced in the flow before
     else if (zipParam && !hasAdvanced) {
-      setTimeout(function() {
+      $state.go('flannel.home.address-roof').then(function() {
         Client.emit('check zip', zipParam);
-      }, 0);
+      });
     }
   }
 
