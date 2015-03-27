@@ -480,7 +480,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
 
   function acceptEmailFromShare(data) {
     vm.prospect.email = data;
-    createLead('Pre credit check');
+    createLead(Salesforce.statuses.savedProposal);
   }
 
   function setFinalNearMeData(data) {
