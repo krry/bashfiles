@@ -134,7 +134,7 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, Session, Form, Client, defa
     chartData = [
       {
         value: percent_solar,
-        color: '#008752',
+        color: '#17c188',
         highlight: '#559933',
         label: 'Solar Power'
       },

@@ -126,7 +126,7 @@ input.bill {
   padding: 0;
   margin: 0 0 0 .125em;
   // text-align: right;
-  color: $green;
+  color: $green-dark;
   border: 0px solid $white;
   background-color: $white;
   &:hover,
@@ -139,7 +139,7 @@ input.bill {
 .bill-box {
   display: inline-block;
   vertical-align: bottom;
-  color: $green;
+  color: $green-dark;
   border: 2px solid inherit;
   margin: 0 0 0 .75em;
   font-size: 1.25em;
