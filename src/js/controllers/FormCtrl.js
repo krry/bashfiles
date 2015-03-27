@@ -173,8 +173,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
         Client.emit('Stages: stage', stage);
       }
     }, function(resp) {
-      // Darius said to use 'saved proposal' for now when the api call fails
-      createLead(Salesforce.statuses.savedProposal);
+      createLead(Salesforce.statuses.noCreditResult);
       vm.isSubmitting = false;
 
       // Timed out
