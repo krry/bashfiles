@@ -54,6 +54,7 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
           highlight = selected_f;
 
         } else {
+          alert('falsey')
           scope.roof_peak_chosen = false;
         }
         console.log( "selected wkt \n\n" +  selected_wkt)
@@ -68,10 +69,10 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
       // hide "next" button until user selects
       scope.roof_peak_chosen = false;
 
-      // add the "interaction" on the map
-      newConfigurator.roofpeakAdd();
       // listen to mousemovements to highlight
       newConfigurator.configurator().then(function(map){
+        // add the "interaction" on the map
+        newConfigurator.roofpeakAdd();
         Client.emit('roofpeak', Design.areas_collection.item(0));
         $(map.getViewport()).on('mousemove', function(evt) {
           var pixel = map.getEventPixel(evt.originalEvent);
