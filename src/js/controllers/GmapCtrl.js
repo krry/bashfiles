@@ -8,7 +8,8 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
       map,
       mapEl,
       mapOpts,
-      spinnerEventCount;
+      spinnerEventCount,
+      maxNearMeCalls;
 
   vm = this;
 
@@ -21,9 +22,8 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
   mapEl = $element[0];
   mapOpts = Gmap.opts;
   spinnerEventCount = 0;
-
-  // once window loads, activate map using defaults
-  google.maps.event.addDomListenerOnce(window, "load", activate);
+  maxNearMeCalls = 10;
+  activate();
 
   // stream listeners
   Client.listen('center changed', applyCenter);
@@ -125,7 +125,9 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
     });
   }
 
-  function getNearMeData(data) {
+  function getNearMeData(data, count) {
+    count = count || 1;
+
     // Reset the view state while we are still getting the data
     // This prevents old data from lingering in the view while we're processing the new location
     Client.emit('neighbor_count saved', 0);
@@ -160,11 +162,13 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
       area = Math.abs(coords.top - coords.bottom) * Math.abs(coords.left - coords.right);
       if (area > 0.8) {
         // If can't get a larger area, just plot what we have from the last call
-        return plotMarkers(data, true);
+        return plotMarkers(data, maxNearMeCalls);
       }
 
       // send the coordinates to NearMe, then check if there are enough, then plot the pins if so
-      return NearMe.get(coords).then(getEnoughPins).then(plotMarkers);
+      return NearMe.get(coords).then(getEnoughPins).then(function(data) {
+        plotMarkers(data, count);
+      });
     });
   }
 
@@ -177,10 +181,11 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
     }
   }
 
-  function plotMarkers(data, isFinalData) {
+  function plotMarkers(data, count) {
     var opts;
-    if (!data && !isFinalData) {
-      getNearMeData(data);
+
+    if (!data && (count < maxNearMeCalls)) {
+      getNearMeData(data, ++count);
     } else {
       data = data || [];
       // clear any old pins from the map
@@ -201,7 +206,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
       // let the view model know how many pins were found
       Client.emit('neighbor_count saved', data.length);
 
-      if (isFinalData) {
+      if (count >= maxNearMeCalls) {
         Client.emit('Form: final near me data', true);
       }
     }
