@@ -152,6 +152,14 @@ main.main.main-fixed {
   color: transparentize($grey-darker, 0.5);
 }
 
+.credit-check button.gold {
+  min-width: 15em;
+  margin-top: 3em;
+}
+
+
+
+
 
 @media screen and (min-width: $width-min-med){
   .step-bill button.tiny.gold {
