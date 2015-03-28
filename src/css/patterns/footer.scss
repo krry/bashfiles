@@ -18,7 +18,7 @@
   padding: 1em;
   margin-bottom: 0;
   text-align: left;
-  color: $grey-meh;
+  color: transparentize($grey-darker, 0.5);
 
   span {
     padding: 0 1em;

@@ -149,7 +149,7 @@ main.main.main-fixed {
   font-size: 0.7em;
   text-align: left;
   margin-top: 10em;
-  color: $grey-meh;
+  color: transparentize($grey-darker, 0.5);
 }
 
 
