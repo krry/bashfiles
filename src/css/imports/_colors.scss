@@ -4,11 +4,20 @@
 // SCTY COLOR PALETTE
 
 
-$green-link:    #2eb17b;  
+$green-link: #2eb17b;
+$green-neue: #17c188;
+
+$brand-flora: #00D797;
+$brand-cerulean: #1EDFE6;
+$brand-rain: #4887FF;
+$brand-atmosphere: #AD3EF5;
+$brand-fire: #F06953;
+$brand-sun: #FFBD48;
+
 $gold:          #ffbd48;  // rgb(238, 177, 017)  hsl(43.4, 86.7%, 50%)
 $green:         #008752;  // rgb(000, 135, 082)  hsl(156.4, 100%, 26.5%)
 $green-bright:  #13ab4a;  // rgb(019, 171, 074)  hsl(141.7, 80%, 37.3%)
-$green-dark:    #17c188;  // rgb(000, 156, 093)  hsl(156.4, 100%, 30.5%)
+$green-dark:    #007f70;  // rgb(000, 156, 093)  hsl(156.4, 100%, 30.5%)
 $green-apple:   #67bd57;  // rgb(103, 189, 087)  hsl(110.6, 43.6%, 54.1%)
 $green-lime:    #c7dd7b;  // rgb(199, 221, 123)  hsl(73, 59%, 67%)
 $green-pale:    #d3e8c9;  // rgb(211, 232, 201)  hsl(100.6, 40.3%, 84.9%)
@@ -28,7 +37,7 @@ $orange:        #ed8022;  // rgb(237, 128, 034)  hsl(27.8, 84.9%, 53.1%)
 $flesh:         #f1d0b3;  // rgb(241, 208, 179)  hsl(28.1, 68.9%, 82.4%)
 $beige:         #e5e3db;  // rgb(229, 227, 219)
 $tan:           #c78e58;  // rgb(199, 142, 088)
-$cream:         #fcf2e8;  // rgb(252, 242, 232)  hsl(30, 76.9%, 94.9%)
+$cream:         #fcf4e6;  // rgb(252, 242, 232)  hsl(30, 76.9%, 94.9%)
 $white:         #ffffff;  // rgb(255, 255, 255)  hsl(0, 0%, 100%)
 $white-off:     #f7f7f7;  // rgb(255, 255, 255)  hsl(0, 0%, 100%)
 $white-dark:    #f4f5f5;  // for Ericson :)
@@ -103,8 +112,8 @@ $color-link-visited-inverse: $green-apple;
 
 $color-error-text:           $red;
 $color-error-bkgd:           $flesh;
-$color-input-invalid-text:   rgba(174, 120, 27, 1);
-$color-input-invalid-bkgd:   rgba(249, 242, 216, 1);
+$color-input-invalid-text:   $grey-darker;
+$color-input-invalid-bkgd:   $cream;
 
 $color-button-bkgd:          $grey-mid;
 
@@ -113,7 +122,7 @@ $color-header-text:          $white;
 // $color-header-bkgd:          rgba(01, 30, 33, 0.70);
 // $color-header-bkgd:          rgba(42, 54, 59, 0.9);
 // $color-header-bkgd:          rgba(22, 48, 62, 0.93);
-$color-header-bkgd:          $green-dark;
+$color-header-bkgd:          $green-neue;
 // $color-header-bkgd:          rgba(20, 40, 48, 0.95);
 // $color-header-shadow:        rgba(42, 54, 59, 0.5);
 // $color-header-shadow:        rgba(22, 48, 62, 0.5);
