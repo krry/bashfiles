@@ -109,7 +109,7 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
     // Only show the continue modal if the user is on the home page (zip or address page) and has advanced in the flow
     // Else, on other pages, we let that page's url take precedence
     if (!isOnHome && !hasAdvanced) {
-      Client.emit('Stages: jump to step', 'address-roof');
+      Client.emit('Stages: jump to step', 'zip-nearme');
     }
     else if (isOnHome && hasAdvanced) {
       Modal.set(true);
@@ -117,9 +117,9 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
     }
     // Advance to the address page if there is a zip parameter and the user hasn't advanced in the flow before
     else if (zipParam && !hasAdvanced) {
-      setTimeout(function() {
+      $state.go('flannel.home.address-roof').then(function() {
         Client.emit('check zip', zipParam);
-      }, 0);
+      });
     }
   }
 
