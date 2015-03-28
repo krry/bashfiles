@@ -3,11 +3,12 @@ directives.directive('flnConfigurator', ['Clientstream', 'newConfigurator', flnC
 function flnConfigurator (Client, newConfigurator) {
   return {
     restrict: "A",
+    priority: 100,
     templateUrl: 'templates/directives/configurator/flnConfigurator.html',
     controller: function ($scope, $element, $attrs, newConfigurator) {
 
     Client.listen('roofpeak', function (argument) {
-      $(maps.omap.getViewport()).addClass('roofpeak');
+      // $(maps.omap.getViewport()).addClass('roofpeak');
     })
 
     newConfigurator.configurator().then(function (map) {

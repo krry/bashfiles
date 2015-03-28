@@ -14,6 +14,7 @@ directives.directive('flnRoofpeak', ["MapFactory", "Design", "Clientstream", "Ar
 function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newConfigurator) {
   return {
     restrict: 'EA',
+    priority: '1',
     link: function flnRoofpeakLink (scope, element, attrs) {
       var base_map,
           old_view,
@@ -26,6 +27,8 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
 
       scope.roof_peak_chosen = false;
       feature_overlay = Design.roofpeak_overlay;
+
+      $('div[fln-configurator]').addClass('roofpeak');
 
       Design.rx_selectedpeak.subscribe(subToPeakSelected);
       function subToPeakSelected (ridgevalue) {
@@ -60,11 +63,11 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
         scope.$apply();
       }
       // save the map
-      newConfigurator.configurator().then(function(map) {
+/*      newConfigurator.configurator().then(function(map) {
         base_map = map;
         $(map.getViewport()).addClass('roofpeak')
       });
-
+*/
       // hide "next" button until user selects
       scope.roof_peak_chosen = false;
 
@@ -97,6 +100,7 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
       newConfigurator.configurator().then(function(map){
         $(map.getViewport()).on('click', function(evt) {
           var pixel = map.getEventPixel(evt.originalEvent);
+          debugger;
           var target_f = map.forEachFeatureAtPixel(pixel, function(f, layer) {
             return f;
           });
@@ -118,7 +122,6 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
 
 
             feature_overlay.addFeature(target_f);
-            // debugger;
             scope.$apply()
           } else {
             console.log('can\'t proceed if you don\'t click a roofpeak, brah');
@@ -129,7 +132,7 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
       element.on('$destroy', function dragPanDestroy (e) {
         // get rid of the peak layer & styling
         newConfigurator.roofpeakDel();
-
+        $('div[fln-configurator]').removeClass('roofpeak');
       });
     }
   };
