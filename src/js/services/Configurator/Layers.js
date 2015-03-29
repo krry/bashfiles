@@ -20,6 +20,7 @@ function Layers_(Design, Styles, AreaService, Client) {
   draw_source      = Design.draw_source;
   modify_source    = Design.modify_source;
 
+  // layers
   l_draw = new ol.layer.Vector({
     source: draw_source,
     style:  Styles.defaultStyleFunction,
@@ -30,21 +31,15 @@ function Layers_(Design, Styles, AreaService, Client) {
     style:  Styles.highlightStyleFunction,
   });
 
-  // layer for roofpeak
-  r_layer = new ol.layer.Vector({
+  l_roofpeak = new ol.layer.Vector({
     source: Design.roofpeak_source,
     style:  Styles.remap,
     name: 'roof_area_layer',
   });
 
-
+  // overlays
   modify_overlay = Design.modify_overlay;
   roofpeak_overlay =  Design.roofpeak_overlay;
-
-  // var modify_overlay = new ol.FeatureOverlay({
-  //   features: Design.areas_collection,
-  //   style:    Styles.highlightStyleFunction,
-  // })
 
   areas_collection.on('add', function (e) {
     // add to sources
@@ -87,7 +82,7 @@ function Layers_(Design, Styles, AreaService, Client) {
         return area && feature.setGeometry(AreaService.getGeom(area.wkt));
       }
     } else if (area !== null){
-      // we don't have a feature
+      // we don't have a feature, but we should make one.
       feature = AreaService.featFromTxt(area.wkt, 'area');
       return areas_collection.push(feature);
     }
@@ -99,7 +94,7 @@ function Layers_(Design, Styles, AreaService, Client) {
   layers = {
     draw : l_draw,
     modify: l_modify,
-    roofpeak: r_layer,
+    roofpeak: l_roofpeak,
     roofpeak_overlay: Design.roofpeak_overlay,
     collection: new ol.Collection(),
     areas_collection:  areas_collection,

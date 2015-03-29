@@ -6,19 +6,16 @@ function flnConfigurator (Client, newConfigurator) {
     priority: 100,
     templateUrl: 'templates/directives/configurator/flnConfigurator.html',
     controller: function ($scope, $element, $attrs, newConfigurator) {
+      newConfigurator.configurator().then(function (map) {
+        Client.emit('Configurator: update mapsize', map)
 
-    Client.listen('roofpeak', function (argument) {
-      // $(maps.omap.getViewport()).addClass('roofpeak');
-    })
-
-    newConfigurator.configurator().then(function (map) {
-      Client.emit('Configurator: update mapsize', map)
-
-    })
+      })
       Client.listen('Configurator: update mapsize', function(){
-        maps.omap.updateSize();
-        var c = maps.omap.getView().getCenter()
-        maps.gmap.setCenter({lat:c[1], lng:c[0]});
+        setTimeout(function function_name (argument) {
+          maps.omap.updateSize();
+          var c = maps.omap.getView().getCenter()
+          maps.gmap.setCenter({lat:c[1], lng:c[0]});
+        },0)
       })
       Client.listen('draw_busy', function (arg) {
         $scope.draw_busy = arg;

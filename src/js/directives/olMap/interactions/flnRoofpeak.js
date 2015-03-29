@@ -14,7 +14,7 @@ directives.directive('flnRoofpeak', ["MapFactory", "Design", "Clientstream", "Ar
 function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newConfigurator) {
   return {
     restrict: 'EA',
-    priority: '1',
+    priority: '10',
     link: function flnRoofpeakLink (scope, element, attrs) {
       var base_map,
           old_view,
@@ -30,7 +30,6 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
 
       $('div[fln-configurator]').addClass('roofpeak');
 
-      Design.rx_selectedpeak.subscribe(subToPeakSelected);
       function subToPeakSelected (ridgevalue) {
         var selected_wkt, selected_f, current_highlight;
         if (ridgevalue && ridgevalue.hasOwnProperty(0)) {
@@ -46,93 +45,90 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
             selected_wkt = "POINT(" + ridgevalue[0] + ")";
             selected_f = AreaService.featFromTxt(selected_wkt, 'corner');
           }
-          // highlight = feature_overlay.getFeatures().item(0);
           // highlight the view
           if (feature_overlay.getFeatures().getLength()) {
-            feature_overlay.getFeatures().clear()
+            // remove existing highilghts
+            feature_overlay.getFeatures().clear();
           }
           if (selected_f) {
+            // add new highlight
             feature_overlay.addFeature(selected_f);
           }
+          // cache highlight object
           highlight = selected_f;
-
         } else {
           scope.roof_peak_chosen = false;
         }
-        console.log( "selected wkt \n\n" +  selected_wkt)
         scope.$apply();
       }
-      // save the map
-/*      newConfigurator.configurator().then(function(map) {
-        base_map = map;
-        $(map.getViewport()).addClass('roofpeak')
-      });
-*/
+
       // hide "next" button until user selects
       scope.roof_peak_chosen = false;
 
       // listen to mousemovements to highlight
       newConfigurator.configurator().then(function(map){
-        // add the "interaction" on the map
         newConfigurator.roofpeakAdd();
+        Design.rx_selectedpeak.subscribe(subToPeakSelected);
+        // save the map
+        base_map = map;
+        // handle clicks and mouse movement to build the interaction on the map
         Client.emit('roofpeak', Design.areas_collection.item(0));
-        $(map.getViewport()).on('mousemove', function(evt) {
-          var pixel = map.getEventPixel(evt.originalEvent);
-          mouseover(pixel);
-          function mouseover (pixel) {
-            feature = map.forEachFeatureAtPixel(pixel, function(f, layer) {
-              return f;
-            });
-
-            if (feature !== highlight && !scope.roof_peak_chosen) {
-              if (highlight) {
-                feature_overlay.removeFeature(highlight);
-              }
-              if (feature) {
-                feature_overlay.addFeature(feature);
-              }
-              highlight = feature;
-            }
-          }
-        });
+        $('div[fln-configurator]').on('mousemove', roofpeakMousemove);
+        $('div[fln-configurator]').on('click', roofpeakMouseclick);
       });
-      // handle clicks on the map
-      newConfigurator.configurator().then(function(map){
-        $(map.getViewport()).on('click', function(evt) {
-          var pixel = map.getEventPixel(evt.originalEvent);
-          debugger;
-          var target_f = map.forEachFeatureAtPixel(pixel, function(f, layer) {
+      function roofpeakMousemove(evt) {
+        var pixel = base_map.getEventPixel(evt.originalEvent);
+        mouseover(pixel);
+        function mouseover (pixel) {
+          feature = base_map.forEachFeatureAtPixel(pixel, function(f, layer) {
             return f;
           });
-          // TODO: do something with clicked shape.
-          var testLineString, arrayOfPoints;
-          if (target_f &&
-              AreaService.getWkt(target_f).split('POLYGON').length == 1) {  //this second condition covers if a polygon was selected
-            console.log(AreaService.getWkt(target_f));
 
-            testLineString = AreaService.getWkt(target_f).split('LINESTRING');
-            arrayOfPoints = [];
-            if (testLineString.length === 1) { //then we have a point
-              arrayOfPoints = AreaService.getWkt(target_f).split('POINT')[1].replace('(', '').replace(')', '').split('TRAVIS');
+          if (feature !== highlight && !scope.roof_peak_chosen) {
+            if (highlight) {
+              feature_overlay.removeFeature(highlight);
             }
-            else {  //we have a line!
-              arrayOfPoints = AreaService.getWkt(target_f).split('LINESTRING')[1].replace('(', '').replace(')', '').split(',');
+            if (feature) {
+              feature_overlay.addFeature(feature);
             }
-            Design.ref().child('areas').child('0').child('ridge').set(arrayOfPoints);
-
-
-            feature_overlay.addFeature(target_f);
-            scope.$apply()
-          } else {
-            console.log('can\'t proceed if you don\'t click a roofpeak, brah');
+            highlight = feature;
           }
+        }
+      }
+      function roofpeakMouseclick (evt) {
+        var pixel = base_map.getEventPixel(evt.originalEvent);
+        debugger;
+        var target_f = base_map.forEachFeatureAtPixel(pixel, function(f, layer) {
+          return f;
         });
-      })
+        var testLineString, arrayOfPoints;
+        if (target_f &&
+            AreaService.getWkt(target_f).split('POLYGON').length == 1) {  //this second condition covers if a polygon was selected
+          console.log(AreaService.getWkt(target_f));
 
+          testLineString = AreaService.getWkt(target_f).split('LINESTRING');
+          arrayOfPoints = [];
+          if (testLineString.length === 1) { //then we have a point
+            arrayOfPoints = AreaService.getWkt(target_f).split('POINT')[1].replace('(', '').replace(')', '').split('TRAVIS');
+          }
+          else {  //we have a line!
+            arrayOfPoints = AreaService.getWkt(target_f).split('LINESTRING')[1].replace('(', '').replace(')', '').split(',');
+          }
+          Design.ref().child('areas').child('0').child('ridge').set(arrayOfPoints);
+
+
+          feature_overlay.addFeature(target_f);
+          scope.$apply()
+        } else {
+          console.log('can\'t proceed if you don\'t click a roofpeak, brah');
+        }
+      }
       element.on('$destroy', function dragPanDestroy (e) {
         // get rid of the peak layer & styling
         newConfigurator.roofpeakDel();
         $('div[fln-configurator]').removeClass('roofpeak');
+        $('div[fln-configurator]').off('mousemove', roofpeakMousemove);
+        $('div[fln-configurator]').off('click', roofpeakMouseclick);
       });
     }
   };
