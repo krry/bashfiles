@@ -47,7 +47,7 @@ function Layers_(Design, Styles, AreaService, Client) {
 
   // highlighted segments get rendered by this FeatureOverlay
   highlight_overlay = new ol.FeatureOverlay({
-    // style: Styles.remapHighlight,
+    style: Styles.remapHighlight,
     features: h_coll,
   });
 
