@@ -94,7 +94,7 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
   $scope.view_sync = true;
 
   function bootstrapNewSession (session_data) {
-    var hasAdvanced = User.isNew,
+    var hasAdvanced = !User.isNew,
         zipParam = getParameterByName('zip'),
         isOnHome = $state.is('flannel.home.zip-nearme') || $state.is('flannel.home.address-roof');
 
