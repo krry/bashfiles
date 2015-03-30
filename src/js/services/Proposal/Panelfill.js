@@ -119,6 +119,7 @@ function PanelfillSvc ($http, $q) {
     return inside;
   }
 
+  
   var pitchS = 15;
   var heading = 0;
   var offset = Math.sin(pitchS * Math.PI/180);
@@ -280,7 +281,7 @@ function PanelfillSvc ($http, $q) {
     //offset_poly.push([points_inches[0][0], points_inches[0][1], 0]);
     //offset_poly.push([points_inches[1][0], points_inches[1][1], 0]);
     //Math.Tan(45)
-    var offset = .37;
+    var offset = .375;
 
 
     for (var i in panelfill_points_inches) {
@@ -605,11 +606,11 @@ function LineStartToEndRotation(line) {
 }
 
 function GetNewPoint(CurrPoint, line, Id) {
-                var Distance = 1;
+                var Distance = 0.00000000001;
                 var Angle = LineStartToEndRotation(line);
     return {
-        X: CurrPoint.X + Math.cos(Angle) * Distance,
-        Y: CurrPoint.Y + Math.sin(Angle) * Distance,
+        X: parseFloat(CurrPoint.X) + Math.cos(Angle) * Distance,
+        Y: parseFloat(CurrPoint.Y) + Math.sin(Angle) * Distance,
         Z: 0,
         ID: 'P' + Id,
     };
