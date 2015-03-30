@@ -156,6 +156,8 @@ function DesignProvider_ (FIREBASE_URL) {
         roofpeak_source:  new ol.source.Vector(),
         // overlays
         modify_overlay:   new ol.FeatureOverlay({style: Styles.highlightStyleFunction}),
+        // modify_overlay:   new ol.FeatureOverlay(),
+        modify_collection: new ol.Collection(),
         // roofpeak_overlay:   new ol.FeatureOverlay({style: Styles.remapHighlight}),
         // streams
         rx_center:        rx_center,

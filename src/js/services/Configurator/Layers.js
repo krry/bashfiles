@@ -10,7 +10,7 @@ angular.module('flannel').factory('Layers', ['Design', 'StyleService', 'AreaServ
 
 function Layers_(Design, Styles, AreaService, Client) {
 
-  var layers, l_draw, areas_collection, source;
+  var layers, l_draw, areas_collection, source, modify_collection;
 
   var rx_drawcount = new Rx.Subject(); // the next button subscribes to this
 
@@ -19,6 +19,7 @@ function Layers_(Design, Styles, AreaService, Client) {
   areas_collection = Design.areas_collection
   draw_source      = Design.draw_source;
   modify_source    = Design.modify_source;
+  modify_collection = Design.modify_collection;
 
   // layers
   l_draw = new ol.layer.Vector({
@@ -39,7 +40,6 @@ function Layers_(Design, Styles, AreaService, Client) {
 
   // overlays
   modify_overlay = Design.modify_overlay;
-  // roofpeak_overlay =  Design.roofpeak_overlay;
 
   // roofpeak stuff
   // a collection to hold the highlighted feature
@@ -51,34 +51,36 @@ function Layers_(Design, Styles, AreaService, Client) {
     features: h_coll,
   });
 
-  // var modify_overlay = new ol.FeatureOverlay({
-  //   features: Design.areas_collection,
-  //   style:    Styles.highlightStyleFunction,
-  // })
-
   areas_collection.on('add', function (e) {
     // add to sources
     feature = e.element;
-    feature = AreaService.wireUp(0, feature);
+    // feature = AreaService.wireUp(0, feature);
     draw_source.addFeature(feature);
     // modify_source.addFeature(feature);
     modify_overlay.addFeature(feature);
+    Design.modify_collection.push(feature);
     Client.emit('areas in collection', feature)
   });
 
   areas_collection.on('remove', function (e) {
     // remove from sources
-    var feature = e.element;
+    var ftr = e.element;
     Design.ref().child('areas/0/wkt').remove()
-    draw_source.removeFeature(feature);
-    // modify_source.removeFeature(feature);
-    modify_overlay.removeFeature(feature);
+    draw_source.removeFeature(ftr);
+    // modify_source.removeFeature(ftr);
+    modify_overlay.removeFeature(ftr);
   });
 
   // broadcast to the templates to enable/disable clicking of "next" button
   areas_collection.on('change:length',function(e){
     rx_drawcount.onNext(this.getLength());
   })
+
+  Design.modify_collection.on('add', function (e) {
+    // when we modify a surface watch for changes on firebase
+    var f = e.element;
+    AreaService.wireUp(0, f);
+  });
 
   // update based on changes at firebase
   Design.rx_areas.subscribe(function (area) {
@@ -94,7 +96,13 @@ function Layers_(Design, Styles, AreaService, Client) {
           console.log('area the same as feature')
           return Design.busy = false;
         }
-        return area && feature.setGeometry(AreaService.getGeom(area.wkt));
+        if (area) {
+         feature.setGeometry(AreaService.getGeom(area.wkt));
+         if (modify_collection.getLength()) {
+          modify_collection.clear()
+          modify_collection.push(feature);
+         }
+       }
       }
     } else if (area !== null){
       // we don't have a feature, but we should make one.

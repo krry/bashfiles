@@ -49,14 +49,15 @@ function Interactions_(Design, Styles, AreaService) {
   });
 
   // modify
-  var modify_overlay = new ol.FeatureOverlay({
-    features: Design.areas_collection,
-    style:    Styles.highlightStyleFunction,
+  Design.modify_overlay.setFeatures(Design.modify_collection)
+  Design.modify_overlay   = new ol.FeatureOverlay({
+    features: Design.modify_collection,
+    // style:    Styles.highlightStyleFunction,
   })
   interactions.modify_overlay = modify_overlay;
   interactions.modify = new ol.interaction.Modify({
     // features: Design.areas_collection,
-    features: modify_overlay.getFeatures(),
+    features: Design.modify_collection,
     style: Styles.highlightStyleFunction,
 
     // the SHIFT key must be pressed to delete vertices, so
