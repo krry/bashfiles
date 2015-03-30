@@ -114,12 +114,17 @@ main.main.main-fixed {
   margin-bottom: 0.75em;
 }
 
-.territory-map figure {
+.territory-map {
+  figure {
   background-image: url('../img/map_regions_2-01.svg');
   background-repeat: no-repeat;
   background-position: top center;
   background-size: contain;
   height: 180px;
+  }
+  p.center {
+    letter-spacing: 0.1em;
+  }
 }
 
 .video-vision .video-tray {
