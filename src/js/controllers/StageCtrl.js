@@ -13,9 +13,9 @@
 
 ================================================== */
 
-controllers.controller("StageCtrl", ["$scope", "$location", "$state", "$timeout", "TemplateConfig", "Session", "Clientstream", "ModalService", StageCtrl_]);
+controllers.controller("StageCtrl", ["$scope", "$location", "$state", "$timeout", "User", "TemplateConfig", "Session", "Clientstream", "ModalService", StageCtrl_]);
 
-function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Client, Modal) {
+function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Session, Client, Modal) {
   var vm,
       session_ref,
       stage,
@@ -94,7 +94,7 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
   $scope.view_sync = true;
 
   function bootstrapNewSession (session_data) {
-    var hasAdvanced = (session_data.state.stage !== 0 || session_data.state.step !== 0 ),
+    var hasAdvanced = User.isNew,
         zipParam = getParameterByName('zip'),
         isOnHome = $state.is('flannel.home.zip-nearme') || $state.is('flannel.home.address-roof');
 
