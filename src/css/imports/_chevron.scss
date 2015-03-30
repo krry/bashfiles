@@ -1,12 +1,12 @@
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-  
+
   CHEVRON
-  
+
   shapes an element like a chevron pointing in a given
   direction ("right", "left", "up", "down")
 
   inspired by [@apticknor](https://twitter.com/apticknor)'s
-  approach courtesy of 
+  approach courtesy of
   [CSS Tricks](http://css-tricks.com/examples/ShapesOfCSS/)
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
@@ -19,7 +19,7 @@
 
   &.active:before,
   &.active:after {
-    background: $tint-10;
+    background: $shade-10;
   }
 
   &:before,

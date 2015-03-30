@@ -378,7 +378,7 @@ input[type="month"]:hover,
 input[type="time"]:hover,
 input[type="week"]:hover,
 select[multiple=multiple]:hover {
-  border-color: $grey-meh;
+  border-color: $grey-mid;
 }
 
 textarea:focus,
@@ -396,7 +396,7 @@ input[type="datetime-local"]:focus,
 input[type="month"]:focus,
 input[type="time"]:focus,
 input[type="week"]:focus {
-  border-color: $grey-meh;
+  border-color: $grey-mid;
   background-color: $color-input-bkgd-focus;
   box-shadow: $shadow-input;
 }
