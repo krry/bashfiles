@@ -64,6 +64,7 @@
   }
 
   .label {
+    @include apercu-light;
     margin: 10px 0 0 20px;
     display: inline-block;
   }
