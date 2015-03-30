@@ -39,6 +39,7 @@ function newConfigurator_($q, Client, Session, View, Interactions, Layers, MapFa
     layers: Layers.collection,
     interactions: Interactions.collection,
     controls:  omap_controls,
+    overlays: Layers.overlay_collection,
     view: View
   }
 
@@ -194,9 +195,11 @@ function newConfigurator_($q, Client, Session, View, Interactions, Layers, MapFa
       Client.emit('Configurator: update mapsize', map)
       map.updateSize()
       // add the layer
-      map.addLayer(Layers.roofpeak)
+      // map.addLayer(Layers.roofpeak)
+      Layers.collection.push(Layers.roofpeak)
       // add the overlay
-      map.addOverlay(Layers.roofpeak_overlay)
+      // Layers.roofpeak_overlay.setMap(maps.omap)
+      maps.omap.addOverlay(Layers.roofpeak_overlay);
     })
     if (typeof maps !== 'undefined') { if ( maps.omap) {
       maps.omap.updateSize()
@@ -206,9 +209,10 @@ function newConfigurator_($q, Client, Session, View, Interactions, Layers, MapFa
     result.promise.then(function (map) {
       map.updateSize();
       // remove the layer
-      map.removeLayer(Layers.roofpeak);
-      // remove the overlay
-      map.removeOverlay(Layers.roofpeak_overlay);
+      // map.removeLayer(Layers.roofpeak);
+      Layers.collection.remove(Layers.roofpeak);
+      // remove the map from the overlay... seems weird, but necessary
+      Layers.roofpeak_overlay.setMap(null);
     })
   }
 }

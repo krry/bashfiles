@@ -39,7 +39,22 @@ function Layers_(Design, Styles, AreaService, Client) {
 
   // overlays
   modify_overlay = Design.modify_overlay;
-  roofpeak_overlay =  Design.roofpeak_overlay;
+  // roofpeak_overlay =  Design.roofpeak_overlay;
+
+  // roofpeak stuff
+  // a collection to hold the highlighted feature
+  var h_coll = new ol.Collection([]);
+
+  // highlighted segments get rendered by this FeatureOverlay
+  highlight_overlay = new ol.FeatureOverlay({
+    // style: Styles.remapHighlight,
+    features: h_coll,
+  });
+
+  // var modify_overlay = new ol.FeatureOverlay({
+  //   features: Design.areas_collection,
+  //   style:    Styles.highlightStyleFunction,
+  // })
 
   areas_collection.on('add', function (e) {
     // add to sources
@@ -95,8 +110,10 @@ function Layers_(Design, Styles, AreaService, Client) {
     draw : l_draw,
     modify: l_modify,
     roofpeak: l_roofpeak,
-    roofpeak_overlay: Design.roofpeak_overlay,
+    roofpeak_overlay: highlight_overlay,
+    h_coll: h_coll,
     collection: new ol.Collection(),
+    overlays_collection: new ol.Collection(),
     areas_collection:  areas_collection,
     rx_drawcount: rx_drawcount,
     modify_overlay: Design.modify_overlay,

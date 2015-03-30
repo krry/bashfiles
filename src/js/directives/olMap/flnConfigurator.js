@@ -27,12 +27,13 @@ function flnConfigurator (Client, newConfigurator) {
       g_div = $(element).find('#gmtest')[0];
       o_div = $(element).find('#oltest')[0];
 
-      newConfigurator.setTarget(g_div, o_div);
-
+      console.log('flnconfigurator sub to target set')
       Client.listen('Configurator: target set', function(argument) {
         var c = maps.omap.getView().getCenter()
         maps.gmap.setCenter({lat:c[1], lng:c[0]});
       });
+
+      newConfigurator.setTarget(g_div, o_div);
 
       $(window).resize(function() {
         var c = maps.omap.getView().getCenter()
