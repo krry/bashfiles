@@ -23,11 +23,14 @@
 
 .proposal.proposal {
   background-color: $white;
-  color: $green-dark;
+  color: $green-neue;
   border-radius: 2px;
   margin-bottom: 1rem;
   .row:not(:last-child) {
     border-bottom: 2px solid $grey-lightest;
+  }
+  .col {
+    min-height: 10.5em;
   }
   .col:not(.fifth) {
     border-right: 2px solid $grey-lightest;
@@ -43,25 +46,27 @@
   }
   label:first-child {
     @include apercu-light;
-    font-size: .875em;
-    margin: .25em 0 -.25em;
+    font-size: .9em;
+    line-height: 120%;
+    margin: .5em 0 0 0;
     color: $grey-dark;
   }
   label:last-child {
     @include apercu-light;
     @include caps;
     font-size: .6em;
-    margin: .25em 0;
+    margin: 0 0 .4em 0;
     letter-spacing: 0.5px;
     color: $grey-dark;
   }
   figure {
     margin: 0;
+    letter-spacing: -0.5px;
   }
   figure span.cents,
   figure span.dollars {
     @include apercu-bold;
-    font-size: 3em;
+    font-size: 2.8em;
     &:before,
     &:after {
       @include apercu-light;
