@@ -21,19 +21,17 @@ function MapFactory_($rootScope, MapService, StyleService, Design, Client , Area
   f_collection = new ol.Collection([]);
 
   Client.listen('roofpeak', function (feature) {
-    var removeus = f_source.getFeatures()
-    removeus.forEach(function(f) {
+    f_source.getFeatures().forEach(function(f) {
       f_source.removeFeature(f);
     })
-
     // remap the feature
     remapFeature(feature);
   })
 
-  function roofArea (feature) {
+  // function roofArea (feature) {
 
-    return remapFeature(feature);
-  }
+  //   return remapFeature(feature);
+  // }
 
   function remapFeature (feature) {
     if (!feature) {
@@ -167,7 +165,7 @@ function MapFactory_($rootScope, MapService, StyleService, Design, Client , Area
   }
 
   return {
-    roofArea: roofArea,
+    // roofArea: roofArea,
     fFromWkt: featFromTxt,
   };
 

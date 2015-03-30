@@ -92,9 +92,9 @@ function CalendarCtrl_ (scope) {
     }
 
     if (isAvailable(date)) {
-      return 'The selected date is available.';
+      return 'This date is available.';
     }
-    
-    return 'The selected date is unavailable.';
+
+    return 'This date is unavailable.';
   }
 }

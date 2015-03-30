@@ -15,7 +15,7 @@
 @import "../imports/typography";
 
 .header {
-  @include apercu-regular;
+  @include apercu-medium;
   background: $color-header-bkgd;
   color: $color-header-text;
   position: fixed;
@@ -24,7 +24,7 @@
   right: 0;
   z-index: 10;
   height: 2.9rem;
-  box-shadow: 0 1px 3px $color-header-shadow;
+  box-shadow: 0 1px 2px $color-header-shadow;
 
   a, span, ul, li {
     display: inline-block;
@@ -52,7 +52,7 @@
 
   li {
     position: relative;
-    opacity: 0.9;
+    opacity: 1;
     text-shadow: none;
     cursor: default;
     &.active {
@@ -69,11 +69,11 @@
   }
 
   .logo {
-    background-image: url('../img/logo-white.svg');
-    background-position: left -7px;
+    background-image: url('../img/logo-white-new.svg');
+    background-position: -7px -7px;
     background-repeat: no-repeat;
     background-size: auto 130%;
-    width: 9.8rem;
+    width: 8.8rem;
     opacity: 1;
     a {
       text-indent: -9999px;
@@ -119,7 +119,7 @@
   }
 
   .header-detail {
-    @include apercu-light;
+    @include apercu-medium;
     display: none;
   }
 }
@@ -146,11 +146,19 @@
 @media screen and (min-width: $width-min-xlg) {
   .header {
     .logo {
-      background-position: left -9px;
+      background-position: -7px -7px;
     }
     .header-detail {
-      @include apercu-light;
+      @include apercu-medium;
       display: inline;
+    }
+  }
+}
+
+@media screen and (min-width: $width-min-xxl) {
+  .header {
+    .logo {
+      background-position: -8px -8px;
     }
   }
 }

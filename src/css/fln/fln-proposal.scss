@@ -3,6 +3,7 @@
 @import "../imports/fonts";
 
 .proposal-page {
+  background: $white-dark;
   strong + p {
     margin-top: .25em;
   }
@@ -22,7 +23,7 @@
 
 .proposal.proposal {
   background-color: $white;
-  color: $green;
+  color: $green-dark;
   border-radius: 2px;
   margin-bottom: 1rem;
   .row:not(:last-child) {
@@ -38,7 +39,7 @@
     border-right: 0;
   }
   .utes {
-    color: $grey-dark;
+    color: $grey-mid;
   }
   label:first-child {
     @include apercu-light;

@@ -16,6 +16,7 @@ function SalesforceProvider_ () {
       contact: 'Pre credit check',
       failCredit: 'Insufficient credit',
       passCredit: 'Pass credit',
+      noCreditResult: 'Credit unknown',
       scheduledSiteSurvey: 'Scheduled site survey'
     };
 

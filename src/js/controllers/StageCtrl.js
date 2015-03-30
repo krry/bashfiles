@@ -23,11 +23,13 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
       state_ref,
       session_stream,
       waiting,
-      help_steps;
+      help_steps,
+      unlockODA;
 
   stage = 0;
   step  = 0;
   waiting = false;
+  unlockODA = false;
 
   vm = this;
   vm.next = next;
@@ -74,6 +76,7 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
   Client.listen('start over', startOver);
   Client.listen('Spinner: spin it', setWaiting);
   Client.listen('Stages: stage', stageLayout);
+  Client.listen('ODA: Request session', unlockODAState);
 
   function currentStep (step) {
     return step === step;
@@ -91,6 +94,10 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
   $scope.view_sync = true;
 
   function bootstrapNewSession (session_data) {
+    var hasAdvanced = (session_data.state.stage !== 0 || session_data.state.step !== 0 ),
+        zipParam = getParameterByName('zip'),
+        isOnHome = $state.is('flannel.home.zip-nearme') || $state.is('flannel.home.address-roof');
+
     // bootstrap a new session, start it's streams up
     session_stream = Session.state_stream()
       .filter(function() { return $scope.view_sync; }) // don't listen to changes you're making
@@ -98,9 +105,21 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
       .subscribe(streamSubscription);
     // anounce you're watching the streams, send the new data
     Client.emit('Stages: subscribed to statestream', session_data);
-    if ( $location.path().indexOf('share') < 0 && (session_data.state.stage !== 0 || session_data.state.step !== 0 )) {
+
+    // Only show the continue modal if the user is on the home page (zip or address page) and has advanced in the flow
+    // Else, on other pages, we let that page's url take precedence
+    if (!isOnHome && !hasAdvanced) {
+      Client.emit('Stages: jump to step', 'zip-nearme');
+    }
+    else if (isOnHome && hasAdvanced) {
       Modal.set(true);
       return Modal.activate('continue');
+    }
+    // Advance to the address page if there is a zip parameter and the user hasn't advanced in the flow before
+    else if (zipParam && !hasAdvanced) {
+      $state.go('flannel.home.address-roof').then(function() {
+        Client.emit('check zip', zipParam);
+      });
     }
   }
 
@@ -109,6 +128,10 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
     // you're about to emit messages that making changes to the templates. Lock the view so that
     // messages don't arrive in the meantime.
     // $scope.view_sync = false; // TODO: why isn't this necessary anymore?
+
+    // Don't let session object overtake the app on share proposal and design link states
+    if ($state.is('share_proposal') || ($state.is('design_link') && !unlockODA)) return;
+
     if (data.stage !== stage) {
       console.log('data.stage', data.stage,'diff from client stage', stage);
       Client.emit('Stages: stage', data);
@@ -278,5 +301,16 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
     }
 
     return partials;
+  }
+
+  function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+  }
+
+  function unlockODAState() {
+    unlockODA = true;
   }
 }

@@ -98,7 +98,11 @@ function GmapFactory_ () {
 
     function init (data) {
       map = new google.maps.Map(data, map_opts);
-      dfd.resolve(map);
+
+      google.maps.event.addListener(map, 'idle', function() {
+        dfd.resolve(map); 
+      });
+      
       return map;
     }
 

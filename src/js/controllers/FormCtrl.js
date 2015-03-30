@@ -66,6 +66,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
   vm.skipConfigurator = skipConfigurator;
 
   Client.listen('zip rejected', rejectZip);
+  Client.listen('check zip', checkZip);
   Client.listen('valid latlng', acceptValidLatLng);
   Client.listen('Geocoder: valid warehouse', acceptValidWarehouse);
   Client.listen('Geocoder: valid house', acceptValidHouse);
@@ -160,20 +161,21 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
       AddressId: vm.prospect.addressId,
       BirthDate: vm.prospect.dob
     }).then(function(data) {
-      var stage = data.CreditResultFound ? 'next' : 'back';
-      vm.prospect.qualified = data.qualified;
-      Client.emit('Form: valid data', { qualified: data.qualified });
       vm.isSubmitting = false;
       vm.timedOut = false;
 
-      // Only do this stage change if all three bureaus didn't qualify
-      if (!data.qualified) {
+      if (data.CreditResultFound && !data.qualified) {
+        vm.prospect.qualified = data.qualified;
+        Client.emit('Form: valid data', { qualified: data.qualified });
         createLead(Salesforce.statuses.failCredit);
-        Client.emit('Stages: stage', stage);
+        Client.emit('Stages: stage', 'next');
+      } 
+      else if (!data.CreditResultFound) {
+        createLead(Salesforce.statuses.noCreditResult);
+        Client.emit('Stages: jump to step', 'congrats');
       }
     }, function(resp) {
-      // Darius said to use 'saved proposal' for now when the api call fails
-      createLead(Salesforce.statuses.savedProposal);
+      createLead(Salesforce.statuses.noCreditResult);
       vm.isSubmitting = false;
 
       // Timed out
@@ -479,7 +481,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
 
   function acceptEmailFromShare(data) {
     vm.prospect.email = data;
-    createLead('Pre credit check');
+    createLead(Salesforce.statuses.savedProposal);
   }
 
   function setFinalNearMeData(data) {

@@ -10,6 +10,7 @@ angular.module('flannel').factory("View", ['Design', 'Session', 'Clientstream', 
 
 function View_(Design, Session, Client) {
   var view, center, center_listner_key, zoom_listener_key;
+      console.log('View sub to target set')
 
   Client.listen('Configurator: target set', function () {
     Design.ref() && Design.rx_zoom.onNext(view.getZoom());
@@ -55,7 +56,7 @@ function View_(Design, Session, Client) {
   // update zoom level from remote
   Design.rx_zoom.subscribe(function handleZoom (zoom_val){
     if (zoom_val === null) {
-      return view.setZoom(19);
+      return view.setZoom(20);
     } else {
       return view.setZoom(zoom_val);
     }

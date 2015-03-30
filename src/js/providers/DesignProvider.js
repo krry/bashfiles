@@ -51,7 +51,8 @@ function DesignProvider_ (FIREBASE_URL) {
       streams,
       rx_areas,
       rx_center,
-      rx_zoom;
+      rx_zoom,
+      rx_selectedpeak;
 
   streams = {
     areas: {},
@@ -76,11 +77,14 @@ function DesignProvider_ (FIREBASE_URL) {
     this.map_details.center = center;
   }
 
-  this.$get = [ "Session", "Clientstream", "StyleService", function designProviderFactory(Session, Client, Styles) {
-
     var rx_center = new Rx.Subject();
     var rx_zoom = new Rx.Subject();
     var rx_areas = new Rx.Subject();
+    var rx_selectedpeak = new Rx.BehaviorSubject();
+
+  this.$get = [ "Session", "Clientstream", "StyleService", function designProviderFactory(Session, Client, Styles) {
+
+
 
     Client.listen('Design: Loaded', saveDesignIdToSession);
 
@@ -118,6 +122,10 @@ function DesignProvider_ (FIREBASE_URL) {
         rx_areas.onNext(ds.exportVal());
       });
 
+      _ref.child('areas/0/ridge').on('value', function (ds){
+        rx_selectedpeak.onNext(ds.exportVal());
+      });
+
       _ref.child('map_details/center').on('value', function (ds) {
         rx_center.onNext(ds.exportVal());
       });
@@ -125,6 +133,7 @@ function DesignProvider_ (FIREBASE_URL) {
       _ref.child('map_details/zoom_level').on('value', function (ds){
         rx_zoom.onNext(ds.exportVal());
       });
+
 
       var data = ds.exportVal() || {};
       data.design_id = _ref.key();
@@ -147,12 +156,12 @@ function DesignProvider_ (FIREBASE_URL) {
         roofpeak_source:  new ol.source.Vector(),
         // overlays
         modify_overlay:   new ol.FeatureOverlay({style: Styles.highlightStyleFunction}),
-        roofpeak_overlay:   new ol.FeatureOverlay({style: Styles.remapHighlight}),
+        // roofpeak_overlay:   new ol.FeatureOverlay({style: Styles.remapHighlight}),
         // streams
-
         rx_center:        rx_center,
         rx_zoom:          rx_zoom,
         rx_areas:         rx_areas,
+        rx_selectedpeak:  rx_selectedpeak,
         setWkt: function name(txt) {
           _wkt = txt
         },
