@@ -9,13 +9,14 @@
 
 ================================================== */
 
-controllers.controller("AppCtrl", ['$location', '$sce', 'GMAP_CLIENT', 'MINIFIED', 'APP_TITLE', 'ENV', 'Clientstream', AppCtrl_]);
+controllers.controller("AppCtrl", ['$location', '$sce', 'GMAP_CLIENT', 'MINIFIED', 'APP_TITLE', 'ENV', 'Clientstream', 'ANALYTICS_ID', AppCtrl_]);
 
-function AppCtrl_($location, $sce, GMAP_CLIENT, MINIFIED, APP_TITLE, ENV, Client) {
+function AppCtrl_($location, $sce, GMAP_CLIENT, MINIFIED, APP_TITLE, ENV, Client, ANALYTICS_ID) {
   var vm = this;
   vm.minified = MINIFIED;
   vm.appTitle = APP_TITLE;
   vm.gmapClient = GMAP_CLIENT;
+  vm.analyticsId = ANALYTICS_ID;
 
   // if user is an ODA, trigger ODA mode to show ODA tools
   if (window.location.href.indexOf('oda') > -1) {
