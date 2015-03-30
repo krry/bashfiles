@@ -141,13 +141,13 @@ input.bill {
   vertical-align: bottom;
   color: $green-dark;
   border: 2px solid inherit;
-  margin: 0 0 0 .75em;
+  margin: 0 0 0 .5em;
   font-size: 1.25em;
   &:before {
     content: "\0024";
     position: relative;
-    top: -.1em;
-    left: 0em;
+    top: -.3em;
+    left: .2em;
   }
 }
 

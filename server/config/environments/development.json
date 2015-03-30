@@ -23,6 +23,7 @@
   "SFDCRECORDTYPEID": "012180000008VBfAAM",
   "CLIENT": {
     "ENV": "development",
+    "ANALYTICS_ID": "GTM-M8LTWS",
     "MINIFIED": "false",
     "URL_ROOT": "localhost:8100",
     "APP_TITLE": "FLNL • DEV",

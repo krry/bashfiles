@@ -51,17 +51,17 @@ main.main.main-fixed {
 }
 
 .overlay.short {
-  padding: 1em 2em 0.3em 2em;
+  padding: 0em 2em 0.5em 2em;
+}
+
+.step-bill.overlay.short {
+  padding-top: 1em;
 }
 
 .overlay.primary,
 .overlay.only {
-  padding: 4em 2em 7em 2em;
+  padding: 2em;
   text-align: center;
-}
-
-.overlay.only {
-  /* background-color: $grey-lightest; */
 }
 
 .overlay.proposal-page {
@@ -183,6 +183,12 @@ main.main.main-fixed {
     }
   }
 
+  .overlay.primary,
+  .overlay.only {
+    padding-top: 4em;
+    padding-bottom: 7em;
+  }
+
   .step-address.primary,
   .step-bill.primary {
     width: 100%;
@@ -209,7 +215,7 @@ main.main.main-fixed {
     width: calc(18em - 1px);
   }
   .overlay.short {
-    padding: 1em 2em 0.3em 2em;
+    padding: 0em 2em 0.5em 2em;
     height: auto;
     box-shadow: 0 0 8px 0 $shade-40;
     &.step-bill {

@@ -42,16 +42,15 @@ function OdaCtrl_($scope, Client, Form) {
     var key, keys, val;
     if (form_obj === null) return; // will be null if no data on firebase
     keys = Object.keys(form_obj);  // HACK: this may fail in different js interpreters... #readabookbrah
-    if (!angular.equals(form_obj, vm.prospect())) { // firebase different from local
+    if (!angular.equals(form_obj, vm.prospect)) { // firebase different from local
       for (var i = 0; i < keys.length; i++) {
         key = keys[i];
         val = form_obj[key];
-        // vm.prospect()[key] = val;
       }
       setTimeout(function() {
         $scope.$apply(); // update the views
+        console.log('prospect is:', vm.prospect);
       }, 0);
-      console.log('prospect is:', vm.prospect());
     }
   }
 }

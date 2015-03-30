@@ -406,8 +406,9 @@ select {
   position: relative;
   color: $grey-darker;
   text-align: left;
-  background: $white url('../img/down-arrow.svg') no-repeat 92% center;
+  background: $white url('../img/down-arrow.svg') no-repeat 96% center;
   background-size: auto 80%;
+  border: 1px solid $grey-mid;
   &[multiple] {
     font-size: .75em;
     background-image: none;

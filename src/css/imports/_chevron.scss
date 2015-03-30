@@ -1,12 +1,12 @@
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-  
+
   CHEVRON
-  
+
   shapes an element like a chevron pointing in a given
   direction ("right", "left", "up", "down")
 
   inspired by [@apticknor](https://twitter.com/apticknor)'s
-  approach courtesy of 
+  approach courtesy of
   [CSS Tricks](http://css-tricks.com/examples/ShapesOfCSS/)
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
@@ -24,11 +24,15 @@
 
   &:before,
   &:after {
-    border-left: 1px solid $tint-20;
     border-right: 1px solid $tint-20;
     content: '';
     position: absolute;
     z-index: -1;
+  }
+
+  &:first-of-type:before,
+  &:first-of-type:after {
+    border-left: 1px solid $tint-20;
   }
 
   @if ($direction == "right" or $direction == "left") {

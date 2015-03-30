@@ -23,6 +23,7 @@
   "SFDCRECORDTYPEID": "0121900000009OfAAI",
   "CLIENT": {
     "ENV": "train",
+    "ANALYTICS_ID": "GTM-M8LTWS",
     "MINIFIED": "true",
     "URL_ROOT": "go-train.solarcity.com",
     "APP_TITLE": "The Future is Now • SolarCity",
