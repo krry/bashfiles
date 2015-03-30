@@ -16,9 +16,10 @@
     <div class="col fifth three center">
       <p>Note: These are 2-hour arrival windows for our site surveyors and then the site survey will take around 1 to 2 hours.</p>
     </div>
-    <button class="std gold" ng-click="schedule.save()" ng-disabled="!schedule.prospect.scheduledTime">Schedule it</button>
-
-    <div class="col fifth three center">
+    <div class="button-set">
+      <button class="std gold" ng-click="schedule.save()" ng-disabled="!schedule.prospect.scheduledTime">Schedule it</button>
+    </div>
+    <div class="col fifth three center button-set-secondary">
       <button class="std white display-inline-block tiny" ng-click="stages.prev()">Change date</button>
       <button class="std white display-inline-block tiny" ng-click="stages.jumpToStep('congrats')">Schedule this later</button>
     </div>
