@@ -48,14 +48,14 @@
     @include apercu-light;
     font-size: .9em;
     line-height: 120%;
-    margin: .5em 0 0 0;
-    color: $grey-dark;
+    margin: 1em 0 0 0;
+    color: $grey-darker;
   }
   label:last-child {
     @include apercu-light;
     @include caps;
     font-size: .6em;
-    margin: 0 0 .4em 0;
+    margin: 0 0 .2em 0;
     letter-spacing: 0.5px;
     color: $grey-dark;
   }
