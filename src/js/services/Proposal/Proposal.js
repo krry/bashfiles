@@ -5,8 +5,6 @@
  */
 
 angular.module('flannel').service('Proposal', ['Session', 'Panelfill', 'Clientstream', Proposal_]);
-var proposal_map;
-
 
 function Proposal_(Session, Panelfill, Client) {
   // TODO: Revisit naming of this and Panelfill API service... to whatever it should be.
@@ -44,11 +42,11 @@ function Proposal_(Session, Panelfill, Client) {
       // share proposal link
     var ridge;
       // typical use case for user in flow
-    Session.ref().parent().parent().child('designs')
-    .child(Session.ref().key()).child('areas/0/ridge')
-      .once('value', function (ds) {
-          ridge = ds.exportVal();
-    });
+    // Session.ref().parent().parent().child('designs')
+    // .child(Session.ref().key()).child('areas/0/ridge')
+    //   .once('value', function (ds) {
+    //       ridge = ds.exportVal();
+    // });
 
       var ref = new Firebase('https://scty-int.firebaseio.com').child('designs')
         .child(design_id)
@@ -85,6 +83,7 @@ function Proposal_(Session, Panelfill, Client) {
     }
     return new google.maps.Polygon({
       paths: panel_coords,
+      clickable: false,
       strokeColor: '#e7f3fc',
       strokeOpacity: 0.3,
       strokeWeight: 1,
