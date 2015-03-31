@@ -28,8 +28,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
   // stream listeners
   Client.listen('center changed', applyCenter);
   Client.listen('Gmap: max zoom found', applyMaxZoom);
-  Client.listen('Gmap: switch to satellite', switchToSatellite);
-  Client.listen('Gmap: swtich to terrain', switchToTerrain);
+  Client.listen('Gmap: switch to satellite', switchToSatellite);;
   Client.listen('Spinner: add to spin count', setSpinCount);
   // Client.listen('Gmap: get nearme data', getNearMeData);
 
@@ -86,16 +85,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
       }
     });
   }
-
-  function switchToTerrain (data) {
-    Gmap.loaded.then(function() {
-      if (data) {
-        Client.emit('Spinner: add to spin count', true);
-        map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
-      }
-    });
-  }
-
+  
   function saveCenter () {
     // TODO: wait to fire these updates until mouseup to avoid oversyncing and lag induction
     // if ($element.mouseUp()) {
