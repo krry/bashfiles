@@ -29,6 +29,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
   Client.listen('center changed', applyCenter);
   Client.listen('Gmap: max zoom found', applyMaxZoom);
   Client.listen('Gmap: switch to satellite', switchToSatellite);
+  Client.listen('Gmap: swtich to terrain', switchToTerrain);
   Client.listen('Spinner: add to spin count', setSpinCount);
   // Client.listen('Gmap: get nearme data', getNearMeData);
 
@@ -37,6 +38,10 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
   }
 
   function activate () {
+    if (map) {
+      return;
+    }
+
     // init the map object with defaults
     init(mapEl, mapOpts);
     // listen to the map for user's changes
@@ -78,6 +83,15 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
       if (data && map.getMapTypeId() !== "hybrid") {
         Client.emit('Spinner: add to spin count', true);
         map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+      }
+    });
+  }
+
+  function switchToTerrain (data) {
+    Gmap.loaded.then(function() {
+      if (data) {
+        Client.emit('Spinner: add to spin count', true);
+        map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
       }
     });
   }
