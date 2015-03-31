@@ -114,12 +114,17 @@ main.main.main-fixed {
   margin-bottom: 0.75em;
 }
 
-.territory-map figure {
+.territory-map {
+  figure {
   background-image: url('../img/map_regions_2-01.svg');
   background-repeat: no-repeat;
   background-position: top center;
   background-size: contain;
   height: 180px;
+  }
+  p.center {
+    letter-spacing: 0.1em;
+  }
 }
 
 .video-vision .video-tray {
@@ -149,8 +154,16 @@ main.main.main-fixed {
   font-size: 0.7em;
   text-align: left;
   margin-top: 10em;
-  color: $grey-meh;
+  color: transparentize($grey-darker, 0.5);
 }
+
+.credit-check button.gold {
+  min-width: 15em;
+  margin-top: 3em;
+}
+
+
+
 
 
 @media screen and (min-width: $width-min-med){

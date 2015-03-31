@@ -35,7 +35,7 @@
   /* transform: scale(1.5) translateZ(0px) !important;   */
 }
 
-.roofpeak {
+.roofpeak .ol-viewport {
   background: $tint-40;
 }
 
@@ -217,6 +217,6 @@
 }
 
 .panelfill {
-  height: 18em;
+  min-height: 21em;
   width: 100%;
 }

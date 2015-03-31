@@ -10,6 +10,7 @@ angular.module('flannel').factory("View", ['Design', 'Session', 'Clientstream', 
 
 function View_(Design, Session, Client) {
   var view, center, center_listner_key, zoom_listener_key;
+      console.log('View sub to target set')
 
   Client.listen('Configurator: target set', function () {
     Design.ref() && Design.rx_zoom.onNext(view.getZoom());

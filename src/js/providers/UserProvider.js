@@ -28,7 +28,8 @@ function UserProvider_ (SessionProvider, FIREBASE_URL) {
       _ref_key,
       users_url,
       fb_observable,
-      state_stream;
+      state_stream,
+      is_new;
 
   users_url = FIREBASE_URL + "users/";
 
@@ -45,6 +46,10 @@ function UserProvider_ (SessionProvider, FIREBASE_URL) {
     });
 
     return ref_setup(_ref);
+  };
+
+  this.setIsNew = function(bool) {
+    is_new = bool;
   };
 
   function ref_setup (ref) {
@@ -97,9 +102,10 @@ function UserProvider_ (SessionProvider, FIREBASE_URL) {
           return null;
         },
         id: function () { return _ref.key(); },
+        isNew: is_new
       };
     }
 
     return new user_builder_brah();
-
-}]}
+  }];
+}
