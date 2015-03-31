@@ -38,6 +38,8 @@ angular.module('flannel', [
     UserProvider.setRefKey(uid);
   }
 
+  UserProvider.setIsNew(!$cookies.user_id);
+
   $sceDelegateProvider.resourceUrlWhitelist([
    // Allow same origin resource loads.
    'self',

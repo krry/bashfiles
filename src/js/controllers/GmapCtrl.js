@@ -37,6 +37,10 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
   }
 
   function activate () {
+    if (map) {
+      return;
+    }
+
     // init the map object with defaults
     init(mapEl, mapOpts);
     // listen to the map for user's changes
