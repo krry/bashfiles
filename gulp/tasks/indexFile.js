@@ -19,7 +19,9 @@ var tmplSrc = [
 ];
 
 scriptSrc = ['public/*.js', 'public/js/**/*.js', '!public/js/**/*.min.js'];
-styleSrc = ['public/css/**/*.css', '!public/css/**/*.min.css'];
+libHeadSrc = ['public/lib/libs-head-*.js', 'public/lib/libs-head-*.min.js'];
+libtailSrc = ['public/lib/libs-tail-*.js', 'public/lib/libs-tail-*.min.js'];
+styleSrc = ['public/lib/*.css', 'public/css/**/*.css', '!public/css/**/*.min.css'];
 
 // if (env === 'development') {
 //   scriptSrc = ['public/*.js', 'public/js/**/*.js', '!public/js/**/*.min.js'];
