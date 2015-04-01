@@ -1,9 +1,9 @@
-angular.module('flannel').service('Panelfill', PanelfillSvc);
+angular.module('flannel').service('Panelfill', ['$http', '$q', PanelfillService_]);
 
-function PanelfillSvc ($http, $q) {
+function PanelfillService_ ($http, $q) {
   // TODO: Revisit naming of this and Proposal service... to whatever it should be.
 
-  // this Service provides Api access
+  // this Service provides API access
   var Panelfill = {};
 
   // open to the web
@@ -119,7 +119,7 @@ function PanelfillSvc ($http, $q) {
     return inside;
   }
 
-  
+
   var pitchS = 15;
   var heading = 0;
   var offset = Math.sin(pitchS * Math.PI/180);

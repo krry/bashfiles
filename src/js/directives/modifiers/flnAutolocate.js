@@ -1,6 +1,6 @@
-directives.directive('flnAutolocate', flnAutolocate);
+directives.directive('flnAutolocate', [flnAutolocate_]);
 
-function flnAutolocate () {
+function flnAutolocate_ () {
   return {
     restrict: 'E',
     replace: true,

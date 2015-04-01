@@ -1,4 +1,4 @@
-directives.directive('flnInputStreet', ["$timeout", flnInputStreet_]);
+directives.directive('flnInputStreet', ['$timeout', flnInputStreet_]);
 
 function flnInputStreet_ ($timeout) {
   return {

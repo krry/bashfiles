@@ -184,6 +184,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
       var stage = data.CreditResultFound ? 'next' : 'back';
       vm.prospect().qualified = data.qualified;
       Client.emit('Form: valid data', { qualified: data.qualified });
+
       vm.isSubmitting = false;
       vm.timedOut = false;
 

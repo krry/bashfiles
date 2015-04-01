@@ -1,6 +1,6 @@
-directives.directive('flnFinancing', flnFinancing);
+directives.directive('flnFinancing', [flnFinancing_]);
 
-function flnFinancing () {
+function flnFinancing_ () {
   return {
     templateUrl: 'templates/directives/dialogs/flnFinancing.html',
     require: '^flnModal',

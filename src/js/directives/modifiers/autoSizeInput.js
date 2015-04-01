@@ -10,9 +10,9 @@
 //
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-directives.directive('autoSizeInput', autoSizeInput);
+directives.directive('autoSizeInput', [autoSizeInput_]);
 
-function autoSizeInput() {
+function autoSizeInput_() {
   return {
     replace: true,
     transclude: 'element',

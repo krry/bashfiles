@@ -1,6 +1,6 @@
-directives.directive('flnConfigurator', ['Clientstream', 'newConfigurator', flnConfigurator]);
+directives.directive('flnConfigurator', ['Clientstream', 'newConfigurator', flnConfigurator_]);
 
-function flnConfigurator (Client, newConfigurator) {
+function flnConfigurator_ (Client, newConfigurator) {
   return {
     restrict: "A",
     priority: 100,
