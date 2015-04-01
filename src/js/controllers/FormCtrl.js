@@ -178,12 +178,8 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
       createLead(Salesforce.statuses.noCreditResult);
       vm.isSubmitting = false;
 
-      // Timed out
-      if (resp.status === 0) {
-        vm.timedOut = true;
-      } else {
-        Client.emit('Stages: jump to step', 'congrats');
-      }
+      // Timed out or failed
+      Client.emit('Stages: jump to step', 'congrats');
     });
   }
 

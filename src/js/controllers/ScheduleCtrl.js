@@ -47,10 +47,11 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
         [vm.prospect.state, vm.prospect.zip].join(' ')
       ].join(', '),
       description: [
-        'A site surveyor will come to your house.',
-        'Someone over 18 must be home to open the door and answer any questions.',
-        'The site surveyor will study your roof as well as your current energy consumption.',
-        'This will take 1-2 hours, but you only need to be there to answer the door.'
+        'A SolarCity site surveyor will arrive at your home during this 2-hour window.',
+        'We’ll need someone over 18 present for the entirety of the appointment, which should last 1-2 hours.',
+        'The surveyor will need access to your roof, attic, electrical panel and internet connection.',
+        'We will take detailed measurements of your home and assess your current energy consumption to design a system that is customized for your needs.',
+        'CONGRATULATIONS ON TAKING THE NEXT STEP TOWARD GOING SOLAR!'
       ].join(' ')
     };
   }
@@ -188,6 +189,10 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
   }
 
   function populateHOAs(data) {
+    data.sort(function(x, y) {
+      return (x.AHJName > y.AHJName) ? 1 : (x.AHJName < y.AHJName) ? -1 : 0;
+    });
+
     vm.HOAs.length = 0;
     vm.HOAs.push({ AHJName: 'Select your homeowners association', id: 0 });
     vm.HOAs.push.apply(vm.HOAs, data);
