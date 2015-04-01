@@ -13,7 +13,7 @@ var newrelic     = require('newrelic'),
     nconf        = require('nconf'), // https://github.com/flatiron/nconf
     fs           = require('fs'),
     express      = require('express'),
-    compression  = require('compression'),
+    compress  = require('compression'),
     browserSync  = require('browser-sync'),
     expValid     = require('express-validator'),
     bodyParser   = require('body-parser'),
@@ -21,17 +21,15 @@ var newrelic     = require('newrelic'),
     env          = process.env.NODE_ENV || 'development',
     morgan       = require('morgan'),
     logger       = require('./logger'), // logger
-    // db,
     portfinder   = require('portfinder'),
     app,
     port,
     publicFolder,
     oneYear;
 
-console.log('env on server is:', env);
+console.log('env on server is:', process.env.NODE_ENV);
 nconf.argv().env().file({file: './server/config/environments/' + env + '.json'});
 
-// db = require('./config/db.js'); // for the db config, this is ignored by git
 app = express(); // the app used throughout the server
 
 app.publicRoot = __dirname + '/../public';
@@ -54,14 +52,13 @@ portfinder.getPort(function (err, port) {
 
   appPort = app.settings.nconf.get('PORT') || 8100;
   app.listen(appPort, listening);
-  app.use(compression({ threshold: 512 }));
+  app.use(compress({ threshold: 512 }));
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
   app.use(expValid());
 
   // load the express routes
   require('./routes/appRoutes.js')(app);
-  // require('./routes/pathRoutes.js')(app);
   require('./routes/authorizationRoutes.js')(app);
 
   module.exports = app;
