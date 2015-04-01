@@ -6,9 +6,9 @@
 
 ================================================== */
 
-controllers.controller("FormCtrl", ["$scope", "$location", "$element", "Clientstream", "Session", "Geocoder", "Form", "Credit", "Contact", "Utility", "Rates", "Salesforce", "CREDIT_FAIL", "URL_ROOT", "defaultValues", FormCtrl_]);
+controllers.controller("FormCtrl", ["$scope", "$location", "$element", "Clientstream", "Session", "User", "Geocoder", "Form", "Credit", "Contact", "Utility", "Rates", "Salesforce", "CREDIT_FAIL", "URL_ROOT", "defaultValues", FormCtrl_]);
 
-function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form, Credit, Contact, Utility, Rates, Salesforce, CREDIT_FAIL, URL_ROOT, defaultValues) {
+function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder, Form, Credit, Contact, Utility, Rates, Salesforce, CREDIT_FAIL, URL_ROOT, defaultValues) {
 
   var vm = this;
   var form_stream;
@@ -149,6 +149,8 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
         obj[prop] = null;
       }
     }
+
+    User.isNew = true;
   }
 
   function checkCredit() {
@@ -178,12 +180,8 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
       createLead(Salesforce.statuses.noCreditResult);
       vm.isSubmitting = false;
 
-      // Timed out
-      if (resp.status === 0) {
-        vm.timedOut = true;
-      } else {
-        Client.emit('Stages: jump to step', 'congrats');
-      }
+      // Timed out or failed
+      Client.emit('Stages: jump to step', 'congrats');
     });
   }
 
