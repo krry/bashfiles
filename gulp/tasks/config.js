@@ -17,15 +17,14 @@
 var gulp = require('gulp');
 var del = require('del');
 var rename = require('gulp-rename');
+var uglify = require('gulp-uglify');
 var ngConstant = require('gulp-ng-constant');
 var jsonCombine = require("gulp-jsoncombine");
 
 var env = process.env.NODE_ENV || 'development';
 
 var config = {
-  name: 'flannel.config',
-  // deps: [],
-  // constants: { "test": "test constant added" },
+  name: 'flannel.config'
 };
 
 var confile = './server/config/environments/'+env+'.json';

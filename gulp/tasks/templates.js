@@ -29,7 +29,7 @@ gulp.task('templates', ['clearTemplates'], function(){
         return path.replace(/\\/g, '/').split('src/')[1];
       }
     }))
-    .pipe(gulp.dest('./public/'));
+    .pipe(gulp.dest('./src/js/'));
 });
 
 // TODO: make minification contingent on process.env.NODE_ENV
