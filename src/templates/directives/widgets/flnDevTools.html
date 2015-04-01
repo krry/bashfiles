@@ -9,9 +9,9 @@
     <select id="stageSelector"
             multiple
             size="14"
+            ng-options="s for s in stages.states"
             ng-model="stages.partial"
-            ng-options="s for s in stages.partials"
-            ng-init="stages.partial = stages.partials[0]">
+            ng-change="stages.jumpToStep(stages.partial[0])">
       </select>
   </div>
 

@@ -30,6 +30,7 @@ function AppCtrl_($location, $sce, GMAP_CLIENT, MINIFIED, APP_TITLE, ENV, Client
   Client.listen('Stages: step complete', notifyTrackerAboutStep);
 
   function notifyTrackerAboutStep (step) {
+    var location;
     // TODO: convert these ifs into a switch
     if (step === "congrats") {
       //ga('send', 'event', step, 'Button Clicks', 'Final submit');
@@ -51,8 +52,13 @@ function AppCtrl_($location, $sce, GMAP_CLIENT, MINIFIED, APP_TITLE, ENV, Client
       //ga('send', 'event', step, 'Design Tool', 'Polygon Completed');
       dataLayer.push({'event': 'polygon_completed'});
     }
-    console.log("$location", $location.$$path);
+    // trim query string off path, cache and send to google analytics
+    location = $location.url($location.path());
+    console.log("$location", location);
     //ga('send', 'pageview', $location.$$path); // relative url
-    dataLayer.push({'event':'pageview', 'pageURL':$location.$$path});
+    dataLayer.push({
+      'event': 'pageview',
+      'pageURL': location
+    });
   }
 }
