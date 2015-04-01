@@ -140,7 +140,7 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, Session, Form, Client, defa
       },
       {
         value: percent_utility,
-        color: '#FFFFFF',
+        color: '#dddddd',
         highlight: '#EFEFEF',
         label: 'Dirty Power'
       }

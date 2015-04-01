@@ -155,6 +155,9 @@ main.main.main-fixed {
   text-align: left;
   margin-top: 10em;
   color: transparentize($grey-darker, 0.5);
+  & p {
+    margin-bottom: 1em;
+  }
 }
 
 .credit-check button.gold {
