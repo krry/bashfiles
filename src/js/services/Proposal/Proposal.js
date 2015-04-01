@@ -40,21 +40,13 @@ function Proposal_(Session, Panelfill, Client) {
       });
     } else {
       // share proposal link
-    var ridge;
-      // typical use case for user in flow
-    // Session.ref().parent().parent().child('designs')
-    // .child(Session.ref().key()).child('areas/0/ridge')
-    //   .once('value', function (ds) {
-    //       ridge = ds.exportVal();
-    // });
-
+      var ridge;
       var ref = new Firebase('https://scty-int.firebaseio.com').child('designs')
         .child(design_id)
-        .child('areas/0/wkt')
+        .child('areas/0')
           .once('value', function (ds) {
-            var wkt_txt = ds.exportVal();
-            console.log('wkt_txt in design', wkt_txt)
-            Panelfill.getFilled(wkt_txt, ridge)
+            var data = ds.exportVal();
+            Panelfill.getFilled(data.wkt, data.ridge)
             .then(processTwoDArray);
       });
     }
