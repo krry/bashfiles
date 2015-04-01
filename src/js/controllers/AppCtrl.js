@@ -53,7 +53,7 @@ function AppCtrl_($location, $sce, GMAP_CLIENT, MINIFIED, APP_TITLE, ENV, Client
       dataLayer.push({'event': 'polygon_completed'});
     }
     // trim query string off path, cache and send to google analytics
-    location = $location.url($location.path());
+    location = $location.url();
     console.log("$location", location);
     //ga('send', 'pageview', $location.$$path); // relative url
     dataLayer.push({
