@@ -12,7 +12,7 @@ function Layers_(Design, Styles, AreaService, Client) {
 
   var layers, l_draw, areas_collection, source, modify_collection;
 
-  var rx_drawcount = new Rx.Subject(); // the next button subscribes to this
+  var rx_drawcount = new Rx.BehaviorSubject(); // the next button subscribes to this
 
   var feature; // we modify this shape
 
@@ -54,20 +54,25 @@ function Layers_(Design, Styles, AreaService, Client) {
   areas_collection.on('add', function (e) {
     // add to sources
     feature = e.element;
-    // feature = AreaService.wireUp(0, feature);
+    // add to the visible vectors for Draw
     draw_source.addFeature(feature);
-    // modify_source.addFeature(feature);
+    // clear & set the visible vectors
+    modify_overlay.getFeatures().clear();
     modify_overlay.addFeature(feature);
+    // clear & set the modifiable feature group
+    Design.modify_collection.clear()
     Design.modify_collection.push(feature);
+    // TODO: whatever is dependent on this should be watching Design.rx_areas instead
     Client.emit('areas in collection', feature)
   });
 
   areas_collection.on('remove', function (e) {
-    // remove from sources
     var ftr = e.element;
-    Design.ref().child('areas/0/wkt').remove()
+    // remove from remote
+    Design.ref().child('areas/0').remove()
+    // remove from local sources
     draw_source.removeFeature(ftr);
-    // modify_source.removeFeature(ftr);
+    // remove from local modify visible
     modify_overlay.removeFeature(ftr);
   });
 
@@ -77,8 +82,8 @@ function Layers_(Design, Styles, AreaService, Client) {
   })
 
   Design.modify_collection.on('add', function (e) {
-    // when we modify a surface watch for changes on firebase
     var f = e.element;
+    // when we modify a surface watch & alert firebase for changes
     AreaService.wireUp(0, f);
   });
 
@@ -99,6 +104,9 @@ function Layers_(Design, Styles, AreaService, Client) {
         if (area) {
          feature.setGeometry(AreaService.getGeom(area.wkt));
          if (modify_collection.getLength()) {
+          // TODO: this could be prettier, i think.
+          // currently results in situations where you lose the feature beneath the mouse
+          // if you're moving the mouse too quickly.
           modify_collection.clear()
           modify_collection.push(feature);
          }
