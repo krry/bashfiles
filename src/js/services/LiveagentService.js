@@ -5,7 +5,7 @@
 
 ================================================== */
 
-angular.module('flannel').factory('Liveagent', LiveagentService_);
+angular.module('flannel').factory('Liveagent', [LiveagentService_]);
 
 function LiveagentService_ () {
 

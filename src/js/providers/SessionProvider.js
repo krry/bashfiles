@@ -26,7 +26,7 @@
 
 providers.provider("Session", ['FormProvider', 'DesignProvider', 'FIREBASE_URL', SessionProvider_]);
 
-function SessionProvider_ (FormProvider, DesignProvider, FIREBASE_URL) {
+function SessionProvider_ (Form, Design, FIREBASE_URL) {
   console.log('Session Provider started')
 
   var _ref,
@@ -74,24 +74,24 @@ function SessionProvider_ (FormProvider, DesignProvider, FIREBASE_URL) {
     function loadSession (ds){
       var data = ds.exportVal() || {};
       data.session_id = _ref.key();
-      DesignProvider.setRefKey(_ref.key());
+      Design.setRefKey(_ref.key());
       if (data.form_id) {
         // update form's _ref_key if the user has a form
-        FormProvider.setRefKey(data.form_id);
+        Form.setRefKey(data.form_id);
       }
       if (data.design_id) {
         // update design's _ref_key if the user has already started design
-        // DesignProvider.setRefKey(data.design_id);
+        // Design.setRefKey(data.design_id);
       }
       if (data.map_center) {
         // last known position of googleMap or olMap
-        DesignProvider.setCenter(data.map_center);
+        Design.setCenter(data.map_center);
       }
       return Client.emit('Session: Loaded', data);
     }
 
     function restartSession () {
-      FormProvider.nullRefKey();
+      Form.nullRefKey();
       _ref_key = null;
       bootstrapSession({ user_id: _user_key });
     }

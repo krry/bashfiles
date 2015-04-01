@@ -18,8 +18,8 @@ see: http://openlayers.org/en/v3.0.0/apidoc/ol.control.Zoom.html
 ================================================== */
 
 directives
-.directive('flnControlPan', flnControlPan_ )
-.directive('flnMapPan', flnMapPan_ );
+.directive('flnControlPan', [flnControlPan_])
+.directive('flnMapPan', ['View', 'newConfigurator', flnMapPan_]);
 
 function flnControlPan_ () {
   return {

@@ -1,4 +1,4 @@
-angular.module('share_link',[]).config(["$stateProvider", function ($stateProvider) {
+angular.module('share_link', []).config(["$stateProvider", function ($stateProvider) {
   // state definition
 
   $stateProvider.state("share_proposal", {

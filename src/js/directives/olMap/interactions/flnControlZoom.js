@@ -1,20 +1,21 @@
 /* ==================================================
-zoom controls
 
-these directives add buttons to the map
+  zoom controls
 
-Styling: style with "fln-zoom" (maybe "fln-zoom-in && fln-zoom-out")
+  these directives add buttons to the map
 
-Zoom Control Template
+  Styling: style with "fln-zoom" (maybe "fln-zoom-in && fln-zoom-out")
 
-Usage: <fln-control-zoom></fln-control-zoom>
- - add buttons on to a map
+  Zoom Control Template
 
-// TODO - build a fln-map-zoom directive
-usage: <button fln-map-zoom scalar="[in/out]">
- - turn any element into a map control
+  Usage: <fln-control-zoom></fln-control-zoom>
+   - add buttons on to a map
 
-see: http://openlayers.org/en/v3.0.0/apidoc/ol.control.Zoom.html
+  // TODO - build a fln-map-zoom directive
+  usage: <button fln-map-zoom scalar="[in/out]">
+   - turn any element into a map control
+
+  see: http://openlayers.org/en/v3.0.0/apidoc/ol.control.Zoom.html
 
 ================================================== */
 
@@ -30,7 +31,7 @@ var zoom_options = {
 };
 
 directives
-.directive('flnControlZoom', flnControlZoom_ );
+.directive('flnControlZoom', ['newConfigurator', 'Interactions', flnControlZoom_]);
 
 function flnControlZoom_ (newConfigurator, Interactions) {
   return {
