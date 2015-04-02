@@ -37,4 +37,4 @@ function flnOlMap_ (Client, Configurator) {
       });
     },
   };
-}j
+}
