@@ -74,6 +74,7 @@ function Layers_(Design, Styles, AreaService, Client) {
     draw_source.removeFeature(ftr);
     // remove from local modify visible
     modify_overlay.removeFeature(ftr);
+    modify_collection.clear();
   });
 
   // broadcast to the templates to enable/disable clicking of "next" button
