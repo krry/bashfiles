@@ -9,7 +9,9 @@ function PanelfillSvc ($http, $q) {
   // open to the web
   // var baseUrl = "http://scexchange.solarcity.com/scfilefactory/testfill.aspx";
   // only avail inhouse
-  var baseUrl = "http://slc3web00/scexchange/testfill.aspx";
+  //var baseUrl = "http://slc3web00/scexchange/testfill.aspx";
+  
+  var baseUrl = "http://design.solarcity.com/api/Fill";
 
   var EarthRadiusInches = 251107755.9; //250826771.7;
   var ToDegrees = 180 / Math.PI;
@@ -21,9 +23,9 @@ function PanelfillSvc ($http, $q) {
   var points_for_panelfill,
       points_array,
       area_message,
-      msg;
+      msg;	  
 
-  Panelfill.getFilled = function(wkt_txt, ridge) {
+  Panelfill.getFilled = function(wkt_txt, ridge, lat) {
     var deferred = $q.defer();
     var x = {};
       var points, area, points_inches, ridge_points;
@@ -43,6 +45,8 @@ function PanelfillSvc ($http, $q) {
     }
     // then put the points into an array
     points = convertPolyPointsToArrayOfPoints(points_for_panelfill);
+
+
   ridge_points = convertPolyPointsToArrayOfPoints(ridge);
 
   if(ridge_points.length == 1)
@@ -59,12 +63,21 @@ function PanelfillSvc ($http, $q) {
 
       return result;
     }
+	
   //points are seperate at this point
   points = getEaveAdjustedPolygon(points, ridge_points);
-
+  
+  //If we dont have a 45 tilt do the offset, we need to change the offset for 45 degree's later
+  if( proposal_map.tilt != 45)
+  {
+	points = PanelMover3(points, lat);
+  }
+  
+  var new_points = points;
+  
+  points_inches = convertPointsToPointInches(points, points);
   if( proposal_map.tilt == 45)
   {
-  points_inches = convertPointsToPointInches(points, points);
 
 
   var azimuth = Math.atan2((points_inches[1][0] - points_inches[0][0]), (points_inches[1][1] - points_inches[0][1]));
@@ -157,7 +170,7 @@ function PanelfillSvc ($http, $q) {
     }
 
 
-  var new_points = [];
+  new_points = [];
   for (var i in offset_poly)
   {
     new_points.push(CovertPtLngLat(points[0][0], points[0][1], offset_poly[i]));
@@ -166,7 +179,6 @@ function PanelfillSvc ($http, $q) {
   //points = new_points;
 
   }
-
 
     area = {
       id: 0,
@@ -180,16 +192,17 @@ function PanelfillSvc ($http, $q) {
 
     x = JSON.stringify(msg);
     $.ajax({
-      type: "POST",
+      type: "GET",
       url: baseUrl,
       data: {
-         "TestJSON": x
+         "_JSON": x
       },
       success: function(dt){
         var panelfill_points;
         var t = JSON.parse(dt);
         panelfill_points = t[0]; // HACK: ignoring setbacks that come with this message
-    panelfill_points = PanelMover(points, panelfill_points, points_inches, offset);
+		//panelfill_points.push(new_points); // test code for panel layout
+		
         deferred.resolve(panelfill_points);
       }
     });
@@ -285,6 +298,7 @@ function PanelfillSvc ($http, $q) {
 
 
     for (var i in panelfill_points_inches) {
+	
       var offset_panel_poly = [];
       for (var j in panelfill_points_inches[i]) {
 
@@ -294,6 +308,7 @@ function PanelfillSvc ($http, $q) {
 
         var dx = d * x * offset;
         var dy = d * y * offset;
+
 
         pt = [panelfill_points_inches[i][j][0] + dx, panelfill_points_inches[i][j][1]+ dy, 0];
         offset_panel_poly.push(pt);
@@ -315,7 +330,23 @@ function PanelfillSvc ($http, $q) {
     }
     return new_panelfill_points;
   }
-
+   
+  function PanelMover3(points, lat)
+  {
+  
+    var new_points = [];
+	offset = 0.15; //0.0000015
+	for(var i = 0; i < points.length; i++) {
+		var brng = GetBearing(points[i][0], points[i][1], points[i][0], lat);
+		var d = offset*GetDistance(points[i][0], points[i][1], points[i][0], lat); //GetDistance(_FromLng, _FromLat, _ToLng, _ToLat)
+		var φ2 = Math.asin( Math.sin(points[i][1]/ToDegrees)*Math.cos(d/EarthRadiusInches) + Math.cos(points[i][1]/ToDegrees)*Math.sin(d/EarthRadiusInches )*Math.cos(brng));
+		new_points.push([points[i][0],φ2*ToDegrees]); //points[i][1]-(d*offset*lat)]);
+	}
+  
+	return new_points;
+  
+  }
+  
 
 function getEaveAdjustedPolygon(arrayOfPoints,
                 highestElement) {

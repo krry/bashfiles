@@ -22,8 +22,10 @@ function View_(Design, Session, Client) {
   view = new ol.View({
     center: center,
     projection: 'EPSG:4326',
+    //displayProjection: 'EPSG:4326',
     minZoom: 18, // don't zoom out past the 'EPSG:4326' projection hahahaha
     maxZoom: 20, // don't zoom further than google can zoom // TODO: set this to the maxzoom at the current location
+	
   });
   // this bootstraps the view in the case of direct state navigation
    Client.listen('Design: Loaded', function bootstrapViewCenter(data) {

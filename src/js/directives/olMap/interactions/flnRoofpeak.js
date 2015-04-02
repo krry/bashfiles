@@ -136,6 +136,7 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
             arrayOfPoints = AreaService.getWkt(target_f).split('LINESTRING')[1].replace('(', '').replace(')', '').split(',');
           }
           Design.ref().child('areas').child('0').child('ridge').set(arrayOfPoints);
+		  Design.ref().child('areas').child('0').child('tilt').set(maps.gmap.getTilt());
 
           highlightFeature(target_f);
           scope.roof_peak_chosen = true;

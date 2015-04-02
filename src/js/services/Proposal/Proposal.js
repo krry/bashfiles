@@ -7,7 +7,6 @@
 angular.module('flannel').service('Proposal', ['Session', 'Panelfill', 'Clientstream', Proposal_]);
 var proposal_map;
 
-
 function Proposal_(Session, Panelfill, Client) {
   // TODO: Revisit naming of this and Panelfill API service... to whatever it should be.
   var map_options = {
@@ -19,17 +18,27 @@ function Proposal_(Session, Panelfill, Client) {
     disableDefaultUI: true,
     keyboardShortcuts: false,
     draggable: false,
-  tilt: 45,
   };
+  
+  var savedMapTilt;
 
   function getStarted(design_id) {
+	
     if (Session.ref()) {
     var ridge;
+	var lat;
+
       // typical use case for user in flow
     Session.ref().parent().parent().child('designs')
     .child(Session.ref().key()).child('areas/0/ridge')
       .once('value', function (ds) {
           ridge = ds.exportVal();
+    });
+	
+	Session.ref().parent().parent().child('designs')
+    .child(Session.ref().key()).child('map_details/center/lat')
+      .once('value', function (ds) {
+          lat = ds.exportVal();
     });
 
       Session.ref().parent().parent().child('designs')
@@ -37,16 +46,16 @@ function Proposal_(Session, Panelfill, Client) {
           .once('value', function (ds) {
           var wkt_txt = ds.exportVal();
           console.log('wkt_txt in design', wkt_txt)
-          Panelfill.getFilled(wkt_txt, ridge)
+          Panelfill.getFilled(wkt_txt, ridge, lat)
           .then(processTwoDArray);
       });
     } else {
       // share proposal link
     var ridge;
-      // typical use case for user in flow
-    Session.ref().parent().parent().child('designs')
-    .child(Session.ref().key()).child('areas/0/ridge')
-      .once('value', function (ds) {
+	var ridge_ref = new Firebase('https://scty-int.firebaseio.com').child('designs')
+        .child(design_id)
+		.child(Session.ref().key()).child('areas/0/ridge')
+		  .once('value', function (ds) {
           ridge = ds.exportVal();
     });
 
@@ -56,7 +65,7 @@ function Proposal_(Session, Panelfill, Client) {
           .once('value', function (ds) {
             var wkt_txt = ds.exportVal();
             console.log('wkt_txt in design', wkt_txt)
-            Panelfill.getFilled(wkt_txt, ridge)
+            Panelfill.getFilled(wkt_txt, ridge, 0)
             .then(processTwoDArray);
       });
     }
@@ -91,33 +100,60 @@ function Proposal_(Session, Panelfill, Client) {
       fillColor: '#000000',
       fillOpacity: 0.75,
     });
+	
   }
 
   this.setTarget = function setTarget(design_id) {
+  
+	 // default to 45, then look up the value in firebase if we have a record
+	if (Session.ref()) {		  
+		Session.ref().parent().parent().child('designs')
+		.child(Session.ref().key()).child('areas/0/tilt')
+		  .once('value', function (ds) {
+			  savedMapTilt = ds.exportVal();
+		});
+	}
+	else
+	{
+		var tilt_ref = new Firebase('https://scty-int.firebaseio.com').child('designs')
+        .child(design_id)
+		.child(Session.ref().key()).child('areas/0/tilt')
+		  .once('value', function (ds) {
+          savedMapTilt = ds.exportVal();
+		});
+	}
+	if(savedMapTilt || savedMapTilt == 0)
+	{
+		map_options.tilt = savedMapTilt;   
+	}
     proposal_map = new google.maps.Map(document.getElementById('gmap'), map_options);
-    getStarted(design_id);
 
-    var bounds = new google.maps.LatLngBounds()
-    Client.listen('panelfill', function function_name(p_array) {
+	getStarted(design_id);
+	Client.listen('panelfill', function function_name(p_array) {
       // for the map boundaries
-      p_array.forEach(maxBounds);
+	var bounds = new google.maps.LatLngBounds()
 
-      function maxBounds(polygon){
-        var point_array = polygon.getPath().getArray();
-        point_array.forEach(compareAgainstMax);
-      }
 
-      function compareAgainstMax(pt){
-        bounds.extend(pt);
-      }
+	// for the map boundaries
+	p_array.forEach(maxBounds);
 
-      proposal_map.setCenter(bounds.getCenter());
+	function maxBounds(polygon){
+		var point_array = polygon.getPath().getArray();
+		point_array.forEach(compareAgainstMax);
+	}
 
-      p_array.forEach(function(polygon){
-        polygon.setMap(proposal_map);
-      });
+	function compareAgainstMax(pt){
+		bounds.extend(pt);
+	}
 
-      rx_panel_count.onNext(p_array.length);
-    });
+	proposal_map.setCenter(bounds.getCenter());
+
+	p_array.forEach(function(polygon){
+		polygon.setMap(proposal_map);
+	});
+
+	rx_panel_count.onNext(p_array.length);
+
+  });
   }
 }
