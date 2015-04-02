@@ -233,7 +233,10 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
     step = target_step;
 
     // update the view
-    $state.go(Templates.config[stage].name + '.' + Templates.config[stage].steps[step].step);
+    $state.go(Templates.config[stage].name + '.' + Templates.config[stage].steps[step].step).then(function() {
+      vm.fixed = !Templates.config[stage].steps[step].staticLayout;
+      // stepFinish({ stage: stage, step: step });
+    });
   }
 
   // user flow controls
