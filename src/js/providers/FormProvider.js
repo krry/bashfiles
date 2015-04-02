@@ -58,8 +58,6 @@ function FormProvider_ (FIREBASE_URL) {
 
     Client.listen('Session: Loaded', bootstrapForm);
     Client.listen('Form: valid data', updateRefByVal);
-
-    // DEV:
     Client.listen('Dev: Reset form', resetForm);
 
     function resetForm () {
@@ -114,6 +112,7 @@ function FormProvider_ (FIREBASE_URL) {
         id: function () { return _ref.key(); },
         form_stream: function () { return _ref_stream; },
         prospect: function () { return prospect; },
+        resetForm: resetForm
         // prospect: prospect,
       };
     }
