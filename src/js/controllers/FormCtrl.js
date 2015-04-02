@@ -462,7 +462,9 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
 
   function saveRates (data) {
     var rates;
-
+    // if (!data.UtilityAverageSystemEfficiency) {
+    //   debugger;
+    // }
     // data from Rates API:
     // CashAvailable: true
     // FinancingKwhPrice: 0.15
@@ -480,6 +482,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
     rates = {
       utilityRate: vm.prospect().utilityRate,
       sctyRate: vm.prospect().sctyRate,
+      averageYield: vm.prospect().averageYield,
     };
 
     Client.emit('Form: valid data', rates);

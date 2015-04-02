@@ -32,12 +32,12 @@ function AreaService_(Design) {
     feature.setId(id);
     feature.set('wkt', getWkt(feature));
     feature.on('change:wkt', function (evt) {
+      Design.busy = true;
       Design.ref()
         .child('areas').child(id).child('wkt')
         .set(feature.get('wkt'));
     })
     feature.getGeometry().on('change', function (g) {
-      Design.busy = true;
       feature.set('wkt', getWkt(feature));
     });
     return feature

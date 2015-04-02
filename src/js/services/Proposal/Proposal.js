@@ -5,6 +5,7 @@
  */
 
 angular.module('flannel').service('Proposal', ['Session', 'Panelfill', 'Clientstream', Proposal_]);
+
 var proposal_map;
 
 function Proposal_(Session, Panelfill, Client) {
@@ -19,53 +20,56 @@ function Proposal_(Session, Panelfill, Client) {
     keyboardShortcuts: false,
     draggable: false,
   };
-  
+
   var savedMapTilt;
 
   function getStarted(design_id) {
-	
-    if (Session.ref()) {
-    var ridge;
-	var lat;
+    var ridge,
+        lat,
+        ridge_ref,
+        ref;
 
-      // typical use case for user in flow
-    Session.ref().parent().parent().child('designs')
-    .child(Session.ref().key()).child('areas/0/ridge')
-      .once('value', function (ds) {
-          ridge = ds.exportVal();
-    });
-	
-	Session.ref().parent().parent().child('designs')
-    .child(Session.ref().key()).child('map_details/center/lat')
-      .once('value', function (ds) {
+    if (Session.ref()) {
+        // typical use case for user in flow
+      Session.ref().parent().parent().child('designs')
+      .child(Session.ref().key()).child('areas/0/ridge')
+        .once('value', function (ds) {
+            ridge = ds.exportVal();
+      });
+
+  	  Session.ref().parent().parent().child('designs')
+        .child(Session.ref().key()).child('map_details/center/lat')
+        .once('value', function (ds) {
           lat = ds.exportVal();
-    });
+      });
 
       Session.ref().parent().parent().child('designs')
         .child(Session.ref().key()).child('areas/0/wkt')
-          .once('value', function (ds) {
+        .once('value', function (ds) {
           var wkt_txt = ds.exportVal();
-          console.log('wkt_txt in design', wkt_txt)
+          console.log('wkt_txt in design', wkt_txt);
           Panelfill.getFilled(wkt_txt, ridge, lat)
-          .then(processTwoDArray);
+            .then(processTwoDArray);
       });
     } else {
       // share proposal link
-    var ridge;
-	var ridge_ref = new Firebase('https://scty-int.firebaseio.com').child('designs')
+      ridge_ref = new Firebase('https://scty-int.firebaseio.com').child('designs')
         .child(design_id)
-		.child(Session.ref().key()).child('areas/0/ridge')
-		  .once('value', function (ds) {
-          ridge = ds.exportVal();
-    });
+        .child(Session.ref().key()).child('areas/0/ridge')
 
-      var ref = new Firebase('https://scty-int.firebaseio.com').child('designs')
+      ridge_ref.once('value', function (ds) {
+          ridge = ds.exportVal();
+        });
+
+
+      ref = new Firebase('https://scty-int.firebaseio.com').child('designs')
         .child(design_id)
-        .child('areas/0/wkt')
-          .once('value', function (ds) {
-            var wkt_txt = ds.exportVal();
-            console.log('wkt_txt in design', wkt_txt)
-            Panelfill.getFilled(wkt_txt, ridge, 0)
+        .child('areas/0')
+
+      ref.once('value', function (ds) {
+            var data = ds.exportVal();
+            // console.log('wkt_txt in design', wkt_txt)
+            Panelfill.getFilled(data.wkt, data.ridge, 0)
             .then(processTwoDArray);
       });
     }
@@ -94,65 +98,66 @@ function Proposal_(Session, Panelfill, Client) {
     }
     return new google.maps.Polygon({
       paths: panel_coords,
+      clickable: false,
       strokeColor: '#e7f3fc',
       strokeOpacity: 0.3,
       strokeWeight: 1,
       fillColor: '#000000',
       fillOpacity: 0.75,
     });
-	
+
   }
 
   this.setTarget = function setTarget(design_id) {
-  
+    var tilt_ref
 	 // default to 45, then look up the value in firebase if we have a record
-	if (Session.ref()) {		  
+	if (Session.ref()) {
 		Session.ref().parent().parent().child('designs')
 		.child(Session.ref().key()).child('areas/0/tilt')
 		  .once('value', function (ds) {
 			  savedMapTilt = ds.exportVal();
 		});
-	}
-	else
-	{
-		var tilt_ref = new Firebase('https://scty-int.firebaseio.com').child('designs')
-        .child(design_id)
-		.child(Session.ref().key()).child('areas/0/tilt')
+	}	else	{
+	  tilt_ref = new Firebase('https://scty-int.firebaseio.com').child('designs')
+    .child(design_id)
+		// .child(Session.ref().key())
+    .child('areas/0/tilt')
 		  .once('value', function (ds) {
           savedMapTilt = ds.exportVal();
 		});
 	}
-	if(savedMapTilt || savedMapTilt == 0)
-	{
-		map_options.tilt = savedMapTilt;   
+	if (savedMapTilt || savedMapTilt == 0) {
+		map_options.tilt = savedMapTilt;
 	}
-    proposal_map = new google.maps.Map(document.getElementById('gmap'), map_options);
+
+  proposal_map = new google.maps.Map(document.getElementById('gmap'), map_options);
 
 	getStarted(design_id);
-	Client.listen('panelfill', function function_name(p_array) {
+
+  Client.listen('panelfill', function function_name(p_array) {
       // for the map boundaries
-	var bounds = new google.maps.LatLngBounds()
+  	var bounds = new google.maps.LatLngBounds()
 
 
-	// for the map boundaries
-	p_array.forEach(maxBounds);
+  	// for the map boundaries
+  	p_array.forEach(maxBounds);
 
-	function maxBounds(polygon){
-		var point_array = polygon.getPath().getArray();
-		point_array.forEach(compareAgainstMax);
-	}
+  	function maxBounds(polygon){
+  		var point_array = polygon.getPath().getArray();
+  		point_array.forEach(compareAgainstMax);
+  	}
 
-	function compareAgainstMax(pt){
-		bounds.extend(pt);
-	}
+  	function compareAgainstMax(pt){
+  		bounds.extend(pt);
+  	}
 
-	proposal_map.setCenter(bounds.getCenter());
+  	proposal_map.setCenter(bounds.getCenter());
 
-	p_array.forEach(function(polygon){
-		polygon.setMap(proposal_map);
-	});
+  	p_array.forEach(function(polygon){
+  		polygon.setMap(proposal_map);
+  	});
 
-	rx_panel_count.onNext(p_array.length);
+  	rx_panel_count.onNext(p_array.length);
 
   });
   }

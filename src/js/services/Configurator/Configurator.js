@@ -89,7 +89,7 @@ function newConfigurator_($q, Client, Session, View, Interactions, Layers, MapFa
       gmap: gmap,
     }
     maps = this.map; // HACK... this shouldn't be public. only here for testing
-	
+
 	//used later to get the actual lat lng
 	//var overlay = new google.maps.OverlayView();
     //overlay.draw = function() {};
@@ -103,30 +103,14 @@ function newConfigurator_($q, Client, Session, View, Interactions, Layers, MapFa
       google.maps.event.trigger(gmap, 'resize');
       omap.updateSize();
     });
-	
+
     maps.omap.on('change:size', function() {
       // resize the target element
       google.maps.event.trigger(gmap, 'resize');
 
     })
-	//this code ius not needed experimental
-	/*
-	omap.on('click', function function_name (evt) {
-    // get latlng @ pixel
-    // debugger
-    // make marker at pixel
-    var coord = omap.getCoordinateFromPixel(evt.pixel)
-	var coordinates = overlay.getProjection().fromContainerPixelToLatLng(new google.maps.Point(evt.pixel[0], evt.pixel[1]));
-	
-      marker = new google.maps.Marker({
-        position: {lng: coord[0], lat: coord[1]},
-        map: gmap,
-        draggable: false,
-        // icon: 'img/map_pin_1.svg'
-      })
-  })
-*/
-    maps.omap.updateSize()
+
+    maps.omap.updateSize();
 
     Client.emit('Configurator: target set');
   }
