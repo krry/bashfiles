@@ -6,11 +6,11 @@ function flnInputBillSlider_ (Form) {
     templateUrl: "templates/directives/inputs/flnInputBillSlider.html",
     require: '^flnForm',
     link: function (scope, element, attrs, FormCtrl) {
-      var prospect = Form.prospect();
+      var prospect = FormCtrl.prospect;
 
       $('#bill-slider').on({
         change: function () {
-          FormCtrl.saveBill(prospect.bill);
+          FormCtrl.saveBill(prospect().bill);
         }
       });
     }
