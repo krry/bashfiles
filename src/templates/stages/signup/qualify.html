@@ -47,7 +47,7 @@
       <br><small>Now it's time to schedule a visit from one of our in-house site surveyors so we can design a customized system and proposal just for you.</small>
     </h1>
     <button class="std gold" ng-click="schedule.check()">Schedule site survey</button>
-    <button class="white tiny center" ng-click="stages.jumpToStep('congrats')">Schedule this later</button>
+    <button class="white tiny center" ng-click="schedule.skipScheduling()">Schedule this later</button>
   </div>
 
   <aside class="overlay secondary col sml-full med-full lrg-full full-height" ng-if="schedule.prospect().qualified">

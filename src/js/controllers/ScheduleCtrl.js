@@ -27,6 +27,7 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
   vm.getHOAs = getHOAs;
   vm.checkHOA = checkHOA;
   vm.saveAnswers = saveAnswers;
+  vm.skipScheduling = skipScheduling;
 
   vm.config = {
     startDate: moment().format('MM/D/YYYY'),
@@ -142,6 +143,11 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
   }
 
   function skipScheduling() {
+    if (vm.prospect().scheduledTime) {
+      vm.prospect().scheduledTime.isSelected = false;
+      vm.prospect().scheduledTime = false;
+    }
+    
     Client.emit('Stages: jump to step', 'congrats');
   }
 
