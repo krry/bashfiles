@@ -176,7 +176,7 @@ function PanelfillService_ ($http, $q) {
     new_points.push(CovertPtLngLat(points[0][0], points[0][1], offset_poly[i]));
   }
 
-  points = new_points;
+  //points = new_points;
 
   }
 
