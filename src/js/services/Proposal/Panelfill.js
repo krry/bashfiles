@@ -66,14 +66,9 @@ function PanelfillService_ ($http, $q) {
 	
   //points are seperate at this point
   points = getEaveAdjustedPolygon(points, ridge_points);
-<<<<<<< HEAD
   
   //If we dont have a 45 tilt do the offset, we need to change the offset for 45 degree's later
   if( proposal_map.tilt != 45)
-=======
-
-  if( proposal_map.tilt === 45)
->>>>>>> origin/develop
   {
 	points = PanelMover3(points, lat);
   }
@@ -181,7 +176,7 @@ function PanelfillService_ ($http, $q) {
     new_points.push(CovertPtLngLat(points[0][0], points[0][1], offset_poly[i]));
   }
 
-  //points = new_points;
+  points = new_points;
 
   }
 
@@ -207,7 +202,10 @@ function PanelfillService_ ($http, $q) {
         var t = JSON.parse(dt);
         panelfill_points = t[0]; // HACK: ignoring setbacks that come with this message
 		//panelfill_points.push(new_points); // test code for panel layout
-		
+		if( proposal_map.tilt == 45)
+	    {
+			panelfill_points = PanelMover(points, panelfill_points, points_inches, offset);		
+		}
         deferred.resolve(panelfill_points);
       }
     });
