@@ -30,6 +30,8 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
 
   stage = 0;
   step  = 0;
+  latestStage = 0;
+  latestStep = 0;
   waiting = false;
   unlockODA = false;
 
