@@ -35,12 +35,24 @@
   /* transform: scale(1.5) translateZ(0px) !important;   */
 }
 
+.cloudy {
+  opacity: 0.4;
+}
+
 .roofpeak .ol-viewport {
   background: $tint-40;
 }
 
+.crosshair .ol-viewport {
+  background-image: url('../img/crosshair.svg');
+  background-position: center center;
+  background-size: 35em;
+  background-repeat: no-repeat;
+  opacity: 0.6;
+}
+
 .instructions {
-  background: $white;
+  background-color: $white;
   // box-shadow: 0 .5em .25em -.25em $shade-20;
   box-shadow: 0 0 .75em -.25em $shade-60;
   margin-left: -2em;
@@ -186,7 +198,7 @@
     }
     &.pan-down {
       right: 0;
-      bottom: 1em;
+      bottom: 3em;
       left: 0;
       background: url('../img/arrow-down-blk.svg') no-repeat center;
       background-size: 70% auto;

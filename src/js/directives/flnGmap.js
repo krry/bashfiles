@@ -4,6 +4,6 @@ function flnGmap_ () {
   return {
     restrict: "A",
     controller: "GmapCtrl",
-    controllerAs: "gmap",
+    controllerAs: "gmap"
   };
 }

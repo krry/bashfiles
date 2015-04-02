@@ -102,8 +102,10 @@ function flnDragPan_ (newConfigurator) {
   return {
     restrict: "EA",
     link: function flnDragPanLink (scope, ele, attrs) {
+      $('div[fln-configurator]').addClass('crosshair')
       newConfigurator.dragpanAdd();
       ele.on('$destroy', function dragPanDestroy (e) {
+        $('div[fln-configurator]').removeClass('crosshair')
         newConfigurator.dragpanDel();
       });
     },
