@@ -9,9 +9,9 @@
     <select id="stageSelector"
             multiple
             size="14"
+            ng-options="s for s in stages.states"
             ng-model="stages.partial"
-            ng-options="s for s in stages.partials"
-            ng-init="stages.partial = stages.partials[0]">
+            ng-change="stages.jumpToStep(stages.partial[0])">
       </select>
   </div>
 
@@ -88,11 +88,11 @@
     </label>
     <label class="inline" for="dev_panelCount">
       <span>panel count</span>
-      <input type="tel" id="dev_panelCount" ng-model="dev.prospect.panelCount">
+      <input type="tel" id="dev_panelCount" ng-model="dev.prospect().panelCount">
     </label>
     <label class="inline" for="dev_panelCapacity">
       <span>panel capacity</span>
-      <input type="tel" id="dev_panelCapacity" ng-model="dev.prospect.panelCapacity">
+      <input type="tel" id="dev_panelCapacity" ng-model="dev.prospect().panelCapacity">
     </label>
     <label class="inline" for="dev_systemSize">
       <span>system size</span>

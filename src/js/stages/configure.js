@@ -1,4 +1,4 @@
-angular.module('configure',[]).config(["$stateProvider", function ($stateProvider) {
+angular.module('configure', []).config(["$stateProvider", function ($stateProvider) {
   // specifics for for this state
   var stageName = 'configure';
   // TODO: make these paths central and DRYer for all stages, changing based on stageName
@@ -13,6 +13,7 @@ angular.module('configure',[]).config(["$stateProvider", function ($stateProvide
         templateUrl: stageUrl + "main.html",
         controller:  function ($scope, Layers) {
           Layers.rx_drawcount.subscribe(function (x) {
+              // TODO: ensure that this boolean gets set on reload so users don't get stuck on trace step
               $scope.traced = x
               $scope.$apply();
           })

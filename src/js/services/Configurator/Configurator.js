@@ -7,7 +7,7 @@
  *
  */
 
-angular.module('flannel').service('newConfigurator', ['$q','Clientstream', 'Session', 'View', 'Interactions', 'Layers', 'MapFactory', newConfigurator_]);
+angular.module('flannel').service('newConfigurator', ['$q', 'Clientstream', 'Session', 'View', 'Interactions', 'Layers', 'MapFactory', newConfigurator_]);
 
 function newConfigurator_($q, Client, Session, View, Interactions, Layers, MapFactory) {
   var gmap,

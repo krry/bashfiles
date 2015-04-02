@@ -57,16 +57,18 @@ function OdaCtrl_($scope, $element, Client, Form) {
     .subscribe(streamSubscription);
 
     // drop a pin at Customer's rooftop the ODA tools
-    addy = [form_obj.street, form_obj.city,form_obj.state, form_obj.zip ].join(', ')
-    goc.geocode({address: addy}, function function_name (result, status) {
-      rooftop_map.setCenter(result[0].geometry.location)
-      marker = new google.maps.Marker({
-        position: result[0].geometry.location,
-        map: rooftop_map,
-        draggable: false,
-        icon: 'img/map_pin_1.svg'
-      })
-    });
+    if (form_obj.street) {
+      addy = [form_obj.street, form_obj.city,form_obj.state, form_obj.zip ].join(', ');
+      goc.geocode({address: addy}, function function_name (result, status) {
+        rooftop_map.setCenter(result[0].geometry.location)
+        marker = new google.maps.Marker({
+          position: result[0].geometry.location,
+          map: rooftop_map,
+          draggable: false,
+          icon: 'img/map_pin_1.svg'
+        })
+      });
+    }
   }
 
   function streamSubscription (form_obj) {
@@ -74,16 +76,15 @@ function OdaCtrl_($scope, $element, Client, Form) {
     var key, keys, val;
     if (form_obj === null) return; // will be null if no data on firebase
     keys = Object.keys(form_obj);  // HACK: this may fail in different js interpreters... #readabookbrah
-    if (!angular.equals(form_obj, vm.prospect())) { // firebase different from local
+    if (!angular.equals(form_obj, vm.prospect)) { // firebase different from local
       for (var i = 0; i < keys.length; i++) {
         key = keys[i];
         val = form_obj[key];
-        // vm.prospect()[key] = val;
       }
       setTimeout(function() {
         $scope.$apply(); // update the views
+        console.log('prospect is:', vm.prospect);
       }, 0);
-      console.log('prospect is:', vm.prospect());
     }
   }
 }

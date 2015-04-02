@@ -1,6 +1,6 @@
-directives.directive('flnAlternatives', flnAlternatives);
+directives.directive('flnAlternatives', [flnAlternatives_]);
 
-function flnAlternatives () {
+function flnAlternatives_ () {
   return {
     templateUrl: 'templates/directives/dialogs/flnAlternatives.html',
     require: '^flnModal',

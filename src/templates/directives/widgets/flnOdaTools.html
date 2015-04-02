@@ -7,7 +7,7 @@
     <a class="btn blue" ng-click="oda.jumpToProposal()">View Proposal</a>
     <a class="btn blue" ng-click="oda.jumpToSchedule()">Schedule Survey</a>
   </ul>
-  <dl class="row" ng-show="dev.prospect.utilityRate">
+  <dl class="row" ng-show="dev.prospect().utilityRate">
     <div class="col half">
       <dt>percent utility</dt>
       <dd>{{ dev.prospect().percentUtility }}%</dd>
@@ -20,7 +20,7 @@
       <dt>average yield</dt>
       <dd>{{ dev.prospect().averageYield }} kWh/kW/year</dd>
       <dt>panels</dt>
-      <dd>{{ dev.prospect.panelCount }} panels @ {{ dev.prospect.panelCapacity }} kW/panel</dd>
+      <dd>{{ dev.prospect().panelCount }} panels @ {{ dev.prospect().panelCapacity }} kW/panel</dd>
     </div>
     <div class="col half">
       <dt>percent solar</dt>

@@ -1,6 +1,6 @@
-directives.directive('flnForm', flnForm);
+directives.directive('flnForm', [flnForm_]);
 
-function flnForm () {
+function flnForm_ () {
   return {
     restrict: "A",
     controller: 'FormCtrl',

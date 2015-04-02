@@ -24,11 +24,15 @@
 
   &:before,
   &:after {
-    border-left: 1px solid $tint-20;
     border-right: 1px solid $tint-20;
     content: '';
     position: absolute;
     z-index: -1;
+  }
+
+  &:first-of-type:before,
+  &:first-of-type:after {
+    border-left: 1px solid $tint-20;
   }
 
   @if ($direction == "right" or $direction == "left") {

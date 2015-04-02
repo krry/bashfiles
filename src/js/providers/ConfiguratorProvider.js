@@ -6,7 +6,7 @@
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
-providers.provider("Configurator", ConfiguratorFactory_);
+providers.provider("Configurator", [ConfiguratorFactory_]);
 
 function ConfiguratorFactory_() {
 
