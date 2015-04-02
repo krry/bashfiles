@@ -1,6 +1,6 @@
-directives.directive('flnFaq', flnFaq);
+directives.directive('flnFaq', [flnFaq_]);
 
-function flnFaq () {
+function flnFaq_ () {
   return {
     templateUrl: 'templates/directives/dialogs/flnFaq.html',
     require: '^flnModal',

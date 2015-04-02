@@ -1,6 +1,7 @@
+angular.module('flannel').factory('StyleService', ['$q', StyleService_]);
+
 function StyleService_ ($q) {
   // this factory provides styles, etc for edlOlMap features
-  //
 
   var colors = {};
   var c = colors;
@@ -343,5 +344,3 @@ function StyleService_ ($q) {
 
   return StyleService;
 }
-
-angular.module('flannel').factory('StyleService', StyleService_);

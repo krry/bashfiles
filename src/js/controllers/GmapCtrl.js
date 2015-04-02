@@ -30,6 +30,17 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
   Client.listen('Gmap: max zoom found', applyMaxZoom);
   Client.listen('Gmap: switch to satellite', switchToSatellite);
   Client.listen('Spinner: add to spin count', setSpinCount);
+  Client.listen('Stages: step complete', cloudMap);
+
+  function cloudMap (step) {
+    // TODO: on hotload of bill step, ensure cloudiness
+    if (step === "monthly-bill") {
+      $element.addClass('cloudy');
+    }
+    else {
+      $element.removeClass('cloudy');
+    }
+  }
   // Client.listen('Gmap: get nearme data', getNearMeData);
 
   function init (el) {

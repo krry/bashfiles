@@ -16,7 +16,7 @@ var rename  = require('gulp-rename');
 var prefix  = require('gulp-autoprefixer');
 var plumber = require('gulp-plumber');
 var sass    = require('gulp-sass');
-var minCSS  = require('gulp-minify-css');
+var minCss  = require('gulp-minify-css');
 
 var timestamp = require('../util/timestamp').timestamp;
 var handleErrors = require('../util/handleErrors');
@@ -38,16 +38,15 @@ var sassOpts = {
 var stylePub = './public/css';
 
 gulp.task('styles', ['clearStyles'], function(){
-  var currentTime = timestamp();
   return gulp.src(styleSrc)
         .pipe(plumber({
             errorHandler: handleErrors
         }))
         .pipe(sass(sassOpts))
         .pipe(prefix(['ie 9','last 2 versions', '> 5%'], { cascade: true }))
-        .pipe(concat('all-' + currentTime + '.css'))
+        .pipe(concat('all-' + timestamp() + '.css'))
         .pipe(gulp.dest(stylePub))
-        .pipe(minCSS({keepBreaks: false}))
+        .pipe(minCss({keepBreaks: false}))
         .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest(stylePub))
 });

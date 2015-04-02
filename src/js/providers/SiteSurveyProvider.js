@@ -22,7 +22,7 @@ function SiteSurveyProvider_ () {
       $http.get(GSA_API, { 
         params: params,
         cache: true,
-        timeout: 20000
+        timeout: 28000
       }).then(function(resp) {
         var data = JSON.parse(resp.data);
         try {
@@ -41,7 +41,7 @@ function SiteSurveyProvider_ () {
       var dfd = $q.defer();
 
       $http.post(GSA_API, data, {
-        timeout: 20000
+        timeout: 28000
       }).then(function(resp) {
         var data = JSON.parse(resp.data);
         try {

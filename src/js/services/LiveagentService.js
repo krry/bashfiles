@@ -5,7 +5,7 @@
 
 ================================================== */
 
-angular.module('flannel').factory('Liveagent', LiveagentService_);
+angular.module('flannel').factory('Liveagent', [LiveagentService_]);
 
 function LiveagentService_ () {
 
@@ -88,7 +88,7 @@ function LiveagentService_ () {
       var value;
       for (var key in prospect) {
         if ( prospect.hasOwnProperty(key)) {
-          if (key !== "location") {
+          if (key !== "location" && prospect[key]) {
             value = prospect[key].toString();
             custom_detail_stream.onNext({key: key, value: value});
           }

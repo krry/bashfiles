@@ -1,4 +1,4 @@
-angular.module('home',[]).config(["$stateProvider", function ($stateProvider) {
+angular.module('home', []).config(["$stateProvider", function ($stateProvider) {
 
   // paths for this state
   var stageName = 'home';
