@@ -22,7 +22,7 @@
   "SFDCSECRETTOKEN": "4wA0xsJPpxziT6RTzG838eoGS",
   "SFDCRECORDTYPEID": "012180000008VBfAAM",
   "CLIENT": {
-    "ENV": "int",
+    "ENV": "development",
     "ANALYTICS_ID": "GTM-M9C3WK",
     "MINIFIED": "false",
     "URL_ROOT": "go-int.solarcity.com",
