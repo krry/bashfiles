@@ -1,6 +1,6 @@
-directives.directive('flnAlternav', ['Clientstream', flnAlternav]);
+directives.directive('flnAlternav', ['Clientstream', flnAlternav_]);
 
-function flnAlternav (Client) {
+function flnAlternav_ (Client) {
   return {
     require: '^flnForm',
     templateUrl: 'templates/directives/widgets/flnAlternav.html',

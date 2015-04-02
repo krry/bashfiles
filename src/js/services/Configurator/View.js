@@ -6,7 +6,7 @@
  *
  */
 
-angular.module('flannel').factory("View", ['Design', 'Session', 'Clientstream', View_]);
+angular.module('flannel').factory('View', ['Design', 'Session', 'Clientstream', View_]);
 
 function View_(Design, Session, Client) {
   var view, center, center_listner_key, zoom_listener_key;

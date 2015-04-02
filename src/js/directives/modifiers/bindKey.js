@@ -16,10 +16,11 @@ function bindKey_ (keyCodes) {
       }
 
       var bindings = map(scope.$eval(attrs.bindKey));
+
       if ($(element).focus()) {
         element.bind('keydown keypress', function (event) {
           if (bindings.hasOwnProperty(event.which)) {
-            console.log('enter hit on input')
+            console.log('enter hit on input');
             scope.$apply(function () {
               scope.$eval(bindings[event.which]);
             });

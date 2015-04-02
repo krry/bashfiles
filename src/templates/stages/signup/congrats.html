@@ -6,9 +6,9 @@
       </h1>
       <div class="col full center">
         <div class="icon icon-calendar"></div>
-        <h1 class="caps">{{form.prospect.scheduledTime.month}} {{form.prospect.scheduledTime.day}}</h1>
+        <h1 class="caps">{{form.prospect().scheduledTime.month}} {{form.prospect().scheduledTime.day}}</h1>
         <p>
-          {{form.prospect.scheduledTime.weekday}} arrival between {{form.prospect.scheduledTime.start}} to {{form.prospect.scheduledTime.end}}.<br>
+          {{form.prospect().scheduledTime.weekday}} arrival between {{form.prospect().scheduledTime.start}} to {{form.prospect().scheduledTime.end}}.<br>
           Survey may take 1 &mdash; 2 hours.
         </p>
         <div class="calendar-links caps">

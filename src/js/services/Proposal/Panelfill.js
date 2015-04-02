@@ -1,9 +1,9 @@
-angular.module('flannel').service('Panelfill', PanelfillSvc);
+angular.module('flannel').service('Panelfill', ['$http', '$q', PanelfillService_]);
 
-function PanelfillSvc ($http, $q) {
+function PanelfillService_ ($http, $q) {
   // TODO: Revisit naming of this and Proposal service... to whatever it should be.
 
-  // this Service provides Api access
+  // this Service provides API access
   var Panelfill = {};
 
   // open to the web
@@ -45,13 +45,13 @@ function PanelfillSvc ($http, $q) {
     points = convertPolyPointsToArrayOfPoints(points_for_panelfill);
   ridge_points = convertPolyPointsToArrayOfPoints(ridge);
 
-  if(ridge_points.length == 1)
+  if(ridge_points.length === 1)
   {
     ridge_points = [ridge_points[0][0], ridge_points[0][1]];
   }
 
     function convertPolyPointsToArrayOfPoints(poly_points){
-      // poly_points === ["coordsA1 coordsB1", "coordsA2 coordsB2"];
+      // poly_points ==== ["coordsA1 coordsB1", "coordsA2 coordsB2"];
       var result = [];
       for (var i in poly_points) {
         result.push(poly_points[i].split(' '));
@@ -62,7 +62,7 @@ function PanelfillSvc ($http, $q) {
   //points are seperate at this point
   points = getEaveAdjustedPolygon(points, ridge_points);
 
-  if( proposal_map.tilt == 45)
+  if( proposal_map.tilt === 45)
   {
   points_inches = convertPointsToPointInches(points, points);
 
@@ -107,7 +107,7 @@ function PanelfillSvc ($http, $q) {
         Pt2 = oldPoint;
       }
 
-      if ((newPoint[0] < _Pt[0]) == (_Pt[0] <= oldPoint[0])
+      if ((newPoint[0] < _Pt[0]) === (_Pt[0] <= oldPoint[0])
         && (_Pt[1] - Pt1[1]) * (Pt2[0] - Pt1[0]) <
         (Pt2[1] - Pt1[1]) * (_Pt[0] - Pt1[0]))
       {
@@ -119,7 +119,7 @@ function PanelfillSvc ($http, $q) {
     return inside;
   }
 
-  
+
   var pitchS = 15;
   var heading = 0;
   var offset = Math.sin(pitchS * Math.PI/180);
@@ -358,7 +358,7 @@ function getEaveAdjustedPolygon(arrayOfPoints,
     var highestPoint = null;
 
     var highestElementIsALine = false;
-    if (highestElement[0].length == 2) {
+    if (highestElement[0].length === 2) {
                 highestElementIsALine = true;
     }
 
@@ -379,7 +379,7 @@ function getEaveAdjustedPolygon(arrayOfPoints,
 
                 var eaveLine = null;
                 //let's first add a check if the polygon is 4 vertices (this means we have a triangle)
-                if (adjustedArrayOfLines.length == 3) {
+                if (adjustedArrayOfLines.length === 3) {
                                 //We have a triangle, this means one of two things, either they selected a peak and the remaining line is the eave, or they selected a line, and no eave exists
                                 //(in this case we will just add a tiny eave.)
 
@@ -390,10 +390,10 @@ function getEaveAdjustedPolygon(arrayOfPoints,
                                                 var indexOfHighestLine = 0;
 
                                                 for (var i = 0; i < adjustedArrayOfLines.length; i++) {
-                                                                if (((adjustedArrayOfLines[i].Start.X == highestElement[0][0] && adjustedArrayOfLines[i].Start.Y == highestElement[0][1])  &&
-                                                                                (adjustedArrayOfLines[i].End.X == highestElement[1][0] && adjustedArrayOfLines[i].End.Y == highestElement[1][1])) ||
-                                                                                ((adjustedArrayOfLines[i].End.X == highestElement[0][0] && adjustedArrayOfLines[i].End.Y == highestElement[0][1])  ||
-                                                                                (adjustedArrayOfLines[i].Start.X == highestElement[1][0] && adjustedArrayOfLines[i].Start.Y == highestElement[1][1]))) {
+                                                                if (((adjustedArrayOfLines[i].Start.X === highestElement[0][0] && adjustedArrayOfLines[i].Start.Y === highestElement[0][1])  &&
+                                                                                (adjustedArrayOfLines[i].End.X === highestElement[1][0] && adjustedArrayOfLines[i].End.Y === highestElement[1][1])) ||
+                                                                                ((adjustedArrayOfLines[i].End.X === highestElement[0][0] && adjustedArrayOfLines[i].End.Y === highestElement[0][1])  ||
+                                                                                (adjustedArrayOfLines[i].Start.X === highestElement[1][0] && adjustedArrayOfLines[i].Start.Y === highestElement[1][1]))) {
                                                                                 //this is our index!
                                                                                 indexOfHighestLine = i;
                                                                                 //exit batman!
@@ -404,8 +404,8 @@ function getEaveAdjustedPolygon(arrayOfPoints,
                                                 var pointToBuildEave = null;
                                                 //Get the point that we will use to build the new eave
                                                 for (var i = 0; i < adjustedArrayOfPoints.length; i++) {
-                                                                if (adjustedArrayOfPoints[i].ID != adjustedArrayOfLines[indexOfHighestLine].Start.ID &&
-                                                                                adjustedArrayOfPoints[i].ID != adjustedArrayOfLines[indexOfHighestLine].End.ID) {
+                                                                if (adjustedArrayOfPoints[i].ID !== adjustedArrayOfLines[indexOfHighestLine].Start.ID &&
+                                                                                adjustedArrayOfPoints[i].ID !== adjustedArrayOfLines[indexOfHighestLine].End.ID) {
                                                                                 pointToBuildEave = adjustedArrayOfPoints[i];
                                                                                 break;
                                                                 }
@@ -417,12 +417,12 @@ function getEaveAdjustedPolygon(arrayOfPoints,
                                                 var var1;
                                                 var var2;
 
-                                                if (indexOfHighestLine == 0) {
+                                                if (indexOfHighestLine === 0) {
                                                                 var0 = 0;
                                                                 var1 = 1;
                                                                 var2 = 2;
                                                 }
-                                                else if (indexOfHighestLine == 1) {
+                                                else if (indexOfHighestLine === 1) {
                                                                 var0 = 1;
                                                                 var1 = 2;
                                                                 var2 = 0;
@@ -455,8 +455,8 @@ function getEaveAdjustedPolygon(arrayOfPoints,
                                                 //we have a single point, therefore it will be easy to determine the eave
                                                 for (var i = 0; i < adjustedArrayOfLines.length; i++) {
                                                                 //find the line that does not have either the start nor end point with the highestPoint
-                                                                if ((adjustedArrayOfLines[i].Start.X == highestPoint.X && adjustedArrayOfLines[i].Start.Y == highestPoint.Y)  ||
-                                                                                (adjustedArrayOfLines[i].End.X == highestPoint.X && adjustedArrayOfLines[i].End.Y == highestPoint.Y)) {
+                                                                if ((adjustedArrayOfLines[i].Start.X === highestPoint.X && adjustedArrayOfLines[i].Start.Y === highestPoint.Y)  ||
+                                                                                (adjustedArrayOfLines[i].End.X === highestPoint.X && adjustedArrayOfLines[i].End.Y === highestPoint.Y)) {
                                                                                 //This means that the line has either a start point or an end point that equal the highest point, so we will do nothing
                                                                 }
                                                                 else {
@@ -474,10 +474,10 @@ function getEaveAdjustedPolygon(arrayOfPoints,
                                                 //then we want to eliminate all lines that share any common points with the highest line
                                                 for (var i = 0; i < adjustedArrayOfLines.length; i++) {
                                                                 //find the line that does not have either the start nor end point with the highestPoint
-                                                                if ((adjustedArrayOfLines[i].Start.X == highestElement[0][0] && adjustedArrayOfLines[i].Start.Y == highestElement[0][1])  ||
-                                                                                (adjustedArrayOfLines[i].End.X == highestElement[0][0] && adjustedArrayOfLines[i].End.Y == highestElement[0][1]) ||
-                                                                                (adjustedArrayOfLines[i].Start.X == highestElement[1][0] && adjustedArrayOfLines[i].Start.Y == highestElement[1][1])  ||
-                                                                                (adjustedArrayOfLines[i].End.X == highestElement[1][0] && adjustedArrayOfLines[i].End.Y == highestElement[1][1])) {
+                                                                if ((adjustedArrayOfLines[i].Start.X === highestElement[0][0] && adjustedArrayOfLines[i].Start.Y === highestElement[0][1])  ||
+                                                                                (adjustedArrayOfLines[i].End.X === highestElement[0][0] && adjustedArrayOfLines[i].End.Y === highestElement[0][1]) ||
+                                                                                (adjustedArrayOfLines[i].Start.X === highestElement[1][0] && adjustedArrayOfLines[i].Start.Y === highestElement[1][1])  ||
+                                                                                (adjustedArrayOfLines[i].End.X === highestElement[1][0] && adjustedArrayOfLines[i].End.Y === highestElement[1][1])) {
                                                                                 //do nothing, it's attached
                                                                 }
                                                                 else {
@@ -489,8 +489,8 @@ function getEaveAdjustedPolygon(arrayOfPoints,
                                 else {
                                                 for (var i = 0; i < adjustedArrayOfLines.length; i++) {
                                                                 //find the line that does not have either the start nor end point with the highestPoint
-                                                                if ((adjustedArrayOfLines[i].Start.X == highestPoint.X && adjustedArrayOfLines[i].Start.Y == highestPoint.Y)  ||
-                                                                                (adjustedArrayOfLines[i].End.X == highestPoint.X && adjustedArrayOfLines[i].End.Y == highestPoint.Y)) {
+                                                                if ((adjustedArrayOfLines[i].Start.X === highestPoint.X && adjustedArrayOfLines[i].Start.Y === highestPoint.Y)  ||
+                                                                                (adjustedArrayOfLines[i].End.X === highestPoint.X && adjustedArrayOfLines[i].End.Y === highestPoint.Y)) {
                                                                                 //do nothing, it's attached
                                                                 }
                                                                 else {
@@ -508,12 +508,12 @@ function getEaveAdjustedPolygon(arrayOfPoints,
                                 for (var i = 0; i < potentialEaves.length; i++) {
                                                 var lineLength = GetLineDistance(potentialEaves[i]);
 
-                                                if (maxLength == null || maxLength < lineLength) {
+                                                if (maxLength === null || maxLength < lineLength) {
                                                                 eaveLine = potentialEaves[i];
                                                                 maxLength = lineLength;
                                                 }
                                 }
-                                if (eaveLine == null) {
+                                if (eaveLine === null) {
                                                 //THIS SHOULD NEVER HAPPEN, BUT WE WANT TO RETURN SOMETHING AND MAKE SURE EAVE IS NOT NULL
                                                 eaveLine = adjustedArrayOfLines[0];
                                 }
@@ -523,7 +523,7 @@ function getEaveAdjustedPolygon(arrayOfPoints,
                 //Now we have our eave, we need to find the index of the line within the adjusted array of lines
                 var index = 0;
                 for (var i = 0 ; i < adjustedArrayOfLines.length; i++) {
-                                if (adjustedArrayOfLines[i].ID == eaveLine.ID) {
+                                if (adjustedArrayOfLines[i].ID === eaveLine.ID) {
                                                 index = i;
                                                 break;
                                 }
@@ -539,9 +539,9 @@ function getEaveAdjustedPolygon(arrayOfPoints,
                                                 currIndex = currIndex - adjustedArrayOfLines.length;
                                 }
 
-                                //Grab the line at the current index, if i == 0 we want to add the start and the end points
+                                //Grab the line at the current index, if i === 0 we want to add the start and the end points
                                 var currLine = adjustedArrayOfLines[currIndex];
-                                if (i == 0) {
+                                if (i === 0) {
                                                 tbr.push([currLine.Start.X, currLine.Start.Y]);
                                                 tbr.push([currLine.End.X, currLine.End.Y]);
                                 }

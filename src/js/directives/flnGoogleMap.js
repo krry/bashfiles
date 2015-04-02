@@ -1,6 +1,6 @@
-directives.directive('flnGmap', flnGmap);
+directives.directive('flnGmap', [flnGmap_]);
 
-function flnGmap() {
+function flnGmap_ () {
   return {
     restrict: "A",
     controller: "GmapCtrl",

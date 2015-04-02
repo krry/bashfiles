@@ -8,11 +8,10 @@
   required="true"
   maxlength="5"
   placeholder="{{hint}}"
-  ng-model="form.prospect.zip"
-  ng-model-options="{ updateOn: 'default change blur', debounce: { default: 500, change: 0, blur: 0 } }"
-  ng-required="true"
+  ng-model="form.prospect().zip"
+  ng-model-options="{ updateOn: 'default change', debounce: 0 }"
   ng-maxlength="5"
+  ng-required="true"
+  ng-change="form.checkZip()"
   ng-pattern="/^\d{5}(?:[-\s]\d{4})?$/"
-  ng-change="form.checkZip(form.prospect.zip)"
-  bind-key="form.checkZip(form.prospect.zip)"
-  key="13">
+  bind-key="{enter: 'form.checkZip()'}">

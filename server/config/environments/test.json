@@ -23,6 +23,7 @@
   "SFDCRECORDTYPEID": "012180000008VBfAAM",
   "CLIENT": {
     "ENV": "test",
+    "ANALYTICS_ID": "GTM-M8LTWS",
     "MINIFIED": "false",
     "URL_ROOT": "go-test.solarcity.com",
     "APP_TITLE": "FLNL • DEV",

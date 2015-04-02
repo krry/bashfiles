@@ -6,7 +6,7 @@ function flnInputBill_ (defaultValues, Form) {
     templateUrl: "templates/directives/inputs/flnInputBill.html",
     require: "^flnForm",
     link: function (scope, element, attrs, FormCtrl) {
-      var prospect = Form.prospect;
+      var prospect = Form.prospect();
 
       if (!prospect.bill) {
         prospect.bill = defaultValues.bill;
