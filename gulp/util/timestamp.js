@@ -1,10 +1,10 @@
 var thetime;
 
 function getTimestamp() {
-  console.log('thetime', thetime);
   if (!thetime) {
     thetime = new Date().getTime();
   }
+  console.log('the timestamp is now:', thetime);
   return thetime;
 }
 

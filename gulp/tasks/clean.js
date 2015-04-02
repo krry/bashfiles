@@ -15,6 +15,7 @@ var gulp  = require('gulp');
 var del = require('del');
 
 var laundry = [
+  './src/js/templates-*.js',
   './public/templates/**/*',
   './public/fonts/**/*',
   './public/img/**/*',
@@ -31,7 +32,7 @@ var scripts = './public/js/all-*.js';
 var styles = './public/css/all-*.css';
 var fonts = './public/fonts/**/*';
 var images = './public/img/*';
-var libs = ['./public/lib/*.css', './public/lib/*.js'];
+var libs = './public/lib/libs-*';
 
 gulp.task('clean', function() {
   console.log('[clean   ] now cleaning dist folders');
