@@ -35,12 +35,11 @@ var scriptSrc = [
 var scriptPub = './public/js';
 
 gulp.task('scripts', ['clearScripts'], function(){
-  var currentTime = timestamp();
   return gulp.src(scriptSrc)
     .pipe(plumber(handleErrors))
     .pipe(jshint('./.jshintrc'))
     .pipe(jshint.reporter(stylish))
-    .pipe(concat('all-' + currentTime + '.js'))
+    .pipe(concat('all-' + timestamp() + '.js'))
     .pipe(ngAnnotate())
     .pipe(gulp.dest(scriptPub))
     .pipe(uglify())

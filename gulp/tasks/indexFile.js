@@ -9,7 +9,6 @@
 
 var gulp = require('gulp');
 var linker = require('gulp-linker');
-var runSeq = require('run-sequence');
 
 var env = process.env.NODE_ENV || 'development',
     styleSrc,
@@ -53,10 +52,6 @@ else {
     'public/js/**/*.min.js'
   ];
 }
-
-gulp.task('dom', function(){
-  runSeq('fonts', 'images', 'libs', 'templates', 'styles', 'scripts', 'indexFile');
-})
 
 gulp.task('indexFile', function(){
   return gulp.src(tmplSrc, {base: './src/'})

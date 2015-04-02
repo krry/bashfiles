@@ -8,5 +8,9 @@
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
 var gulp = require('gulp');
-
-gulp.task('build', ['dom']);
+var runSeq = require('run-sequence').use(gulp);
+// 
+// gulp.task('build', function(){
+//   runSeq(['fonts', 'images', 'libs', 'templates', 'styles', 'scripts']);
+// })
+module.exports = ['fonts', 'images', 'libs', 'templates', 'styles', 'scripts'];

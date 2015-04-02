@@ -38,14 +38,13 @@ var sassOpts = {
 var stylePub = './public/css';
 
 gulp.task('styles', ['clearStyles'], function(){
-  var currentTime = timestamp();
   return gulp.src(styleSrc)
         .pipe(plumber({
             errorHandler: handleErrors
         }))
         .pipe(sass(sassOpts))
         .pipe(prefix(['ie 9','last 2 versions', '> 5%'], { cascade: true }))
-        .pipe(concat('all-' + currentTime + '.css'))
+        .pipe(concat('all-' + timestamp() + '.css'))
         .pipe(gulp.dest(stylePub))
         .pipe(minCss({keepBreaks: false}))
         .pipe(rename({suffix: '.min'}))

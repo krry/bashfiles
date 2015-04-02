@@ -88,30 +88,27 @@ var libPub = './public/lib';
 gulp.task('libs', ['clearLibs', 'bower', 'libHead', 'libHeadMin', 'libCss', 'libTail', 'libTailMin']);
 
 gulp.task('libHead', function (){
-  var currentTime = timestamp();
   return gulp.src(libHeadSrc)
         .pipe(plumber(handleErrors))
         .pipe(changed(libPub))
-        .pipe(concat('libs-head-'+ currentTime + '.js'))
+        .pipe(concat('libs-head-'+ timestamp() + '.js'))
         .pipe(gulp.dest(libPub))
 });
 
 gulp.task('libHeadMin', function (){
-  var currentTime = timestamp();
   return gulp.src(libHeadSrc)
         .pipe(plumber(handleErrors))
         .pipe(changed(libPub))
         .pipe(uglify())
-        .pipe(concat('libs-head-'+ currentTime + '.min.js'))
+        .pipe(concat('libs-head-'+ timestamp() + '.min.js'))
         .pipe(gulp.dest(libPub));
 });
 
 gulp.task('libCss', function (){
-  var currentTime = timestamp();
   return gulp.src(libCssSrc)
         .pipe(plumber(handleErrors))
         .pipe(changed(libPub))
-        .pipe(concat('libs-css-'+ currentTime + '.css'))
+        .pipe(concat('libs-css-'+ timestamp() + '.css'))
         .pipe(gulp.dest(libPub))
         .pipe(minifyCss({ keepBreaks: false }))
         .pipe(rename({ suffix: '.min' }))
@@ -119,20 +116,18 @@ gulp.task('libCss', function (){
 });
 
 gulp.task('libTail', function (){
-  var currentTime = timestamp();
   return gulp.src(libTailSrc)
         .pipe(plumber(handleErrors))
         .pipe(changed(libPub))
-        .pipe(concat('libs-tail-'+ currentTime + '.js'))
+        .pipe(concat('libs-tail-'+ timestamp() + '.js'))
         .pipe(gulp.dest(libPub))
 });
 
 gulp.task('libTailMin', function (){
-  var currentTime = timestamp();
   return gulp.src(libTailSrcMin)
         .pipe(plumber(handleErrors))
         .pipe(changed(libPub))
-        .pipe(concat('libs-tail-'+ currentTime + '.min.js'))
+        .pipe(concat('libs-tail-'+ timestamp() + '.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest(libPub));
 });

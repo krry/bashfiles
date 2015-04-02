@@ -29,6 +29,8 @@ var laundry = [
 var templates = './src/js/templates-*.js';
 var scripts = './public/js/all-*.js';
 var styles = './public/css/all-*.css';
+var fonts = './public/fonts/**/*';
+var images = './public/img/*';
 var libs = ['./public/lib/*.css', './public/lib/*.js'];
 
 gulp.task('clean', function() {
@@ -50,4 +52,12 @@ gulp.task('clearStyles', function () {
 
 gulp.task('clearLibs', function () {
   return del(libs);
+});
+
+gulp.task('clearFonts', function () {
+  return del(fonts);
+});
+
+gulp.task('clearImages', function () {
+  return del(images);
 });
