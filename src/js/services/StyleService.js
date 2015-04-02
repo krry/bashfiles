@@ -6,12 +6,14 @@ function StyleService_ ($q) {
   var c = colors;
 
   /*********************** common colors ***********************/
-  c.highlightOpaque         = "rgba(251, 127, 61, 1)"; // main orange
-  c.highlightFill           = "rgba(251, 127, 61, 0.3)"; // 30% orange
-  c.defaultOpaque           = "rgba(0, 166, 183, 1)"; // main blue
-  c.defaultFill             = "rgba(0, 166, 183, 0.3)"; // 30% blue
-  c.defaultGutter           = "rgba(0, 146, 161, 1)"; // gutter blue
-  c.highlightGutter         = "rgba(184, 61, 22, 1)";  // gutter orange
+  // c.highlightOpaque         = "rgba(240, 105, 083, 1.0)"; // main orange
+  c.highlightFill           = "rgba(240, 105, 083, 0.3)"; // 30% orange
+  c.defaultOpaque           = "rgba(240, 105, 083, 1.0)"; // $brand-fire
+  c.defaultFill             = "rgba(240, 105, 083, 0.3)"; // 30% blue
+  c.defaultGutter           = "rgba(000, 146, 161, 1.0)"; // gutter blue
+  c.highlightGutter         = "rgba(184, 061, 022, 1.0)"; // gutter orange
+  c.editFill                = "rgba(255, 255, 255, 1.0)"; // white
+  c.editStroke              = "rgba(240, 105, 083, 1.0)"; // white
 
   /*********************** obstruction ***********************/
   c.defaultObstruction    = "rgba(184, 61, 22, 1)";
@@ -34,27 +36,35 @@ function StyleService_ ($q) {
                               });
 
   /*********************** mount plane ***********************/
-  c.defaultMountFill    = new ol.style.Fill({
+  c.defaultMountFill      = new ol.style.Fill({
                             color: c.defaultFill,
                           });
-  c.defaultMountStroke  = new ol.style.Stroke({
+  c.defaultMountStroke    = new ol.style.Stroke({
                             color: c.defaultOpaque,
                             width: 5
                           });
-  c.defaultMountImage   = new ol.style.Circle({
-                            radius: 7,
+  c.defaultMountImage     = new ol.style.Circle({
+                            radius: 17,
                             fill: c.defaultMountFill
                           });
   c.highlightMountFill    = new ol.style.Fill({
                             color: c.highlightFill,
                           });
   c.highlightMountStroke  = new ol.style.Stroke({
-                            color: c.highlightOpaque,
+                            color: c.editStroke,
                             width: 5
                           });
-  c.highlightMountImage   = new ol.style.Circle({
-                            radius: 7,
-                            fill: c.highlightMountFill
+  c.highlightNodeFill     = new ol.style.Fill({
+                            color: c.editFill
+                          });
+  c.highlightNodeStroke   = new ol.style.Stroke({
+                            color: c.editStroke,
+                            width: 2
+                          });
+  c.highlightNodeImage   = new ol.style.Circle({
+                            radius: 17,
+                            fill: c.highlightNodeFill,
+                            stroke: c.highlightNodeStroke
                           });
 
   /*********************** gutter ***********************/
@@ -156,54 +166,54 @@ function StyleService_ ($q) {
     var styles = {};
 
     styles['area'] = [new ol.style.Style({
-              fill: c.defaultMountFill,
+              fill: c.highlightMountFill,
               stroke: c.defaultMountStroke,
-              image: c.defaultMountImage,
+              image: c.highlightNodeImage,
             })];
 
-    styles['gutter'] =  [new ol.style.Style({
-              stroke: c.defaultGutterStroke,
-              image:  c.defaultGutterImage,
-            })];
+    // styles['gutter'] =  [new ol.style.Style({
+    //           stroke: c.defaultGutterStroke,
+    //           image:  c.defaultGutterImage,
+    //         })];
 
-    styles['geometry'] =  [new ol.style.Style({
-              fill: new ol.style.Fill({
-                color: 'pink'
-              }),
-              stroke: new ol.style.Stroke({
-                color: 'red',
-                width: 4
-              }),
-              image: new ol.style.Circle({
-                radius: 7,
-                fill: new ol.style.Fill({
-                  color: 'blue'
-                })
-              })
-            })];
-    styles['panel'] =  [new ol.style.Style({
-        fill: c.defaultPanelFill,
-        stroke: c.defaultPanelStroke,
-        image: new ol.style.Circle({
-          radius: 7,
-          fill: new ol.style.Fill({
-            color: c.highlightOpaque,
-          })
-        })
-      })];
+    // styles['geometry'] =  [new ol.style.Style({
+    //           fill: new ol.style.Fill({
+    //             color: 'pink'
+    //           }),
+    //           stroke: new ol.style.Stroke({
+    //             color: 'red',
+    //             width: 4
+    //           }),
+    //           image: new ol.style.Circle({
+    //             radius: 7,
+    //             fill: new ol.style.Fill({
+    //               color: 'blue'
+    //             })
+    //           })
+    //         })];
+    // styles['panel'] =  [new ol.style.Style({
+    //     fill: c.defaultPanelFill,
+    //     stroke: c.defaultPanelStroke,
+    //     image: new ol.style.Circle({
+    //       radius: 7,
+    //       fill: new ol.style.Fill({
+    //         color: c.highlightOpaque,
+    //       })
+    //     })
+    //   })];
 
-    // create a separate style function to work with changing radius of obstructions:
-    styles['obstruction'] = function(rad, res) {
-      return [new ol.style.Style({
-              stroke: c.defaultPanelStroke,
-              image: new ol.style.Circle({
-                radius: rad / (res*4.2) || 0,
-                fill: new ol.style.Fill({
-                  color: c.defaultObstruction
-                })
-              })
-            })];
-      };
+    // // create a separate style function to work with changing radius of obstructions:
+    // styles['obstruction'] = function(rad, res) {
+    //   return [new ol.style.Style({
+    //           stroke: c.defaultPanelStroke,
+    //           image: new ol.style.Circle({
+    //             radius: rad / (res*4.2) || 0,
+    //             fill: new ol.style.Fill({
+    //               color: c.defaultObstruction
+    //             })
+    //           })
+    //         })];
+    //   };
 
     return function(feature, resolution) {
       var radius = feature.get('radius');
@@ -218,52 +228,107 @@ function StyleService_ ($q) {
   StyleService.highlightStyleFunction = (function() {
     /* jshint -W069 */
     var styles = {};
-    styles['area'] = [new ol.style.Style({
-              fill: c.highlightMountFill,
-              stroke: c.highlightMountStroke,
-              image: c.highlightMountImage,
-            })];
-    styles['gutter'] =  [new ol.style.Style({
-              stroke: c.highlightGutterStroke,
-              image:  c.highlightGutterImage,
-            })];
-    styles['geometry'] =  [new ol.style.Style({
-              fill: new ol.style.Fill({
-                color: c.highlightFill,
-              }),
-              stroke: new ol.style.Stroke({
-                color: c.highlightOpaque,
-                width: 5
-              }),
-              image: new ol.style.Circle({
-                radius: 7,
-                fill: new ol.style.Fill({
-                  color: c.highlightOpaque,
-                })
-              })
-            })];
-    styles['panel'] =  [new ol.style.Style({
-            fill: c.highglightPanelFill,
-            stroke: c.highlightPanelStroke,
-            image: new ol.style.Circle({
-              radius: 7,
-              fill: new ol.style.Fill({
-                color: c.highlightOpaque,
-              })
-            })
-          })];
-    // create a separate style function to work with changing radius of obstructions:
-    styles['obstruction'] = function(rad, res) {
-      return [new ol.style.Style({
-              stroke: c.highlightPanelStroke,
-              image: new ol.style.Circle({
-                radius: rad / (res*4.2),
-                fill: new ol.style.Fill({
-                  color: c.highlightObstruction
-                })
-              })
-            })];
-      };
+    styles['area'] = [
+  /* We are using two different styles for the polygons:
+   *  - The first style is for the polygons themselves.
+   *  - The second style is to draw the vertices of the polygons.
+   *    In a custom `geometry` function the vertices of a polygon are
+   *    returned as `MultiPoint` geometry, which will be used to render
+   *    the style.
+   */
+  new ol.style.Style({
+    stroke: new ol.style.Stroke({
+      color: '#F06953',
+      width: 3
+    }),
+    fill: new ol.style.Fill({
+      color: 'rgba(240,105,83,0.3)'
+    })
+  }),
+  new ol.style.Style({
+    image: new ol.style.Circle({
+      radius: 6,
+      fill: new ol.style.Fill({
+        color: 'white'
+      }),
+      stroke: new ol.style.Stroke({
+        color: '#F06953',
+        width: 2
+      })
+    }),
+    geometry: function(feature) {
+      // return the coordinates of the first ring of the polygon
+      var coordinates = feature.getGeometry().getCoordinates()[0];
+      return new ol.geom.MultiPoint(coordinates);
+    }
+  }),
+  new ol.style.Style({
+    image: new ol.style.Circle({
+      radius: 4,
+      fill: new ol.style.Fill({
+        color: 'white'
+      }),
+      stroke: new ol.style.Stroke({
+        color: '#F06953',
+        width: 1
+      })
+    }),
+    geometry: function(feature) {
+      // return the coordinates of the first ring of the polygon
+      var corners = feature.getGeometry().getCoordinates()[0];
+      console.table(corners);
+      var midpoints = [];
+      var x, y;
+      for (var i = 0, len = corners.length-1; i < len; i++) {
+        x = corners[i+1][0] + corners[i][0];
+        y = corners[i+1][1] + corners[i][1];
+        midpoints.push([x/2, y/2]);
+      }
+      return new ol.geom.MultiPoint(midpoints);
+    }
+  })
+];
+    // styles['gutter'] =  [new ol.style.Style({
+    //           stroke: c.highlightGutterStroke,
+    //           image:  c.highlightGutterImage,
+    //         })];
+    // styles['geometry'] =  [new ol.style.Style({
+    //           fill: new ol.style.Fill({
+    //             color: c.highlightFill,
+    //           }),
+    //           stroke: new ol.style.Stroke({
+    //             color: c.highlightOpaque,
+    //             width: 5
+    //           }),
+    //           image: new ol.style.Circle({
+    //             radius: 7,
+    //             fill: new ol.style.Fill({
+    //               color: c.highlightOpaque,
+    //             })
+    //           })
+    //         })];
+    // styles['panel'] =  [new ol.style.Style({
+    //         fill: c.highglightPanelFill,
+    //         stroke: c.highlightPanelStroke,
+    //         image: new ol.style.Circle({
+    //           radius: 7,
+    //           fill: new ol.style.Fill({
+    //             color: c.highlightOpaque,
+    //           })
+    //         })
+    //       })];
+    // // create a separate style function to work with changing radius of obstructions:
+    // styles['obstruction'] = function(rad, res) {
+    //   return [new ol.style.Style({
+    //           stroke: c.highlightPanelStroke,
+    //           image: new ol.style.Circle({
+    //             radius: rad / (res*4.2),
+    //             fill: new ol.style.Fill({
+    //               color: c.highlightObstruction
+    //             })
+    //           })
+    //         })];
+    //   };
 
     /*jshint +W069 */
 
