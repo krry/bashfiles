@@ -105,8 +105,7 @@ function newConfigurator_($q, Client, Session, View, Interactions, Layers, MapFa
 
     })
 
-    maps.omap.updateSize()
-
+    maps.omap.updateSize();
     Client.emit('Configurator: target set');
   }
 

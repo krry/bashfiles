@@ -91,7 +91,7 @@ function Layers_(Design, Styles, AreaService, Client) {
   Design.rx_areas.subscribe(function (area) {
     if (area && areas_collection.getLength()) {
       // we have a message, and a feature on the client
-      if (area === 'removed by client') { // TODO: this should be a global Var for Remove Feature From Client
+      if (area === 'removed by client') { // TODO: this  message string should be a global Var for Remove Feature From Client
         // sent by 'clear polygon' button
         areas_collection.pop();
         Client.emit('Stages: stage', 'back'); // TODO: move this to a subscription in StagesCtrl
@@ -118,7 +118,7 @@ function Layers_(Design, Styles, AreaService, Client) {
       return areas_collection.push(feature);
     }
     else if (area === null && areas_collection.getLength()) {
-      Design.rx_areas.onNext('removed by client');
+      areas_collection.pop();
     }
   });
 
