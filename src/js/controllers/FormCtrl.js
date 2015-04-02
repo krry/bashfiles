@@ -193,6 +193,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
       AddressId: vm.prospect().addressId,
       BirthDate: vm.prospect().dob
     }).then(function(data) {
+
       vm.isSubmitting = false;
       vm.timedOut = false;
 

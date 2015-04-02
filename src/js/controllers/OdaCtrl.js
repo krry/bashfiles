@@ -57,16 +57,18 @@ function OdaCtrl_($scope, $element, Client, Form) {
     .subscribe(streamSubscription);
 
     // drop a pin at Customer's rooftop the ODA tools
-    addy = [form_obj.street, form_obj.city,form_obj.state, form_obj.zip ].join(', ')
-    goc.geocode({address: addy}, function function_name (result, status) {
-      rooftop_map.setCenter(result[0].geometry.location)
-      marker = new google.maps.Marker({
-        position: result[0].geometry.location,
-        map: rooftop_map,
-        draggable: false,
-        icon: 'img/map_pin_1.svg'
-      })
-    });
+    if (form_obj.street) {
+      addy = [form_obj.street, form_obj.city,form_obj.state, form_obj.zip ].join(', ');
+      goc.geocode({address: addy}, function function_name (result, status) {
+        rooftop_map.setCenter(result[0].geometry.location)
+        marker = new google.maps.Marker({
+          position: result[0].geometry.location,
+          map: rooftop_map,
+          draggable: false,
+          icon: 'img/map_pin_1.svg'
+        })
+      });
+    }
   }
 
   function streamSubscription (form_obj) {
