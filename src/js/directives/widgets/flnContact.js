@@ -1,6 +1,6 @@
-directives.directive('flnContact', flnContact);
+directives.directive('flnContact', [flnContact_]);
 
-function flnContact () {
+function flnContact_ () {
   return {
     // scope: {},
     templateUrl: 'templates/directives/widgets/flnContact.html',

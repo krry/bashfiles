@@ -41,6 +41,7 @@ function FormProvider_ (FIREBASE_URL) {
 
   _ref_key  =  null;
   forms_url = FIREBASE_URL + 'forms/'; // hack: hardcode // todo: make this constant value
+  prospect = {}; // HACK: ensuring that directives checking for form info
 
   this.setRefKey = function(key){
     /* jshint -W030 */
@@ -112,6 +113,7 @@ function FormProvider_ (FIREBASE_URL) {
         form_stream: function () { return _ref_stream; },
         prospect: function () { return prospect; },
         resetForm: resetForm
+        // prospect: prospect,
       };
     }
 

@@ -8,7 +8,7 @@
   view:   needed to start the map
 
 ================================================== */
-angular.module('flannel').factory('ConfiguratorView',['Clientstream', 'Design', ConfiguratorViewFactory_]);
+angular.module('flannel').factory('ConfiguratorView', ['Clientstream', 'Design', ConfiguratorViewFactory_]);
 
 function ConfiguratorViewFactory_ (Client, Design) {
   var service,

@@ -41,6 +41,7 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
   vm.spinIt = waiting;
   vm.partial = Templates.partial(stage, step);
   vm.partials = flattenPartialsArray(Templates.partials);
+  vm.states = Templates.states;
   vm.currentStep = currentStep;
 
   // determines whether view layout is fixed or static
@@ -223,6 +224,8 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
     if (help_steps.indexOf(Templates.config[stage].steps[step].step) > -1) {
       vm.helpActivated = true;
     }
+    Client.emit('Stages: step complete', Templates.config[stage].steps[step].step);
+    console.log('location.path is:', $location.$$path);
   }
 
   function stepListen (target_step) {
@@ -231,7 +234,8 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
 
     // update the view
     $state.go(Templates.config[stage].name + '.' + Templates.config[stage].steps[step].step).then(function() {
-      stepFinish({ stage: stage, step: step });
+      vm.fixed = !Templates.config[stage].steps[step].staticLayout;
+      // stepFinish({ stage: stage, step: step });
     });
   }
 
@@ -259,7 +263,7 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
   }
 
   function jumpToStep (target) {
-    // console.log('trying to jump to:', target, 'step');
+    console.log('trying to jump to:', target, 'step');
     var steps = Templates.config[stage].steps;
     for (var i = 0; i < steps.length; i++) {
       if ( target === steps[i].step ) {

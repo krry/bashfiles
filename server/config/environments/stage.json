@@ -23,6 +23,7 @@
   "SFDCRECORDTYPEID": "0121900000009OfAAI",
   "CLIENT": {
     "ENV": "stage",
+    "ANALYTICS_ID": "GTM-PKKDVP",
     "MINIFIED": "true",
     "URL_ROOT": "go-stage.solarcity.com",
     "APP_TITLE": "The Future is Now • SolarCity",
@@ -38,6 +39,7 @@
     "NEAR_ME_API": "/api/nearme",
     "GSA_API": "/api/gsa",
     "INSTALLATION_API": "/api/installation",
+    "MAILGUN_API_KEY": "pubkey-38f603eccf9df24d29de2c548c3d5a55",
     "CREDIT_FAIL": {
       "EMAIL": "flannel@fail.com",
       "ADDRESS_ID": 906304,

@@ -37,12 +37,11 @@ function DevCtrl_($scope, Client, Form) {
       for (var i = 0; i < keys.length; i++) {
         key = keys[i];
         val = form_obj[key];
-        // vm.prospect()[key] = val;
       }
       setTimeout(function() {
         $scope.$apply(); // update the views
+        console.log('prospect is:', vm.prospect());
       }, 0);
-      console.log('prospect is:', vm.prospect());
     }
   }
 }

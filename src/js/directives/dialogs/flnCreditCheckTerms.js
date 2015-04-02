@@ -1,6 +1,6 @@
-directives.directive('flnCreditCheckTerms', flnCreditCheckTerms);
+directives.directive('flnCreditCheckTerms', [flnCreditCheckTerms_]);
 
-function flnCreditCheckTerms () {
+function flnCreditCheckTerms_ () {
   return {
     templateUrl: 'templates/directives/dialogs/flnCreditCheckTerms.html',
     require: '^flnModal',

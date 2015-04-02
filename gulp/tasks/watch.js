@@ -6,7 +6,7 @@
   watches for changes in source stylesheets, scripts, templates, and images
 
   **formerly**
-  when activated, sets isWatching flag to true which
+  when activated, sets isWatching 
   triggers watchify to wrap around browserify in the scripts task
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */

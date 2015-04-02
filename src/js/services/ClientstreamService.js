@@ -10,7 +10,8 @@
    * services
 
 ======================================================== */
-providers.provider('Clientstream', Clientstream_);
+
+providers.provider('Clientstream', [Clientstream_]);
 
 function Clientstream_ () {
   this.$get = [function ClientStreamProviderFactory () {
