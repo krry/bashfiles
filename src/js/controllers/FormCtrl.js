@@ -6,9 +6,9 @@
 
 ================================================== */
 
-controllers.controller("FormCtrl", ["$scope", "$location", "$element", "Clientstream", "Session", "Geocoder", "Form", "Credit", "Contact", "Utility", "Rates", "Salesforce", "CREDIT_FAIL", "URL_ROOT", "defaultValues", FormCtrl_]);
+controllers.controller("FormCtrl", ["$scope", "$location", "$element", "Clientstream", "Session", "User", "Geocoder", "Form", "Credit", "Contact", "Utility", "Rates", "Salesforce", "CREDIT_FAIL", "URL_ROOT", "defaultValues", FormCtrl_]);
 
-function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form, Credit, Contact, Utility, Rates, Salesforce, CREDIT_FAIL, URL_ROOT, defaultValues) {
+function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder, Form, Credit, Contact, Utility, Rates, Salesforce, CREDIT_FAIL, URL_ROOT, defaultValues) {
 
   var vm = this;
   var form_stream;
@@ -171,6 +171,18 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
     }
   }
 
+  function resetForm() {
+    var obj = {};
+    for (var prop in vm.prospect) {
+      if (vm.prospect.hasOwnProperty(prop)) {
+        vm.prospect[prop] = null;
+        obj[prop] = null;
+      }
+    }
+
+    User.isNew = true;
+  }
+
   function checkCredit() {
     vm.isSubmitting = true;
 
@@ -181,9 +193,6 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
       AddressId: vm.prospect().addressId,
       BirthDate: vm.prospect().dob
     }).then(function(data) {
-      var stage = data.CreditResultFound ? 'next' : 'back';
-      vm.prospect().qualified = data.qualified;
-      Client.emit('Form: valid data', { qualified: data.qualified });
 
       vm.isSubmitting = false;
       vm.timedOut = false;
@@ -202,12 +211,8 @@ function FormCtrl_($scope, $location, $element, Client, Session, Geocoder, Form,
       createLead(Salesforce.statuses.noCreditResult);
       vm.isSubmitting = false;
 
-      // Timed out
-      if (resp.status === 0) {
-        vm.timedOut = true;
-      } else {
-        Client.emit('Stages: jump to step', 'congrats');
-      }
+      // Timed out or failed
+      Client.emit('Stages: jump to step', 'congrats');
     });
   }
 

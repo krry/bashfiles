@@ -88,7 +88,7 @@ function CalendarCtrl_ ($scope) {
 
   function getTooltip(date) {
     if (isAvailable(date) && !date.canSchedule) {
-      return 'Appointments in the next 48 hours must be done over the phone. Call 1 (888) 765-2489.';
+      return 'Appointments in the next 48 hours must be done over the phone. Call (650) 288-0975.';
     }
 
     if (isAvailable(date)) {
