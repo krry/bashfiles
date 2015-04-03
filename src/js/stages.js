@@ -33,9 +33,9 @@ angular.module('stages',[
 
 }]).run(['$rootScope', 'Clientstream', function ui_router_run($rootScope, Client) {
   // this runs after all the dependencies are bootstrapped
-  $rootScope.$on('$stateChangeSuccess', function(event, toState) {
+  $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
     // Avoid emitting when transitioning to a new stage, which is an intermediary abstract state and has no step
-    if (toState.step) {
+    if (toState.step === 0 || toState.step) {
       Client.emit('Router: state change success', { stage: toState.stage, step: toState.step });
     }
   });
