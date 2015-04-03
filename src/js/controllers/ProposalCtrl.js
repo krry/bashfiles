@@ -128,7 +128,7 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, Session, Form, Client, defa
         charty,
         chartOpts;
 
-    chartEl = document.getElementById('powerRatioChart').getContext('2d');
+    chartEl = document.getElementById('power_ratio_chart').getContext('2d');
     chartOpts = {
       showTooltips: false
     };
