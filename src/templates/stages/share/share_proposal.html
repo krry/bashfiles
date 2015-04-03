@@ -14,21 +14,21 @@
         <div class="col third center padded utes">
           <label for="current_rate">Current Utility Rate</label>
           <figure>
-            <span id="current_rate" class="cents">{{ 100* share.prospect.utilityRate | number: 1}}</span>
+            <span id="current_rate" class="cents">{{ 100* share.numbers.utilityRate | number: 1}}</span>
           </figure>
           <label class="units">per kwh average in<br>your zip code</label>
         </div>
         <div class="col third center padded">
           <label for="scty_rate">SolarCity Cost</label>
           <figure>
-            <span id="scty_rate" class="cents">{{ 100 * share.prospect.sctyRate | number: 1 }}</span>
+            <span id="scty_rate" class="cents">{{ 100 * share.numbers.sctyRate | number: 1 }}</span>
           </figure>
           <label class="units">per kWh with our recommended financing plan</label>
         </div>
         <div class="col third center padded">
           <label for="est_savings">Estimated Savings</label>
           <figure>
-            <span id="est_savings" class="dollars">{{ share.prospect.firstYearSavings | number: 0 }}</span>
+            <span id="est_savings" class="dollars">{{ share.numbers.firstYearSavings | number: 0 }}</span>
           </figure>
           <label class="units">year one</label>
         </div>
@@ -37,7 +37,7 @@
         <div class="col half center padded">
           <label for="ppa_plan">No Upfront Cost</label>
           <figure>
-            <span id="ppa_plan" class="dollars">{{share.prospect.upfrontCost}}</span>
+            <span id="ppa_plan" class="dollars">{{share.numbers.upfrontCost}}</span>
           </figure>
           <label class="units">with our recommended<br>financing plan</label>
         </div>
@@ -46,7 +46,7 @@
           <figure class="chart-tray">
             <canvas id="power_ratio_chart" width="48" height="48" class="pie"></canvas>
           </figure>
-          <label class="units">{{ share.prospect.percentSolar | number: 0 }}% clean solar power<br>{{ share.prospect.percentUtility | number: 0 }}% utility power</label>
+          <label class="units">{{ share.numbers.percentSolar | number: 0 }}% clean solar power<br>{{ share.numbers.percentUtility | number: 0 }}% utility power</label>
         </div>
       </div>
     </div>

@@ -203,10 +203,12 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
     } else if ($scope.view_sync) {
       target_state = !!target_state.state ? target_state.state : target_state;
       stage = target_state.stage;
+      step = target_state.step;
       name = Templates.config[stage].name;
-      $state.go(name).then(function(){
+      $state.go(Templates.config[stage].name + '.' + Templates.config[stage].steps[step].step).then(function(){
+        vm.fixed = !Templates.config[stage].steps[step].staticLayout;
         // trigger step changes afterwards
-        Client.emit('Stages: step', target_state.step)
+        // Client.emit('Stages: step', target_state.step)
       });
     }
   }
