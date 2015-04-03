@@ -27,6 +27,9 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
   vm.getHOAs = getHOAs;
   vm.checkHOA = checkHOA;
   vm.saveAnswers = saveAnswers;
+  vm.skipScheduling = skipScheduling;
+
+  Client.listen('Form: Loaded', init);
 
   vm.config = {
     startDate: moment().format('MM/D/YYYY'),
@@ -110,6 +113,12 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
   }
 
   function init() {
+    if (!vm.prospect().installationGuid) {
+      return;
+    }
+
+    vm.isSubmitting = true;
+
     return SiteSurvey.getTimes({
       installationGuid: vm.prospect().installationGuid
     }).then(parseTimes);
@@ -124,6 +133,7 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
     });
 
     vm.config.startDate = vm.availableTimes[0].format('MM/D/YYYY');
+    vm.isSubmitting = false;
     return vm.availableTimes;
   }
 
@@ -142,6 +152,11 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
   }
 
   function skipScheduling() {
+    if (vm.prospect().scheduledTime) {
+      vm.prospect().scheduledTime.isSelected = false;
+      vm.prospect().scheduledTime = false;
+    }
+    
     Client.emit('Stages: jump to step', 'congrats');
   }
 

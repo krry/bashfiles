@@ -4,9 +4,9 @@
     <fln-spinner></fln-spinner>
   </div>
   <div class="row center">
-  <div class="overlay only primary col fourth three center contain" ng-if="!schedule.prospect.qualified">
+  <div class="overlay only primary col fourth three center contain" ng-if="!schedule.prospect().qualified">
     <div class="row padded">
-      <div class="col full center" ng-if="!schedule.prospect.invalidTerritory">
+      <div class="col full center" ng-if="!schedule.prospect().invalidTerritory">
         <h1>Thank you for your interest in going solar.
           <br><small>One of our solar consultants will give you a call to discuss your financing options. Or feel free to reach out to us directly at (650) 288-0975.</small>
         </h1>
@@ -14,8 +14,8 @@
       <div class="col full">
         <p class="left">In the mean time, there are lots of other great ways you can get involved with the solar movement.</p>
       </div>
-      <div class="col full center" ng-if="schedule.prospect.invalidTerritory">
-        <h1>We haven't made it to {{schedule.prospect.zip}} yet.<br><small>But you can still get involved with the solar movement, today. Here are some ways to join the SolarCity family.</small></h1>
+      <div class="col full center" ng-if="schedule.prospect().invalidTerritory">
+        <h1>We haven't made it to {{schedule.prospect().zip}} yet.<br><small>But you can still get involved with the solar movement, today. Here are some ways to join the SolarCity family.</small></h1>
       </div>
     </div>
     <div class="row padded">
@@ -42,15 +42,15 @@
     </div>
   </div>
 
-  <div class="overlay primary col"  ng-if="schedule.prospect.qualified">
+  <div class="overlay primary col"  ng-if="schedule.prospect().qualified">
     <h1>Congratulations &mdash; you qualified!
       <br><small>Now it's time to schedule a visit from one of our in-house site surveyors so we can design a customized system and proposal just for you.</small>
     </h1>
     <button class="std gold" ng-click="schedule.check()">Schedule site survey</button>
-    <button class="white tiny center" ng-click="stages.jumpToStep('congrats')">Schedule this later</button>
+    <button class="white tiny center" ng-click="schedule.skipScheduling()">Schedule this later</button>
   </div>
 
-  <aside class="overlay secondary col sml-full med-full lrg-full full-height" ng-if="schedule.prospect.qualified">
+  <aside class="overlay secondary col sml-full med-full lrg-full full-height" ng-if="schedule.prospect().qualified">
     <div class="connect-the-dots-title drop-top">
       <strong>What's next?</strong>
     </div>
