@@ -418,8 +418,6 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
         zip: data.zip,
         warehouseId: data.warehouseId
       });
-    } else {
-
     }
   }
 
