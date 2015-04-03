@@ -55,7 +55,8 @@ function Proposal_(Session, Panelfill, Client) {
       // share proposal link
       ridge_ref = new Firebase('https://scty-int.firebaseio.com').child('designs')
         .child(design_id)
-        .child(Session.ref().key()).child('areas/0/ridge')
+        // .child(Session.ref().key())
+        .child('areas/0/ridge')
 
       ridge_ref.once('value', function (ds) {
           ridge = ds.exportVal();
