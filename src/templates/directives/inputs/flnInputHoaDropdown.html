@@ -1,8 +1,8 @@
 <select name="AhjId"
    class="hoa-dropdown"
    ng-model="schedule.selectedAhj" 
-   ng-show="schedule.prospect.hoa && schedule.HOAs.length > 1"
+   ng-show="schedule.prospect().hoa && schedule.HOAs.length > 1"
    ng-options="HOA.AHJName for HOA in schedule.HOAs"
    ng-change="schedule.checkHOA(schedule.selectedAhj.id)"
-   ng-required="schedule.prospect.hoa && schedule.HOAs.length > 1 && schedule.selectedAhj.id !== -1">
+   ng-required="schedule.prospect().hoa && schedule.HOAs.length > 1 && schedule.selectedAhj.id !== -1">
 </select>

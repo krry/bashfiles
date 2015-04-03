@@ -11,16 +11,16 @@
     <h1 ng-if="schedule.timedOut">
       Sorry! Our connection timed out. <small>Please try again.</small>
     </h1>
-    <h2 class="caps">{{schedule.prospect.scheduledDate.month}} {{schedule.prospect.scheduledDate.day}}</h2>
+    <h2 class="caps">{{schedule.prospect().scheduledDate.month}} {{schedule.prospect().scheduledDate.day}}</h2>
     <fln-time-selection></fln-time-selection>
     <div class="col fifth three center">
       <p>Note: These are 2-hour arrival windows for our site surveyors and then the site survey will take around 1 to 2 hours.</p>
     </div>
-    <button class="std gold" ng-click="schedule.save()" ng-disabled="!schedule.prospect.scheduledTime">Schedule it</button>
+    <button class="std gold" ng-click="schedule.save()" ng-disabled="!schedule.prospect().scheduledTime">Schedule it</button>
 
     <div class="col fifth three center">
       <button class="std white display-inline-block tiny" ng-click="stages.prev()">Change date</button>
-      <button class="std white display-inline-block tiny" ng-click="stages.jumpToStep('congrats')">Schedule this later</button>
+      <button class="std white display-inline-block tiny" ng-click="schedule.skipScheduling()">Schedule this later</button>
     </div>
   </div>
 

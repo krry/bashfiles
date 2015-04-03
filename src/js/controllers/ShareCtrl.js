@@ -100,7 +100,7 @@ function ShareCtrl_ (Client, defaultValues, $stateParams, Proposal) {
         charty,
         chartOpts;
 
-    chartEl = document.getElementById('powerRatioChart').getContext('2d');
+    chartEl = document.getElementById('power_ratio_chart').getContext('2d');
     chartOpts = {
       showTooltips: false
     };
