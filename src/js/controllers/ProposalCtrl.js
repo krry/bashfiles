@@ -95,8 +95,8 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, Session, Form, Client, defa
       percent_solar = defaultValues.percent_solar;
     }
     // if the system will produce less than 80% of the customer's energy needs, we'll calculate the percentage
-    else if (((annual_consumption-annual_production)/annual_consumption) < 0.8) {
-      percent_solar = 100 * (annual_consumption - annual_production) / annual_consumption; // %
+    else if ((annual_production/annual_consumption) < 0.8) {
+      percent_solar = 100 * annual_production / annual_consumption; // %
     }
     // if the system would produce more than 80%, we limit it at 80%
     else {
