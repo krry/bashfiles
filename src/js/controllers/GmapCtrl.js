@@ -188,7 +188,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
   }
 
   function getEnoughPins(data) {
-    if (data.length >= 250) {
+    if (data.length >= 150) {
       return data;
     } else {
       map.setZoom(map.getZoom() - 1);
