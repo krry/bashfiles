@@ -7,5 +7,6 @@ constants.constant('defaultValues', {
     annual_consumption: 4000,
     percent_solar: 80,
     average_yield: 1300,
-    panel_capacity: 0.25
+    panel_capacity: 0.25,
+    ceiling: 0.8
 });
