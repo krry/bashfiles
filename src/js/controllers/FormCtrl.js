@@ -44,6 +44,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
         $scope.$apply(); // update the views
       }, 0);
     }
+    !form_obj.bill && setDefaultBill();
   }
   /* end bootstrap */
 
@@ -101,6 +102,11 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
       new_zip,
       old_street,
       new_street;
+
+  function setDefaultBill () {
+    vm.prospect().bill = defaultValues.bill;
+    Client.emit('Form: valid data', { bill: vm.prospect().bill });
+  }
 
   function checkZip () {
     // $scope.$eval(vm.prospect().zip);
