@@ -53,29 +53,17 @@ function Proposal_(Session, Panelfill, Client) {
       });
     } else {
       // share proposal link
-      ridge_ref = new Firebase('https://scty-int.firebaseio.com').child('designs')
-        .child(design_id)
-        // .child(Session.ref().key())
-        .child('areas/0/ridge')
-
-      ridge_ref.once('value', function (ds) {
-          ridge = ds.exportVal();
-        });
-
-
       ref = new Firebase('https://scty-int.firebaseio.com').child('designs')
         .child(design_id)
-        .child('areas/0')
 
       ref.once('value', function (ds) {
-            var data = ds.exportVal();
-            // console.log('wkt_txt in design', wkt_txt)
-            Panelfill.getFilled(data.wkt, data.ridge, 0)
-            .then(processTwoDArray);
+        var data = ds.exportVal();
+        // console.log('wkt_txt in design', wkt_txt)
+        Panelfill.getFilled(data.areas[0].wkt, data.areas[0].ridge, data.map_details.center.lat)
+        .then(processTwoDArray);
       });
     }
   }
-
 
   var panels_array;
 
@@ -137,8 +125,7 @@ function Proposal_(Session, Panelfill, Client) {
 
   Client.listen('panelfill', function function_name(p_array) {
       // for the map boundaries
-  	var bounds = new google.maps.LatLngBounds()
-
+  	var bounds = new google.maps.LatLngBounds();
 
   	// for the map boundaries
   	p_array.forEach(maxBounds);
