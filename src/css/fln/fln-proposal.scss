@@ -8,7 +8,7 @@
     margin-top: .25em;
   }
   dt {
-    font-family: 'Apercu Medium';
+    @include apercu-medium;
   }
   strong + dl {
     margin-top: 0;
@@ -108,8 +108,8 @@
 
 .pie {
   border-radius: 50%;
-  border: 1px solid;
-  padding: 1px;
+  /* border: 1px solid; */
+  /* padding: 1px; */
 }
 
 .financing-option {
@@ -136,14 +136,14 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
-    background-color: pink;
+    background-color: transparent;
     height: 200px;
   }
   p {
     line-height: 160%;
   }
   dt {
-    font-family: 'Apercu Medium';
+    @include apercu-medium;
   }
   ul {
     margin: 0.5em 0;
