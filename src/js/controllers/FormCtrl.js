@@ -117,9 +117,8 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
           Form.ref() && Client.emit('Form: valid data', {street: null});
         }
         old_zip = new_zip;
-        Client.emit('Spinner: spin it', true);
-        Geocoder.sendGeocodeRequest(new_zip);
       }
+      Geocoder.sendGeocodeRequest(new_zip);
     }
     else { return false; }
   }
@@ -132,7 +131,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
     console.log('********* checkin dat addy', new_street, 'boss *********');
 
     setTimeout(function() {
-      $scope.$apply();
+      if (!$scope.$$phase) $scope.$apply();
     }, 0);
 
     if (old_street !== new_street) {
@@ -144,7 +143,6 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
       };
 
       old_street = new_street;
-      Client.emit('Spinner: spin it', true);
       Geocoder.sendGeocodeRequest(addy);
     }
   }
@@ -416,13 +414,15 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
         zip: data.zip,
         warehouseId: data.warehouseId
       });
+    } else {
+
     }
   }
 
   function acceptValidHouse(data) {
     // sync full address
     // accepting valid house
-    if (data && !vm.validAddress) {
+    if (data) {
       vm.invalid = false;
       vm.validAddress = true;
       vm.prospect().street = data.street;
@@ -430,7 +430,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
       vm.prospect().state = data.state;
       vm.prospect().city = data.city;
       Client.emit('Form: valid data', data);
-      Client.emit('Stages: jump to step', 'monthly-bill');
+      Client.emit('Stages: stage', 'next');
       console.log('valid house accepted', data);
       getUtilities();
     }
@@ -462,11 +462,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
   }
 
   function saveRates (data) {
-    var rates;
-    // if (!data.UtilityAverageSystemEfficiency) {
-    //   debugger;
-    // }
-    // data from Rates API:
+    // data returned from Rates API:
     // CashAvailable: true
     // FinancingKwhPrice: 0.15
     // LeaseAvailable: true
@@ -476,6 +472,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
     // UtilityAverageSystemEfficiency: 1468
     // UtilityID: 3
 
+    var rates;
     vm.prospect().utilityRate = data.MedianUtilityPrice;
     vm.prospect().sctyRate = data.FinancingKwhPrice;
     vm.prospect().averageYield = data.UtilityAverageSystemEfficiency;
