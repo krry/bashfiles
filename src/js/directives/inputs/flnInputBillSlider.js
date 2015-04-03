@@ -7,10 +7,13 @@ function flnInputBillSlider_ (Form) {
     require: '^flnForm',
     link: function (scope, element, attrs, FormCtrl) {
       var prospect = FormCtrl.prospect;
+      scope.prosposalBill = attrs.proposalBill;
 
       $('#bill-slider').on({
-        change: function () {
+        slide: function () {
+          FormCtrl.billChanged = true;
           FormCtrl.saveBill(prospect().bill);
+          if (!scope.$$phase) scope.$apply();
         }
       });
     }
