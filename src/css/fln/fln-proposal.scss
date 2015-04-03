@@ -19,13 +19,35 @@
   ul li, p {
     line-height: 160%;
   }
+  .proposal-button-set {
+    background: $white;
+
+    & button {
+      margin: 1em 1em 1em 1em;
+      float: left;
+    }
+    & button:first-child {
+      margin: 1em 0 1em 1em;
+    }
+    & .financing-options {
+      float: left;
+      font-size: .95em;
+      line-height: 120%;
+      border: 1px solid red;
+      margin: 1em 0 1em 0;
+    }
+    br {
+      clear: both;
+    }
+  }
 }
 
 .proposal.proposal {
   background-color: $white;
   color: $green-neue;
   border-radius: 2px;
-  margin-bottom: 1rem;
+  border-bottom: 2px solid $grey-lightest;
+  // margin-bottom: 1rem;
   .row:not(:last-child) {
     border-bottom: 2px solid $grey-lightest;
   }
@@ -99,7 +121,7 @@
   vertical-align: .75em;
 }
 
-.proposal-page .financing-options {
+/* .proposal-page .financing-options {
   width: 80%;
   font-size: .95em;
   line-height: 1.4;
@@ -129,7 +151,7 @@
   p {
     line-height: 160%;
   }
-}
+} */
 
 .faq-item {
   figure {
