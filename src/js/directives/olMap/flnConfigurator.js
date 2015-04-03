@@ -5,7 +5,7 @@ function flnConfigurator_ (Client, newConfigurator) {
     restrict: "A",
     priority: 100,
     templateUrl: 'templates/directives/configurator/flnConfigurator.html',
-    controller: function ($scope, $element, $attrs, newConfigurator) {
+    controller: ['$scope', function ($scope) {
       newConfigurator.configurator().then(function (map) {
         Client.emit('Configurator: update mapsize', map)
 
@@ -21,7 +21,7 @@ function flnConfigurator_ (Client, newConfigurator) {
         $scope.draw_busy = arg;
         $scope.$apply();
       });
-    },
+    }],
     link: function (scope, element, attrs) {
       var g_div, o_div;
       g_div = $(element).find('#gmtest')[0];
