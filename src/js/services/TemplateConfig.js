@@ -7,7 +7,7 @@
 
 ================================================== */
 
-angular.module('flannel').provider('TemplateConfig', TemplateConfig_);
+angular.module('flannel').provider('TemplateConfig', [TemplateConfig_]);
 
 function TemplateConfig_ () {
 
@@ -123,6 +123,7 @@ function TemplateConfig_ () {
   ];
 
   partials = partial_constructor(config);
+  states = state_constructor(config);
 
   function partial_constructor (config) {
     var stage,
@@ -135,7 +136,7 @@ function TemplateConfig_ () {
       return template + name + '/' + part;
     }
 
-    for (var i = 0; i < config.length; i++) {
+    for (var i = 0, len = config.length; i < len; i++) {
       partials.push([]);
       name = config[i].name.split('.')[1]; // drop the "flannel." part of the state's name.
       for (var j = 0; j< config[i].steps.length; j++) {
@@ -144,6 +145,20 @@ function TemplateConfig_ () {
       }
     }
     return partials;
+  }
+
+  function state_constructor(config) {
+    var states = [],
+        stage;
+
+    for (var i = 0, len = config.length; i < len; i++) {
+      stage = config[i];
+      angular.forEach(stage.steps, function(step) {
+        states.push(step.step);
+      });
+    }
+
+    return states;
   }
 
 
@@ -160,6 +175,7 @@ function TemplateConfig_ () {
       partials: partials,
       partial: partial,
       config: config,
+      states: states
     };
 
     return service;

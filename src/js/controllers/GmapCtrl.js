@@ -30,6 +30,17 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
   Client.listen('Gmap: max zoom found', applyMaxZoom);
   Client.listen('Gmap: switch to satellite', switchToSatellite);
   Client.listen('Spinner: add to spin count', setSpinCount);
+  Client.listen('Stages: step complete', cloudMap);
+
+  function cloudMap (step) {
+    // TODO: on hotload of bill step, ensure cloudiness
+    if (step === "monthly-bill") {
+      $element.addClass('cloudy');
+    }
+    else {
+      $element.removeClass('cloudy');
+    }
+  }
   // Client.listen('Gmap: get nearme data', getNearMeData);
 
   function init (el) {
@@ -37,6 +48,10 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
   }
 
   function activate () {
+    if (map) {
+      return;
+    }
+
     // init the map object with defaults
     init(mapEl, mapOpts);
     // listen to the map for user's changes
@@ -173,7 +188,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
   }
 
   function getEnoughPins(data) {
-    if (data.length >= 250) {
+    if (data.length >= 150) {
       return data;
     } else {
       map.setZoom(map.getZoom() - 1);

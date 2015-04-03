@@ -10,7 +10,8 @@
 
 var gulp = require('gulp');
 var runSeq = require('run-sequence').use(gulp);
+var build = require('./build');
 
 gulp.task('heroku:test', function() {
-  runSeq('config', 'build');
+  runSeq('config', build, 'indexFile');
 });

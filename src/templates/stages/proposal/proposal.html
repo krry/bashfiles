@@ -43,10 +43,9 @@
           <label class="units">with our recommended<br>financing plan</label>
         </div>
         <div class="col half center padded">
-          <label for="est_energy_mix">Estimated Energy Mix</label>
+          <label for="power_ratio_chart">Estimated Energy Mix</label>
           <figure class="chart-tray">
-            <span id="est_energy_mix" class="icon pie"></span>
-            <canvas id="powerRatioChart" width="48" height="48"></canvas>
+            <canvas id="power_ratio_chart" width="48" height="48" class="pie"></canvas>
           </figure>
           <label class="units">{{ proposal.prospect.percentSolar | number: 0 }}% clean solar power<br>{{ proposal.prospect.percentUtility | number: 0 }}% utility power</label>
         </div>

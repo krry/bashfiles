@@ -1,4 +1,4 @@
-directives.directive('flnShareProposal',['Clientstream', flnShareProposal]);
+directives.directive('flnShareProposal', ['Clientstream', flnShareProposal]);
 
 function flnShareProposal (Client) {
   return {

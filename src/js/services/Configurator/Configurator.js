@@ -7,7 +7,7 @@
  *
  */
 
-angular.module('flannel').service('newConfigurator', ['$q','Clientstream', 'Session', 'View', 'Interactions', 'Layers', 'MapFactory', newConfigurator_]);
+angular.module('flannel').service('newConfigurator', ['$q', 'Clientstream', 'Session', 'View', 'Interactions', 'Layers', 'MapFactory', newConfigurator_]);
 
 function newConfigurator_($q, Client, Session, View, Interactions, Layers, MapFactory) {
   var gmap,
@@ -90,6 +90,11 @@ function newConfigurator_($q, Client, Session, View, Interactions, Layers, MapFa
     }
     maps = this.map; // HACK... this shouldn't be public. only here for testing
 
+	//used later to get the actual lat lng
+	//var overlay = new google.maps.OverlayView();
+    //overlay.draw = function() {};
+    //overlay.setMap(gmap);
+
     gmap.addListener('projection_changed', function(){
       // TODO: be prepared to fix projection of OLmap for zoom < 17 (currently disallowed by map_options)
       // the proj_changed, now fix the projection of the layers
@@ -105,7 +110,7 @@ function newConfigurator_($q, Client, Session, View, Interactions, Layers, MapFa
 
     })
 
-    maps.omap.updateSize()
+    maps.omap.updateSize();
 
     Client.emit('Configurator: target set');
   }

@@ -6,12 +6,12 @@
 
 ================================================== */
 
-directives.directive('flnPanelfill', [flnPanelfill_]);
+directives.directive('flnPanelfill', ['$stateParams', 'Proposal', flnPanelfill_]);
 
-function flnPanelfill_ () {
+function flnPanelfill_ ($stateParams, Proposal) {
   return {
     restrict: "A",
-    controller: function ($scope, $element, $attrs, $stateParams, Proposal) {
+    controller: function () {
       Proposal.setTarget($stateParams.design_key);
     },
     templateUrl: 'templates/directives/olmap/flnPanelfill.html',

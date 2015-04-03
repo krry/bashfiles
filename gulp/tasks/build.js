@@ -8,5 +8,6 @@
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
 var gulp = require('gulp');
+var runSeq = require('run-sequence').use(gulp);
 
-gulp.task('build', ['scripts', 'libs', 'styles', 'templates', 'indexFile', 'fonts', 'images']);
+module.exports = ['fonts', 'images', 'libs', 'styles', 'scripts'];

@@ -12,13 +12,13 @@
       Sorry! Our connection timed out. <small>Please try again.</small>
     </h1>
     <form name="prospectForm">
-      <div class="col fourth three center survey-question">
+      <div class="col fourth three center survey-question" ng-class="{ selected: schedule.prospect().attic != null }">
         <fln-input-attic></fln-input-attic>
       </div>
-      <div class="col fourth three center survey-question">
+      <div class="col fourth three center survey-question" ng-class="{ selected: schedule.prospect().pets != null }">
         <fln-input-pets></fln-input-pets>
       </div>
-      <div class="col fourth three center survey-question">
+      <div class="col fourth three center survey-question" ng-class="{ selected: schedule.prospect().hoa != null }">
         <fln-input-hoa></fln-input-hoa>
       </div>
       <div class="col fifth three center">

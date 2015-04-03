@@ -14,13 +14,13 @@ angular.module('flannel', [
   'flannel.constants',
   'nouislider',
   'ui.utils.masks'
-]).config(['$sceDelegateProvider', '$sceProvider', '$httpProvider', 'UserProvider', 'MailgunProvider', function($sceDelegateProvider, $sceProvider, $httpProvider, UserProvider, MailgunProvider) {
+]).config(['$sceDelegateProvider', '$sceProvider', '$httpProvider', 'UserProvider', 'MailgunProvider', function($sceDelegateProvider, $sceProvider, $httpProvider, UserProvider, Mailgun) {
   // hack: sorta hacky... but maybe not.
   // http://stackoverflow.com/questions/20588114/how-to-use-cookiesprovider-in-angular-config
   var $cookies, uid;
-  angular.injector(['ngCookies']).invoke(function(_$cookies_) {
+  angular.injector(['ngCookies']).invoke(['$cookies', function(_$cookies_) {
     $cookies = _$cookies_;
-  });
+  }]);
 
   // $cookies.uuid is set by the server after getting an auth token from Firebase
   uid = $cookies.uuid;
@@ -38,6 +38,8 @@ angular.module('flannel', [
     UserProvider.setRefKey(uid);
   }
 
+  UserProvider.setIsNew(!$cookies.user_id);
+
   $sceDelegateProvider.resourceUrlWhitelist([
    // Allow same origin resource loads.
    'self',
@@ -51,12 +53,12 @@ angular.module('flannel', [
 
   // mailgun options for email validation service
   var mailgunOptions = {
-    api_key: 'pubkey-38f603eccf9df24d29de2c548c3d5a55',
+    api_key: Mailgun.api_key,
     in_progress: null,
     success: null,
     error: null,
   };
-  MailgunProvider.configure(mailgunOptions);
+  Mailgun.configure(mailgunOptions);
 
 }]).run(["User", "Clientstream", function run_app(User, Client) {
   // let the app know we've gotten the important stuff :)

@@ -121,11 +121,10 @@ module.exports = function(app) {
   }
 
   function installation(req, res) {
-    var installationType = req.body.FullInstallation ? 'full': 'partial';
+    var installationType = req.body.FullInstallation ? conf.FULL_INSTALLATION_API : conf.INSTALLATION_API;
 
     var url = [
       conf.SOLAR_WORKS_API_ROOT,
-      conf.INSTALLATION_API,
       installationType
     ].join('');
 

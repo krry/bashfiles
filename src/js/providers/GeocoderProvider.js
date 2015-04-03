@@ -109,6 +109,7 @@ function GeocoderProvider_ () {
       if (addyStr) {
         geocodeRequest = { "address": addyStr };
         console.log('sending', geocodeRequest, 'to geocoder');
+        Client.emit('Spinner: spin it', true);
         geocoder.geocode(geocodeRequest, handleGeocodeResults);
       }
     }
@@ -198,9 +199,11 @@ function GeocoderProvider_ () {
       else {
         new_location = !old_location || ((old_location.lat() !== addy.location.lat()) || (old_location.lng() !== addy.location.lng()));
         // check if there is a cached location
-        if (new_location) {
-          processGeocodedLocation(addy);
+        if (!new_location) {
+          Client.emit('Spinner: spin it', false);
         }
+
+        processGeocodedLocation(addy);
         Client.emit('center changed', addy.location);
         old_location = addy.location;
       }

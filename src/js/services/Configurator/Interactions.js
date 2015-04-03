@@ -6,26 +6,23 @@
  *
  */
 
-angular.module('flannel').factory('Interactions', ['Design', 'StyleService', 'AreaService', Interactions_]);
+angular.module('flannel').factory('Interactions', ['Design', 'Clientstream', 'StyleService', 'AreaService', Interactions_]);
 
-function Interactions_(Design, Styles, AreaService) {
+function Interactions_(Design, Client, Styles, AreaService) {
     // returned by Factory
-  var interactions,
+  var interactions = {},
     // interactions
       draw,
       modify,
       zoom,
       dragpan,
     // defaults
-      dragpan_opt;
+      dragpan_opt = { enableKinetic: true };
 
-
-  interactions = {};
+  // map subscribes to these collections to know what's
   interactions.collection = new ol.Collection();
   interactions.controls   = new ol.Collection();
 
-  dragpan_opt = { enableKinetic: true };
-  interactions.current = null;
   // dragpan
   interactions.dragpan = new ol.interaction.DragPan(dragpan_opt);
   // mousewheel zoom
@@ -37,26 +34,25 @@ function Interactions_(Design, Styles, AreaService) {
     geometryName: 'area',
   });
 
-  // get the feature, and pass it along on the wire
   interactions.draw.on('drawend', function(e){
+    // after user draws a shape, notify remote the feature is set.
     var feature = e.feature;
-    // DEV: TODO: because we don't remove the original feature, we don't have a
-    // way to track the event of removing a polygon. instead the app thinks we just
-    // change the existing polygon to a new polygon.
     Design.ref().child('areas').child('0').set({ // HACK: one area only
       wkt: AreaService.getWkt(feature),
     })
+    Client.emit('Stages: stage', 'next')
+  });
+
+  interactions.draw.on('drawstart', function(e){
+    // make sure that all modify shapes are eliminated
+    Design.ref().child('areas').child('0').set(null);
   });
 
   // modify
-  var modify_overlay = new ol.FeatureOverlay({
-    features: Design.areas_collection,
-    style:    Styles.highlightStyleFunction,
-  })
-  interactions.modify_overlay = modify_overlay;
+  Design.modify_overlay.setFeatures(Design.modify_collection)
+  interactions.modify_overlay = Design.modify_overlay;
   interactions.modify = new ol.interaction.Modify({
-    // features: Design.areas_collection,
-    features: modify_overlay.getFeatures(),
+    features: Design.modify_collection,
     style: Styles.highlightStyleFunction,
 
     // the SHIFT key must be pressed to delete vertices, so

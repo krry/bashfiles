@@ -1,4 +1,4 @@
-directives.directive('flnInputFirstName', ["$timeout", flnInputFirstName_]);
+directives.directive('flnInputFirstName', ['$timeout', flnInputFirstName_]);
 
 function flnInputFirstName_ ($timeout) {
   return {

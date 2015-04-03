@@ -7,7 +7,7 @@
 
 angular.module('flannel').factory('MapFactory', ['$rootScope','MapService', 'StyleService', 'Design', 'Clientstream', 'AreaService', 'Layers', MapFactory_]);
 
-function MapFactory_($rootScope, MapService, StyleService, Design, Client , AreaService, Layers) {
+function MapFactory_($rootScope, MapService, StyleService, Design, Client, AreaService, Layers) {
 
   var map,
       f_collection,

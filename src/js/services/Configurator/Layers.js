@@ -10,15 +10,16 @@ angular.module('flannel').factory('Layers', ['Design', 'StyleService', 'AreaServ
 
 function Layers_(Design, Styles, AreaService, Client) {
 
-  var layers, l_draw, areas_collection, source;
+  var layers, l_draw, areas_collection, source, modify_collection;
 
-  var rx_drawcount = new Rx.Subject(); // the next button subscribes to this
+  var rx_drawcount = new Rx.BehaviorSubject(); // the next button subscribes to this
 
   var feature; // we modify this shape
 
   areas_collection = Design.areas_collection
   draw_source      = Design.draw_source;
   modify_source    = Design.modify_source;
+  modify_collection = Design.modify_collection;
 
   // layers
   l_draw = new ol.layer.Vector({
@@ -39,7 +40,6 @@ function Layers_(Design, Styles, AreaService, Client) {
 
   // overlays
   modify_overlay = Design.modify_overlay;
-  // roofpeak_overlay =  Design.roofpeak_overlay;
 
   // roofpeak stuff
   // a collection to hold the highlighted feature
@@ -51,28 +51,29 @@ function Layers_(Design, Styles, AreaService, Client) {
     features: h_coll,
   });
 
-  // var modify_overlay = new ol.FeatureOverlay({
-  //   features: Design.areas_collection,
-  //   style:    Styles.highlightStyleFunction,
-  // })
-
   areas_collection.on('add', function (e) {
     // add to sources
     feature = e.element;
-    feature = AreaService.wireUp(0, feature);
+    // add to the visible vectors for Draw
     draw_source.addFeature(feature);
-    // modify_source.addFeature(feature);
+    // clear & set the visible vectors
+    modify_overlay.getFeatures().clear();
     modify_overlay.addFeature(feature);
+    // clear & set the modifiable feature group
+    Design.modify_collection.clear()
+    Design.modify_collection.push(feature);
+    // TODO: whatever is dependent on this should be watching Design.rx_areas instead
     Client.emit('areas in collection', feature)
   });
 
   areas_collection.on('remove', function (e) {
-    // remove from sources
-    var feature = e.element;
-    Design.ref().child('areas/0/wkt').remove()
-    draw_source.removeFeature(feature);
-    // modify_source.removeFeature(feature);
-    modify_overlay.removeFeature(feature);
+    var ftr = e.element;
+    // remove from remote
+    Design.ref().child('areas/0').remove()
+    // remove from local sources
+    draw_source.removeFeature(ftr);
+    // remove from local modify visible
+    modify_overlay.removeFeature(ftr);
   });
 
   // broadcast to the templates to enable/disable clicking of "next" button
@@ -80,11 +81,17 @@ function Layers_(Design, Styles, AreaService, Client) {
     rx_drawcount.onNext(this.getLength());
   })
 
+  Design.modify_collection.on('add', function (e) {
+    var f = e.element;
+    // when we modify a surface watch & alert firebase for changes
+    AreaService.wireUp(0, f);
+  });
+
   // update based on changes at firebase
   Design.rx_areas.subscribe(function (area) {
     if (area && areas_collection.getLength()) {
       // we have a message, and a feature on the client
-      if (area === 'removed by client') { // TODO: this should be a global Var for Remove Feature From Client
+      if (area === 'removed by client') { // TODO: this  message string should be a global Var for Remove Feature From Client
         // sent by 'clear polygon' button
         areas_collection.pop();
         Client.emit('Stages: stage', 'back'); // TODO: move this to a subscription in StagesCtrl
@@ -94,7 +101,16 @@ function Layers_(Design, Styles, AreaService, Client) {
           console.log('area the same as feature')
           return Design.busy = false;
         }
-        return area && feature.setGeometry(AreaService.getGeom(area.wkt));
+        if (area) {
+         feature.setGeometry(AreaService.getGeom(area.wkt));
+         if (modify_collection.getLength()) {
+          // TODO: this could be prettier, i think.
+          // currently results in situations where you lose the feature beneath the mouse
+          // if you're moving the mouse too quickly.
+          modify_collection.clear()
+          modify_collection.push(feature);
+         }
+       }
       }
     } else if (area !== null){
       // we don't have a feature, but we should make one.
@@ -102,7 +118,7 @@ function Layers_(Design, Styles, AreaService, Client) {
       return areas_collection.push(feature);
     }
     else if (area === null && areas_collection.getLength()) {
-      Design.rx_areas.onNext('removed by client');
+      areas_collection.pop();
     }
   });
 

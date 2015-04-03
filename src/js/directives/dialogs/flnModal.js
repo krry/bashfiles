@@ -1,6 +1,6 @@
-directives.directive('flnModal', flnModal);
+directives.directive('flnModal', [flnModal_]);
 
-function flnModal () {
+function flnModal_ () {
   return {
     templateUrl: 'templates/directives/dialogs/flnModal.html',
     controller: 'ModalCtrl',
