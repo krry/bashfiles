@@ -117,6 +117,8 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
       return;
     }
 
+    vm.isSubmitting = true;
+
     return SiteSurvey.getTimes({
       installationGuid: vm.prospect().installationGuid
     }).then(parseTimes);
@@ -131,6 +133,7 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
     });
 
     vm.config.startDate = vm.availableTimes[0].format('MM/D/YYYY');
+    vm.isSubmitting = false;
     return vm.availableTimes;
   }
 
