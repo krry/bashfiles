@@ -44,8 +44,6 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
         $scope.$apply(); // update the views
       }, 0);
     }
-    // HACK: hardcode bill should be angular.constant
-    !form_obj.bill && Client.emit('Form: valid data', {});
   }
   /* end bootstrap */
 
@@ -54,7 +52,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
 
   function updateProspectModel() {
     setTimeout(function(){
-      $scope.$apply();
+      if (!$scope.$$phase) $scope.$apply();
     }, 0)
   }
 

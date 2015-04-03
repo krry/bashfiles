@@ -24,7 +24,6 @@ function flnAnalytics_ () {
         j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
         f.parentNode.insertBefore(j, f);
       }
-      debugger;
       startAnalytics(window, document, 'script', 'dataLayer', scope.id);
       /* jshint ignore:end */
     }
