@@ -21,14 +21,26 @@
   background: $white;
   padding: 4em;
   overflow: scroll;
-  width: 90;
-  max-height: 50%;
+  width: 90%;
+  /* max-height: 90%; */
+  margin-top: 1em;
+  margin-bottom: 1em;
 
   h2 {
     /* font-size: 2em; */
     /* margin-bottom: 2em; */
     text-align: center;
   }
+}
+
+.modal .dialog h4 {
+  margin-top: 1em;
+}
+
+.modal button.close.close {
+  position: absolute;
+  top: .5em;
+  right: .5em;
 }
 
 .modal .dialog.small {
@@ -47,9 +59,9 @@
 
 @media screen and (min-width: $width-min-med) {
   .modal .dialog {
-    margin: 0em 2em;
-    width: 35em;
-    height: 15em;
+    margin: 1em auto;
+    /* width: 35em; */
+    /* height: 15em; */
   }
   .modal .dialog.small {
     margin: 12em auto auto;
@@ -57,6 +69,9 @@
 }
 
 @media screen and (min-width: $width-min-lrg) {
+  .modal h4 {
+    margin-top: 0;
+  }
   .modal .dialog {
     margin: 3em 10%;
     max-height: 100%;
