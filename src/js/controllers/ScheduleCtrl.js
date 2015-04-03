@@ -29,6 +29,8 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
   vm.saveAnswers = saveAnswers;
   vm.skipScheduling = skipScheduling;
 
+  Client.listen('Form: Loaded', init);
+
   vm.config = {
     startDate: moment().format('MM/D/YYYY'),
     range: 21
@@ -111,6 +113,10 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
   }
 
   function init() {
+    if (!vm.prospect().installationGuid) {
+      return;
+    }
+
     return SiteSurvey.getTimes({
       installationGuid: vm.prospect().installationGuid
     }).then(parseTimes);
