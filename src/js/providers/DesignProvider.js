@@ -84,29 +84,12 @@ function DesignProvider_ (FIREBASE_URL) {
 
   this.$get = [ "Session", "Clientstream", "StyleService", function designProviderFactory(Session, Client, Styles) {
 
-
-
     Client.listen('Design: Loaded', saveDesignIdToSession);
 
     // always ask the session for value, to enable direct state navigation
-    if (Session.ref()) {
-      Session.ref().once('value', bootstrapDesign);
-    } else {
-      console.debug('**** Design: waiting for Session');
-      Client.listen('Session: Loaded', function(){
-        return Session.ref().once('value', bootstrapDesign);
-      });
-    }
-
-    rx_center.subscribe(subSessionMapCenterToDesignMapCenter);
-
-    function subSessionMapCenterToDesignMapCenter(c) {
-      if (c === null || c.lat === 0) return;
-      Session.ref() && Session.ref().update(c);
-    }
-
-    function bootstrapDesign (data) {
-      var data = data.exportVal()
+    Session.rx_session().then(function(rx_s){
+      console.log(rx_s.value);
+      var data = rx_s.value;
       data.design_id && (_ref_key = data.design_id);
       _ref = _ref_key ?
         // use the one you're given in config
@@ -114,10 +97,37 @@ function DesignProvider_ (FIREBASE_URL) {
         // or get a new one.
         new Firebase(designs_url).push();
       _ref.once('value', loadDesign);
+    })
+    // if (Session.ref()) {
+    //   Session.ref().once('value', bootstrapDesign);
+    // } else {
+    //   console.debug('**** Design: waiting for Session');
+    //   Client.listen('Session: Loaded', function(){
+    //     return Session.ref().once('value', bootstrapDesign);
+    //   });
+    // }
+
+    // keep the Session Object's map center tied to the Design map center
+    rx_center.subscribe(subSessionMapCenterToDesignMapCenter);
+    function subSessionMapCenterToDesignMapCenter(c) {
+      if (c === null || c.lat === 0) return;
+      Session.ref() && Session.ref().update(c);
     }
+
+    // function bootstrapDesign (data) {
+    //   var data = data.exportVal()
+    //   data.design_id && (_ref_key = data.design_id);
+    //   _ref = _ref_key ?
+    //     // use the one you're given in config
+    //     new Firebase(designs_url).child(_ref_key) :
+    //     // or get a new one.
+    //     new Firebase(designs_url).push();
+    //   _ref.once('value', loadDesign);
+    // }
 
     // load design & notify app design is loaded
     function loadDesign (ds) {
+      console.debug("loading designloading designloading designloading designloading design")
       _ref.child('areas/0').on('value', function (ds) {
         rx_areas.onNext(ds.exportVal());
       });

@@ -24,7 +24,8 @@
 
   ================================ */
 
-providers.provider("Session", ['FormProvider', 'DesignProvider', 'FIREBASE_URL', SessionProvider_]);
+providers.provider('Session', ['FormProvider', 'DesignProvider', 'FIREBASE_URL', SessionProvider_]);
+var rxs; // HACK: DEV: just for testing.
 
 function SessionProvider_ (Form, Design, FIREBASE_URL) {
   console.log('Session Provider started')
@@ -36,6 +37,10 @@ function SessionProvider_ (Form, Design, FIREBASE_URL) {
       fb_observable,
       state_stream;
 
+  // later, this will resolve for dependent parts
+  var rx_session = new Rx.BehaviorSubject();
+  rxs = rx_session; // HACK: DEV: just for testing.
+
   sessions_url = FIREBASE_URL + 'sessions/';
   _ref_key = null;
   _user_key = null;
@@ -44,7 +49,11 @@ function SessionProvider_ (Form, Design, FIREBASE_URL) {
     key && (_ref_key = key);
   };
 
-  this.$get = ["Clientstream", function SessionProviderFactory(Client) {
+  this.$get = ['$q', "Clientstream", function SessionProviderFactory($q, Client) {
+
+    // a promise that will return the behaviorsubject stream when
+    // session is resolved
+    var rx_dfd = $q.defer();
 
     Client.listen('User: Loaded', bootstrapSession );
     Client.listen('ODA: share_session set', bootstrapSession);
@@ -69,6 +78,10 @@ function SessionProvider_ (Form, Design, FIREBASE_URL) {
       fb_observable = _ref.observe('value');
       state_stream = _ref.child('state').observe('value');
       _ref.once('value', loadSession );
+      _ref.on('value', function subToRemoteSession (ds) {
+        ds.exists() && rx_session.onNext(ds.exportVal());
+        rx_dfd.resolve(rx_session);
+      })
     }
 
     function loadSession (ds){
@@ -114,6 +127,9 @@ function SessionProvider_ (Form, Design, FIREBASE_URL) {
 
     function awesome_session_builder_brah () {
       return {
+        rx_session: function() {
+          return rx_dfd.promise;
+        },
         setUserKey: function (key){
           /* jshint -W030 */
           key && (_user_key = key);
