@@ -56,7 +56,7 @@ function flnDraw_ (newConfigurator, Clientstream) {
       //     /* jshint +W030 */
       //     $scope.tip_text = tips[tip_step];
       //     $element.find('fln-follow-tip').attr('tip', $scope.tip_text);
-      //     if (!$scope.$phase) $scope.$apply();
+      //     if (!$scope.$$phase) $scope.$apply();
       //   });
       //
       //   /* TODO: fix tool-tip. currently makes the map gray.
