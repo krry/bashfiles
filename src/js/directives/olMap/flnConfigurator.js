@@ -19,7 +19,7 @@ function flnConfigurator_ (Client, newConfigurator) {
       })
       Client.listen('draw_busy', function (arg) {
         $scope.draw_busy = arg;
-        $scope.$apply();
+        if (!$scope.$$phase) $scope.$apply();
       });
     }],
     link: function (scope, element, attrs) {

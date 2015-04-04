@@ -58,7 +58,7 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
           h_coll.clear();
           h_coll.push(f);
         }
-        scope.$apply();
+        if (!scope.$$phase) scope.$apply();
       }
 
       function highlightFeature (f) {
