@@ -40,7 +40,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
         vm.prospect[key] = val;
       }
       setTimeout(function() {
-        if (!$scope.$phase) $scope.$apply(); // update the views
+        if (!$scope.$$phase) $scope.$apply(); // update the views
       }, 0);
     }
     !form_obj.bill && setDefaultBill();
@@ -58,9 +58,9 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
 
   function resetForm() {
     var obj = {};
-    for (var prop in vm.prospect) {
-      if (vm.prospect.hasOwnProperty(prop)) {
-        vm.prospect[prop] = null;
+    for (var prop in vm.prospect()) {
+      if (vm.prospect().hasOwnProperty(prop)) {
+        vm.prospect()[prop] = null;
         obj[prop] = null;
       }
     }
