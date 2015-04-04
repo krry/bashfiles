@@ -110,7 +110,7 @@ function ShareCtrl_ (Client, defaultValues, $stateParams, Proposal) {
       segmentStrokeWidth: 0,
       animation: false
     };
-    
+
     chartData = [
       {
         value: percent_solar,
