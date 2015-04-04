@@ -1,6 +1,6 @@
 <!-- main.html for qualify stage -->
 <div class="overlay primary col" ng-controller="ScheduleCtrl as schedule">
-  <div ng-if="schedule.prospect.scheduledTime">
+  <div ng-if="schedule.prospect().scheduledTime">
     <div class="col fourth three center">
       <h1>We'll see you then.<br><small>Our solar consultant will be in touch with you to confirm your appointment and answer any questions you may have.</small>
       </h1>
@@ -23,10 +23,10 @@
   </div>
 
   <div class="col fourth three center">
-    <div ng-if="!schedule.prospect.scheduledTime">
-      <h1 ng-if="schedule.prospect.skipped && schedule.prospect.qualified">Congratulations - you qualified!<br><small>Our solar consultant will be in touch with you soon to schedule site survey, then review a final system design for your rooftop.</small>
+    <div ng-if="!schedule.prospect().scheduledTime">
+      <h1 ng-if="schedule.prospect().qualified">Congratulations - you qualified!<br><small>Our solar consultant will be in touch with you soon to schedule site survey and discuss the next steps toward going solar.</small>
       </h1>
-      <h1 ng-if="!schedule.prospect.skipped || !schedule.prospect.qualified">You're one step closer to going solar.
+      <h1 ng-if="!schedule.prospect().skipped || !schedule.prospect().qualified">You're one step closer to going solar.
         <br><small>Our solar consultant will be in touch with you soon to schedule your site survey, then review a final system design for your rooftop.</small>
       </h1>
     </div>
@@ -47,7 +47,7 @@
       <strong>What's next?</strong>
     </div>
     <ul class="connect-the-dots">
-      <li ng-if="!schedule.prospect.scheduledTime">Schedule your site survey.</li>
+      <li ng-if="!schedule.prospect().scheduledTime">Schedule your site survey.</li>
       <li>We'll need someone over 18 present for the entirety of the survey, which should last 1-2 hours.</li>
       <li>The site surveyor will study your roof as well as your current energy consumption. The surveyor will need access to the top of your roof as well as your attic to take measurements.</li>
       <li>A few days after your site survey, you'll receive your final system design from our experts.</li>

@@ -18,7 +18,6 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
   /* bootstrap the controller's model from the form provider, listen for changes */
   Client.listen('Form: Loaded', bootstrapForm);
   Client.listen('geocode results', badZip);
-  Client.listen('Stages: restart session', restartForm);
 
   function bootstrapForm (form_obj) {
     // subscribe to the stream
@@ -41,11 +40,10 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
         vm.prospect[key] = val;
       }
       setTimeout(function() {
-        $scope.$apply(); // update the views
+        if (!$scope.$$phase) $scope.$apply(); // update the views
       }, 0);
     }
-    // HACK: hardcode bill should be angular.constant
-    !form_obj.bill && Client.emit('Form: valid data', {});
+    !form_obj.bill && setDefaultBill();
   }
   /* end bootstrap */
 
@@ -54,18 +52,19 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
 
   function updateProspectModel() {
     setTimeout(function(){
-      $scope.$apply();
+      if (!$scope.$$phase) $scope.$apply();
     }, 0)
   }
 
   function resetForm() {
     var obj = {};
-    for (var prop in vm.prospect) {
+    for (var prop in vm.prospect()) {
       if (vm.prospect().hasOwnProperty(prop)) {
-        vm.prospect[prop] = null;
+        vm.prospect()[prop] = null;
         obj[prop] = null;
       }
     }
+    User.isNew = true;
   }
 
   vm.gmapShown = false;
@@ -104,6 +103,11 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
       old_street,
       new_street;
 
+  function setDefaultBill () {
+    vm.prospect().bill = defaultValues.bill;
+    Client.emit('Form: valid data', { bill: vm.prospect().bill });
+  }
+
   function checkZip () {
     // $scope.$eval(vm.prospect().zip);
     new_zip = vm.prospect().zip;
@@ -117,9 +121,8 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
           Form.ref() && Client.emit('Form: valid data', {street: null});
         }
         old_zip = new_zip;
-        Client.emit('Spinner: spin it', true);
-        Geocoder.sendGeocodeRequest(new_zip);
       }
+      Geocoder.sendGeocodeRequest(new_zip);
     }
     else { return false; }
   }
@@ -132,7 +135,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
     console.log('********* checkin dat addy', new_street, 'boss *********');
 
     setTimeout(function() {
-      $scope.$apply();
+      if (!$scope.$$phase) $scope.$apply();
     }, 0);
 
     if (old_street !== new_street) {
@@ -144,7 +147,6 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
       };
 
       old_street = new_street;
-      Client.emit('Spinner: spin it', true);
       Geocoder.sendGeocodeRequest(addy);
     }
   }
@@ -170,18 +172,6 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
       vm.prospect().invalidTerritory = true;
       Client.emit('Form: valid data', { invalidTerritory: true });
     }
-  }
-
-  function restartForm() {
-    var obj = {};
-    for (var prop in vm.prospect) {
-      if (vm.prospect.hasOwnProperty(prop)) {
-        vm.prospect[prop] = null;
-        obj[prop] = null;
-      }
-    }
-
-    User.isNew = true;
   }
 
   function checkCredit() {
@@ -422,7 +412,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
   function acceptValidHouse(data) {
     // sync full address
     // accepting valid house
-    if (data && !vm.validAddress) {
+    if (data) {
       vm.invalid = false;
       vm.validAddress = true;
       vm.prospect().street = data.street;
@@ -430,7 +420,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
       vm.prospect().state = data.state;
       vm.prospect().city = data.city;
       Client.emit('Form: valid data', data);
-      Client.emit('Stages: jump to step', 'monthly-bill');
+      Client.emit('Stages: stage', 'next');
       console.log('valid house accepted', data);
       getUtilities();
     }
@@ -462,11 +452,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
   }
 
   function saveRates (data) {
-    var rates;
-    // if (!data.UtilityAverageSystemEfficiency) {
-    //   debugger;
-    // }
-    // data from Rates API:
+    // data returned from Rates API:
     // CashAvailable: true
     // FinancingKwhPrice: 0.15
     // LeaseAvailable: true
@@ -476,6 +462,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
     // UtilityAverageSystemEfficiency: 1468
     // UtilityID: 3
 
+    var rates;
     vm.prospect().utilityRate = data.MedianUtilityPrice;
     vm.prospect().sctyRate = data.FinancingKwhPrice;
     vm.prospect().averageYield = data.UtilityAverageSystemEfficiency;
@@ -483,7 +470,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
     rates = {
       utilityRate: vm.prospect().utilityRate,
       sctyRate: vm.prospect().sctyRate,
-      averageYield: vm.prospect().averageYield,
+      averageYield: vm.prospect().averageYield
     };
 
     Client.emit('Form: valid data', rates);

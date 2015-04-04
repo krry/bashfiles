@@ -1,9 +1,13 @@
 <!-- main.html for qualify stage -->
-<div class="overlay primary col">
+<div class="overlay primary col" ng-controller="ScheduleCtrl as schedule" ng-init="schedule.init()">
+  <div class="spinner-tray" ng-show="schedule.isSubmitting">
+    <fln-spinner></fln-spinner>
+  </div>
+
   <h1>Time to schedule a site survey.
     <br><small>What day works for you?</small>
   </h1>
-  <div ng-controller="ScheduleCtrl as schedule" ng-init="schedule.init()">
+  <div>
     <fln-calendar config="schedule.config"
      select-fn="schedule.selectDate(date)"
      available-times="schedule.availableTimes">

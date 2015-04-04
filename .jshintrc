@@ -107,6 +107,7 @@
         "Chart"       : true,
         "liveagent"   : true,
         "dataLayer"   : true,
-        "chartData"   : true
+        "chartData"   : true,
+        "maps"        : true
     } // additional predefined global variables
 }
