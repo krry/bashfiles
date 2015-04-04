@@ -23,8 +23,8 @@ function ShareCtrl_ (Client, defaultValues, $stateParams, Proposal) {
       percent_savings,
       percent_solar,
       percent_utility,
-      bill;
-
+      bill,
+      ceiling;
 
   Proposal.rx_panel_count.subscribe(subProposalToPanelCount)
 
@@ -44,6 +44,7 @@ function ShareCtrl_ (Client, defaultValues, $stateParams, Proposal) {
   }
 
   function calculateProposal () {
+    ceiling = defaultValues.ceiling;
     // calculate upfront cost
     upfront_cost = defaultValues.upfront_cost;
     vm.numbers.upfrontCost = upfront_cost;
@@ -62,13 +63,14 @@ function ShareCtrl_ (Client, defaultValues, $stateParams, Proposal) {
     vm.numbers.sctyRate = scty_rate;
 
     // calculate estimated first year savings from annual consumption and production estimates
-    // if a numbers would offset less than 80% of their energy needs, first year savings are the yearly spend minus the offset costs at scty rate
-    if (annual_production < (annual_consumption * 0.8)) {
+    // if a prospect would offset less than 80% of their energy needs, first year savings are 
+    // the yearly spend minus the offset costs at scty rate
+    if (annual_production < (annual_consumption * ceiling)) {
       first_year_savings = annual_production * (utility_rate - scty_rate); // $/yr
     }
     // else if they could offset more than that, we make sure they don't
     else {
-      first_year_savings = annual_consumption * .8 * (utility_rate - scty_rate); // $/yr
+      first_year_savings = annual_consumption * ceiling * (utility_rate - scty_rate); // $/yr
     }
     vm.numbers.firstYearSavings = first_year_savings;
 
@@ -78,8 +80,8 @@ function ShareCtrl_ (Client, defaultValues, $stateParams, Proposal) {
       percent_solar = defaultValues.percent_solar;
     }
     // if the system will produce less than 80% of the customer's energy needs, we'll calculate the percentage
-    else if (((annual_consumption-annual_production)/annual_consumption) < 0.8) {
-      percent_solar = 100 * (annual_consumption - annual_production) / annual_consumption; // %
+    else if ((annual_production/annual_consumption) < ceiling) {
+      percent_solar = 100 * annual_production / annual_consumption; // %
     }
     // if the system would produce more than 80%, we limit it at 80%
     else {
@@ -102,7 +104,11 @@ function ShareCtrl_ (Client, defaultValues, $stateParams, Proposal) {
 
     chartEl = document.getElementById('power_ratio_chart').getContext('2d');
     chartOpts = {
-      showTooltips: false
+      showTooltips: false		
+      showTooltips: false,
+      segmentShowStroke: false,
+      segmentStrokeWidth: 0,
+      animation: false
     };
 
     chartData = [
@@ -118,7 +124,7 @@ function ShareCtrl_ (Client, defaultValues, $stateParams, Proposal) {
         highlight: '#EFEFEF',
         label: 'Dirty Power'
       }
-    ]
+    ];
 
     charty = new Chart(chartEl).Pie(chartData, chartOpts);
   }
