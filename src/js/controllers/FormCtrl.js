@@ -18,7 +18,6 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
   /* bootstrap the controller's model from the form provider, listen for changes */
   Client.listen('Form: Loaded', bootstrapForm);
   Client.listen('geocode results', badZip);
-  Client.listen('Stages: restart session', restartForm);
 
   function bootstrapForm (form_obj) {
     // subscribe to the stream
@@ -41,7 +40,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
         vm.prospect[key] = val;
       }
       setTimeout(function() {
-        $scope.$apply(); // update the views
+        if (!$scope.$$phase) $scope.$apply(); // update the views
       }, 0);
     }
     !form_obj.bill && setDefaultBill();
@@ -59,12 +58,13 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
 
   function resetForm() {
     var obj = {};
-    for (var prop in vm.prospect) {
+    for (var prop in vm.prospect()) {
       if (vm.prospect().hasOwnProperty(prop)) {
-        vm.prospect[prop] = null;
+        vm.prospect()[prop] = null;
         obj[prop] = null;
       }
     }
+    User.isNew = true;
   }
 
   vm.gmapShown = false;
@@ -172,18 +172,6 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
       vm.prospect().invalidTerritory = true;
       Client.emit('Form: valid data', { invalidTerritory: true });
     }
-  }
-
-  function restartForm() {
-    var obj = {};
-    for (var prop in vm.prospect) {
-      if (vm.prospect.hasOwnProperty(prop)) {
-        vm.prospect[prop] = null;
-        obj[prop] = null;
-      }
-    }
-
-    User.isNew = true;
   }
 
   function checkCredit() {
@@ -482,7 +470,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
     rates = {
       utilityRate: vm.prospect().utilityRate,
       sctyRate: vm.prospect().sctyRate,
-      averageYield: vm.prospect().averageYield,
+      averageYield: vm.prospect().averageYield
     };
 
     Client.emit('Form: valid data', rates);

@@ -14,14 +14,13 @@ angular.module('configure', []).config(["$stateProvider", function ($stateProvid
       'main@': {
         templateUrl: stageUrl + "main.html",
         controller:  ['$scope', 'Layers', function ($scope, Layers) {
-                  Layers.rx_drawcount.subscribe(function (x) {
-                      // TODO: ensure that this boolean gets set on reload so users don't get stuck on trace step
-                      $scope.traced = x
-
-                      $scope.$apply();
-                  })
-                }],
-              },
+          Layers.rx_drawcount.subscribe(function (x) {
+            // TODO: ensure that this boolean gets set on reload so users don't get stuck on trace step
+            $scope.traced = x
+            if (!$scope.$$phase) $scope.$apply();
+          });
+        }],
+      },
       // modify the new named views @ configure
       'map@flannel.configure': {
         templateUrl: 'templates/stages/configure/map.html'

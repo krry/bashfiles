@@ -13,5 +13,5 @@ var runSeq = require('run-sequence').use(gulp);
 var build = require('./build');
 
 gulp.task('default',  function(){
-  runSeq(['templates'], build, 'indexFile', ['watch', 'demon']);
+  return runSeq(['templates'], build, 'indexFile', ['watch', 'demon']);
 });
