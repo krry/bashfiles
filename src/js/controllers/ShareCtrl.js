@@ -63,7 +63,8 @@ function ShareCtrl_ (Client, defaultValues, $stateParams, Proposal) {
     vm.numbers.sctyRate = scty_rate;
 
     // calculate estimated first year savings from annual consumption and production estimates
-    // if a prospect would offset less than 80% of their energy needs, first year savings are the yearly spend minus the offset costs at scty rate
+    // if a prospect would offset less than 80% of their energy needs, first year savings are 
+    // the yearly spend minus the offset costs at scty rate
     if (annual_production < (annual_consumption * ceiling)) {
       first_year_savings = annual_production * (utility_rate - scty_rate); // $/yr
     }
@@ -103,10 +104,13 @@ function ShareCtrl_ (Client, defaultValues, $stateParams, Proposal) {
 
     chartEl = document.getElementById('power_ratio_chart').getContext('2d');
     chartOpts = {
+      showTooltips: false		
       showTooltips: false,
-      segmentShowStroke: true
+      segmentShowStroke: false,
+      segmentStrokeWidth: 0,
+      animation: false
     };
-
+    
     chartData = [
       {
         value: percent_solar,
@@ -120,7 +124,7 @@ function ShareCtrl_ (Client, defaultValues, $stateParams, Proposal) {
         highlight: '#EFEFEF',
         label: 'Dirty Power'
       }
-    ]
+    ];
 
     charty = new Chart(chartEl).Pie(chartData, chartOpts);
   }
