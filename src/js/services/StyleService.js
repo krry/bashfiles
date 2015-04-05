@@ -277,7 +277,6 @@ function StyleService_ ($q) {
     geometry: function(feature) {
       // return the coordinates of the first ring of the polygon
       var corners = feature.getGeometry().getCoordinates()[0];
-      console.table(corners);
       var midpoints = [];
       var x, y;
       for (var i = 0, len = corners.length-1; i < len; i++) {
