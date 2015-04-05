@@ -100,6 +100,7 @@ function Proposal_(Session, Panelfill, Client) {
   this.setTarget = function setTarget(design_id) {
     var tilt_ref
 	 // default to 45, then look up the value in firebase if we have a record
+	 savedMapTilt = 45;
 	if (Session.ref()) {
 		Session.ref().parent().parent().child('designs')
 		.child(Session.ref().key()).child('areas/0/tilt')
