@@ -95,7 +95,7 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
       google.maps.event.trigger(gmap, 'resize');
       omap.updateSize();
     });
-
+	
     maps.omap.on('change:size', function() {
       // resize the target element
       google.maps.event.trigger(gmap, 'resize');
