@@ -170,11 +170,48 @@ main.main.main-fixed {
 }
 
 
+.step-fork .button-set {
+  width: 70%;
+  margin: 0 auto;
+  padding: 1em 1em 3em 1em;
+}
+.step-fork .button-set .left-col {
+  float: left;
+  width: 40%;
+  height: 100%;
+}
+.step-fork .button-set .set-or {
+  float: left;
+  width: 20%;
+  height: 100%;
+  padding: 1em 0;
+}
+.step-fork .button-set .right-col {
+  float: right;
+  width: 40%;
+  height: 100%;
+}
+.step-fork .button-set br {
+  clear: both;
+}
+.step-fork .button-set button {
+  width: 100%;
+  margin: 0 auto 1em auto;
+}
+
+
+
+
+
 
 
 @media screen and (min-width: $width-min-med){
   .step-bill button.tiny.gold {
     margin: 0;
+  }
+
+  .step-fork .button-set {
+    width: 80%;
   }
 }
 
@@ -221,6 +258,10 @@ main.main.main-fixed {
     width: 85%;
   }
 
+  .step-fork .button-set {
+    width: 100%;
+  }
+
 }
 
 @media screen and (min-width: $width-min-xlg){
@@ -244,6 +285,9 @@ main.main.main-fixed {
   .step-address h3 {
     width: 85%;
   }
+  .step-fork .button-set {
+    width: 85%;
+  }
 }
 
 /* prevents the CTA in the tallest right rail from falling out of reach on short screens */
@@ -254,5 +298,12 @@ main.main.main-fixed {
       margin-left: 0;
       padding: 2em;
     }
+  }
+}
+
+
+@media screen and (min-width: $width-min-xxl){
+  .step-fork .button-set {
+    width: 60%;
   }
 }
