@@ -170,6 +170,7 @@ main.main.main-fixed {
 }
 
 
+
 .step-fork .button-set {
   width: 80%;
   margin: 0 auto;
@@ -192,12 +193,19 @@ main.main.main-fixed {
   max-width: 270px;
   height: 100%;
 }
+.step-fork .button-set p {
+  text-align: left;
+  padding-left: 0.5em;
+}
 .step-fork .button-set br {
   clear: both;
 }
 .step-fork .button-set button {
   width: 100%;
   margin: 0 auto 1em auto;
+}
+.step-fork .button-set button.skip {
+  background-color: $grey-medium;
 }
 
 
@@ -216,7 +224,6 @@ main.main.main-fixed {
   .step-bill button.tiny.gold {
     margin: 0;
   }
-
   .step-fork .button-set {
     width: 90%;
   }
@@ -292,6 +299,9 @@ main.main.main-fixed {
   .step-address h3 {
     width: 85%;
   }
+  .step-fork h1 {
+    width: 85%;
+  }
   .step-fork .button-set {
     width: 85%;
   }
@@ -310,6 +320,9 @@ main.main.main-fixed {
 
 
 @media screen and (min-width: $width-min-xxl){
+  .step-fork h1 {
+    width: 85%;
+  }
   .step-fork .button-set {
     width: 70%;
   }
