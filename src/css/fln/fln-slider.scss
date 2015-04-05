@@ -123,7 +123,7 @@ input.bill {
   &:hover,
   &:focus {
     box-shadow: none;
-    color: $gold;
+    color: $green-neue;
   }
 }
 
@@ -131,7 +131,7 @@ input.bill {
   display: inline-block;
   vertical-align: bottom;
   color: $green-neue;
-  border: 2px solid inherit;
+  // border: 2px solid inherit;
   margin: 0 0 0 .5em;
   font-size: 1.25em;
   &:before {

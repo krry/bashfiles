@@ -1,10 +1,10 @@
 <section class="overlay center short col full step-address">
   <div ng-hide="form.invalidTerritory || form.invalidZip">
-    <h1 ng-show="form.prospect().neighbor_count"><small>Wow! <span id="neighbor_count" ng-bind="form.prospect().neighbor_count" class="bold">hundreds</span> <span class="bold">of your neighbors</span> near&nbsp;<fln-input-city></fln-input-city>&nbsp;<fln-input-state></fln-input-state>&nbsp;have gone solar with us. Let’s take a closer look at your&nbsp;house.</small></h1>
+    <h3 ng-show="form.prospect().neighbor_count" class="social-proof-count">Wow! <span id="neighbor_count" ng-bind="form.prospect().neighbor_count" class="bold">hundreds</span> <span class="bold">of your neighbors</span> near&nbsp;<fln-input-city></fln-input-city>&nbsp;<fln-input-state></fln-input-state>&nbsp;have gone solar with us. Let’s take a closer look at your&nbsp;house.</h3>
 
-    <h1 ng-show="!form.prospect().neighbor_count && form.finalNearMeData">Be the first in your neighborhood to go solar!</h1>
+    <h2 ng-show="!form.prospect().neighbor_count && form.finalNearMeData">Be the first in your neighborhood to go solar!</h2>
 
-    <h1 ng-show="!form.prospect().neighbor_count && !form.finalNearMeData">Let’s take a closer look at your house.</h1>
+    <h2 ng-show="!form.prospect().neighbor_count && !form.finalNearMeData">Let’s take a closer look at your house.</h2>
   </div>
 
   <h1 ng-show="form.invalidTerritory">We're not in that neighborhood yet. Care to try another?</h1>
