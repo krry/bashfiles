@@ -52,7 +52,7 @@ function SessionProvider_ (Form, Design, FIREBASE_URL) {
   this.$get = ['$q', "Clientstream", function SessionProviderFactory($q, Client) {
 
     // a promise that will return the behaviorsubject stream when
-    // session is resolved
+    // session is resolved by #rx_session
     var rx_dfd = $q.defer();
 
     Client.listen('User: Loaded', bootstrapSession );
@@ -78,8 +78,10 @@ function SessionProvider_ (Form, Design, FIREBASE_URL) {
       fb_observable = _ref.observe('value');
       state_stream = _ref.child('state').observe('value');
       _ref.once('value', loadSession );
+      // watch
       _ref.on('value', function subToRemoteSession (ds) {
         ds.exists() && rx_session.onNext(ds.exportVal());
+        // resolve the promise to a stream
         rx_dfd.resolve(rx_session);
       })
     }
@@ -87,18 +89,23 @@ function SessionProvider_ (Form, Design, FIREBASE_URL) {
     function loadSession (ds){
       var data = ds.exportVal() || {};
       data.session_id = _ref.key();
+      // assign the design id (arbitrarily) to the session id.
+      // makes it easier to look up designs & sessions.
+      // TODO: don't do this weird thing
       Design.setRefKey(_ref.key());
       if (data.form_id) {
         // update form's _ref_key if the user has a form
         Form.setRefKey(data.form_id);
       }
       if (data.design_id) {
+        // no longer necessary with DesignID && SessionID using same number
         // update design's _ref_key if the user has already started design
         // Design.setRefKey(data.design_id);
       }
       if (data.map_center) {
         // last known position of googleMap or olMap
         Design.setCenter(data.map_center);
+
       }
       return Client.emit('Session: Loaded', data);
     }
