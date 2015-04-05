@@ -26,7 +26,6 @@ function DesignProvider_ (FIREBASE_URL) {
 
   ================================ */
 
-
   var _ref,
       _ref_key,
       _ref_stream,
@@ -38,6 +37,10 @@ function DesignProvider_ (FIREBASE_URL) {
       map_center,
       center_ref,
       designs_url;
+
+  // later, this will resolve for dependent parts
+  var rx_design = new Rx.BehaviorSubject(null);
+  rxd = rx_design; // HACK: DEV: just for testing.
 
   // design object in memory
   var design,
@@ -54,11 +57,10 @@ function DesignProvider_ (FIREBASE_URL) {
       rx_zoom,
       rx_selectedpeak;
 
-  streams = {
-    areas: {},
-    panelfill: {},
-    map: {},
-  }
+  rx_areas = new Rx.BehaviorSubject(null);
+  rx_center = new Rx.BehaviorSubject(null);
+  rx_zoom = new Rx.BehaviorSubject(null);
+  rx_selectedpeak = new Rx.BehaviorSubject(null);
 
   _ref_key = null;
 
@@ -69,64 +71,59 @@ function DesignProvider_ (FIREBASE_URL) {
     key && (_ref_key = key);
     /* jshint +W030 */
   };
-  this.map_details = {
-    // center: null,
-    // zoom_level: 18
-  }
+
+  this.map_details = {};
+
   this.setCenter = function(center) {
     this.map_details.center = center;
   }
 
-    var rx_center = new Rx.Subject();
-    var rx_zoom = new Rx.Subject();
-    var rx_areas = new Rx.Subject();
-    var rx_selectedpeak = new Rx.BehaviorSubject();
-
-  this.$get = [ "Session", "Clientstream", "StyleService", function designProviderFactory(Session, Client, Styles) {
+  this.$get = [ "$q", "Session", "Clientstream", "StyleService", function designProviderFactory($q, Session, Client, Styles) {
+    // defer return of designstream until we're booted up.
+    var rx_dfd = $q.defer();
 
     Client.listen('Design: Loaded', saveDesignIdToSession);
-
+    Client.listen('Session: Loaded', function () {
+      Session.rx_session().then(bootstrapDesign);
+    })
     // always ask the session for value, to enable direct state navigation
-    Session.rx_session().then(function(rx_s){
-      console.log(rx_s.value);
+    Session.rx_session().then(bootstrapDesign);
+    function bootstrapDesign(rx_s){
+      // get the subject's immediate value.
       var data = rx_s.value;
+
       data.design_id && (_ref_key = data.design_id);
+      // get a firebase reference for the design
       _ref = _ref_key ?
         // use the one you're given in config
         new Firebase(designs_url).child(_ref_key) :
         // or get a new one.
         new Firebase(designs_url).push();
-      _ref.once('value', loadDesign);
-    })
-    // if (Session.ref()) {
-    //   Session.ref().once('value', bootstrapDesign);
-    // } else {
-    //   console.debug('**** Design: waiting for Session');
-    //   Client.listen('Session: Loaded', function(){
-    //     return Session.ref().once('value', bootstrapDesign);
-    //   });
-    // }
+      // TODO: merge this .once() and the .on() subscriptions
+      _ref.once('value', subscribeToDesignStreams);
+
+      _ref.on('value', function (ds) {
+        ds.exists() && rx_design.onNext(ds.exportVal());
+        ds.exists() && rx_center.onNext(ds.exportVal().map_details.center);
+        rx_dfd.resolve(rx_design);
+      })
+
+      // in case the session is restarted, restart the design, too.
+      Client.listen('Session: Loaded', function(){
+        return Session.ref().once('value', bootstrapDesign);
+      });
+    }
 
     // keep the Session Object's map center tied to the Design map center
     rx_center.subscribe(subSessionMapCenterToDesignMapCenter);
     function subSessionMapCenterToDesignMapCenter(c) {
+      if (c === undefined) return;
       if (c === null || c.lat === 0) return;
-      Session.ref() && Session.ref().update(c);
+      return Session.ref() && Session.ref().child('map_center').set(c);
     }
 
-    // function bootstrapDesign (data) {
-    //   var data = data.exportVal()
-    //   data.design_id && (_ref_key = data.design_id);
-    //   _ref = _ref_key ?
-    //     // use the one you're given in config
-    //     new Firebase(designs_url).child(_ref_key) :
-    //     // or get a new one.
-    //     new Firebase(designs_url).push();
-    //   _ref.once('value', loadDesign);
-    // }
-
     // load design & notify app design is loaded
-    function loadDesign (ds) {
+    function subscribeToDesignStreams (ds) {
       console.debug("loading designloading designloading designloading designloading design")
       _ref.child('areas/0').on('value', function (ds) {
         rx_areas.onNext(ds.exportVal());
@@ -144,9 +141,14 @@ function DesignProvider_ (FIREBASE_URL) {
         rx_zoom.onNext(ds.exportVal());
       });
 
-
       var data = ds.exportVal() || {};
       data.design_id = _ref.key();
+      data.streams = {
+        ridge: rx_selectedpeak,
+        center: rx_center,
+        zoom: rx_zoom,
+        areas: rx_areas,
+      }
       Client.emit('Design: Loaded', data);
     }
 
@@ -175,6 +177,9 @@ function DesignProvider_ (FIREBASE_URL) {
         setWkt: function name(txt) {
           _wkt = txt
         },
+        rx_design: function () {
+          return rx_dfd.promise;
+        },
         getWkt: function () {
           return _wkt
         },
@@ -182,7 +187,7 @@ function DesignProvider_ (FIREBASE_URL) {
           if (key) {
             _ref_key = key;
             _ref = new Firebase(designs_url).child(_ref_key);
-            _ref.once('value', loadDesign);
+            _ref.once('value', subscribeToDesignStreams);
           }
           return _ref;
         },
