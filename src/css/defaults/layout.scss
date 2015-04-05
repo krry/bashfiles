@@ -171,24 +171,25 @@ main.main.main-fixed {
 
 
 .step-fork .button-set {
-  width: 70%;
+  width: 80%;
   margin: 0 auto;
   padding: 1em 1em 3em 1em;
+  margin-top: 2em;
 }
 .step-fork .button-set .left-col {
   float: left;
   width: 40%;
+  max-width: 270px;
   height: 100%;
 }
 .step-fork .button-set .set-or {
-  float: left;
-  width: 20%;
-  height: 100%;
-  padding: 1em 0;
+  font-size: 0.83em;
+  padding: 1.2em 0;
 }
 .step-fork .button-set .right-col {
   float: right;
   width: 40%;
+  max-width: 270px;
   height: 100%;
 }
 .step-fork .button-set br {
@@ -204,6 +205,12 @@ main.main.main-fixed {
 
 
 
+@media screen and (min-width: $width-min-sml){
+  .step-fork .button-set {
+    width: 100%;
+  }
+}
+
 
 @media screen and (min-width: $width-min-med){
   .step-bill button.tiny.gold {
@@ -211,7 +218,7 @@ main.main.main-fixed {
   }
 
   .step-fork .button-set {
-    width: 80%;
+    width: 90%;
   }
 }
 
@@ -304,6 +311,6 @@ main.main.main-fixed {
 
 @media screen and (min-width: $width-min-xxl){
   .step-fork .button-set {
-    width: 60%;
+    width: 70%;
   }
 }
