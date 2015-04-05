@@ -8,7 +8,7 @@
     margin-top: .25em;
   }
   dt {
-    font-family: 'Apercu Medium';
+    @include apercu-medium;
   }
   strong + dl {
     margin-top: 0;
@@ -19,13 +19,30 @@
   ul li, p {
     line-height: 160%;
   }
+  .proposal-button-tray {
+    background: $white;
+
+    button {
+      margin: 1rem 0;
+    }
+    .financing-options {
+      font-size: .95rem;
+      line-height: 120%;
+      /* border: 1px solid red; */
+      margin: 1em 0 1em 0;
+    }
+    br {
+      clear: both;
+    }
+  }
 }
 
 .proposal.proposal {
   background-color: $white;
   color: $green-neue;
   border-radius: 2px;
-  margin-bottom: 1rem;
+  border-bottom: 2px solid $grey-lightest;
+  // margin-bottom: 1rem;
   .row:not(:last-child) {
     border-bottom: 2px solid $grey-lightest;
   }
@@ -101,18 +118,17 @@
 
 .proposal-page .financing-options {
   width: 80%;
-  font-size: .95em;
+  font-size: .95rem;
   line-height: 1.4;
   margin: -.25em 0 0 0;
 }
 
-.pie {
+/* .pie {
   border-radius: 50%;
   border: 1px solid;
   padding: 1px;
-}
-
-.financing-option {
+}*/
+/* .financing-option {
   padding: 1em 1.5em 2em 1.5em;
   border: 2px solid $gold;
   border-radius: .5em;
@@ -129,21 +145,21 @@
   p {
     line-height: 160%;
   }
-}
+} */
 
 .faq-item {
   figure {
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
-    background-color: pink;
+    background-color: transparent;
     height: 200px;
   }
   p {
     line-height: 160%;
   }
   dt {
-    font-family: 'Apercu Medium';
+    @include apercu-medium;
   }
   ul {
     margin: 0.5em 0;

@@ -89,7 +89,9 @@ input.zipcode {
   }
 }
 
-input.street,
+input.street {
+  max-width: 14em;
+}
 .step-zip input.email {
   max-width: 14em;
   text-align: center;

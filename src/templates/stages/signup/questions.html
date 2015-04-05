@@ -21,7 +21,13 @@
       <div class="col fourth three center survey-question" ng-class="{ selected: schedule.prospect().hoa != null }">
         <fln-input-hoa></fln-input-hoa>
       </div>
-      <button class="std gold" ng-click="schedule.saveAnswers()" ng-disabled="!schedule.answeredQuestions()">Done</button>
+      <div class="col fifth three center">
+        <fln-input-hoa-dropdown></fln-input-hoa-dropdown>
+        <fln-input-hoa-freeform></fln-input-hoa-freeform>
+      </div>
+      <div class="button-set">
+        <button class="std gold" ng-click="schedule.saveAnswers()" ng-disabled="!schedule.answeredQuestions()">Done</button>
+      </div>
     </form>
   </div>
 </div>

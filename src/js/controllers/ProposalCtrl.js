@@ -21,9 +21,13 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, Session, Form, Client, defa
       percent_savings,
       percent_solar,
       percent_utility,
-      bill;
+      bill,
+      ceiling,
+      share_link;
 
   calculateProposal();
+
+  $scope.$watch(function(scope) { return vm.prospect() }, calculateProposal);
 
   Proposal.rx_panel_count.subscribe(subProposalToPanelCount)
 
@@ -54,7 +58,7 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, Session, Form, Client, defa
   }
 
   function calculateProposal () {
-
+    ceiling = defaultValues.ceiling;
     // calculate upfront cost
     upfront_cost = defaultValues.upfront_cost;
     vm.prospect().upfrontCost = upfront_cost;
@@ -78,12 +82,12 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, Session, Form, Client, defa
     // calculate estimated first year savings from annual consumption and production estimates
 
     // if a prospect would offset less than 80% of their energy needs, first year savings are the yearly spend minus the offset costs at scty rate
-    if (annual_production < (annual_consumption * 0.8)) {
+    if (annual_production < (annual_consumption * ceiling)) {
       first_year_savings = annual_production * (utility_rate - scty_rate); // $/yr
     }
     // else if they could offset more than that, we make sure they don't
     else {
-      first_year_savings = annual_consumption * .8 * (utility_rate - scty_rate); // $/yr
+      first_year_savings = annual_consumption * ceiling * (utility_rate - scty_rate); // $/yr
     }
     vm.prospect().firstYearSavings = first_year_savings;
     Form.ref() && Client.emit('Form: valid data', { firstYearSavings: first_year_savings });
@@ -130,7 +134,10 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, Session, Form, Client, defa
 
     chartEl = document.getElementById('power_ratio_chart').getContext('2d');
     chartOpts = {
-      showTooltips: false
+      showTooltips: false,
+      segmentShowStroke: false,
+      segmentStrokeWidth: 0,
+      animation: false
     };
 
     chartData = [
@@ -142,7 +149,7 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, Session, Form, Client, defa
       },
       {
         value: percent_utility,
-        color: '#FFFFFF',
+        color: '#dddddd',
         highlight: '#EFEFEF',
         label: 'Dirty Power'
       }

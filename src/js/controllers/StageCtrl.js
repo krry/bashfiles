@@ -165,7 +165,7 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
     Client.emit('Spinner: add to spin count', data);
 
     $timeout(function(){
-      $scope.$apply();
+      if (!$scope.$$phase) $scope.$apply();
     }, 0);
   }
 
@@ -229,7 +229,7 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
     $timeout( function () {
       // unlock the view
       $scope.view_sync = true;
-      $scope.$apply();
+      if (!$scope.$$phase) $scope.$apply();
     }, 1);
 
     vm.fixed = !Templates.config[stage].steps[step].staticLayout;
