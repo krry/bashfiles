@@ -26,6 +26,11 @@
 
   <div>
     <h4>Current prospect info:</h4>
+    <label class="inline" for="dev_oda_link">
+      <span>oda link</span>
+      <pre>{{dev.design_obj.oda_link}}</pre>
+      <input type="tel" id="dev_oda_link" ng-model="dev.design_obj.oda_link">
+    </label>
     <label class="inline" for="dev_zip">
       <span>zip</span>
       <input type="tel" id="dev_zip" ng-model="dev.prospect().zip">
