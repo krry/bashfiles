@@ -35,8 +35,6 @@ function Proposal_(Session, Panelfill, Client) {
       .child(Session.ref().key())
       .once('value', function (ds) {
         var data = ds.exportVal();
-        debugger;
-        // console.log('wkt_txt in design', wkt_txt)
         Panelfill.getFilled(data.areas[0].wkt, data.areas[0].ridge, data.map_details.center.lat, data.areas[0].tilt)
         .then(processTwoDArray);
       });
