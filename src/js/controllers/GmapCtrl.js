@@ -1,6 +1,6 @@
-controllers.controller("GmapCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Gmap", "MapService", "NearMe", GmapCtrl_]);
+controllers.controller("GmapCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Gmap", "NearMe", GmapCtrl_]);
 
-function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe) {
+function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap,  NearMe) {
 
   var vm,
       center,
@@ -115,6 +115,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
         vm.shown = true;
       }
       Gmap.loaded.then(function() {
+        alert('gmaploaded')
         map.setCenter(location);
       });
     } else return false;

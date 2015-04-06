@@ -10,7 +10,7 @@
 ========================================================= */
 
 providers.provider("Gmap", [GmapFactory_]);
-
+var stagezeromap;
 function GmapFactory_ () {
 
   this.$get = ["$q", "Clientstream", function ($q, Client) {
@@ -97,7 +97,12 @@ function GmapFactory_ () {
     Client.listen('Gmap: clear pins', clearPins);
 
     function init (data) {
+      if (map !== undefined ) {
+        map_opts.center = map.getCenter();
+        map_opts.zoom = map.getZoom();
+      };
       map = new google.maps.Map(data, map_opts);
+      stagezeromap = map;
 
       google.maps.event.addListener(map, 'idle', function() {
         dfd.resolve(map);
