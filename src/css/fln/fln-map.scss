@@ -60,15 +60,19 @@
   line-height: 120%;
 }
 .instructions h4 {
-  font-size: 1.3em;
-  margin: 1em auto;
+  font-size: 1.1em;
+  line-height: 1.4;
+  margin: 1em auto 0.8em auto;
 }
 .instructions p {
   margin-bottom: 0.85em;
 }
 .instructions button.gold {
-  min-width: 10em;
-  margin: 2em auto 0 auto;
+  min-width: 13em;
+  margin: 1.8em auto 0 auto;
+}
+.instructions figure {
+  margin: 0;
 }
 .instructions figure img {
   border: none;
@@ -77,7 +81,7 @@
 }
 .instructions button.tiny.white {
   min-width: 8em;
-  margin: 0 auto;
+  margin: 1.3em auto 0 auto;
 }
 
 .area-detail {
