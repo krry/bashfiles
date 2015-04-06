@@ -116,7 +116,7 @@ function LiveagentService_ () {
           // attempt++;
           console.log('attempting to start chat');
           tryStartChat(attempt, t.buttonId, t.iframeTarget);
-        }, 1000);
+        }, 1500);
       }
     }
   }
