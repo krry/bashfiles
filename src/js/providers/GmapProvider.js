@@ -10,7 +10,7 @@
 ========================================================= */
 
 providers.provider("Gmap", [GmapFactory_]);
-var stagezeromap;
+
 function GmapFactory_ () {
 
   this.$get = ["$q", "Clientstream", function ($q, Client) {
@@ -102,7 +102,6 @@ function GmapFactory_ () {
         map_opts.zoom = map.getZoom();
       };
       map = new google.maps.Map(data, map_opts);
-      stagezeromap = map;
 
       google.maps.event.addListener(map, 'idle', function() {
         dfd.resolve(map);
@@ -124,8 +123,6 @@ function GmapFactory_ () {
           location;
 
       location = addy.location;
-      // zoom = map.getZoom();
-      // console.log('old zoom level:', zoom);
 
       // handle case where .lng & .lng() differ.
       if (typeof location.lng === "function") {
@@ -133,7 +130,6 @@ function GmapFactory_ () {
       } else {
         latLng = new google.maps.LatLng(location.lat, location.lng);
       }
-      console.log('latlng', latLng);
 
       Client.emit('valid latlng', {
         lat: latLng.lat(),

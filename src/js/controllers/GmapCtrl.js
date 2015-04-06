@@ -51,7 +51,6 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap,  NearMe) {
     if (map) {
       return;
     }
-
     // init the map object with defaults
     init(mapEl, mapOpts);
     // listen to the map for user's changes
@@ -115,7 +114,6 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap,  NearMe) {
         vm.shown = true;
       }
       Gmap.loaded.then(function() {
-        alert('gmaploaded')
         map.setCenter(location);
       });
     } else return false;
