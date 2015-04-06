@@ -94,8 +94,8 @@
 
   .ol-overlaycontainer-stopevent {
     position: absolute;
-    top: 2em;
-    left: 1.5em;
+    top: 3em;
+    left: 2.6em;
     background-color: $tint-40;
     border-radius: .35em;
   }
@@ -114,16 +114,14 @@
 
     .fln-zoom-in,
     .fln-zoom-out {
-      color: transparent;
-      height: 2.3em;
-      width: 2.3em;
+      height: 3em;
+      width: 3em;
       padding: 0;
       border-radius: .2em;
       background: $white no-repeat center center;
-      background-size: 90% auto;
       border: 0;
       display: block;
-      margin: .35em;
+      margin: .3em;
       &::selection {
         background: transparent;
       }

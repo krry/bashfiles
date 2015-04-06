@@ -71,7 +71,8 @@ h3 {
 }
 h3.social-proof-count {
   @include apercu-light;
-  margin-bottom: 0.75em;
+  margin-top: 1.5em;
+  margin-bottom: 1em;
 
   & span.bold {
     @include apercu-bold;
