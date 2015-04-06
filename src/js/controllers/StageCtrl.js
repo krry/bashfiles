@@ -317,9 +317,13 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
   }
 
   function checkAndJumpAddress() {
-    vm.checkAndJump('flannel.home.address-roof').then(function() {
-      Client.emit('check zip', '');
-    });
+    var jump = vm.checkAndJump('flannel.home.address-roof');
+
+    if (jump) {
+      jump.then(function() {
+        Client.emit('check zip', '');
+      });
+    }
   }
 
   function jumpToStep (target) {
