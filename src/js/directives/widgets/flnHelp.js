@@ -48,7 +48,7 @@ function flnHelp_ (Liveagent, Client) {
           Client.emit('create hotload link', true);
 
           // send prospect to Liveagent
-          Liveagent.addCustomDetails(scope.prospect);
+          Liveagent.addCustomDetails(scope.prospect());
 
           var targetConfig = {
             buttonId: "573180000008OIF",
