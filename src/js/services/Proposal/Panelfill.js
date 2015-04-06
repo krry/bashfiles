@@ -418,11 +418,13 @@ function getEaveAdjustedPolygon(arrayOfPoints,
 
                 //In the instance that we have a line, then we know that we are going to have two points
                 if (highestElementIsALine) {
-
                                 //TODO: THIS isn't working properly yet, but it doesn't really matter since it won't be used...
                                 var tempPt1 = convertToElementToPoint(highestElement[0]);
                                 var tempPt2 = convertToElementToPoint(highestElement[1]);
                                 var tempLine = convertPointsToLine(tempPt1, tempPt2, 'convertedPoint');
+								var bigTempPt1 = MakeLineBigger(tempPt1, tempLine, 2000, 0.0005) 
+								var bigTempPt2 = MakeLineBigger(tempPt2, tempLine, 2001, -0.0005) 
+								
                                 highestPoint = GetMidPoint(tempLine);
                 }
                 else {
@@ -563,9 +565,9 @@ function getEaveAdjustedPolygon(arrayOfPoints,
 								for (var i = 0; i < potentialEaves.length; i++) {
 									if (highestElementIsALine) {
 											if(potentialEaves.length > 1) {
-											var test = distToSegmentSquared(potentialEaves[i].Start, tempPt1, tempPt2)
+											var test = distToSegmentSquared(potentialEaves[i].Start, bigTempPt1, bigTempPt2)
 											var currentDistance = sqr(test.Start.X - test.End.X) + sqr(test.Start.Y - test.End.Y)
-											var test2 = distToSegmentSquared(potentialEaves[i].End, tempPt1, tempPt2)
+											var test2 = distToSegmentSquared(potentialEaves[i].End, bigTempPt1, bigTempPt2)
 											var currentDistance2 = sqr(test.Start.X - test.End.X) + sqr(test.Start.Y - test.End.Y)
 											
 											if(currentDistance2 > currentDistance) {
@@ -582,7 +584,7 @@ function getEaveAdjustedPolygon(arrayOfPoints,
 											else {
 												if(currentDistance > maxDistance) {
 													eaveLine = potentialEaves[i];
-													pointToBuildEave = test.End;										
+													pointToBuildEave = test.End;													
 												}
 											
 											}
@@ -756,6 +758,16 @@ function LineStartToEndRotation(line) {
 
 function GetNewPoint(CurrPoint, line, Id) {
                 var Distance = 0.00000001;
+                var Angle = LineStartToEndRotation(line);
+    return {
+        X: parseFloat(CurrPoint.X) + Math.cos(Angle) * Distance,
+        Y: parseFloat(CurrPoint.Y) + Math.sin(Angle) * Distance,
+        Z: 0,
+        ID: 'P' + Id,
+    };
+}
+
+function MakeLineBigger(CurrPoint, line, Id, Distance) {
                 var Angle = LineStartToEndRotation(line);
     return {
         X: parseFloat(CurrPoint.X) + Math.cos(Angle) * Distance,
