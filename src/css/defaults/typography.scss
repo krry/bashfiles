@@ -189,6 +189,9 @@ code, kbd, pre, samp {
   html {
     font-size: em($font-size*1.15);
   }
+  h1 {
+    width: 80%;
+  }
 }
 
 @media screen and (min-width: $width-min-uhd) {

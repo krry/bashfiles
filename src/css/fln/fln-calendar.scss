@@ -185,6 +185,34 @@ input[type="text"].hoa-input {
 }
 
 
-.calendar {
-  width: 80%;
+
+
+
+
+@media screen and (min-width: $width-min-sml){
+  .calendar {
+    width: 100%;
+  }
+}
+@media screen and (min-width: $width-min-med){
+  .calendar {
+    width: 100%;
+  }
+}
+@media screen and (min-width: $width-min-lrg){
+  .calendar {
+    width: 100%;
+  }
+}
+@media screen and (min-width: $width-min-xlg){
+  .calendar {
+    width: 80%;
+    max-width: 800px;
+  }
+}
+@media screen and (min-width: $width-min-xxl){
+  .calendar {
+    width: 80%;
+    max-width: 800px;
+  }
 }
