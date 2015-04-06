@@ -40,7 +40,12 @@
     }
   }
 
-  .available {
+  .available,
+  .available ~ .available {
+    background: repeating-linear-gradient(-45deg, $gold, $gold 8px, $gold-light 8px, $gold-light 10px);
+  }
+
+  .available ~ .available ~ .available {
     background: $gold;
   }
 
