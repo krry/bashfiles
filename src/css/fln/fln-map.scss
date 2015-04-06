@@ -120,8 +120,8 @@
 
     .fln-zoom-in,
     .fln-zoom-out {
-      height: 3em;
-      width: 3em;
+      height: 40px;
+      width: 40px;
       padding: 0;
       border-radius: .2em;
       background: $white no-repeat center center;
@@ -153,11 +153,11 @@
     }
 
     .fln-zoom-in {
-      background-image: url('../img/zoom-in.svg');
+      background-image: url('../img/zoom-in-01.svg');
     }
 
     .fln-zoom-out {
-      background-image: url('../img/zoom-out.svg');
+      background-image: url('../img/zoom-out-01.svg');
     }
   }
 }
