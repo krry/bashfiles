@@ -70,12 +70,10 @@ function UserProvider_ (SessionProvider, FIREBASE_URL) {
     function checkForPriorSession (ds){
       var data = ds.exportVal() || {};
       data.user_id = _ref.key();
-      console.log(data)
       if (data && data.session_id) {
         // if there's a session on the object, start the process of reloading the session
         Client.emit('User: Existing session_id found', data);
       } else {
-        console.log('userprovider heard app run')
         // let the app know about the user's _ref_key
         Client.emit('User: No existing session_id', {user_id: data.user_id});
       }

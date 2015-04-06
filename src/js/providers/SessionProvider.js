@@ -57,6 +57,7 @@ function SessionProvider_ (Form, Design, FIREBASE_URL) {
 
     Client.listen('User: Loaded', bootstrapSession );
     Client.listen('ODA: share_session set', bootstrapSession);
+    Client.listen('Share Proposal: share_session set', bootstrapSession);
     Client.listen('Stages: restart session', restartSession);
     Client.listen('Form: Loaded', saveFormId);
     Client.listen('Design: Loaded', saveDesignId);
@@ -69,6 +70,11 @@ function SessionProvider_ (Form, Design, FIREBASE_URL) {
       if (_ref_key) {
         // load the state from the user's previous session
         _ref = new Firebase(sessions_url).child(_ref_key);
+      } else if (user_data.share) {
+        // HACK: shared user, need to make the map_center value work properly to get 45 or 0 tilt
+        _ref = new Firebase(sessions_url).push();
+        _ref.child('map_center').set({lat: parseFloat(user_data.lat), lng: parseFloat(user_data.lng)})
+        // _ref.update({state:{stage: 0, step: 0}});
       } else {
         // there was no state, make a new one on the new session
         _ref = new Firebase(sessions_url).push();

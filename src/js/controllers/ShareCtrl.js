@@ -39,7 +39,6 @@ function ShareCtrl_ (Client, defaultValues, $stateParams, Proposal) {
     // estimated production of that system in a year => power of system * yearly yield per kW in that region
     vm.numbers.annualProduction = vm.numbers.systemSize * vm.numbers.averageYield || defaultValues.annual_production;
 
-    console.log("subProposalToPanelCount", count);
     calculateProposal();
   }
 

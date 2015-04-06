@@ -4,11 +4,11 @@
  *
  */
 
-angular.module('flannel').service('Proposal', ['Session', 'Panelfill', 'Clientstream', Proposal_]);
+angular.module('flannel').service('Proposal', ['$stateParams','User', 'Session', 'Panelfill', 'Clientstream', Proposal_]);
 
 var proposal_map;
 
-function Proposal_(Session, Panelfill, Client) {
+function Proposal_($stateParams, User, Session, Panelfill, Client) {
   // TODO: Revisit naming of this and Panelfill API service... to whatever it should be.
   var map_options = {
     zoom: 20,
@@ -28,21 +28,21 @@ function Proposal_(Session, Panelfill, Client) {
         lat,
         ridge_ref,
         ref;
-    // TODO: convert to promise patern : jfl
-    if (Session.ref()) {
-      // typical use case for user in flow
-      Session.ref().parent().parent().child('designs')
-      .child(Session.ref().key())
-      .once('value', function (ds) {
+    // TODO: convert to promise pattern : jfl
+    if (design_id) {
+      // share proposal link
+      ref = new Firebase('https://scty-int.firebaseio.com').child('designs')
+        .child(design_id)
+      ref.once('value', function (ds) {
         var data = ds.exportVal();
         Panelfill.getFilled(data.areas[0].wkt, data.areas[0].ridge, data.map_details.center.lat, data.areas[0].tilt)
         .then(processTwoDArray);
       });
     } else {
-      // share proposal link
-      ref = new Firebase('https://scty-int.firebaseio.com').child('designs')
-        .child(design_id)
-      ref.once('value', function (ds) {
+      // typical use case for user in flow
+      Session.ref().parent().parent().child('designs')
+      .child(Session.ref().key())
+      .once('value', function (ds) {
         var data = ds.exportVal();
         Panelfill.getFilled(data.areas[0].wkt, data.areas[0].ridge, data.map_details.center.lat, data.areas[0].tilt)
         .then(processTwoDArray);
@@ -84,7 +84,13 @@ function Proposal_(Session, Panelfill, Client) {
 
   this.setTarget = function setTarget(design_id) {
     var tilt_ref
-
+    if (design_id) {
+      Client.emit("Share Proposal: share_session set", {
+        share: true,
+        lat: $stateParams.lat,
+        lng: $stateParams.lng,
+      });
+    }
     // get the rx_s
     Session.rx_session()
     // set the proposal map center to the val on session

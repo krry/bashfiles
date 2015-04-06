@@ -31,6 +31,10 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, $state, Session, Form, Clie
 
   $scope.$watch(function(scope) { return vm.prospect() }, calculateProposal);
 
+  // track map_center to keep the sharelink functional
+  var share_map_center = {}
+
+
   Proposal.rx_panel_count.subscribe(subProposalToPanelCount)
   // allow user to change their design
   function changeDesign() {
@@ -132,14 +136,21 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, $state, Session, Form, Clie
     drawPowerChart();
 
     // create the sharelink
-    share_link = [$location.protocol() ,
-    "://",      URL_ROOT ,
-    "#/share/", Session.id(),
-    "/",        bill,
-    "/",        utility_rate,
-    "/",        scty_rate].join('');
-    vm.prospect().share_link = share_link;
-    Form.ref() && Client.emit('Form: valid data', {proposal_share_link: share_link});
+    Session.rx_session().then(function (rx_s) {
+      share_map_center.lat = rx_s.value.map_center.lat
+      share_map_center.lng = rx_s.value.map_center.lng
+      share_link = [$location.protocol() ,
+      "://",      URL_ROOT ,
+      "#/share/", Session.id(),
+      "/",        bill,
+      "/",        utility_rate,
+      "/",        scty_rate,
+      "/",        share_map_center.lat,
+      "/",        share_map_center.lng].join('');
+      vm.prospect().share_link = share_link;
+
+      Form.ref() && Client.emit('Form: valid data', {proposal_share_link: share_link});
+    });
   }
 
   function drawPowerChart () {
