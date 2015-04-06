@@ -56,12 +56,12 @@
   // box-shadow: 0 .5em .25em -.25em $shade-20;
   box-shadow: 0 0 .75em -.25em $shade-60;
   margin-left: -2em;
-  padding: 4em 2em 2em 2.5em;
+  padding: 4em 2em 2em 2em;
   line-height: 120%;
 }
 .instructions h4 {
   font-size: 1.1em;
-  line-height: 1.4;
+  line-height: 1.3;
   margin: 0 auto;
 }
 .instructions p {
@@ -69,7 +69,7 @@
 }
 .instructions button.gold {
   min-width: 12em;
-  margin: 1.8em auto 0 auto;
+  margin: 1.5em auto 0 auto;
 }
 .instructions figure {
   background: $white;
@@ -79,7 +79,7 @@
   border: none;
   width: 286px;
   height: 143px;
-  margin: 0.85em auto 0 auto;
+  margin: 0 auto 0 auto;
 }
 .instructions button.tiny.white {
   min-width: 8em;
