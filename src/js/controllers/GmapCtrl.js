@@ -1,6 +1,6 @@
-controllers.controller("GmapCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Gmap", "MapService", "NearMe", GmapCtrl_]);
+controllers.controller("GmapCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Gmap", "NearMe", GmapCtrl_]);
 
-function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe) {
+function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap,  NearMe) {
 
   var vm,
       center,
@@ -51,7 +51,6 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
     if (map) {
       return;
     }
-
     // init the map object with defaults
     init(mapEl, mapOpts);
     // listen to the map for user's changes
