@@ -56,7 +56,7 @@
   // box-shadow: 0 .5em .25em -.25em $shade-20;
   box-shadow: 0 0 .75em -.25em $shade-60;
   margin-left: -2em;
-  padding: 4em 2em 2em 2em;
+  padding: 4em 2em 2em 2.2em;
   line-height: 120%;
 }
 .instructions h4 {
@@ -69,7 +69,7 @@
 }
 .instructions button.gold {
   min-width: 12em;
-  margin: 1.5em auto 0 auto;
+  margin: 2em auto 0 auto;
 }
 .instructions figure {
   background: $white;
@@ -125,6 +125,7 @@
       padding: 0;
       border-radius: .2em;
       background: $white no-repeat center center;
+      background-size: 40px 40px;
       border: 0;
       display: block;
       margin: .3em;
@@ -184,8 +185,8 @@
     pointer-events: auto;
     position: absolute;
     margin: auto;
-    width: 3em;
-    height: 3em;
+    width: 30px;
+    height: 30px;
     overflow: auto;
     // opacity: .5;
     padding: 0;
@@ -197,38 +198,38 @@
       top: 1em;
       right: 0;
       left: 0;
-      background: url('../img/arrow-up-blk.svg') no-repeat center;
-      background-size: 70% auto;
+      background: url('../img/arrow-up-blk-01.svg') no-repeat center;
+      background-size: 15px;
       background-color: $tint-80;
     }
     &.pan-down {
       right: 0;
       bottom: 3em;
       left: 0;
-      background: url('../img/arrow-down-blk.svg') no-repeat center;
-      background-size: 70% auto;
+      background: url('../img/arrow-down-blk-01.svg') no-repeat center;
+      background-size: 15px;
       background-color: $tint-80;
     }
     &.pan-right {
       top: 0;
       bottom: 0;
       right: 3.5em;
-      background: url('../img/arrow-right-blk.svg') no-repeat center;
-      background-size: 70% auto;
+      background: url('../img/arrow-right-blk-01.svg') no-repeat center;
+      background-size: 15px;
       background-color: $tint-80;
     }
     &.pan-left {
       top: 0;
       left: 1em;
       bottom: 0;
-      background: url('../img/arrow-left-blk.svg') no-repeat center;
-      background-size: 70% auto;
+      background: url('../img/arrow-left-blk-01.svg') no-repeat center;
+      background-size: 15px;
       background-color: $tint-80;
     }
     &:hover,
     &:active {
       // opacity: 1;
-      background-color: $tint-40;
+      background-color: $tint-95;
     }
   }
 }

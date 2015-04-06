@@ -4,9 +4,9 @@
 	 viewBox="286 376 40 40" enable-background="new 286 376 40 40" xml:space="preserve">
 <g>
 	
-		<line fill="none" stroke="#212424" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="296.8" y1="396" x2="315.2" y2="396"/>
+		<line fill="none" stroke="#212424" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="298.2" y1="396" x2="313.8" y2="396"/>
 	
-		<line fill="none" stroke="#212424" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="306" y1="386.8" x2="306" y2="405.2"/>
+		<line fill="none" stroke="#212424" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="306" y1="388.2" x2="306" y2="403.8"/>
 </g>
 <rect x="286" y="376" fill="none" width="40" height="40"/>
 </svg>
