@@ -40,17 +40,33 @@
     }
   }
 
-  .available,
-  .available ~ .available {
-    background: repeating-linear-gradient(-45deg, $gold, $gold 8px, $gold-light 8px, $gold-light 10px);
+  /* if a td is in the second tr, and it is the first or second td in the tr, give it diagonal lines */
+
+  .available {
+    background: $gold;
+    &:hover {
+      background: darken($gold, 10%);
+    }
   }
 
-  .available ~ .available ~ .available {
-    background: $gold;
+  tr:nth-child(2) {
+    .available,
+    .available ~ .available {
+      background: repeating-linear-gradient(-45deg, $gold, $gold 8px, $gold-bright 8px, $gold-bright 12px);
+      cursor: default;
+    }
+    .available ~ .available ~ .available {
+      background: $gold;
+      cursor: pointer;
+      &:hover {
+        background: darken($gold, 10%);
+      }
+    }
   }
 
   .unavailable {
     background: $grey-lighter;
+    cursor: default;
   }
 
   .month {
@@ -66,6 +82,7 @@
     position: absolute;
     right: 5px;
     bottom: 5px;
+    @include apercu-bold;
   }
 
   .label {
