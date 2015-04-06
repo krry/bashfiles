@@ -305,7 +305,7 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
   }
 
   function jumpToStep (target) {
-    console.log('trying to jump to:', target, 'step');
+    // console.log('trying to jump to:', target, 'step');
     var steps = Templates.config[stage].steps;
     for (var i = 0; i < steps.length; i++) {
       if ( target === steps[i].step ) {
