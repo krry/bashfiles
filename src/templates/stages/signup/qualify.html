@@ -1,5 +1,5 @@
 <!-- main.html for qualify stage -->
-<div ng-controller="ScheduleCtrl as schedule" class="overlay">
+<div ng-controller="ScheduleCtrl as schedule" class="overlay end-page">
   <div class="spinner-tray" ng-show="schedule.isSubmitting">
     <fln-spinner></fln-spinner>
   </div>
@@ -8,36 +8,29 @@
     <div class="row padded">
       <div class="col full center" ng-if="!schedule.prospect().invalidTerritory">
         <h1>Thank you for your interest in going solar.
-          <br><small>One of our solar consultants will give you a call to discuss your financing options. Or feel free to reach out to us directly at (650) 288-0975.</small>
+          <br><small>One of our solar consultants will give you a call to discuss your financing options. Or feel free to reach out to us directly at (650) 288-0975. In the mean time, there are lots of other great ways you can get involved with the solar movement.</small>
         </h1>
-      </div>
-      <div class="col full">
-        <p class="left">In the mean time, there are lots of other great ways you can get involved with the solar movement.</p>
       </div>
       <div class="col full center" ng-if="schedule.prospect().invalidTerritory">
         <h1>We haven't made it to {{schedule.prospect().zip}} yet.<br><small>But you can still get involved with the solar movement, today. Here are some ways to join the SolarCity family.</small></h1>
       </div>
     </div>
-    <div class="row padded">
-      <div class="col half padded">
+    <div class="row center padded-more">
+      <div class="col half">
+        <h4><a href="https://mysolarcity.com/Ambassador/register">Become a Solar Ambassador</a></h4>
+        <p>Spread the word about clean more affordable energy from SolarCity and you could earn up to $250 for every referral that installs.</p>
         <figure class="video-tray">
           <iframe src="https://player.vimeo.com/video/92755265" frameborder="0" allowfullscreen></iframe>
         </figure>
       </div>
-      <div class="col half padded">
-        <h4><a href="https://mysolarcity.com/Ambassador/register">Become a Solar Ambassador</a></h4>
-        <p>Spread the word about clean more affordable energy from SolarCity and you could earn up to $250 for every referral that installs.</p>
-      </div>
     </div>
-    <div class="row padded">
-      <div class="col half padded">
+    <div class="row center padded-more">
+      <div class="col half">
+        <h4><a href="https://solarbonds.solarcity.com">Invest in Solar Bonds</a></h4>
+        <p>Help support the growth of solar energy and earn attractive returns. Solar Bonds are open to everyone.</p>
         <figure class="video-tray framed">
           <iframe frameborder="0" allowfullscreen src="//www.youtube.com/embed/remJeBMSptE?controls=0&amp;showinfo=0"></iframe>
         </figure>
-      </div>
-      <div class="col half padded">
-        <h4><a href="https://solarbonds.solarcity.com">Invest in Solar Bonds</a></h4>
-        <p>Help support the growth of solar energy and earn attractive returns. Solar Bonds are open to everyone.</p>
       </div>
     </div>
   </div>

@@ -73,6 +73,13 @@ main.main.main-fixed {
   background: $grey-lightest;
 }
 
+.overlay.end-page h4 {
+  margin: 0;
+}
+.overlay.end-page p {
+  margin-bottom: 0.75em;
+}
+
 .scroll-y {
   overflow-y: scroll;
 }
