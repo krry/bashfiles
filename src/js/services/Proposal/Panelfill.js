@@ -563,9 +563,9 @@ function getEaveAdjustedPolygon(arrayOfPoints,
 								for (var i = 0; i < potentialEaves.length; i++) {
 									if (highestElementIsALine) {
 											if(potentialEaves.length > 1) {
-											var test = distToSegmentSquared(potentialEaves[i].Start, tempPt1, tempPt1)
+											var test = distToSegmentSquared(potentialEaves[i].Start, tempPt1, tempPt2)
 											var currentDistance = sqr(test.Start.X - test.End.X) + sqr(test.Start.Y - test.End.Y)
-											var test2 = distToSegmentSquared(potentialEaves[i].End, tempPt2, tempPt2)
+											var test2 = distToSegmentSquared(potentialEaves[i].End, tempPt1, tempPt2)
 											var currentDistance2 = sqr(test.Start.X - test.End.X) + sqr(test.Start.Y - test.End.Y)
 											
 											if(currentDistance2 > currentDistance) {
