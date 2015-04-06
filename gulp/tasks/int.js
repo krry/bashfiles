@@ -13,5 +13,5 @@ var runSeq = require('run-sequence').use(gulp);
 var build = require('./build');
 
 gulp.task('heroku:int', function() {
-  return runSeq('config', 'templates', build, 'indexFile');
+  return runSeq('config', 'templates', 'fonts', build, 'indexFile');
 });

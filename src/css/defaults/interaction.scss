@@ -29,6 +29,19 @@ a {
   outline: 0;
 }
 
+* {
+  user-select: none;
+  cursor: default;
+}
+
+input {
+  cursor: text;
+}
+
+button, a {
+  cursor: pointer;
+}
+
 ::selection {
   background-color: $color-highlight;
   color: white;

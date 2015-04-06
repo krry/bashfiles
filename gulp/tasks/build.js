@@ -10,4 +10,4 @@
 var gulp = require('gulp');
 var runSeq = require('run-sequence').use(gulp);
 
-module.exports = ['fonts', 'images', 'libs', 'styles', 'scripts'];
+module.exports = ['images', 'libs', 'styles', 'scripts'];

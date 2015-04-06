@@ -82,7 +82,8 @@ $glass-frosted: transparentize($grey-lightest, 0.07);
 $glass-green:   transparentize($green-dark, 0.07);
 $glass-amber:   transparentize($gold, 0.07);
 $glass-red:     transparentize($red-dark, 0.07);
-$gold-bright:   lighten($gold, .2);
+$gold-bright:   lighten($gold, 20%);
+$gold-light:    lighten($gold, 10%);
 
 $color-text-main:            $grey-darker;
 $color-border-main:          $grey-lighter;
