@@ -53,7 +53,7 @@ h1 {
   margin-bottom: .75em;
 }
 
-h1 small {
+h1 small, h2 small {
   @include apercu-light;
   font-size: 65%;
   display: block;
@@ -190,7 +190,7 @@ code, kbd, pre, samp {
     font-size: em($font-size*1.15);
   }
   h1 {
-    width: 80%;
+    width: 90%;
   }
 }
 

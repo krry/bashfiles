@@ -1,5 +1,5 @@
 <!-- main.html for qualify stage -->
-<div ng-controller="ScheduleCtrl as schedule" class="overlay end-page">
+<div ng-controller="ScheduleCtrl as schedule" class="overlay">
   <div class="spinner-tray" ng-show="schedule.isSubmitting">
     <fln-spinner></fln-spinner>
   </div>
@@ -15,7 +15,7 @@
         <h1>We haven't made it to {{schedule.prospect().zip}} yet.<br><small>But you can still get involved with the solar movement, today. Here are some ways to join the SolarCity family.</small></h1>
       </div>
     </div>
-    <div class="row center padded-more">
+    <div class="get-involved row center padded-more">
       <div class="col half">
         <h4><a href="https://mysolarcity.com/Ambassador/register">Become a Solar Ambassador</a></h4>
         <p>Spread the word about clean more affordable energy from SolarCity and you could earn up to $250 for every referral that installs.</p>
@@ -24,7 +24,7 @@
         </figure>
       </div>
     </div>
-    <div class="row center padded-more">
+    <div class="get-involved row center padded-more">
       <div class="col half">
         <h4><a href="https://solarbonds.solarcity.com">Invest in Solar Bonds</a></h4>
         <p>Help support the growth of solar energy and earn attractive returns. Solar Bonds are open to everyone.</p>
@@ -33,6 +33,7 @@
         </figure>
       </div>
     </div>
+    <div fln-social></div>
   </div>
 
   <div class="overlay primary col"  ng-if="schedule.prospect().qualified">
