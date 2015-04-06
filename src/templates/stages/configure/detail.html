@@ -2,13 +2,14 @@
 
 <div class="position-relative">
   <div ui-view name="instructions" class="instructions">
-    <h4>Identify the peak of your roof.</h4>
-    <p>On the section you just traced, select the point or line that is highest on your roof. This will help us determine what direction your panels will face.</p>
+    <h4>Select a point or line to identify the peak of your&nbsp;roof.</h4>
     <figure>
-      <img src="../img/config_example_peak.svg" alt="Indicate the highest point or side of the shape." loop=infinite>
+      <img src="../img/config_example_peak-01.svg" alt="Indicate the highest point or side of the shape." loop=infinite>
     </figure>
+    <p>This will help us determine what direction your panels will face.</p>
+
     <!-- TODO: add back in switch ng-hide="!roof_peak_chosen" -->
     <button class="gold" ng-hide="!roof_peak_chosen" ng-click="stages.next()" ng-hide="">Next</button>
-    <!-- <button class="tiny white" fln-omap-clear-poly>Redo</button> -->
+    <button class="tiny white" fln-omap-clear-poly>Redo</button>
   </div>
 </div>

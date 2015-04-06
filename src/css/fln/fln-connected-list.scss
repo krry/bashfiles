@@ -1,11 +1,41 @@
-.connect-the-dots-title {
-  // font-size: 0.85em;
-  margin-bottom: 0.5em;
+ul.connect-the-dots {
+  list-style-type: none;
 }
 
-ul.connect-the-dots {
-  // font-size: 0.75em;
-}
 ul.connect-the-dots li {
-  margin-bottom: 0.6em;
+    position:relative; /* so that pseudoelements are positioned relatively to their "li"s*/
+    /* use padding-bottom instead of margin-bottom.*/
+    margin-bottom: 0; /* This overrides previously specified margin-bottom */
+    padding-bottom: 1em;
+    line-height: 135%;
+}
+
+ul.connect-the-dots li:after {
+    /* bullets */
+    content: url('../img/bullet-green-01.svg');
+    width: 7px;
+    height: 7px;
+    position: absolute;
+    left: -15px; /*adjust manually*/
+    top: -1px;
+}
+
+ul.connect-the-dots li:before {
+    /* lines */
+    content:"";
+    position: absolute;
+    left: -12px; /* adjust manually */
+    border-left: 1px solid #17c188;
+    height: 100%;
+    width: 1px;
+}
+
+ul.connect-the-dots li:first-child:before {
+   /* first li's line */
+   top: 8px; /* moves the line down so that it disappears under the bullet. Adjust manually */
+}
+
+ul.connect-the-dots li:last-child:before {
+    /* last li's line */
+   height: 7px; /* shorten the line so it goes only up to the bullet. Is equal to first-child:before's top */
 }
