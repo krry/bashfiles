@@ -108,9 +108,9 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
     Client.emit('Form: valid data', { bill: vm.prospect().bill });
   }
 
-  function checkZip () {
+  function checkZip (zip) {
     // $scope.$eval(vm.prospect().zip);
-    new_zip = vm.prospect().zip;
+    new_zip = vm.prospect().zip || zip;
     console.log('********* checkin dat zip', new_zip, 'boss *********');
     /* jshint eqnull:true */
     if (new_zip != null && new_zip.length === 5) {
