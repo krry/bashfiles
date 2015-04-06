@@ -116,9 +116,10 @@
 
 .selection-wrapper {
   max-width: 300px;
-  margin: 0 auto;
+  margin: 0 auto 2em auto;
   text-align: left;
 }
+
 
 .time-selection {
   text-align: center;
@@ -130,9 +131,10 @@
   cursor: pointer;
   border: 4px solid transparent;
   width: 130px;
+  border-radius: 2px;
 
   &.selected {
-    border: 4px solid $green-bright;
+    border: 4px solid $green-neue;
   }
 }
 
@@ -212,6 +214,10 @@ input[type="text"].hoa-input {
 }
 @media screen and (min-width: $width-min-xxl){
   .calendar {
+    width: 80%;
+    max-width: 800px;
+  }
+  p.note-time {
     width: 80%;
     max-width: 800px;
   }
