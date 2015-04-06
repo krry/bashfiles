@@ -100,7 +100,7 @@ function GmapFactory_ () {
       if (map !== undefined ) {
         map_opts.center = map.getCenter();
         map_opts.zoom = map.getZoom();
-      };
+      }
       map = new google.maps.Map(data, map_opts);
 
       google.maps.event.addListener(map, 'idle', function() {

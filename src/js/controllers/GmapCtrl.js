@@ -28,9 +28,9 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap,  NearMe) {
   // stream listeners
   Client.listen('center changed', applyCenter);
   Client.listen('Gmap: max zoom found', applyMaxZoom);
-  Client.listen('Gmap: switch to satellite', switchToSatellite);
+  Client.listen('Gmap: switch map type', switchMapType);
   Client.listen('Spinner: add to spin count', setSpinCount);
-  Client.listen('Stages: step complete', cloudMap);
+  // Client.listen('Stages: step complete', cloudMap);
 
   function cloudMap (step) {
     // TODO: on hotload of bill step, ensure cloudiness
@@ -87,11 +87,13 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap,  NearMe) {
     }
   }
 
-  function switchToSatellite (data) {
+  function switchMapType (data) {
     Gmap.loaded.then(function() {
-      if (data && map.getMapTypeId() !== "hybrid") {
+      if (data === "hybrid" && map.getMapTypeId() !== "hybrid") {
         Client.emit('Spinner: add to spin count', true);
         map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+      } else if (data === "terrain" && map.getMapTypeId() !== "terrain"){
+        map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
       }
     });
   }

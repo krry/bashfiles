@@ -24,6 +24,7 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
       session_stream,
       waiting,
       help_steps,
+      call_steps,
       unlockODA,
       latestStage,
       latestStep,
@@ -71,6 +72,11 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
     'survey-calendar',
     'schedule-survey',
     'congrats'
+  ];
+
+  call_steps = [
+    'address-roof',
+    'monthly-bill'
   ];
 
   // subscribe to the state when session is loaded
@@ -250,6 +256,18 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
     // once the user advances to the fork step, show the help/chat popup
     if (help_steps.indexOf(Templates.config[stage].steps[step].step) > -1) {
       vm.helpActivated = true;
+    } else {
+      vm.helpActivated = false;
+    }
+    if (call_steps.indexOf(Templates.config[stage].steps[step].step) > -1) {
+      vm.callActivated = true;
+    } else {
+      vm.callActivated = false;
+    }
+    if (Templates.config[stage].steps[step].step === "monthly-bill") {
+      vm.shadeActivated = true;
+    } else {
+      vm.shadeActivated = false;
     }
     Client.emit('Stages: step complete', Templates.config[stage].steps[step].step);
     console.log('location.path is:', $location.$$path);
@@ -289,7 +307,7 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
     }
   }
 
-  // Checks if the user has ever gone to the specified state before, and returns the stage and step, else returns false 
+  // Checks if the user has ever gone to the specified state before, and returns the stage and step, else returns false
   function hasVisited(target) {
     var states = $state.get(),
         targetState;

@@ -36,7 +36,11 @@
 }
 
 .cloudy {
-  opacity: 0.4;
+  background: radial-gradient(circle closest-side, transparent, transparent 200px, $shade-60 200px);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
 }
 
 .roofpeak .ol-viewport {
