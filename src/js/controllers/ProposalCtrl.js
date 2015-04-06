@@ -6,9 +6,9 @@
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
-controllers.controller('ProposalCtrl', ['URL_ROOT', '$location', '$scope', 'Session', 'Form', 'Clientstream', 'defaultValues', 'Proposal', ProposalCtrl_]);
+controllers.controller('ProposalCtrl', ['URL_ROOT', '$location', '$scope', '$state', 'Session', 'Form', 'Clientstream', 'defaultValues', 'Proposal', ProposalCtrl_]);
 
-function ProposalCtrl_ (URL_ROOT, $location, $scope, Session, Form, Client, defaultValues, Proposal) {
+function ProposalCtrl_ (URL_ROOT, $location, $scope, $state, Session, Form, Client, defaultValues, Proposal) {
   var vm = this;
   vm.prospect = Form.prospect;
 
@@ -25,12 +25,27 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, Session, Form, Client, defa
       ceiling,
       share_link;
 
+  vm.changeDesign = changeDesign;
+
   calculateProposal();
 
   $scope.$watch(function(scope) { return vm.prospect() }, calculateProposal);
 
   Proposal.rx_panel_count.subscribe(subProposalToPanelCount)
-
+  // allow user to change their design
+  function changeDesign() {
+    // HACK: temp solution until we lock down the states & stages
+    // destroy old geometry, then go to beginning of configurator
+    // This can lead to case where user clicks "change"
+    // then clicks "BACK" on the browser, and returns to a proposal
+    // with no maps.
+    Session.ref().parent().parent().child('designs')
+    .child(Session.ref().key())
+    .child('areas')
+    .set(null);
+    // go to beginning of configurator.
+    Client.emit('Stages: stage', {stage: 1, step: 0});
+  }
   // calculate annual production in $$ of electricity from panel fill API
   function subProposalToPanelCount (count) {
     // number of panels filled from Panelfill API
