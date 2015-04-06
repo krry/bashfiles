@@ -2,7 +2,7 @@
 
   IMAGES
   supports BUILD task
-  
+
   makes responsive images, minifies, copies to `public`
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
@@ -18,7 +18,7 @@ var imgSrc = [
 
 var imgPub = './public/img';
 
-gulp.task('images', function(){
+gulp.task('images', ['clearImages'], function(){
   return gulp.src(imgSrc)
         .pipe(changed(imgPub))
         .on('error', handleErrors)

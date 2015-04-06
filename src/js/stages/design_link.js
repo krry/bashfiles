@@ -1,4 +1,4 @@
-angular.module('design_link',[]).config(["$stateProvider", function ($stateProvider) {
+angular.module('design_link', []).config(["$stateProvider", function ($stateProvider) {
   var stageName,
       templateUrl,
       session_ref_key;

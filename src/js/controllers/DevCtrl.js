@@ -3,20 +3,32 @@
   the dev tools controller
 ================================================== */
 
-controllers.controller("DevCtrl", ["$scope", "Clientstream", "Form", DevCtrl_]);
+controllers.controller("DevCtrl", ["$scope", "Clientstream", "Form",  "Session", DevCtrl_]);
 
-function DevCtrl_($scope, Client, Form) {
+function DevCtrl_($scope, Client, Form,  Session) {
   var vm = this;
   vm.prospect = Form.prospect;
+  vm.design_obj = {};
   Client.listen('Form: Loaded', subscribeForm);
 
-  vm.reloadApp = function reloadApp () {
-    location.hash = 'my-home';
-    location.reload(true);
+  // Client.listen('Session: Loaded', subscribeSession);
+  Client.listen('Design: Loaded', subscribeDesign);
+  function subscribeDesign(data) {
+    vm.design_obj.design_id = data.design_id;
+    vm.design_obj.oda_link = 'http://localhost:8100/#/oda/'+data.design_id;
+    vm.design_obj.zoom_level = data.streams.zoom.subscribe(function(zoom_val) {})
+    vm.design_obj.center = data.streams.center.subscribe(function(center_val) {})
+    vm.design_obj.areas = data.streams.areas.subscribe(function(center_val) {})
   }
 
   vm.resetForm = function resetForm () {
     Client.emit('Dev: Reset form');
+  }
+
+  vm.reloadApp = function reloadApp () {
+    Client.emit('Dev: Reset form');
+    location.hash = 'my-home';
+    location.reload(true);
   }
 
   function subscribeForm (form_obj) {
@@ -36,12 +48,11 @@ function DevCtrl_($scope, Client, Form) {
       for (var i = 0; i < keys.length; i++) {
         key = keys[i];
         val = form_obj[key];
-        // vm.prospect()[key] = val;
       }
       setTimeout(function() {
-        $scope.$apply(); // update the views
+        if (!$scope.$$phase) $scope.$apply(); // update the views
+        console.log('prospect is:', vm.prospect());
       }, 0);
-      console.log('prospect is:', vm.prospect());
     }
   }
 }

@@ -24,12 +24,18 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
       session_stream,
       waiting,
       help_steps,
-      unlockODA;
+      unlockODA,
+      latestStage,
+      latestStep,
+      hasLoaded;
 
   stage = 0;
   step  = 0;
+  latestStage = 0;
+  latestStep = 0;
   waiting = false;
   unlockODA = false;
+  hasLoaded = false;
 
   vm = this;
   vm.next = next;
@@ -38,9 +44,11 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
   vm.startOver = startOver;
   vm.jumpToStep = jumpToStep;
   vm.jumpToStage = jumpToStage;
+  vm.checkAndJump = checkAndJump;
   vm.spinIt = waiting;
   vm.partial = Templates.partial(stage, step);
   vm.partials = flattenPartialsArray(Templates.partials);
+  vm.states = Templates.states;
   vm.currentStep = currentStep;
 
   // determines whether view layout is fixed or static
@@ -106,6 +114,10 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
     // anounce you're watching the streams, send the new data
     Client.emit('Stages: subscribed to statestream', session_data);
 
+    latestStage = session_data.state.latestStage || 0;
+    latestStep = session_data.state.latestStep || 0;
+    hasLoaded = true;
+
     // Only show the continue modal if the user is on the home page (zip or address page) and has advanced in the flow
     // Else, on other pages, we let that page's url take precedence
     if (!isOnHome && !hasAdvanced) {
@@ -153,7 +165,7 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
     Client.emit('Spinner: add to spin count', data);
 
     $timeout(function(){
-      $scope.$apply();
+      if (!$scope.$$phase) $scope.$apply();
     }, 0);
   }
 
@@ -191,10 +203,12 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
     } else if ($scope.view_sync) {
       target_state = !!target_state.state ? target_state.state : target_state;
       stage = target_state.stage;
+      step = target_state.step;
       name = Templates.config[stage].name;
-      $state.go(name).then(function(){
+      $state.go(Templates.config[stage].name + '.' + Templates.config[stage].steps[step].step).then(function(){
+        vm.fixed = !Templates.config[stage].steps[step].staticLayout;
         // trigger step changes afterwards
-        Client.emit('Stages: step', target_state.step)
+        // Client.emit('Stages: step', target_state.step)
       });
     }
   }
@@ -203,19 +217,31 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
     stage = opts.stage;
     step = opts.step;
 
+    // Only overwrite latestStage and latestStep if they incremented
+    if (stage > latestStage) {
+      latestStage = stage;
+      latestStep = step;
+    }
+    else if (stage === latestStage && step > latestStep) {
+      latestStep = step;
+    }
+
     $timeout( function () {
       // unlock the view
       $scope.view_sync = true;
-      $scope.$apply();
+      if (!$scope.$$phase) $scope.$apply();
     }, 1);
 
     vm.fixed = !Templates.config[stage].steps[step].staticLayout;
 
     // update firebase
-    if ($scope.view_sync) {
+    // Don't update the ref until we load the current ref
+    if ($scope.view_sync && hasLoaded) {
       Session.ref().child('state').update({
         stage: stage,
-        step: step
+        step: step,
+        latestStage: latestStage,
+        latestStep: latestStep
       });
     }
 
@@ -223,6 +249,8 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
     if (help_steps.indexOf(Templates.config[stage].steps[step].step) > -1) {
       vm.helpActivated = true;
     }
+    Client.emit('Stages: step complete', Templates.config[stage].steps[step].step);
+    console.log('location.path is:', $location.$$path);
   }
 
   function stepListen (target_step) {
@@ -231,7 +259,8 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
 
     // update the view
     $state.go(Templates.config[stage].name + '.' + Templates.config[stage].steps[step].step).then(function() {
-      stepFinish({ stage: stage, step: step });
+      vm.fixed = !Templates.config[stage].steps[step].staticLayout;
+      // stepFinish({ stage: stage, step: step });
     });
   }
 
@@ -255,6 +284,23 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
         stage: stage - 1,
         step:  Templates.config[stage - 1].steps.length -1,
       })
+    }
+  }
+
+  // Checks if user has gone to the specified state previously, and if so, jumps to that state
+  function checkAndJump(target) {
+    var states = $state.get(),
+        targetState;
+
+    states.forEach(function(state) {
+      if (state.name === target) {
+        targetState = state;
+      }
+    });
+
+    if (latestStage > targetState.stage || (latestStage === targetState.stage && latestStep > targetState.step)) {
+      stage = targetState.stage;
+      stepListen(targetState.step);
     }
   }
 

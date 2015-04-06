@@ -5,9 +5,9 @@
   </div>
 
   <div class="overlay primary col">
-    <h1 ng-if="form.prospect.qualified !== false && !form.timedOut">Welcome to the SolarCity family.<br><small>Enter your information to get set up with a solar site survey for your home.</small></h1>
-    <h1 ng-if="form.prospect.qualified !== false && form.timedOut">Sorry! Our connection timed out. <small>Please re-enter your information and try again.</small></h1>
-    <h1 ng-if="form.prospect.qualified === false">Hey Waldo, we couldn't find you!<br><small>We could not match the information you submitted. Please check your entries and try again.</small></h1>
+    <h1 ng-if="form.prospect().qualified !== false && !form.timedOut">Welcome to the SolarCity family.<br><small>Enter your information to get set up with a solar site survey for your home.</small></h1>
+    <h1 ng-if="form.prospect().qualified !== false && form.timedOut">Sorry! Our connection timed out. <small>Please re-enter your information and try again.</small></h1>
+    <h1 ng-if="form.prospect().qualified === false">Hey Waldo, we couldn't find you!<br><small>We could not match the information you submitted. Please check your entries and try again.</small></h1>
     <form name="prospectForm" novalidate>
       <div class="row">
         <div class="col half padded">
@@ -30,7 +30,7 @@
         </div>
       </div>
       <div class="row center">
-        <div class="col half padded center">
+        <div class="col half center button-set">
           <button class="ib gold" ng-click="form.createContact()" ng-disabled="prospectForm.$invalid || form.isSubmitting">Submit</button>
         </div>
       </div>

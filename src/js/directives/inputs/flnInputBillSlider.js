@@ -6,11 +6,14 @@ function flnInputBillSlider_ (Form) {
     templateUrl: "templates/directives/inputs/flnInputBillSlider.html",
     require: '^flnForm',
     link: function (scope, element, attrs, FormCtrl) {
-      var prospect = Form.prospect;
+      var prospect = FormCtrl.prospect;
+      scope.prosposalBill = attrs.proposalBill;
 
       $('#bill-slider').on({
-        change: function () {
-          FormCtrl.saveBill(prospect.bill);
+        slide: function () {
+          FormCtrl.billChanged = true;
+          FormCtrl.saveBill(prospect().bill);
+          if (!scope.$$phase) scope.$apply();
         }
       });
     }

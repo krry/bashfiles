@@ -6,9 +6,9 @@
  *
  */
 
-angular.module('flannel').factory('Interactions', ['Design', 'StyleService', 'AreaService', Interactions_]);
+angular.module('flannel').factory('Interactions', ['Design', 'Clientstream', 'StyleService', 'AreaService', Interactions_]);
 
-function Interactions_(Design, Styles, AreaService) {
+function Interactions_(Design, Client, Styles, AreaService) {
     // returned by Factory
   var interactions = {},
     // interactions
@@ -40,6 +40,12 @@ function Interactions_(Design, Styles, AreaService) {
     Design.ref().child('areas').child('0').set({ // HACK: one area only
       wkt: AreaService.getWkt(feature),
     })
+    Client.emit('Stages: stage', 'next')
+  });
+
+  interactions.draw.on('drawstart', function(e){
+    // make sure that all modify shapes are eliminated
+    Design.ref().child('areas').child('0').set(null);
   });
 
   // modify

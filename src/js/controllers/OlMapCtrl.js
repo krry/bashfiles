@@ -73,7 +73,7 @@ function OlMapCtrl_($scope, $timeout, Client, Session, InteractionService, Style
   function update_remote (geom) {
     // $scope.draw_busy = true;
     Design.areas_ref().child('area').set(wkt.writeGeometry(geom));
-    $scope.$apply();
+    if (!$scope.$$phase) $scope.$apply();
   }
 
   function update_client (txt) {
@@ -100,7 +100,7 @@ function OlMapCtrl_($scope, $timeout, Client, Session, InteractionService, Style
     } else if (!diff_client(txt)) { // remote and local are the same
       console.log("!diff_client(txt)", txt, !diff_client(txt));
       $scope.draw_busy = false;
-      $scope.$apply();
+      if (!$scope.$$phase) $scope.$apply();
     }
   }
 
@@ -131,19 +131,19 @@ function OlMapCtrl_($scope, $timeout, Client, Session, InteractionService, Style
     ftr = ftr || evt.feature; // accept a feature from firebase design, or the event
     console.log('draw_start');
     $scope.draw_busy = true;
-    $scope.$apply();
+    if (!$scope.$$phase) $scope.$apply();
     Design.feature(ftr);
   }
 
   function update_wkt_while_modify (f) {
     $scope.draw_busy = true;
-    $scope.$apply();
+    if (!$scope.$$phase) $scope.$apply();
     Design.feature().set('wkt', getWkt(Design.feature()));
   }
 
   function draw_end () {
     $scope.draw_busy = false;
-    $scope.$apply();
+    if (!$scope.$$phase) $scope.$apply();
     console.log('draw_end');
     Design.feature().set('wkt', getWkt(Design.feature()));
     Design.feature().on('change:wkt', wkt_update_notification);

@@ -2,7 +2,7 @@
 
   FONTS
   supports BUILD task
-  
+
   copies, formats, and minifies custom fonts into `public`
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
@@ -18,7 +18,7 @@ var fontSrc = [
 
 var fontPub = './public/fonts';
 
-gulp.task('fonts', function(){
+gulp.task('fonts', ['clearFonts'], function(){
   return gulp.src(fontSrc)
         .pipe(changed(fontPub))
         .on('error', handleErrors)

@@ -7,9 +7,9 @@
  *
  */
 
-angular.module('flannel').service('newConfigurator', ['$q','Clientstream', 'Session', 'View', 'Interactions', 'Layers', 'MapFactory', newConfigurator_]);
+angular.module('flannel').service('newConfigurator', ['$q', 'Clientstream', 'Design', 'View', 'Interactions', 'Layers', 'MapFactory', newConfigurator_]);
 
-function newConfigurator_($q, Client, Session, View, Interactions, Layers, MapFactory) {
+function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFactory) {
   var gmap,
       omap,
       // defaults
@@ -63,9 +63,6 @@ function newConfigurator_($q, Client, Session, View, Interactions, Layers, MapFa
   }
 
   function setTargetOfMaps(g_div, o_div) {
-
-    console.debug('Configurator.setTarget(g_div, o_div) => g_div, o_div: ', g_div, o_div);
-
     // two target divs for the olmap and googlemap
     // TODO: use a directive or link function to select the elements
     // DOM selection or manipulation should not occur in a service
@@ -81,14 +78,14 @@ function newConfigurator_($q, Client, Session, View, Interactions, Layers, MapFa
     // initialize the map
 
     // subscribe google's zoom and center to OL View's resolution & center
-    View.rx_center.subscribe(subGoogleMapToViewCenter)
+    View.rx_center.subscribe(subGoogleMapToViewCenter);
     View.rx_zoom.subscribe(subGoogleMapToViewZoomLevel);
 
     this.map = {
       omap: omap,
       gmap: gmap,
     }
-    maps = this.map; // HACK... this shouldn't be public. only here for testing
+    maps = this.map; // HACK... this doesn't need to be public. only here for testing.
 
     gmap.addListener('projection_changed', function(){
       // TODO: be prepared to fix projection of OLmap for zoom < 17 (currently disallowed by map_options)
@@ -98,15 +95,15 @@ function newConfigurator_($q, Client, Session, View, Interactions, Layers, MapFa
       google.maps.event.trigger(gmap, 'resize');
       omap.updateSize();
     });
-
+	
     maps.omap.on('change:size', function() {
       // resize the target element
       google.maps.event.trigger(gmap, 'resize');
 
     })
 
-    maps.omap.updateSize()
-
+    maps.omap.updateSize();
+    Client.emit('Configurator: update mapsize', maps.gmap)
     Client.emit('Configurator: target set');
   }
 

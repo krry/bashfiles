@@ -18,19 +18,21 @@
 ======================================================= */
 
 directives
-.directive('flnDraw', flnDraw_ )
-.directive('flnModify', flnModify_ )
-.directive('flnZoom', flnZoom_ )
-.directive('flnDragpan', flnDragPan_ )
-.directive('flnOmapClearPoly', flnOmapClearPoly_ );
+.directive('flnDraw', ['newConfigurator', flnDraw_] )
+.directive('flnModify', ['newConfigurator', flnModify_] )
+.directive('flnZoom', ['newConfigurator', flnZoom_] )
+.directive('flnDragpan', ['newConfigurator', flnDragPan_] )
+.directive('flnOmapClearPoly', ['Design', flnOmapClearPoly_] );
 
-function flnDraw_ ($timeout, $compile, newConfigurator, Clientstream) {
+function flnDraw_ (newConfigurator, Clientstream) {
   return {
     restrict: "EA",
     link: function flnDrawCtrl (scope, element, attrs) {
       var tips, tip_step, listener_key;
       listner_key = newConfigurator.drawAdd();
-      function addDrawTips(){ // TODO: this should be it's own directive
+
+      function addDrawTips(){
+      // TODO: this should be it's own directive
       //   // dev //
       //   var map_div = $('#omap');
       //   // end:dev //
@@ -54,7 +56,7 @@ function flnDraw_ ($timeout, $compile, newConfigurator, Clientstream) {
       //     /* jshint +W030 */
       //     $scope.tip_text = tips[tip_step];
       //     $element.find('fln-follow-tip').attr('tip', $scope.tip_text);
-      //     $scope.$apply();
+      //     if (!$scope.$$phase) $scope.$apply();
       //   });
       //
       //   /* TODO: fix tool-tip. currently makes the map gray.
@@ -64,6 +66,7 @@ function flnDraw_ ($timeout, $compile, newConfigurator, Clientstream) {
       //   */
       //   $compile(map_div)($scope);
       }
+
       element.on('$destroy', function drawDestroy (e) {
         newConfigurator.drawDel();
       });
@@ -71,7 +74,7 @@ function flnDraw_ ($timeout, $compile, newConfigurator, Clientstream) {
   };
 }
 
-function flnModify_ (Configurator, newConfigurator) {
+function flnModify_ (newConfigurator) {
   return {
     restrict: "EA",
     link: function flnModifyLink (scope, ele, attrs) {
@@ -95,12 +98,14 @@ function flnZoom_ (newConfigurator) {
   };
 }
 
-function flnDragPan_ (Configurator, newConfigurator) {
+function flnDragPan_ (newConfigurator) {
   return {
     restrict: "EA",
     link: function flnDragPanLink (scope, ele, attrs) {
+      $('div[fln-configurator]').addClass('crosshair')
       newConfigurator.dragpanAdd();
       ele.on('$destroy', function dragPanDestroy (e) {
+        $('div[fln-configurator]').removeClass('crosshair')
         newConfigurator.dragpanDel();
       });
     },

@@ -28,6 +28,6 @@ gulp.task('dev', ['config'], function() {
     process = spawn('gulp', ['default'], {stdio: 'inherit'});
   }
 
-  gulp.watch(['gulp/tasks/**/*.js', 'package.json'], restart);
+  gulp.watch(['gulp/tasks/**/*.js', 'package.json', 'server/config/environments/*.json'], restart);
   restart();
 });
