@@ -24,6 +24,15 @@ main.main.main-fixed {
   }
 }
 
+.underlayer {
+  position: relative;
+}
+
+.main-fixed .underlayer {
+  position: fixed;
+  display: block;
+}
+
 .overlayer {
   position: relative;
   /* top: 0; */
@@ -98,11 +107,6 @@ main.main.main-fixed {
   height: 100%;
 }
 
-.main-fixed .underlayer {
-  position: relative;
-  display: block;
-}
-
 .underlay {
   top: 0;
   width: 100%;
@@ -111,7 +115,8 @@ main.main.main-fixed {
 .call-sales-rep {
   background: $white;
   width: 100%;
-  padding: 1.5em;
+  padding: 1em;
+  text-align: center;
 }
 
 .contain {

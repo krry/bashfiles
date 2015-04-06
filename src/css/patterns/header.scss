@@ -59,6 +59,10 @@
       opacity: 1;
       font-weight: 800;
     }
+
+    a.disabled {
+      cursor: default;
+    }
   }
 
   .stage-nav {

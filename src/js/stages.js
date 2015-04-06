@@ -34,6 +34,8 @@ angular.module('stages',[
 }]).run(['$rootScope', 'Clientstream', function ui_router_run($rootScope, Client) {
   // this runs after all the dependencies are bootstrapped
   $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+    // Avoid emitting when arriving from share_link
+    if (toState.name === 'share_proposal') {return}
     // Avoid emitting when transitioning to a new stage, which is an intermediary abstract state and has no step
     if (toState.step === 0 || toState.step) {
       Client.emit('Router: state change success', { stage: toState.stage, step: toState.step });

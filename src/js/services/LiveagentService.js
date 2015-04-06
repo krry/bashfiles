@@ -102,6 +102,7 @@ function LiveagentService_ () {
       var attempt = 0;
       function tryStartChat (attempt, b, i) {
         // if (attempt < 5) {
+        // TODO: wipe last attempt before trying next one
           return liveagent.startChatWithWindow(b,i);
         // } else {
           // throw "too many salesforce failures";
@@ -116,7 +117,7 @@ function LiveagentService_ () {
           // attempt++;
           console.log('attempting to start chat');
           tryStartChat(attempt, t.buttonId, t.iframeTarget);
-        }, 1000);
+        }, 1500);
       }
     }
   }

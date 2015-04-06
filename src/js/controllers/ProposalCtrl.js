@@ -6,9 +6,9 @@
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
-controllers.controller('ProposalCtrl', ['URL_ROOT', '$location', '$scope', 'Session', 'Form', 'Clientstream', 'defaultValues', 'Proposal', ProposalCtrl_]);
+controllers.controller('ProposalCtrl', ['URL_ROOT', '$location', '$scope', '$state', 'Session', 'Form', 'Clientstream', 'defaultValues', 'Proposal', ProposalCtrl_]);
 
-function ProposalCtrl_ (URL_ROOT, $location, $scope, Session, Form, Client, defaultValues, Proposal) {
+function ProposalCtrl_ (URL_ROOT, $location, $scope, $state, Session, Form, Client, defaultValues, Proposal) {
   var vm = this;
   vm.prospect = Form.prospect;
 
@@ -25,12 +25,31 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, Session, Form, Client, defa
       ceiling,
       share_link;
 
+  vm.changeDesign = changeDesign;
+
   calculateProposal();
 
   $scope.$watch(function(scope) { return vm.prospect() }, calculateProposal);
 
-  Proposal.rx_panel_count.subscribe(subProposalToPanelCount)
+  // track map_center to keep the sharelink functional
+  var share_map_center = {}
 
+
+  Proposal.rx_panel_count.subscribe(subProposalToPanelCount)
+  // allow user to change their design
+  function changeDesign() {
+    // HACK: temp solution until we lock down the states & stages
+    // destroy old geometry, then go to beginning of configurator
+    // This can lead to case where user clicks "change"
+    // then clicks "BACK" on the browser, and returns to a proposal
+    // with no maps.
+    Session.ref().parent().parent().child('designs')
+    .child(Session.ref().key())
+    .child('areas')
+    .set(null);
+    // go to beginning of configurator.
+    Client.emit('Stages: stage', {stage: 1, step: 0});
+  }
   // calculate annual production in $$ of electricity from panel fill API
   function subProposalToPanelCount (count) {
     // number of panels filled from Panelfill API
@@ -99,7 +118,7 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, Session, Form, Client, defa
       percent_solar = defaultValues.percent_solar;
     }
     // if the system will produce less than 80% of the customer's energy needs, we'll calculate the percentage
-    else if ((annual_production/annual_consumption) < 0.8) {
+    else if ((annual_production/annual_consumption) < ceiling) {
       percent_solar = 100 * annual_production / annual_consumption; // %
     }
     // if the system would produce more than 80%, we limit it at 80%
@@ -117,14 +136,21 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, Session, Form, Client, defa
     drawPowerChart();
 
     // create the sharelink
-    share_link = [$location.protocol() ,
-    "://",      URL_ROOT ,
-    "#/share/", Session.id(),
-    "/",        bill,
-    "/",        utility_rate,
-    "/",        scty_rate].join('');
-    vm.prospect().share_link = share_link;
-    Form.ref() && Client.emit('Form: valid data', {proposal_share_link: share_link});
+    Session.rx_session().then(function (rx_s) {
+      share_map_center.lat = rx_s.value.map_center.lat
+      share_map_center.lng = rx_s.value.map_center.lng
+      share_link = [$location.protocol() ,
+      "://",      URL_ROOT ,
+      "#/share/", Session.id(),
+      "/",        bill,
+      "/",        utility_rate,
+      "/",        scty_rate,
+      "/",        share_map_center.lat,
+      "/",        share_map_center.lng].join('');
+      vm.prospect().share_link = share_link;
+
+      Form.ref() && Client.emit('Form: valid data', {proposal_share_link: share_link});
+    });
   }
 
   function drawPowerChart () {
