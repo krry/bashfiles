@@ -8,8 +8,8 @@
         <div class="col center third two">
           <div class="button-set-hug">
             <button class="btn white tiny ib" ng-click="modal.showDialog({dialog:'share-proposal', data: ''})">Save My Proposal</button>
-          <button class="btn gold wide small ib" ng-click="stages.next()">Continue</button>
-          <button class="btn white tiny ib" ng-click="proposal.changeDesign()">Redo my Design</button>
+            <button class="btn white tiny ib" ng-click="proposal.changeDesign()">Redo my Design</button>
+            <button class="btn gold wide small ib" ng-click="stages.next()">Sign Me Up</button>
           </div>
         </div>
       </div>
@@ -43,11 +43,11 @@
           <label class="units">year one</label>
         </div>
         <div class="col third center padded utes">
-          <label for="ppa_plan">Current Electricity Bill</label>
+          <label for="ppa_plan">Monthly Electric Bill</label>
           <figure>
             <span id="monthly_bill" class="dollars">{{proposal.prospect().bill}}</span>
           </figure>
-          <label class="units">in a typical month</label>
+          <!-- <label class="units">in a typical month</label> -->
           <fln-input-bill-slider proposal-bill="true"></fln-input-bill-slider>
         </div>
         <div class="col third center padded">
