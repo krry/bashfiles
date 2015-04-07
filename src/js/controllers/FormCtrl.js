@@ -115,13 +115,14 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
     /* jshint eqnull:true */
     if (new_zip != null && new_zip.length === 5) {
       // Only invalidate the street if the zip has changed - this allows the back button to function correctly
-      if (old_zip !== new_zip) {
-        if (vm.prospect().street) {
-          vm.prospect().street = null;
-          Form.ref() && Client.emit('Form: valid data', {street: null});
-        }
-        old_zip = new_zip;
+      if (vm.prospect().street) {
+        vm.prospect().street = null;
+        Form.ref() && Client.emit('Form: valid data', {street: null});
+        Client.emit('Gmap: switch map type', 'terrain');
       }
+      // if (old_zip !== new_zip) {
+      //   old_zip = new_zip;
+      // }
       Geocoder.sendGeocodeRequest(new_zip);
     }
     else { return false; }

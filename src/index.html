@@ -64,7 +64,7 @@
   <header ui-view name="header" id="header" class="header"></header>
 
   <form fln-form novalidate name="prospectForm" class="prospect-form" ng-class="{ 'form-fixed': stages.fixed }">
-    <main ui-view name="main" id="main" class="main" ng-class="{ 'scroll-y': stages.proposal, 'main-fixed': stages.fixed }"></main>
+    <main ui-view name="main" id="main" class="main" ng-class="{ 'main-fixed': stages.fixed }"></main>
   </form>
 
   <fln-help ng-show="stages.helpActivated" shown="false" ng-class="{shown: shown}"></fln-help>

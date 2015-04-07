@@ -38,4 +38,3 @@ function ModalService_ () {
     return dialogs[name];
   }
 }
-

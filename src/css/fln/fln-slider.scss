@@ -123,7 +123,7 @@ input.bill {
   &:hover,
   &:focus {
     box-shadow: none;
-    color: $gold;
+    color: $green-neue;
   }
 }
 
@@ -131,7 +131,6 @@ input.bill {
   display: inline-block;
   vertical-align: bottom;
   color: $green-neue;
-  border: 2px solid inherit;
   margin: 0 0 0 .5em;
   font-size: 1.25em;
   &:before {
@@ -174,5 +173,87 @@ input.bill {
   }
 }
 
-@media screen and (min-width: $width-min-xxl) {
+.proposal {
+  .bill-slider {
+    display: block;
+    width: 80%;
+    max-width: 12em;
+    margin: 1em auto .5em;
+  }
+
+  .noUi-target {
+    border-radius: 1em;
+    border: none;
+    box-shadow: none;
+  }
+
+  .noUi-background {
+    background: $grey-darker;
+  }
+
+  .noUi-horizontal {
+    height: 0.2em;
+    &:before,
+    &:after {
+      cursor: pointer;
+      position: absolute;
+      background: transparent;
+      height: 1em;
+      width: 100%;
+      display: block;
+    }
+  }
+
+  .noUi-base {
+    padding: 0;
+    padding-top: 0.1em;
+    margin-top: 0em;
+    position: relative;
+  }
+
+  .noUi-origin,
+  .noUi-stacking {
+    position: absolute;
+  }
+
+  .noUi-horizontal .noUi-handle {
+    position: relative;
+    z-index: 1;
+    top: -6px;
+    width: 1em;
+    height: 1em;
+    // background: $tint-90;
+    background-color: $white;
+    // TODO: make border-color respond to horiz position of slider
+    border: 1px solid $grey-darker;
+    border-radius: 50%;
+    box-shadow: none;
+    cursor: pointer;
+  }
+
+  .noUi-handle:before {
+    content: "";
+    display: block;
+    position: absolute;
+    height: 6px;
+    width: 6px;
+    background: hsl(0, 0%, 0%);
+    left: 50%;
+    top: 50%;
+    margin: -3px 0 0 -3px;
+    border-radius: 50%;
+  }
+
+  .noUi-handle:after {
+    content: "";
+    display: block;
+    position: absolute;
+    height: 36px;
+    width: 36px;
+    background: transparent;
+    left: 50%;
+    top: 50%;
+    margin: -12px 0 0 -12px;
+    border-radius: 50%;
+  }
 }

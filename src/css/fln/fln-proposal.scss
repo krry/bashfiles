@@ -19,22 +19,6 @@
   ul li, p {
     line-height: 160%;
   }
-  .proposal-button-tray {
-    background: $white;
-
-    button {
-      margin: 1rem 0;
-    }
-    .financing-options {
-      font-size: .95rem;
-      line-height: 120%;
-      /* border: 1px solid red; */
-      margin: 1em 0 1em 0;
-    }
-    br {
-      clear: both;
-    }
-  }
 }
 
 .proposal.proposal {
@@ -68,7 +52,7 @@
     margin: 1em 0 0 0;
     color: $grey-darker;
   }
-  label:last-child {
+  label:not(:first-child) {
     @include apercu-light;
     @include caps;
     font-size: .6em;
@@ -89,7 +73,6 @@
       @include apercu-light;
     }
   }
-
 }
 
 .aerial {
@@ -117,35 +100,19 @@
 }
 
 .proposal-page .financing-options {
-  width: 80%;
-  font-size: .95rem;
+  font-size: .8rem;
   line-height: 1.4;
-  margin: -.25em 0 0 0;
+  margin: .5em auto;
 }
 
-/* .pie {
-  border-radius: 50%;
-  border: 1px solid;
-  padding: 1px;
-}*/
-/* .financing-option {
-  padding: 1em 1.5em 2em 1.5em;
-  border: 2px solid $gold;
-  border-radius: .5em;
 
-  em {
-    font-size: .75em;
-    text-align: right;
-  }
-  h3 {
-    font-family:'Apercu Light';
-    font-size: 1.4em;
-    letter-spacing: 0.05em;
-  }
-  p {
-    line-height: 160%;
-  }
-} */
+.down-blk {
+  background: url('../img/arrow-down-blk-01.svg') no-repeat center;
+  background-size: 14px;
+  width: 14px;
+  height: 14px;
+  margin: 0 auto 1em auto;
+}
 
 .faq-item {
   figure {

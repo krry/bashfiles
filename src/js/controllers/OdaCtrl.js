@@ -83,7 +83,7 @@ function OdaCtrl_($scope, $element, Client, Form) {
       }
       setTimeout(function() {
         if (!$scope.$$phase) $scope.$apply(); // update the views
-        console.log('prospect is:', vm.prospect);
+        console.log('prospect is:', vm.prospect());
       }, 0);
     }
   }

@@ -227,15 +227,17 @@ a.btn {
     opacity: .5;
   }
   &.close.close {
+    @include apercu-bold;
     margin: 0;
     border-radius: 50%;
     background: none;
     border: 0;
     outline: none;
-    background: white url('../img/close_x.svg') no-repeat center center;
+    color: $brand-fire;
+    background: $white url('../img/close_x.svg') no-repeat center center;
     z-index: 10;
-    width: 3em;
-    height: 3em;
+    width: 2em;
+    height: 2em;
   }
   &.text {
     background: none;
@@ -415,10 +417,12 @@ input[type="week"]:focus {
 select {
   @include btn($color: $white, $size: .75em, $corners: .25em);
   position: relative;
+  padding: 1em;
+  padding-right: 2.5em;
   color: $grey-darker;
   text-align: left;
-  background: $white url('../img/down-arrow.svg') no-repeat 96% center;
-  background-size: auto 80%;
+  background: $white url('../img/down-arrow.svg') no-repeat 97% 48%;
+  background-size: auto 50%;
   border: 1px solid $grey-mid;
   &[multiple] {
     font-size: .75em;
@@ -431,6 +435,10 @@ select {
       color: inherit;
     }
   }
+}
+
+select, option {
+  text-overflow: ellipsis;
 }
 
 

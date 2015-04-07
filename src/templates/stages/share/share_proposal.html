@@ -2,7 +2,7 @@
 <div fln-share class="overlay only col full center contain proposal-page">
   <div class="row padded">
     <div class="col full center">
-      <h1>This is you on solar.</h1>
+      <h1>Looking good! You may be eligible to go solar for $0 down.<br><small>Based on the system you designed and your average monthly bill of <span id="current_bill" class="dollars">{{ proposal.numbers.bill | number: 0 }}</span>, here is your custom solar proposal.</small></h1>
     </div>
   </div>
   <div class="proposal row">
@@ -12,7 +12,7 @@
     <div class="col fifth three">
       <div class="row">
         <div class="col third center padded utes">
-          <label for="current_rate">Current Utility Rate</label>
+          <label for="current_rate">Current Utility Cost</label>
           <figure>
             <span id="current_rate" class="cents">{{ 100* share.numbers.utilityRate | number: 1}}</span>
           </figure>
@@ -34,14 +34,21 @@
         </div>
       </div>
       <div class="row">
-        <div class="col half center padded">
+        <div class="col third center padded">
+          <label for="ppa_plan">Current Electricity Bill</label>
+          <figure>
+            <span id="monthly_bill" class="dollars">{{proposal.numbers.bill}}</span>
+          </figure>
+          <label class="units">in a typical month</label>
+        </div>
+        <div class="col third center padded">
           <label for="ppa_plan">No Upfront Cost</label>
           <figure>
             <span id="ppa_plan" class="dollars">{{share.numbers.upfrontCost}}</span>
           </figure>
           <label class="units">with our recommended<br>financing plan</label>
         </div>
-        <div class="col half center padded">
+        <div class="col third center padded">
           <label for="power_ratio_chart">Estimated Energy Mix</label>
           <figure class="chart-tray">
             <canvas id="power_ratio_chart" width="48" height="48" class="pie"></canvas>
@@ -51,11 +58,17 @@
       </div>
     </div>
   </div>
+  <div class="row padded-less proposal-button-tray" ng-controller="ModalCtrl as modal">
+    <div class="col full center">
+      <div class="financing-options">After completing your site survey, we will send you your final system design and proposal with available <a ng-click="modal.showDialog({dialog: 'financing', data: ''})">financing options</a>.</div>
+    </div>
+  </div>
+
   <!-- TODO: build a helper class to put down arrows in .jump-down <hr>s -->
   <!-- <hr class="jump-down"> -->
-  <div class="row padded">
+  <div class="row">
     <div class="col full center">
-      <span class="icon down-blk"></span>
+      <div class="down-blk"></div>
     </div>
   </div>
   <div class="row padded center">
@@ -73,7 +86,7 @@
         </div>
         <div class="col fifth four">
           <strong>Unmatched aesthetics</strong>
-          <p>Reducing your home's energy costs shouldn't also reduce its curb appeal. Our industry-leading mounting system seamlessly integrates with your roof for a low-profile design that gives your home a sleek look.</p>
+          <p>Reducing your home’s energy costs shouldn’t reduce its curb appeal. Our industry leading mounting system seamlessly integrates with your roof for a low-profile design that gives your home a sleek look.</p>
         </div>
       </div>
     </div>
@@ -83,7 +96,7 @@
           <span class="icon benefit-icons icon-coin"></span>
         </div>
         <div class="col fifth four">
-          <strong>Ongoing Rewards</strong>
+          <strong>Ongoing rewards</strong>
           <p>We make sharing the benefits of clean energy easy and fun. Our Solar Ambassador program rewards you for every referral who signs up with SolarCity. You can build a business and help the environment!</p>
         </div>
       </div>
@@ -100,7 +113,7 @@
           <dl class="horizontal">
             <dt>System monitoring</dt>
             <dd>Our exclusive 24-7 monitoring ensures your system is always working. It'll even alert us if problems arise.</dd>
-            <dt>Warranty for life</dt>
+            <dt>Complete coverage</dt>
             <dd>We cover any damage and take care of repairs for the life of our agreement.</dd>
             <dt>Performance guarantee</dt>
             <dd>We make sure the system is protected and performing as promised. It's clean energy with no worries!</dd>
@@ -115,11 +128,12 @@
         </div>
         <div class="col fifth four">
           <strong>Environmental</strong>
-          <p>Over 20 years, the average 5 kWh solar power system offsets 50 tons of CO<sub>2</sub>. That's the equivalent of:</p>
+          <p>The average SolarCity solar power system will offset 30 tons of carbon dioxide over 30 years*, saving the equivalent of:</p>
           <ul>
-            <li>Driving a car 125,000 miles</li>
-            <li>CO<sub>2</sub> absorbed by 60 trees</li>
-            <li>40,000 gallons of water used to make electricity</li>
+            <li>Avoiding 60,000 miles driven</li>
+            <li>Planting 2,400 trees</li>
+            <li>Avoiding 80,000 gallons of water used in electricity production</li>
+            <li>Avoiding 16 tons of burned coal</li>
           </ul>
         </div>
       </div>
@@ -144,10 +158,13 @@
         </div>
         <div class="col fifth four">
           <strong>GivePower</strong>
-          <p>Your decision to go solar also helps bring the gift of power to the developing world. For every megawatt of solar energy SolarCity installs on customers' homes, we'll donate a clean energy system to a school in need through the GivePower program. To date, GivePower has brought light to over 400 schools. And we're just getting started.</p>
+          <p>Your choice can have an impact beyond borders. Each megawatt of residential solar energy installed by SolarCity allows our GivePower program to bring sustainable light to a school without electricity. Our customers have helped provide solar energy and light to over 400 schools and counting.</p>
         </div>
       </div>
     </div>
   </div>
-  <div class="fine-print"><p>The figures on this page are only estimates, subject to change after review from a solar consultant. System size and production may be affected by shading, roof type, compliance fire codes and other factors. A solar power system is customized for your home, so pricing and savings vary based on location, system size, government rebates and local utility rates. Savings on your total electricity costs is not guaranteed. Financing terms vary by location and are not available in all areas. $0 due upon contract signing. No security deposit required. A 3 kW system starts at $25-$100 per month with an annual increase of 0-2.9% each year for 20-30 years, on approved credit. SolarCity Corporation will repair or replace broken warranted components.</p></div>
+  <div class="fine-print">
+    <p>The figures on this page are only estimates, subject to change after review from a solar consultant. System size and production may be affected by shading, roof type, compliance fire codes and other factors. A solar power system is customized for your home, so pricing and savings vary based on location, system size, government rebates and local utility rates. Savings on your total electricity costs is not guaranteed. Financing terms vary by location and are not available in all areas. $0 due upon contract signing. No security deposit required. A 3 kW system starts at $25-$100 per month with an annual increase of 0-2.9% each year for 20-30 years, on approved credit. SolarCity Corporation will repair or replace broken warranted components. AZ ROC 243771/ROC 245450, CA CSLB 888104, CO EC8041, CT HIC 0632778/ELC 0125305, DE 2011120386/ T1-6032, DC 410514000080/ECC902585, FL EC13006226, HI CT-29770, MA HIC 168572/EL-1136MR, MD HIC 128948/11805, NC NC 30801-U NV NV20121135172/0079719/EC 0078648, NJ NJHIC#13VH06160600/34EI01732700, NM EE98-379590, OR CB180498/C562, PA HICPA077343, RI RC38313/AC004714, TX TECL27006, VA ELE2705153278, WA SOLARC*919O1/SOLARC*905P7. Nassau H2409710000, Greene A-486, Suffolk 52057-H, Putnam PC6041, Rockland H-11864-40-00-00, Westchester WC-26088-H13, N.Y.C #2001384-DCA. SCENYC: N.Y.C. Licensed Electrician, #12610, #004485, 155 Water St, 6th Fl., Unit 10, Brooklyn, NY 11201, #2013966-DCA. All loans provided by SolarCity Finance Company, LLC. CA Finance Lenders License 6054796. SolarCity Finance Company, LLC is licensed by the Delaware State Bank Commissioner to engage in business in Delaware under license number 019422, MD Consumer Loan License 2241, TX Registered Creditor 1400050963-202404.</p>
+    <p>*Based on SolarCity average system size of 6.7 kW and 1403 kWh average first year production degraded by .5% annually over 30 years. Environmental benefits based on data collected from: Environmental Protection Agency, September 2014, Calculations and References, US Energy Administration, January 2014, National Renewable Energy Laboratory, December 2003, “Consumptive Water Use for US Power Production”, and EPA eGRID GHG Annual Output Emissions Rates 2009.</p>
+  </div>
 </div>
