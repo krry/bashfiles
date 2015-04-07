@@ -189,7 +189,6 @@ function GeocoderProvider_ () {
           addy.country = parsedress[i].short_name;
         }
       }
-      debugger;
       // return values of address components to be saved in form fields
       if (addy.country !== 'US') {
         Client.emit('zip rejected', true);

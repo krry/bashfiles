@@ -31,12 +31,10 @@
 .ogmap {
   height: 100%;
   z-index: 1;
-  /* we can zoom the map like this */
-  /* transform: scale(1.5) translateZ(0px) !important;   */
 }
 
 .cloudy {
-  background: radial-gradient(circle closest-side, transparent, transparent 200px, $shade-60 200px);
+  background: radial-gradient(circle closest-side, transparent, transparent 120px, $shade-60 120px);
   position: absolute;
   width: 100%;
   height: 100%;
@@ -57,7 +55,6 @@
 
 .instructions {
   background-color: $white;
-  // box-shadow: 0 .5em .25em -.25em $shade-20;
   box-shadow: 0 0 .75em -.25em $shade-60;
   margin-left: -2em;
   padding: 4em 2em 2em 2.2em;

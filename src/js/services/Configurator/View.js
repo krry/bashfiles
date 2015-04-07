@@ -75,6 +75,7 @@ function View_(Design, Session, Client) {
   }
   // update zoom & center from remote
   function subViewCenterToRemote (center_val){
+    var data;
     if (center_val === null) {
       Session.ref().child('map_center').once('value', function (ds) {
         data = ds.exportVal()

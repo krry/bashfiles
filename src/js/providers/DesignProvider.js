@@ -40,7 +40,7 @@ function DesignProvider_ (FIREBASE_URL) {
 
   // later, this will resolve for dependent parts
   var rx_design = new Rx.BehaviorSubject(null);
-  rxd = rx_design; // HACK: DEV: just for testing.
+  var rxd = rx_design; // HACK: DEV: just for testing.
 
   // design object in memory
   var design,
@@ -157,6 +157,7 @@ function DesignProvider_ (FIREBASE_URL) {
     }
 
     function awesome_design_builder_brah() {
+      var _wkt;
       return {
         map_details: {
           center: map_center,

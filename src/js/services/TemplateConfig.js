@@ -13,6 +13,7 @@ function TemplateConfig_ () {
 
   var config,
       partials,
+      states,
       service;
 
   config = [
@@ -151,11 +152,14 @@ function TemplateConfig_ () {
     var states = [],
         stage;
 
+    function pushStep (step) {
+      states.push(step.step);
+    }
+
+
     for (var i = 0, len = config.length; i < len; i++) {
       stage = config[i];
-      angular.forEach(stage.steps, function(step) {
-        states.push(step.step);
-      });
+      angular.forEach(stage.steps, pushStep);
     }
 
     return states;
