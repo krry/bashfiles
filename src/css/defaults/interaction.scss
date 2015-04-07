@@ -227,15 +227,17 @@ a.btn {
     opacity: .5;
   }
   &.close.close {
+    @include apercu-bold;
     margin: 0;
     border-radius: 50%;
     background: none;
     border: 0;
     outline: none;
-    background: white url('../img/close_x.svg') no-repeat center center;
+    color: $brand-fire;
+    background: $white url('../img/close_x.svg') no-repeat center center;
     z-index: 10;
-    width: 3em;
-    height: 3em;
+    width: 2em;
+    height: 2em;
   }
   &.text {
     background: none;
