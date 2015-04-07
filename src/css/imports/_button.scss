@@ -93,9 +93,9 @@
 
   &:disabled {
     cursor: not-allowed;
-    background-color: $grey-mid;
+    background-color: $grey-medium;
     border-color: darken($grey-mid, 25%);
-    color: $grey-lightest;
+    color: $white;
   }
 
   &.doubledecker {
