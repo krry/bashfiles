@@ -7,8 +7,7 @@
       <td class="date"
        title="{{ calendar.getTooltip(date) }}"
        ng-repeat="date in calendar.dates | limitTo: (row * 7) | limitTo: -7"
-       ng-class="{ 
-        available: calendar.isAvailable(date),
+       ng-class="{ available: calendar.isAvailable(date),
         unavailable: !calendar.isAvailable(date),
         'tooltip top': date.isClicked }"
        ng-click="selectFn({ date: date })">
@@ -20,8 +19,8 @@
 
   <div class="legend">
     <span class="label">
-      <span class="key available"></span> 
-      Available
+      <span class="key available"></span>
+      Available 
     </span>
     <span class="label">
       <span class="key unavailable"></span>

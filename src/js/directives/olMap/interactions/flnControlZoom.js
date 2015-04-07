@@ -22,8 +22,8 @@
 var zoom_options = {
   // duration:         '',      // Animation duration in milliseconds. Default is 250.
   className:        'fln-zoom', // CSS class name. Default is ol-zoom.
-  zoomInLabel:      '+',        // Text label to use for the zoom-in button. Default is +
-  zoomOutLabel:     '-',        // Text label to use for the zoom-out button. Default is -
+  zoomInLabel:      '',        // Text label to use for the zoom-in button. Default is +
+  zoomOutLabel:     '',        // Text label to use for the zoom-out button. Default is -
   zoomInTipLabel:   '',  // Text label to use for the button tip. Default is Zoom in
   zoomOutTipLabel:  '', // Text label to use for the button tip. Default is Zoom out
   // delta:            '2',              // The zoom delta applied on each click.

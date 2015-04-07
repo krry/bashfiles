@@ -14,7 +14,7 @@ function View_(Design, Session, Client) {
   // this bootstraps the view in the case of direct state navigation
   Client.listen('Design: Loaded', updateRemoteOnViewChanges);
   // sub view to design when session has set design centers
-  Session.rx_session().then(subViewToRemote)
+  // Session.rx_session().then(subViewToRemote)
 
 
   Design.rx_design().then(function (rx_d) {
@@ -75,6 +75,7 @@ function View_(Design, Session, Client) {
   }
   // update zoom & center from remote
   function subViewCenterToRemote (center_val){
+    var data;
     if (center_val === null) {
       Session.ref().child('map_center').once('value', function (ds) {
         data = ds.exportVal()

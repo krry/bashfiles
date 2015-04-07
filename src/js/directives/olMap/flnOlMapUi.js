@@ -25,6 +25,7 @@ directives
 .directive('flnOmapClearPoly', ['Design', flnOmapClearPoly_] );
 
 function flnDraw_ (newConfigurator, Clientstream) {
+  var listner_key;
   return {
     restrict: "EA",
     link: function flnDrawCtrl (scope, element, attrs) {

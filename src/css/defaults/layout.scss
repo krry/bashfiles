@@ -24,6 +24,15 @@ main.main.main-fixed {
   }
 }
 
+.underlayer {
+  position: relative;
+}
+
+.main-fixed .underlayer {
+  position: fixed;
+  display: block;
+}
+
 .overlayer {
   position: relative;
   /* top: 0; */
@@ -73,6 +82,16 @@ main.main.main-fixed {
   background: $grey-lightest;
 }
 
+.get-involved .col {
+  margin-bottom: 2em;
+}
+.get-involved h4 {
+  margin: 0;
+}
+.get-involved p {
+  margin-bottom: 0.75em;
+}
+
 .scroll-y {
   overflow-y: scroll;
 }
@@ -88,11 +107,6 @@ main.main.main-fixed {
   height: 100%;
 }
 
-.main-fixed .underlayer {
-  position: relative;
-  display: block;
-}
-
 .underlay {
   top: 0;
   width: 100%;
@@ -101,7 +115,8 @@ main.main.main-fixed {
 .call-sales-rep {
   background: $white;
   width: 100%;
-  padding: 1.5em;
+  padding: 1em;
+  text-align: center;
 }
 
 .contain {
@@ -112,11 +127,11 @@ main.main.main-fixed {
 
 .drop-top {
   padding-top: 5.1rem;
-  font-size: 0.85em;
-  line-height: 120%;
+  font-size: 0.9em;
+  line-height: 130%;
 }
 .drop-top p {
-  margin-bottom: 0.75em;
+  margin-bottom: 0.85em;
 }
 
 .territory-map {
@@ -147,11 +162,6 @@ main.main.main-fixed {
   margin-bottom: 1.5em;
 }
 
-.step-address h3 {
-  margin-bottom: 0.75em;
-  border: 1px solid red;
-}
-
 .step-bill h3 {
   margin-bottom: 0;
 }
@@ -176,10 +186,61 @@ main.main.main-fixed {
 
 
 
+.step-fork .button-set {
+  width: 80%;
+  margin: 0 auto;
+  padding: 1em 1em 3em 1em;
+  margin-top: 2em;
+}
+.step-fork .button-set .left-col {
+  float: left;
+  width: 40%;
+  max-width: 270px;
+  height: 100%;
+}
+.step-fork .button-set .set-or {
+  font-size: 0.83em;
+  padding: 1.2em 0;
+}
+.step-fork .button-set .right-col {
+  float: right;
+  width: 40%;
+  max-width: 270px;
+  height: 100%;
+}
+.step-fork .button-set p {
+  text-align: left;
+  padding-left: 0.5em;
+}
+.step-fork .button-set br {
+  clear: both;
+}
+.step-fork .button-set button {
+  width: 100%;
+  margin: 0 auto 1em auto;
+}
+.step-fork .button-set button.skip {
+  background-color: $grey-medium;
+}
+
+
+
+
+
+
+@media screen and (min-width: $width-min-sml){
+  .step-fork .button-set {
+    width: 100%;
+  }
+}
+
 
 @media screen and (min-width: $width-min-med){
   .step-bill button.tiny.gold {
     margin: 0;
+  }
+  .step-fork .button-set {
+    width: 90%;
   }
 }
 
@@ -226,6 +287,10 @@ main.main.main-fixed {
     width: 85%;
   }
 
+  .step-fork .button-set {
+    width: 100%;
+  }
+
 }
 
 @media screen and (min-width: $width-min-xlg){
@@ -247,7 +312,13 @@ main.main.main-fixed {
     }
   }
   .step-address h3 {
-    width: 75%;
+    width: 85%;
+  }
+  .step-fork h1 {
+    width: 85%;
+  }
+  .step-fork .button-set {
+    width: 85%;
   }
 }
 
@@ -259,5 +330,15 @@ main.main.main-fixed {
       margin-left: 0;
       padding: 2em;
     }
+  }
+}
+
+
+@media screen and (min-width: $width-min-xxl){
+  .step-fork h1 {
+    width: 85%;
+  }
+  .step-fork .button-set {
+    width: 70%;
   }
 }

@@ -97,6 +97,10 @@ function GmapFactory_ () {
     Client.listen('Gmap: clear pins', clearPins);
 
     function init (data) {
+      if (map !== undefined ) {
+        map_opts.center = map.getCenter();
+        map_opts.zoom = map.getZoom();
+      }
       map = new google.maps.Map(data, map_opts);
 
       google.maps.event.addListener(map, 'idle', function() {
@@ -119,8 +123,6 @@ function GmapFactory_ () {
           location;
 
       location = addy.location;
-      // zoom = map.getZoom();
-      // console.log('old zoom level:', zoom);
 
       // handle case where .lng & .lng() differ.
       if (typeof location.lng === "function") {
@@ -128,7 +130,6 @@ function GmapFactory_ () {
       } else {
         latLng = new google.maps.LatLng(location.lat, location.lng);
       }
-      console.log('latlng', latLng);
 
       Client.emit('valid latlng', {
         lat: latLng.lat(),

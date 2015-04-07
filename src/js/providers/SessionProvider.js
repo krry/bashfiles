@@ -103,11 +103,11 @@ function SessionProvider_ (Form, Design, FIREBASE_URL) {
         // update form's _ref_key if the user has a form
         Form.setRefKey(data.form_id);
       }
-      if (data.design_id) {
+      // if (data.design_id) {
         // no longer necessary with DesignID && SessionID using same number
         // update design's _ref_key if the user has already started design
         // Design.setRefKey(data.design_id);
-      }
+      // }
       if (data.map_center) {
         // last known position of googleMap or olMap
         Design.setCenter(data.map_center);

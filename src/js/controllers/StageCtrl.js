@@ -24,6 +24,7 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
       session_stream,
       waiting,
       help_steps,
+      call_steps,
       unlockODA,
       latestStage,
       latestStep,
@@ -44,7 +45,9 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
   vm.startOver = startOver;
   vm.jumpToStep = jumpToStep;
   vm.jumpToStage = jumpToStage;
+  vm.hasVisited = hasVisited;
   vm.checkAndJump = checkAndJump;
+  vm.checkAndJumpAddress = checkAndJumpAddress;
   vm.spinIt = waiting;
   vm.partial = Templates.partial(stage, step);
   vm.partials = flattenPartialsArray(Templates.partials);
@@ -69,6 +72,11 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
     'survey-calendar',
     'schedule-survey',
     'congrats'
+  ];
+
+  call_steps = [
+    'address-roof',
+    'monthly-bill'
   ];
 
   // subscribe to the state when session is loaded
@@ -248,6 +256,18 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
     // once the user advances to the fork step, show the help/chat popup
     if (help_steps.indexOf(Templates.config[stage].steps[step].step) > -1) {
       vm.helpActivated = true;
+    } else {
+      vm.helpActivated = false;
+    }
+    if (call_steps.indexOf(Templates.config[stage].steps[step].step) > -1) {
+      vm.callActivated = true;
+    } else {
+      vm.callActivated = false;
+    }
+    if (Templates.config[stage].steps[step].step === "monthly-bill") {
+      vm.shadeActivated = true;
+    } else {
+      vm.shadeActivated = false;
     }
     Client.emit('Stages: step complete', Templates.config[stage].steps[step].step);
     console.log('location.path is:', $location.$$path);
@@ -258,7 +278,7 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
     step = target_step;
 
     // update the view
-    $state.go(Templates.config[stage].name + '.' + Templates.config[stage].steps[step].step).then(function() {
+    return $state.go(Templates.config[stage].name + '.' + Templates.config[stage].steps[step].step).then(function() {
       vm.fixed = !Templates.config[stage].steps[step].staticLayout;
       // stepFinish({ stage: stage, step: step });
     });
@@ -287,8 +307,8 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
     }
   }
 
-  // Checks if user has gone to the specified state previously, and if so, jumps to that state
-  function checkAndJump(target) {
+  // Checks if the user has ever gone to the specified state before, and returns the stage and step, else returns false
+  function hasVisited(target) {
     var states = $state.get(),
         targetState;
 
@@ -298,9 +318,29 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
       }
     });
 
-    if (latestStage > targetState.stage || (latestStage === targetState.stage && latestStep > targetState.step)) {
+    if (latestStage > targetState.stage || (latestStage === targetState.stage && latestStep >= targetState.step)) {
+      return targetState;
+    }
+
+    return false;
+  }
+
+  // Checks if user has gone to the specified state, and if so, jumps to that state
+  function checkAndJump(target) {
+    var targetState = hasVisited(target);
+    if (targetState) {
       stage = targetState.stage;
-      stepListen(targetState.step);
+      return stepListen(targetState.step);
+    }
+  }
+
+  function checkAndJumpAddress() {
+    var jump = vm.checkAndJump('flannel.home.address-roof');
+
+    if (jump) {
+      jump.then(function() {
+        Client.emit('check zip', '');
+      });
     }
   }
 

@@ -105,7 +105,6 @@ function GeocoderProvider_ () {
       else {
         Client.emit('invalid geocode request', false);
       }
-
       if (addyStr) {
         geocodeRequest = { "address": addyStr };
         console.log('sending', geocodeRequest, 'to geocoder');
@@ -121,11 +120,8 @@ function GeocoderProvider_ () {
         if (results[0]) {
 
           console.log('geocode successful:', results);
-          // cache the location as the center
-          addy.location = results[0].geometry.location;
-          console.log('center plotted at:', addy.location);
           // parse the results into an address
-          parseLocation(results[0]);
+          parseLocation(results);
         }
       }
       else if (status === google.maps.GeocoderStatus.ZERO_RESULTS) {
@@ -157,9 +153,12 @@ function GeocoderProvider_ () {
           response,
           new_location;
 
-      parsedress = results.address_components
-      console.log('parsing address', results.address_components);
-
+      parsedress = results[0].address_components
+      console.log('parsing address', results[0].address_components);
+      addy = {};
+      // cache the location as the center
+      addy.location = results[0].geometry.location;
+      console.log('center plotted at:', addy.location);
       // iterate through the array of address_components
       for (var i=0; i<parsedress.length; i++) {
         if (parsedress[i].types[0]==="postal_code") {
@@ -190,7 +189,6 @@ function GeocoderProvider_ () {
           addy.country = parsedress[i].short_name;
         }
       }
-
       // return values of address components to be saved in form fields
       if (addy.country !== 'US') {
         Client.emit('zip rejected', true);
@@ -211,7 +209,7 @@ function GeocoderProvider_ () {
 
     function processGeocodedLocation(addy) {
       if (addy.road && addy.stno) {
-        Client.emit('Gmap: switch to satellite', true);
+        Client.emit('Gmap: switch map type', 'hybrid');
         addy.street = addy.stno + " " + addy.road;
         Client.emit('Geocoder: valid house', addy);
         return addy;

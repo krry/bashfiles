@@ -11,9 +11,6 @@ angular.module('home', []).config(["$stateProvider", function ($stateProvider) {
     views: {
       'main@': {
         templateUrl: stageUrl + "main.html",
-        controller:  function () {
-
-        },
       },
       'overlay@flannel.home': {
         templateUrl: stageUrl + "overlay.html",
