@@ -4,10 +4,14 @@
   <div class="row padded">
     <div class="col full center">
       <h1>Looking good! You may be eligible to go solar for $0 down.<br><small>Based on the system you designed and your average monthly bill of <span id="current_bill" class="dollars">{{ proposal.prospect().bill | number: 0 }}</span>, here is your custom solar proposal.</small></h1>
-      <div class="button-set-hug">
-        <button class="btn white tiny ib" ng-click="modal.showDialog({dialog:'share-proposal', data: ''})">Save My Proposal</button>
-        <button class="btn gold wide small ib" ng-click="stages.next()">Continue</button>
-        <button class="btn white tiny ib" ng-click="proposal.changeDesign()">Redo my Design</button>
+      <div class="row center">
+        <div class="col center third two">
+          <div class="button-set-hug">
+            <button class="btn white tiny ib" ng-click="modal.showDialog({dialog:'share-proposal', data: ''})">Save My Proposal</button>
+          <button class="btn gold wide small ib" ng-click="stages.next()">Continue</button>
+          <button class="btn white tiny ib" ng-click="proposal.changeDesign()">Redo my Design</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -38,8 +42,6 @@
           </figure>
           <label class="units">year one</label>
         </div>
-      </div>
-      <div class="row">
         <div class="col third center padded utes">
           <label for="ppa_plan">Current Electricity Bill</label>
           <figure>
@@ -82,15 +84,15 @@
   <div class="row padded center">
     <div class="col third two center">
       <br>
-      <h1><small>Signing up with America's #1 full-service solar provider means premium<br> service every step of the way.</small></h1>
+      <h1><small>Signing up with America's #1 full-service solar provider means premium service every step of the&nbsp;way.</small></h1>
       <br>
     </div>
   </div>
-  <div class="row padded">
+  <div class="row padded benefits">
     <div class="col half padded">
       <div class="row">
         <div class="col fifth center">
-          <span class="icon benefit-icons icon-house"></span>
+          <span class="icon house"></span>
         </div>
         <div class="col fifth four">
           <strong>Unmatched aesthetics</strong>
@@ -101,7 +103,7 @@
     <div class="col half padded">
       <div class="row">
         <div class="col fifth center">
-          <span class="icon benefit-icons icon-coin"></span>
+          <span class="icon coin"></span>
         </div>
         <div class="col fifth four">
           <strong>Ongoing rewards</strong>
@@ -109,12 +111,10 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="row padded">
     <div class="col half padded">
       <div class="row">
         <div class="col fifth center">
-          <span class="icon benefit-icons icon-document"></span>
+          <span class="icon document"></span>
         </div>
         <div class="col fifth four">
           <strong>Lifetime system protection</strong>
@@ -132,7 +132,7 @@
     <div class="col half padded">
       <div class="row">
         <div class="col fifth center">
-          <span class="icon benefit-icons icon-bulb"></span>
+          <span class="icon bulb"></span>
         </div>
         <div class="col fifth four">
           <strong>Environmental</strong>
@@ -146,12 +146,10 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="row padded">
     <div class="col half padded">
       <div class="row">
         <div class="col fifth center">
-          <span class="icon benefit-icons icon-graph"></span>
+          <span class="icon graph"></span>
         </div>
         <div class="col fifth four">
           <strong>Cutting-edge insights</strong>
@@ -162,7 +160,7 @@
     <div class="col half padded">
       <div class="row">
         <div class="col fifth center">
-          <span class="icon benefit-icons icon-palm"></span>
+          <span class="icon palm"></span>
         </div>
         <div class="col fifth four">
           <strong>GivePower</strong>
