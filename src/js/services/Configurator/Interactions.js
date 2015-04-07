@@ -32,6 +32,8 @@ function Interactions_(Design, Client, Styles, AreaService) {
     // features: Design.areas_collection,
     type: 'Polygon',
     geometryName: 'area',
+    // make drawing more precise
+    snapTolerance: 4, // defaults to 12
   });
 
   interactions.draw.on('drawend', function(e){
@@ -39,8 +41,8 @@ function Interactions_(Design, Client, Styles, AreaService) {
     var feature = e.feature;
     Design.ref().child('areas').child('0').set({ // HACK: one area only
       wkt: AreaService.getWkt(feature),
-    })
-    Client.emit('Stages: stage', 'next')
+    });
+    Client.emit('Stages: stage', 'next');
   });
 
   interactions.draw.on('drawstart', function(e){
@@ -54,7 +56,8 @@ function Interactions_(Design, Client, Styles, AreaService) {
   interactions.modify = new ol.interaction.Modify({
     features: Design.modify_collection,
     style: Styles.highlightStyleFunction,
-
+    // make modifying more precise
+    pixelTolerance: 4, // defaults to 10
     // the SHIFT key must be pressed to delete vertices, so
     // that new vertices can be drawn at the same position
     // of existing vertices
