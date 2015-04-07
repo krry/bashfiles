@@ -10,7 +10,8 @@
    * services
 
 ======================================================== */
-providers.provider('Clientstream', Clientstream_);
+
+providers.provider('Clientstream', [Clientstream_]);
 
 function Clientstream_ () {
   this.$get = [function ClientStreamProviderFactory () {
@@ -35,10 +36,11 @@ function Clientstream_ () {
 
   function logStream (action, name, data) {
     if (loggins === "kenny") {
-      if (data) {
-        console.debug('~~stream~~', action, '=>', name, data);
+      if (typeof data !== "undefined") {
+        console.debug('~~stream~~', action, '==>', name, data);
       } else {
-        console.debug('~~stream~~', action, '=>', name);
+        var msg = ['~~stream~~', action, '<==', name].join(' ');
+        console.count(msg);
       }
     }
   }

@@ -214,17 +214,15 @@ a.btn {
     opacity: .5;
   }
   &.close.close {
-    position: absolute;
-    top: .5em;
-    right: .5em;
     margin: 0;
-    border-radius: 0;
+    border-radius: 50%;
     background: none;
     border: 0;
     outline: none;
-    background: url('../img/close_x.svg') no-repeat center center;
-    width: 4em;
-    height: 4em;
+    background: white url('../img/close_x.svg') no-repeat center center;
+    z-index: 10;
+    width: 3em;
+    height: 3em;
   }
   &.text {
     background: none;
@@ -289,7 +287,7 @@ label {
 }
 
 label.field-label {
-  font-family: "Apercu Light";
+  @include apercu-light;
   text-transform: uppercase;
   color: $grey-dark;
   //letter-spacing: 0.25em;
@@ -406,8 +404,9 @@ select {
   position: relative;
   color: $grey-darker;
   text-align: left;
-  background: $white url('../img/down-arrow.svg') no-repeat 92% center;
+  background: $white url('../img/down-arrow.svg') no-repeat 96% center;
   background-size: auto 80%;
+  border: 1px solid $grey-mid;
   &[multiple] {
     font-size: .75em;
     background-image: none;

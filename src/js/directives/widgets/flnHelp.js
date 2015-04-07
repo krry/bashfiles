@@ -1,6 +1,6 @@
-directives.directive('flnHelp', ['Liveagent', 'Clientstream', flnHelp]);
+directives.directive('flnHelp', ['Liveagent', 'Clientstream', flnHelp_]);
 
-function flnHelp (Liveagent, Client) {
+function flnHelp_ (Liveagent, Client) {
   return {
     templateUrl: 'templates/directives/widgets/flnHelp.html',
     controller: 'ChatCtrl',

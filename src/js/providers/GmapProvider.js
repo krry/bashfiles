@@ -9,7 +9,7 @@
 
 ========================================================= */
 
-providers.provider("Gmap", GmapFactory_);
+providers.provider("Gmap", [GmapFactory_]);
 
 function GmapFactory_ () {
 
@@ -94,15 +94,15 @@ function GmapFactory_ () {
     Client.listen('Geocoder: valid warehouse', zoomToHood);
     Client.listen('Geocoder: valid house', checkMaxZoom);
     Client.listen('Gmap: drop pin', dropPin);
-    Client.listen('clear pins', clearPins);
+    Client.listen('Gmap: clear pins', clearPins);
 
     function init (data) {
       map = new google.maps.Map(data, map_opts);
 
       google.maps.event.addListener(map, 'idle', function() {
-        dfd.resolve(map); 
+        dfd.resolve(map);
       });
-      
+
       return map;
     }
 

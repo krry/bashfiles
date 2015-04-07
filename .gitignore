@@ -1,6 +1,7 @@
 public/
 src/lib/
 src/js/config.js
+src/js/templates-*.js
 node_modules
 npm-debug.*
 bower_components

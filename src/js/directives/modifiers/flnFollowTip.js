@@ -14,7 +14,7 @@
 //
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-directives.directive("flnFollowTip", flnFollowTip_);
+directives.directive("flnFollowTip", [flnFollowTip_]);
 
 function flnFollowTip_ () {
   return {

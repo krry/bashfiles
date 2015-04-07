@@ -62,7 +62,6 @@
   }
 
   .stage-nav {
-    // display: none;
     width: 100%;
     margin-right: 2rem;
     text-align: left;
@@ -70,7 +69,7 @@
 
   .logo {
     background-image: url('../img/logo-white-new.svg');
-    background-position: -7px -7px;
+    background-position: -7px -8px;
     background-repeat: no-repeat;
     background-size: auto 130%;
     width: 8.8rem;
@@ -151,6 +150,7 @@
     .header-detail {
       @include apercu-medium;
       display: inline;
+      cursor: pointer;
     }
   }
 }
