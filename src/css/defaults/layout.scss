@@ -83,13 +83,16 @@ main.main.main-fixed {
 }
 
 .get-involved .col {
-  margin-bottom: 2em;
+  margin-bottom: 1em;
 }
 .get-involved h4 {
   margin: 0;
 }
 .get-involved p {
   margin-bottom: 0.75em;
+}
+.get-involved a {
+  text-decoration: underline;
 }
 
 .scroll-y {
@@ -117,6 +120,7 @@ main.main.main-fixed {
   width: 100%;
   padding: 1em;
   text-align: center;
+  font-size: 0.75em;
 }
 
 .contain {
