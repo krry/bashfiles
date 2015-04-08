@@ -4,11 +4,11 @@
  *
  */
 
-angular.module('flannel').service('Proposal', ['$stateParams','User', 'Session', 'Panelfill', 'Clientstream', Proposal_]);
+angular.module('flannel').service('Proposal', ['$stateParams','User', 'Session', 'Panelfill', 'Clientstream', 'FIREBASE_URL', Proposal_]);
 
 var proposal_map;
 
-function Proposal_($stateParams, User, Session, Panelfill, Client) {
+function Proposal_($stateParams, User, Session, Panelfill, Client, FIREBASE_URL) {
   // TODO: Revisit naming of this and Panelfill API service... to whatever it should be.
   var map_options = {
     zoom: 20,
@@ -31,7 +31,7 @@ function Proposal_($stateParams, User, Session, Panelfill, Client) {
     // TODO: convert to promise pattern : jfl
     if (design_id) {
       // share proposal link
-      ref = new Firebase('https://scty-int.firebaseio.com').child('designs')
+      ref = new Firebase(FIREBASE_URL).child('designs')
         .child(design_id)
       ref.once('value', function (ds) {
         var data = ds.exportVal();
