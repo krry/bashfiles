@@ -25,6 +25,7 @@
   /* max-height: 90%; */
   margin-top: 1em;
   margin-bottom: 1em;
+  border-radius: 3px;
 
   h2 {
     /* font-size: 2em; */
@@ -34,7 +35,18 @@
 }
 
 .modal .dialog h4 {
+  margin-top: 0em;
+}
+.modal .dialog .financing-option h4 {
   margin-top: 1em;
+}
+.modal .dialog .financing-option {
+  border: 1px solid $gold;
+  padding: 1em 1em 1.5em 1em;
+  border-radius: 4px;
+}
+.modal .dialog .financing-option em {
+  font-size: 0.8em;
 }
 
 .modal button.close.close {

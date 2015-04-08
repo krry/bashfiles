@@ -83,13 +83,16 @@ main.main.main-fixed {
 }
 
 .get-involved .col {
-  margin-bottom: 2em;
+  margin-bottom: 1em;
 }
 .get-involved h4 {
   margin: 0;
 }
 .get-involved p {
   margin-bottom: 0.75em;
+}
+.get-involved a {
+  text-decoration: underline;
 }
 
 .scroll-y {
@@ -117,6 +120,7 @@ main.main.main-fixed {
   width: 100%;
   padding: 1em;
   text-align: center;
+  font-size: 0.75em;
 }
 
 .contain {
@@ -172,7 +176,7 @@ main.main.main-fixed {
 
 .fine-print {
   font-size: 0.7em;
-  text-align: left;
+  text-align: justify;
   margin-top: 10em;
   color: transparentize($grey-darker, 0.5);
   & p {
@@ -211,6 +215,7 @@ main.main.main-fixed {
 .step-fork .button-set p {
   text-align: left;
   padding-left: 0.5em;
+  line-height: 140%;
 }
 .step-fork .button-set br {
   clear: both;
@@ -220,7 +225,7 @@ main.main.main-fixed {
   margin: 0 auto 1em auto;
 }
 .step-fork .button-set button.skip {
-  background-color: $grey-medium;
+  background-color: #bbbbbb;
 }
 
 

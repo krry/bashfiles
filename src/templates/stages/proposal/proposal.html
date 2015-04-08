@@ -4,10 +4,14 @@
   <div class="row padded">
     <div class="col full center">
       <h1>Looking good! You may be eligible to go solar for $0 down.<br><small>Based on the system you designed and your average monthly bill of <span id="current_bill" class="dollars">{{ proposal.prospect().bill | number: 0 }}</span>, here is your custom solar proposal.</small></h1>
-      <div class="button-set-hug">
-        <button class="btn white tiny ib" ng-click="modal.showDialog({dialog:'share-proposal', data: ''})">Save My Proposal</button>
-        <button class="btn gold wide small ib" ng-click="stages.next()">Continue</button>
-        <button class="btn white tiny ib" ng-click="proposal.changeDesign()">Redo my Design</button>
+      <div class="row center">
+        <div class="col center third two">
+          <div class="button-set-hug">
+            <button class="btn white tiny ib" ng-click="modal.showDialog({dialog:'share-proposal', data: ''})">Save My Proposal</button>
+            <button class="btn white tiny ib" ng-click="proposal.changeDesign()">Redo my Design</button>
+            <button class="btn gold wide small ib" ng-click="stages.next()">Sign Me Up</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -38,14 +42,12 @@
           </figure>
           <label class="units">year one</label>
         </div>
-      </div>
-      <div class="row">
         <div class="col third center padded utes">
-          <label for="ppa_plan">Current Electricity Bill</label>
+          <label for="ppa_plan">Monthly Electric Bill</label>
           <figure>
             <span id="monthly_bill" class="dollars">{{proposal.prospect().bill}}</span>
           </figure>
-          <label class="units">in a typical month</label>
+          <!-- <label class="units">in a typical month</label> -->
           <fln-input-bill-slider proposal-bill="true"></fln-input-bill-slider>
         </div>
         <div class="col third center padded">
@@ -68,7 +70,7 @@
 
   <div class="row padded-less proposal-button-tray" ng-controller="ModalCtrl as modal">
     <div class="col full center">
-      <div class="financing-options">After completing your site survey, we will send you your final system design and proposal with available <a ng-click="modal.showDialog({dialog: 'financing', data: ''})">financing options</a>.</div>
+      <div class="financing-options-bar">After completing your site survey, we will send you your final system design and proposal with available <a ng-click="modal.showDialog({dialog: 'financing', data: ''})">financing options</a>.</div>
     </div>
   </div>
 
@@ -82,15 +84,15 @@
   <div class="row padded center">
     <div class="col third two center">
       <br>
-      <h1><small>Signing up with America's #1 full-service solar provider means premium<br> service every step of the way.</small></h1>
+      <h1><small>Signing up with America's #1 full-service solar provider means premium service every step of the&nbsp;way.</small></h1>
       <br>
     </div>
   </div>
-  <div class="row padded">
+  <div class="row padded benefits">
     <div class="col half padded">
       <div class="row">
         <div class="col fifth center">
-          <span class="icon benefit-icons icon-house"></span>
+          <span class="icon house"></span>
         </div>
         <div class="col fifth four">
           <strong>Unmatched aesthetics</strong>
@@ -101,7 +103,7 @@
     <div class="col half padded">
       <div class="row">
         <div class="col fifth center">
-          <span class="icon benefit-icons icon-coin"></span>
+          <span class="icon coin"></span>
         </div>
         <div class="col fifth four">
           <strong>Ongoing rewards</strong>
@@ -109,12 +111,10 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="row padded">
     <div class="col half padded">
       <div class="row">
         <div class="col fifth center">
-          <span class="icon benefit-icons icon-document"></span>
+          <span class="icon document"></span>
         </div>
         <div class="col fifth four">
           <strong>Lifetime system protection</strong>
@@ -132,7 +132,7 @@
     <div class="col half padded">
       <div class="row">
         <div class="col fifth center">
-          <span class="icon benefit-icons icon-bulb"></span>
+          <span class="icon bulb"></span>
         </div>
         <div class="col fifth four">
           <strong>Environmental</strong>
@@ -146,12 +146,10 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="row padded">
     <div class="col half padded">
       <div class="row">
         <div class="col fifth center">
-          <span class="icon benefit-icons icon-graph"></span>
+          <span class="icon graph"></span>
         </div>
         <div class="col fifth four">
           <strong>Cutting-edge insights</strong>
@@ -162,7 +160,7 @@
     <div class="col half padded">
       <div class="row">
         <div class="col fifth center">
-          <span class="icon benefit-icons icon-palm"></span>
+          <span class="icon palm"></span>
         </div>
         <div class="col fifth four">
           <strong>GivePower</strong>
@@ -172,7 +170,7 @@
     </div>
   </div>
   <div class="fine-print">
+    <p>* Based on SolarCity average system size of 6.7 kW and 1403 kWh average first year production degraded by .5% annually over 30 years. Environmental benefits based on data collected from: Environmental Protection Agency, September 2014, Calculations and References, US Energy Administration, January 2014, National Renewable Energy Laboratory, December 2003, “Consumptive Water Use for US Power Production”, and EPA eGRID GHG Annual Output Emissions Rates 2009.</p>
     <p>The figures on this page are only estimates, subject to change after review from a solar consultant. System size and production may be affected by shading, roof type, compliance fire codes and other factors. A solar power system is customized for your home, so pricing and savings vary based on location, system size, government rebates and local utility rates. Savings on your total electricity costs is not guaranteed. Financing terms vary by location and are not available in all areas. $0 due upon contract signing. No security deposit required. A 3 kW system starts at $25-$100 per month with an annual increase of 0-2.9% each year for 20-30 years, on approved credit. SolarCity Corporation will repair or replace broken warranted components. AZ ROC 243771/ROC 245450, CA CSLB 888104, CO EC8041, CT HIC 0632778/ELC 0125305, DE 2011120386/ T1-6032, DC 410514000080/ECC902585, FL EC13006226, HI CT-29770, MA HIC 168572/EL-1136MR, MD HIC 128948/11805, NC NC 30801-U NV NV20121135172/0079719/EC 0078648, NJ NJHIC#13VH06160600/34EI01732700, NM EE98-379590, OR CB180498/C562, PA HICPA077343, RI RC38313/AC004714, TX TECL27006, VA ELE2705153278, WA SOLARC*919O1/SOLARC*905P7. Nassau H2409710000, Greene A-486, Suffolk 52057-H, Putnam PC6041, Rockland H-11864-40-00-00, Westchester WC-26088-H13, N.Y.C #2001384-DCA. SCENYC: N.Y.C. Licensed Electrician, #12610, #004485, 155 Water St, 6th Fl., Unit 10, Brooklyn, NY 11201, #2013966-DCA. All loans provided by SolarCity Finance Company, LLC. CA Finance Lenders License 6054796. SolarCity Finance Company, LLC is licensed by the Delaware State Bank Commissioner to engage in business in Delaware under license number 019422, MD Consumer Loan License 2241, TX Registered Creditor 1400050963-202404.</p>
-    <p>*Based on SolarCity average system size of 6.7 kW and 1403 kWh average first year production degraded by .5% annually over 30 years. Environmental benefits based on data collected from: Environmental Protection Agency, September 2014, Calculations and References, US Energy Administration, January 2014, National Renewable Energy Laboratory, December 2003, “Consumptive Water Use for US Power Production”, and EPA eGRID GHG Annual Output Emissions Rates 2009.</p>
   </div>
 </div>
