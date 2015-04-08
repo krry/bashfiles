@@ -5,6 +5,8 @@ module.exports = function(app) {
       conf          = require('../config/environments/' + env + '.json');
 
   function proxyGET(url, res) {
+    console.log(url);
+
     request({
       rejectUnauthorized: false,
       url: url
@@ -131,6 +133,17 @@ module.exports = function(app) {
     proxyPOST(url, req.body, res);
   }
 
+  function panelFill(req, res) {
+    var url = [
+      conf.PANEL_FILL_ROOT,
+      conf.PANEL_FILL_API,
+      '?',
+      querystring.stringify(req.query)
+    ].join('');
+
+    proxyGET(url, res);
+  }
+
   return {
     ahj: ahj,
     utilities: utilities,
@@ -142,6 +155,7 @@ module.exports = function(app) {
     nearMe: nearMe,
     gsa: gsa,
     schedule: schedule,
-    installation: installation
+    installation: installation,
+    panelFill: panelFill
   };
 };
