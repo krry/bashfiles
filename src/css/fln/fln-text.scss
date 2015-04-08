@@ -50,14 +50,6 @@ h3.social-proof-count {
   text-align: center;
   font-size: .75em;
 }
-.drop-top {
-  padding-top: 5.1rem;
-  font-size: 0.9em;
-  line-height: 130%;
-}
-.drop-top p {
-  margin-bottom: 0.85em;
-}
 
 .territory-map {
   figure {
@@ -97,6 +89,17 @@ h3.social-proof-count {
   color: transparentize($grey-darker, 0.5);
   & p {
     margin-bottom: 1em;
+  }
+}
+
+@media screen and (min-width: $width-min-med) {
+  .drop-top {
+    padding-top: 5.1rem;
+    font-size: 0.9em;
+    line-height: 130%;
+  }
+  .drop-top p {
+    margin-bottom: 0.85em;
   }
 }
 
