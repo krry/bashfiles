@@ -20,9 +20,8 @@
   background: $tint-90;
   background: $white;
   padding: 4em;
-  width: 90%;
-  margin-top: 1em;
   border-radius: 3px;
+  position: relative;
 
   h2 {
     text-align: center;
@@ -91,6 +90,7 @@
 
 @media screen and (min-width: $width-min-med) {
   .modal .dialog {
+    width: 90%;
     margin: 1em auto;
   }
   .modal .dialog.small {

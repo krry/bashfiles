@@ -1,10 +1,10 @@
 <!-- main.html for qualify stage -->
 <div>
-  <div class="spinner-tray" ng-show="form.isSubmitting">
-    <fln-spinner></fln-spinner>
-  </div>
 
   <div class="overlay primary col">
+    <div class="spinner-tray" ng-show="form.isSubmitting">
+      <fln-spinner></fln-spinner>
+    </div>
     <h1 ng-if="!form.timedOut">Enter your date of birth.<br><small>We will run a soft credit check to see which financing options we can offer you. Don't worry, this won't affect your credit score.</small></h1>
     <h1 ng-if="form.timedOut">Sorry! Our connection timed out. <small>Please re-enter your information and try again.</small></h1>
     <form name="prospectForm" novalidate>

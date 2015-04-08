@@ -135,6 +135,7 @@ input.bill {
   font-size: 1.25em;
   &:before {
     content: "\0024";
+    font-size: .75em;
     position: relative;
     top: -.3em;
     left: .2em;
@@ -157,6 +158,9 @@ input.bill {
   }
   .bill-box {
     margin-bottom: 0;
+    &:before {
+      font-size: 1em;
+    }
   }
 }
 @media screen and (min-width: $width-min-lrg) {
