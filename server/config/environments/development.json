@@ -6,7 +6,7 @@
   "SOLAR_WORKS_API_ROOT": "https://solarworksapi-test.solarcity.com",
   "GSA_ROOT": "https://gsa-test.solarcity.com",
   "NEAR_ME_ROOT": "https://nearme-test.solarcity.com",
-  "PANEL_FILL_ROOT": "http://10.111.4.134",
+  "PANEL_FILL_ROOT": "https://godesign.solarcity.com",
   "AHJ_API": "https://ahj-dev.solarcity.local",
   "UTILITIES_API": "/solarbid/api/utilities/",
   "WAREHOUSE_API": "/solarbid/api/warehouses/",
