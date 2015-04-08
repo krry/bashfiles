@@ -93,9 +93,9 @@
 
   &:disabled {
     cursor: not-allowed;
-    background-color: $grey-mid;
+    background-color: $grey-medium;
     border-color: darken($grey-mid, 25%);
-    color: $grey-lightest;
+    color: $white;
   }
 
   &.doubledecker {
@@ -122,8 +122,8 @@ button.tiny.white {
   padding: 0.8em 0em;
   border-radius: 1.4em/50%;
   min-width: 17em;
-  border: 1px solid $grey-lighter;
-  color: $grey-mid;
+  border: 1px solid #bbbbbb;
+  color: #999999;
   line-height: 100%;
   margin: 0.5em;
 }

@@ -21,38 +21,18 @@
   }
 }
 
+.panelfill {
+  min-height: 16rem;
+  width: 100%;
+}
+
 .proposal.proposal {
   background-color: $white;
   color: $green-neue;
   border-radius: 2px;
-  border-bottom: 1px solid $grey-lightest;
-  .row:not(:last-child) {
-    border-bottom: 1px solid $grey-lightest;
-  }
-  .col {
-    min-height: 10.5em;
-  }
-  .col.padded.padded.third {
-    border-left: 1px solid $grey-lightest;
-    border-right: 1px solid $grey-lightest;
-    &:nth-of-type(3n-2) {
-      /* padding-left: 0; */
-      border-left: none;
-    }
-    &:nth-of-type(3n-1) {
-      border-left: 1px solid $grey-lightest;
-      border-right: 1px solid $grey-lightest;
-    }
-    &:nth-of-type(3n) {
-      /* padding-right: 0; */
-      border-right: none;
-    }
-    & + .third.padded + .third.padded + .third.padded {
-      border-top: 2px solid $grey-lightest;
-    }
-  }
-  .col:last-child {
-    border-right: 0;
+  .col.third.padded.padded:not(:last-child) {
+    padding-bottom: .5em;
+    border-bottom: 2px solid $grey-lightest;
   }
   .utes {
     color: $grey-mid;
@@ -111,10 +91,11 @@
   vertical-align: .75em;
 }
 
-.proposal-page .financing-options {
+.proposal-page .financing-options-bar {
   font-size: .8rem;
   line-height: 1.4;
-  margin: .5em auto;
+  padding: 1em;
+  background: #ffffff;
 }
 
 
@@ -123,7 +104,7 @@
   background-size: 14px;
   width: 14px;
   height: 14px;
-  margin: 0 auto 1em auto;
+  margin: 2em auto 2em auto;
 }
 
 .faq-item {
@@ -181,6 +162,27 @@
   }
 }
 
+@media screen and (min-width: $width-min-med) {
+  .proposal {
+    .row:not(:last-child) {
+      border-bottom: 1px solid $grey-lightest;
+    }
+    .col {
+      min-height: 9.5em;
+      &.padded.padded.third {
+        border-left: 1px solid $grey-lightest;
+        border-right: 1px solid $grey-lightest;
+        &:nth-of-type(2n) {
+          border-right: none;
+        }
+        & + .third.padded + .third.padded {
+          border-top: 2px solid $grey-lightest;
+        }
+      }
+    }
+  }
+}
+
 @media screen and (min-width: $width-min-lrg) {
   .benefits {
     .icon {
@@ -196,6 +198,44 @@
       font-size: 1em;
       display: inline;
       text-align: left;
+    }
+  }
+  .panelfill {
+    min-height: 21rem;
+    width: 100%;
+  }
+
+  .proposal {
+    .col.fifth.three > .row {
+      margin-right: -2px;
+    }
+    .row:not(:last-child) {
+      border-bottom: 1px solid $grey-lightest;
+    }
+    .col {
+      min-height: 10.5em;
+      &.padded.padded.third {
+        border-left: 1px solid $grey-lightest;
+        border-right: 1px solid $grey-lightest;
+        &:nth-of-type(3n-2) {
+          border-right: 1px solid $grey-lightest;
+          border-left: none;
+        }
+        &:nth-of-type(3n-1) {
+          border-left: 1px solid $grey-lightest;
+          border-right: 1px solid $grey-lightest;
+        }
+        &:nth-of-type(3n) {
+          border-right: none;
+        }
+        & + .third.padded + .third.padded {
+          border-top: none;
+        }
+        & + .third.padded + .third.padded + .third.padded {
+          border-top: 2px solid $grey-lightest;
+          margin-bottom: -2px;
+        }
+      }
     }
   }
 }

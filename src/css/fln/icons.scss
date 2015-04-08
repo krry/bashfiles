@@ -1,3 +1,4 @@
+@import '../imports/colors';
 @import '../imports/icons';
 @import '../imports/sizes';
 
@@ -76,5 +77,17 @@
   }
   &.pinterest {
     @include icon("pinterest", $type: "png");
+  }
+  &.active {
+    width: 1.1em;
+    height: 1.1em;
+    background-color: $green-neue;
+    border-radius: 50%;
+  }
+  &.inactive {
+    width: 1.1em;
+    height: 1.1em;
+    background-color: $tint-15;
+    border-radius: 50%;
   }
 }
