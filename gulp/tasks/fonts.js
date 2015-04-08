@@ -13,7 +13,7 @@ var changed = require('gulp-changed');
 var handleErrors = require('../util/handleErrors');
 
 var fontSrc = [
-  './src/fonts/**/*'
+  './src/fonts/*'
 ];
 
 var fontPub = './public/fonts';
