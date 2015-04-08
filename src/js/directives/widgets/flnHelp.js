@@ -57,6 +57,7 @@ function flnHelp_ (Liveagent, Client) {
           // try to start the Liveagent chat
           Liveagent.start(targetConfig);
           chatOpened = true;
+          scope.active = true;
         }
       });
 
