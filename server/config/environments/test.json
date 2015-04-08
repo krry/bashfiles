@@ -3,7 +3,7 @@
   "FLANNEL_SECRET": "sekret",
   "FIREBASE_SECRET": "N6ogiH8uOZphttcfJFJac5YWtmWZJmcUDDfrdXtN",
   "SOLAR_WORKS_ROOT": "https://50.200.39.46",
-  "SOLAR_WORKS_API_ROOT": "https://50.200.39.57",
+  "SOLAR_WORKS_API_ROOT": "https://solarworksapi-test.solarcity.com",
   "GSA_ROOT": "https://50.200.39.47",
   "NEAR_ME_ROOT": "https://nearme-test.solarcity.com",
   "PANEL_FILL_ROOT": "http://10.111.4.134",
