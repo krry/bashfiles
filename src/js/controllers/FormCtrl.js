@@ -109,7 +109,6 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
   }
 
   function checkZip (zip) {
-    // $scope.$eval(vm.prospect().zip);
     new_zip = vm.prospect().zip || zip;
     console.log('********* checkin dat zip', new_zip, 'boss *********');
     /* jshint eqnull:true */
@@ -120,9 +119,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
         Form.ref() && Client.emit('Form: valid data', {street: null});
         Client.emit('Gmap: switch map type', 'terrain');
       }
-      // if (old_zip !== new_zip) {
-      //   old_zip = new_zip;
-      // }
+
       Geocoder.sendGeocodeRequest(new_zip);
     }
     else { return false; }
@@ -132,24 +129,20 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
     // TODO: ensure that form is pulling latest prospect from Firebase
     var addy;
 
-    new_street = vm.prospect().street;
     console.log('********* checkin dat addy', new_street, 'boss *********');
 
     setTimeout(function() {
       if (!$scope.$$phase) $scope.$apply();
     }, 0);
 
-    if (old_street !== new_street) {
-      addy = {
-        street: new_street,
-        city: vm.prospect().city,
-        state: vm.prospect().state,
-        zip: vm.prospect().zip,
-      };
+    addy = {
+      street: vm.prospect().street,
+      city: vm.prospect().city,
+      state: vm.prospect().state,
+      zip: vm.prospect().zip,
+    };
 
-      old_street = new_street;
-      Geocoder.sendGeocodeRequest(addy);
-    }
+    Geocoder.sendGeocodeRequest(addy);
   }
 
   function checkFullName () {}

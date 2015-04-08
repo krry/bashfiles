@@ -53,7 +53,7 @@ function ShareCtrl_ (Client, defaultValues, $stateParams, Proposal) {
     vm.numbers.utilityRate = utility_rate;
 
     // calculate annual consumption in $$ of electricity from monthly bill estimate
-    bill = $stateParams.bill;
+    bill = $stateParams.bill || defaultValues.bill;
     annual_consumption = ((bill * 12) / utility_rate) || defaultValues.annual_consumption; // kWh
     vm.numbers.annualConsumption = annual_consumption;
     annual_production = vm.numbers.annualProduction;
