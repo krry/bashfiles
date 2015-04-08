@@ -124,22 +124,10 @@ function DesignProvider_ (FIREBASE_URL) {
 
     // load design & notify app design is loaded
     function subscribeToDesignStreams (ds) {
-      console.debug("loading designloading designloading designloading designloading design")
-      _ref.child('areas/0').on('value', function (ds) {
-        rx_areas.onNext(ds.exportVal());
-      });
-
-      _ref.child('areas/0/ridge').on('value', function (ds){
-        rx_selectedpeak.onNext(ds.exportVal());
-      });
-
-      _ref.child('map_details/center').on('value', function (ds) {
-        rx_center.onNext(ds.exportVal());
-      });
-
-      _ref.child('map_details/zoom_level').on('value', function (ds){
-        rx_zoom.onNext(ds.exportVal());
-      });
+      _ref.child('areas/0')               .on('value', subRxToAreas);
+      _ref.child('areas/0/ridge')         .on('value', subRxToRidge);
+      _ref.child('map_details/center')    .on('value', subRxToCenter);
+      _ref.child('map_details/zoom_level').on('value', subRxToZoom);
 
       var data = ds.exportVal() || {};
       data.design_id = _ref.key();
@@ -149,9 +137,21 @@ function DesignProvider_ (FIREBASE_URL) {
         zoom: rx_zoom,
         areas: rx_areas,
       }
+
       Client.emit('Design: Loaded', data);
     }
-
+    function subRxToAreas(ds) {
+        rx_areas.onNext(ds.exportVal());
+      }
+    function subRxToRidge(ds){
+        rx_selectedpeak.onNext(ds.exportVal());
+      }
+    function subRxToCenter(ds) {
+        rx_center.onNext(ds.exportVal());
+      }
+    function subRxToZoom(ds){
+        rx_zoom.onNext(ds.exportVal());
+      }
     function saveDesignIdToSession(d) {
       Session.ref().update({design_id: d.design_id});
     }
