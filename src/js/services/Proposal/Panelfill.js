@@ -1,6 +1,6 @@
-angular.module('flannel').service('Panelfill', ['$http', '$q', PanelfillService_]);
+angular.module('flannel').service('Panelfill', ['$http', '$q', 'PANEL_FILL_API', PanelfillService_]);
 
-function PanelfillService_ ($http, $q) {
+function PanelfillService_ ($http, $q, PANEL_FILL_API) {
   // TODO: Revisit naming of this and Proposal service... to whatever it should be.
 
   // this Service provides API access
@@ -11,7 +11,7 @@ function PanelfillService_ ($http, $q) {
   // only avail inhouse
   //var baseUrl = "http://slc3web00/scexchange/testfill.aspx";
 
-  var baseUrl = "http://design.solarcity.com/api/Fill";
+  var baseUrl = PANEL_FILL_API;
 
   var EarthRadiusInches = 251107755.9; //250826771.7;
   var ToDegrees = 180 / Math.PI;
