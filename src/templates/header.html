@@ -5,23 +5,16 @@
       <a ng-click="stages.checkAndJump('flannel.home.zip-nearme')">SolarCity</a>
     </li>
     <li class="chevron right caps col" ng-class="{ active: nav.onActiveStage('home') }">
-      <!-- <a ng-click="stages.checkAndJumpAddress()" ng-class="{ disabled: !stages.hasVisited('flannel.home.address-roof') }"> -->
-        <span>Your Home</span>
-        <span class="header-detail" ng-show="nav.prospect().zip">
-          <span>&bull;</span>
-          <span ng-bind="nav.prospect().street" class="header-street"></span>
-          <span ng-bind="nav.prospect().zip" class="header-zip"></span>
-          <span class="icon edit"></span>
-        </span>
-      <!-- </a> -->
+      <span>Your Home</span>
+      <span class="header-detail" ng-show="nav.prospect().zip">
+        <span>&bull;</span>
+        <span ng-bind="nav.prospect().street" class="header-street"></span>
+        <span ng-bind="nav.prospect().zip" class="header-zip"></span>
+        <span class="icon edit"></span>
+      </span>
     </li>
-    <li class="chevron right caps col" ng-class="{ active: nav.onActiveStage('configure') }">
-      <!-- <a ng-click="stages.checkAndJump('flannel.home.intro-design')" ng-class="{ disabled: !stages.hasVisited('flannel.home.intro-design') }"> -->Configure<!-- </a> -->
-    </li>
-    <li class="chevron right caps col" ng-class="{ active: nav.onActiveStage('signup') }">
-      <!-- <a ng-click="stages.checkAndJump('flannel.signup.qualify')" ng-class="{ disabled: !stages.hasVisited('flannel.signup.qualify') }"> -->Sign up<!-- </a> -->
-    </li>
-    <!-- TODO: employ .primary and .secondary to match this to the body columns -->
+    <li class="chevron right caps col" ng-class="{ active: nav.onActiveStage('configure') }">Configure</li>
+    <li class="chevron right caps col" ng-class="{ active: nav.onActiveStage('signup') }">Sign up</li>
     <li ng-controller="ModalCtrl as modal" class="col float right top-five">
       <a class="questions" ng-click="modal.showDialog({dialog:'faq', data: ''})">Top 5 <span class="questions-extended">Questions</span>&nbsp;&nbsp;<span class="icon question"></span></a>
     </li>
