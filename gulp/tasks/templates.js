@@ -21,10 +21,14 @@ gulp.task('templates', ['clearTemplates'], function(){
   return gulp.src(tmplSrc, {base: './src/'})
     .pipe(htmlmin({collapseWhitespace: true}))
     .pipe(ngTemplates({
-      filename: 'templates-' + timestamp() + '.js',
       module: 'flannel.templates',
+      filename: 'templates-' + timestamp() + '.js',
       path: function (path, base) {
-        return path.replace(/\\/g, '/').split('src/')[1];
+        // path is the full file path in local filesystem
+        // base is './src/'
+        // we want the public path to mirror everything after 'src'
+        // so we isolate 'src', then take everything after it
+        return path.split(base.split('.')[1])[1];
       }
     }))
     .pipe(gulp.dest('./src/js/'));

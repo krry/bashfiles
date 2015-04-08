@@ -16,9 +16,8 @@ var thetime = require('../util/timestamp').thetime;
 
 var paths = {
   styles:    ['./src/css/**/*'],
-  scripts:   './src/js/**/*.js',
-  templates: ['./src/js/templates-*.js',
-              './src/templates/**/*.html',
+  scripts:   ['./src/js/**/*.js', '!./src/js/templates-*.js'],
+  templates: ['./src/templates/**/*.html',
               './src/index.html'],
   images:    ['./src/images/**/*']
 };
