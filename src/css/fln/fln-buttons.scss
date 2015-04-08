@@ -1,3 +1,22 @@
+@import "../imports/colors";
+@import "../imports/sizes";
+
+.step-bill button.tiny.gold {
+  margin: 1em 0 0 0;
+}
+
+.step-fork .set-or {
+  font-size: 0.83em;
+  padding: 1.5em 0 1em;
+}
+
+.step-fork button {
+  width: 100%;
+}
+.step-fork .col.fifth.two p {
+  padding-left: 0.5em;
+}
+
 .button-set {
   padding: 2em 0 1em;
 }
@@ -6,5 +25,47 @@
 }
 
 .button-set-hug {
-  margin-top: -2em;
+  margin-top: -1em;
+  margin-bottom: 1em;
+}
+
+.credit-check button.gold {
+  min-width: 15em;
+}
+
+@media screen and (min-width: $width-min-sml) {
+  .step-fork .button-set {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: $width-min-med) {
+  .step-bill button.tiny.gold {
+    margin: 0;
+  }
+  .step-fork .button-set {
+    width: 90%;
+  }
+}
+
+@media screen and (min-width: $width-min-lrg) {
+  .step-fork .button-set {
+    width: 100%;
+  }
+  .step-fork .set-or {
+    line-height: 5.5em;
+    padding: 0;
+  }
+}
+
+@media screen and (min-width: $width-min-xlg) {
+  .step-fork .button-set {
+    width: 85%;
+  }
+}
+
+@media screen and (min-width: $width-min-xxl){
+  .step-fork .button-set {
+    width: 70%;
+  }
 }

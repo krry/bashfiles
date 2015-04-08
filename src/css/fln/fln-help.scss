@@ -42,8 +42,14 @@ fln-help {
     width: 100%;
     padding: .25em 1em;
     text-align: left;
-    .icon {
+    .icon.up,
+    .icon.down {
       float: right;
+    }
+    .icon.inactive,
+    .icon.active {
+      float: left;
+      margin-right: .5em;
     }
   }
 }

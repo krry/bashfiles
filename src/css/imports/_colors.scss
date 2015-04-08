@@ -68,6 +68,7 @@ $shade-95: rgba(0, 0, 0, .95);
 }
 
 $tint-10:  rgba(255, 255, 255, .10);
+$tint-15:  rgba(255, 255, 255, .15);
 $tint-20:  rgba(255, 255, 255, .20);
 $tint-40:  rgba(255, 255, 255, .40);
 $tint-50:  rgba(255, 255, 255, .50);
@@ -112,7 +113,7 @@ $color-error-bkgd:           $flesh;
 $color-input-invalid-text:   $grey-darker;
 $color-input-invalid-bkgd:   $cream;
 
-$color-button-bkgd:          $grey-mid;
+$color-button-bkgd:          $grey-medium;
 
 $color-header-text:          $white;
 $color-header-bkgd:          $green-neue;

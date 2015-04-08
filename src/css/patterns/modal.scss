@@ -20,26 +20,32 @@
   background: $tint-90;
   background: $white;
   padding: 4em;
-  overflow: scroll;
-  width: 90%;
-  /* max-height: 90%; */
-  margin-top: 1em;
-  margin-bottom: 1em;
+  border-radius: 3px;
+  position: relative;
 
   h2 {
-    /* font-size: 2em; */
-    /* margin-bottom: 2em; */
     text-align: center;
   }
 }
 
 .modal .dialog h4 {
+  margin-top: 0em;
+}
+.modal .dialog .financing-option h4 {
   margin-top: 1em;
+}
+.modal .dialog .financing-option {
+  border: 1px solid $gold;
+  padding: 1em 1em 1.5em 1em;
+  border-radius: 4px;
+}
+.modal .dialog .financing-option em {
+  font-size: 0.8em;
 }
 
 .modal button.close.close {
   position: absolute;
-  top: .5em;
+  top: 0;
   right: .5em;
 }
 
@@ -84,9 +90,8 @@
 
 @media screen and (min-width: $width-min-med) {
   .modal .dialog {
+    width: 90%;
     margin: 1em auto;
-    /* width: 35em; */
-    /* height: 15em; */
   }
   .modal .dialog.small {
     margin: 12em auto auto;
@@ -99,7 +104,6 @@
   }
   .modal .dialog {
     margin: 3em 10%;
-    max-height: 100%;
     width: 100%;
     max-width: 80%;
     height: auto;

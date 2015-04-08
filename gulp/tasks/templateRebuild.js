@@ -12,5 +12,5 @@ var gulp = require('gulp');
 var runSeq = require('run-sequence').use(gulp);
 
 gulp.task('template-rebuild', function (){
-  return runSeq(['templates'], 'scripts');
+  return runSeq('templates', 'scripts');
 })

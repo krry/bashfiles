@@ -7,7 +7,6 @@
 .map {
   width: 100%;
   height: 100%;
-  // HACK: might gotta revert this
   position: absolute;
   overflow: hidden;
   transition: opacity 150ms $easing-quick;
@@ -34,7 +33,7 @@
 }
 
 .cloudy {
-  background: radial-gradient(circle closest-side, transparent, transparent 120px, $shade-60 120px);
+  background: radial-gradient(circle closest-side, transparent, transparent 160px, $shade-40 160px);
   position: absolute;
   width: 100%;
   height: 100%;
@@ -53,40 +52,6 @@
   opacity: 0.6;
 }
 
-.instructions {
-  background-color: $white;
-  box-shadow: 0 0 .75em -.25em $shade-60;
-  margin-left: -2em;
-  padding: 4em 2em 2em 2.2em;
-  line-height: 120%;
-}
-.instructions h4 {
-  font-size: 1.1em;
-  line-height: 1.3;
-  margin: 0 auto;
-}
-.instructions p {
-  margin-top: 0.85em;
-}
-.instructions button.gold {
-  min-width: 12em;
-  margin: 2em auto 0 auto;
-}
-.instructions figure {
-  background: $white;
-  margin: 0;
-}
-.instructions figure img {
-  border: none;
-  width: 286px;
-  height: 143px;
-  margin: 0 auto 0 auto;
-}
-.instructions button.tiny.white {
-  min-width: 8em;
-  margin: 1.3em auto 0 auto;
-}
-
 .area-detail {
   position: absolute;
   top: 0;
@@ -97,7 +62,6 @@
 
 .ol-viewport {
   position: relative;
-  // background: $grey-mid;
 
   .ol-overlaycontainer-stopevent {
     position: absolute;
@@ -135,8 +99,6 @@
       }
 
       &:hover {
-        // color: $grey-mid;
-        // background: $white;
       }
 
       & + .fln-zoom-out {
@@ -148,8 +110,6 @@
       }
 
       span {
-        // position: absolute;
-        // right: 100%;
         display: none;
       }
     }
@@ -177,7 +137,6 @@
   left: 0;
   z-index: 2;
   pointer-events: none;
-  // background: $shade;
   text-align: center;
   height: 100%;
 
@@ -189,7 +148,6 @@
     width: 30px;
     height: 30px;
     overflow: auto;
-    // opacity: .5;
     padding: 0;
     min-width: 0;
     border-radius: 50%;
@@ -229,13 +187,7 @@
     }
     &:hover,
     &:active {
-      // opacity: 1;
       background-color: $tint-95;
     }
   }
-}
-
-.panelfill {
-  min-height: 21.25rem;
-  width: 100%;
 }
