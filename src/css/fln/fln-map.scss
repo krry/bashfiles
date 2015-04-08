@@ -7,7 +7,6 @@
 .map {
   width: 100%;
   height: 100%;
-  // HACK: might gotta revert this
   position: absolute;
   overflow: hidden;
   transition: opacity 150ms $easing-quick;
@@ -63,7 +62,6 @@
 
 .ol-viewport {
   position: relative;
-  // background: $grey-mid;
 
   .ol-overlaycontainer-stopevent {
     position: absolute;
@@ -139,7 +137,6 @@
   left: 0;
   z-index: 2;
   pointer-events: none;
-  // background: $shade;
   text-align: center;
   height: 100%;
 
@@ -151,7 +148,6 @@
     width: 30px;
     height: 30px;
     overflow: auto;
-    // opacity: .5;
     padding: 0;
     min-width: 0;
     border-radius: 50%;
@@ -191,7 +187,6 @@
     }
     &:hover,
     &:active {
-      // opacity: 1;
       background-color: $tint-95;
     }
   }
