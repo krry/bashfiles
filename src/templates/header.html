@@ -15,7 +15,6 @@
     </li>
     <li class="chevron right caps col" ng-class="{ active: nav.onActiveStage('configure') }">Configure</li>
     <li class="chevron right caps col" ng-class="{ active: nav.onActiveStage('signup') }">Sign up</li>
-    <!-- TODO: employ .primary and .secondary to match this to the body columns -->
     <li ng-controller="ModalCtrl as modal" class="col float right top-five">
       <a class="questions" ng-click="modal.showDialog({dialog:'faq', data: ''})">Top 5 <span class="questions-extended">Questions</span>&nbsp;&nbsp;<span class="icon question"></span></a>
     </li>

@@ -9,14 +9,10 @@ body {
 main.main {
   width: 100%;
   z-index: 1;
-  /* padding-top: 2.9rem; */
   height: 100%;
 }
 
 main.main.main-fixed {
-  /* position: fixed; */
-  /* top: 2.9rem; */
-  /* bottom: 2rem; */
   padding-top: 0;
   overflow: hidden;
   .overlayer {
@@ -35,11 +31,8 @@ main.main.main-fixed {
 
 .overlayer {
   position: relative;
-  /* top: 0; */
-  /* left: 0; */
   width: 100%;
   z-index: 1;
-  /* margin-top: 2.9rem; */
   background-color: $grey-lightest;
 }
 
@@ -63,10 +56,6 @@ main.main.main-fixed {
   padding: 0em 2em 0.5em 2em;
 }
 
-.step-bill.overlay.short {
-  padding-top: 1em;
-}
-
 .overlay.primary,
 .overlay.only {
   padding: 2em;
@@ -80,16 +69,6 @@ main.main.main-fixed {
 .overlay.secondary {
   padding: 2em;
   background: $grey-lightest;
-}
-
-.get-involved .col {
-  margin-bottom: 2em;
-}
-.get-involved h4 {
-  margin: 0;
-}
-.get-involved p {
-  margin-bottom: 0.75em;
 }
 
 .scroll-y {
@@ -112,12 +91,6 @@ main.main.main-fixed {
   width: 100%;
   height: 100%;
 }
-.call-sales-rep {
-  background: $white;
-  width: 100%;
-  padding: 1em;
-  text-align: center;
-}
 
 .contain {
   max-width: 75em;
@@ -125,108 +98,11 @@ main.main.main-fixed {
   margin: auto;
 }
 
-.drop-top {
-  padding-top: 5.1rem;
-  font-size: 0.9em;
-  line-height: 130%;
-}
-.drop-top p {
-  margin-bottom: 0.85em;
-}
-
-.territory-map {
-  figure {
-  background-image: url('../img/map_regions_2-01.svg');
-  background-repeat: no-repeat;
-  background-position: top center;
-  background-size: contain;
-  height: 180px;
-  }
-  p.center {
-    letter-spacing: 0.1em;
+@media screen and (max-width: $width-min-lrg) {
+  .no-mobile {
+    display: none;
   }
 }
-
-.video-vision .video-tray {
-  border: none;
-}
-.video-vision p {
-  font-size: 0.75em;
-}
-.video-mysc {
-  width: 70%;
-  margin: 3em auto 0 auto;
-}
-.video-mysc .video-tray {
-  border: 1px solid $white;
-  margin-bottom: 1.5em;
-}
-
-.step-bill h3 {
-  margin-bottom: 0;
-}
-
-.step-bill button.tiny.gold {
-  margin: 1em 0 0 0;
-}
-
-.fine-print {
-  font-size: 0.7em;
-  text-align: left;
-  margin-top: 10em;
-  color: transparentize($grey-darker, 0.5);
-  & p {
-    margin-bottom: 1em;
-  }
-}
-
-.credit-check button.gold {
-  min-width: 15em;
-}
-
-
-
-.step-fork .button-set {
-  width: 80%;
-  margin: 0 auto;
-  padding: 1em 1em 3em 1em;
-  margin-top: 2em;
-}
-.step-fork .button-set .left-col {
-  float: left;
-  width: 40%;
-  max-width: 270px;
-  height: 100%;
-}
-.step-fork .button-set .set-or {
-  font-size: 0.83em;
-  padding: 1.2em 0;
-}
-.step-fork .button-set .right-col {
-  float: right;
-  width: 40%;
-  max-width: 270px;
-  height: 100%;
-}
-.step-fork .button-set p {
-  text-align: left;
-  padding-left: 0.5em;
-}
-.step-fork .button-set br {
-  clear: both;
-}
-.step-fork .button-set button {
-  width: 100%;
-  margin: 0 auto 1em auto;
-}
-.step-fork .button-set button.skip {
-  background-color: $grey-medium;
-}
-
-
-
-
-
 
 @media screen and (min-width: $width-min-sml){
   .step-fork .button-set {
@@ -235,17 +111,16 @@ main.main.main-fixed {
 }
 
 
-@media screen and (min-width: $width-min-med){
-  .step-bill button.tiny.gold {
-    margin: 0;
-  }
-  .step-fork .button-set {
-    width: 90%;
+@media screen and (max-height: $width-min-med) {
+  .no-mobile {
+    display: none;
   }
 }
 
-
-@media screen and (min-width: $width-min-lrg){
+@media screen and (min-width: $width-min-lrg) {
+  .only-mobile {
+    display: none;
+  }
   .primary.primary {
     width: 75%;
     width: calc(100% - 20em);
@@ -278,19 +153,6 @@ main.main.main-fixed {
   .step-bill.primary {
     width: 100%;
   }
-
-  .overlay-left.overlay-left {
-    overflow: visible;
-  }
-
-  .step-address h3 {
-    width: 85%;
-  }
-
-  .step-fork .button-set {
-    width: 100%;
-  }
-
 }
 
 @media screen and (min-width: $width-min-xlg){
@@ -310,35 +172,5 @@ main.main.main-fixed {
     &.step-bill {
       padding: 1em 2em .5em;
     }
-  }
-  .step-address h3 {
-    width: 85%;
-  }
-  .step-fork h1 {
-    width: 85%;
-  }
-  .step-fork .button-set {
-    width: 85%;
-  }
-}
-
-/* prevents the CTA in the tallest right rail from falling out of reach on short screens */
-@media screen and (max-height: 778px) {
-  .overlay-left.overlay-left {
-    overflow-y: scroll;
-    .instructions {
-      margin-left: 0;
-      padding: 2em;
-    }
-  }
-}
-
-
-@media screen and (min-width: $width-min-xxl){
-  .step-fork h1 {
-    width: 85%;
-  }
-  .step-fork .button-set {
-    width: 70%;
   }
 }

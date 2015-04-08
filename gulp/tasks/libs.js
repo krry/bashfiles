@@ -34,7 +34,7 @@ var libCssSrc = [
 var libHeadSrc = [
   './src/lib/angular/angular.js',
   './src/lib/rxjs/dist/rx.all.js',
-  // './src/lib/openlayers3/build/ol-debug.js',
+  './src/js/openlayers3/ol.js',
   './src/lib/jquery/dist/jquery.js',
   './src/lib/matthewlein-jQuery-widowFix/js/jquery.widowFix-1.3.2.js',
   './src/js/mailgun/mailgun_validator.js',
@@ -44,7 +44,7 @@ var libHeadSrc = [
 var libHeadSrcMin = [
   './src/lib/angular/angular.min.js',
   './src/lib/rxjs/dist/rx.all.min.js',
-  './src/lib/openlayers3/build/ol.js',
+  './src/js/openlayers3/ol.js',
   './src/lib/jquery/dist/jquery.min.js',
   './src/lib/matthewlein-jQuery-widowFix/js/jquery.widowFix-1.3.2.min.js',
   './src/js/mailgun/mailgun_validator.js',

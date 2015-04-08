@@ -30,35 +30,35 @@ var laundry = [
 var templates = './src/js/templates-*.js';
 var scripts = './public/js/all-*.js';
 var styles = './public/css/all-*.css';
-var fonts = './public/fonts/**/*';
+var fonts = './public/fonts/**/*.*';
 var images = './public/img/*';
 var libs = './public/lib/libs-*';
 
 gulp.task('clean', function() {
   console.log('[clean   ] now cleaning dist folders');
-  return del(laundry);
+  if (laundry) return del(laundry);
 });
 
 gulp.task('clearTemplates', function () {
-  return del(templates);
+  if (templates) return del(templates);
 });
 
 gulp.task('clearScripts', function () {
-  return del(scripts);
+  if (scripts) return del(scripts);
 });
 
 gulp.task('clearStyles', function () {
-  return del(styles);
+  if (styles) return del(styles);
 });
 
 gulp.task('clearLibs', function () {
-  return del(libs);
+  if (libs) return del(libs);
 });
 
 gulp.task('clearFonts', function () {
-  return del(fonts);
+  if (fonts) return del(fonts);
 });
 
 gulp.task('clearImages', function () {
-  return del(images);
+  if (images) return del(images);
 });
