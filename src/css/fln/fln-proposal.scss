@@ -30,7 +30,7 @@
   background-color: $white;
   color: $green-neue;
   border-radius: 2px;
-  .col.third.padded.padded:not(:last-child) {
+  .col.third.padded.padded {
     padding-bottom: .5em;
     border-bottom: 2px solid $grey-lightest;
   }
@@ -176,7 +176,7 @@
           border-right: none;
         }
         & + .third.padded + .third.padded {
-          border-top: 2px solid $grey-lightest;
+          border-top: 1px solid $grey-lightest;
         }
       }
     }
@@ -232,8 +232,7 @@
           border-top: none;
         }
         & + .third.padded + .third.padded + .third.padded {
-          border-top: 2px solid $grey-lightest;
-          margin-bottom: -2px;
+          border-top: 1px solid $grey-lightest;
         }
       }
     }

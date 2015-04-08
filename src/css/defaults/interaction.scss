@@ -210,12 +210,6 @@ a.btn {
     padding-left: 5em;
     padding-right: 5em;
   }
-  &.nested {
-    position: absolute;
-    right: .5rem;
-    top: 0.45rem;
-    margin: 0;
-  }
   &.round {
     border-radius: 50%;
     padding: 0;
@@ -256,7 +250,6 @@ a.btn {
     text-transform: none;
     padding: 1em .75em;
     margin: 0 auto;
-
     &:active {
       background: none;
       color: $aqua-dark;
@@ -264,14 +257,6 @@ a.btn {
   }
   &.center.white.tiny {
     margin: 3em auto 0;
-  }
-}
-
-.nest {
-  position: relative;
-  display: inline-block;
-  input {
-    padding-right: 3.5rem !important;
   }
 }
 

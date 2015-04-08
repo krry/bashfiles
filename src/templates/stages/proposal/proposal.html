@@ -1,4 +1,3 @@
-
 <!-- main.html for qualify stage -->
 <div fln-proposal class="overlay only col full center contain proposal-page">
   <div class="row padded">
@@ -43,7 +42,7 @@
           <label class="units">year one</label>
         </div>
         <div class="col third center padded utes">
-          <label for="ppa_plan">Monthly Electric Bill</label>
+          <label for="ppa_plan">Current Electricity Bill</label>
           <figure>
             <span id="monthly_bill" class="dollars">{{proposal.prospect().bill}}</span>
           </figure>
@@ -62,7 +61,7 @@
           <figure class="chart-tray">
             <canvas id="power_ratio_chart" width="48" height="48" class="pie"></canvas>
           </figure>
-          <label class="units">{{ proposal.prospect().percentSolar | number: 0 }}% clean solar power<br>{{ proposal.prospect().percentUtility | number: 0 }}% utility power</label>
+          <label class="units">{{ proposal.prospect().percentSolar | number: 0 }}% solar power<br>{{ proposal.prospect().percentUtility | number: 0 }}% utility power</label>
         </div>
       </div>
     </div>
@@ -74,7 +73,6 @@
     </div>
   </div>
 
-  <!-- TODO: build a helper class to put down arrows in .jump-down <hr>s -->
   <!-- <hr class="jump-down"> -->
   <div class="row">
     <div class="col full center">
@@ -170,7 +168,7 @@
     </div>
   </div>
   <fln-fine-print>
-    <p>* Based on SolarCity average system size of 6.7 kW and 1403 kWh average first year production degraded by .5% annually over 30 years. Environmental benefits based on data collected from: Environmental Protection Agency, September 2014, Calculations and References, US Energy Administration, January 2014, National Renewable Energy Laboratory, December 2003, “Consumptive Water Use for US Power Production”, and EPA eGRID GHG Annual Output Emissions Rates 2009.</p>
     <p>The figures on this page are only estimates, subject to change after review from a solar consultant. System size and production may be affected by shading, roof type, compliance fire codes and other factors.</p>
+    <p>*Based on SolarCity average system size of 6.7 kW and 1403 kWh average first year production degraded by .5% annually over 30 years. Environmental benefits based on data collected from: Environmental Protection Agency, September 2014, Calculations and References, US Energy Administration, January 2014, National Renewable Energy Laboratory, December 2003, “Consumptive Water Use for US Power Production”, and EPA eGRID GHG Annual Output Emissions Rates 2009.</p>
   </fln-fine-print>
 </div>

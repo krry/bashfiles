@@ -5,42 +5,16 @@
   margin: 1em 0 0 0;
 }
 
-.step-fork .button-set {
-  width: 80%;
-  margin: 0 auto;
-  padding: 1em 1em 3em 1em;
-  margin-top: 2em;
-}
-.step-fork .button-set .left-col {
-  float: left;
-  width: 40%;
-  max-width: 270px;
-  height: 100%;
-}
-.step-fork .button-set .set-or {
+.step-fork .set-or {
   font-size: 0.83em;
-  padding: 1.2em 0;
+  padding: 1.5em 0 1em;
 }
-.step-fork .button-set .right-col {
-  float: right;
-  width: 40%;
-  max-width: 270px;
-  height: 100%;
-}
-.step-fork .button-set p {
-  text-align: left;
-  padding-left: 0.5em;
-  line-height: 140%;
-}
-.step-fork .button-set br {
-  clear: both;
-}
-.step-fork .button-set button {
+
+.step-fork button {
   width: 100%;
-  margin: 0 auto 1em auto;
 }
-.step-fork .button-set button.skip {
-  background-color: $grey-medium;
+.step-fork .col.fifth.two p {
+  padding-left: 0.5em;
 }
 
 .button-set {
@@ -65,7 +39,6 @@
   }
 }
 
-
 @media screen and (min-width: $width-min-med) {
   .step-bill button.tiny.gold {
     margin: 0;
@@ -78,6 +51,10 @@
 @media screen and (min-width: $width-min-lrg) {
   .step-fork .button-set {
     width: 100%;
+  }
+  .step-fork .set-or {
+    line-height: 5.5em;
+    padding: 0;
   }
 }
 
