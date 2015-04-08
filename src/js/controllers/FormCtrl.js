@@ -330,7 +330,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
     return Salesforce.createLead({
       // LeadSource: 'Online',
       // LastName: 'flannelflywheel',
-      // Company: 'flannelflywheel',
+      Company: 'flannelflywheel',
       LeadId: vm.prospect().leadId,
       FirstName: vm.prospect().firstName,
       LastName: vm.prospect().lastName || 'flannelflywheel',
