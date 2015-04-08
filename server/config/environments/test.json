@@ -7,7 +7,7 @@
   "GSA_ROOT": "https://gsa-test.solarcity.com",
   "NEAR_ME_ROOT": "https://nearme-test.solarcity.com",
   "PANEL_FILL_ROOT": "http://10.111.4.134",
-  "AHJ_API": "https://136.179.7.62",
+  "AHJ_API": "https://ahj.solarcity.com",
   "UTILITIES_API": "/solarbid/api/utilities/",
   "WAREHOUSE_API": "/solarbid/api/warehouses/",
   "RATES_API": "/solarbid/api/rates/",
