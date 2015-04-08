@@ -35,6 +35,7 @@ a {
 }
 
 input {
+  user-select: auto;
   cursor: text;
 }
 
@@ -264,10 +265,6 @@ a.btn {
   input {
     padding-right: 3.5rem !important;
   }
-}
-
-.btn.ib + .btn.ib {
-  margin-left: 0.8em !important;
 }
 
 .baseline button {

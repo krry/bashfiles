@@ -1,3 +1,48 @@
+@import "../imports/colors";
+@import "../imports/sizes";
+
+.step-bill button.tiny.gold {
+  margin: 1em 0 0 0;
+}
+
+.step-fork .button-set {
+  width: 80%;
+  margin: 0 auto;
+  padding: 1em 1em 3em 1em;
+  margin-top: 2em;
+}
+.step-fork .button-set .left-col {
+  float: left;
+  width: 40%;
+  max-width: 270px;
+  height: 100%;
+}
+.step-fork .button-set .set-or {
+  font-size: 0.83em;
+  padding: 1.2em 0;
+}
+.step-fork .button-set .right-col {
+  float: right;
+  width: 40%;
+  max-width: 270px;
+  height: 100%;
+}
+.step-fork .button-set p {
+  text-align: left;
+  padding-left: 0.5em;
+  line-height: 140%;
+}
+.step-fork .button-set br {
+  clear: both;
+}
+.step-fork .button-set button {
+  width: 100%;
+  margin: 0 auto 1em auto;
+}
+.step-fork .button-set button.skip {
+  background-color: $grey-medium;
+}
+
 .button-set {
   padding: 2em 0 1em;
 }
@@ -6,5 +51,44 @@
 }
 
 .button-set-hug {
-  margin-top: -2em;
+  margin-top: -1em;
+  margin-bottom: 1em;
+}
+
+.credit-check button.gold {
+  min-width: 15em;
+}
+
+@media screen and (min-width: $width-min-sml) {
+  .step-fork .button-set {
+    width: 100%;
+  }
+}
+
+
+@media screen and (min-width: $width-min-med) {
+  .step-bill button.tiny.gold {
+    margin: 0;
+  }
+  .step-fork .button-set {
+    width: 90%;
+  }
+}
+
+@media screen and (min-width: $width-min-lrg) {
+  .step-fork .button-set {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: $width-min-xlg) {
+  .step-fork .button-set {
+    width: 85%;
+  }
+}
+
+@media screen and (min-width: $width-min-xxl){
+  .step-fork .button-set {
+    width: 70%;
+  }
 }

@@ -1,0 +1,122 @@
+@import "../imports/colors";
+@import "../imports/sizes";
+@import "../imports/fonts";
+
+h1 small, h2 small {
+  @include apercu-light;
+  font-size: 65%;
+  display: block;
+  margin-top: .5em;
+  line-height: 1.5;
+  margin-bottom: 2em;
+}
+
+h3.social-proof-count {
+  @include apercu-light;
+  margin-top: 1.5em;
+  margin-bottom: 1em;
+
+  & span.bold {
+    @include apercu-bold;
+  }
+}
+
+.step-zip h1 {
+  margin-top: 0;
+  margin-bottom: .75em;
+}
+
+.step-bill.overlay.short {
+  padding-top: 1em;
+}
+
+.get-involved .col {
+  margin-bottom: 1em;
+}
+.get-involved h4 {
+  margin: 0;
+}
+.get-involved p {
+  margin-bottom: 0.75em;
+}
+.get-involved a {
+  text-decoration: underline;
+}
+
+.call-sales-rep {
+  background: $white;
+  width: 100%;
+  padding: 1em;
+  text-align: center;
+  font-size: .75em;
+}
+.drop-top {
+  padding-top: 5.1rem;
+  font-size: 0.9em;
+  line-height: 130%;
+}
+.drop-top p {
+  margin-bottom: 0.85em;
+}
+
+.territory-map {
+  figure {
+  background-image: url('../img/map_regions_2-01.svg');
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: contain;
+  height: 180px;
+  }
+  p.center {
+    letter-spacing: 0.1em;
+  }
+}
+
+.video-vision .video-tray {
+  border: none;
+}
+.video-vision p {
+  font-size: 0.75em;
+}
+.video-mysc {
+  width: 70%;
+  margin: 3em auto 0 auto;
+}
+.video-mysc .video-tray {
+  border: 1px solid $white;
+  margin-bottom: 1.5em;
+}
+
+.step-bill h3 {
+  margin-bottom: 0;
+}
+.fine-print {
+  font-size: 0.7em;
+  text-align: left;
+  margin-top: 10em;
+  color: transparentize($grey-darker, 0.5);
+  & p {
+    margin-bottom: 1em;
+  }
+}
+
+@media screen and (min-width: $width-min-lrg) {
+  .step-address h3 {
+    width: 85%;
+  }
+}
+
+@media screen and (min-width: $width-min-xlg) {
+  .step-address h3 {
+    width: 85%;
+  }
+  .step-fork h1 {
+    width: 85%;
+  }
+}
+
+@media screen and (min-width: $width-min-xxl){
+  .step-fork h1 {
+    width: 85%;
+  }
+}
