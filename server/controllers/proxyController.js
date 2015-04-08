@@ -5,8 +5,6 @@ module.exports = function(app) {
       conf          = require('../config/environments/' + env + '.json');
 
   function proxyGET(url, res) {
-    console.log(url);
-
     request({
       rejectUnauthorized: false,
       url: url
