@@ -131,6 +131,17 @@ module.exports = function(app) {
     proxyPOST(url, req.body, res);
   }
 
+  function panelFill(req, res) {
+    var url = [
+      conf.PANEL_FILL_ROOT,
+      conf.PANEL_FILL_API,
+      '?',
+      querystring.stringify(req.query)
+    ].join('');
+
+    proxyGET(url, res);
+  }
+
   return {
     ahj: ahj,
     utilities: utilities,
@@ -142,6 +153,7 @@ module.exports = function(app) {
     nearMe: nearMe,
     gsa: gsa,
     schedule: schedule,
-    installation: installation
+    installation: installation,
+    panelFill: panelFill
   };
 };
