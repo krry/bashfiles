@@ -54,8 +54,8 @@
     @include icon('address-search');
     background-color: transparent;
     border: none;
-    width: 2em;
-    height: 2em;
+    width: 1.5em;
+    height: 1.5em;
     background-position: center center;
   }
   &.chat {
@@ -93,7 +93,7 @@
 }
 
 @media screen and (min-width: $width-min-med) {
-  &.search {
+  .icon.search {
     width: 2em;
     height: 2em;
   }
