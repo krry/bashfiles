@@ -583,7 +583,7 @@ function getEaveAdjustedPolygon(arrayOfPoints,
 											}
 											else {
 												if(currentDistance > maxDistance) {
-												    maxDistance = currentDistance;
+                          maxDistance = currentDistance;
 													eaveLine = potentialEaves[i];
 													pointToBuildEave = test.Start;													
 												}
@@ -623,7 +623,7 @@ function getEaveAdjustedPolygon(arrayOfPoints,
 									for (var i = 0 ; i < adjustedArrayOfLines.length; i++) {
 										if (adjustedArrayOfLines[i].ID === eaveLine.ID) {
 											//var secondEavePoint = GetNewPoint(adjustedArrayOfLines[i].Start, tempLine, 1000);
-											var secondEavePoint = GetNewPoint(pointToBuildEave, tempLine, 1000);
+                      var secondEavePoint = GetNewPoint(pointToBuildEave, tempLine, 1000);
 											//create our new eave
 											var currIndex = i;
 											if( (i+1) == adjustedArrayOfLines.length)
