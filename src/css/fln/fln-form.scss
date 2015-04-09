@@ -37,7 +37,7 @@ input.phone {
 }
 
 input.birthdate {
-  font-size: 2em;
+  font-size: 1.5em;
   padding: .25em .5em;
   width: auto;
   max-width: 3em;
@@ -101,7 +101,7 @@ label input.full-name,
 label input.email,
 label input.birthdate,
 label input.phone {
-  font-size: 2em;
+  font-size: 1.5em;
   margin-top: .325em;
 }
 
@@ -166,7 +166,6 @@ span.autolocate-icon {
   input.name,
   input.email,
   input.bill,
-  input.birthdate,
   input.full-name,
   input.phone {
     font-size: 1.25em;
