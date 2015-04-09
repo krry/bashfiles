@@ -19,7 +19,7 @@
   "INSTALLATION_API": "/api/installation/partial",
   "FULL_INSTALLATION_API": "/api/installation/full",
   "PANEL_FILL_API": "/api/Fill",
-  "SFLOGIN_URL": "https://wwww.salesforce.com",
+  "SFLOGIN_URL": "https://www.salesforce.com",
   "SFUSERNAME": "onlinesales@solarcity.com",
   "SFPASSWORD": "3zZ*$Hm}F4s2AEe",
   "SFDCSECRETTOKEN": "dZEBJngoA1IpzUcP02Ol7pRa",
