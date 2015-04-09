@@ -28,7 +28,8 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
       unlockODA,
       latestStage,
       latestStep,
-      hasLoaded;
+      hasLoaded,
+      initialState;
 
   stage = 0;
   step  = 0;
@@ -37,6 +38,7 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
   waiting = false;
   unlockODA = false;
   hasLoaded = false;
+  initialState = null;
 
   vm = this;
   vm.next = next;
@@ -93,6 +95,7 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
   Client.listen('Spinner: spin it', setWaiting);
   Client.listen('Stages: stage', stageLayout);
   Client.listen('ODA: Request session', unlockODAState);
+  Client.listen('Stages: set initial state', setInitialState);
 
   function currentStep (step) {
     return step === step;
@@ -140,6 +143,11 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
       $state.go('flannel.home.address-roof').then(function() {
         Client.emit('check zip', zipParam);
       });
+    }
+    // Seeding the app with an initial state from a nurtured email link
+    else if (initialState) {
+      $state.go(initialState);
+      initialState = null;
     }
   }
 
@@ -398,5 +406,9 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
 
   function unlockODAState() {
     unlockODA = true;
+  }
+
+  function setInitialState(state) {
+    initialState = state;
   }
 }
