@@ -71,8 +71,11 @@ img {
 .states {
   text-align: center;
   margin: 1em 0;
+  list-style-type: none;
 
-  span {
+  li {
+    display: inline;
+    padding-right: .5em;
     @include caps();
     font-size: .75em;
   }

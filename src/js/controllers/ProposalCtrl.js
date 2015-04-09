@@ -66,6 +66,7 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, $state, Session, Form, Clie
 
     // save the new figures to Firebase
     Form.ref() && Client.emit('Form: valid data', {
+      panelCount: vm.prospect().panelCount,
       systemSize: vm.prospect().systemSize,
       annualProduction: vm.prospect().annualProduction,
       panelCapacity: vm.prospect().panelCapacity,

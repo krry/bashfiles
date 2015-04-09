@@ -37,6 +37,15 @@
   .step-fork .button-set {
     width: 100%;
   }
+  .step-fork button {
+    max-width: 16em;
+  }
+  .step-fork h1 small {
+    margin-bottom: 1em;
+  }
+  .step-fork p.small {
+    width: 90%;
+  }
 }
 
 @media screen and (min-width: $width-min-med) {
@@ -45,6 +54,9 @@
   }
   .step-fork .button-set {
     width: 90%;
+  }
+  .step-fork p.small {
+    width: 60%;
   }
 }
 
@@ -55,6 +67,9 @@
   .step-fork .set-or {
     line-height: 5.5em;
     padding: 0;
+  }
+  .step-fork p.small {
+    width: 80%;
   }
 }
 
