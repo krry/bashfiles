@@ -126,7 +126,7 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
         var testLineString, arrayOfPoints;
         if (target_f &&
             AreaService.getWkt(target_f).split('POLYGON').length === 1) {  //this second condition covers if a polygon was selected
-          console.log(AreaService.getWkt(target_f));
+          // console.log(AreaService.getWkt(target_f));
 
           testLineString = AreaService.getWkt(target_f).split('LINESTRING');
           arrayOfPoints = [];
@@ -143,7 +143,7 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
           scope.roof_peak_chosen = true;
           // scope.$apply()
         } else {
-          console.log('can\'t proceed if you don\'t click a roofpeak, brah');
+          // console.log('can\'t proceed if you don\'t click a roofpeak, brah');
         }
       }
       element.on('$destroy', function dragPanDestroy (e) {

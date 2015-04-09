@@ -24,7 +24,7 @@ function Clientstream_ () {
 
   var Stream = Emitter();
   var hasOwnProp = {}.hasOwnProperty;
-  // var loggins = "kenny";
+  var loggins = "kenny";
 
   function createName (name) {
       return '$' + name;
@@ -34,16 +34,16 @@ function Clientstream_ () {
       this.subjects = {};
   }
 
-  // function logStream (action, name, data) {
-  //   if (loggins === "kenny") {
-  //     if (typeof data !== "undefined") {
-  //       console.debug('~~stream~~', action, '==>', name, data);
-  //     } else {
-  //       var msg = ['~~stream~~', action, '<==', name].join(' ');
-  //       console.count(msg);
-  //     }
-  //   }
-  // }
+  function logStream (action, name, data) {
+    if (loggins === "kenny") {
+      if (typeof data !== "undefined") {
+        console.debug('~~stream~~', action, '==>', name, data);
+      } else {
+        var msg = ['~~stream~~', action, '<==', name].join(' ');
+        console.count(msg);
+      }
+    }
+  }
 
   Emitter.prototype.emit = function (name, data) {
       var fnName = createName(name);

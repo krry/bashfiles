@@ -73,17 +73,17 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap,  NearMe) {
 
   function setSpinCount(data) {
     spinnerEventCount += data ? 1 : -1;
-    console.log('spin event count is', spinnerEventCount);
+    // console.log('spin event count is', spinnerEventCount);
   }
 
   function hideSpinner () {
-    console.log('hiding spinner');
+    // console.log('hiding spinner');
     // TODO: ensure that the spinner stays up until the tiles are actually loaded
     // switching from TERRAIN to HYBRID map causes an extra `tilesloaded` event to be emitted, prematurely hiding the spinner for the HYBRID map load
     Client.emit('Spinner: spin it', false);
     if (spinnerEventCount < 1) {
       if (spinnerEventCount < 0) spinnerEventCount = 0;
-      console.log('spinner counter', spinnerEventCount);
+      // console.log('spinner counter', spinnerEventCount);
     }
   }
 
@@ -124,7 +124,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap,  NearMe) {
   function saveZoom () {
     Gmap.loaded.then(function() {
       var zoom = map.getZoom();
-      console.log('saving zoom as', zoom);
+      // console.log('saving zoom as', zoom);
       if (mapOpts.zoom !== zoom){
         mapOpts.zoom = zoom;
       }
@@ -133,7 +133,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap,  NearMe) {
 
   function applyMaxZoom (zoom) {
     Gmap.loaded.then(function() {
-      console.log('setting zoom to', zoom);
+      // console.log('setting zoom to', zoom);
       map.setZoom(zoom);
       mapOpts.zoom = zoom;
       // TODO: prevent nearme call when advancing from checkZip to checkAddress directly

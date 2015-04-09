@@ -24,8 +24,8 @@ function LiveagentService_ () {
     var val = prospect_key_val.value;
     var fieldName = key+'__c';
 
-    console.log("adding custom detail:", key, val);
-    console.log("fieldName", fieldName);
+    // console.log("adding custom detail:", key, val);
+    // console.log("fieldName", fieldName);
 
     return liveagent.addCustomDetail(key, val).saveToTranscript(fieldName);
   }
@@ -115,7 +115,7 @@ function LiveagentService_ () {
       } catch (e) {
         setTimeout(function(attempt){
           // attempt++;
-          console.log('attempting to start chat');
+          // console.log('attempting to start chat');
           tryStartChat(attempt, t.buttonId, t.iframeTarget);
         }, 1500);
       }

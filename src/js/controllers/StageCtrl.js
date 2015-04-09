@@ -161,11 +161,11 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
     if ($state.is('share_proposal') || ($state.is('design_link') && !unlockODA)) return;
 
     if (data.stage !== stage) {
-      console.log('data.stage', data.stage,'diff from client stage', stage);
+      // console.log('data.stage', data.stage,'diff from client stage', stage);
       Client.emit('Stages: stage', data);
     }
     else if (data.step !== step) {
-      console.log('same stage, but data.step', data.step, 'diff from client step', step, $scope.view_sync);
+      // console.log('same stage, but data.step', data.step, 'diff from client step', step, $scope.view_sync);
       Client.emit('Stages: step', data.step);
     }
   }
@@ -177,7 +177,7 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
   function setWaiting (data) {
     waiting = data;
 
-    console.log('adding to spin count', data);
+    // console.log('adding to spin count', data);
     Client.emit('Spinner: add to spin count', data);
 
     $timeout(function(){
@@ -187,7 +187,7 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
 
   // listen for stage change requests from ui-router
   function startOver (data) {
-    console.log('heard that startover', data);
+    // console.log('heard that startover', data);
 
     Client.emit('erase area', data);
 
@@ -278,7 +278,7 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
       vm.shadeActivated = false;
     }
     Client.emit('Stages: step complete', Templates.config[stage].steps[step].step);
-    console.log('location.path is:', $location.$$path);
+    // console.log('location.path is:', $location.$$path);
   }
 
   function stepListen (target_step) {
