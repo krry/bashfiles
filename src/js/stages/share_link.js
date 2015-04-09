@@ -2,7 +2,7 @@ angular.module('share_link', []).config(["$stateProvider", function ($stateProvi
   // state definition
 
   $stateProvider.state("share_proposal", {
-    url: "/share/:design_key/:bill/:utilityRate/:sctyRate/:lat/:lng",
+    url: "/share/:design_key/:bill/:utilityRate/:sctyRate/:averageYield/:lat/:lng",
     views: {
       'header@': {
         templateUrl: 'templates/stages/share/share_header.html',

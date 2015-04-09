@@ -32,10 +32,10 @@ function flnFollowTip_ () {
           offsetY;
 
       tip = $(el[0]).find('span');
-      console.log("parent div starts at top:", $(el).offset().top, "and left:", $(el).offset().left);
+      // console.log("parent div starts at top:", $(el).offset().top, "and left:", $(el).offset().left);
       offsetX = tip.offset().left + 20;
       offsetY = tip.offset().top;
-      console.log(offsetX);
+      // console.log(offsetX);
 
       $(el).addClass('followtipped');
 

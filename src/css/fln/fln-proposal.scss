@@ -116,7 +116,8 @@
     height: 200px;
   }
   p {
-    line-height: 160%;
+    line-height: 130%;
+    font-size: 0.8em;
   }
   dt {
     @include apercu-medium;
@@ -184,6 +185,9 @@
 }
 
 @media screen and (min-width: $width-min-lrg) {
+  .faq-item figure {
+    height: 100px;
+  }
   .benefits {
     .icon {
       width: 4em;

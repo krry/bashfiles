@@ -23,7 +23,7 @@
         <div class="col third center padded utes">
           <label for="current_rate">Current Utility Cost</label>
           <figure>
-            <span id="current_rate" class="cents">{{ 100 * proposal.prospect().utilityRate | number: 1}}</span>
+            <span id="current_rate" class="cents">{{ 100 * proposal.prospect().utilityRate | number: 1 }}</span>
           </figure>
           <label class="units">per kwh average in<br>your zip code</label>
         </div>
@@ -46,7 +46,7 @@
           <figure>
             <span id="monthly_bill" class="dollars">{{proposal.prospect().bill}}</span>
           </figure>
-          <!-- <label class="units">in a typical month</label> -->
+          <label class="units">in a typical month</label>
           <fln-input-bill-slider proposal-bill="true"></fln-input-bill-slider>
         </div>
         <div class="col third center padded">

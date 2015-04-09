@@ -53,7 +53,7 @@ function ModalCtrl_($scope, Client, ModalService) {
     }
     ModalService.set(true);
     ModalService.activate(dialog);
-    console.log('body is:', $('body'), 'and dialog is:', dialog);
+    // console.log('body is:', $('body'), 'and dialog is:', dialog);
     if (!$scope.$$phase) $scope.$apply();
   }
 }

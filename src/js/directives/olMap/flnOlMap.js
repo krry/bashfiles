@@ -33,7 +33,7 @@ function flnOlMap_ (Client, Configurator) {
       ele.on('$destroy', function (e) {
         // make sure we sync whatever is going on with firebase
         // what else?
-        console.log("check it brah, i'm syncing with firebase!");
+        // console.log("check it brah, i'm syncing with firebase!");
       });
     },
   };

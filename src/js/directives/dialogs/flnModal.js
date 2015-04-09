@@ -8,7 +8,7 @@ function flnModal_ () {
     link: function (scope, element, attrs, modal) {
       element.bind('click', function(event) {
         if (!$(event.srcElement).parents().hasClass('dialog') && !$(event.srcElement).hasClass('dialog')) {
-          console.log("modal is:", modal.isOn());
+          // console.log("modal is:", modal.isOn());
           modal.close();
         }
       });

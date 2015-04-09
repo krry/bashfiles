@@ -5,7 +5,7 @@ function flnContinueDesign (Client) {
     templateUrl: 'templates/directives/dialogs/flnContinueDesign.html',
     controller: ['$scope', function continueDesignCtrl ($scope) {
       $scope.restart = function() {
-        console.log('fln-continue-design is there');
+        // console.log('fln-continue-design is there');
         Client.emit('Modal: continue design? result', 'restart');
       }
       $scope.resume = function() {
