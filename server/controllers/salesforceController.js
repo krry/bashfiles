@@ -34,6 +34,8 @@ module.exports = function(app) {
       Status : req.body.LeadStatus,
       Unqualified_Reason__c : req.body.UnqualifiedReason,
       odaHotloadLink__c: req.body.OdaHotloadLink,
+      proposalLink__c: req.body.ProposalLink,
+      siteSurveyLink__c: req.body.SiteSurveyLink,
       skipped__c: req.body.Skipped,
       External_ID__c : req.body.ExternalId,
       External_ID_Type__c : 'FirebaseSessionId',
