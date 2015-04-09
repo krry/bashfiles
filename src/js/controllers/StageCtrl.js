@@ -344,12 +344,19 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
 
   function checkZipParam() {
     var hasAdvanced = !User.isNew,
-        zipParam = getParameterByName('zip');
+        zipParam = getParameterByName('zip'),
+        zipState = 'flannel.home.zip-nearme',
+        addressState = 'flannel.home.address-roof';
 
     if (zipParam && !hasAdvanced) {
-      $state.go('flannel.home.address-roof').then(function() {
+      if ($state.is(zipState)) {
+        $state.go(addressState).then(function() {
+          Client.emit('check zip', zipParam);
+        });
+      }
+      else if ($state.is(addressState)) {
         Client.emit('check zip', zipParam);
-      });
+      }
     }
   }
 
