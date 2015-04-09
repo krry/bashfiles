@@ -49,7 +49,7 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
   vm.jumpToStage = jumpToStage;
   vm.hasVisited = hasVisited;
   vm.checkAndJump = checkAndJump;
-  vm.checkAndJumpAddress = checkAndJumpAddress;
+  vm.checkZipParam = checkZipParam;
   vm.spinIt = waiting;
   vm.partial = Templates.partial(stage, step);
   vm.partials = flattenPartialsArray(Templates.partials);
@@ -342,12 +342,13 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
     }
   }
 
-  function checkAndJumpAddress() {
-    var jump = vm.checkAndJump('flannel.home.address-roof');
+  function checkZipParam() {
+    var hasAdvanced = !User.isNew,
+        zipParam = getParameterByName('zip');
 
-    if (jump) {
-      jump.then(function() {
-        Client.emit('check zip', '');
+    if (zipParam && !hasAdvanced) {
+      $state.go('flannel.home.address-roof').then(function() {
+        Client.emit('check zip', zipParam);
       });
     }
   }
