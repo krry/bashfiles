@@ -31,7 +31,6 @@ function AppCtrl_($location, $sce, GMAP_CLIENT, MINIFIED, APP_TITLE, ENV, Client
 
   function notifyTrackerAboutStep (step) {
     var location;
-    // console.log('tracking step:', step);
     // TODO: convert these ifs into a switch
     if (step === "congrats") {
       //ga('send', 'event', step, 'Button Clicks', 'Final submit');
@@ -55,7 +54,6 @@ function AppCtrl_($location, $sce, GMAP_CLIENT, MINIFIED, APP_TITLE, ENV, Client
     }
     // trim query string off path, cache and send to google analytics
     location = $location.url();
-    // console.log("$location", location);
     //ga('send', 'pageview', $location.$$path); // relative url
     dataLayer.push({
       'event': 'pageview',
