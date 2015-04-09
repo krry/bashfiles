@@ -327,6 +327,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
   function createLead(leadStatus, unqualifiedReason) {
     createHotloadLink();
     createProposalLink();
+    createSurveyLink();
 
     // TODO: handle duplicate error and bubble up feedback to user
     return Salesforce.createLead({
@@ -346,6 +347,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
       UnqualifiedReason: unqualifiedReason,
       OdaHotloadLink: vm.prospect().odaHotloadLink,
       ProposalLink: vm.prospect().proposalLink,
+      SiteSurveyLink: vm.prospect().siteSurveyLink,
       Skipped: vm.prospect().skipped,
       Share_Proposal_Link__c: vm.prospect().share_link,
       // OwnerId: '005300000058ZEZAA2',//oda userId
@@ -377,6 +379,17 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
       '/#/session/',
       Session.id(),
       '/proposal/review-proposal'
+    ].join('');
+  }
+
+  function createSurveyLink() {
+    vm.prospect().siteSurveyLink = [
+      $location.protocol(),
+      '://',
+      URL_ROOT,
+      '/#/session',
+      Session.id(),
+      '/signup/qualify'
     ].join('');
   }
 
