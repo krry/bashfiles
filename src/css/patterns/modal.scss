@@ -20,16 +20,24 @@
   background: $tint-90;
   background: $white;
   padding: 4em;
-  border-radius: 3px;
+  border-radius: 2px;
   position: relative;
 
   h2 {
     text-align: center;
+    @include apercu-light;
+  }
+
+  & h5 {
+    margin: 0 0 0.8em 0;
+    text-align: center;
+    font-size: 0.9em;
+    @include apercu-regular;
   }
 }
 
 .modal .dialog h4 {
-  margin-top: 0em;
+  margin-top: 1em;
 }
 .modal .dialog .financing-option h4 {
   margin-top: 1em;
@@ -58,11 +66,6 @@
   height: auto;
   width: 90%;
 
-  & h5 {
-    margin: 0 0 0.8em 0;
-    text-align: center;
-    font-size: 0.9em;
-  }
   & p {
     font-size: 1em;
     text-align: center;
@@ -99,8 +102,8 @@
 }
 
 @media screen and (min-width: $width-min-lrg) {
-  .modal h4 {
-    margin-top: 0;
+  .modal .dialog h4 {
+    margin-top: 0em;
   }
   .modal .dialog {
     margin: 3em 10%;

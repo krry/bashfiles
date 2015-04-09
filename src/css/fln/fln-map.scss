@@ -158,7 +158,7 @@
       right: 0;
       left: 0;
       background: url('../img/arrow-up-blk-01.svg') no-repeat center;
-      background-size: 15px;
+      background-size: 12px;
       background-color: $tint-80;
     }
     &.pan-down {
@@ -166,7 +166,7 @@
       bottom: 3em;
       left: 0;
       background: url('../img/arrow-down-blk-01.svg') no-repeat center;
-      background-size: 15px;
+      background-size: 12px;
       background-color: $tint-80;
     }
     &.pan-right {
@@ -174,7 +174,7 @@
       bottom: 0;
       right: 3.5em;
       background: url('../img/arrow-right-blk-01.svg') no-repeat center;
-      background-size: 15px;
+      background-size: 12px;
       background-color: $tint-80;
     }
     &.pan-left {
@@ -182,7 +182,7 @@
       left: 1em;
       bottom: 0;
       background: url('../img/arrow-left-blk-01.svg') no-repeat center;
-      background-size: 15px;
+      background-size: 12px;
       background-color: $tint-80;
     }
     &:hover,

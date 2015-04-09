@@ -356,7 +356,7 @@ function PanelfillService_ ($http, $q, PANEL_FILL_API) {
 
     function PanelMover45(points, lat)
   {
-  
+
     var new_points = [];
 	offset = 0.15; //0.0000015
 	for(var i = 0; i < points.length; i++) {
@@ -365,11 +365,11 @@ function PanelfillService_ ($http, $q, PANEL_FILL_API) {
 		var φ2 = Math.asin( Math.sin(points[i][1]/ToDegrees)*Math.cos(d/EarthRadiusInches) - Math.cos(points[i][1]/ToDegrees)*Math.sin(d/EarthRadiusInches )*Math.cos(brng));
 		new_points.push([points[i][0],φ2*ToDegrees]); //points[i][1]-(d*offset*lat)]);
 	}
-  
+
 	return new_points;
-  
+
   }
-  
+
 
 function getEaveAdjustedPolygon(arrayOfPoints,
                 highestElement) {
@@ -422,9 +422,9 @@ function getEaveAdjustedPolygon(arrayOfPoints,
                                 var tempPt1 = convertToElementToPoint(highestElement[0]);
                                 var tempPt2 = convertToElementToPoint(highestElement[1]);
                                 var tempLine = convertPointsToLine(tempPt1, tempPt2, 'convertedPoint');
-								var bigTempPt1 = MakeLineBigger(tempPt1, tempLine, 2000, 0.0005) 
-								var bigTempPt2 = MakeLineBigger(tempPt2, tempLine, 2001, -0.0005) 
-								
+								var bigTempPt1 = MakeLineBigger(tempPt1, tempLine, 2000, 0.0005)
+								var bigTempPt2 = MakeLineBigger(tempPt2, tempLine, 2001, -0.0005)
+
                                 highestPoint = GetMidPoint(tempLine);
                 }
                 else {
@@ -555,8 +555,8 @@ function getEaveAdjustedPolygon(arrayOfPoints,
                                                                 }
                                                 }
                                 }
-					
-				
+
+
 								var otemp;
 								var maxDistance;
 								var pointToBuildEave = null;
@@ -569,13 +569,13 @@ function getEaveAdjustedPolygon(arrayOfPoints,
 											var currentDistance = sqr(test.Start.X - test.End.X) + sqr(test.Start.Y - test.End.Y)
 											var test2 = distToSegmentSquared(potentialEaves[i].End, bigTempPt1, bigTempPt2)
 											var currentDistance2 = sqr(test.Start.X - test.End.X) + sqr(test.Start.Y - test.End.Y)
-											
+
 											if(currentDistance2 > currentDistance) {
 												currentDistance = currentDistance2;
-												test = test2;										
+												test = test2;
 											}
-											
-											
+
+
 											if(i == 0) {
 												maxDistance = currentDistance;
 												eaveLine = potentialEaves[i];
@@ -585,40 +585,40 @@ function getEaveAdjustedPolygon(arrayOfPoints,
 												if(currentDistance > maxDistance) {
                           maxDistance = currentDistance;
 													eaveLine = potentialEaves[i];
-													pointToBuildEave = test.Start;													
+													pointToBuildEave = test.Start;
 												}
-											
+
 											}
 										}
 										else
 										{
-											eaveLine = potentialEaves[i];										
+											eaveLine = potentialEaves[i];
 										}
-									
+
 									}
-									else {									
+									else {
 										var test = distToSegmentSquared(highestPoint, potentialEaves[i].Start, potentialEaves[i].End)
 										var angle_temp = angleBetween2Lines(test, potentialEaves[i])
 										angle_temp = Math.abs(Math.abs(angle_temp * ToDegrees)-90);
 										if(i == 0) {
 											eaveLine = potentialEaves[i];
 											otemp = angle_temp;
-										
+
 										}
 										else {
 											if (angle_temp < otemp) {
-											
+
 												eaveLine = potentialEaves[i];
-											
+
 											}
-										
-										}						
-									
+
+										}
+
 									}
 								}
-	
+
 								if (highestElementIsALine && potentialEaves.length > 1) {
-									var newOrderedListOfLines = [];								
+									var newOrderedListOfLines = [];
 								    var index = 0;
 									for (var i = 0 ; i < adjustedArrayOfLines.length; i++) {
 										if (adjustedArrayOfLines[i].ID === eaveLine.ID) {
@@ -628,13 +628,13 @@ function getEaveAdjustedPolygon(arrayOfPoints,
 											var currIndex = i;
 											if( (i+1) == adjustedArrayOfLines.length)
 											{
-												currIndex = 0;											
+												currIndex = 0;
 											}
 											else
 											{
 												currIndex = i+1;
 											}
-																				
+
 											var newLine1 = convertPointsToLine(adjustedArrayOfLines[i].Start, secondEavePoint, 1001);
 											var newLine2 = convertPointsToLine(secondEavePoint, adjustedArrayOfLines[i].End, 1002);
 											newOrderedListOfLines.push(newLine1);
@@ -647,9 +647,9 @@ function getEaveAdjustedPolygon(arrayOfPoints,
 										}
 									}
 								//HACK: set the eave to the first line
-                                adjustedArrayOfLines = newOrderedListOfLines;	
+                                adjustedArrayOfLines = newOrderedListOfLines;
 								}
-	
+
                                 //Now we have a list of potential eaves, which one is the right one???
                                 //LET'S FIND IT!
 								if (eaveLine === null) {
@@ -668,9 +668,9 @@ function getEaveAdjustedPolygon(arrayOfPoints,
                                                 //THIS SHOULD NEVER HAPPEN, BUT WE WANT TO RETURN SOMETHING AND MAKE SURE EAVE IS NOT NULL
                                                 eaveLine = adjustedArrayOfLines[0];
                                 }
-								
+
 								}
-								
+
 				}
 
 
@@ -780,9 +780,9 @@ function MakeLineBigger(CurrPoint, line, Id, Distance) {
 }
 
 
-// shortest distance from point to line 
-function distToSegment(p, v, w) { 
-	return Math.sqrt(distToSegmentSquared(p, v, w)); 
+// shortest distance from point to line
+function distToSegment(p, v, w) {
+	return Math.sqrt(distToSegmentSquared(p, v, w));
 }
 
 function sqr(x) { return x * x }

@@ -110,7 +110,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
 
   function checkZip (zip) {
     new_zip = vm.prospect().zip || zip;
-    console.log('********* checkin dat zip', new_zip, 'boss *********');
+    // console.log('********* checkin dat zip', new_zip, 'boss *********');
     /* jshint eqnull:true */
     if (new_zip != null && new_zip.length === 5) {
       // Only invalidate the street if the zip has changed - this allows the back button to function correctly
@@ -129,7 +129,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
     // TODO: ensure that form is pulling latest prospect from Firebase
     var addy;
 
-    console.log('********* checkin dat addy', new_street, 'boss *********');
+    // console.log('********* checkin dat addy', new_street, 'boss *********');
 
     setTimeout(function() {
       if (!$scope.$$phase) $scope.$apply();
@@ -442,7 +442,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
       vm.prospect().city = data.city;
       Client.emit('Form: valid data', data);
       Client.emit('Stages: stage', 'next');
-      console.log('valid house accepted', data);
+      // console.log('valid house accepted', data);
       getUtilities();
     }
   }
@@ -461,7 +461,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
   }
 
   function saveUtility (data) {
-    console.log(data);
+    // console.log(data);
     vm.prospect().utilityId = data;
     Client.emit('Form: valid data', {utilityId: data});
   }
@@ -498,7 +498,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
   }
 
   function saveBill (data) {
-    console.log("bill", data);
+    // console.log("bill", data);
     Client.emit('Form: valid data', { bill: data });
   }
 
