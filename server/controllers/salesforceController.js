@@ -9,7 +9,8 @@ module.exports = function(app) {
       sfUserName    = conf.SFUSERNAME,
       sfPassword    = conf.SFPASSWORD,
       sfToken       = conf.SFDCSECRETTOKEN,
-      sfRecordType  = conf.SFDCRECORDTYPEID;
+      sfRecordType  = conf.SFDCRECORDTYPEID,
+      sfOppOwnerId  = conf.SFOPPOWNERID;
 
 
   var conn = new jsforce.Connection({
@@ -39,7 +40,7 @@ module.exports = function(app) {
       External_ID_Type__c : 'FirebaseSessionId',
       Consultation_Date__c : new Date(),
       Consultation_Type__c : 'Online',
-      Opportunity_Owner__c : '00518000000QpDnAAK',
+      Opportunity_Owner__c : sfOppOwnerId,
       RecordTypeId : sfRecordType,
       Share_Proposal_Link__c: req.body.Share_Proposal_Link__c
     };
