@@ -326,6 +326,8 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
 
   function createLead(leadStatus, unqualifiedReason) {
     createHotloadLink();
+    createProposalLink();
+
     // TODO: handle duplicate error and bubble up feedback to user
     return Salesforce.createLead({
       // LeadSource: 'Online',
@@ -343,6 +345,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
       LeadStatus: leadStatus,
       UnqualifiedReason: unqualifiedReason,
       OdaHotloadLink: vm.prospect().odaHotloadLink,
+      ProposalLink: vm.prospect().proposalLink,
       Skipped: vm.prospect().skipped,
       Share_Proposal_Link__c: vm.prospect().share_link,
       // OwnerId: '005300000058ZEZAA2',//oda userId
@@ -363,6 +366,17 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
       URL_ROOT,
       '/#/oda/',
       Session.id()
+    ].join('');
+  }
+
+  function createProposalLink() {
+    vm.prospect().proposalLink = [
+      $location.protocol(),
+      '://',
+      URL_ROOT,
+      '/#/session/',
+      Session.id(),
+      '/proposal/review-proposal'
     ].join('');
   }
 
