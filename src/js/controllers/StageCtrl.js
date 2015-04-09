@@ -49,7 +49,7 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
   vm.jumpToStage = jumpToStage;
   vm.hasVisited = hasVisited;
   vm.checkAndJump = checkAndJump;
-  vm.checkAndJumpAddress = checkAndJumpAddress;
+  vm.checkZipParam = checkZipParam;
   vm.spinIt = waiting;
   vm.partial = Templates.partial(stage, step);
   vm.partials = flattenPartialsArray(Templates.partials);
@@ -128,6 +128,8 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
     latestStage = session_data.state.latestStage || 0;
     latestStep = session_data.state.latestStep || 0;
     hasLoaded = true;
+
+    console.log(zipParam, hasAdvanced);
 
     // Only show the continue modal if the user is on the home page (zip or address page) and has advanced in the flow
     // Else, on other pages, we let that page's url take precedence
@@ -342,12 +344,13 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
     }
   }
 
-  function checkAndJumpAddress() {
-    var jump = vm.checkAndJump('flannel.home.address-roof');
+  function checkZipParam() {
+    var hasAdvanced = !User.isNew,
+        zipParam = getParameterByName('zip');
 
-    if (jump) {
-      jump.then(function() {
-        Client.emit('check zip', '');
+    if (zipParam && !hasAdvanced) {
+      $state.go('flannel.home.address-roof').then(function() {
+        Client.emit('check zip', zipParam);
       });
     }
   }
