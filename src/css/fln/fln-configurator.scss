@@ -20,9 +20,8 @@
   line-height: 120%;
   bottom: 0;
   width: 100%;
-  text-align: center;
+  text-align: left;
 }
-
 .instructions h4 {
   font-size: 1.1em;
   line-height: 1.3;
@@ -37,13 +36,13 @@
 }
 .instructions figure {
   background: $white;
-  margin: 0;
+  margin: 0 auto;
 }
 .instructions figure img {
   border: none;
+  margin: 0 auto;
   width: 286px;
   height: 143px;
-  margin: 0 auto 0 auto;
 }
 .instructions button.tiny.white {
   min-width: 8em;
@@ -66,16 +65,22 @@
 
 @media screen and (min-width: $width-min-med) {
   .instructions > * {
-    max-width: 90%;
+    max-width: 80%;
+    figure {
+      text-align: center;
+    }
   }
 }
 @media screen and (min-width: $width-min-lrg) {
   .instructions > * {
-    max-width: 80%;
+    max-width: 60%;
   }
 }
 
 @media screen and (min-width: $width-min-xlg) {
+  .instructions > * {
+    max-width: 100%;
+  }
   [fln-control-pan],
   .fln-control-pan,
   [fln-control-zoom],
@@ -104,7 +109,7 @@
     text-align: left;
     box-shadow: 0 0 .75em -.25em $shade-60;
     margin-left: -2em;
-    padding: 3em 1em;
+    padding: 3em 2em;
   }
 }
 

@@ -86,8 +86,7 @@ h6, .small-caps {
 
 p {
   font-size: .85em;
-  margin: 0 auto;
-
+  margin: 0 auto .75em;
   &.small {
     font-size: .8em;
   }
@@ -155,7 +154,7 @@ code, kbd, pre, samp {
   }
 
   h3 {
-    font-size: 1.25em;
+    font-size: 1.2em;
   }
   h4 {
     font-size: 1.05em;

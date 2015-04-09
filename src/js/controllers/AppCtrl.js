@@ -31,16 +31,17 @@ function AppCtrl_($location, $sce, GMAP_CLIENT, MINIFIED, APP_TITLE, ENV, Client
 
   function notifyTrackerAboutStep (step) {
     var location;
+    console.log('tracking step:', step);
     // TODO: convert these ifs into a switch
     if (step === "congrats") {
       //ga('send', 'event', step, 'Button Clicks', 'Final submit');
       dataLayer.push({'event': 'final_submit'});
     }
-    if (step === "zoom") {
+    if (step === "zoom-lock-roof") {
       //ga('send', 'event', step, 'Design Tool', 'Design tool engaged');
       dataLayer.push({'event': 'design_tool_engaged'});
     }
-    if (step === "detail") {
+    if (step === "detail-area") {
       //ga('send', 'event', step, 'Design Tool', 'Roof alignment determined');
       dataLayer.push({'event': 'roof_alignment_determined'});
     }
@@ -48,7 +49,7 @@ function AppCtrl_($location, $sce, GMAP_CLIENT, MINIFIED, APP_TITLE, ENV, Client
       //ga('send', 'event', step, 'Design Tool', 'Roof slope determined');
       dataLayer.push({'event': 'roof_slope_determined'});
     }
-    if (step === "complete") {
+    if (step === "trace-area") {
       //ga('send', 'event', step, 'Design Tool', 'Polygon Completed');
       dataLayer.push({'event': 'polygon_completed'});
     }

@@ -19,16 +19,6 @@ label + button {
   margin-top: 2em !important;
 }
 
-span.autolocate-icon {
-  display: inline-block;
-  opacity: 1;
-  background: url('../img/autolocate-icon.svg') no-repeat center center;
-  background-size: 20px 20px;
-  background-color: none;
-  width: 20px;
-  height: 20px;
-}
-
 input.street,
 input.city,
 input.state,
@@ -103,16 +93,6 @@ input.state {
   width: 4em;
 }
 
-span.autolocate-icon {
-  display: inline-block;
-  opacity: 1;
-  background: url('../img/autolocate-icon.svg') no-repeat center center;
-  background-size: 20px 20px;
-  background-color: none;
-  width: 20px;
-  height: 20px;
-}
-
 input.date {
   padding: .18em .5em;
 }
@@ -161,8 +141,17 @@ button.nested {
   }
 }
 
+span.autolocate-icon {
+  display: inline-block;
+  opacity: 1;
+  background: url('../img/autolocate-icon.svg') no-repeat center center;
+  background-size: 20px 20px;
+  background-color: none;
+  width: 20px;
+  height: 20px;
+}
 
-@media screen and (min-width: $width-min-med){
+@media screen and (min-width: $width-min-med) {
   input.street,
   input.city,
   input.state,
@@ -175,12 +164,11 @@ button.nested {
   input.phone {
     font-size: 1.5em;
   }
-
   input.street {
-    max-width: 12em;
+    max-width: 14em;
   }
   input.zipcode {
-    max-width: 6em;
+    max-width: 4em;
   }
   .nest {
     display: inline-block;
@@ -188,5 +176,20 @@ button.nested {
     input {
       padding-right: 3.5rem !important;
     }
+  }
+  button.nested {
+    position: absolute;
+    right: .5em;
+    top: .5em;
+    margin: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+
+@media screen and (min-width: $width-min-lrg) {
+  input.street {
+    max-width: 20em;
+    width: 20em;
   }
 }

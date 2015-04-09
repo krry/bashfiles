@@ -176,7 +176,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
     checkAll({
       ContactId: vm.prospect().contactId,
       AddressId: vm.prospect().addressId,
-      BirthDate: vm.prospect().dob
+      BirthDate: vm.prospect().dobi
     }).then(function(data) {
 
       vm.isSubmitting = false;
@@ -196,7 +196,6 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
       createLead(Salesforce.statuses.noCreditResult);
       vm.isSubmitting = false;
 
-      // Timed out or failed
       Client.emit('Stages: jump to step', 'congrats');
     });
   }

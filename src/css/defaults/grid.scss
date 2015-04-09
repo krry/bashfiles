@@ -80,7 +80,7 @@
 }
 
 .row.fifth.four {
-  width: 80%;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -136,6 +136,10 @@
 .col.fifth.three,
 .col.fifth.two {
   width: 100%;
+}
+
+.col.padded {
+  padding-bottom: 1em;
 }
 
 .col.fifth.center {
@@ -207,8 +211,10 @@
     width: 100%;
     &.padded {
       padding: 0;
+      padding-bottom: 1em;
     }
   }
+
   .col.med-left {
     text-align: left;
   }
@@ -314,5 +320,13 @@
 
   .col.sixth.five {
     width: 83.3%;
+  }
+}
+
+@media screen and (min-width: $width-min-xlg) {
+  .row.fifth.four {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
