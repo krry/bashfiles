@@ -27,6 +27,13 @@
     text-align: center;
     @include apercu-light;
   }
+
+  & h5 {
+    margin: 0 0 0.8em 0;
+    text-align: center;
+    font-size: 0.9em;
+    @include apercu-regular;
+  }
 }
 
 .modal .dialog h4 {
@@ -59,11 +66,6 @@
   height: auto;
   width: 90%;
 
-  & h5 {
-    margin: 0 0 0.8em 0;
-    text-align: center;
-    font-size: 0.9em;
-  }
   & p {
     font-size: 1em;
     text-align: center;
