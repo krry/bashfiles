@@ -387,7 +387,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
       $location.protocol(),
       '://',
       URL_ROOT,
-      '/#/session',
+      '/#/session/',
       Session.id(),
       '/signup/qualify'
     ].join('');
