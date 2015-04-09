@@ -129,8 +129,6 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
     latestStep = session_data.state.latestStep || 0;
     hasLoaded = true;
 
-    console.log(zipParam, hasAdvanced);
-
     // Only show the continue modal if the user is on the home page (zip or address page) and has advanced in the flow
     // Else, on other pages, we let that page's url take precedence
     if (!isOnHome && !hasAdvanced) {
