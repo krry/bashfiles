@@ -9,6 +9,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap,  NearMe) {
       mapEl,
       mapOpts,
       spinnerEventCount,
+      isLoading,
       maxNearMeCalls;
 
   vm = this;
@@ -22,6 +23,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap,  NearMe) {
   mapEl = $element[0];
   mapOpts = Gmap.opts;
   spinnerEventCount = 0;
+  isLoading = false;
   maxNearMeCalls = 10;
   activate();
 
@@ -137,12 +139,14 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap,  NearMe) {
       map.setZoom(zoom);
       mapOpts.zoom = zoom;
       // TODO: prevent nearme call when advancing from checkZip to checkAddress directly
-      if (zoom < 17 && zoom > 4) getNearMeData();
+      // isLoading prevents more than one chain of near me calls from happening at one time
+      if (zoom < 17 && zoom > 4 && !isLoading) getNearMeData();
     });
   }
 
   function getNearMeData(data, count) {
     count = count || 1;
+    isLoading = true;
 
     // Reset the view state while we are still getting the data
     // This prevents old data from lingering in the view while we're processing the new location
@@ -225,6 +229,9 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap,  NearMe) {
       if (count >= maxNearMeCalls) {
         Client.emit('Form: final near me data', true);
       }
+
+      // Flag we are finally done with the nearme calls
+      isLoading = false;
     }
   }
 
