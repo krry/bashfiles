@@ -30,7 +30,7 @@
 }
 
 .modal .dialog h4 {
-  margin-top: 0em;
+  margin-top: 1em;
 }
 .modal .dialog .financing-option h4 {
   margin-top: 1em;
@@ -100,8 +100,8 @@
 }
 
 @media screen and (min-width: $width-min-lrg) {
-  .modal h4 {
-    margin-top: 0;
+  .modal .dialog h4 {
+    margin-top: 0em;
   }
   .modal .dialog {
     margin: 3em 10%;
