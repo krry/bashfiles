@@ -296,9 +296,6 @@ label.field-label {
   text-transform: uppercase;
   color: $grey-dark;
   letter-spacing: 0.5px;
-  & span {
-    text-transform: none;
-  }
 }
 
 label abbr {
