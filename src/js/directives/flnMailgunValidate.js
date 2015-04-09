@@ -33,7 +33,7 @@ function flnMailgun_ (Mailgun) {
           clearWhenBlankValidator;
 
       if (!$.fn.mailgun_validator) {
-        console.log('jQuery mailgun_validator plugin required');
+        // console.log('jQuery mailgun_validator plugin required');
       }
 
       options = Mailgun.getOptions();
@@ -47,7 +47,7 @@ function flnMailgun_ (Mailgun) {
       scope.replaceEmailWithSuggestion = replaceEmailWithSuggestion;
 
       function replaceEmailWithSuggestion (suggestion) {
-        console.log("trying to replace with suggestion", suggestion);
+        // console.log("trying to replace with suggestion", suggestion);
         element.prop('value', suggestion);
       }
 
@@ -55,14 +55,14 @@ function flnMailgun_ (Mailgun) {
         modelController.$setValidity('MailgunInProgress', true);
         modelController.$setValidity('MailgunFinished', true);
         modelController.$setValidity('MailgunEmailValid', (data && data.is_valid));
-        console.log("mailgun data returned: ", data);
+        // console.log("mailgun data returned: ", data);
         // expose the returned suggestion on the scope
         if (!data.is_valid){
           scope.did_you_mean = data.did_you_mean;
         }
         // clear mailgun status (used for errors)
         Mailgun.mailgunStatus = '';
-        console.log("not scope phase is:", !scope.$$phase);
+        // console.log("not scope phase is:", !scope.$$phase);
         if (!scope.$$phase) scope.$apply();
 
         if (baseSuccessCallback)

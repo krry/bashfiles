@@ -16,7 +16,7 @@
 
 .bill-slider {
   display: inline-block;
-  width: 75%;
+  width: 67%;
   max-width: 18em;
   margin-left: 0em;
   margin-bottom: 0.5em;
@@ -128,11 +128,11 @@ input.bill {
 }
 
 .bill-box {
-  display: inline-block;
-  vertical-align: bottom;
+  display: block;
   color: $green-neue;
-  margin: 0 0 0 .5em;
-  font-size: 1.25em;
+  font-size: 1.5rem;
+  vertical-align: baseline;
+  margin-top: .25em;
   &:before {
     content: "\0024";
     font-size: .75em;
@@ -142,21 +142,28 @@ input.bill {
   }
 }
 
+.bill-box input.bill {
+  font-size: 2rem;
+}
+
 .slider-align {
-  padding-top: 0.5em;
+  padding-top: 0.3em;
   margin-bottom: 0;
 }
 
 @media screen and (min-width: $width-min-sml) {
   .bill-box {
-    /* margin-bottom: 1em; */
+    display: inline-block;
+    margin: 0 0 0 .75em;
   }
 }
 @media screen and (min-width: $width-min-med) {
   .bill-slider {
     max-width: 16em;
+    width: 75%;
   }
   .bill-box {
+    font-size: 1.5rem;
     margin-bottom: 0;
     &:before {
       font-size: 1em;
@@ -173,7 +180,7 @@ input.bill {
     max-width: 14em;
   }
   .slider-align {
-    padding-top: 0.4em;
+    /* padding-top: 0.3em; */
   }
 }
 

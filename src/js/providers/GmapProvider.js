@@ -112,7 +112,7 @@ function GmapFactory_ () {
 
     function zoomToHood (data) {
       var zip = data.zip;
-      console.log('zooming into neighborhood in zipcode', zip);
+      // console.log('zooming into neighborhood in zipcode', zip);
       Client.emit('Gmap: max zoom found', 16);
     }
 
@@ -140,11 +140,11 @@ function GmapFactory_ () {
 
       maxZoomService.getMaxZoomAtLatLng(latLng, function(response) {
         if (response.status !== google.maps.MaxZoomStatus.OK) {
-          console.log("max zoom failed:", response.status);
+          // console.log("max zoom failed:", response.status);
           // HACK: hardcode fallback when zoom ain't
           Client.emit('Gmap: max zoom found', 20);
         } else {
-          console.log("max zoom at location:", response.zoom);
+          // console.log("max zoom at location:", response.zoom);
           Client.emit('Gmap: max zoom found', response.zoom);
         }
       });

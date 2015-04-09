@@ -99,7 +99,7 @@ function Layers_(Design, Styles, AreaService, Client) {
       } else {
         // sent by remote
         if (area.wkt === feature.get('wkt')) {
-          console.log('area the same as feature')
+          // console.log('area the same as feature')
           return Design.busy = false;
         }
         if (area) {

@@ -46,7 +46,7 @@ function flnSlopeSelect_ ($compile, Design, Client) {
       }
 
       $element.on('$destroy', function () {
-        console.log('should remove the SlopeSelect now');
+        // console.log('should remove the SlopeSelect now');
         // save details to Design (?)
       });
     }

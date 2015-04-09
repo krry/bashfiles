@@ -287,15 +287,15 @@ label {
   display: block;
   text-indent: 0;
   font-weight: 600;
-  margin-top: 0.5em;
-  margin-bottom: 0.625em;
 }
 
 label.field-label {
   @include apercu-light;
+  margin-top: 0.5em;
+  margin-bottom: 0.25em;
   text-transform: uppercase;
   color: $grey-dark;
-  //letter-spacing: 0.25em;
+  letter-spacing: 0.5px;
 }
 
 label abbr {

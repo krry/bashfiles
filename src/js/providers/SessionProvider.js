@@ -28,7 +28,7 @@ providers.provider('Session', ['FormProvider', 'DesignProvider', 'FIREBASE_URL',
 var rxs; // HACK: DEV: just for testing.
 
 function SessionProvider_ (Form, Design, FIREBASE_URL) {
-  console.log('Session Provider started')
+  // console.log('Session Provider started')
 
   var _ref,
       sessions_url,
@@ -134,7 +134,7 @@ function SessionProvider_ (Form, Design, FIREBASE_URL) {
       if (location.lat()) { // TODO: make this work for Gmap & Configurator
         _ref.child('map_center').set({lat: location.lat(), lng: location.lng()});
       } else {
-        console.error('unhandled center changed event');
+        // console.error('unhandled center changed event');
       }
     }
 

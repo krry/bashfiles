@@ -43,12 +43,12 @@ function GeocoderProvider_ () {
             parseLocation(results[0]);
           }
           else {
-            console.error("Error: No known domiciles nearby.");
+            // console.error("Error: No known domiciles nearby.");
             location = false;
           }
         }
         else {
-          console.error("Geocoder failed due to: ", status);
+          // console.error("Geocoder failed due to: ", status);
           location = false;
         }
       });
@@ -88,7 +88,7 @@ function GeocoderProvider_ () {
       else if (typeof request === "object") {
         // save the object as the cached addy
         // TODO: check if request obj would overwrite more valuable cached addy
-        console.log('geocode requested for object', request);
+        // console.log('geocode requested for object', request);
         addy = request;
 
         addyKeys.forEach(function(key) {
@@ -107,7 +107,7 @@ function GeocoderProvider_ () {
       }
       if (addyStr) {
         geocodeRequest = { "address": addyStr };
-        console.log('sending', geocodeRequest, 'to geocoder');
+        // console.log('sending', geocodeRequest, 'to geocoder');
         Client.emit('Spinner: spin it', true);
         geocoder.geocode(geocodeRequest, handleGeocodeResults);
       }
@@ -115,30 +115,30 @@ function GeocoderProvider_ () {
 
     // handle geocode errors, and if successful save and use the results
     function handleGeocodeResults(results, status) {
-      console.log('geocode results received', results);
+      // console.log('geocode results received', results);
       if (status === google.maps.GeocoderStatus.OK) {
         if (results[0]) {
 
-          console.log('geocode successful:', results);
+          // console.log('geocode successful:', results);
           // parse the results into an address
           parseLocation(results);
         }
       }
       else if (status === google.maps.GeocoderStatus.ZERO_RESULTS) {
-        console.error("Can't find that location.");
+        // console.error("Can't find that location.");
         Client.emit('geocode results', false);
       }
       else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
-        console.error("Over query limit, retrying...");
+        // console.error("Over query limit, retrying...");
         setTimeout(function(){ sendGeocodeRequest(addy); }, 2000);
       }
       else if (status === google.maps.GeocoderStatus.REQUEST_DENIED) {
-        console.error("The geocoder needs an additional parameter.");
+        // console.error("The geocoder needs an additional parameter.");
         Client.emit('geocode results', false);
       }
       else {
         if (status === google.maps.GeocoderStatus.INVALID_REQUEST) {
-          console.error("The geocode request was invalid. Address or latLng may be missing.");
+          // console.error("The geocode request was invalid. Address or latLng may be missing.");
           Client.emit('geocode results', false);
         }
         else {
@@ -154,11 +154,11 @@ function GeocoderProvider_ () {
           new_location;
 
       parsedress = results[0].address_components
-      console.log('parsing address', results[0].address_components);
+      // console.log('parsing address', results[0].address_components);
       addy = {};
       // cache the location as the center
       addy.location = results[0].geometry.location;
-      console.log('center plotted at:', addy.location);
+      // console.log('center plotted at:', addy.location);
       // iterate through the array of address_components
       for (var i=0; i<parsedress.length; i++) {
         if (parsedress[i].types[0]==="postal_code") {
@@ -223,7 +223,7 @@ function GeocoderProvider_ () {
 
     function checkTerritory(zip) {
       // if zip is in territory, emit that
-      console.log('checking if', zip, 'is in our territory');
+      // console.log('checking if', zip, 'is in our territory');
 
       Warehouse.get({ zip: zip }).then(function (data) {
         if (data.IsInTerritory) {
