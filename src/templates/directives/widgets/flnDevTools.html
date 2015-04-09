@@ -28,8 +28,11 @@
     <h4>Current prospect info:</h4>
     <label class="inline" for="dev_oda_link">
       <span>oda link</span>
-      <input type="tel" id="dev_oda_link" ng-model="dev.design_obj.oda_link">
-      <pre>{{dev.design_obj.oda_link}}</pre>
+      <a ng-model="dev.design_obj.oda_link" href="{{dev.design_obj.oda_link}}"><pre>{{dev.design_obj.oda_link}}</pre></a>
+    </label>
+    <label class="inline" for="dev_share_link">
+      <span>static proposal link</span>
+      <a ng-model="dev.prospect().share_link" href="{{dev.prospect().share_link}}"><pre>{{dev.prospect().share_link}}</pre></a>
     </label>
     <label class="inline" for="dev_zip">
       <span>zip</span>

@@ -23,7 +23,8 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, $state, Session, Form, Clie
       percent_utility,
       bill,
       ceiling,
-      share_link;
+      share_link,
+      average_yield;
 
   vm.changeDesign = changeDesign;
 
@@ -60,6 +61,9 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, $state, Session, Form, Clie
 
     // system size in kW => number of panels * power of each panel
     vm.prospect().systemSize = (count * vm.prospect().panelCapacity) || defaultValues.system_size;
+
+    // cache average yield from rates API
+    average_yield = vm.prospect().averageYield;
 
     // estimated production of that system in a year => power of system * yearly yield per kW in that region
     vm.prospect().annualProduction = (vm.prospect().systemSize * vm.prospect().averageYield) || defaultValues.annual_production; // kWh
@@ -146,6 +150,7 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, $state, Session, Form, Clie
       "/",        bill,
       "/",        utility_rate,
       "/",        scty_rate,
+      "/",        average_yield,
       "/",        share_map_center.lat,
       "/",        share_map_center.lng].join('');
       vm.prospect().share_link = share_link;
