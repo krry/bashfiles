@@ -1,6 +1,6 @@
-angular.module('flannel').service('Panelfill', ['$http', '$q', PanelfillService_]);
+angular.module('flannel').service('Panelfill', ['$http', '$q', 'PANEL_FILL_API', PanelfillService_]);
 
-function PanelfillService_ ($http, $q) {
+function PanelfillService_ ($http, $q, PANEL_FILL_API) {
   // TODO: Revisit naming of this and Proposal service... to whatever it should be.
 
   // this Service provides API access
@@ -11,7 +11,7 @@ function PanelfillService_ ($http, $q) {
   // only avail inhouse
   //var baseUrl = "http://slc3web00/scexchange/testfill.aspx";
 
-  var baseUrl = "http://design.solarcity.com/api/Fill";
+  var baseUrl = PANEL_FILL_API;
 
   var EarthRadiusInches = 251107755.9; //250826771.7;
   var ToDegrees = 180 / Math.PI;
@@ -579,12 +579,13 @@ function getEaveAdjustedPolygon(arrayOfPoints,
 											if(i == 0) {
 												maxDistance = currentDistance;
 												eaveLine = potentialEaves[i];
-												pointToBuildEave = test.End;
+												pointToBuildEave = test.Start;
 											}
 											else {
 												if(currentDistance > maxDistance) {
+                          maxDistance = currentDistance;
 													eaveLine = potentialEaves[i];
-													pointToBuildEave = test.End;													
+													pointToBuildEave = test.Start;													
 												}
 											
 											}
@@ -621,7 +622,8 @@ function getEaveAdjustedPolygon(arrayOfPoints,
 								    var index = 0;
 									for (var i = 0 ; i < adjustedArrayOfLines.length; i++) {
 										if (adjustedArrayOfLines[i].ID === eaveLine.ID) {
-											var secondEavePoint = GetNewPoint(adjustedArrayOfLines[i].Start, tempLine, 1000);
+											//var secondEavePoint = GetNewPoint(adjustedArrayOfLines[i].Start, tempLine, 1000);
+                      var secondEavePoint = GetNewPoint(pointToBuildEave, tempLine, 1000);
 											//create our new eave
 											var currIndex = i;
 											if( (i+1) == adjustedArrayOfLines.length)
