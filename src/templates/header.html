@@ -5,7 +5,7 @@
       <a ng-click="stages.checkAndJump('flannel.home.zip-nearme')">SolarCity</a>
     </li>
     <li class="chevron right caps col" ng-class="{ active: nav.onActiveStage('home') }">
-      <span>&nbsp;&nbsp;&rang;&nbsp;&nbsp;Your Home</span>
+      <span>&nbsp;&nbsp;&nbsp;&rang;&nbsp;&nbsp;&nbsp;Your Home</span>
       <span class="header-detail" ng-show="nav.prospect().zip">
         <span>&bull;</span>
         <span ng-bind="nav.prospect().street" class="header-street"></span>
@@ -13,8 +13,8 @@
         <span class="icon edit"></span>
       </span>
     </li>
-    <li class="chevron right caps col" ng-class="{ active: nav.onActiveStage('configure') }">&nbsp;&nbsp;&rang;&nbsp;&nbsp;Configure</li>
-    <li class="chevron right caps col" ng-class="{ active: nav.onActiveStage('signup') }">&nbsp;&nbsp;&rang;&nbsp;&nbsp;Sign up</li>
+    <li class="chevron right caps col" ng-class="{ active: nav.onActiveStage('configure') }">&nbsp;&nbsp;&nbsp;&rang;&nbsp;&nbsp;&nbsp;Configure</li>
+    <li class="chevron right caps col" ng-class="{ active: nav.onActiveStage('signup') }">&nbsp;&nbsp;&nbsp;&rang;&nbsp;&nbsp;&nbsp;Sign up</li>
     <li ng-controller="ModalCtrl as modal" class="col float right top-five">
       <a class="questions" ng-click="modal.showDialog({dialog:'faq', data: ''})">Top 5 <span class="questions-extended">Questions</span>&nbsp;&nbsp;<span class="icon question"></span></a>
     </li>

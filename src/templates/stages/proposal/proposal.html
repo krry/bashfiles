@@ -2,11 +2,11 @@
 <div fln-proposal class="overlay only col full center contain proposal-page">
   <div class="row padded">
     <div class="col full center">
-      <h1>Looking good! You may be eligible to go solar for $0 down.<br><small>Based on the system you designed and your average monthly bill of <span id="current_bill" class="dollars">{{ proposal.prospect().bill | number: 0 }}</span>, here is your custom solar proposal.</small></h1>
+      <h1>Nice work! You may be eligible to go solar for $0 down.<br><small>Based on the system you designed and your average monthly bill of <span id="current_bill" class="dollars">{{ proposal.prospect().bill | number: 0 }}</span>, here is your estimated solar proposal.</small></h1>
       <div class="row center">
         <div class="col center third two">
           <div class="button-set-hug">
-            <button class="btn white tiny ib" ng-click="modal.showDialog({dialog:'share-proposal', data: ''})">Save My Proposal</button>
+            <button class="btn white tiny ib" ng-click="modal.showDialog({dialog:'share-proposal', data: ''})">Save This Proposal</button>
             <button class="btn white tiny ib" ng-click="proposal.changeDesign()">Redo my Design</button>
             <button class="btn gold wide small ib" ng-click="stages.next()">Sign me up</button>
           </div>
@@ -69,7 +69,7 @@
 
   <div class="row padded-less proposal-button-tray" ng-controller="ModalCtrl as modal">
     <div class="col full center">
-      <div class="financing-options-bar">After completing your site survey, we will send you your final system design and proposal with available <a ng-click="modal.showDialog({dialog: 'financing', data: ''})">financing options</a>.</div>
+      <div class="financing-options-bar"><strong>Remember &mdash; this is only a rough draft.</strong> After your site survey, our experts will create a custom system design and proposal with available <a ng-click="modal.showDialog({dialog: 'financing', data: ''})">financing options</a>.</div>
     </div>
   </div>
 
