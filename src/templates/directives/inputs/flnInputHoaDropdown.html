@@ -1,8 +1,10 @@
-<select name="AhjId"
-   class="hoa-dropdown"
-   ng-model="schedule.selectedAhj" 
-   ng-show="schedule.prospect().hoa && schedule.HOAs.length > 1"
-   ng-options="HOA.AHJName for HOA in schedule.HOAs"
-   ng-change="schedule.checkHOA(schedule.selectedAhj.id)"
-   ng-required="schedule.prospect().hoa && schedule.HOAs.length > 1 && schedule.selectedAhj.id !== -1">
+<label for="prospect_hoa_select" class="field-label">Select your HOA</label>
+<select
+  id="prospect_hoa_select"
+  name="AhjId"
+  class="hoa-dropdown"
+  ng-model="schedule.selectedAhj"
+  ng-options="HOA.AHJName for HOA in schedule.HOAs"
+  ng-change="schedule.checkHOA(schedule.selectedAhj.id)"
+  ng-required="schedule.prospect().hoa && schedule.HOAs.length > 1 &&  schedule.selectedAhj.id !== -1">
 </select>

@@ -9,8 +9,10 @@
 
 var gulp = require('gulp');
 var htmlmin = require('gulp-htmlmin');
+var plumber = require('gulp-plumber');
 var ngTemplates = require('gulp-ng-templates');
 
+var handleErrors = require('../util/handleErrors');
 var timestamp = require('../util/timestamp').timestamp;
 
 var tmplSrc = [
@@ -19,6 +21,7 @@ var tmplSrc = [
 
 gulp.task('templates', ['clearTemplates'], function(){
   return gulp.src(tmplSrc, {base: './src/'})
+    .pipe(plumber(handleErrors))
     .pipe(htmlmin({collapseWhitespace: true}))
     .pipe(ngTemplates({
       module: 'flannel.templates',
@@ -31,5 +34,6 @@ gulp.task('templates', ['clearTemplates'], function(){
         return path.split(base.split('.')[1])[1];
       }
     }))
+    .pipe(plumber.stop())
     .pipe(gulp.dest('./src/js/'));
 });

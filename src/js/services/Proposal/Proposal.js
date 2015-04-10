@@ -70,13 +70,14 @@ function Proposal_($stateParams, User, Session, Panelfill, Client, FIREBASE_URL)
       data[j].reverse();
       panel_coords.push(new google.maps.LatLng(data[j][0], data[j][1]));
     }
+    // this will determine the panel fill styles
     return new google.maps.Polygon({
       paths: panel_coords,
       clickable: false,
-      strokeColor: '#e7f3fc',
+      strokeColor: '#B9BDCD',
       strokeOpacity: 0.3,
       strokeWeight: 1,
-      fillColor: '#000000',
+      fillColor: '#32333E',
       fillOpacity: 0.75,
     });
 

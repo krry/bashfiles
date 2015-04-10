@@ -19,11 +19,12 @@
   "INSTALLATION_API": "/api/installation/partial",
   "FULL_INSTALLATION_API": "/api/installation/full",
   "PANEL_FILL_API": "/api/Fill",
-  "SFLOGIN_URL": "https://wwww.salesforce.com",
+  "SFLOGIN_URL": "https://www.salesforce.com",
   "SFUSERNAME": "onlinesales@solarcity.com",
   "SFPASSWORD": "3zZ*$Hm}F4s2AEe",
   "SFDCSECRETTOKEN": "dZEBJngoA1IpzUcP02Ol7pRa",
   "SFDCRECORDTYPEID": "01214000000AVgoAAG",
+  "SFOPPOWNERID": "00530000003wv6FAAQ",
   "CLIENT": {
     "ENV": "prod",
     "ANALYTICS_ID": "GTM-M8LTWS",
@@ -44,6 +45,7 @@
     "INSTALLATION_API": "/api/installation",
     "PANEL_FILL_API": "/api/Fill",
     "MAILGUN_API_KEY": "pubkey-38f603eccf9df24d29de2c548c3d5a55",
+    "SF_BUTTON_ID": "57314000000TPbN",
     "CREDIT_FAIL": {
       "EMAIL": "flannel@fail.com",
       "ADDRESS_ID": 760639,

@@ -110,7 +110,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
 
   function checkZip (zip) {
     new_zip = vm.prospect().zip || zip;
-    console.log('********* checkin dat zip', new_zip, 'boss *********');
+    // console.log('********* checkin dat zip', new_zip, 'boss *********');
     /* jshint eqnull:true */
     if (new_zip != null && new_zip.length === 5) {
       // Only invalidate the street if the zip has changed - this allows the back button to function correctly
@@ -129,7 +129,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
     // TODO: ensure that form is pulling latest prospect from Firebase
     var addy;
 
-    console.log('********* checkin dat addy', new_street, 'boss *********');
+    // console.log('********* checkin dat addy', new_street, 'boss *********');
 
     setTimeout(function() {
       if (!$scope.$$phase) $scope.$apply();
@@ -326,6 +326,9 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
 
   function createLead(leadStatus, unqualifiedReason) {
     createHotloadLink();
+    createProposalLink();
+    createSurveyLink();
+
     // TODO: handle duplicate error and bubble up feedback to user
     return Salesforce.createLead({
       // LeadSource: 'Online',
@@ -343,6 +346,8 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
       LeadStatus: leadStatus,
       UnqualifiedReason: unqualifiedReason,
       OdaHotloadLink: vm.prospect().odaHotloadLink,
+      ProposalLink: vm.prospect().proposalLink,
+      SiteSurveyLink: vm.prospect().siteSurveyLink,
       Skipped: vm.prospect().skipped,
       Share_Proposal_Link__c: vm.prospect().share_link,
       // OwnerId: '005300000058ZEZAA2',//oda userId
@@ -363,6 +368,28 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
       URL_ROOT,
       '/#/oda/',
       Session.id()
+    ].join('');
+  }
+
+  function createProposalLink() {
+    vm.prospect().proposalLink = [
+      $location.protocol(),
+      '://',
+      URL_ROOT,
+      '/#/session/',
+      Session.id(),
+      '/proposal/review-proposal'
+    ].join('');
+  }
+
+  function createSurveyLink() {
+    vm.prospect().siteSurveyLink = [
+      $location.protocol(),
+      '://',
+      URL_ROOT,
+      '/#/session/',
+      Session.id(),
+      '/signup/qualify'
     ].join('');
   }
 
@@ -415,7 +442,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
       vm.prospect().city = data.city;
       Client.emit('Form: valid data', data);
       Client.emit('Stages: stage', 'next');
-      console.log('valid house accepted', data);
+      // console.log('valid house accepted', data);
       getUtilities();
     }
   }
@@ -434,7 +461,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
   }
 
   function saveUtility (data) {
-    console.log(data);
+    // console.log(data);
     vm.prospect().utilityId = data;
     Client.emit('Form: valid data', {utilityId: data});
   }
@@ -471,7 +498,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
   }
 
   function saveBill (data) {
-    console.log("bill", data);
+    // console.log("bill", data);
     Client.emit('Form: valid data', { bill: data });
   }
 

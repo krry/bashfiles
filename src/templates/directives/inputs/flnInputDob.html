@@ -1,5 +1,6 @@
 <div class="row">
   <div class="col full center">
+    <label for="prospect_dob" class="field-label">Date of birth</label>
     <input
       type="text"
       name="month"
@@ -10,7 +11,7 @@
       autofocus
       ng-pattern="/\b[1-9]\b|0[1-9]|1[012]/"
       ng-model="form.prospect().month"
-      ng-model-options="{ updateOn: 'default change blur', debounce: { default: 1000, blur: 0 } }"
+      ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"
       ng-required="true">
     <input
       type="text"
@@ -21,7 +22,7 @@
       maxlength="2"
       ng-pattern="/\b[1-9]\b|0[1-9]|[1-2][0-9]|3[01]/"
       ng-model="form.prospect().day"
-      ng-model-options="{ updateOn: 'default change blur', debounce: { default: 1000, blur: 0 } }"
+      ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"
       ng-required="true">
     <input
       type="text"
@@ -32,7 +33,7 @@
       maxlength="4"
       ng-pattern="/19(1[5-9]|[2-8][0-9]|9[0-7])/"
       ng-model="form.prospect().year"
-      ng-model-options="{ updateOn: 'default change blur', debounce: { default: 1000, blur: 0 } }"
+      ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"
       ng-required="true">
   </div>
 </div>

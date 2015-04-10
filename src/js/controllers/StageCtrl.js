@@ -28,7 +28,8 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
       unlockODA,
       latestStage,
       latestStep,
-      hasLoaded;
+      hasLoaded,
+      initialState;
 
   stage = 0;
   step  = 0;
@@ -37,6 +38,7 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
   waiting = false;
   unlockODA = false;
   hasLoaded = false;
+  initialState = null;
 
   vm = this;
   vm.next = next;
@@ -47,7 +49,7 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
   vm.jumpToStage = jumpToStage;
   vm.hasVisited = hasVisited;
   vm.checkAndJump = checkAndJump;
-  vm.checkAndJumpAddress = checkAndJumpAddress;
+  vm.checkZipParam = checkZipParam;
   vm.spinIt = waiting;
   vm.partial = Templates.partial(stage, step);
   vm.partials = flattenPartialsArray(Templates.partials);
@@ -93,6 +95,7 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
   Client.listen('Spinner: spin it', setWaiting);
   Client.listen('Stages: stage', stageLayout);
   Client.listen('ODA: Request session', unlockODAState);
+  Client.listen('Stages: set initial state', setInitialState);
 
   function currentStep (step) {
     return step === step;
@@ -141,6 +144,11 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
         Client.emit('check zip', zipParam);
       });
     }
+    // Seeding the app with an initial state from a nurtured email link
+    else if (initialState) {
+      $state.go(initialState);
+      initialState = null;
+    }
   }
 
   function streamSubscription (data) {
@@ -153,11 +161,11 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
     if ($state.is('share_proposal') || ($state.is('design_link') && !unlockODA)) return;
 
     if (data.stage !== stage) {
-      console.log('data.stage', data.stage,'diff from client stage', stage);
+      // console.log('data.stage', data.stage,'diff from client stage', stage);
       Client.emit('Stages: stage', data);
     }
     else if (data.step !== step) {
-      console.log('same stage, but data.step', data.step, 'diff from client step', step, $scope.view_sync);
+      // console.log('same stage, but data.step', data.step, 'diff from client step', step, $scope.view_sync);
       Client.emit('Stages: step', data.step);
     }
   }
@@ -169,7 +177,7 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
   function setWaiting (data) {
     waiting = data;
 
-    console.log('adding to spin count', data);
+    // console.log('adding to spin count', data);
     Client.emit('Spinner: add to spin count', data);
 
     $timeout(function(){
@@ -179,7 +187,7 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
 
   // listen for stage change requests from ui-router
   function startOver (data) {
-    console.log('heard that startover', data);
+    // console.log('heard that startover', data);
 
     Client.emit('erase area', data);
 
@@ -270,7 +278,7 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
       vm.shadeActivated = false;
     }
     Client.emit('Stages: step complete', Templates.config[stage].steps[step].step);
-    console.log('location.path is:', $location.$$path);
+    // console.log('location.path is:', $location.$$path);
   }
 
   function stepListen (target_step) {
@@ -334,13 +342,21 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
     }
   }
 
-  function checkAndJumpAddress() {
-    var jump = vm.checkAndJump('flannel.home.address-roof');
+  function checkZipParam() {
+    var hasAdvanced = !User.isNew,
+        zipParam = getParameterByName('zip'),
+        zipState = 'flannel.home.zip-nearme',
+        addressState = 'flannel.home.address-roof';
 
-    if (jump) {
-      jump.then(function() {
-        Client.emit('check zip', '');
-      });
+    if (zipParam && !hasAdvanced) {
+      if ($state.is(zipState)) {
+        $state.go(addressState).then(function() {
+          Client.emit('check zip', zipParam);
+        });
+      }
+      else if ($state.is(addressState)) {
+        Client.emit('check zip', zipParam);
+      }
     }
   }
 
@@ -398,5 +414,9 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
 
   function unlockODAState() {
     unlockODA = true;
+  }
+
+  function setInitialState(state) {
+    initialState = state;
   }
 }

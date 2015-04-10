@@ -13,13 +13,13 @@
     </h1>
     <h2 class="caps">{{schedule.prospect().scheduledDate.month}} {{schedule.prospect().scheduledDate.day}}</h2>
     <fln-time-selection></fln-time-selection>
-    <div class="col fifth three center">
+    <div class="col center">
       <p class="small note-time"><strong>Note:</strong> These are 2-hour arrival windows for our site surveyor. The site survey will take 1 to 2 hours.</p>
     </div>
     <div class="button-set">
       <button class="std gold" ng-click="schedule.save()" ng-disabled="!schedule.prospect().scheduledTime">Schedule it</button>
     </div>
-    <div class="col fifth three center button-set-secondary">
+    <div class="col center">
       <button class="std white display-inline-block tiny" ng-click="stages.prev()">Change date</button>
       <button class="std white display-inline-block tiny" ng-click="schedule.skipScheduling()">Schedule this later</button>
     </div>

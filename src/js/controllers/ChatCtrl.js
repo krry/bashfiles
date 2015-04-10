@@ -14,12 +14,12 @@ function ChatCtrl_($scope, Form) {
   vm.prospect = Form.prospect;
 
   function openChat() {
-    console.log('modal opening because shown is: ', vm.shown);
+    // console.log('modal opening because shown is: ', vm.shown);
     vm.shown = true;
   }
 
   function closeChat() {
-    console.log('modal closing because shown is: ', vm.shown);
+    // console.log('modal closing because shown is: ', vm.shown);
     vm.shown = false;
   }
 }
