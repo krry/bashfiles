@@ -45,6 +45,7 @@
     "INSTALLATION_API": "/api/installation",
     "PANEL_FILL_API": "/api/Fill",
     "MAILGUN_API_KEY": "pubkey-38f603eccf9df24d29de2c548c3d5a55",
+    "SF_BUTTON_ID": "",
     "CREDIT_FAIL": {
       "EMAIL": "flannel@fail.com",
       "ADDRESS_ID": 760639,

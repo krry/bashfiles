@@ -1,15 +1,13 @@
 <button
-  id="liveagent_button_online_573180000008OIF"
+  id="liveagent_button_online_{{sfButtonId}}"
   class="trigger-bar toggle-help liveagent-online"
   ng-click="toggleShown()">
-  <!-- <span class="icon inactive" ng-hide="active"></span> -->
-  <!-- <span class="icon active" ng-show="active"></span> -->
   Chat now for help
   <span class="icon up" ng-hide="shown"></span>
   <span class="icon down" ng-show="shown"></span>
 </button>
 <button
-  id="liveagent_button_offline_573180000008OIF"
+  id="liveagent_button_offline_{{sfButtonId}}"
   class="trigger-bar toggle-help liveagent-offline" ng-show="chat.offline">
   Contact us
   <span class="icon up" ng-hide="shown"></span>
