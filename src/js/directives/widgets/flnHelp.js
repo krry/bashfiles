@@ -27,6 +27,7 @@ function flnHelp_ (Liveagent, Client, SF_BUTTON_ID) {
       window._laq.push(
         function(){
           liveagent.showWhenOnline(
+
             SF_BUTTON_ID,
             document.getElementById('liveagent_button_online_'+SF_BUTTON_ID)
           );
@@ -52,7 +53,9 @@ function flnHelp_ (Liveagent, Client, SF_BUTTON_ID) {
           Liveagent.addCustomDetails(scope.prospect());
 
           var targetConfig = {
+
             buttonId: SF_BUTTON_ID,
+            buttonId: "57314000000TPbN",
             iframeTarget: "live_agent_chat"
           }
           // try to start the Liveagent chat
