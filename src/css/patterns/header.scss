@@ -73,9 +73,9 @@
 
   .logo {
     background-image: url('../img/logo-white-new.svg');
-    background-position: -7px -8px;
+    background-position: -10px -10px;
     background-repeat: no-repeat;
-    background-size: auto 130%;
+    background-size: auto 140%;
     width: 8.8rem;
     opacity: 1;
     a {
@@ -149,7 +149,7 @@
 @media screen and (min-width: $width-min-xlg) {
   .header {
     .logo {
-      background-position: -7px -7px;
+      background-position: -7px -10px;
     }
     .header-detail {
       @include apercu-medium;
@@ -162,7 +162,7 @@
 @media screen and (min-width: $width-min-xxl) {
   .header {
     .logo {
-      background-position: -8px -8px;
+      background-position: -8px -11px;
     }
   }
 }
