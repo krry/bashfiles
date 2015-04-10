@@ -17,6 +17,10 @@
 .header {
   @include apercu-medium;
   background: $color-header-bkgd;
+  background-image: url('../img/header-fractal.png');
+  background-position: top right;
+  background-repeat: no-repeat;
+  background-size: 50%;
   color: $color-header-text;
   position: fixed;
   top: 0;
@@ -73,9 +77,9 @@
 
   .logo {
     background-image: url('../img/logo-white-new.svg');
-    background-position: -10px -10px;
+    background-position: -13px -13px;
     background-repeat: no-repeat;
-    background-size: auto 140%;
+    background-size: auto 150%;
     width: 8.8rem;
     opacity: 1;
     a {
@@ -86,11 +90,12 @@
   }
 
   .chevron.right {
-    @include chevron("right", $height: 2.9rem);
+    // @include chevron("right", $height: 2.9rem);
     font-size: .7rem;
-    padding: 0 1.72rem 0 2rem;
+    padding: 0;
     line-height: 2.9rem;
     display: none;
+    opacity: 0.85;
   }
 
   .top-five {
@@ -149,7 +154,7 @@
 @media screen and (min-width: $width-min-xlg) {
   .header {
     .logo {
-      background-position: -7px -10px;
+      background-position: -7px -14px;
     }
     .header-detail {
       @include apercu-medium;
@@ -162,7 +167,7 @@
 @media screen and (min-width: $width-min-xxl) {
   .header {
     .logo {
-      background-position: -8px -11px;
+      background-position: -7px -14px;
     }
   }
 }
