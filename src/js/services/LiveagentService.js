@@ -75,7 +75,7 @@ function LiveagentService_ () {
 
     // initialize the liveagent session
     liveagent.init(
-      'https://d.la3-c1cs-chi.salesforceliveagent.com/chat',
+      'https://d.la3-c2-chi.salesforceliveagent.com/chat',
       '57214000000TPWC',  // deployment id
       '00D300000006bL2'   // configuration id
     );
