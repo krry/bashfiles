@@ -27,7 +27,6 @@ function flnHelp_ (Liveagent, Client, SF_BUTTON_ID) {
       window._laq.push(
         function(){
           liveagent.showWhenOnline(
-
             SF_BUTTON_ID,
             document.getElementById('liveagent_button_online_'+SF_BUTTON_ID)
           );
@@ -43,7 +42,6 @@ function flnHelp_ (Liveagent, Client, SF_BUTTON_ID) {
         var address;
 
         if (!chatOpened) {
-
           // retrieve prospect object from Form in Firebase
           // TODO: figure out why this prospect does not have a `form_id` like the prospect in FormProvider
 
@@ -53,9 +51,7 @@ function flnHelp_ (Liveagent, Client, SF_BUTTON_ID) {
           Liveagent.addCustomDetails(scope.prospect());
 
           var targetConfig = {
-
             buttonId: SF_BUTTON_ID,
-            buttonId: "57314000000TPbN",
             iframeTarget: "live_agent_chat"
           }
           // try to start the Liveagent chat

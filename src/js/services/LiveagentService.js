@@ -74,6 +74,8 @@ function LiveagentService_ () {
       .showOnCreate().saveToTranscript("Related_Opportunity__c");
 
     // initialize the liveagent session
+    // TODO: Environment Variables instead of hardcodes
+    // HARDCODE
     liveagent.init(
       'https://d.la3-c2-chi.salesforceliveagent.com/chat',
       '57214000000TPWC',  // deployment id
