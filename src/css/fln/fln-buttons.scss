@@ -12,6 +12,7 @@
 
 .step-fork button {
   width: 100%;
+  max-width: 200px;
 }
 .step-fork .col.fifth.two p {
   padding-left: 0.5em;
@@ -34,38 +35,26 @@
 }
 
 @media screen and (min-width: $width-min-sml) {
-  .step-fork .button-set {
-    width: 100%;
-  }
 }
 
 @media screen and (min-width: $width-min-med) {
   .step-bill button.tiny.gold {
     margin: 0;
   }
-  .step-fork .button-set {
-    width: 90%;
-  }
 }
 
 @media screen and (min-width: $width-min-lrg) {
-  .step-fork .button-set {
-    width: 100%;
-  }
   .step-fork .set-or {
     line-height: 5.5em;
     padding: 0;
   }
+  .step-fork button {
+    max-width: none;
+  }
 }
 
 @media screen and (min-width: $width-min-xlg) {
-  .step-fork .button-set {
-    width: 85%;
-  }
 }
 
 @media screen and (min-width: $width-min-xxl){
-  .step-fork .button-set {
-    width: 70%;
-  }
 }

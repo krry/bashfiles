@@ -110,7 +110,7 @@
 .faq-item {
   figure {
     background-repeat: no-repeat;
-    background-position: center center;
+    background-position: top center;
     background-size: cover;
     background-color: transparent;
     height: 200px;
@@ -186,7 +186,7 @@
 
 @media screen and (min-width: $width-min-lrg) {
   .faq-item figure {
-    height: 100px;
+    height: 180px;
   }
   .benefits {
     .icon {

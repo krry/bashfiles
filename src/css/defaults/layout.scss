@@ -98,6 +98,7 @@ main.main.main-fixed {
   margin: auto;
 }
 
+
 @media screen and (max-width: $width-min-lrg) {
   .no-mobile {
     display: none;
@@ -105,8 +106,11 @@ main.main.main-fixed {
 }
 
 @media screen and (min-width: $width-min-sml){
-  .step-fork .button-set {
+  .step-fork .fifth.four {
     width: 100%;
+  }
+  .step-fork .col.padded {
+    padding: 0;
   }
 }
 
@@ -114,6 +118,15 @@ main.main.main-fixed {
 @media screen and (max-height: $width-min-med) {
   .no-mobile {
     display: none;
+  }
+}
+
+@media screen and (min-width: $width-min-med) {
+  .step-fork .fifth.four {
+    width: 60%;
+  }
+  .step-fork .col.padded {
+    padding: 0;
   }
 }
 
@@ -153,6 +166,13 @@ main.main.main-fixed {
   .step-bill.primary {
     width: 100%;
   }
+
+  .step-fork .fifth.four {
+    width: 100%;
+  }
+  .step-fork .col.padded {
+    padding: 0;
+  }
 }
 
 @media screen and (min-width: $width-min-xlg){
@@ -172,5 +192,22 @@ main.main.main-fixed {
     &.step-bill {
       padding: 1em 2em .5em;
     }
+  }
+
+  .step-fork .fifth.four {
+    width: 80%;
+  }
+  .step-fork .col.padded {
+    padding: 0;
+  }
+}
+
+
+@media screen and (min-width: $width-min-xxl){
+  .step-fork .fifth.four {
+    width: 65%;
+  }
+  .step-fork .col.padded {
+    padding: 0;
   }
 }
