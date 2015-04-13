@@ -43,7 +43,6 @@ function flnHelp_ (Liveagent, Client, SF_BUTTON_ID) {
         var address;
 
         if (!chatOpened) {
-
           // retrieve prospect object from Form in Firebase
           // TODO: figure out why this prospect does not have a `form_id` like the prospect in FormProvider
 
