@@ -147,6 +147,7 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
     // Seeding the app with an initial state from a nurtured email link
     else if (initialState) {
       $state.go(initialState);
+      vm.initialState = initialState;
       initialState = null;
     }
   }
