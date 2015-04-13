@@ -74,8 +74,10 @@ function LiveagentService_ () {
       .showOnCreate().saveToTranscript("Related_Opportunity__c");
 
     // initialize the liveagent session
+    // TODO: Environment Variables instead of hardcodes
+    // HARDCODE
     liveagent.init(
-      'https://d.la3-c1cs-chi.salesforceliveagent.com/chat',
+      'https://d.la3-c2-chi.salesforceliveagent.com/chat',
       '57214000000TPWC',  // deployment id
       '00D300000006bL2'   // configuration id
     );
@@ -117,7 +119,7 @@ function LiveagentService_ () {
           // attempt++;
           // console.log('attempting to start chat');
           tryStartChat(attempt, t.buttonId, t.iframeTarget);
-        }, 1500);
+        }, 500);
       }
     }
   }
