@@ -6,9 +6,9 @@
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
-controllers.controller('ProposalCtrl', ['URL_ROOT', '$location', '$scope', '$state', 'Session', 'Form', 'Clientstream', 'defaultValues', 'Proposal', ProposalCtrl_]);
+controllers.controller('ProposalCtrl', ['URL_ROOT', '$location', '$scope', '$state', 'Session', 'Form', 'Clientstream', 'ModalService', 'defaultValues', 'Proposal', ProposalCtrl_]);
 
-function ProposalCtrl_ (URL_ROOT, $location, $scope, $state, Session, Form, Client, defaultValues, Proposal) {
+function ProposalCtrl_ (URL_ROOT, $location, $scope, $state, Session, Form, Client, Modal, defaultValues, Proposal) {
   var vm = this;
   vm.prospect = Form.prospect;
 
@@ -34,9 +34,23 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, $state, Session, Form, Clie
 
   // track map_center to keep the sharelink functional
   var share_map_center = {}
-
+  // handle cases where the user's response
+  Client.listen('Modal: empty panelfill', handleZeroPanelsModal);
 
   Proposal.rx_panel_count.subscribe(subProposalToPanelCount)
+
+  function handleZeroPanelsModal (result) {
+    // close the modal
+    Modal.set(false);
+    if (result === 'restart design') {
+      return changeDesign();
+    } else if (result === 'skip design') {
+      vm.prospect().skipped = true;
+      Client.emit('Form: valid data', { skipped: true });
+      Client.emit('Stages: jump to stage', 'flannel.signup');
+    }
+  }
+
   // allow user to change their design
   function changeDesign() {
     // HACK: temp solution until we lock down the states & stages
@@ -53,6 +67,11 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, $state, Session, Form, Clie
   }
   // calculate annual production in $$ of electricity from panel fill API
   function subProposalToPanelCount (count) {
+    if (count === 0 ) {
+      // user created design with no panels. we should fail beautifully...
+      Modal.set(true);
+      return Modal.activate('empty-panelfill');
+    }
     // number of panels filled from Panelfill API
     vm.prospect().panelCount = count;
 
