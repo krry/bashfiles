@@ -174,12 +174,13 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
 
     saveDob();
 
-    vm.leadPromise.then(checkAll({
-      ContactId: vm.prospect().contactId,
-      AddressId: vm.prospect().addressId,
-      BirthDate: vm.prospect().dob
-    })).then(function(data) {
-
+    vm.leadPromise.then(function() {
+      return checkAll({
+        ContactId: vm.prospect().contactId,
+        AddressId: vm.prospect().addressId,
+        BirthDate: vm.prospect().dob
+      });
+    }).then(function(data) {
       vm.isSubmitting = false;
       vm.timedOut = false;
 
