@@ -51,6 +51,7 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
   vm.hasVisited = hasVisited;
   vm.checkAndJump = checkAndJump;
   vm.checkZipParam = checkZipParam;
+  vm.advanceFromProposal = advanceFromProposal;
   vm.spinIt = waiting;
   vm.partial = Templates.partial(stage, step);
   vm.partials = flattenPartialsArray(Templates.partials);
@@ -393,6 +394,11 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
         });
       }
     }
+  }
+
+  function advanceFromProposal(qualified) {
+    var state = qualified ? 'flannel.signup.qualify' : 'flannel.signup.create-contact';
+    $state.go(state);
   }
 
   function flattenPartialsArray (array) {
