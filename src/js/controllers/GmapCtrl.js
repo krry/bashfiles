@@ -209,7 +209,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap,  NearMe) {
     } else {
       data = data || [];
       // clear any old pins from the map
-      Client.emit('clear pins', true);
+      Client.emit('Gmap: clear pins', true);
 
       // parse the JSON response from NearMe API
       angular.forEach(data, function(point) {

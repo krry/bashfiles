@@ -210,6 +210,7 @@ function GeocoderProvider_ () {
     function processGeocodedLocation(addy) {
       if (addy.road && addy.stno) {
         Client.emit('Gmap: switch map type', 'hybrid');
+        Client.emit('Gmap: clear pins', true);
         addy.street = addy.stno + " " + addy.road;
         Client.emit('Geocoder: valid house', addy);
         return addy;
