@@ -29,7 +29,8 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
       latestStage,
       latestStep,
       hasLoaded,
-      initialState;
+      initialState,
+      hasStateUrl;
 
   stage = 0;
   step  = 0;
@@ -117,6 +118,10 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
         zipParam = getParameterByName('zip'),
         isOnHome = $state.is('flannel.home.zip-nearme') || $state.is('flannel.home.address-roof');
 
+    if (!isOnHome && hasAdvanced) {
+      hasStateUrl = true;
+    }
+
     // bootstrap a new session, start it's streams up
     session_stream = Session.state_stream()
       .filter(function() { return $scope.view_sync; }) // don't listen to changes you're making
@@ -129,11 +134,11 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
     latestStep = session_data.state.latestStep || 0;
     hasLoaded = true;
 
-    // Only show the continue modal if the user is on the home page (zip or address page) and has advanced in the flow
-    // Else, on other pages, we let that page's url take precedence
+    // Redirect back to home page for new users who go to pages further in the flow
     if (!isOnHome && !hasAdvanced) {
       Client.emit('Stages: jump to step', 'zip-nearme');
     }
+    // Only show the continue modal if the user is on the home page (zip or address page) and has advanced in the flow
     else if (isOnHome && hasAdvanced) {
       Modal.set(true);
       return Modal.activate('continue');
@@ -147,6 +152,7 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
     // Seeding the app with an initial state from a nurtured email link
     else if (initialState) {
       $state.go(initialState);
+      vm.initialState = initialState;
       initialState = null;
     }
   }
@@ -159,6 +165,12 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
 
     // Don't let session object overtake the app on share proposal and design link states
     if ($state.is('share_proposal') || ($state.is('design_link') && !unlockODA)) return;
+
+    // Lock the first Firebase sync when the user navigates to an absolute url and has advanced
+    if (hasStateUrl) {
+      hasStateUrl = false;
+      return;
+    }
 
     if (data.stage !== stage) {
       // console.log('data.stage', data.stage,'diff from client stage', stage);
