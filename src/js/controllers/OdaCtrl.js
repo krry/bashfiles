@@ -35,6 +35,8 @@ function OdaCtrl_($scope, $element, Client, Form) {
   }
 
   vm.jumpToConfigurator = function jumpToConfigurator () {
+    vm.prospect().skipped = false;
+    Client.emit('Form: valid data', { skipped: false });
     Client.emit('Stages: jump to stage', 'flannel.configure');
   }
 
@@ -45,7 +47,7 @@ function OdaCtrl_($scope, $element, Client, Form) {
   vm.jumpToSchedule = function jumpToSchedule () {
     Client.emit('Stages: jump to stage', 'flannel.signup');
     setTimeout(function () {
-      Client.emit('Stages: jump to step', 'survey-calendar');
+      Client.emit('Stages: jump to step', 'qualify');
     }, 0)
   }
 
