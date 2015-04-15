@@ -1,0 +1,23 @@
+<nav>
+  <!-- TODO: employ .primary and .secondary to match this to the body columns -->
+  <ul class="stage-nav float row">
+    <li class="float left logo">
+      <a href="/">SolarCity</a>
+    </li>
+    <!-- <li class="chevron right caps col" ng-class="{ active: nav.onActiveStage('flannel.home') }">
+      <span>Your Home</span>
+      <span class="header-detail" ng-show="nav.prospect().zip">
+        <span>&bull;</span>
+        <span ng-bind="nav.prospect().street" class="header-street"></span>
+        <span ng-bind="nav.prospect().zip" class="header-zip"></span>
+        <span class="icon edit"></span>
+      </span>
+    </li>
+    <li class="chevron right caps col" ng-class="{ active: nav.onActiveStage('flannel.configure') }">Configure</li>
+    <li class="chevron right caps col" ng-class="{ active: nav.onActiveStage('flannel.signup') }">Sign up</li> -->
+    <!-- TODO: employ .primary and .secondary to match this to the body columns -->
+    <li ng-controller="ModalCtrl as modal" class="col float right top-five">
+      <a class="questions" ng-click="modal.showDialog({dialog:'faq', data: ''})">Top 5 <span class="questions-extended">Questions</span>&nbsp;&nbsp;<span class="icon question"></span></a>
+    </li>
+  </ul>
+</nav>

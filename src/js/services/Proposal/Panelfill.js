@@ -20,8 +20,8 @@ function PanelfillService_ ($http, $q, PANEL_FILL_API) {
   var TwoPi = 2 * Math.PI;
   var Two5Pi = 2.5 * Math.PI;
 
-  var points_for_panelfill,
-      points_array,
+  //var points_for_panelfill,
+    var  points_array,
       area_message,
       msg;
 
@@ -31,7 +31,7 @@ function PanelfillService_ ($http, $q, PANEL_FILL_API) {
       var points, area, points_inches, ridge_points;
 
     // turn text into polygon message
-    points_for_panelfill = fillMessageForSingleArea(wkt_txt).m[0]; //HACK: reused code, ignore obstructions
+    var points_for_panelfill = fillMessageForSingleArea(wkt_txt).m[0]; //HACK: reused code, ignore obstructions
     function fillMessageForSingleArea(wkt_txt){
       var result = {};
 
