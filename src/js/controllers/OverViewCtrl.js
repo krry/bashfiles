@@ -13,6 +13,7 @@ function OverViewCtrl_ (Client, defaultValues, $stateParams, Proposal, FIREBASE_
 var vm = this;
 var i = 1;
 var localdata = [];
+var clicklisteners = [];
 
   var map_options = {
     zoom: 20,
@@ -41,14 +42,11 @@ var localdata = [];
 
               localdata[i] = data;
               var pmap = new google.maps.Map(document.getElementById('gmap'+i), map_options);
-              document.getElementById('gmap'+i).removeEventListener('click')
-              google.maps.event.addDomListener(document.getElementById('gmap'+i), 'click', showPrompt);
-
-
-              var listener = google.maps.event.addListener(pmap, "idle", function() { 
-                pmap.setZoom(20); 
-                google.maps.event.removeListener(listener); 
-              });
+              if(clicklisteners[i] !== null)
+              {
+                google.maps.event.removeListener(clicklisteners[i]); 
+              }
+              clicklisteners[i] = google.maps.event.addDomListener(document.getElementById('gmap'+i), 'click', showPrompt);
 
               function showPrompt() {
                 mydata = localdata[parseInt(this.id.replace('gmap', ''))]
@@ -66,6 +64,11 @@ var localdata = [];
                         prompt("Copy to clipboard: Ctrl+C, Enter", prompt_string );
               };
               Proposal.setTargetOverView(data, pmap, i);    
+              var listener = google.maps.event.addListener(pmap, "idle", function() { 
+                pmap.setZoom(20);
+                google.maps.event.removeListener(listener); 
+              });
+
               i++;
               if(i == 7)
               {
