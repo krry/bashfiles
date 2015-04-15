@@ -9,6 +9,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap,  NearMe) {
       mapEl,
       mapOpts,
       spinnerEventCount,
+      isLoading,
       maxNearMeCalls;
 
   vm = this;
@@ -22,6 +23,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap,  NearMe) {
   mapEl = $element[0];
   mapOpts = Gmap.opts;
   spinnerEventCount = 0;
+  isLoading = false;
   maxNearMeCalls = 10;
   activate();
 
@@ -73,17 +75,17 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap,  NearMe) {
 
   function setSpinCount(data) {
     spinnerEventCount += data ? 1 : -1;
-    console.log('spin event count is', spinnerEventCount);
+    // console.log('spin event count is', spinnerEventCount);
   }
 
   function hideSpinner () {
-    console.log('hiding spinner');
+    // console.log('hiding spinner');
     // TODO: ensure that the spinner stays up until the tiles are actually loaded
     // switching from TERRAIN to HYBRID map causes an extra `tilesloaded` event to be emitted, prematurely hiding the spinner for the HYBRID map load
     Client.emit('Spinner: spin it', false);
     if (spinnerEventCount < 1) {
       if (spinnerEventCount < 0) spinnerEventCount = 0;
-      console.log('spinner counter', spinnerEventCount);
+      // console.log('spinner counter', spinnerEventCount);
     }
   }
 
@@ -124,7 +126,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap,  NearMe) {
   function saveZoom () {
     Gmap.loaded.then(function() {
       var zoom = map.getZoom();
-      console.log('saving zoom as', zoom);
+      // console.log('saving zoom as', zoom);
       if (mapOpts.zoom !== zoom){
         mapOpts.zoom = zoom;
       }
@@ -133,16 +135,18 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap,  NearMe) {
 
   function applyMaxZoom (zoom) {
     Gmap.loaded.then(function() {
-      console.log('setting zoom to', zoom);
+      // console.log('setting zoom to', zoom);
       map.setZoom(zoom);
       mapOpts.zoom = zoom;
       // TODO: prevent nearme call when advancing from checkZip to checkAddress directly
-      if (zoom < 17 && zoom > 4) getNearMeData();
+      // isLoading prevents more than one chain of near me calls from happening at one time
+      if (zoom < 17 && zoom > 4 && !isLoading) getNearMeData();
     });
   }
 
   function getNearMeData(data, count) {
     count = count || 1;
+    isLoading = true;
 
     // Reset the view state while we are still getting the data
     // This prevents old data from lingering in the view while we're processing the new location
@@ -205,7 +209,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap,  NearMe) {
     } else {
       data = data || [];
       // clear any old pins from the map
-      Client.emit('clear pins', true);
+      Client.emit('Gmap: clear pins', true);
 
       // parse the JSON response from NearMe API
       angular.forEach(data, function(point) {
@@ -225,6 +229,9 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap,  NearMe) {
       if (count >= maxNearMeCalls) {
         Client.emit('Form: final near me data', true);
       }
+
+      // Flag we are finally done with the nearme calls
+      isLoading = false;
     }
   }
 

@@ -6,9 +6,9 @@
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
-controllers.controller('ProposalCtrl', ['URL_ROOT', '$location', '$scope', '$state', 'Session', 'Form', 'Clientstream', 'defaultValues', 'Proposal', ProposalCtrl_]);
+controllers.controller('ProposalCtrl', ['URL_ROOT', '$location', '$scope', '$state', 'Session', 'Form', 'Clientstream', 'ModalService', 'defaultValues', 'Proposal', ProposalCtrl_]);
 
-function ProposalCtrl_ (URL_ROOT, $location, $scope, $state, Session, Form, Client, defaultValues, Proposal) {
+function ProposalCtrl_ (URL_ROOT, $location, $scope, $state, Session, Form, Client, Modal, defaultValues, Proposal) {
   var vm = this;
   vm.prospect = Form.prospect;
 
@@ -23,7 +23,8 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, $state, Session, Form, Clie
       percent_utility,
       bill,
       ceiling,
-      share_link;
+      share_link,
+      average_yield;
 
   vm.changeDesign = changeDesign;
 
@@ -33,9 +34,23 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, $state, Session, Form, Clie
 
   // track map_center to keep the sharelink functional
   var share_map_center = {}
-
+  // handle cases where the user's response
+  Client.listen('Modal: empty panelfill', handleZeroPanelsModal);
 
   Proposal.rx_panel_count.subscribe(subProposalToPanelCount)
+
+  function handleZeroPanelsModal (result) {
+    // close the modal
+    Modal.set(false);
+    if (result === 'restart design') {
+      return changeDesign();
+    } else if (result === 'skip design') {
+      vm.prospect().skipped = true;
+      Client.emit('Form: valid data', { skipped: true });
+      Client.emit('Stages: jump to stage', 'flannel.signup');
+    }
+  }
+
   // allow user to change their design
   function changeDesign() {
     // HACK: temp solution until we lock down the states & stages
@@ -52,6 +67,11 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, $state, Session, Form, Clie
   }
   // calculate annual production in $$ of electricity from panel fill API
   function subProposalToPanelCount (count) {
+    if (count === 0 ) {
+      // user created design with no panels. we should fail beautifully...
+      Modal.set(true);
+      return Modal.activate('empty-panelfill');
+    }
     // number of panels filled from Panelfill API
     vm.prospect().panelCount = count;
 
@@ -61,11 +81,15 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, $state, Session, Form, Clie
     // system size in kW => number of panels * power of each panel
     vm.prospect().systemSize = (count * vm.prospect().panelCapacity) || defaultValues.system_size;
 
+    // cache average yield from rates API
+    average_yield = vm.prospect().averageYield;
+
     // estimated production of that system in a year => power of system * yearly yield per kW in that region
     vm.prospect().annualProduction = (vm.prospect().systemSize * vm.prospect().averageYield) || defaultValues.annual_production; // kWh
 
     // save the new figures to Firebase
     Form.ref() && Client.emit('Form: valid data', {
+      panelCount: vm.prospect().panelCount,
       systemSize: vm.prospect().systemSize,
       annualProduction: vm.prospect().annualProduction,
       panelCapacity: vm.prospect().panelCapacity,
@@ -145,6 +169,7 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, $state, Session, Form, Clie
       "/",        bill,
       "/",        utility_rate,
       "/",        scty_rate,
+      "/",        average_yield,
       "/",        share_map_center.lat,
       "/",        share_map_center.lng].join('');
       vm.prospect().share_link = share_link;

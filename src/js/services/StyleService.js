@@ -22,7 +22,7 @@ function StyleService_ ($q) {
 
   /*********************** panel fill ***********************/
   c.defaultPanelFill        = new ol.style.Fill({
-                                color: "rgba(33, 22, 45, 1)",
+                                color: "rgba(33, 22, 45, 1)"
                               });
   c.defaultPanelStroke      = new ol.style.Stroke({
                                 color: "rgba(0,  66, 99, 1)",

@@ -29,12 +29,12 @@ angular.module('flannel', [
   /* jshint +W030 */
   if ($cookies.user_id) {
     // returning visitor
-    console.log('**** VISITOR HAS 1 WHOLE COOKIE ****', $cookies.user_id);
+    // console.log('**** VISITOR HAS 1 WHOLE COOKIE ****', $cookies.user_id);
     // make the User provider use the correct user
     UserProvider.setRefKey($cookies.user_id);
   } else {
     // new visitor
-    console.log('**** VISITOR HAS NO COOKIE ****', uid);
+    // console.log('**** VISITOR HAS NO COOKIE ****', uid);
     UserProvider.setRefKey(uid);
   }
 

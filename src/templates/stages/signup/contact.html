@@ -9,21 +9,17 @@
     <h1 ng-if="form.prospect().qualified !== false && form.timedOut">Sorry! Our connection timed out. <small>Please re-enter your information and try again.</small></h1>
     <h1 ng-if="form.prospect().qualified === false">Hey Waldo, we couldn't find you!<br><small>We could not match the information you submitted. Please check your entries and try again.</small></h1>
     <form name="prospectForm" novalidate>
-      <div class="row third two center">
+      <div class="row fifth four center contain">
         <div class="col half padded">
-          <label for="" class="field-label">First name</label>
           <fln-input-first-name hint="First" form="prospectForm"></fln-input-full-name>
         </div>
          <div class="col half padded">
-          <label for="" class="field-label">Last name</label>
           <fln-input-last-name hint="Last" form="prospectForm"></fln-input-full-name>
         </div>
         <div class="col half padded">
-          <label for="" class="field-label">Email address</label>
           <fln-input-email hint="you@domain.com" form="prospectForm"></fln-input-email>
         </div>
         <div class="col half padded">
-          <label for="" class="field-label">Phone number</label>
           <fln-input-phone hint="(---) --- ----" form="prospectForm"></fln-input-phone>
         </div>
         <div class="col half center button-set">
@@ -35,7 +31,7 @@
 
   <aside class="overlay secondary col sml-full med-full lrg-full full-height">
     <div class="drop-top">
-      <p>Remember, if you have any questions, we're here to help. You can always chat live with a solar consultant below, or call <strong><a href="tel:18776707652">(877) 670-7652</a></strong> to speak directly.</p>
+      <p>Remember, if you have any questions, we're here to help. You can always chat live with a solar consultant below, or call <strong><a href="tel:18776707652">(877)&nbsp;670-7652</a></strong> to speak directly.</p>
     </div>
   </aside>
 </div>

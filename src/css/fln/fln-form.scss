@@ -19,16 +19,6 @@ label + button {
   margin-top: 2em !important;
 }
 
-span.autolocate-icon {
-  display: inline-block;
-  opacity: 1;
-  background: url('../img/autolocate-icon.svg') no-repeat center center;
-  background-size: 20px 20px;
-  background-color: none;
-  width: 20px;
-  height: 20px;
-}
-
 input.street,
 input.city,
 input.state,
@@ -47,7 +37,7 @@ input.phone {
 }
 
 input.birthdate {
-  font-size: 2em;
+  font-size: 1.5em;
   padding: .25em .5em;
   width: auto;
   max-width: 3em;
@@ -65,7 +55,7 @@ input.zipcode {
   background-color: $white-dark;
   width: 100%;
   max-width: 100%;
-  text-align: left;
+  text-align: center;
 }
 
 .step-zip {
@@ -103,16 +93,6 @@ input.state {
   width: 4em;
 }
 
-span.autolocate-icon {
-  display: inline-block;
-  opacity: 1;
-  background: url('../img/autolocate-icon.svg') no-repeat center center;
-  background-size: 20px 20px;
-  background-color: none;
-  width: 20px;
-  height: 20px;
-}
-
 input.date {
   padding: .18em .5em;
 }
@@ -121,7 +101,7 @@ label input.full-name,
 label input.email,
 label input.birthdate,
 label input.phone {
-  font-size: 2em;
+  font-size: 1.5em;
   margin-top: .325em;
 }
 
@@ -161,8 +141,59 @@ button.nested {
   }
 }
 
+span.autolocate-icon {
+  display: inline-block;
+  opacity: 1;
+  background: url('../img/autolocate-icon.svg') no-repeat center center;
+  background-size: 20px 20px;
+  background-color: none;
+  width: 20px;
+  height: 20px;
+}
 
-@media screen and (min-width: $width-min-med){
+@media screen and (min-width: $width-min-med) {
+  .step-zip {
+    input.zipcode {
+      width: 6.75em;
+      max-width: 100%;
+    }
+  }
+
+  input.street,
+  input.city,
+  input.state,
+  input.zipcode,
+  input.name,
+  input.email,
+  input.bill,
+  input.full-name,
+  input.phone {
+    font-size: 1.25em;
+  }
+  input.street {
+    max-width: 14em;
+  }
+  input.zipcode {
+    max-width: 4.75em;
+  }
+  .nest {
+    display: inline-block;
+    margin-right: 1rem;
+    input {
+      padding-right: 3.5rem !important;
+    }
+  }
+  button.nested {
+    width: 2.6rem;
+    height: 2.6rem;
+    position: absolute;
+    right: .5em;
+    top: .5em;
+    margin: 0;
+  }
+}
+
+@media screen and (min-width: $width-min-lrg) {
   input.street,
   input.city,
   input.state,
@@ -175,22 +206,8 @@ button.nested {
   input.phone {
     font-size: 1.5em;
   }
-
   input.street {
-    max-width: 13em;
-  }
-  input.zipcode {
-    max-width: 6em;
-  }
-  .nest {
-    display: inline-block;
-    margin-right: 1rem;
-    input {
-      padding-right: 3.5rem !important;
-    }
-  }
-  button.nested {
-    width: 2.6rem;
-    height: 2.6rem;
+    max-width: 20em;
+    width: 20em;
   }
 }

@@ -1,7 +1,7 @@
-<div class="col fifth three">
+<div class="col fifth three hoa">
   <span class="question">I belong to a homeowners association.</span>
-  <fln-input-hoa-dropdown></fln-input-hoa-dropdown>
-  <fln-input-hoa-freeform></fln-input-hoa-freeform>
+  <fln-input-hoa-dropdown ng-show="schedule.prospect().hoa && schedule.HOAs.length > 1"></fln-input-hoa-dropdown>
+  <fln-input-hoa-freeform ng-show="schedule.prospect().hoa && schedule.selectedAhj.id === -1"></fln-input-hoa-freeform>
 </div>
 <div class="col fifth one">
   <input type="radio" class="choice" name="hoa" id="hoa-yes" ng-model="schedule.prospect().hoa" ng-value="true">

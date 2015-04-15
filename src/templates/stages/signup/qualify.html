@@ -8,7 +8,7 @@
     <div class="row padded">
       <div class="col full center" ng-if="!schedule.prospect().invalidTerritory">
         <h1>Thank you for your interest in going solar.
-          <br><small>One of our solar consultants will give you a call to discuss your financing options. Or feel free to reach out to us directly at <a href="tel:18776907652">(877) 690-SOLAR (7652)</a>. In the mean time, there are lots of other great ways you can get involved with the solar movement.</small>
+          <br><small>One of our solar consultants will give you a call to discuss your financing options. Or feel free to reach out to us directly at <a href="tel:18776907652">(877)&nbsp;690-7652</a>. In the mean time, there are lots of other great ways you can get involved with the solar movement.</small>
         </h1>
       </div>
       <div class="col full center" ng-if="schedule.prospect().invalidTerritory">
@@ -37,7 +37,9 @@
   </div>
 
   <div class="overlay primary col"  ng-if="schedule.prospect().qualified">
-    <h1>Congratulations &mdash; you qualified!
+    <h1>
+      <span ng-if="stages.initialState !== 'flannel.signup.qualify'">Congratulations &mdash; you qualified!</span>
+      <span ng-if="stages.initialState === 'flannel.signup.qualify'">Welcome back, {{schedule.prospect().firstName}}.</span>
       <br><small>Now it's time to schedule your visit from one of our in-house site surveyors so we can design a customized system and proposal just for you.</small>
     </h1>
     <button class="std gold" ng-click="schedule.check()">Schedule site survey</button>

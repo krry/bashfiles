@@ -30,11 +30,17 @@ function ShareCtrl_ (Client, defaultValues, $stateParams, Proposal) {
 
   // calculate annual production in $$ of electricity from panel fill API
   function subProposalToPanelCount (count) {
+    // number of panels filled from Panelfill API
+    vm.numbers.panelCount = count;
+
     // power of each panel
     vm.numbers.panelCapacity = defaultValues.panel_capacity;
 
     // number of panels filled from Panelfill API
-    vm.numbers.systemSize = count * vm.numbers.panelCapacity || defaultValues.system_size;
+    vm.numbers.systemSize = (count * vm.numbers.panelCapacity) || defaultValues.system_size;
+
+    // gather average yield from params
+    vm.numbers.averageYield = $stateParams.averageYield;
 
     // estimated production of that system in a year => power of system * yearly yield per kW in that region
     vm.numbers.annualProduction = vm.numbers.systemSize * vm.numbers.averageYield || defaultValues.annual_production;
@@ -45,8 +51,7 @@ function ShareCtrl_ (Client, defaultValues, $stateParams, Proposal) {
   function calculateProposal () {
     ceiling = defaultValues.ceiling;
     // calculate upfront cost
-    upfront_cost = defaultValues.upfront_cost;
-    vm.numbers.upfrontCost = upfront_cost;
+    vm.numbers.upfrontCost = defaultValues.upfront_cost;
 
     // grab rate estimates from the Form object
     utility_rate = $stateParams.utilityRate || defaultValues.utility_rate; // MedianUtilityPrice
@@ -54,6 +59,7 @@ function ShareCtrl_ (Client, defaultValues, $stateParams, Proposal) {
 
     // calculate annual consumption in $$ of electricity from monthly bill estimate
     bill = $stateParams.bill || defaultValues.bill;
+    vm.numbers.bill = bill;
     annual_consumption = ((bill * 12) / utility_rate) || defaultValues.annual_consumption; // kWh
     vm.numbers.annualConsumption = annual_consumption;
     annual_production = vm.numbers.annualProduction;
@@ -112,13 +118,13 @@ function ShareCtrl_ (Client, defaultValues, $stateParams, Proposal) {
     chartData = [
       {
         value: percent_solar,
-        color: '#008752',
+        color: '#17c188',
         highlight: '#559933',
         label: 'Solar Power'
       },
       {
         value: percent_utility,
-        color: '#FFFFFF',
+        color: '#dddddd',
         highlight: '#EFEFEF',
         label: 'Dirty Power'
       }

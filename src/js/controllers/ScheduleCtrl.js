@@ -7,9 +7,9 @@
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
-controllers.controller('ScheduleCtrl', ['Form', 'Clientstream', 'Session', 'SiteSurvey', 'Installation', 'Salesforce', 'Ahj', 'SurveyQuestions', ScheduleCtrl_]);
+controllers.controller('ScheduleCtrl', ['$q', 'Form', 'Clientstream', 'Session', 'SiteSurvey', 'Installation', 'Salesforce', 'Ahj', 'SurveyQuestions', ScheduleCtrl_]);
 
-function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesforce, Ahj, SurveyQuestions) {
+function ScheduleCtrl_ ($q, Form, Client, Session, SiteSurvey, Installation, Salesforce, Ahj, SurveyQuestions) {
   var vm = this;
   vm.prospect = Form.prospect;
   vm.eventDetails = eventDetails;
@@ -138,7 +138,18 @@ function ScheduleCtrl_ (Form, Client, Session, SiteSurvey, Installation, Salesfo
   }
 
   function check() {
-    return createInstallation().then(createFullInstallation).then(getSchedule);
+    var installation, dfd;
+
+    // Resolve an empty promise if installation guid has already been created and stored
+    if (vm.prospect().installationGuid) {
+      dfd = $q.defer();
+      installation = dfd.promise;
+      dfd.resolve({});
+    } else {
+      installation = createInstallation();
+    }
+
+    return installation.then(createFullInstallation).then(getSchedule);
   }
 
   function getSchedule() {

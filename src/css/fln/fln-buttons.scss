@@ -34,10 +34,6 @@
   min-width: 15em;
 }
 
-@media screen and (min-width: $width-min-sml) {
-
-}
-
 @media screen and (min-width: $width-min-med) {
   .step-bill button.tiny.gold {
     margin: 0;
@@ -53,10 +49,4 @@
   .step-fork button {
     max-width: none;
   }
-}
-
-@media screen and (min-width: $width-min-xlg) {
-}
-
-@media screen and (min-width: $width-min-xxl){
 }

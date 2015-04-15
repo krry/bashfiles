@@ -24,7 +24,7 @@ function Clientstream_ () {
 
   var Stream = Emitter();
   var hasOwnProp = {}.hasOwnProperty;
-  var loggins = "kenny";
+  // var loggins = "kenny";
 
   function createName (name) {
       return '$' + name;
@@ -34,28 +34,28 @@ function Clientstream_ () {
       this.subjects = {};
   }
 
-  function logStream (action, name, data) {
-    if (loggins === "kenny") {
-      if (typeof data !== "undefined") {
-        console.debug('~~stream~~', action, '==>', name, data);
-      } else {
-        var msg = ['~~stream~~', action, '<==', name].join(' ');
-        console.count(msg);
-      }
-    }
-  }
+  // function logStream (action, name, data) {
+  //   if (loggins === "kenny") {
+  //     if (typeof data !== "undefined") {
+  //       console.debug('~~stream~~', action, '==>', name, data);
+  //     } else {
+  //       var msg = ['~~stream~~', action, '<==', name].join(' ');
+  //       console.count(msg);
+  //     }
+  //   }
+  // }
 
   Emitter.prototype.emit = function (name, data) {
       var fnName = createName(name);
       this.subjects[fnName] || (this.subjects[fnName] = new Rx.Subject());
-      logStream("emit", name, data);
+      // logStream("emit", name, data);
       this.subjects[fnName].onNext(data);
   };
 
   Emitter.prototype.listen = function (name, handler) {
       var fnName = createName(name);
       this.subjects[fnName] || (this.subjects[fnName] = new Rx.Subject());
-      logStream("listen", name);
+      // logStream("listen", name);
       return this.subjects[fnName].subscribe(handler);
   };
 

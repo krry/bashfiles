@@ -34,13 +34,10 @@ h3.social-proof-count {
   margin-bottom: 1em;
 }
 .get-involved h4 {
-  margin: 0;
+  margin-bottom: .25em;
 }
 .get-involved p {
   margin-bottom: 0.75em;
-}
-.get-involved a {
-  text-decoration: underline;
 }
 
 .call-sales-rep {
@@ -92,18 +89,15 @@ h3.social-proof-count {
   }
 }
 
-@media screen and (min-width: $width-min-med) {
+@media screen and (min-width: $width-min-lrg) {
   .drop-top {
-    padding-top: 5.1rem;
-    font-size: 0.9em;
+    padding-top: 5rem;
+    font-size: 0.85em;
     line-height: 130%;
   }
   .drop-top p {
     margin-bottom: 0.85em;
   }
-}
-
-@media screen and (min-width: $width-min-lrg) {
   .step-address h3 {
     width: 85%;
   }

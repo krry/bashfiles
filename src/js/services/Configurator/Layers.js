@@ -74,6 +74,7 @@ function Layers_(Design, Styles, AreaService, Client) {
     draw_source.removeFeature(ftr);
     // remove from local modify visible
     modify_overlay.removeFeature(ftr);
+    modify_collection.clear();
   });
 
   // broadcast to the templates to enable/disable clicking of "next" button
@@ -98,7 +99,7 @@ function Layers_(Design, Styles, AreaService, Client) {
       } else {
         // sent by remote
         if (area.wkt === feature.get('wkt')) {
-          console.log('area the same as feature')
+          // console.log('area the same as feature')
           return Design.busy = false;
         }
         if (area) {
