@@ -38,6 +38,19 @@ oneYear = 1*365.25*24*60*60*1000; // 1 yr = 31557600000ms
 app.use(cookieParser(nconf.get('FLANNEL_SECRET')));
 app.get('/', require('./controllers/appController.js')(app).index);
 app.use(express.static(app.publicRoot, {maxAge: oneYear}));
+
+
+//additions
+// app.get('*', function(req, res){
+//     // throw new NotFound;
+//     res.sendFile('file_not_found.html', {root: app.publicRoot});
+// });
+
+//try deux
+// app.use(function(req, res, next) {
+//   res.status(404).send('Sorry cant find that!');
+// });
+
 app.settings.nconf = nconf;
 
 
@@ -60,6 +73,12 @@ portfinder.getPort(function (err, port) {
   // load the express routes
   require('./routes/appRoutes.js')(app);
   require('./routes/authorizationRoutes.js')(app);
+
+  //try deux edited
+  app.use(function(req, res, next) {
+    res.status(404).sendFile('file_not_found.html', {root: app.publicRoot});
+  });
+  //end my additions
 
   module.exports = app;
 });
