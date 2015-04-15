@@ -25,7 +25,7 @@ function OverViewCtrl_ (Client, defaultValues, $stateParams, Proposal, FIREBASE_
 
   // var _ref = new Firebase(FIREBASE_URL).child('designs');
   /* temporarily point to production per TB's request */
-  var _ref = new Firebase(FIREBASE_URL).child('designs');
+  var _ref = new Firebase('https://scty-prod.firebaseio.com').child('designs');
 
   _ref.limitToLast(10).on('child_changed', function (ds) {
     var data, pmap;
