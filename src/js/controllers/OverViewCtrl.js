@@ -23,6 +23,8 @@ function OverViewCtrl_ (Client, defaultValues, $stateParams, Proposal, FIREBASE_
     draggable: false,
   };
 
+  // var _ref = new Firebase(FIREBASE_URL).child('designs');
+  /* temporarily point to production per TB's request */
   var _ref = new Firebase(FIREBASE_URL).child('designs');
 
   _ref.limitToLast(10).on('child_changed', function (ds) {
