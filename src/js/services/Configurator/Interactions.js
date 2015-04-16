@@ -33,7 +33,7 @@ function Interactions_(Design, Client, Styles, AreaService) {
     type: 'Polygon',
     geometryName: 'area',
     // make drawing more precise
-    snapTolerance: 4, // defaults to 12
+    snapTolerance: 15, // defaults to 12
   });
 
   interactions.draw.on('drawend', function(e){
@@ -56,8 +56,9 @@ function Interactions_(Design, Client, Styles, AreaService) {
   interactions.modify = new ol.interaction.Modify({
     features: Design.modify_collection,
     style: Styles.highlightStyleFunction,
-    // make modifying more precise
-    pixelTolerance: 4, // defaults to 10
+    // lower pixelTolerance makes it easier to add a vertex during modify
+    // higher pixelTolerance is advised to prevent users from adding too many pixels
+    pixelTolerance: 25, // defaults to 10
     // the SHIFT key must be pressed to delete vertices, so
     // that new vertices can be drawn at the same position
     // of existing vertices

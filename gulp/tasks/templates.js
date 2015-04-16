@@ -15,9 +15,7 @@ var ngTemplates = require('gulp-ng-templates');
 var handleErrors = require('../util/handleErrors');
 var timestamp = require('../util/timestamp').timestamp;
 
-var tmplSrc = [
-  'src/templates/**/*.html',
-];
+var tmplSrc = ['src/templates/**/*.html'];
 
 gulp.task('templates', ['clearTemplates'], function(){
   return gulp.src(tmplSrc, {base: './src/'})

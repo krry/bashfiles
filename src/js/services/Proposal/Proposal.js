@@ -50,17 +50,26 @@ function Proposal_($stateParams, User, Session, Panelfill, Client, FIREBASE_URL)
     }
   }
 
-  var panels_array;
+  //var panels_array;
 
   var rx_panel_count = new Rx.Subject();
   this.rx_panel_count = rx_panel_count;
   function processTwoDArray(data) {
     // data = data.slice(230) // hack;
-    panels_array = [];
+    var panels_array = [];
     for (var i = 0; i < data.length; i++) {
       panels_array.push(makePanel(data[i]));
     }
     Client.emit('panelfill', panels_array);
+  }
+
+  function processTwoDArrayTwo(data, mapnumber) {
+    // data = data.slice(230) // hack;
+    var panels_array = [];
+    for (var i = 0; i < data.length; i++) {
+      panels_array.push(makePanel(data[i]));
+    }
+    Client.emit('panelfill'+mapnumber, panels_array);
   }
 
   function makePanel(data) {
@@ -130,27 +139,41 @@ function Proposal_($stateParams, User, Session, Panelfill, Client, FIREBASE_URL)
 
     });
 
-    // :::::::::::::: save for Mike  ::::::::::::::::
-  // // default to 45, then look up the value in firebase if we have a record
-  //   if (Session.ref()) {
-  //     Session.ref().parent().parent().child('designs')
-  //     .child(Session.ref().key()).child('areas/0/tilt')
-  //       .once('value', function (ds) {
-  //         savedMapTilt = ds.exportVal();
-  //     });
-  //   }  else  {
-  //     tilt_ref = new Firebase('https://scty-int.firebaseio.com').child('designs')
-  //     .child(design_id)
-  //     // .child(Session.ref().key())
-  //     .child('areas/0/tilt')
-  //       .once('value', function (ds) {
-  //           savedMapTilt = ds.exportVal();
-  //     });
-  //   }
-  //   if (savedMapTilt || savedMapTilt == 0) {
-  //     map_options.tilt = savedMapTilt;
-  //   }
-    // :::::::::::::: end of save for Mike  ::::::::::::::::
-
   }
+
+
+this.setTargetOverView = function setTargetOverView(data, pmap, mapnumber) {
+    var tilt_ref;
+
+    pmap.setCenter(new google.maps.LatLng(data.map_details.center.lng, data.map_details.center.lat))
+
+    Panelfill.getFilled(data.areas[0].wkt, data.areas[0].ridge, data.map_details.center.lat, data.areas[0].tilt).then(function callprocess(panels) { processTwoDArrayTwo(panels, mapnumber)});
+
+    Client.listen('panelfill'+mapnumber, function function_name(p_array) {
+        // for the map boundaries
+      var bounds = new google.maps.LatLngBounds();
+      pmap.setZoom(20);
+
+      // for the map boundaries
+      p_array.forEach(maxBounds);
+
+      function maxBounds(polygon){
+        var point_array = polygon.getPath().getArray();
+        point_array.forEach(compareAgainstMax);
+      }
+
+      function compareAgainstMax(pt){
+        bounds.extend(pt);
+      }
+
+      pmap.setCenter(bounds.getCenter());      
+
+      p_array.forEach(function(polygon){
+        polygon.setMap(pmap);
+      });
+
+
+    });
+  }
+
 }
