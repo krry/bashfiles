@@ -248,7 +248,7 @@ function StyleService_ ($q) {
   }),
   new ol.style.Style({
     image: new ol.style.Circle({
-      radius: 6,
+      radius: 5,
       fill: new ol.style.Fill({
         color: 'white'
       }),
@@ -265,7 +265,7 @@ function StyleService_ ($q) {
   }),
   new ol.style.Style({
     image: new ol.style.Circle({
-      radius: 4,
+      radius: 3,
       fill: new ol.style.Fill({
         color: 'white'
       }),
