@@ -37,6 +37,7 @@ a {
 input {
   user-select: auto;
   cursor: text;
+  -webkit-appearance: none;
 }
 
 button, a {
@@ -283,7 +284,7 @@ select {
 }
 
 label {
-  font-size: .75em;
+  font-size: .70em;
   display: block;
   text-indent: 0;
   font-weight: 600;
