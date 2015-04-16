@@ -40,7 +40,6 @@ app.get('/', require('./controllers/appController.js')(app).index);
 app.use(express.static(app.publicRoot, {maxAge: oneYear}));
 app.settings.nconf = nconf;
 
-
 portfinder.getPort(function (err, port) {
   if (env === "development") {
     // TODO: determine why requests aren't being logged via Winston
@@ -60,6 +59,11 @@ portfinder.getPort(function (err, port) {
   // load the express routes
   require('./routes/appRoutes.js')(app);
   require('./routes/authorizationRoutes.js')(app);
+
+  // catches all other routes, ie 404.
+  app.use(function(req, res, next) {
+    res.status(404).sendFile('file_not_found.html', {root: app.publicRoot});
+  });
 
   module.exports = app;
 });
