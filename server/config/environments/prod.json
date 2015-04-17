@@ -27,6 +27,12 @@
   "SFOPPOWNERID": "0051400000Bh64TAAR",
   "CLIENT": {
     "ENV": "prod",
+    "TOOL_TIP_TEXT": [
+      "Click one corner of your roof to start",
+      "Outline a single field of your roof by clicking the next corner",
+      "Keep going! You're doing great!",
+      "Finish this step by clicking the first point"
+    ],
     "ANALYTICS_ID": "GTM-M8LTWS",
     "MINIFIED": "true",
     "URL_ROOT": "go.solarcity.com",
