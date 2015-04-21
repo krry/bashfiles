@@ -9,7 +9,8 @@ function StyleService_ ($q) {
 
   StyleService.colors = c;
 
-  c['$brand-fire'] = '#F06953';
+
+
 
   /*********************** size configs ***********************/
   c.midpointRadius      = 10;
@@ -29,6 +30,12 @@ function StyleService_ ($q) {
   c.editStroke              = "rgba(240, 105, 083, 1.0)"; // white
 
   /*********************** obstruction ***********************/
+
+  c.brandFireStroke_2px =  new ol.style.Stroke({
+    color: c.defaultOpaque,
+    width: 2
+  })
+
   c.defaultObstruction    = "rgba(184, 61, 22, 1)";
   c.highlightObstruction  = c.highlightOpaque;
 
@@ -78,7 +85,7 @@ function StyleService_ ($q) {
   });
   c.roofpeakHighlightSegment = new ol.style.Style({
     stroke: new ol.style.Stroke({
-      color: c['$brand-fire'],
+      color: c.defaultOpaque,
       width: c.lineWidth
     }),
     fill: new ol.style.Fill({
@@ -124,10 +131,7 @@ function StyleService_ ($q) {
           fill: new ol.style.Fill({
             color: 'white'
           }),
-          stroke: new ol.style.Stroke({
-            color: c['$brand-fire'],
-            width: 2
-          })
+          stroke: c.brandFireStroke_2px,
         }),
         geometry: endpointCoords,
       })
@@ -141,20 +145,10 @@ function StyleService_ ($q) {
           fill: new ol.style.Fill({
             color: 'white'
           }),
-          stroke: new ol.style.Stroke({
-            color: c['$brand-fire'],
-            width: 2
-          })
-        })
-      }),
-      new ol.style.Style({
-        image: new ol.style.Circle({
-          radius: 5,
-          fill: new ol.style.Fill({
-            color: 'white'
-          })
+          stroke: c.brandFireStroke_2px,
         })
       })
+
     ];
 
     return function(feature, resolution) {
@@ -213,6 +207,8 @@ function StyleService_ ($q) {
     /* jshint +W069 */
   })();
 
+
+
   StyleService.highlightStyleFunction = (function() {
     /* jshint -W069 */
     var styles = {};
@@ -227,7 +223,7 @@ function StyleService_ ($q) {
       // segment styling
       new ol.style.Style({
         stroke: new ol.style.Stroke({
-          color: c['$brand-fire'],
+          color: c.defaultOpaque,
           width: 3
         }),
         fill: new ol.style.Fill({
@@ -241,10 +237,7 @@ function StyleService_ ($q) {
           fill: new ol.style.Fill({
             color: 'white'
           }),
-          stroke: new ol.style.Stroke({
-            color: c['$brand-fire'],
-            width: 2
-          })
+          stroke: c.brandFireStroke_2px,
         }),
         geometry: function(feature) {
           // return the coordinates of the first ring of the polygon
@@ -260,7 +253,7 @@ function StyleService_ ($q) {
             color: 'white'
           }),
           stroke: new ol.style.Stroke({
-            color: c['$brand-fire'],
+            color: c.defaultOpaque,
             width: 1
           })
         }),
