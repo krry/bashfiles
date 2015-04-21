@@ -2,7 +2,6 @@
 <html ng-app="flannel" ng-controller="AppCtrl as app" ng-strict-di>
 <!-- ###### HEAD ###### -->
 <head>
-
   <!-- ##### META TAGS ##### -->
   <!-- adding this meta tag to try to snap IE9 out of Quirks mode. note, this must be the first meta tag and ahead of any conditional comments in order to work. http://stackoverflow.com/questions/3449286/force-ie-compatibility-mode-off-in-ie-using-tags -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -29,10 +28,6 @@
   <!-- ##### HEAD SCRIPTS ##### -->
   <!-- ##### HEAD SCRIPTS END ##### -->
 
-  <!-- google maps -->
-  <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false&client=#{app.gmapClient}"></script> -->
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false"></script>
-
   <!-- Apercu fonts from FontDeck -->
   <!-- TODO: prevent a FOUT -->
   <!-- TODO: lessen 2s load lags -->
@@ -48,6 +43,10 @@
       s.parentNode.insertBefore(wf, s);
     })();
   </script>
+
+  <!-- google maps -->
+  <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false&client=#{app.gmapClient}"></script> -->
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false"></script>
 
   <!-- SALESFORCE LIVEAGENT -->
   <script src='https://c.la3-c2cs-chi.salesforceliveagent.com/content/g/js/32.0/deployment.js'></script>

@@ -15,6 +15,7 @@ var gulp  = require('gulp');
 var del = require('del');
 
 var laundry = [
+  './public/*.html',
   './src/js/templates-*.js',
   './public/templates/**/*',
   './public/fonts/**/*',
@@ -23,7 +24,6 @@ var laundry = [
   './public/css/**/*',
   './public/js/**/*',
   './public/lib/**/*',
-  './public/index.html',
   './public/*.js'
 ];
 
@@ -33,6 +33,7 @@ var styles = './public/css/all-*.css';
 var fonts = './public/fonts/**/*.*';
 var images = './public/img/*';
 var libs = './public/lib/libs-*';
+var indexes = './public/*.html';
 
 gulp.task('clean', function() {
   console.log('[clean   ] now cleaning dist folders');
@@ -61,4 +62,8 @@ gulp.task('clearFonts', function () {
 
 gulp.task('clearImages', function () {
   if (images) return del(images);
+});
+
+gulp.task('clearIndexes', function () {
+  if (indexes) return del(indexes);
 });

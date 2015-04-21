@@ -5,12 +5,12 @@
   background: $color-bkgd-footer;
   width: 100%;
   position: relative;
+  padding-bottom: 2.9rem;
 }
 
 .footer-fixed {
   bottom: 0;
   position: fixed;
-  // box-shadow: 0 0 4px $color-header-shadow;
 }
 
 .footer .boilerplate {
@@ -22,10 +22,10 @@
 
   span {
     padding: 0 1em;
-    border-right: 1px solid $shade-10;
+    border-left: 1px solid $shade-10;
     white-space: nowrap;
-    &:last-child {
-      border-right: none;
+    &:first-child {
+      border-left: none;
     }
   }
 }
@@ -37,4 +37,11 @@
 
 .footer .fourth {
   border-left: 1px solid $shade-10;
+}
+
+
+@media screen and (min-width: $width-min-xlg) {
+  .footer {
+    padding-bottom: 0;
+  }
 }

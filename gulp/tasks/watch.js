@@ -17,8 +17,8 @@ var thetime = require('../util/timestamp').thetime;
 var paths = {
   styles:    ['./src/css/**/*'],
   scripts:   ['./src/js/**/*.js', '!./src/js/templates-*.js'],
-  templates: ['./src/templates/**/*.html',
-              './src/index.html'],
+  templates: ['./src/templates/**/*.html'],
+  indexes:   ['./src/*.html'],
   images:    ['./src/images/**/*']
 };
 
@@ -40,6 +40,12 @@ gulp.task('watch', function(){
   templateWatcher.on('change', function(e) {
     thetime = null;
     console.log('File ' + e.path + ' was ' + e.type + ', running templates tasks...');
+  });
+
+  var indexWatcher = gulp.watch(paths.indexes, ['indexFile']);
+  indexWatcher.on('change', function(e) {
+    thetime = null;
+    console.log('File ' + e.path + ' was ' + e.type + ', running index tasks...');
   });
 
   var imageWatcher = gulp.watch(paths.images, ['images']);

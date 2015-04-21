@@ -16,7 +16,7 @@ var env = process.env.NODE_ENV || 'development',
     libTailSrc,
     tmplSrc;
 
-tmplSrc = [ 'src/index.html' ];
+tmplSrc = [ 'src/*.html' ];
 
 if (env === 'development') {
   styleSrc = [
@@ -53,7 +53,7 @@ else {
   ];
 }
 
-gulp.task('indexFile', function(){
+gulp.task('indexFile', ['clearIndexes'], function(){
   return gulp.src(tmplSrc, {base: './src/'})
     .pipe(linker({
       scripts: styleSrc,
