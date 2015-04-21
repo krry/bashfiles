@@ -195,7 +195,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
         Client.emit('Stages: jump to step', 'congrats');
       }
     }, function(resp) {
-      createLead(Salesforce.statuses.noCreditResult);
+      createLead(Salesforce.statuses.networkError);
       vm.isSubmitting = false;
 
       // Timed out or failed

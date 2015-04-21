@@ -17,7 +17,8 @@ function SalesforceProvider_ () {
       failCredit: 'Insufficient credit',
       passCredit: 'Pass credit',
       noCreditResult: 'Credit unknown',
-      scheduledSiteSurvey: 'Scheduled site survey'
+      scheduledSiteSurvey: 'Scheduled site survey',
+      networkError: 'Network error'
     };
 
     function createLead(data) {
