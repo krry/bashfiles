@@ -27,6 +27,16 @@
   border-color: $grey-dark;
 }
 
+.inverse option {
+  padding: .25em 1em;
+  font-size: 1em;
+}
+
+.inverse option:checked {
+  background-color: $red;
+  color: $blue;
+}
+
 .inverse input {
   background-color: $color-bkgd-inverse !important;
   color: $color-text-inverse !important;

@@ -89,6 +89,10 @@ h3.social-proof-count {
   }
 }
 
+.step-fork p {
+  text-align: center;
+}
+
 @media screen and (min-width: $width-min-lrg) {
   .drop-top {
     padding-top: 5rem;
@@ -100,6 +104,9 @@ h3.social-proof-count {
   }
   .step-address h3 {
     width: 85%;
+  }
+  .step-fork p {
+    text-align: left;
   }
 }
 

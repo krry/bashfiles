@@ -27,13 +27,13 @@
 
     &.tooltip {
       &:before {
-        border-color: $shade-80 transparent;
+        border-color: shade(.8) transparent;
       }
 
       &:after {
         left: -50%;
         width: 200%;
-        background: $shade-80;
+        background: shade(.8);
         color: $white;
         font-weight: 600;
       }
@@ -156,7 +156,7 @@
   border-radius: 2px;
 
   &.selected {
-    border: 4px solid $green-neue;
+    border: 4px solid $green;
   }
 }
 

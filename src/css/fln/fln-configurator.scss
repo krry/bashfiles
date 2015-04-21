@@ -13,12 +13,12 @@
 
 .instructions {
   z-index: 4;
-  padding: 2em 2em 4em;
+  padding: 1em;
   margin: 0;
   position: fixed;
   background-color: $white;
   line-height: 120%;
-  bottom: 0;
+  top: 2.9rem;
   width: 100%;
   text-align: left;
 }
@@ -105,9 +105,10 @@
   .instructions {
     position: relative;
     bottom: auto;
+    top: auto;
     width: auto;
     text-align: left;
-    box-shadow: 0 0 .75em -.25em $shade-60;
+    box-shadow: 0 0 .75em -.25em shade(.6);
     margin-left: -2em;
     padding: 3em 2em;
   }

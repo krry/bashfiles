@@ -26,7 +26,7 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 10;
+  z-index: 12;
   height: 2.9rem;
   box-shadow: 0 1px 2px $color-header-shadow;
 
@@ -90,7 +90,6 @@
   }
 
   .chevron.right {
-    // @include chevron("right", $height: 2.9rem);
     font-size: .7rem;
     padding: 0;
     line-height: 2.9rem;
@@ -101,7 +100,7 @@
   .top-five {
     @include apercu-bold;
     opacity: 1;
-    border-left: 0px solid $tint-20;
+    border-left: 0px solid tint(.2);
   }
 
   a.questions {
@@ -109,7 +108,7 @@
     padding: 0 1.5em;
     &:hover {
       font-weight: 800;
-      background-color: $shade-10;
+      background-color: shade(.10);
     }
   }
 
@@ -129,6 +128,12 @@
   .header-detail {
     @include apercu-medium;
     display: none;
+  }
+}
+
+@media screen and (min-width: $width-min-sml) {
+  .header {
+    /* z-index: 12; */
   }
 }
 
@@ -154,7 +159,7 @@
 @media screen and (min-width: $width-min-xlg) {
   .header {
     .logo {
-      background-position: -7px -14px;
+      background-position: -10px -14px;
     }
     .header-detail {
       @include apercu-medium;
@@ -165,9 +170,10 @@
 }
 
 @media screen and (min-width: $width-min-xxl) {
-  .header {
-    .logo {
-      background-position: -7px -14px;
-    }
+}
+
+@media screen and (min-width: $width-min-uhd) {
+  .header .logo {
+    background-size: auto 140%;
   }
 }

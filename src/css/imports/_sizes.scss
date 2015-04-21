@@ -1,15 +1,26 @@
 $width-em:            16px;
-$width-page:          60em;    // 960px/16
+$width-page:          60em;       // 960px
 
-$width-min-xsm:       15em;    // 240px/16
-$width-min-sml:       22.5em;  // 360px/16
-$width-min-med:       33.5em;  // 536px/16
-$width-min-lrg:       48em;    // 768px/16
-$width-min-xlg:       64em;    // 1024px/16
-$width-min-xxl:       80em;    // 1280px/16
-$width-min-uhd:       120em;   // 1920px/16
+$flipphone:  "(max-width: 239px)";
+$smartphone: "(min-width: 239px) and (max-width: 535px)";
+$phablet:    "(min-width: 535px) and (max-width: 767px)";
+$tablet:     "(min-width: 767px) and (max-width: 1199px)";
+$laptop:     "(min-width: 1199px) and (max-width: 1599px)";
+$desktop:    "(min-width: 1599px) and (max-width: 1919px)";
+$hdtv:       "(min-width: 1919px)";
+
+$width-min-xsm: 241px;
+$width-min-sml: 361px;
+$width-min-med: 537px;
+$width-min-lrg: 769px;
+$width-min-xlg: 1025px;
+$width-min-xxl: 1281px;
+$width-min-hd:  1601px;
+$width-min-uhd: 1921px;
 
 $line-height-body:    1.375;
 $line-height-heading: 1.25;
 
 $font-size: $width-em;
+
+$retina: 192dpi;

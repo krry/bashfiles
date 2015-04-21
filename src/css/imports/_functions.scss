@@ -14,3 +14,19 @@ $phi: 1.61803398875;
 @function trim-unit($size) {
   @return $size / ($size * 0 + 1);
 }
+
+@function gray($darkness: .5) {
+  @return darken(white, $darkness);
+}
+
+@function grey($darkness: .5) {
+  @return darken(white, $darkness);
+}
+
+@function grayscale($darkness: .5) {
+  @return darken(white, $darkness);
+}
+
+@function greyscale($darkness: .5) {
+  @return darken(white, $darkness);
+}

@@ -34,11 +34,11 @@
     line-height: 1.25;
     // white-space: nowrap; // don't let it wrap
     background: $grey-darker; // fallback for anti-opacity browsers
-    background: $shade-60;
+    background: shade(.6);
     padding: 0.7em;
     text-align: center;
     border-radius: 4px;
-    z-index: 19; // get on top of other page elements
+    z-index: 2; // get on top of other page elements
     pointer-events: none; // ensure they don't obscure interactive elements
   }
 
@@ -46,8 +46,8 @@
     content: ""; // just a triangle, no content
     border-style: solid;
     border-color: $grey-darker transparent; // fallback for anti-opacity browsers
-    border-color: $shade-60 transparent; // make side borders transparent to form a triangle
-    z-index: 20; // make sure the triangle shows over the tip
+    border-color: shade(.6) transparent; // make side borders transparent to form a triangle
+    z-index: 3; // make sure the triangle shows over the tip
   }
 
   @if $position == "bottom" {
@@ -102,7 +102,7 @@
       bottom: 50%;
       left: 100%;
       border-color: transparent $grey-darkest; // fallback for anti-opacity browsers
-      border-color: transparent $shade-80; // make top and bottom borders transparent to form a triangle
+      border-color: transparent shade(.8); // make top and bottom borders transparent to form a triangle
       border-width: .25em .25em .25em 0; // put the point on the left
     }
   }
@@ -121,7 +121,7 @@
       bottom: 50%;
       right: 100%;
       border-color: transparent $grey-darkest; // fallback for anti-opacity browsers
-      border-color: transparent $shade-80; // make top and bottom borders transparent to form a triangle
+      border-color: transparent shade(.8); // make top and bottom borders transparent to form a triangle
       border-width: .25em 0 .25em .25em; // put the point on the right
     }
   }
