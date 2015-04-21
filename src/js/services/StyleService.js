@@ -2,107 +2,99 @@ angular.module('flannel').factory('StyleService', ['$q', StyleService_]);
 
 function StyleService_ ($q) {
   // this factory provides styles, etc for edlOlMap features
-
+  /* jshint +W069 */  // ignore [bracket notation] through file
   var StyleService = {};
   var colors = {};
   var c = colors;
 
   StyleService.colors = c;
 
-
-
-
   /*********************** size configs ***********************/
   c.midpointRadius      = 10;
   c.midpointOuterStroke = 8;
   c.endpointRadius      = 8;
   c.endpointOuterStroke = 2;
-  c.lineWidth           = 5;
+  c.lineSegmentWidth = 5;
 
   /*********************** common colors ***********************/
-  // c.highlightOpaque         = "rgba(240, 105, 083, 1.0)"; // main orange
-  c.highlightFill           = "rgba(240, 105, 083, 0.3)"; // 30% orange
-  c.defaultOpaque           = "rgba(240, 105, 083, 1.0)"; // $brand-fire
-  c.defaultFill             = "rgba(240, 105, 083, 0.3)"; // 30% blue
-  c.defaultGutter           = "rgba(000, 146, 161, 1.0)"; // gutter blue
-  c.highlightGutter         = "rgba(184, 061, 022, 1.0)"; // gutter orange
-  c.editFill                = "rgba(255, 255, 255, 1.0)"; // white
-  c.editStroke              = "rgba(240, 105, 083, 1.0)"; // white
+  c.$brand_fire                 = "rgba(240, 105, 083, 1.0)"; // $brand-fire
+  c.$brand_fire_thirty          = "rgba(240, 105, 083, 0.3)"; // $brand-fire 30%
+  c.$brand_white                = "rgba(255, 255, 255, 1.0)"; // white
+  c.$brand_black                = "rgba(0, 0, 0, 1.0)"; // not white
 
-  /*********************** obstruction ***********************/
+  // fill
+  c.brandFireFill    = new ol.style.Fill({
+    color: c.$brand_fire_thirty,
+  });
 
+  c.whiteFill    = new ol.style.Fill({
+    color: c.$brand_white,
+  });
+
+  // polygon line strokes
   c.brandFireStroke_2px =  new ol.style.Stroke({
-    color: c.defaultOpaque,
+    color: c.$brand_fire,
     width: 2
   })
 
-  c.defaultObstruction    = "rgba(184, 61, 22, 1)";
-  c.highlightObstruction  = c.highlightOpaque;
+  c.brandFireStroke_5px    = new ol.style.Stroke({
+    color: c.$brand_fire,
+    width: 5
+  });
 
-  /*********************** panel fill ***********************/
-  c.defaultPanelFill        = new ol.style.Fill({
-                                color: "rgba(33, 22, 45, 1)"
-                              });
-  c.defaultPanelStroke      = new ol.style.Stroke({
-                                color: "rgba(0,  66, 99, 1)",
-                                width: 2
-                              });
-  c.highglightPanelFill     = new ol.style.Fill({
-                                color: "rgba(41, 49, 69, 0.4)",
-                              });
-  c.highlightPanelStroke    = new ol.style.Stroke({
-                                color: "rgba(223, 215, 191, 0.8)",
-                                width: 2
-                              });
+  c.blackStroke_5px    = new ol.style.Stroke({
+    color: c.$brand_black,
+    width: 5
+  });
 
-  /*********************** mount plane ***********************/
-  c.defaultMountStroke    = new ol.style.Stroke({
-                            color: c.defaultOpaque,
-                            width: 5
-                          });
-  c.highlightMountFill    = new ol.style.Fill({
-                            color: c.highlightFill,
-                          });
-  c.highlightNodeFill     = new ol.style.Fill({
-                            color: c.editFill
-                          });
-  c.highlightNodeStroke   = new ol.style.Stroke({
-                            color: c.editStroke,
-                            width: 2
-                          });
-  c.highlightNodeImage   = new ol.style.Circle({
-                            radius: 17,
-                            fill: c.highlightNodeFill,
-                            stroke: c.highlightNodeStroke
-                          });
+  c.blackStroke_2px = new ol.style.Stroke({
+    color: c.$brand_black,
+    width: 2
+  })
+
+  c.whiteStroke_2px = new ol.style.Stroke({
+    color: c.$brand_white,
+    width: 2
+  })
+
   /*********************** roofpeak***********************/
-  c.roofpeakCorner      = null;
   c.roofpeakSegment      = new ol.style.Style({
     stroke: new ol.style.Stroke({
-      color: 'black',
-      width: c.lineWidth
+      color: c.$brand_black,
+      width: c.lineSegmentWidth
     })
   });
   c.roofpeakHighlightSegment = new ol.style.Style({
     stroke: new ol.style.Stroke({
-      color: c.defaultOpaque,
-      width: c.lineWidth
+      color: c.$brand_fire,
+      width: c.lineSegmentWidth
     }),
-    fill: new ol.style.Fill({
-      color: 'rgba(240,105,83,0.3)'
-    })
+  })
+  c.roofpeakNode = new ol.style.Circle({
+    radius: c.endpointRadius,
+    fill: c.whiteFill,
+    stroke: c.blackStroke_2px,
+  })
+  c.roofpeakHighlightNode = new ol.style.Circle({
+    radius: c.endpointRadius,
+    fill: c.whiteFill,
+    stroke: c.brandFireStroke_2px,
   })
 
-  c.roofpeakHighlightCorner      = null;
-
   /******************** custom styling functions *******/
-  function endpointCoords (feature) {
+  function segmentEndpointCoords (feature) {
     // return the coordinates of the endpoints
     var coordinates = feature.getGeometry().getCoordinates();
     return new ol.geom.MultiPoint(coordinates);
   }
 
-  function midpointCoords (feature) {
+  function modifyEndpointCoords (feature) {
+    // return the coordinates of the endpoints
+    var coordinates = feature.getGeometry().getCoordinates()[0];
+    return new ol.geom.MultiPoint(coordinates);
+  }
+
+  function modifyMidpointCoords (feature) {
     // return the coordinates of the first ring of the polygon
     var corners = feature.getGeometry().getCoordinates()[0];
     var midpoints = [];
@@ -118,7 +110,7 @@ function StyleService_ ($q) {
   /******************************************************/
 
   StyleService.remapHighlight = (function() {
-    /* jshint -W069 */
+
     var styles = {};
 
     styles['segment'] =  [
@@ -126,27 +118,14 @@ function StyleService_ ($q) {
       c.roofpeakHighlightSegment,
       // segment endpoint styling
       new ol.style.Style({
-        image: new ol.style.Circle({
-          radius: c.endpointRadius,
-          fill: new ol.style.Fill({
-            color: 'white'
-          }),
-          stroke: c.brandFireStroke_2px,
-        }),
-        geometry: endpointCoords,
+        image: c.roofpeakHighlightNode,
+        geometry: segmentEndpointCoords,
       })
     ];
 
-
     styles['corner'] =  [
       new ol.style.Style({
-        image: new ol.style.Circle({
-          radius: c.endpointRadius,
-          fill: new ol.style.Fill({
-            color: 'white'
-          }),
-          stroke: c.brandFireStroke_2px,
-        })
+        image: c.roofpeakHighlightNode,
       })
 
     ];
@@ -154,47 +133,31 @@ function StyleService_ ($q) {
     return function(feature, resolution) {
       return styles[feature.getGeometryName()];
     };
-    /* jshint +W069 */
+
   })();
   StyleService.remap = (function() {
-    /* jshint -W069 */
+
     var styles = {};
 
     styles['segment'] = [c.roofpeakSegment];
 
     styles['corner'] = [
       new ol.style.Style({
-        image: new ol.style.Circle({
-          radius: 5,
-          fill: new ol.style.Fill({
-            color: 'black'
-          })
-        })
-      }),
-      new ol.style.Style({
-        image: new ol.style.Circle({
-          radius: 3,
-          fill: new ol.style.Fill({
-            color: 'white'
-          })
-        })
+        image: c.roofpeakNode,
       })
     ];
 
     return function(feature, resolution) {
       return styles[feature.getGeometryName()];
     };
-    /* jshint +W069 */
   })();
 
   StyleService.defaultStyleFunction = (function() {
-    /* jshint -W069 */
     var styles = {};
 
     styles['area'] = [new ol.style.Style({
-              fill: c.highlightMountFill,
-              stroke: c.defaultMountStroke,
-              image: c.highlightNodeImage,
+              fill: c.brandFireFill,
+              stroke: c.brandFireStroke_5px,
             })];
 
     return function(feature, resolution) {
@@ -204,13 +167,12 @@ function StyleService_ ($q) {
       }
       return styles[feature.getGeometryName()];
     };
-    /* jshint +W069 */
+
   })();
 
 
-
   StyleService.highlightStyleFunction = (function() {
-    /* jshint -W069 */
+
     var styles = {};
     styles['area'] = [
       /* We are using two different styles for the polygons:
@@ -221,58 +183,25 @@ function StyleService_ ($q) {
        *    the style.
        */
       // segment styling
-      new ol.style.Style({
-        stroke: new ol.style.Stroke({
-          color: c.defaultOpaque,
-          width: 3
-        }),
-        fill: new ol.style.Fill({
-          color: 'rgba(240,105,83,0.3)'
-        })
-      }),
+      c.roofpeakHighlightSegment,
       // segment endpoint styling
       new ol.style.Style({
         image: new ol.style.Circle({
           radius: 5,
-          fill: new ol.style.Fill({
-            color: 'white'
-          }),
+          fill: c.whiteFill,
           stroke: c.brandFireStroke_2px,
         }),
-        geometry: function(feature) {
-          // return the coordinates of the first ring of the polygon
-          var coordinates = feature.getGeometry().getCoordinates()[0];
-          return new ol.geom.MultiPoint(coordinates);
-        }
+        geometry: modifyEndpointCoords
       }),
       // segment midpoints styling
       new ol.style.Style({
         image: new ol.style.Circle({
           radius: 3,
-          fill: new ol.style.Fill({
-            color: 'white'
-          }),
-          stroke: new ol.style.Stroke({
-            color: c.defaultOpaque,
-            width: 1
-          })
+          fill: c.whiteFill,
         }),
-        geometry: function(feature) {
-          // return the coordinates of the first ring of the polygon
-          var corners = feature.getGeometry().getCoordinates()[0];
-          var midpoints = [];
-          var x, y;
-          for (var i = 0, len = corners.length-1; i < len; i++) {
-            x = corners[i+1][0] + corners[i][0];
-            y = corners[i+1][1] + corners[i][1];
-            midpoints.push([x/2, y/2]);
-          }
-          return new ol.geom.MultiPoint(midpoints);
-        }
+        geometry: modifyMidpointCoords
       })
     ];
-
-    /*jshint +W069 */
 
     return function(feature, resolution) {
       var radius = feature.get('radius');
@@ -285,3 +214,4 @@ function StyleService_ ($q) {
 
   return StyleService;
 }
+/* jshint -W069 */
