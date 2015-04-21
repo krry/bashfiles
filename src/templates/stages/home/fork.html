@@ -1,18 +1,18 @@
 <section class="overlay primary col step-fork">
   <div class="row center">
     <div class="col center">
-      <h1>Let’s place panels on your roof!<br><small>This tool helps you get a sense of what a solar power system could look like on your roof and how much you could save.</small></h1>
+      <h1>Let’s place panels on your roof!<span class="no-mobile"><br><small>This tool helps you get a sense of what a solar power system could look like on your roof and how much you could save.</small></span></h1>
       <div class="row fifth four center">
         <div class="col fifth two padded">
-          <button class="btn std gold" ng-click="form.nextStep()">Start&nbsp;Drawing</button>
-          <p><strong>See your savings now by configuring your system.</strong> Don't worry, our experts will do the final system design on your rooftop after your solar site&nbsp;survey.</p>
+          <button class="btn gold small" ng-click="form.nextStep() && app.notifyTrackerAboutClick('start_drawing')">Start&nbsp;Drawing</button>
+          <p><strong>See your savings now by configuring your system.</strong><span class="no-mobile">Don't worry, our experts will do the final system design on your rooftop after your solar site&nbsp;survey.</span></p>
         </div>
-        <div class="col fifth padded center">
+        <div class="col fifth padded center no-mobile">
           <div class="set-or"><strong class="caps">or</strong></div>
         </div>
         <div class="col fifth two padded">
-          <button class="btn std skip" ng-click="form.skipConfigurator()">Skip&nbsp;This</button>
-          <p><strong>The express lane.</strong> Go straight to qualification and let our solar consultants handle the system&nbsp;design.</p>
+          <button class="btn small grey" ng-click="form.skipConfigurator() && app.notifyTrackerAboutClick('skip_drawing')">Skip&nbsp;This</button>
+          <p><strong>The express lane.</strong><span class="no-mobile">Go straight to qualification and let our solar consultants handle the system&nbsp;design.</span></p>
         </div>
       </div>
     </div>

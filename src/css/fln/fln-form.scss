@@ -55,7 +55,7 @@ input.zipcode {
   background-color: $white-dark;
   width: 100%;
   max-width: 100%;
-  text-align: center;
+  text-align: left;
 }
 
 .step-zip {
@@ -108,7 +108,7 @@ label input.phone {
 label .ib.status {
   margin-left: 2em;
   float: right;
-  color: $shade-40;
+  color: shade(.4);
 }
 
 .status {
@@ -184,8 +184,8 @@ span.autolocate-icon {
     }
   }
   button.nested {
-    width: 2.6rem;
-    height: 2.6rem;
+    width: 2rem;
+    height: 2rem;
     position: absolute;
     right: .5em;
     top: .5em;
@@ -209,5 +209,9 @@ span.autolocate-icon {
   input.street {
     max-width: 20em;
     width: 20em;
+  }
+  button.nested {
+    width: 2.5rem;
+    height: 2.5rem;
   }
 }

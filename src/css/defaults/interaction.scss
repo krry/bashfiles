@@ -64,150 +64,46 @@ button,
 input[type='submit'],
 input[type='button'],
 a.btn {
-  &.std {
-    @include btn();
-  }
-  &.gold {
-    @include btn($gold);
-  }
-  &.blue {
-    @include btn($blue-dark);
-  }
-  &.aqua {
-    @include btn($aqua-dark);
-  }
-  &.orange {
-    @include btn($orange);
+  &.grey, &.std {
+    @include btn($grey);
   }
   &.red {
     @include btn($red);
   }
-  &.white {
-    @include btn($white);
+  &.gold {
+    @include btn($gold);
   }
   &.green {
     @include btn($green);
   }
-  &.grey {
-    @include btn($grey-dark);
+  &.teal {
+    @include btn($teal);
+  }
+  &.blue {
+    @include btn($blue);
+  }
+  &.violet {
+    @include btn($violet);
+  }
+  &.white {
+    @include btn($white);
+  }
+  &.std {
+    font-size: 1rem;
+  }
+  &.tiny {
+    font-size: .75rem;
+  }
+  &.small {
+    font-size: .875rem;
+  }
+  &.large {
+    font-size: 1.25rem;
   }
   &.huge {
-    &.gold {
-      @include btn($gold, $size: 1.5rem);
-    }
-    &.blue {
-      @include btn($blue-dark, $size: 1.5rem);
-    }
-    &.aqua {
-      @include btn($aqua-dark, $size: 1.5rem);
-    }
-    &.orange {
-      @include btn($orange, $size: 1.5em);
-    }
-    &.red {
-      @include btn($red, $size: 1.5rem);
-    }
-    &.white {
-      @include btn($white, $size: 1.5rem);
-    }
-    &.green {
-      @include btn($green, $size: 1.5rem);
-    }
-    &.grey {
-      @include btn($grey-dark, $size: 1.5rem);
-    }
+    font-size: 1.5rem;
   }
-
-  &.large {
-    &.gold {
-      @include btn($gold, $size: 1.25rem);
-    }
-    &.blue {
-      @include btn($blue-dark, $size: 1.25rem);
-    }
-    &.aqua {
-      @include btn($aqua-dark, $size: 1.25rem);
-    }
-    &.orange {
-      @include btn($orange, $size: 1.25em);
-    }
-    &.red {
-      @include btn($red, $size: 1.25rem);
-    }
-    &.white {
-      @include btn($white, $size: 1.25rem);
-    }
-    &.green {
-      @include btn($green, $size: 1.25rem);
-    }
-    &.grey {
-      @include btn($grey-dark, $size: 1.25rem);
-    }
-  }
-
-  &.small {
-    &.gold {
-      @include btn($gold, $size: .875rem);
-    }
-    &.blue {
-      @include btn($blue-dark, $size: .875rem);
-    }
-    &.aqua {
-      @include btn($aqua-dark, $size: .875rem);
-    }
-    &.orange {
-      @include btn($orange, $size: .875em);
-    }
-    &.red {
-      @include btn($red, $size: .875rem);
-    }
-    &.white {
-      @include btn($white, $size: .875rem);
-    }
-    &.green {
-      @include btn($green, $size: .875rem);
-    }
-    &.grey {
-      @include btn($grey-dark, $size: .875rem);
-    }
-  }
-
-  &.tiny {
-    &.gold {
-      @include btn($gold, $size: .75rem);
-    }
-    &.blue {
-      @include btn($blue-dark, $size: .75rem);
-    }
-    &.aqua {
-      @include btn($aqua-dark, $size: .75rem);
-    }
-    &.orange {
-      @include btn($orange, $size: .75em);
-    }
-    &.red {
-      @include btn($red, $size: .75rem);
-    }
-    &.white {
-      @include btn($white, $size: .7rem);
-    }
-    &.green {
-      @include btn($green, $size: .75rem);
-    }
-    &.grey {
-      @include btn($grey-dark, $size: .75rem);
-    }
-  }
-
-  &.white.square.tiny.less-padded {
-    @include btn($color: $white, $size: .7rem, $corners: .5em, $pad: #{1em 2em});
-    width: 100%;
-    border-width: 1px;
-    border-color: $grey-medium;
-    border-style: solid;
-    margin-top: 0;
-  }
-  &.wide.wide.wide.wide {
+  &.wide {
     padding-left: 5em;
     padding-right: 5em;
   }
@@ -222,7 +118,7 @@ a.btn {
     cursor: not-allowed;
     opacity: .5;
   }
-  &.close.close {
+  &.close {
     @include apercu-bold;
     margin: 0;
     border: 0;
@@ -251,9 +147,13 @@ a.btn {
     text-transform: none;
     padding: 1em .75em;
     margin: 0 auto;
+    &:hover {
+      background: none;
+      color: $grey-dark;
+    }
     &:active {
       background: none;
-      color: $aqua-dark;
+      color: $green;
     }
   }
   &.center.white.tiny {
@@ -292,11 +192,16 @@ label {
 
 label.field-label {
   @include apercu-light;
-  margin-top: 0.5em;
-  margin-bottom: 0.25em;
+  /* margin-top: 0.5em; */
+  /* margin-bottom: -0.5em; */
   text-transform: uppercase;
   color: $grey-dark;
   letter-spacing: 0.5px;
+  & + input[type="text"],
+  & + input[type="email"],
+  & + input[type="tel"] {
+    margin-top: 0.25em;
+  }
 }
 
 label abbr {
@@ -406,11 +311,11 @@ input[type="week"]:focus {
 }
 
 select {
-  @include btn($color: $white, $size: .75em, $corners: .25em);
+  @include btn($color: $white, $corners: .25em);
   position: relative;
   padding: 1em;
   padding-right: 2.5em;
-  color: $grey-darker;
+  color: grey(80%);
   text-align: left;
   background: $white url('../img/down-arrow.svg') no-repeat 97% 48%;
   background-size: auto 50%;
@@ -419,7 +324,7 @@ select {
     font-size: .75em;
     background-image: none;
     option:hover {
-      background: $tint-20;
+      background: tint(.2);
     }
     &:active:not(:disabled) {
       background: inherit;
