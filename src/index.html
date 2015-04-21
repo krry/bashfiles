@@ -23,14 +23,12 @@
   <!-- always load styles before scripts in the head -->
   <!-- ##### HEAD STYLES END ##### -->
 
-  <!-- <script src="//openlayers.org/en/v3.3.0/build/ol-debug.js" type="text/javascript"></script> -->
-
-  <!-- ##### HEAD SCRIPTS ##### -->
-  <!-- ##### HEAD SCRIPTS END ##### -->
-
   <!-- Apercu fonts from FontDeck -->
   <!-- TODO: prevent a FOUT -->
   <!-- TODO: lessen 2s load lags -->
+
+  <!-- Fontdeck uses a <script> tag to add a <style> tag to the DOM -->
+  <!-- So we should place this just after the STYLES -->
   <script type="text/javascript">
     WebFontConfig = { fontdeck: { id: '50798' } };
     (function() {
@@ -43,6 +41,9 @@
       s.parentNode.insertBefore(wf, s);
     })();
   </script>
+
+  <!-- ##### HEAD SCRIPTS ##### -->
+  <!-- ##### HEAD SCRIPTS END ##### -->
 
   <!-- google maps -->
   <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false&client=#{app.gmapClient}"></script> -->
