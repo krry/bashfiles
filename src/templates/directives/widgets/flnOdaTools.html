@@ -3,14 +3,14 @@
   <ul>
     <h4>Jump to:</h4>
     <a class="btn blue" ng-click="oda.jumpToHome()">Find Home</a>
-    <a class="btn blue" ng-click="oda.jumpToConfigurator()">Start Configurator</a>
-    <a class="btn blue" ng-click="oda.jumpToProposal()">View Proposal</a>
-    <a class="btn blue" ng-click="oda.jumpToSchedule()">Schedule Survey</a>
+    <a class="btn green" ng-click="oda.jumpToConfigurator()">Start Configurator</a>
+    <a class="btn gold" ng-click="oda.jumpToProposal()">View Proposal</a>
+    <a class="btn orange" ng-click="oda.jumpToSchedule()">Schedule Survey</a>
   </ul>
   <dl class="row" ng-show="dev.prospect().utilityRate">
     <div class="col half">
       <dt>percent utility</dt>
-      <dd>{{ dev.prospect().percentUtility }}%</dd>
+      <dd>{{ dev.prospect().percentUtility | number: 2 }}%</dd>
       <dt>utility rate</dt>
       <dd class="cents">{{ dev.prospect().utilityRate | number: 2 }}</dd>
       <dt>utility ID</dt>
@@ -24,7 +24,7 @@
     </div>
     <div class="col half">
       <dt>percent solar</dt>
-      <dd>{{ dev.prospect().percentSolar }}%</dd>
+      <dd>{{ dev.prospect().percentSolar | number: 2 }}%</dd>
       <dt>scty rate</dt>
       <dd class="cents">{{ dev.prospect().sctyRate | number: 2 }}</dd>
       <dt>annual consumption</dt>
@@ -32,7 +32,7 @@
       <dt>system size</dt>
       <dd>{{ dev.prospect().systemSize | number: 2 }} kW</dd>
       <dt>annual production</dt>
-      <dd>{{ dev.prospect().annualProduction}} kWh/year</dd>
+      <dd>{{ dev.prospect().annualProduction | number: 0 }} kWh/year</dd>
       <dt>first year savings</dt>
       <dd class="dollars">{{ dev.prospect().firstYearSavings | number: 2}}</dd>
     </div>
