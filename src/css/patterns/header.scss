@@ -136,7 +136,7 @@
     /* z-index: 12; */
   }
   .logo {
-    background-position: -13px -13px;
+    background-position: -15px -12px !important;
   }
 }
 
@@ -162,7 +162,7 @@
 @media screen and (min-width: $width-min-xlg) {
   .header {
     .logo {
-      background-position: -10px -14px;
+      background-position: -13px -13px !important;
     }
     .header-detail {
       @include apercu-medium;
