@@ -8,8 +8,8 @@
 
   &:before,
   &:after {
-    @include apercu-light;
-    font-size: .85em;
+    @include apercu-bold;
+    font-size: .75em;
     opacity: 0;
     visibility: hidden;
     position: absolute; // finds the nearest positioned parent
@@ -30,11 +30,11 @@
 
   &:after {
     content: attr(title); // grab content from `title` tag
-    color: white;
+    color: $white;
     line-height: 1.25;
     // white-space: nowrap; // don't let it wrap
     background: $grey-darker; // fallback for anti-opacity browsers
-    background: shade(.6);
+    background: shade(.7);
     padding: 0.7em;
     text-align: center;
     border-radius: 4px;
@@ -46,7 +46,7 @@
     content: ""; // just a triangle, no content
     border-style: solid;
     border-color: $grey-darker transparent; // fallback for anti-opacity browsers
-    border-color: shade(.6) transparent; // make side borders transparent to form a triangle
+    border-color: shade(.7) transparent; // make side borders transparent to form a triangle
     z-index: 3; // make sure the triangle shows over the tip
   }
 
@@ -58,8 +58,8 @@
     &:after {
       top: 100%; // hang it under the element
       left: 50%;
-      width: 12rem;
-      margin-left: -6rem;
+      min-width: 10em;
+      margin-left: -6em;
       margin-top: calc(.25em - .5px);
     }
     &:before {
@@ -76,8 +76,8 @@
     }
     &:after {
       bottom: 100%; // hang it under the element
-      left: 0.5em;
-      width: 10rem;
+      left: -100%;
+      min-width: 10em;
       margin-left: 3.5em;
       margin-bottom: calc(1em - 0px);
     }
