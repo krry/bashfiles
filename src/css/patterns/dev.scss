@@ -1,3 +1,4 @@
+@import "../imports/fonts";
 @import "../imports/sizes";
 @import "../imports/colors";
 @import "../imports/motion";
@@ -8,11 +9,15 @@
   top: 0; right: 0; bottom: 0;
   width: 80%;
   max-width: 30em;
-  z-index: 20;
+  z-index: 22;
   transform: translate3d(100%, 0, 0);
   transition: transform 250ms $easing-quick;
   &.shown {
     transform: translate3d(0, 0, 0);
+  }
+  h2, h3 {
+    @include apercu-bold;
+    text-align: center;
   }
 }
 .dev-drawer {
@@ -26,6 +31,13 @@
   padding: 1em;
   height: 100%;
   overflow: scroll;
+}
+
+section {
+  padding: 1em 0;
+  &:not(:last-of-type) {
+    border-bottom: 1px solid tint(.2);
+  }
 }
 
 a.dev-trigger.dev-trigger,
@@ -110,7 +122,7 @@ a.oda-trigger.oda-trigger {
     }
   }
   .dev-controls {
-    padding: 1em 4em 2em;
+    padding: 1em 2em 2em;
   }
 }
 

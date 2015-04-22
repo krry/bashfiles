@@ -4,11 +4,11 @@
 @import "functions";
 @import "typography";
 
-@mixin btn($color: $color-button-bkgd, $corners: #{1.8em/50%}, $pad: #{1.3em 2.6em 1.3em}) {
+@mixin btn($color: $color-button-bkgd, $corners: #{1.8em/50%}, $pad: #{1.25em 2em}) {
 
   @include apercu-medium;
   @include caps;
-  font-size: .83rem;
+  font-size: 1em;
   text-align: center;
   line-height: 1;
 
@@ -44,6 +44,7 @@
     color: $grey-mid;
     background-color: $color;
     border: 1px solid $grey-light;
+    padding: 1.25em 2em 1.125em;
   }
 
   @if $color == tint(.8) {

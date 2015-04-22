@@ -98,6 +98,7 @@
     }
     .dialog.small {
       margin: 12em auto auto;
+      /* width: $width-min-sml; */
     }
   }
 }
@@ -113,11 +114,9 @@
       max-width: 80%;
       height: auto;
     }
-
     .dialog.small {
       width: $width-min-med;
     }
-
     .dialog.center {
       margin-left: auto;
       margin-right: auto;
@@ -136,13 +135,11 @@
       margin-left: auto;
       margin-right: auto;
     }
-  }
-}
-
-@media screen and (min-width: $width-min-xxl) {
-  .modal {
     .dialog.small {
       width: $width-min-lrg;
     }
   }
+}
+
+@media screen and (min-width: $width-min-xxl) {
 }

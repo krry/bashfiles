@@ -1,31 +1,34 @@
 <div class="dev-controls">
   <h2>dev tools</h2>
-  <a class="btn red small" ng-click="dev.resetForm()">Reset form</a>
-  <a class="btn red small" ng-click="dev.reloadApp()">Reset &amp; Reload</a>
-  <!-- <a class="btn red" ui-sref="home">Reload app</a> -->
-
-  <div>
-    <h4 for="stageSelector">Jump to a stage</h4>
+  <section>
+    <h3 for="stageSelector">navigation controls</h3>
+    <div class="row">
+      <div class="col center half sml-half">
+        <button class="tiny gold" ng-click="stages.prev()">Prev step</button>
+      </div>
+      <div class="col center half sml-half">
+        <button class="tiny gold" ng-click="stages.next()">Next step</button>
+      </div>
+    </div>
     <select id="stageSelector"
             multiple
             size="14"
             ng-options="s for s in stages.states"
             ng-model="stages.partial"
             ng-change="stages.jumpToStep(stages.partial[0])">
-      </select>
-  </div>
-
-  <div class="row">
-    <div class="col half">
-      <button class="tiny gold" ng-click="stages.prev()">Back</button>
+    </select>
+    <div class="row">
+      <div class="col center half sml-half">
+        <a class="btn red tiny ib" ng-click="dev.resetForm()">Reset form</a>
+      </div>
+      <div class="col center half sml-half">
+        <a class="btn red tiny ib" ng-click="dev.reloadApp()">Reset &amp; Reload</a>
+      </div>
     </div>
-    <div class="col half">
-      <button class="tiny gold" ng-click="stages.next()">Next</button>
-    </div>
-  </div>
+  </section>
 
-  <div>
-    <h4>Current prospect info:</h4>
+  <section>
+    <h3>current prospect info</h3>
     <label class="inline" for="dev_oda_link">
       <span>oda link</span>
       <a ng-model="dev.design_obj.oda_link" href="{{dev.design_obj.oda_link}}"><pre>{{dev.design_obj.oda_link}}</pre></a>
@@ -126,14 +129,14 @@
       <span>dob</span>
       <input type="text" id="dev_dob" ng-model="dev.prospect().dob">
     </label>
-  </div>
-
-  <h4>App status</h4>
-  <ul>
-    <li ng-show="{{view_sync}}">View synced</li>
-    <li ng-hide="{{view_sync}}">View not synced</li>
-  </ul>
-
+  </section>
+  <section>
+    <h3>app status</h3>
+    <ul>
+      <li ng-show="{{view_sync}}">View synced</li>
+      <li ng-hide="{{view_sync}}">View not synced</li>
+    </ul>
+  </section>
 </div>
 
 <a class="dev-trigger" ng-click="toggleDevPanel()">{{devPanelShownTriggerText}}</a>

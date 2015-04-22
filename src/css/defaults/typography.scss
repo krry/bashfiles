@@ -140,9 +140,19 @@ code, kbd, pre, samp {
   text-align: center;
 }
 
-@media screen and (min-width: $width-min-med) {
+@media screen and (min-width: $width-min-xsm) {
+  html {
+    font-size: em($font-size*.875);
+  }
+}
+@media screen and (min-width: $width-min-sml) {
   html {
     font-size: $font-size;
+  }
+}
+@media screen and (min-width: $width-min-med) {
+  html {
+    /* font-size: $font-size; */
   }
   h1 {
     font-size: 1.5em;
@@ -175,7 +185,7 @@ code, kbd, pre, samp {
 
 @media screen and (min-width: $width-min-lrg) {
   html {
-    font-size: $font-size;
+    /* font-size: $font-size; */
   }
   h1 {
     font-size: 1.75em;

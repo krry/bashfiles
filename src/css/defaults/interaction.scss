@@ -37,7 +37,6 @@ a {
 input {
   user-select: auto;
   cursor: text;
-  -webkit-appearance: none;
 }
 
 button, a {
@@ -54,10 +53,14 @@ input,
 select,
 textarea {
   margin: 0;
-  font-size: 1rem;
+  /* font-size: 1rem; */
   line-height: normal;
   font-family: inherit;
   vertical-align: baseline;
+}
+
+input + button {
+  display: block;
 }
 
 button,
@@ -89,23 +92,22 @@ a.btn {
     @include btn($white);
   }
   &.std {
-    font-size: 1rem;
+    font-size: 1em;
   }
   &.tiny {
-    font-size: .75rem;
+    font-size: .75em;
   }
   &.small {
-    font-size: .875rem;
+    font-size: .875em;
   }
   &.large {
-    font-size: 1.25rem;
+    font-size: 1.25em;
   }
   &.huge {
-    font-size: 1.5rem;
+    font-size: 1.5em;
   }
   &.wide {
-    padding-left: 5em;
-    padding-right: 5em;
+    min-width: 12em;
   }
   &.round {
     border-radius: 50%;
@@ -199,7 +201,8 @@ label.field-label {
   letter-spacing: 0.5px;
   & + input[type="text"],
   & + input[type="email"],
-  & + input[type="tel"] {
+  & + input[type="tel"],
+  & + select {
     margin-top: 0.25em;
   }
 }
@@ -224,7 +227,11 @@ textarea {
 
 input[type=radio] + label,
 input[type=checkbox] + label {
+  font-size: 1em;
+  padding-left: .5em;
   text-indent: .5em;
+  position: relative;
+  bottom: -2px;
 }
 
 // either use the indent method above or this one from Google's CSS to place checkbox and radio labels
@@ -266,9 +273,10 @@ select[multiple=multiple] {
   border: 1px solid $grey-medium;
   margin-bottom: .5em;
   width: 100%;
-  font-size: 1.75em;
+  font-size: 1.5em;
   font-weight: 700;
   transition: all 250ms $easing-quick;
+  -webkit-appearance: none;
 }
 
 textarea:hover,
@@ -320,8 +328,11 @@ select {
   background: $white url('../img/down-arrow.svg') no-repeat 97% 48%;
   background-size: auto 50%;
   border: 1px solid $grey-mid;
+  letter-spacing: inherit;
   &[multiple] {
-    font-size: .75em;
+    @include apercu-bold;
+    font-size: .875em;
+    letter-spacing: 2px;
     background-image: none;
     option:hover {
       background: tint(.2);
