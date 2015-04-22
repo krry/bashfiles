@@ -77,7 +77,7 @@
 
   .logo {
     background-image: url('../img/logo-white-new.svg');
-    background-position: -13px -13px;
+    background-position: -20px -10px;
     background-repeat: no-repeat;
     background-size: auto 150%;
     width: 8.8rem;
@@ -134,6 +134,9 @@
 @media screen and (min-width: $width-min-sml) {
   .header {
     /* z-index: 12; */
+  }
+  .logo {
+    background-position: -13px -13px;
   }
 }
 
