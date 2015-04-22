@@ -20,7 +20,7 @@
   line-height: 120%;
   top: 2.9rem;
   width: 100%;
-  text-align: left;
+  text-align: center;
 }
 .instructions h4 {
   font-size: 1.1em;
@@ -32,7 +32,6 @@
 }
 .instructions button.gold {
   min-width: 12em;
-  margin: 2em auto 0 auto;
 }
 .instructions figure {
   background: $white;
@@ -75,11 +74,18 @@
   .instructions > * {
     max-width: 60%;
   }
+  .instructions button.gold {
+    margin: 1em auto 0;
+  }
 }
 
 @media screen and (min-width: $width-min-xlg) {
   .instructions > * {
     max-width: 100%;
+
+    button.gold {
+      margin-top: 2em;
+    }
   }
   [fln-control-pan],
   .fln-control-pan,
