@@ -5,7 +5,7 @@
   margin: 1em 0 0 0;
 }
 
-.step-fork .set-or {
+.set-or {
   font-size: 0.83em;
   padding: 1.5em 0 1em;
 }
@@ -18,7 +18,7 @@
   padding-left: 0.5em;
 }
 
-.step-proposal .button-set {
+.button-set {
   padding: 0;
   margin-top: -1.5em;
   margin-bottom: 0;
@@ -33,7 +33,7 @@
 }
 
 @media screen and (min-width: $width-min-med) {
-  .step-proposal .button-set {
+  .button-set {
     button:not(:first-child) {
       margin-left: 1em;
     }
@@ -41,14 +41,14 @@
 }
 
 @media screen and (min-width: $width-min-lrg) {
-  .step-proposal .button-set {
+  .button-set {
     margin-top: -2em;
     margin-bottom: 1em;
   }
   .step-bill button.tiny.gold {
     margin: 0;
   }
-  .step-fork .set-or {
+  .set-or {
     line-height: 5.5em;
     padding: 0;
   }

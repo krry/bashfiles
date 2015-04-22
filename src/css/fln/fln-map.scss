@@ -40,7 +40,9 @@
   top: 0;
 }
 
-.roofpeak .ol-viewport {
+.roofpeak .ol-viewport,
+.roofpeak .ol-touch,
+.roofpeak .omap > div {
   background: tint(.4);
 }
 
@@ -60,7 +62,9 @@
   background: tint(.6);
 }
 
-.ol-viewport {
+.ol-viewport,
+.ol-touch,
+.omap > div {
   position: relative;
 
   .ol-overlaycontainer-stopevent {

@@ -84,7 +84,7 @@ $teal-dark:        dark($teal);
 $blue-dark:        dark($blue);
 $violet-dark:      dark($violet);
 
-// DARKENED SPECTRUM
+// BURNT SPECTRUM
 $red-ash:          desaturate(darken($red, 30%), 55%);
 $gold-ash:         desaturate(darken($gold, 30%), 55%);
 $green-ash:        desaturate(darken($green, 30%), 55%);
@@ -126,7 +126,8 @@ $color-bkgd-primary:         $white;
 $color-link-main:            $green;
 $color-link-visited-main:    $green;
 
-$color-highlight:            darken($green, 0.2);
+$color-selection:            $white;
+$color-selection-bkgd:       darken($green, 0.2);
 
 $color-input-text:           $grey-darker;
 $color-input-bkgd:           $white-dark;
