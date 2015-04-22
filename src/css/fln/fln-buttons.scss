@@ -5,7 +5,7 @@
   margin: 1em 0 0 0;
 }
 
-.step-fork .set-or {
+.set-or {
   font-size: 0.83em;
   padding: 1.5em 0 1em;
 }
@@ -19,15 +19,13 @@
 }
 
 .button-set {
-  padding: 2em 0 1em;
-}
-.button-set-secondary {
-  padding: 2em 0 1.3em 0;
-}
-
-.button-set-hug {
-  margin-top: -1em;
-  margin-bottom: 1em;
+  padding: 0;
+  margin-top: -1.5em;
+  margin-bottom: 0;
+  text-align: center;
+  button.ib {
+    margin-bottom: 0;
+  }
 }
 
 .credit-check button.gold {
@@ -35,13 +33,22 @@
 }
 
 @media screen and (min-width: $width-min-med) {
-  .step-bill button.tiny.gold {
-    margin: 0;
+  .button-set {
+    button:not(:first-child) {
+      margin-left: 1em;
+    }
   }
 }
 
 @media screen and (min-width: $width-min-lrg) {
-  .step-fork .set-or {
+  .button-set {
+    margin-top: -2em;
+    margin-bottom: 1em;
+  }
+  .step-bill button.tiny.gold {
+    margin: 0;
+  }
+  .set-or {
     line-height: 5.5em;
     padding: 0;
   }

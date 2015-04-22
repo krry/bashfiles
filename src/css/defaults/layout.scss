@@ -36,11 +36,6 @@ main.main.main-fixed {
   background-color: $grey-lightest;
 }
 
-.prospect-form {
-  padding-top: 2.9rem;
-}
-
-.prospect-form.form-fixed,
 .full-height,
 .overlay.secondary {
   height: 100%;
@@ -60,10 +55,6 @@ main.main.main-fixed {
 .overlay.only {
   padding: 2em;
   text-align: center;
-}
-
-.overlay.proposal-page {
-  background-color: $white-dark;
 }
 
 .overlay.secondary {
@@ -142,6 +133,10 @@ main.main.main-fixed {
     width: auto;
     height: 100%;
   }
+  .overlay.primary,
+  .overlay.only {
+    padding: 2em;
+  }
   .secondary.secondary {
     width: 25%;
     width: calc(20em - 1px);
@@ -167,6 +162,10 @@ main.main.main-fixed {
     width: 100%;
   }
 
+  .step-bill .row.padded {
+    margin-bottom: 0;
+  }
+
   .step-fork .fifth.four {
     width: 100%;
   }
@@ -188,7 +187,7 @@ main.main.main-fixed {
   .overlay.short {
     padding: 0em 2em 0.5em 2em;
     height: auto;
-    box-shadow: 0 0 8px 0 $shade-40;
+    box-shadow: 0 0 8px 0 shade(.4);
     &.step-bill {
       padding: 1em 2em .5em;
     }

@@ -54,7 +54,6 @@ function flnHelp_ (Liveagent, Client, SF_BUTTON_ID) {
           var targetConfig = {
 
             buttonId: SF_BUTTON_ID,
-            buttonId: "57314000000TPbN",
             iframeTarget: "live_agent_chat"
           }
           // try to start the Liveagent chat

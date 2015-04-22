@@ -1,3 +1,4 @@
+@import "../imports/fonts";
 @import "../imports/sizes";
 @import "../imports/colors";
 @import "../imports/motion";
@@ -6,13 +7,17 @@
 .oda-drawer {
   position: fixed;
   top: 0; right: 0; bottom: 0;
-  width: 75%;
+  width: 80%;
   max-width: 30em;
-  z-index: 12;
+  z-index: 22;
   transform: translate3d(100%, 0, 0);
   transition: transform 250ms $easing-quick;
   &.shown {
     transform: translate3d(0, 0, 0);
+  }
+  h2, h3 {
+    @include apercu-bold;
+    text-align: center;
   }
 }
 .dev-drawer {
@@ -22,11 +27,17 @@
   background-color: $color-oda-tools;
 }
 
-
 .dev-controls {
-  padding: 1em 4em 2em;
+  padding: 1em;
   height: 100%;
   overflow: scroll;
+}
+
+section {
+  padding: 1em 0;
+  &:not(:last-of-type) {
+    border-bottom: 1px solid tint(.2);
+  }
 }
 
 a.dev-trigger.dev-trigger,
@@ -40,16 +51,16 @@ a.oda-trigger.oda-trigger {
   padding: .75em;
   text-align: center;
   color: $white;
-  background: $glass-red;
+  background: glass($black);
   &:hover {
-    background: saturate($glass-red, 10%);
+    background: glass(bright($black));
     border: 0;
   }
 }
 
 a.dev-trigger.dev-trigger {
   bottom: 6em;
-  box-shadow: 0px 0 6px -3px $shade-80;
+  box-shadow: 0px 0 6px -3px shade(.8);
   &.triggered {
     color: $white;
     background-color: $color-dev-tools;
@@ -78,9 +89,9 @@ a.oda-trigger.oda-trigger {
 
 @media screen and (min-width: $width-min-xsm) {
   a.dev-trigger.dev-trigger {
-    background-color: $red;
+    background-color: dark($red);
     &:hover {
-      background: saturate($red, 10%);
+      background: saturate(dark($red), 10%);
     }
     &:after {
       content: "\AXSM";
@@ -90,9 +101,9 @@ a.oda-trigger.oda-trigger {
 
 @media screen and (min-width: $width-min-sml) {
   a.dev-trigger.dev-trigger {
-    background-color: $ginger;
+    background-color: $red;
     &:hover {
-      background: saturate($ginger, 10%);
+      background: saturate($red, 10%);
     }
     &:after {
       content: "\ASML";
@@ -102,21 +113,24 @@ a.oda-trigger.oda-trigger {
 
 @media screen and (min-width: $width-min-med) {
   a.dev-trigger.dev-trigger {
-    background-color: $orange;
+    background-color: $gold;
     &:hover {
-      background: saturate($orange, 10%);
+      background: saturate($gold, 10%);
     }
     &:after {
       content: "\AMED";
     }
   }
+  .dev-controls {
+    padding: 1em 2em 2em;
+  }
 }
 
 @media screen and (min-width: $width-min-lrg) {
   a.dev-trigger.dev-trigger {
-    background-color: $gold;
+    background-color: $green;
     &:hover {
-      background: saturate($gold, 10%);
+      background: saturate($green, 10%);
     }
     &:after {
       content: "\ALRG";
@@ -126,9 +140,9 @@ a.oda-trigger.oda-trigger {
 
 @media screen and (min-width: $width-min-xlg) {
   a.dev-trigger.dev-trigger {
-    background-color: $green;
+    background-color: $teal;
     &:hover {
-      background: saturate($green, 10%);
+      background: saturate($teal, 10%);
     }
     &:after {
       content: "\AXLG";
@@ -138,9 +152,9 @@ a.oda-trigger.oda-trigger {
 
 @media screen and (min-width: $width-min-xxl) {
   a.dev-trigger.dev-trigger {
-    background-color: $aqua-dark;
+    background-color: $blue;
     &:hover {
-      background: saturate($aqua-dark, 10%);
+      background: saturate($blue, 10%);
     }
     &:after {
       content: "\AXXL";
@@ -150,9 +164,9 @@ a.oda-trigger.oda-trigger {
 
 @media screen and (min-width: $width-min-uhd) {
   a.dev-trigger.dev-trigger {
-    background-color: $blue-dark;
+    background-color: $violet;
     &:hover {
-      background: saturate($blue-dark, 10%);
+      background: saturate($violet, 10%);
     }
     &:after {
       content: "\AUHD";

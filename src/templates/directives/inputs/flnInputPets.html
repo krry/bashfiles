@@ -1,12 +1,14 @@
-<div class="col fifth three">
-  <span class="question">I have pets at this residence.</span>
+<div class="col half padded">
+  <h4 class="question">Do you have pets at this residence?</h4>
   <p ng-show="schedule.prospect().pets">We love animals, but please be sure your pets are restrained during the survey.</p>
 </div>
-<div class="col fifth one">
-  <input type="radio" class="choice" name="pets" id="pets-yes" ng-model="schedule.prospect().pets" ng-value="true">
-  <label for="pets-yes"><strong>Yes</strong></label>
-</div>
-<div class="col fifth one">
-  <input type="radio" class="choice" name="pets" id="pets-no" ng-model="schedule.prospect().pets" ng-value="false">
-  <label for="pets-no"><strong>No</strong></label>
+<div class="col half padded">
+  <div class="ib">
+    <input type="radio" class="choice" name="pets" id="pets-yes" ng-model="schedule.prospect().pets" ng-value="true">
+    <label class="field-label" for="pets-yes">Yes</label>
+  </div>
+  <div class="ib">
+    <input type="radio" class="choice" name="pets" id="pets-no" ng-model="schedule.prospect().pets" ng-value="false">
+    <label class="field-label" for="pets-no">No</label>
+  </div>
 </div>
