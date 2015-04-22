@@ -4,7 +4,7 @@
     <fln-spinner></fln-spinner>
   </div>
 
-  <div class="col fourth three center">
+  <div class="col fifth four center">
     <h1 ng-if="!schedule.timedOut">About your site visit.
       <br><small>We just need to know a few bits of information before our site surveyor shows up at your home.</small>
     </h1>
@@ -12,18 +12,22 @@
       Sorry! Our connection timed out. <small>Please try again.</small>
     </h1>
     <form name="prospectForm">
-      <div class="col fourth three center survey-question" ng-class="{ selected: schedule.prospect().attic != null }">
-        <fln-input-attic></fln-input-attic>
+      <div class="row">
+        <div class="col full center survey-question" ng-class="{ selected: schedule.prospect().attic != null }">
+          <fln-input-attic></fln-input-attic>
+        </div>
       </div>
-      <div class="col fourth three center survey-question" ng-class="{ selected: schedule.prospect().pets != null }">
-        <fln-input-pets></fln-input-pets>
+      <div class="row">
+        <div class="col full center survey-question" ng-class="{ selected: schedule.prospect().pets != null }">
+          <fln-input-pets></fln-input-pets>
+        </div>
       </div>
-      <div class="col fourth three center survey-question" ng-class="{ selected: schedule.prospect().hoa != null }">
-        <fln-input-hoa></fln-input-hoa>
+      <div class="row">
+        <div class="col full center survey-question" ng-class="{ selected: schedule.prospect().hoa != null }">
+          <fln-input-hoa></fln-input-hoa>
+        </div>
       </div>
-      <div class="button-set">
-        <button class="std gold" ng-click="schedule.saveAnswers()" ng-disabled="!schedule.answeredQuestions()">Done</button>
-      </div>
+      <button class="gold" ng-click="schedule.saveAnswers()" ng-disabled="!schedule.answeredQuestions()">Done</button>
     </form>
   </div>
 </div>

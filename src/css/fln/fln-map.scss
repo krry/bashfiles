@@ -33,18 +33,20 @@
 }
 
 .cloudy {
-  background: radial-gradient(circle closest-side, transparent, transparent 180px, $shade-35 180px);
+  background: radial-gradient(circle closest-side, transparent, transparent 180px, shade(.35) 180px);
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
 }
 
-.roofpeak .ol-viewport {
-  background: $tint-40;
+.roofpeak .ol-viewport,
+.roofpeak .ol-touch,
+.roofpeak .omap > div {
+  background: tint(.4);
 }
 
-.crosshair .ol-viewport {
+.crosshair .omap > div {
   background-image: url('../img/crosshair.svg');
   background-position: center center;
   background-size: 35em;
@@ -57,17 +59,19 @@
   top: 0;
   height: 100%;
   z-index: 2;
-  background: $tint-60;
+  background: tint(.6);
 }
 
-.ol-viewport {
+.ol-viewport,
+.ol-touch,
+.omap > div {
   position: relative;
 
   .ol-overlaycontainer-stopevent {
     position: absolute;
     top: 3em;
     left: 2.6em;
-    background-color: $tint-40;
+    background-color: tint(.4);
     border-radius: .35em;
   }
 
@@ -125,7 +129,7 @@
 }
 
 .inset-right {
-  box-shadow: inset 0 0 8px -2px $shade-40;
+  box-shadow: inset 0 0 8px -2px shade(.4);
   position: relative;
   z-index: 0;
 }
@@ -159,7 +163,7 @@
       left: 0;
       background: url('../img/arrow-up-blk-01.svg') no-repeat center;
       background-size: 12px;
-      background-color: $tint-80;
+      background-color: tint(.8);
     }
     &.pan-down {
       right: 0;
@@ -167,15 +171,15 @@
       left: 0;
       background: url('../img/arrow-down-blk-01.svg') no-repeat center;
       background-size: 12px;
-      background-color: $tint-80;
+      background-color: tint(.8);
     }
     &.pan-right {
       top: 0;
       bottom: 0;
-      right: 3.5em;
+      right: 1em;
       background: url('../img/arrow-right-blk-01.svg') no-repeat center;
       background-size: 12px;
-      background-color: $tint-80;
+      background-color: tint(.8);
     }
     &.pan-left {
       top: 0;
@@ -183,11 +187,17 @@
       bottom: 0;
       background: url('../img/arrow-left-blk-01.svg') no-repeat center;
       background-size: 12px;
-      background-color: $tint-80;
+      background-color: tint(.8);
     }
     &:hover,
     &:active {
-      background-color: $tint-95;
+      background-color: tint(.95);
     }
+  }
+}
+
+@media screen and (min-width: $width-min-xlg) {
+  .fln-control-pan button.pan-right {
+    right: 3.5em;
   }
 }

@@ -81,13 +81,13 @@
   &.active {
     width: 1.1em;
     height: 1.1em;
-    background-color: $green-neue;
+    background-color: $green;
     border-radius: 50%;
   }
   &.inactive {
     width: 1.1em;
     height: 1.1em;
-    background-color: $tint-15;
+    background-color: tint(.15);
     border-radius: 50%;
   }
 }

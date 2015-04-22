@@ -18,13 +18,13 @@
 .followtip {
   display: block;
   position: absolute;
-  z-index: 20;
+  z-index: 16;
   top: 0;
   left: 0;
   color: white;
-  background: $shade-80;
+  background: shade(.8);
   border-radius: 8px;
-  border: 1px solid $tint-60;
+  border: 1px solid tint(.6);
   font-size: .875em;
   padding: .25em .75em;
 }

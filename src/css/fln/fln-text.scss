@@ -48,6 +48,16 @@ h3.social-proof-count {
   font-size: .75em;
 }
 
+.step-credit {
+  .field-label {
+    font-size: .75em;
+    bottom: 0;
+  }
+  .uil-sunny-css {
+    margin-top: 8%;
+  }
+}
+
 .territory-map {
   figure {
   background-image: url('../img/map_regions_2-01.svg');
@@ -89,6 +99,10 @@ h3.social-proof-count {
   }
 }
 
+.step-fork p {
+  text-align: center;
+}
+
 @media screen and (min-width: $width-min-lrg) {
   .drop-top {
     padding-top: 5rem;
@@ -100,6 +114,9 @@ h3.social-proof-count {
   }
   .step-address h3 {
     width: 85%;
+  }
+  .step-fork p {
+    text-align: left;
   }
 }
 
