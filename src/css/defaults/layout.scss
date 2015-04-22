@@ -48,7 +48,7 @@ main.main.main-fixed {
 }
 
 .overlay.short {
-  padding: 0em 2em 0.5em 2em;
+  padding: 0em 1em 0.5em 1em;
 }
 
 .overlay.primary,
@@ -118,6 +118,9 @@ main.main.main-fixed {
   }
   .step-fork .col.padded {
     padding: 0;
+  }
+  .overlay.short {
+    padding: 0em 2em 0.5em 2em;
   }
 }
 
