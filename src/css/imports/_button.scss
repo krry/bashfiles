@@ -41,10 +41,13 @@
   transition: background-color .1s $easing-quick;
 
   @if $color == $white {
-    color: $grey-mid;
+    @include apercu-regular;
+    color: $grey-medium;
     background-color: $color;
-    border: 1px solid $grey-light;
-    padding: 1.25em 2em 1.125em;
+    border: 1px solid $grey-lighter;
+    padding: 0.85em 2em 0.85em;
+    border-radius: 1.5em/50%;
+    letter-spacing: .1em;
   }
 
   @if $color == tint(.8) {
@@ -59,9 +62,8 @@
     box-shadow: none;
 
     @if $color == $white {
-      color: $grey-dark;
-      border-color: $grey-mid;
-      background-color: darken($color, 1%);
+      color: $grey-medium;
+      background-color: darken($color, 2%);
     }
   }
 
