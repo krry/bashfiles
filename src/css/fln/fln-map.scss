@@ -172,7 +172,7 @@
     &.pan-right {
       top: 0;
       bottom: 0;
-      right: 3.5em;
+      right: 1em;
       background: url('../img/arrow-right-blk-01.svg') no-repeat center;
       background-size: 12px;
       background-color: tint(.8);
@@ -189,5 +189,11 @@
     &:active {
       background-color: tint(.95);
     }
+  }
+}
+
+@media screen and (min-width: $width-min-xlg) {
+  .fln-control-pan button.pan-right {
+    right: 3.5em;
   }
 }

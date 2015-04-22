@@ -160,9 +160,14 @@
 .vert-bottom {
   vertical-align: bottom !important;
 }
-
+.col.sml-left {
+  text-align: left;
+}
 .col.sml-center {
   text-align: center;
+}
+.col.sml-right {
+  text-align: right;
 }
 
 /* > 536px --- bigger than iPhone portrait */

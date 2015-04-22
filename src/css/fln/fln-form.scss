@@ -11,8 +11,13 @@
 @import "../imports/colors";
 @import "../imports/functions";
 
-form {
+.prospect-form {
+  margin-top: 2.9rem;
   margin-bottom: 0;
+}
+
+.prospect-form.form-fixed {
+  height: 100%;
 }
 
 label + button {
