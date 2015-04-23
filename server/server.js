@@ -38,7 +38,7 @@ oneYear = 1*365.25*24*60*60*1000; // 1 yr = 31557600000ms
 app.settings.nconf = nconf;
 
 // Redirect all http traffic to https
-// Must be set  before we define the index, static assets, and individual routes
+// Must be set before we define the index, static assets, and individual routes
 if (app.settings.nconf.get('SSL_ENABLED')) {
   app.use(function(req, res, next) {
     if (!req.secure) {
