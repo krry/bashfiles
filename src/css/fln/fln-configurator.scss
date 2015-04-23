@@ -49,9 +49,7 @@
     button.gold {
       font-size: 0.8em;
       min-width: 10em;
-      float: right;
       margin: 0 auto;
-      border: 1px solid $gold;
     }
     button.tiny.white {
       margin: 0;
@@ -59,6 +57,11 @@
       font-size: 0.8em;
       min-width: 10em;
       border-radius: 1.8em/50%;
+    }
+  }
+  .actionbar.pair {
+    button.gold {
+      float: right;
     }
   }
   .sml-half {
@@ -97,17 +100,18 @@
     }
     .actionbar {
       width: 100%;
-
-      button.gold {
-        border: 1px solid $gold;
-        float: none;
-      }
       button.tiny.white {
         margin: 1em auto 0 auto;
         padding: 0.76em 0em 0.76em 0em;
         min-width: 7em;
-        font-size: 0.75em;
+        font-size: 0.7em;
         border-radius: 1.4em/50%;
+        line-height: 1;
+      }
+    }
+    .actionbar.pair {
+      button.gold {
+        float: none;
       }
     }
   }

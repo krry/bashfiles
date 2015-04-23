@@ -24,6 +24,7 @@
 
   outline: none;
   border-width: 0;
+  border: 1px solid $color;
   border-radius: $corners;
 
   -webkit-appearance: none;
@@ -84,7 +85,7 @@
   &:disabled {
     /* cursor: not-allowed; */
     background-color: $grey-light;
-    border-color: darken($grey-light, 25%);
+    border: 1px solid $grey-light;
     color: $white;
   }
 
