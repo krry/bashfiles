@@ -49,6 +49,7 @@
     border-radius: 1.5em/50%;
     letter-spacing: .1em;
     min-width: 18.5em;
+    margin: 0.5em;
   }
 
   @if $color == tint(.8) {
