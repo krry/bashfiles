@@ -1,5 +1,6 @@
 {
   "PORT": 8100,
+  "SSL_ENABLED": true,
   "FLANNEL_SECRET": "sekret",
   "FIREBASE_SECRET": "rYs9IptsNKOVuDSm64YM4yXHhCkWYBfSAKSKpiYx",
   "SOLAR_WORKS_ROOT": "https://api-staging.solarcity.com",
