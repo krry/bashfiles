@@ -11,7 +11,9 @@
         <div class="col center">
           <fln-input-dob form="prospectForm"></fln-input-dob>
           <fln-input-terms></fln-input-terms>
-          <button class="gold" ng-click="form.checkCredit(form.prospect) && app.notifyTrackerAboutClick('credit_check_started')" ng-disabled="prospectForm.$invalid || form.isSubmitting">Qualify Me</button>
+          <div class="actionbar">
+            <button class="gold" ng-click="form.checkCredit(form.prospect) && app.notifyTrackerAboutClick('credit_check_started')" ng-disabled="prospectForm.$invalid || form.isSubmitting">Qualify Me</button>
+          </div>
         </div>
       </div>
     </form>
