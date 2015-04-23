@@ -185,7 +185,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
       vm.timedOut = false;
 
       if (data.CreditResultFound && !data.qualified) {
-        vm.prospect.qualified = data.qualified;
+        vm.prospect().qualified = data.qualified;
         Client.emit('Form: valid data', { qualified: data.qualified });
         createLead(Salesforce.statuses.failCredit);
         Client.emit('Stages: stage', 'next');
@@ -317,7 +317,14 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
         email: vm.prospect().email
       });
 
-      Client.emit('Stages: jump to step', 'credit-check');
+      if (vm.prospect().hasFinancingOptions) { 
+        Client.emit('Stages: jump to step', 'credit-check')
+      } else {
+        createLead(Salesforce.statuses.noFinancing);
+        vm.prospect().qualified = false;
+        Client.emit('Form: valid data', { qualified: false });
+        Client.emit('Stages: jump to step', 'qualify');
+      }
     }, function(resp) {
       vm.isSubmitting = false;
 
@@ -487,18 +494,20 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
     // UtilityAverageSystemEfficiency: 1468
     // UtilityID: 3
 
-    var rates;
+    var rateInfo;
     vm.prospect().utilityRate = data.MedianUtilityPrice;
     vm.prospect().sctyRate = data.FinancingKwhPrice;
     vm.prospect().averageYield = data.UtilityAverageSystemEfficiency;
+    vm.prospect().hasFinancingOptions = data.LeaseAvailable || data.PPAAvailable;
 
-    rates = {
+    rateInfo = {
       utilityRate: vm.prospect().utilityRate,
       sctyRate: vm.prospect().sctyRate,
-      averageYield: vm.prospect().averageYield
+      averageYield: vm.prospect().averageYield,
+      hasFinancingOptions: vm.prospect().hasFinancingOptions
     };
 
-    Client.emit('Form: valid data', rates);
+    Client.emit('Form: valid data', rateInfo);
   }
 
   function saveBill (data) {
