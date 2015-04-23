@@ -89,10 +89,13 @@ main.main.main-fixed {
   margin: auto;
 }
 .actionbar {
-  margin-top: 1em;
+  margin-top: 1.3em;
 }
 .alternav {
   margin: 3em auto 2em auto;
+  & button.tiny.white {
+    min-width: 18em;
+  }
 }
 
 
