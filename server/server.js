@@ -51,6 +51,7 @@ if (app.settings.nconf.get('SSL_ENABLED')) {
 
 app.use(cookieParser(nconf.get('FLANNEL_SECRET')));
 app.get('/', require('./controllers/appController.js')(app).index);
+app.use(compress({ threshold: 512 }));
 app.use(express.static(app.publicRoot, {maxAge: oneYear}));
 
 portfinder.getPort(function (err, port) {
@@ -64,7 +65,6 @@ portfinder.getPort(function (err, port) {
 
   appPort = app.settings.nconf.get('PORT') || 8100;
   app.listen(appPort, listening);
-  app.use(compress({ threshold: 512 }));
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
   app.use(expValid());
