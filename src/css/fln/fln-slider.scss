@@ -37,12 +37,13 @@
     // change the colors as the number changes of
     // the slider, the handle, and the bill figure
     // on blur, revert to the gradient background
-  background-image: linear-gradient(to right, $green, $gold, $red);
+  // background-image: linear-gradient(to right, $green, $gold, $red);
+  background-color: $grey-darker;
   box-shadow: none;
 }
 
 .noUi-horizontal {
-  height: 0.3em;
+  height: 0.25em;
   margin-top: 1em;
   &:before,
   &:after {
@@ -76,10 +77,10 @@
   // background: tint(.9);
   background-color: $white;
   // TODO: make border-color respond to horiz position of slider
-  border: 2px solid $grey-darker;
+  border: 1px solid $grey-darker;
   border-radius: 50%;
-  box-shadow: none;
   cursor: pointer;
+  box-shadow: 0 0.15em .3em rgba(0,0,0,0.3);
 }
 
 .noUi-handle:before {
@@ -136,21 +137,13 @@ input.bill {
   margin-top: .25em;
   &:before {
     content: "\0024";
-    font-size: .75em;
+    font-size: .85em;
     position: relative;
     top: -.3em;
     left: .2em;
   }
 }
 
-.bill-box input.bill {
-  font-size: 2rem;
-}
-
-.slider-align {
-  padding-top: 0.3em;
-  margin-bottom: 0;
-}
 
 @media screen and (min-width: $width-min-sml) {
   .bill-box {
@@ -160,7 +153,7 @@ input.bill {
 }
 @media screen and (min-width: $width-min-med) {
   .bill-slider {
-    max-width: 12em;
+    // max-width: 12em;
     width: 75%;
   }
   .bill-box {
@@ -187,6 +180,10 @@ input.bill {
   }
   .bill-box {
     vertical-align: baseline;
+  }
+  .slider-align {
+    padding-top: 0.45em;
+    margin-bottom: 0;
   }
 }
 
