@@ -80,9 +80,9 @@
   }
 
   &:disabled {
-    cursor: not-allowed;
-    background-color: $grey-medium;
-    border-color: darken($grey-mid, 25%);
+    /* cursor: not-allowed; */
+    background-color: $grey-light;
+    border-color: darken($grey-light, 25%);
     color: $white;
   }
 
