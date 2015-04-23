@@ -6,9 +6,15 @@ function flnModal_ () {
     controller: 'ModalCtrl',
     controllerAs: 'modal',
     link: function (scope, element, attrs, modal) {
-      element.bind('click', function(event) {
-        if (!$(event.srcElement).parents().hasClass('dialog') && !$(event.srcElement).hasClass('dialog')) {
-          // console.log("modal is:", modal.isOn());
+      $(element).on('mouseup', function(event) {
+        if (!$(event.target).parents().hasClass('dialog') && !$(event.target).hasClass('dialog')) {
+          event.stopPropagation();
+          modal.close();
+        }
+      });
+      $(element).on('touchend', function(event) {
+        if (!$(event.target).parents().hasClass('dialog') && !$(event.target).hasClass('dialog')) {
+          event.stopPropagation();
           modal.close();
         }
       });

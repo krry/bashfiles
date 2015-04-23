@@ -1,16 +1,12 @@
 @import "../imports/colors";
 
 .footer {
-  z-index: 2;
+  z-index: 10;
   background: $color-bkgd-footer;
   width: 100%;
   position: relative;
-  padding-bottom: 2.9rem;
-}
-
-.footer-fixed {
-  bottom: 0;
-  position: fixed;
+  /* display: none; */
+  display: block;
 }
 
 .footer .boilerplate {
@@ -22,7 +18,7 @@
 
   span {
     padding: 0 1em;
-    border-left: 1px solid $shade-10;
+    border-left: 1px solid shade(.10);
     white-space: nowrap;
     &:first-child {
       border-left: none;
@@ -36,12 +32,13 @@
 }
 
 .footer .fourth {
-  border-left: 1px solid $shade-10;
+  border-left: 1px solid shade(.10);
 }
 
 
-@media screen and (min-width: $width-min-xlg) {
-  .footer {
-    padding-bottom: 0;
+@media screen and (min-width: $width-min-lrg) {
+  .footer-fixed {
+    bottom: 0;
+    position: fixed;
   }
 }

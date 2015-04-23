@@ -11,8 +11,13 @@
 @import "../imports/colors";
 @import "../imports/functions";
 
-form {
+.prospect-form {
+  margin-top: 2.9rem;
   margin-bottom: 0;
+}
+
+.prospect-form.form-fixed {
+  height: 100%;
 }
 
 label + button {
@@ -29,7 +34,7 @@ input.bill,
 input.birthdate,
 input.full-name,
 input.phone {
-  font-size: 1em;
+  font-size: 1.25em;
   text-align: left;
   display: inline-block;
   background-color: $white-dark;
@@ -55,7 +60,7 @@ input.zipcode {
   background-color: $white-dark;
   width: 100%;
   max-width: 100%;
-  text-align: center;
+  text-align: left;
 }
 
 .step-zip {
@@ -108,7 +113,7 @@ label input.phone {
 label .ib.status {
   margin-left: 2em;
   float: right;
-  color: $shade-40;
+  color: shade(.4);
 }
 
 .status {
@@ -126,11 +131,11 @@ label .ib.status {
 
 button.nested {
   position: absolute;
-  right: .5rem;
-  top: .5em;
+  width: 2.25rem;
+  height: 2.25rem;
+  right: .3rem;
+  top: .3rem;
   margin: 0;
-  width: 1.5rem;
-  height: 1.5rem;
 }
 
 .nest {
@@ -150,6 +155,8 @@ span.autolocate-icon {
   width: 20px;
   height: 20px;
 }
+
+
 
 @media screen and (min-width: $width-min-med) {
   .step-zip {
@@ -184,12 +191,10 @@ span.autolocate-icon {
     }
   }
   button.nested {
-    width: 2.6rem;
-    height: 2.6rem;
-    position: absolute;
-    right: .5em;
-    top: .5em;
-    margin: 0;
+    width: 2.25rem;
+    height: 2.25rem;
+    right: .3rem;
+    top: .3rem;
   }
 }
 
@@ -209,5 +214,11 @@ span.autolocate-icon {
   input.street {
     max-width: 20em;
     width: 20em;
+  }
+  button.nested {
+    width: 2.58rem;
+    height: 2.58rem;
+    right: .43rem;
+    top: .43rem;
   }
 }

@@ -1,13 +1,15 @@
-<div class="col fifth three">
-  <span class="question">My attic is accessible.</span>
+<div class="col half padded">
+  <h4 class="question">Is your attic accessible?</h4>
   <p ng-show="schedule.prospect().attic">Please be sure that the entrance is clear for our surveyor.</p>
   <p ng-show="schedule.prospect().attic == false">Our surveyor will attempt alternative assessments.</p>
 </div>
-<div class="col fifth one">
-  <input type="radio" class="choice" name="attic" id="attic-yes" ng-model="schedule.prospect().attic" ng-value="true">
-  <label for="attic-yes"><strong>Yes</strong></label>
-</div>
-<div class="col fifth one">
-  <input type="radio" class="choice" name="attic" id="attic-no" ng-model="schedule.prospect().attic" ng-value="false">
-  <label for="attic-no"><strong>No</strong></label>
+<div class="col half padded">
+  <div class="ib">
+    <input type="radio" class="choice" name="attic" id="attic-yes" ng-model="schedule.prospect().attic" ng-value="true">
+    <label class="field-label" for="attic-yes">Yes</label>
+  </div>
+  <div class="ib">
+    <input type="radio" class="choice" name="attic" id="attic-no" ng-model="schedule.prospect().attic" ng-value="false">
+    <label class="field-label" for="attic-no">No</label>
+  </div>
 </div>

@@ -27,7 +27,7 @@ function DevCtrl_($scope, Client, Form,  Session) {
 
   vm.reloadApp = function reloadApp () {
     Client.emit('Dev: Reset form');
-    location.hash = 'my-home';
+    location.hash = '/';
     location.reload(true);
   }
 

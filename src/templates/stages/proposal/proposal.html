@@ -1,16 +1,12 @@
 <!-- main.html for qualify stage -->
-<div fln-proposal class="overlay only col full center contain proposal-page">
+<div fln-proposal class="overlay only col full center contain step-proposal">
   <div class="row padded">
     <div class="col full center">
-      <h1>Nice work! You may be eligible to go solar for $0 down.<br><small>Based on the system you designed and your average monthly bill of <span id="current_bill" class="dollars">{{ proposal.prospect().bill | number: 0 }}</span>, here is your estimated solar proposal.</small></h1>
-      <div class="row center">
-        <div class="col center third two">
-          <div class="button-set-hug">
-            <button class="btn white tiny ib" ng-click="modal.showDialog({dialog:'share-proposal', data: ''})">Save This Proposal</button>
-            <button class="btn white tiny ib" ng-click="proposal.changeDesign()">Redo my Design</button>
-            <button class="btn gold wide small ib" ng-click="stages.advanceFromProposal(proposal.prospect().qualified)">Sign me up</button>
-          </div>
-        </div>
+      <h1>Nice work! You may be eligible to go solar for $0&nbsp;down.<br><small>Based on the system you designed and your average monthly bill of <span id="current_bill" class="dollars">{{ proposal.prospect().bill | number: 0 }}</span>, here is your estimated solar&nbsp;proposal.</small></h1>
+      <div class="button-set">
+        <button class="btn white tiny ib" ng-click="proposal.changeDesign()">Redo my design</button>
+        <button class="btn white tiny ib" ng-click="modal.showDialog({dialog:'share-proposal', data: ''})">Save my proposal</button>
+        <button class="btn gold wide ib" ng-click="stages.advanceFromProposal(proposal.prospect().qualified)">Sign me up</button>
       </div>
     </div>
   </div>

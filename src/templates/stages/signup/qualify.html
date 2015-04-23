@@ -6,27 +6,27 @@
   <div class="row center">
   <div class="overlay only primary col fourth three center contain" ng-if="!schedule.prospect().qualified">
     <div class="row padded">
-      <div class="col full center" ng-if="!schedule.prospect().invalidTerritory">
+      <div class="col full contain" ng-if="!schedule.prospect().invalidTerritory">
         <h1>Thank you for your interest in going solar.
           <br><small>One of our solar consultants will give you a call to discuss your financing options. Or feel free to reach out to us directly at <a href="tel:18776907652">(877)&nbsp;690-7652</a>. In the mean time, there are lots of other great ways you can get involved with the solar movement.</small>
         </h1>
       </div>
-      <div class="col full center" ng-if="schedule.prospect().invalidTerritory">
+      <div class="col full contain" ng-if="schedule.prospect().invalidTerritory">
         <h1>We haven't made it to {{schedule.prospect().zip}} yet.<br><small>But you can still get involved with the solar movement, today. Here are some ways to join the SolarCity family.</small></h1>
       </div>
     </div>
-    <div class="get-involved row center padded-more">
-      <div class="col half">
-        <h4><a href="https://mysolarcity.com/Ambassador/register">Become a Solar Ambassador</a></h4>
+    <div class="get-involved row center">
+      <div class="col fourth three">
+        <h3><a href="https://mysolarcity.com/Ambassador/register">Become a Solar Ambassador</a></h3>
         <p>Spread the word about clean more affordable energy from SolarCity and you could earn up to $250 for every referral that installs.</p>
         <figure class="video-tray">
           <iframe src="https://player.vimeo.com/video/92755265" frameborder="0" allowfullscreen></iframe>
         </figure>
       </div>
     </div>
-    <div class="get-involved row center padded-more">
-      <div class="col half">
-        <h4><a href="https://solarbonds.solarcity.com">Invest in Solar Bonds</a></h4>
+    <div class="get-involved row center">
+      <div class="col fourth three">
+        <h3><a href="https://solarbonds.solarcity.com">Invest in Solar Bonds</a></h3>
         <p>Help support the growth of solar energy and earn attractive returns. Solar Bonds are open to everyone.</p>
         <figure class="video-tray framed">
           <iframe frameborder="0" allowfullscreen src="//www.youtube.com/embed/remJeBMSptE?controls=0&amp;showinfo=0"></iframe>
@@ -36,14 +36,19 @@
     <div fln-social></div>
   </div>
 
-  <div class="overlay primary col"  ng-if="schedule.prospect().qualified">
+  <div class="overlay primary col" ng-if="schedule.prospect().qualified">
     <h1>
       <span ng-if="stages.initialState !== 'flannel.signup.qualify'">Congratulations &mdash; you qualified!</span>
       <span ng-if="stages.initialState === 'flannel.signup.qualify'">Welcome back, {{schedule.prospect().firstName}}.</span>
       <br><small>Now it's time to schedule your visit from one of our in-house site surveyors so we can design a customized system and proposal just for you.</small>
     </h1>
-    <button class="std gold" ng-click="schedule.check()">Schedule site survey</button>
-    <button class="white tiny center" ng-click="schedule.skipScheduling()">Schedule this later</button>
+    <div class="row">
+      <div class="col full center">
+        <button class="gold" ng-click="schedule.check() && app.notifyTrackerAboutClick('attempt_scheduling')">Schedule site survey</button>
+        <button class="white tiny" ng-click="schedule.skipScheduling() && app.notifyTrackerAboutClick('skip_scheduling')">Schedule this later</button>
+
+      </div>
+    </div>
   </div>
 
   <aside class="overlay secondary col sml-full med-full lrg-full full-height" ng-if="schedule.prospect().qualified">

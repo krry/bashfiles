@@ -52,6 +52,7 @@ var libHeadSrcMin = [
 ];
 
 var libTailSrc = [
+  './src/lib/angular-animate/angular-animate.js',
   './src/lib/angular-touch/angular-touch.js',
   './src/lib/angular-cookies/angular-cookies.js',
   './src/lib/angular-ui-router/release/angular-ui-router.js',
@@ -68,6 +69,7 @@ var libTailSrc = [
 ];
 
 var libTailSrcMin = [
+  './src/lib/angular-animate/angular-animate.min.js',
   './src/lib/angular-touch/angular-touch.min.js',
   './src/lib/angular-cookies/angular-cookies.min.js',
   './src/lib/angular-ui-router/release/angular-ui-router.min.js',

@@ -2,7 +2,7 @@
 @import "../imports/typography";
 @import "../imports/fonts";
 
-.proposal-page {
+.step-proposal {
   background: $white-dark;
   strong + p {
     margin-top: .25em;
@@ -28,9 +28,10 @@
 
 .proposal.proposal {
   background-color: $white;
-  color: $green-neue;
+  color: $green;
   border-radius: 2px;
   .col.third.padded.padded {
+    overflow: hidden;
     padding-bottom: .5em;
     border-bottom: 2px solid $grey-lightest;
   }
@@ -91,7 +92,7 @@
   vertical-align: .75em;
 }
 
-.proposal-page .financing-options-bar {
+.step-proposal .financing-options-bar {
   font-size: 0.85rem;
   line-height: 1.4;
   padding: 2em 1em;

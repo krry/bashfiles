@@ -1,5 +1,6 @@
 @import "../imports/fonts";
 @import "../imports/colors";
+@import "../imports/motion";
 
 @mixin tooltip($position: "bottom") {
   position: relative; // pseudo-elements should be relative to this
@@ -15,7 +16,7 @@
     position: absolute; // finds the nearest positioned parent
     pointer-events: auto; // tooltip sticks around when you hover it
     display: block; // enable transforms
-    transition: all 250ms ease-in; // animate the drop in
+    transition: all 250ms $easing-quick; // animate the drop in
     transform: translate3d(0, -.25em, 0); // raise it up a bit
   }
 
@@ -34,7 +35,7 @@
     line-height: 1.25;
     // white-space: nowrap; // don't let it wrap
     background: $grey-darker; // fallback for anti-opacity browsers
-    background: $shade-60;
+    background: shade(.6);
     padding: 0.7em;
     text-align: center;
     border-radius: 4px;
@@ -46,7 +47,7 @@
     content: ""; // just a triangle, no content
     border-style: solid;
     border-color: $grey-darker transparent; // fallback for anti-opacity browsers
-    border-color: $shade-60 transparent; // make side borders transparent to form a triangle
+    border-color: shade(.6) transparent; // make side borders transparent to form a triangle
     z-index: 20; // make sure the triangle shows over the tip
   }
 
@@ -58,14 +59,14 @@
     &:after {
       top: 100%; // hang it under the element
       left: 50%;
-      width: 12rem;
-      margin-left: -6rem;
-      margin-top: calc(.25em - .5px);
+      width: 10rem;
+      margin-left: -3.5rem;
+      margin-top: calc(1em - 0px);
     }
     &:before {
-      bottom: -.5em;
+      bottom: -1em;
       left: 50%;
-      border-width: 0 .25em .25em; // omit the top border to form to an upward-facing point
+      border-width: 0 .75em .75em; // omit the top border to form to an upward-facing point
     }
   }
 
@@ -76,10 +77,10 @@
     }
     &:after {
       bottom: 100%; // hang it under the element
-      left: 0.5em;
+      left: 50%;
       width: 10rem;
-      margin-left: 3.5em;
-      margin-bottom: calc(1em - 0px);
+      margin-left: -3.5em;
+      margin-bottom: 1em;
     }
     &:before {
       top: -1em;
@@ -102,7 +103,7 @@
       bottom: 50%;
       left: 100%;
       border-color: transparent $grey-darkest; // fallback for anti-opacity browsers
-      border-color: transparent $shade-80; // make top and bottom borders transparent to form a triangle
+      border-color: transparent shade(.8); // make top and bottom borders transparent to form a triangle
       border-width: .25em .25em .25em 0; // put the point on the left
     }
   }
@@ -121,7 +122,7 @@
       bottom: 50%;
       right: 100%;
       border-color: transparent $grey-darkest; // fallback for anti-opacity browsers
-      border-color: transparent $shade-80; // make top and bottom borders transparent to form a triangle
+      border-color: transparent shade(.8); // make top and bottom borders transparent to form a triangle
       border-width: .25em 0 .25em .25em; // put the point on the right
     }
   }
