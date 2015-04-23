@@ -34,7 +34,7 @@ input.bill,
 input.birthdate,
 input.full-name,
 input.phone {
-  font-size: 1em;
+  font-size: 1.25em;
   text-align: left;
   display: inline-block;
   background-color: $white-dark;
@@ -131,11 +131,11 @@ label .ib.status {
 
 button.nested {
   position: absolute;
-  right: .5rem;
-  top: .5em;
+  width: 2.25rem;
+  height: 2.25rem;
+  right: .3rem;
+  top: .3rem;
   margin: 0;
-  width: 1.5rem;
-  height: 1.5rem;
 }
 
 .nest {
@@ -155,6 +155,8 @@ span.autolocate-icon {
   width: 20px;
   height: 20px;
 }
+
+
 
 @media screen and (min-width: $width-min-med) {
   .step-zip {
@@ -189,12 +191,10 @@ span.autolocate-icon {
     }
   }
   button.nested {
-    width: 2rem;
-    height: 2rem;
-    position: absolute;
-    right: .5em;
-    top: .5em;
-    margin: 0;
+    width: 2.25rem;
+    height: 2.25rem;
+    right: .3rem;
+    top: .3rem;
   }
 }
 
@@ -216,7 +216,9 @@ span.autolocate-icon {
     width: 20em;
   }
   button.nested {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2.58rem;
+    height: 2.58rem;
+    right: .43rem;
+    top: .43rem;
   }
 }
