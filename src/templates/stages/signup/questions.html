@@ -27,7 +27,7 @@
           <fln-input-hoa></fln-input-hoa>
         </div>
       </div>
-      <button class="gold" ng-click="schedule.saveAnswers()" ng-disabled="!schedule.answeredQuestions()">Done</button>
+      <button class="gold" ng-click="schedule.saveAnswers() && app.notifyTrackerAboutClick('site_survey_scheduled')" ng-disabled="!schedule.answeredQuestions()">Done</button>
     </form>
   </div>
 </div>
