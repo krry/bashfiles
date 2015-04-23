@@ -15,10 +15,10 @@
     <fln-time-selection></fln-time-selection>
     <p class="small note-time"><strong>Note:</strong> These are 2-hour arrival windows for our site surveyor. The site survey will take 1&nbsp;to&nbsp;2&nbsp;hours.</p>
     <div class="row padded center">
-      <div class="col full">
+      <div class="actionbar col full">
         <button class="std gold" ng-click="schedule.save() && app.notifyTrackerAboutClick('time_scheduled')" ng-disabled="!schedule.prospect().scheduledTime">Schedule it</button>
       </div>
-      <div class="col full center">
+      <div class="alternav col full center">
         <button class="ib white tiny" ng-click="stages.prev()">Change date</button>
         <button class="ib white tiny" ng-click="schedule.skipScheduling() && app.notifyTrackerAboutClick('skip_scheduling')">Schedule this later</button>
       </div>
