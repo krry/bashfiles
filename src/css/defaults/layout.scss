@@ -53,7 +53,7 @@ main.main.main-fixed {
 
 .overlay.primary,
 .overlay.only {
-  padding: 2em;
+  padding: 2em 2em 3.5em 2em;
   text-align: center;
 }
 
@@ -141,10 +141,6 @@ main.main.main-fixed {
   .only.only {
     width: auto;
     height: 100%;
-  }
-  .overlay.primary,
-  .overlay.only {
-    padding: 2em;
   }
   .secondary.secondary {
     width: 25%;
