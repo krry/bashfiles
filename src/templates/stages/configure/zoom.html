@@ -5,10 +5,12 @@
 <fln-expander>
   <div ui-view name="instructions" class="instructions">
     <h4>First, drag the map to center your&nbsp;house.</h4>
-    <p>We've oriented the map so that south is at the bottom of your screen. Facing panels south provides the best sun&nbsp;exposure.</p>
+    <p class="no-mobile">We've oriented the map so that south is at the bottom of your screen. Facing panels south provides the best sun&nbsp;exposure.</p>
     <p class="no-mobile">Locate the sunniest spot and trace that area for your panels in the next step.</p>
     <p class="no-mobile">Can't find your house? Chat with us for help below.</p>
     <!-- <figure><img src="../img/config_example_zoom.svg" alt="Make sure your roof is large and centered." loop="infinite"></figure> -->
-    <button class="gold" ng-click="stages.jumpToStep('trace-area')">Next</button>
+    <div class="actionbar">
+      <button class="gold" ng-click="stages.jumpToStep('trace-area')">Next</button>
+    </div>
   </div>
 </fln-expander>
