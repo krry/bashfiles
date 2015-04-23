@@ -6,9 +6,9 @@
 
 @mixin btn($color: $color-button-bkgd, $corners: #{1.8em/50%}, $pad: #{1.25em 2em}) {
 
-  @include apercu-medium;
+  @include apercu-bold;
   @include caps;
-  font-size: 1em;
+  font-size: 0.9em;
   text-align: center;
   line-height: 1;
 
