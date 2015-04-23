@@ -2,7 +2,7 @@
   id="liveagent_button_online_{{sfButtonId}}"
 
   class="trigger-bar toggle-help liveagent-online"
-  ng-click="toggleShown()">
+  ng-click="toggleShown() && app.notifyTrackerAboutClick('chat_started')">
   Chat now for help
   <span class="icon up" ng-hide="shown"></span>
   <span class="icon down" ng-show="shown"></span>

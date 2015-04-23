@@ -23,7 +23,7 @@
           <fln-input-phone hint="(---) --- ----" form="prospectForm"></fln-input-phone>
         </div>
         <div class="col full center">
-          <button class="gold" ng-click="form.createContact()" ng-disabled="prospectForm.$invalid || form.isSubmitting">Submit</button>
+          <button class="gold" ng-click="form.createContact() && app.notifyTrackerAboutClick('contact_submitted')" ng-disabled="prospectForm.$invalid || form.isSubmitting">Submit</button>
         </div>
       </div>
     </form>
