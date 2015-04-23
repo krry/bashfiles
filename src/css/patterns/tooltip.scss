@@ -19,14 +19,15 @@
   display: block;
   position: absolute;
   z-index: 16;
-  top: 0;
-  left: 0;
+  top: 0px;
+  left: 0px;
   color: white;
   background: shade(.8);
-  border-radius: 8px;
-  border: 1px solid tint(.6);
-  font-size: .875em;
-  padding: .25em .75em;
+  border-radius: 2px;
+  border: 0px solid tint(.3);
+  font-size: .75em;
+  padding: .35em .75em .4em .75em;
+  @include apercu-medium;
 }
 
 .followtipped {
