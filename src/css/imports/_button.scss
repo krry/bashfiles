@@ -6,9 +6,9 @@
 
 @mixin btn($color: $color-button-bkgd, $corners: #{1.8em/50%}, $pad: #{1.25em 2em}) {
 
-  @include apercu-medium;
+  @include apercu-bold;
   @include caps;
-  font-size: 1em;
+  font-size: 0.9em;
   text-align: center;
   line-height: 1;
 
@@ -16,7 +16,7 @@
   width: auto;
   min-width: 7.5em;
   height: auto;
-  margin: 1em auto;
+  margin: 0.25em auto;
   padding: $pad;
 
   color: $white;
@@ -41,10 +41,14 @@
   transition: background-color .1s $easing-quick;
 
   @if $color == $white {
-    color: $grey-mid;
+    @include apercu-regular;
+    color: $grey-medium;
     background-color: $color;
-    border: 1px solid $grey-light;
-    padding: 1.25em 2em 1.125em;
+    border: 1px solid $grey-lighter;
+    padding: 0.85em 2em 0.85em;
+    border-radius: 1.5em/50%;
+    letter-spacing: .1em;
+    min-width: 18.5em;
   }
 
   @if $color == tint(.8) {
@@ -59,9 +63,8 @@
     box-shadow: none;
 
     @if $color == $white {
-      color: $grey-dark;
-      border-color: $grey-mid;
-      background-color: darken($color, 1%);
+      color: $grey-medium;
+      background-color: darken($color, 2%);
     }
   }
 
