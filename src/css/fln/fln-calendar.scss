@@ -162,14 +162,14 @@
 }
 
 .survey-question {
-  padding: 1em;
-  margin: .25em 0;
-  line-height: 1;
+  padding: 1em 1em;
+  margin: 0 0 1px 0;
   h4 {
-    padding-bottom: .5em;
+    padding: .2em 0 .3em 0;
+    font-size: 0.9em;
   }
   &.selected {
-    background: $white-dark;
+    background: $grey-lightest;
   }
   .ib:first-child {
     margin-right: 1em;
@@ -184,9 +184,13 @@
 
   input[type="radio"] + label {
     position: relative;
-    bottom: -2px;
-    font-size: 1em;
+    bottom: 0px;
+    font-size: 0.9em;
     padding-left: .5em;
+  }
+  .radio-options {
+    margin-bottom: 0.3em;
+    padding-right: 1.3em;
   }
 }
 
@@ -220,6 +224,9 @@ select.hoa-dropdown {
   }
   .survey-question {
     h4, p {
+      text-align: left;
+    }
+    .radio-options {
       text-align: right;
     }
   }

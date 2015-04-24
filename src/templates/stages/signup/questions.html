@@ -4,9 +4,9 @@
     <fln-spinner></fln-spinner>
   </div>
 
-  <div class="col fifth four center">
+  <div class="center">
     <h1 ng-if="!schedule.timedOut">About your site visit.
-      <br><small>We just need to know a few bits of information before our site surveyor shows up at your home.</small>
+      <br><small>We just need to know a few bits of information before our site surveyor shows up at your&nbsp;home.</small>
     </h1>
     <h1 ng-if="schedule.timedOut">
       Sorry! Our connection timed out. <small>Please try again.</small>
@@ -27,7 +27,9 @@
           <fln-input-hoa></fln-input-hoa>
         </div>
       </div>
-      <button class="gold" ng-click="schedule.saveAnswers() && app.notifyTrackerAboutClick('site_survey_scheduled')" ng-disabled="!schedule.answeredQuestions()">Done</button>
+      <div class="actionbar col full">
+        <button class="gold" ng-click="schedule.saveAnswers() && app.notifyTrackerAboutClick('site_survey_scheduled')" ng-disabled="!schedule.answeredQuestions()">Done</button>
+      </div>
     </form>
   </div>
 </div>

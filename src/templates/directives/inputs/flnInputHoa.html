@@ -1,8 +1,5 @@
 <div class="row">
-  <div class="col half padded">
-    <h4 class="question">Do you belong to a homeowners association?</h4>
-  </div>
-  <div class="col half padded">
+  <div class="col half radio-options">
     <div class="ib">
       <input type="radio" class="choice" name="hoa" id="hoa-yes" ng-model="schedule.prospect().hoa" ng-value="true">
       <label class="field-label" for="hoa-yes">Yes</label>
@@ -11,6 +8,9 @@
       <input type="radio" class="choice" name="hoa" id="hoa-no" ng-model="schedule.prospect().hoa" ng-value="false">
       <label class="field-label" for="hoa-no">No</label>
     </div>
+  </div>
+  <div class="col half">
+    <h4 class="question">Do you belong to a homeowners association?</h4>
   </div>
 </div>
 <div class="row center hoa">
