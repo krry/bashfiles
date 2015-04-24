@@ -30,7 +30,7 @@ a {
 }
 
 * {
-  user-select: none;
+  user-select: auto;
   cursor: default;
 }
 
@@ -44,8 +44,8 @@ button, a {
 }
 
 ::selection {
-  background-color: $color-selection-bkgd;
-  color: white;
+  //background-color: $color-selection-bkgd;
+  //color: white;
 }
 
 button,
