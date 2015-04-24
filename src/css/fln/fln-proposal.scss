@@ -19,10 +19,30 @@
   ul li, p {
     line-height: 160%;
   }
+  h5 {
+    text-align: center;
+    font-size: 0.75em;
+    @include apercu-regular;
+  }
+  .actionbar button.gold {
+    min-width: 18em;
+  }
+  .financing-options-bar {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    padding: 2em 1em 1em 1em;
+    margin: 0 auto;
+  }
+  .proposal-button-tray {
+    margin-top: 1rem;
+  }
+  .proposal-button-tray button.tiny.white {
+    min-width: 12rem;
+  }
 }
 
 .panelfill {
-  min-height: 16rem;
+  min-height: 20rem;
   width: 100%;
 }
 
@@ -32,35 +52,35 @@
   border-radius: 2px;
   .col.third.padded.padded {
     overflow: hidden;
-    padding-bottom: .5em;
-    border-bottom: 2px solid $grey-lightest;
+    padding: .5em 0 1em 0;
+    // border-bottom: 2px solid grey(3%);
   }
   .utes {
     color: $grey-mid;
   }
-  label:first-child {
-    @include apercu-light;
-    font-size: .9em;
-    line-height: 120%;
-    margin: 1.5em 0 0 0;
-    color: $grey-darker;
-  }
-  label:not(:first-child) {
-    @include apercu-light;
+  label {
+    @include apercu-regular;
     @include caps;
-    font-size: .6em;
-    margin: 0 0 .2em 0;
-    letter-spacing: 0.5px;
-    color: $grey-dark;
+    font-size: .7em;
+    line-height: 140%;
+    letter-spacing: 0.1px;
+    color: $grey-medium;
+    margin: 0 auto;
+    & span {
+      @include apercu-bold;
+      color: $grey-mid;
+    }
   }
   figure {
+    /* margin: 1em 0 0 0; */
+    letter-spacing: -1px;
+    height: 3.6em;
     margin: 0;
-    letter-spacing: -0.5px;
   }
   figure span.cents,
   figure span.dollars {
     @include apercu-bold;
-    font-size: 2.8em;
+    font-size: 2.7em;
     &:before,
     &:after {
       @include apercu-light;
@@ -75,7 +95,7 @@
 }
 
 .chart-tray {
-  padding: .5em 0;
+  padding: 0.3em 0 0 0;
 }
 
 .cents:after {
@@ -90,13 +110,6 @@
   position: relative;
   font-size: .5em;
   vertical-align: .75em;
-}
-
-.step-proposal .financing-options-bar {
-  font-size: 0.85rem;
-  line-height: 1.4;
-  padding: 2em 1em;
-  background: #ffffff;
 }
 
 
@@ -164,21 +177,36 @@
   }
 }
 
+@media screen and (min-width: $width-min-sml) {
+  label {
+    max-width: 80%;
+  }
+}
+
 @media screen and (min-width: $width-min-med) {
+  .financing-options-bar {
+    max-width: 40rem;;
+  }
   .proposal {
+    .panelfill {
+      min-height: 15rem;
+    }
+    label {
+      max-width: 95%;
+    }
     .row:not(:last-child) {
-      border-bottom: 1px solid $grey-lightest;
+      // border-bottom: 2px solid red;
     }
     .col {
-      min-height: 9.5em;
+      // min-height: 9.5em;
       &.padded.padded.third {
-        border-left: 1px solid $grey-lightest;
-        border-right: 1px solid $grey-lightest;
+        border-left: 1px solid grey(3%);
+        border-right: 1px solid grey(3%);
         &:nth-of-type(2n) {
           border-right: none;
         }
         & + .third.padded + .third.padded {
-          border-top: 1px solid $grey-lightest;
+          border-top: 2px solid grey(3%);
         }
       }
     }
@@ -206,29 +234,35 @@
     }
   }
   .panelfill {
-    min-height: 21rem;
+    //min-height: 20rem;
     width: 100%;
   }
 
   .proposal {
+    .chart-tray {
+      padding: 0.4em 0 0 0;
+    }
+    .panelfill {
+      min-height: 17rem;
+    }
     .col.fifth.three > .row {
-      margin-right: -2px;
+      //margin-right: -2px;
     }
     .row:not(:last-child) {
-      border-bottom: 1px solid $grey-lightest;
+      border-bottom: 2px solid grey(3%);
     }
     .col {
-      min-height: 10.5em;
+      min-height: 8.5em;
       &.padded.padded.third {
-        border-left: 1px solid $grey-lightest;
-        border-right: 1px solid $grey-lightest;
+        // border-left: 1px solid red;
+        // border-right: 1px solid blue;
         &:nth-of-type(3n-2) {
-          border-right: 1px solid $grey-lightest;
+          // border-right: 1px solid red;
           border-left: none;
         }
         &:nth-of-type(3n-1) {
-          border-left: 1px solid $grey-lightest;
-          border-right: 1px solid $grey-lightest;
+          border-left: 2px solid grey(3%);
+          border-right: 2px solid grey(3%);
         }
         &:nth-of-type(3n) {
           border-right: none;
@@ -237,7 +271,7 @@
           border-top: none;
         }
         & + .third.padded + .third.padded + .third.padded {
-          border-top: 1px solid $grey-lightest;
+          border-top: 2px solid grey(3%);
         }
       }
     }

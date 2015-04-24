@@ -1,13 +1,9 @@
 <!-- main.html for qualify stage -->
 <div fln-proposal class="overlay only col full center contain step-proposal">
-  <div class="row padded">
+  <div class="row">
     <div class="col full center">
-      <h1>Nice work! You may be eligible to go solar for $0&nbsp;down.<br><small>Based on the system you designed and your average monthly bill of <span id="current_bill" class="dollars">{{ proposal.prospect().bill | number: 0 }}</span>, here is your estimated solar&nbsp;proposal.</small></h1>
-      <div class="button-set">
-        <button class="btn white tiny ib" ng-click="proposal.changeDesign()">Redo my design</button>
-        <button class="btn white tiny ib" ng-click="modal.showDialog({dialog:'share-proposal', data: ''}) && app.notifyTrackerAboutClick('saving_proposal')">Save my proposal</button>
-        <button class="btn gold wide ib" ng-click="stages.advanceFromProposal(proposal.prospect().qualified)">Sign me up</button>
-      </div>
+      <!-- <h5>INITIAL PROPOSAL</h5> -->
+      <h1>Nice work! You may be eligible to go solar for $0&nbsp;down.<br><small>Based on your design and your monthly bill of <span id="current_bill" class="dollars">{{ proposal.prospect().bill | number: 0 }}</span>, here is your estimated solar&nbsp;proposal.</small></h1>
     </div>
   </div>
   <div class="proposal row">
@@ -17,55 +13,55 @@
     <div class="col fifth three">
       <div class="row">
         <div class="col third center padded utes">
-          <label for="current_rate">Current Utility Cost</label>
           <figure>
             <span id="current_rate" class="cents">{{ 100 * proposal.prospect().utilityRate | number: 1 }}</span>
           </figure>
-          <label class="units">per kwh average in<br>your zip code</label>
+          <label for="current_rate"><span>Avg Utility Cost</span> per kwh in your zip&nbsp;code</label>
         </div>
         <div class="col third center padded">
-          <label for="scty_rate">SolarCity Cost</label>
           <figure>
             <span id="scty_rate" class="cents">{{ 100 * proposal.prospect().sctyRate | number: 1 }}</span>
           </figure>
-          <label class="units">per kWh with our recommended financing plan</label>
+          <label for="scty_rate"><span>SolarCity Cost</span> per kWh with our recommended finance plan</label>
         </div>
         <div class="col third center padded">
-          <label for="est_savings">Estimated Savings</label>
           <figure>
             <span id="est_savings" class="dollars">{{ proposal.prospect().firstYearSavings | number: 0 }}</span>
           </figure>
-          <label class="units">year one</label>
+          <label for="est_savings"><span>Estimated Savings</span> year&nbsp;one</label>
         </div>
         <div class="col third center padded utes">
-          <label for="ppa_plan">Current Electricity Bill</label>
           <figure>
             <span id="monthly_bill" class="dollars">{{proposal.prospect().bill}}</span>
           </figure>
-          <label class="units">in a typical month</label>
+          <label for="ppa_plan"><span>Avg Monthly Electric Bill</span></label>
           <fln-input-bill-slider proposal-bill="true"></fln-input-bill-slider>
         </div>
         <div class="col third center padded">
-          <label for="ppa_plan">No Upfront Cost</label>
           <figure>
             <span id="ppa_plan" class="dollars">{{proposal.prospect().upfrontCost}}</span>
           </figure>
-          <label class="units">with our recommended<br>financing plan</label>
+          <label for="ppa_plan"><span>No Upfront Cost</span> with our recommended finance plan</label>
         </div>
         <div class="col third center padded">
-          <label for="power_ratio_chart">Estimated Energy Mix</label>
           <figure class="chart-tray">
-            <canvas id="power_ratio_chart" width="48" height="48" class="pie"></canvas>
+            <canvas id="power_ratio_chart" width="40" height="40" class="pie"></canvas>
           </figure>
-          <label class="units">{{ proposal.prospect().percentSolar | number: 0 }}% solar power<br>{{ proposal.prospect().percentUtility | number: 0 }}% utility power</label>
+          <label for="power_ratio_chart"><span>Estimated Energy Mix:</span> {{ proposal.prospect().percentSolar | number: 0 }}% solar power, {{ proposal.prospect().percentUtility | number: 0 }}% utility&nbsp;power</label>
         </div>
       </div>
     </div>
   </div>
 
+  <div class="actionbar">
+      <button class="btn gold wide ib" ng-click="stages.advanceFromProposal(proposal.prospect().qualified)">Yes sign me up</button>
+  </div>
+
   <div class="row padded-less proposal-button-tray" ng-controller="ModalCtrl as modal">
     <div class="col full center">
-      <div class="financing-options-bar"><strong>Remember &mdash; this is only a rough draft.</strong> After your site survey, our experts will create a custom system design and proposal with available <a ng-click="modal.showDialog({dialog: 'financing', data: ''})">financing options</a>.</div>
+      <div class="financing-options-bar"><strong>Remember &mdash; this is only a rough draft.</strong> After your site survey, our experts will create a custom system design and proposal with available <a ng-click="modal.showDialog({dialog: 'financing', data: ''})">financing&nbsp;options</a>.</div>
+      <button class="btn white tiny ib" ng-click="proposal.changeDesign() && app.notifyTrackerAboutClick('redoing design')">Redo my design</button>
+      <button class="btn white tiny ib" ng-click="modal.showDialog({dialog:'share-proposal', data: ''}) && app.notifyTrackerAboutClick('saving_proposal')">Save my proposal</button>
     </div>
   </div>
 
@@ -75,11 +71,10 @@
       <div class="down-blk"></div>
     </div>
   </div>
+  <hr>
   <div class="row padded center">
-    <div class="col third two center">
-      <br>
+    <div class="col padded third two center">
       <h1><small>Signing up with America's #1 full-service solar provider means premium service every step of the&nbsp;way.</small></h1>
-      <br>
     </div>
   </div>
   <div class="row padded benefits">
@@ -162,6 +157,9 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="actionbar">
+      <button class="btn gold wide ib" ng-click="stages.advanceFromProposal(proposal.prospect().qualified)">Yes sign me up</button>
   </div>
   <fln-fine-print>
     <p>The figures on this page are only estimates, subject to change after review from a solar consultant. System size and production may be affected by shading, roof type, compliance fire codes and other factors.</p>
