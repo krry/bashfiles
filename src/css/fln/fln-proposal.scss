@@ -177,9 +177,28 @@
   }
 }
 
+@media screen and (min-width: $width-min-xsm) {
+  label {
+    max-width: 70%;
+  }
+  .proposal {
+    .col {
+      border-bottom: 1px solid grey(5%);
+    }
+    .col:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
 @media screen and (min-width: $width-min-sml) {
   label {
     max-width: 80%;
+  }
+  .proposal {
+    .col {
+      border-bottom: 0px solid grey(3%);
+    }
   }
 }
 

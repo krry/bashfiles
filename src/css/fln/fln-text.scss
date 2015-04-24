@@ -110,6 +110,15 @@ h3.social-proof-count {
   text-align: center;
 }
 
+@media screen and (min-width: $width-min-med) {
+  .step-address h3 {
+    width: 80%;
+  }
+  .step-fork h1 {
+    max-width: 34rem;
+  }
+}
+
 @media screen and (min-width: $width-min-lrg) {
   .drop-top {
     padding-top: 5rem;
@@ -132,12 +141,9 @@ h3.social-proof-count {
     width: 80%;
   }
   .step-fork h1 {
-    width: 85%;
+    max-width: 40rem;
   }
 }
 
 @media screen and (min-width: $width-min-xxl){
-  .step-fork h1 {
-    width: 85%;
-  }
 }
