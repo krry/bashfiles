@@ -245,6 +245,7 @@ input[type=checkbox],
 input[type=radio] + label,
 input[type=checkbox] + label {
   display: inline;
+  cursor: pointer;
 }
 
 textarea,
