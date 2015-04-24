@@ -22,12 +22,12 @@
   top: 0px;
   left: 0px;
   color: white;
-  background: shade(.8);
-  border-radius: 2px;
+  background: shade(.6);
+  border-radius: 3px;
   border: 0px solid tint(.3);
-  font-size: .75em;
+  font-size: .7em;
   padding: .35em .75em .4em .75em;
-  @include apercu-medium;
+  @include apercu-regular;
 }
 
 .followtipped {
