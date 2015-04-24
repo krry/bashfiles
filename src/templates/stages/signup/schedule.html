@@ -4,36 +4,35 @@
     <fln-spinner></fln-spinner>
   </div>
 
-  <div class="overlay primary col">
+  <div class="overlay primary col step-schedule center">
     <h1 ng-if="!schedule.timedOut">Thank you for inviting us to your home.
       <br><small>What time works for you?
     </h1>
     <h1 ng-if="schedule.timedOut">
       Sorry! Our connection timed out. <small>Please try again.</small>
     </h1>
-    <h2 class="caps">{{schedule.prospect.scheduledDate.month}} {{schedule.prospect.scheduledDate.day}}</h2>
+    <h2 class="caps">{{schedule.prospect().scheduledDate.month}} {{schedule.prospect().scheduledDate.day}}</h2>
     <fln-time-selection></fln-time-selection>
-    <div class="col fifth three center">
-      <p>Note: These are 2-hour arrival windows for our site surveyors and then the site survey will take around 1 to 2 hours.</p>
-    </div>
-    <button class="std gold" ng-click="schedule.save()" ng-disabled="!schedule.prospect.scheduledTime">Schedule it</button>
-
-    <div class="col fifth three center">
-      <button class="std white display-inline-block tiny" ng-click="stages.prev()">Change date</button>
-      <button class="std white display-inline-block tiny" ng-click="stages.jumpToStep('congrats')">Schedule this later</button>
+    <p class="small note-time"><strong>Note:</strong> These are 2-hour arrival windows for our site surveyor. The site survey will take 1&nbsp;to&nbsp;2&nbsp;hours.</p>
+    <div class="row padded center">
+      <div class="col full">
+        <button class="std gold" ng-click="schedule.save() && app.notifyTrackerAboutClick('time_scheduled')" ng-disabled="!schedule.prospect().scheduledTime">Schedule it</button>
+      </div>
+      <div class="col full center">
+        <button class="ib white tiny" ng-click="stages.prev()">Change date</button>
+        <button class="ib white tiny" ng-click="schedule.skipScheduling() && app.notifyTrackerAboutClick('skip_scheduling')">Schedule this later</button>
+      </div>
     </div>
   </div>
 
   <aside class="overlay secondary col sml-full med-full lrg-full full-height">
     <div class="drop-top">
-      <div class="connect-the-dots-title">
-        <strong>What's next?</strong>
-      </div>
+      <p><strong>How this works:</strong></p>
       <ul class="connect-the-dots">
         <li>Schedule your site survey.</li>
-        <li>A site surveyor will come to your house. Someone over 18 must be home to open the door and answer any questions.</li>
-        <li>The site surveyor will study your roof as well as your current energy consumption. This will take 1-2 hours, and we’ll need someone present for the entirety of the survey.</li>
-        <li>In a few days you’ll receive your final system design from our experts.</li>
+        <li>A site surveyor will come to your house. We'll need someone over 18 present for the entirety of the survey, which should last 1-2 hours.</li>
+        <li>The site surveyor will study your roof as well as your current energy consumption. The surveyor will need access to the top of your roof as well as your attic to take measurements.</li>
+        <li>A few days after your site survey, you'll receive your final system design from our experts.</li>
         <li>Review your professional design, final proposal and sign your contract.</li>
         <li>Sign up and schedule your install.</li>
         <li>Turn it on.</li>

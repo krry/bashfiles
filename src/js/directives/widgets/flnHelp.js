@@ -1,6 +1,6 @@
-directives.directive('flnHelp', ['Liveagent', 'Clientstream', flnHelp]);
+directives.directive('flnHelp', ['Liveagent', 'Clientstream', 'SF_BUTTON_ID', flnHelp_]);
 
-function flnHelp (Liveagent, Client) {
+function flnHelp_ (Liveagent, Client, SF_BUTTON_ID) {
   return {
     templateUrl: 'templates/directives/widgets/flnHelp.html',
     controller: 'ChatCtrl',
@@ -8,7 +8,7 @@ function flnHelp (Liveagent, Client) {
     link: function(scope, element, attrs, ChatCtrl) {
       // TRACK: when a user requests an ODA, track that
       // var step = Stage.step; // fetch the current step from the StageCtrl
-      // element.find('#liveagent_button_online_573180000008OIF').on('click', function () {
+      // element.find('#liveagent_button_online_'+SF_BUTTON_ID).on('click', function () {
         // ga('send', 'event', step, 'Button Clicks', 'ODA Session Activated');
       // });
 
@@ -19,6 +19,7 @@ function flnHelp (Liveagent, Client) {
 
       scope.prospect = ChatCtrl.prospect;
       scope.toggleShown = toggleShown;
+      scope.sfButtonId = SF_BUTTON_ID;
 
       // find the liveagent buttons in the window, wire the agent status logic to them
       if (!window._laq) { window._laq = []; }
@@ -26,13 +27,14 @@ function flnHelp (Liveagent, Client) {
       window._laq.push(
         function(){
           liveagent.showWhenOnline(
-            '573180000008OIF',
-            document.getElementById('liveagent_button_online_573180000008OIF')
+
+            SF_BUTTON_ID,
+            document.getElementById('liveagent_button_online_'+SF_BUTTON_ID)
           );
 
           liveagent.showWhenOffline(
-            '573180000008OIF',
-            document.getElementById('liveagent_button_offline_573180000008OIF')
+            SF_BUTTON_ID,
+            document.getElementById('liveagent_button_offline_'+SF_BUTTON_ID)
           );
         }
       );
@@ -41,22 +43,23 @@ function flnHelp (Liveagent, Client) {
         var address;
 
         if (!chatOpened) {
-
           // retrieve prospect object from Form in Firebase
           // TODO: figure out why this prospect does not have a `form_id` like the prospect in FormProvider
 
           Client.emit('create hotload link', true);
 
           // send prospect to Liveagent
-          Liveagent.addCustomDetails(scope.prospect);
+          Liveagent.addCustomDetails(scope.prospect());
 
           var targetConfig = {
-            buttonId: "573180000008OIF",
+
+            buttonId: SF_BUTTON_ID,
             iframeTarget: "live_agent_chat"
           }
           // try to start the Liveagent chat
           Liveagent.start(targetConfig);
           chatOpened = true;
+          scope.active = true;
         }
       });
 

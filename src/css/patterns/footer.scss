@@ -1,16 +1,12 @@
 @import "../imports/colors";
 
 .footer {
-  z-index: 2;
+  z-index: 10;
   background: $color-bkgd-footer;
   width: 100%;
   position: relative;
-}
-
-.footer-fixed {
-  bottom: 0;
-  position: fixed;
-  box-shadow: 0 0 4px $color-header-shadow;
+  /* display: none; */
+  display: block;
 }
 
 .footer .boilerplate {
@@ -18,14 +14,14 @@
   padding: 1em;
   margin-bottom: 0;
   text-align: left;
-  color: $grey-meh;
+  color: transparentize($grey-darker, 0.5);
 
   span {
     padding: 0 1em;
-    border-right: 1px solid $shade-10;
+    border-left: 1px solid shade(.10);
     white-space: nowrap;
-    &:last-child {
-      border-right: none;
+    &:first-child {
+      border-left: none;
     }
   }
 }
@@ -36,5 +32,13 @@
 }
 
 .footer .fourth {
-  border-left: 1px solid $shade-10;
+  border-left: 1px solid shade(.10);
+}
+
+
+@media screen and (min-width: $width-min-lrg) {
+  .footer-fixed {
+    bottom: 0;
+    position: fixed;
+  }
 }

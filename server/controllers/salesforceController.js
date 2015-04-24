@@ -9,7 +9,8 @@ module.exports = function(app) {
       sfUserName    = conf.SFUSERNAME,
       sfPassword    = conf.SFPASSWORD,
       sfToken       = conf.SFDCSECRETTOKEN,
-      sfRecordType  = conf.SFDCRECORDTYPEID;
+      sfRecordType  = conf.SFDCRECORDTYPEID,
+      sfOppOwnerId  = conf.SFOPPOWNERID;
 
 
   var conn = new jsforce.Connection({
@@ -34,12 +35,14 @@ module.exports = function(app) {
       Status : req.body.LeadStatus,
       Unqualified_Reason__c : req.body.UnqualifiedReason,
       odaHotloadLink__c: req.body.OdaHotloadLink,
+      proposalLink__c: req.body.ProposalLink,
+      siteSurveyLink__c: req.body.SiteSurveyLink,
       skipped__c: req.body.Skipped,
       External_ID__c : req.body.ExternalId,
       External_ID_Type__c : 'FirebaseSessionId',
       Consultation_Date__c : new Date(),
       Consultation_Type__c : 'Online',
-      Opportunity_Owner__c : '00518000000QpDnAAK',
+      Opportunity_Owner__c : sfOppOwnerId,
       RecordTypeId : sfRecordType,
       Share_Proposal_Link__c: req.body.Share_Proposal_Link__c
     };

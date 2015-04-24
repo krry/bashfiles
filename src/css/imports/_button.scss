@@ -4,11 +4,11 @@
 @import "functions";
 @import "typography";
 
-@mixin btn($color: $color-button-bkgd, $size: 0.83rem, $corners: #{1.8em/50%}, $pad: #{1.3em 2.6em 1.3em}) {
+@mixin btn($color: $color-button-bkgd, $corners: #{1.8em/50%}, $pad: #{1.25em 2em}) {
 
-  @include apercu-medium;
+  @include apercu-bold;
   @include caps;
-  font-size: $size;
+  font-size: 0.9em;
   text-align: center;
   line-height: 1;
 
@@ -16,21 +16,11 @@
   width: auto;
   min-width: 7.5em;
   height: auto;
-  margin: 1em auto;
+  margin: 0.25em auto;
+  padding: $pad;
 
   color: $white;
   background-color: $color;
-
-  @if $color == $white {
-    color: $grey-dark;
-    background-color: $color;
-  }
-
-  @if trim-unit($size) < 1 {
-    letter-spacing: 2px;
-  }
-
-  padding: $pad;
 
   outline: none;
   border-width: 0;
@@ -51,32 +41,30 @@
   transition: background-color .1s $easing-quick;
 
   @if $color == $white {
-    // @include apercu-light;
-    color: $grey-mid;
+    @include apercu-regular;
+    color: $grey-medium;
     background-color: $color;
+    border: 1px solid $grey-lighter;
+    padding: 0.85em 2em 0.85em;
+    border-radius: 1.5em/50%;
+    letter-spacing: .1em;
+    min-width: 18.5em;
   }
 
-  @if $color == $tint-80 {
-    // @include apercu-light;
-    color: $aqua-dark;
-    border: 3px solid $aqua-dark;
+  @if $color == tint(.8) {
+    color: darken($teal, 0.3);
+    border: 3px solid darken($teal, 0.3);
     background-color: $color;
-  }
-
-  @if trim-unit($size) < 1 {
-    letter-spacing: 1px;
   }
 
   &:hover {
     color: $white;
     background-color: lighten($color, 3%);
-    // box-shadow: 0 0 4px -1px darken($color, 20%);
     box-shadow: none;
 
     @if $color == $white {
-      color: $grey-dark;
-      border-color: $grey-mid;
-      background-color: darken($color, 1%);
+      color: $grey-medium;
+      background-color: darken($color, 2%);
     }
   }
 
@@ -93,37 +81,12 @@
 
   &:disabled {
     cursor: not-allowed;
-    background-color: $grey-mid;
+    background-color: $grey-medium;
     border-color: darken($grey-mid, 25%);
-    color: $grey-lightest;
+    color: $white;
   }
 
   &.doubledecker {
     border-radius: 2.125em/50%;
   }
-}
-
-button.medium {
-    padding: 0.75em 1em;
-    border-radius: 1.3em;
-    font-size: 0.85em;
-    min-width: 5em;
-    width: 6em;
-    letter-spacing: 1px;
-}
-
-button.tiny.gold {
-  padding: 0.94em 2.5em 0.935em;
-  border-radius: 1.4em/50%;
-  min-width: 5em;
-}
-
-button.tiny.white {
-  padding: 0.8em 0em;
-  border-radius: 1.4em/50%;
-  min-width: 17em;
-  border: 1px solid $grey-lighter;
-  color: $grey-mid;
-  line-height: 100%;
-  margin: 0.5em;
 }

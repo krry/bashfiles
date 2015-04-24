@@ -16,7 +16,9 @@ function SalesforceProvider_ () {
       contact: 'Pre credit check',
       failCredit: 'Insufficient credit',
       passCredit: 'Pass credit',
-      scheduledSiteSurvey: 'Scheduled site survey'
+      noCreditResult: 'Credit unknown',
+      scheduledSiteSurvey: 'Scheduled site survey',
+      networkError: 'Network error'
     };
 
     function createLead(data) {

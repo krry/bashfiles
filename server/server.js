@@ -13,7 +13,7 @@ var newrelic     = require('newrelic'),
     nconf        = require('nconf'), // https://github.com/flatiron/nconf
     fs           = require('fs'),
     express      = require('express'),
-    compression  = require('compression'),
+    compress  = require('compression'),
     browserSync  = require('browser-sync'),
     expValid     = require('express-validator'),
     bodyParser   = require('body-parser'),
@@ -21,27 +21,38 @@ var newrelic     = require('newrelic'),
     env          = process.env.NODE_ENV || 'development',
     morgan       = require('morgan'),
     logger       = require('./logger'), // logger
-    // db,
     portfinder   = require('portfinder'),
     app,
     port,
     publicFolder,
     oneYear;
 
-console.log('env on server is:', env);
+console.log('env on server is:', process.env.NODE_ENV);
 nconf.argv().env().file({file: './server/config/environments/' + env + '.json'});
 
-// db = require('./config/db.js'); // for the db config, this is ignored by git
 app = express(); // the app used throughout the server
 
 app.publicRoot = __dirname + '/../public';
 oneYear = 1*365.25*24*60*60*1000; // 1 yr = 31557600000ms
 
-app.use(cookieParser(nconf.get('FLANNEL_SECRET')));
-app.get('/', require('./controllers/appController.js')(app).index);
-app.use(express.static(app.publicRoot, {maxAge: oneYear}));
 app.settings.nconf = nconf;
 
+// Redirect all http traffic to https
+// Must be set before we define the index, static assets, and individual routes
+if (app.settings.nconf.get('SSL_ENABLED')) {
+  app.use(function(req, res, next) {
+    if (!req.secure) {
+      return res.redirect('https://' + req.headers.host + req.url);
+    }
+
+    next();
+  });
+}
+
+app.use(cookieParser(nconf.get('FLANNEL_SECRET')));
+app.get('/', require('./controllers/appController.js')(app).index);
+app.use(compress({ threshold: 512 }));
+app.use(express.static(app.publicRoot, {maxAge: oneYear}));
 
 portfinder.getPort(function (err, port) {
   if (env === "development") {
@@ -54,15 +65,18 @@ portfinder.getPort(function (err, port) {
 
   appPort = app.settings.nconf.get('PORT') || 8100;
   app.listen(appPort, listening);
-  app.use(compression({ threshold: 512 }));
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
   app.use(expValid());
 
   // load the express routes
   require('./routes/appRoutes.js')(app);
-  // require('./routes/pathRoutes.js')(app);
   require('./routes/authorizationRoutes.js')(app);
+
+  // catches all other routes, ie 404.
+  app.use(function(req, res, next) {
+    res.status(404).sendFile('file_not_found.html', {root: app.publicRoot});
+  });
 
   module.exports = app;
 });

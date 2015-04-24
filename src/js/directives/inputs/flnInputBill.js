@@ -1,20 +1,22 @@
-directives.directive('flnInputBill', ['defaultValues', 'Form', flnInputBill_]);
+directives.directive('flnInputBill', ['defaultValues', flnInputBill_]);
 
-function flnInputBill_ (defaultValues, Form) {
+function flnInputBill_ (defaultValues) {
   return {
     restrict: "A",
     templateUrl: "templates/directives/inputs/flnInputBill.html",
     require: "^flnForm",
     link: function (scope, element, attrs, FormCtrl) {
-      var prospect = Form.prospect;
+      var prospect = FormCtrl.prospect;
+      scope.prosposalBill = attrs.proposalBill;
 
-      if (!prospect.bill) {
-        prospect.bill = defaultValues.bill;
+      if (!prospect().bill) {
+        prospect().bill = defaultValues.bill;
       }
-
       element.find('input').bind('change', function () {
-        FormCtrl.saveBill(prospect.bill);
-      })
+        FormCtrl.billChanged = true;
+        FormCtrl.saveBill(prospect().bill);
+        if (!scope.$$phase) scope.$apply();
+      });
     }
   };
 }

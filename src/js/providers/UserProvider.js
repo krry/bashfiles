@@ -28,7 +28,8 @@ function UserProvider_ (SessionProvider, FIREBASE_URL) {
       _ref_key,
       users_url,
       fb_observable,
-      state_stream;
+      state_stream,
+      is_new;
 
   users_url = FIREBASE_URL + "users/";
 
@@ -45,6 +46,10 @@ function UserProvider_ (SessionProvider, FIREBASE_URL) {
     });
 
     return ref_setup(_ref);
+  };
+
+  this.setIsNew = function(bool) {
+    is_new = bool;
   };
 
   function ref_setup (ref) {
@@ -65,12 +70,10 @@ function UserProvider_ (SessionProvider, FIREBASE_URL) {
     function checkForPriorSession (ds){
       var data = ds.exportVal() || {};
       data.user_id = _ref.key();
-      console.log(data)
       if (data && data.session_id) {
         // if there's a session on the object, start the process of reloading the session
         Client.emit('User: Existing session_id found', data);
       } else {
-        console.log('userprovider heard app run')
         // let the app know about the user's _ref_key
         Client.emit('User: No existing session_id', {user_id: data.user_id});
       }
@@ -97,9 +100,10 @@ function UserProvider_ (SessionProvider, FIREBASE_URL) {
           return null;
         },
         id: function () { return _ref.key(); },
+        isNew: is_new
       };
     }
 
     return new user_builder_brah();
-
-}]}
+  }];
+}

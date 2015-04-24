@@ -30,19 +30,19 @@ function MapService_ ($q, Client, StyleService) {
 
   // HACK: when the gmap center updates store it here so Configurator and OlMapCtrl can grab it as needed
   // the omap center get and set functions are also hacky
-  Client.listen('center changed', setOmapCenter);
+  // Client.listen('center changed', setOmapCenter);
 
   function getOmapCenter () {
     return service.omapCenter;
   }
 
-  function setOmapCenter (location) {
-    console.log('setting center of OlMap at:', location);
-    service.omapCenter = location;
-    // view.setCenter([location.lat(), location.lng()]);
-    // if (location !== Gmap.map.getCenter()){
-    // }
-  }
+  // function setOmapCenter (location) {
+  //   console.log('setting center of OlMap at:', location);
+  //   service.omapCenter = location;
+  //   // view.setCenter([location.lat(), location.lng()]);
+  //   // if (location !== Gmap.map.getCenter()){
+  //   // }
+  // }
 
   function getOmap(options) {  //TODO: move to OlService
     return service.o.omap;

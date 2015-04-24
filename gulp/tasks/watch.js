@@ -6,7 +6,7 @@
   watches for changes in source stylesheets, scripts, templates, and images
 
   **formerly**
-  when activated, sets isWatching flag to true which
+  when activated, sets isWatching
   triggers watchify to wrap around browserify in the scripts task
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
@@ -16,8 +16,9 @@ var thetime = require('../util/timestamp').thetime;
 
 var paths = {
   styles:    ['./src/css/**/*'],
-  scripts:   './src/js/**/*.js',
-  templates: ['./src/templates/**/*.html','./src/index.html'],
+  scripts:   ['./src/js/**/*.js', '!./src/js/templates-*.js'],
+  templates: ['./src/templates/**/*.html'],
+  indexes:   ['./src/*.html'],
   images:    ['./src/images/**/*']
 };
 
@@ -35,10 +36,16 @@ gulp.task('watch', function(){
     console.log('File ' + e.path + ' was ' + e.type + ', running scripts tasks...');
   });
 
-  var templateWatcher = gulp.watch(paths.templates, ['templates']);
+  var templateWatcher = gulp.watch(paths.templates, ['template-rebuild']);
   templateWatcher.on('change', function(e) {
     thetime = null;
     console.log('File ' + e.path + ' was ' + e.type + ', running templates tasks...');
+  });
+
+  var indexWatcher = gulp.watch(paths.indexes, ['indexFile']);
+  indexWatcher.on('change', function(e) {
+    thetime = null;
+    console.log('File ' + e.path + ' was ' + e.type + ', running index tasks...');
   });
 
   var imageWatcher = gulp.watch(paths.images, ['images']);

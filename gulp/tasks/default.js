@@ -10,7 +10,8 @@
 
 var gulp = require('gulp');
 var runSeq = require('run-sequence').use(gulp);
+var build = require('./build');
 
 gulp.task('default',  function(){
-  runSeq('build', 'watch', 'demon');
+  return runSeq('fonts', 'templates', build, 'indexFile', ['watch', 'demon']);
 });

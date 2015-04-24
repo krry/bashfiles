@@ -1,11 +1,21 @@
 <fln-modify></fln-modify>
 
-<div class="position-relative">
-  <div ui-view name="instructions" class="instructions">
-    <h4>Great! Now let's fine tune it.</h4>
-    <p>Tap and drag any line to adjust your design. If you'd like to start over, tap the redo button below.</p>
-    <figure><img src="../img/config_example_edit.svg" alt="Tweak the shape to fit your roof." loop=infinite></figure>
-    <button class="gold" ng-click="stages.next()">Next</button>
-    <button class="tiny white" fln-omap-clear-poly>Redo</button>
+<fln-expander>
+  <div ui-view name="instructions" class="instructions sml-center lrg-left">
+    <h4 class="no-mobile">Click &amp; drag any point to adjust your&nbsp;design.</h4>
+    <h4 class="only-mobile">Tap &amp; drag any point to adjust your&nbsp;design.</h4>
+    <!-- <p>Tap and drag any line to adjust your design. If you'd like to start over, tap the redo button below.</p> -->
+    <figure class="no-mobile">
+      <img src="../img/config_example_edit-01.svg" alt="Tweak the shape to fit your roof.">
+    </figure>
+    <p class="no-mobile">Not sure what to do? We can help. Chat with us below.</p>
+    <div class="row">
+      <div class="col sml-half lrg-full">
+        <button class="tiny white" fln-omap-clear-poly ng-click="app.notifyTrackerAboutClick('redoing_design')">Redo</button>
+      </div>
+      <div class="col sml-half lrg-full">
+        <button class="gold" ng-click="stages.next()">Next</button>
+      </div>
+    </div>
   </div>
-</div>
+</fln-expander>

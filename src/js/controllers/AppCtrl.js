@@ -9,13 +9,14 @@
 
 ================================================== */
 
-controllers.controller("AppCtrl", ['$location', '$sce', 'GMAP_CLIENT', 'MINIFIED', 'APP_TITLE', 'ENV', 'Clientstream', AppCtrl_]);
+controllers.controller("AppCtrl", ['$location', '$sce', 'GMAP_CLIENT', 'MINIFIED', 'APP_TITLE', 'ENV', 'Clientstream', 'ANALYTICS_ID', AppCtrl_]);
 
-function AppCtrl_($location, $sce, GMAP_CLIENT, MINIFIED, APP_TITLE, ENV, Client) {
+function AppCtrl_($location, $sce, GMAP_CLIENT, MINIFIED, APP_TITLE, ENV, Client, ANALYTICS_ID) {
   var vm = this;
   vm.minified = MINIFIED;
   vm.appTitle = APP_TITLE;
   vm.gmapClient = GMAP_CLIENT;
+  vm.analyticsId = ANALYTICS_ID;
 
   // if user is an ODA, trigger ODA mode to show ODA tools
   if (window.location.href.indexOf('oda') > -1) {
@@ -29,16 +30,17 @@ function AppCtrl_($location, $sce, GMAP_CLIENT, MINIFIED, APP_TITLE, ENV, Client
   Client.listen('Stages: step complete', notifyTrackerAboutStep);
 
   function notifyTrackerAboutStep (step) {
+    var location;
     // TODO: convert these ifs into a switch
     if (step === "congrats") {
       //ga('send', 'event', step, 'Button Clicks', 'Final submit');
       dataLayer.push({'event': 'final_submit'});
     }
-    if (step === "zoom") {
+    if (step === "zoom-lock-roof") {
       //ga('send', 'event', step, 'Design Tool', 'Design tool engaged');
       dataLayer.push({'event': 'design_tool_engaged'});
     }
-    if (step === "detail") {
+    if (step === "detail-area") {
       //ga('send', 'event', step, 'Design Tool', 'Roof alignment determined');
       dataLayer.push({'event': 'roof_alignment_determined'});
     }
@@ -46,12 +48,26 @@ function AppCtrl_($location, $sce, GMAP_CLIENT, MINIFIED, APP_TITLE, ENV, Client
       //ga('send', 'event', step, 'Design Tool', 'Roof slope determined');
       dataLayer.push({'event': 'roof_slope_determined'});
     }
-    if (step === "complete") {
+    if (step === "trace-area") {
       //ga('send', 'event', step, 'Design Tool', 'Polygon Completed');
       dataLayer.push({'event': 'polygon_completed'});
     }
-    console.log("$location", $location.$$path);
+    // trim query string off path, cache and send to google analytics
+    location = $location.url();
     //ga('send', 'pageview', $location.$$path); // relative url
-    dataLayer.push({'event':'pageview', 'pageURL':$location.$$path});
+    console.log('~~~~~~~~~~ emitting GA pageview for:', location);
+    dataLayer.push({
+      'event': 'pageview',
+      'pageURL': location,
+      'pageTitle': step
+    });
+  }
+
+  function notifyTrackerAboutClick (click) {
+    var obj = {
+      'event': click,
+      'pageURL': location
+    }
+    dataLayer.push(obj);
   }
 }

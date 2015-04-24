@@ -44,7 +44,7 @@ function OlMapCtrl_($scope, $timeout, Client, Session, InteractionService, Style
   */
   wkt = new ol.format.WKT();
   function featFromTxt (wkt_txt, style_param) {
-    console.log('feat from text', wkt_txt)
+    // console.log('feat from text', wkt_txt)
     var feature = wkt.readFeature(wkt_txt);
     var geometry = wkt.readGeometry(wkt_txt);
     feature.set(style_param, geometry);
@@ -73,13 +73,13 @@ function OlMapCtrl_($scope, $timeout, Client, Session, InteractionService, Style
   function update_remote (geom) {
     // $scope.draw_busy = true;
     Design.areas_ref().child('area').set(wkt.writeGeometry(geom));
-    $scope.$apply();
+    if (!$scope.$$phase) $scope.$apply();
   }
 
   function update_client (txt) {
     var remote_feature;
     if (Design.feature() !== 'undefined' && !$scope.draw_busy) { // you're sync'd but you should do something with new data
-      console.log('=============== what should i do now, boss? ================', txt)
+      // console.log('=============== what should i do now, boss? ================', txt)
       // make a new feature
       /* jshint -W030 */
       typeof txt !== "string" && (txt = txt.area);
@@ -98,9 +98,9 @@ function OlMapCtrl_($scope, $timeout, Client, Session, InteractionService, Style
     } else if (diff_client(txt) && !$scope.draw_busy) { // remote different from local, and local sync'd
       Design.feature().setGeometry(getGeom(txt));
     } else if (!diff_client(txt)) { // remote and local are the same
-      console.log("!diff_client(txt)", txt, !diff_client(txt));
+      // console.log("!diff_client(txt)", txt, !diff_client(txt));
       $scope.draw_busy = false;
-      $scope.$apply();
+      if (!$scope.$$phase) $scope.$apply();
     }
   }
 
@@ -129,22 +129,22 @@ function OlMapCtrl_($scope, $timeout, Client, Session, InteractionService, Style
 
   function draw_start (evt, ftr) {
     ftr = ftr || evt.feature; // accept a feature from firebase design, or the event
-    console.log('draw_start');
+    // console.log('draw_start');
     $scope.draw_busy = true;
-    $scope.$apply();
+    if (!$scope.$$phase) $scope.$apply();
     Design.feature(ftr);
   }
 
   function update_wkt_while_modify (f) {
     $scope.draw_busy = true;
-    $scope.$apply();
+    if (!$scope.$$phase) $scope.$apply();
     Design.feature().set('wkt', getWkt(Design.feature()));
   }
 
   function draw_end () {
     $scope.draw_busy = false;
-    $scope.$apply();
-    console.log('draw_end');
+    if (!$scope.$$phase) $scope.$apply();
+    // console.log('draw_end');
     Design.feature().set('wkt', getWkt(Design.feature()));
     Design.feature().on('change:wkt', wkt_update_notification);
     Design.feature().getGeometry().on('change', update_wkt_while_modify);

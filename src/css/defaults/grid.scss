@@ -72,29 +72,18 @@
   text-align: left;
   font-size: 1rem;
 }
-
-.row.half {
-  width: 50%;
+.row {
   margin-left: auto;
   margin-right: auto;
-}
-
-.row.third.two {
-  width: 66.6%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.row.left {
-  text-align: left;
-}
-
-.row.center {
-  text-align: center;
-}
-
-.row.right {
-  text-align: right;
+  &.left {
+    text-align: left;
+  }
+  &.center {
+    text-align: center;
+  }
+  &.right {
+    text-align: right;
+  }
 }
 
 .col.left {
@@ -115,7 +104,22 @@
 }
 
 /* on mobile, stretch the partial blocks to full width */
-.col.half, .col.full, .col.third.two, .col.fourth.three, .col.third, .col.fifth.three {
+.col.full,
+.col.half,
+.col.third.two,
+.col.third,
+.col.fourth.three,
+.col.fifth.four,
+.col.fifth.three,
+.col.fifth.two {
+  width: 100%;
+}
+
+.col.padded {
+  padding-bottom: 1em;
+}
+
+.col.fifth.center {
   width: 100%;
 }
 
@@ -156,15 +160,23 @@
 .vert-bottom {
   vertical-align: bottom !important;
 }
-
+.col.sml-left {
+  text-align: left;
+}
 .col.sml-center {
   text-align: center;
+}
+.col.sml-right {
+  text-align: right;
 }
 
 /* > 536px --- bigger than iPhone portrait */
 @media screen and (min-width: $width-min-med) {
   /* let .half .third etc. express themselves */
-  .col.half {
+  .row.half {
+    width: 50%;
+  }
+  .col.half, .col.third {
     width: 49.9%;
   }
 
@@ -172,11 +184,11 @@
     padding: 0 0.5em;
 
     &:first-of-type {
-      padding-left: 0;
+      /* padding-left: 0; */
     }
 
     &:last-of-type {
-      padding-right: 0;
+      /* padding-right: 0; */
     }
   }
 
@@ -184,8 +196,10 @@
     width: 100%;
     &.padded {
       padding: 0;
+      padding-bottom: 1em;
     }
   }
+
   .col.med-left {
     text-align: left;
   }
@@ -196,6 +210,23 @@
 
 /* > 768px --- phablets */
 @media screen and (min-width: $width-min-lrg) {
+  .row {
+    &.fifth.four {
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    &.fourth.three {
+      width: 75%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    &.third.two {
+      width: 66.6%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
   .col.half {
     width: 49.9%;
   }
@@ -207,14 +238,6 @@
 
   .col.padded.padded {
     padding: 0 0.75em;
-
-    &:first-of-type {
-      padding-left: 0;
-    }
-
-    &:last-of-type {
-      padding-right: 0;
-    }
   }
 
   .col.lrg-full {
@@ -239,13 +262,16 @@
   .col.padded.padded {
     padding: 0 1em;
 
-    &:first-of-type {
+    &.half:nth-of-type(2n-1) {
       padding-left: 0;
     }
-
-    &:last-of-type {
+    &.half:nth-of-type(2n) {
       padding-right: 0;
     }
+  }
+
+  .half.padded + .half.padded + .half.padded {
+    padding-top: 0.5em;
   }
 
   .col.third, .third {
@@ -282,6 +308,10 @@
     width: 59.9%;
   }
 
+  .col.fifth.center {
+    width: 19.9%;
+  }
+
   .col.fifth.four, .fifth.four {
     width: 79.9%;
   }
@@ -292,5 +322,25 @@
 
   .col.sixth.five {
     width: 83.3%;
+  }
+}
+
+@media screen and (max-width: $width-min-xxl) {
+  .fifth.four,
+  .fourth.three,
+  .third.two {
+    .fifth.four,
+    .fourth.three,
+    .third.two {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (min-width: $width-min-xlg) {
+  .row.fifth.four {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
   }
 }

@@ -1,15 +1,8 @@
-<label for="terms" class="field-label">
-  <input
-    name="terms"
-    id="terms"
-    class="terms"
-    type="checkbox"
-    ng-required="true"
-    ng-model="form.prospect.terms">
-  <span>I accept the </span>
-  <a
-   ng-controller="ModalCtrl as modal"
-   ng-click="modal.showDialog({dialog:'credit-check-terms', data: ''})">
-   terms and conditions
-  </a>
-</label>
+<input
+  name="terms"
+  id="terms"
+  class="terms"
+  type="checkbox"
+  ng-required="true"
+  ng-model="form.prospect().terms">
+<label for="terms" class="field-label">I accept the <a ng-controller="ModalCtrl as modal" ng-click="modal.showDialog({dialog:'credit-check-terms', data: ''})">terms and conditions</a></label>

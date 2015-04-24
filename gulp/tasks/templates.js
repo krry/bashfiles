@@ -9,40 +9,29 @@
 
 var gulp = require('gulp');
 var htmlmin = require('gulp-htmlmin');
+var plumber = require('gulp-plumber');
 var ngTemplates = require('gulp-ng-templates');
 
+var handleErrors = require('../util/handleErrors');
 var timestamp = require('../util/timestamp').timestamp;
 
-var tmplSrc = [
-  'src/templates/**/*.html',
-];
+var tmplSrc = ['src/templates/**/*.html'];
 
 gulp.task('templates', ['clearTemplates'], function(){
-  var currentTime;
-  currentTime = timestamp();
   return gulp.src(tmplSrc, {base: './src/'})
+    .pipe(plumber(handleErrors))
     .pipe(htmlmin({collapseWhitespace: true}))
     .pipe(ngTemplates({
-      filename: 'templates-' + currentTime + '.js',
       module: 'flannel.templates',
+      filename: 'templates-' + timestamp() + '.js',
       path: function (path, base) {
-        return path.replace(/\\/g, '/').split('src/')[1];
+        // path is the full file path in local filesystem
+        // base is './src/'
+        // we want the public path to mirror everything after 'src'
+        // so we isolate 'src', then take everything after it
+        return path.split(base.split('.')[1])[1];
       }
     }))
-    .pipe(gulp.dest('./public/'));
+    .pipe(plumber.stop())
+    .pipe(gulp.dest('./src/js/'));
 });
-
-// TODO: make minification contingent on process.env.NODE_ENV
-// var minifyHTML = require('gulp-minify-html');
-// var minOpts = {
-//   comments: true,
-//   spare: true
-// };
-// gulp.task('templates', function(){
-//   return gulp.src(tmplSrc, {base: './src/'})
-//     .pipe(changed(tmplPub))
-//     .pipe(gulp.dest('./public/'))
-//     .pipe(minifyHTML(minOpts))
-//     .pipe(rename({suffix: '.min'}))
-//     .pipe(gulp.dest('./public/'))
-// });

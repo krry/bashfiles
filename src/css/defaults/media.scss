@@ -39,20 +39,23 @@ figure video {
   margin-top: .25em;
   margin-bottom: .25em;
   width: 100%;
-  
+
   iframe {
     position: absolute;
     width: 100%;
     height: 100%;
   }
 
-  &.zip-vid {
-    /* margin-top: 6rem; */
-    margin-top: 5.3rem;
-  }
   &.framed {
     border: 1px solid #cccccc;
   }
+}
+
+div > div {}
+div div {}
+div + div {}
+.class.name {
+
 }
 
 img {
@@ -68,9 +71,18 @@ img {
 .states {
   text-align: center;
   margin: 1em 0;
+  list-style-type: none;
 
-  span {
+  li {
+    display: inline;
+    padding-right: .5em;
     @include caps();
     font-size: .75em;
+  }
+}
+
+@media screen and (min-width: $width-min-lrg) {
+  .video-tray.zip-vid {
+    margin-top: 5.3rem;
   }
 }

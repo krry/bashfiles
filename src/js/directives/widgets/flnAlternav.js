@@ -1,6 +1,6 @@
-directives.directive('flnAlternav', ['Clientstream', flnAlternav]);
+directives.directive('flnAlternav', ['Clientstream', flnAlternav_]);
 
-function flnAlternav (Client) {
+function flnAlternav_ (Client) {
   return {
     require: '^flnForm',
     templateUrl: 'templates/directives/widgets/flnAlternav.html',
@@ -11,7 +11,7 @@ function flnAlternav (Client) {
       })
       function restart() {
         FormCtrl.invalidTerritory = false;
-        console.log('resetting territory and clearing from');
+        // console.log('resetting territory and clearing from');
         Client.emit('Stages: restart session', 'true');
         setTimeout (function () {
           Client.emit('Stages: jump to step', 'zip');

@@ -13,9 +13,9 @@
 
 ================================================== */
 
-controllers.controller("StageCtrl", ["$scope", "$location", "$state", "$timeout", "TemplateConfig", "Session", "Clientstream", "ModalService", StageCtrl_]);
+controllers.controller("StageCtrl", ["$scope", "$location", "$state", "$timeout", "User", "TemplateConfig", "Session", "Clientstream", "ModalService", StageCtrl_]);
 
-function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Client, Modal) {
+function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Session, Client, Modal) {
   var vm,
       session_ref,
       stage,
@@ -24,12 +24,22 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
       session_stream,
       waiting,
       help_steps,
-      unlockODA;
+      call_steps,
+      unlockODA,
+      latestStage,
+      latestStep,
+      hasLoaded,
+      initialState,
+      hasStateUrl;
 
   stage = 0;
   step  = 0;
+  latestStage = 0;
+  latestStep = 0;
   waiting = false;
   unlockODA = false;
+  hasLoaded = false;
+  initialState = null;
 
   vm = this;
   vm.next = next;
@@ -38,9 +48,14 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
   vm.startOver = startOver;
   vm.jumpToStep = jumpToStep;
   vm.jumpToStage = jumpToStage;
+  vm.hasVisited = hasVisited;
+  vm.checkAndJump = checkAndJump;
+  vm.checkZipParam = checkZipParam;
+  vm.advanceFromProposal = advanceFromProposal;
   vm.spinIt = waiting;
   vm.partial = Templates.partial(stage, step);
   vm.partials = flattenPartialsArray(Templates.partials);
+  vm.states = Templates.states;
   vm.currentStep = currentStep;
 
   // determines whether view layout is fixed or static
@@ -63,6 +78,11 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
     'congrats'
   ];
 
+  call_steps = [
+    'address-roof',
+    'monthly-bill'
+  ];
+
   // subscribe to the state when session is loaded
   Client.listen('Session: Loaded', bootstrapNewSession);
   Client.listen('Modal: continue design? result', popContinueModal); // result of modal button press
@@ -77,6 +97,7 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
   Client.listen('Spinner: spin it', setWaiting);
   Client.listen('Stages: stage', stageLayout);
   Client.listen('ODA: Request session', unlockODAState);
+  Client.listen('Stages: set initial state', setInitialState);
 
   function currentStep (step) {
     return step === step;
@@ -94,9 +115,13 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
   $scope.view_sync = true;
 
   function bootstrapNewSession (session_data) {
-    var hasAdvanced = (session_data.state.stage !== 0 || session_data.state.step !== 0 ),
+    var hasAdvanced = !User.isNew,
         zipParam = getParameterByName('zip'),
         isOnHome = $state.is('flannel.home.zip-nearme') || $state.is('flannel.home.address-roof');
+
+    if (!isOnHome && hasAdvanced) {
+      hasStateUrl = true;
+    }
 
     // bootstrap a new session, start it's streams up
     session_stream = Session.state_stream()
@@ -106,20 +131,30 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
     // anounce you're watching the streams, send the new data
     Client.emit('Stages: subscribed to statestream', session_data);
 
-    // Only show the continue modal if the user is on the home page (zip or address page) and has advanced in the flow
-    // Else, on other pages, we let that page's url take precedence
+    latestStage = session_data.state.latestStage || 0;
+    latestStep = session_data.state.latestStep || 0;
+    hasLoaded = true;
+
+    // Redirect back to home page for new users who go to pages further in the flow
     if (!isOnHome && !hasAdvanced) {
-      Client.emit('Stages: jump to step', 'address-roof');
+      Client.emit('Stages: jump to step', 'zip-nearme');
     }
+    // Only show the continue modal if the user is on the home page (zip or address page) and has advanced in the flow
     else if (isOnHome && hasAdvanced) {
       Modal.set(true);
       return Modal.activate('continue');
     }
     // Advance to the address page if there is a zip parameter and the user hasn't advanced in the flow before
     else if (zipParam && !hasAdvanced) {
-      setTimeout(function() {
+      $state.go('flannel.home.address-roof').then(function() {
         Client.emit('check zip', zipParam);
-      }, 0);
+      });
+    }
+    // Seeding the app with an initial state from a nurtured email link
+    else if (initialState) {
+      $state.go(initialState);
+      vm.initialState = initialState;
+      initialState = null;
     }
   }
 
@@ -132,12 +167,18 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
     // Don't let session object overtake the app on share proposal and design link states
     if ($state.is('share_proposal') || ($state.is('design_link') && !unlockODA)) return;
 
+    // Lock the first Firebase sync when the user navigates to an absolute url and has advanced
+    if (hasStateUrl) {
+      hasStateUrl = false;
+      return;
+    }
+
     if (data.stage !== stage) {
-      console.log('data.stage', data.stage,'diff from client stage', stage);
+      // console.log('data.stage', data.stage,'diff from client stage', stage);
       Client.emit('Stages: stage', data);
     }
     else if (data.step !== step) {
-      console.log('same stage, but data.step', data.step, 'diff from client step', step, $scope.view_sync);
+      // console.log('same stage, but data.step', data.step, 'diff from client step', step, $scope.view_sync);
       Client.emit('Stages: step', data.step);
     }
   }
@@ -149,17 +190,17 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
   function setWaiting (data) {
     waiting = data;
 
-    console.log('adding to spin count', data);
+    // console.log('adding to spin count', data);
     Client.emit('Spinner: add to spin count', data);
 
     $timeout(function(){
-      $scope.$apply();
+      if (!$scope.$$phase) $scope.$apply();
     }, 0);
   }
 
   // listen for stage change requests from ui-router
   function startOver (data) {
-    console.log('heard that startover', data);
+    // console.log('heard that startover', data);
 
     Client.emit('erase area', data);
 
@@ -191,10 +232,12 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
     } else if ($scope.view_sync) {
       target_state = !!target_state.state ? target_state.state : target_state;
       stage = target_state.stage;
+      step = target_state.step;
       name = Templates.config[stage].name;
-      $state.go(name).then(function(){
+      $state.go(Templates.config[stage].name + '.' + Templates.config[stage].steps[step].step).then(function(){
+        vm.fixed = !Templates.config[stage].steps[step].staticLayout;
         // trigger step changes afterwards
-        Client.emit('Stages: step', target_state.step)
+        // Client.emit('Stages: step', target_state.step)
       });
     }
   }
@@ -203,26 +246,52 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
     stage = opts.stage;
     step = opts.step;
 
+    // Only overwrite latestStage and latestStep if they incremented
+    if (stage > latestStage) {
+      latestStage = stage;
+      latestStep = step;
+    }
+    else if (stage === latestStage && step > latestStep) {
+      latestStep = step;
+    }
+
     $timeout( function () {
       // unlock the view
       $scope.view_sync = true;
-      $scope.$apply();
+      if (!$scope.$$phase) $scope.$apply();
     }, 1);
 
     vm.fixed = !Templates.config[stage].steps[step].staticLayout;
 
     // update firebase
-    if ($scope.view_sync) {
+    // Don't update the ref until we load the current ref
+    if ($scope.view_sync && hasLoaded) {
       Session.ref().child('state').update({
         stage: stage,
-        step: step
+        step: step,
+        latestStage: latestStage,
+        latestStep: latestStep
       });
     }
 
     // once the user advances to the fork step, show the help/chat popup
     if (help_steps.indexOf(Templates.config[stage].steps[step].step) > -1) {
       vm.helpActivated = true;
+    } else {
+      vm.helpActivated = false;
     }
+    if (call_steps.indexOf(Templates.config[stage].steps[step].step) > -1) {
+      vm.callActivated = true;
+    } else {
+      vm.callActivated = false;
+    }
+    if (Templates.config[stage].steps[step].step === "monthly-bill") {
+      vm.shadeActivated = true;
+    } else {
+      vm.shadeActivated = false;
+    }
+    Client.emit('Stages: step complete', Templates.config[stage].steps[step].step);
+    // console.log('location.path is:', $location.$$path);
   }
 
   function stepListen (target_step) {
@@ -230,8 +299,9 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
     step = target_step;
 
     // update the view
-    $state.go(Templates.config[stage].name + '.' + Templates.config[stage].steps[step].step).then(function() {
-      stepFinish({ stage: stage, step: step });
+    return $state.go(Templates.config[stage].name + '.' + Templates.config[stage].steps[step].step).then(function() {
+      vm.fixed = !Templates.config[stage].steps[step].staticLayout;
+      // stepFinish({ stage: stage, step: step });
     });
   }
 
@@ -258,6 +328,51 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
     }
   }
 
+  // Checks if the user has ever gone to the specified state before, and returns the stage and step, else returns false
+  function hasVisited(target) {
+    var states = $state.get(),
+        targetState;
+
+    states.forEach(function(state) {
+      if (state.name === target) {
+        targetState = state;
+      }
+    });
+
+    if (latestStage > targetState.stage || (latestStage === targetState.stage && latestStep >= targetState.step)) {
+      return targetState;
+    }
+
+    return false;
+  }
+
+  // Checks if user has gone to the specified state, and if so, jumps to that state
+  function checkAndJump(target) {
+    var targetState = hasVisited(target);
+    if (targetState) {
+      stage = targetState.stage;
+      return stepListen(targetState.step);
+    }
+  }
+
+  function checkZipParam() {
+    var hasAdvanced = !User.isNew,
+        zipParam = getParameterByName('zip'),
+        zipState = 'flannel.home.zip-nearme',
+        addressState = 'flannel.home.address-roof';
+
+    if (zipParam && !hasAdvanced) {
+      if ($state.is(zipState)) {
+        $state.go(addressState).then(function() {
+          Client.emit('check zip', zipParam);
+        });
+      }
+      else if ($state.is(addressState)) {
+        Client.emit('check zip', zipParam);
+      }
+    }
+  }
+
   function jumpToStep (target) {
     // console.log('trying to jump to:', target, 'step');
     var steps = Templates.config[stage].steps;
@@ -279,6 +394,11 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
         });
       }
     }
+  }
+
+  function advanceFromProposal(qualified) {
+    var state = qualified ? 'flannel.signup.qualify' : 'flannel.signup.create-contact';
+    $state.go(state);
   }
 
   function flattenPartialsArray (array) {
@@ -312,5 +432,9 @@ function StageCtrl_($scope, $location, $state, $timeout, Templates, Session, Cli
 
   function unlockODAState() {
     unlockODA = true;
+  }
+
+  function setInitialState(state) {
+    initialState = state;
   }
 }

@@ -1,3 +1,7 @@
+[ ] proposal share link contained 'go-test' in `stage` environment despite `stage.json: URL_ROOT` being set to 'go-stage.solarcity.com'
+
+[ ] time-out on survey questions submission doesn't yield feedback
+
 # TODO
 
 Generally, let's define a common system for resolving merge conflicts. They will happen. They are the principal reason to use `git` rather than `svn`.

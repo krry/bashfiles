@@ -14,6 +14,8 @@
     text-transform: uppercase;
     text-align: center;
     color: $grey-mid;
+    font-size: 0.8em;
+    padding: 1.2em 0 0.9em 0;
   }
 
   .date {
@@ -22,31 +24,39 @@
     color: $white;
     position: relative;
     cursor: pointer;
+  }
 
-    &.tooltip {
-      &:before {
-        border-color: $shade-80 transparent;
-      }
+  /* if a td is in the second tr, and it is the first or second td in the tr, give it diagonal lines */
 
-      &:after {
-        left: -50%;
-        width: 200%;
-        background: $shade-80;
-        color: $white;
-        font-weight: 600;
+  .available {
+    background: $gold;
+    &:hover {
+      background: darken($gold, 10%);
+    }
+  }
+
+  tr:nth-child(2) {
+    .available,
+    .available ~ .available {
+      background: repeating-linear-gradient(-45deg, $gold, $gold 8px, $gold-bright 8px, $gold-bright 12px);
+      cursor: default;
+    }
+    .available ~ .available ~ .available {
+      background: $gold;
+      cursor: pointer;
+      &:hover {
+        background: darken($gold, 10%);
       }
     }
   }
 
-  .available {
-    background: $gold;
-  }
-
   .unavailable {
     background: $grey-lighter;
+    cursor: default;
   }
 
   .month {
+    @include apercu-bold;
     position: absolute;
     top: 5%;
     left: 5%;
@@ -58,19 +68,22 @@
     position: absolute;
     right: 5px;
     bottom: 5px;
+    @include apercu-bold;
   }
 
   .label {
+    @include apercu-light;
     margin: 10px 0 0 20px;
     display: inline-block;
   }
 
   .key {
     display: inline-block;
-    width: 30px;
+    width: 20px;
     height: 20px;
     margin-right: 5px;
     vertical-align: text-bottom;
+    border-radius: 15px;
   }
 
   .legend {
@@ -78,7 +91,7 @@
     text-align: left;
     text-transform: uppercase;
     font-weight: bold;
-    font-size: 0.8em;
+    font-size: 0.75em;
 
     .label:first-child {
       margin-left: 0;
@@ -95,7 +108,7 @@
 
   @media screen and (max-width: $width-min-sml) {
     .day-header, .month {
-      font-size: 0.85em;
+      /* font-size: 0.85em; */
     }
 
     .date {
@@ -111,9 +124,10 @@
 
 .selection-wrapper {
   max-width: 300px;
-  margin: 0 auto;
+  margin: 0 auto 2em auto;
   text-align: left;
 }
+
 
 .time-selection {
   text-align: center;
@@ -125,9 +139,10 @@
   cursor: pointer;
   border: 4px solid transparent;
   width: 130px;
+  border-radius: 2px;
 
   &.selected {
-    border: 4px solid $green-bright;
+    border: 4px solid $green;
   }
 }
 
@@ -143,16 +158,36 @@
 }
 
 .survey-question {
-  margin: 15px 0;
+  padding: 1em;
+  margin: .25em 0;
+  line-height: 1;
+  h4 {
+    padding-bottom: .5em;
+  }
+  &.selected {
+    background: $white-dark;
+  }
+  .ib:first-child {
+    margin-right: 1em;
+  }
 
+  h4, p {
+    margin-bottom: 0;
+  }
   .choice {
     display: inline-block;
   }
 
-  label {
-    font-size: 1rem;
-    padding-left: 10px;
+  input[type="radio"] + label {
+    position: relative;
+    bottom: -2px;
+    font-size: 1em;
+    padding-left: .5em;
   }
+}
+
+.hoa {
+  margin-top: .5rem;
 }
 
 .hoa-dropdown {
@@ -160,13 +195,54 @@
   width: 100%;
   font-weight: normal;
   text-transform: initial;
+  padding: 0 2.25em 0 .75em;
+  height: 2.25em;
+  line-height: 2.25em;
 }
 
-input[type="text"].hoa-input {
-  font-size: 1rem;
+input.hoa-input,
+select.hoa-dropdown {
+  font-size: 1em;
 }
 
-
-.calendar {
-  width: 80%;
+@media screen and (min-width: $width-min-sml){
+  .calendar {
+    width: 100%;
+  }
+}
+@media screen and (min-width: $width-min-med){
+  .calendar {
+    width: 100%;
+  }
+  .survey-question {
+    h4, p {
+      text-align: right;
+    }
+  }
+}
+@media screen and (min-width: $width-min-lrg){
+  .survey-question {
+    p {
+      margin-bottom: 0;
+    }
+  }
+  .calendar {
+    width: 100%;
+  }
+}
+@media screen and (min-width: $width-min-xlg){
+  .calendar {
+    width: 80%;
+    max-width: 800px;
+  }
+}
+@media screen and (min-width: $width-min-xxl){
+  .calendar {
+    width: 80%;
+    max-width: 800px;
+  }
+  p.note-time {
+    width: 80%;
+    max-width: 800px;
+  }
 }

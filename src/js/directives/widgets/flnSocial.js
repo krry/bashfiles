@@ -1,6 +1,6 @@
-directives.directive('flnSocial', flnSocial);
+directives.directive('flnSocial', [flnSocial_]);
 
-function flnSocial () {
+function flnSocial_ () {
   return {
     templateUrl: 'templates/directives/widgets/flnSocial.html',
   };

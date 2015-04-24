@@ -10,7 +10,7 @@
     ng-pattern="/\d/"
     ng-focus="form.showLabel('bill')"
     ng-blur="form.showLabel('bill')"
-    ng-model="form.prospect.bill"
+    ng-model="form.prospect().bill"
     ng-model-options="{ updateOn: 'default blur change', debounce: 0 }"
     ng-cloak>
 </div>

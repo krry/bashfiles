@@ -1,17 +1,17 @@
 controllers.controller('CalendarCtrl', ['$scope', CalendarCtrl_]);
 
-function CalendarCtrl_ (scope) {
+function CalendarCtrl_ ($scope) {
   var vm = this;
   vm.days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   vm.isAvailable = isAvailable;
   vm.getTooltip = getTooltip;
 
-  scope.$watch('config', function() {
-    vm.dates = getDates(scope.config.startDate, scope.config.range);
-    setRows(scope.config.range);
+  $scope.$watch('config', function() {
+    vm.dates = getDates($scope.config.startDate, $scope.config.range);
+    setRows($scope.config.range);
   });
 
-  scope.$watch('availableTimes', parseAvailableTimes);
+  $scope.$watch('availableTimes', parseAvailableTimes);
 
   function range(start, end) {
     var arr = [];
@@ -88,13 +88,13 @@ function CalendarCtrl_ (scope) {
 
   function getTooltip(date) {
     if (isAvailable(date) && !date.canSchedule) {
-      return 'Appointments in the next 48 hours must be done over the phone. Call 1 (888) 765-2489.';
+      return 'Appointments in the next 48 hours must be done over the phone. Call (877) 670-7652.';
     }
 
     if (isAvailable(date)) {
-      return 'The selected date is available.';
+      return 'This date is available.';
     }
-    
-    return 'The selected date is unavailable.';
+
+    return 'This date is unavailable.';
   }
 }

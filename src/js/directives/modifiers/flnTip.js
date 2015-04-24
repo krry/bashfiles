@@ -10,10 +10,10 @@ function flnTip_ () {
     },
     templateUrl: "templates/directives/modifiers/flnTip.html",
     controller: function ($scope) {
-      console.log('tip control', $scope);
+      // console.log('tip control', $scope);
     },
     link: function (scope, element, attrs) {
-      console.log('tooling tip', scope);
+      // console.log('tooling tip', scope);
       $(element).on('hover', function () {
         scope.tipShown = true;
       });

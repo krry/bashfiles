@@ -6,7 +6,7 @@
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
-providers.provider("Configurator", ConfiguratorFactory_);
+providers.provider("Configurator", [ConfiguratorFactory_]);
 
 function ConfiguratorFactory_() {
 
@@ -185,7 +185,7 @@ function ConfiguratorFactory_() {
         },
         disable: function (name) { map.removeInteraction(interactions[name]); },
         setCenter: function (center) {
-          console.log('*************** setCenter', center)
+          // console.log('*************** setCenter', center)
           map_center = center;
         },
       }

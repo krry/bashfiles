@@ -4,11 +4,11 @@
  *
  */
 
-angular.module('flannel').service('Proposal', ['Session', 'Panelfill', 'Clientstream', Proposal_]);
+angular.module('flannel').service('Proposal', ['$stateParams','User', 'Session', 'Panelfill', 'Clientstream', 'FIREBASE_URL', Proposal_]);
+
 var proposal_map;
 
-
-function Proposal_(Session, Panelfill, Client) {
+function Proposal_($stateParams, User, Session, Panelfill, Client, FIREBASE_URL) {
   // TODO: Revisit naming of this and Panelfill API service... to whatever it should be.
   var map_options = {
     zoom: 20,
@@ -19,61 +19,57 @@ function Proposal_(Session, Panelfill, Client) {
     disableDefaultUI: true,
     keyboardShortcuts: false,
     draggable: false,
-  tilt: 45,
   };
 
-  function getStarted(design_id) {
-    if (Session.ref()) {
-    var ridge;
-      // typical use case for user in flow
-    Session.ref().parent().parent().child('designs')
-    .child(Session.ref().key()).child('areas/0/ridge')
-      .once('value', function (ds) {
-          ridge = ds.exportVal();
-    });
+  var savedMapTilt;
 
-      Session.ref().parent().parent().child('designs')
-        .child(Session.ref().key()).child('areas/0/wkt')
-          .once('value', function (ds) {
-          var wkt_txt = ds.exportVal();
-          console.log('wkt_txt in design', wkt_txt)
-          Panelfill.getFilled(wkt_txt, ridge)
-          .then(processTwoDArray);
+  function getStarted(design_id) {
+    var ridge,
+        lat,
+        ridge_ref,
+        ref;
+    // TODO: convert to promise pattern : jfl
+    if (design_id) {
+      // share proposal link
+      ref = new Firebase(FIREBASE_URL).child('designs')
+        .child(design_id)
+      ref.once('value', function (ds) {
+        var data = ds.exportVal();
+        Panelfill.getFilled(data.areas[0].wkt, data.areas[0].ridge, data.map_details.center.lat, data.areas[0].tilt)
+        .then(processTwoDArray);
       });
     } else {
-      // share proposal link
-    var ridge;
       // typical use case for user in flow
-    Session.ref().parent().parent().child('designs')
-    .child(Session.ref().key()).child('areas/0/ridge')
+      Session.ref().parent().parent().child('designs')
+      .child(Session.ref().key())
       .once('value', function (ds) {
-          ridge = ds.exportVal();
-    });
-
-      var ref = new Firebase('https://scty-int.firebaseio.com').child('designs')
-        .child(design_id)
-        .child('areas/0/wkt')
-          .once('value', function (ds) {
-            var wkt_txt = ds.exportVal();
-            console.log('wkt_txt in design', wkt_txt)
-            Panelfill.getFilled(wkt_txt, ridge)
-            .then(processTwoDArray);
+        var data = ds.exportVal();
+        Panelfill.getFilled(data.areas[0].wkt, data.areas[0].ridge, data.map_details.center.lat, data.areas[0].tilt)
+        .then(processTwoDArray);
       });
     }
   }
 
-
-  var panels_array;
+  //var panels_array;
 
   var rx_panel_count = new Rx.Subject();
   this.rx_panel_count = rx_panel_count;
   function processTwoDArray(data) {
     // data = data.slice(230) // hack;
-    panels_array = [];
+    var panels_array = [];
     for (var i = 0; i < data.length; i++) {
       panels_array.push(makePanel(data[i]));
     }
     Client.emit('panelfill', panels_array);
+  }
+
+  function processTwoDArrayTwo(data, mapnumber) {
+    // data = data.slice(230) // hack;
+    var panels_array = [];
+    for (var i = 0; i < data.length; i++) {
+      panels_array.push(makePanel(data[i]));
+    }
+    Client.emit('panelfill'+mapnumber, panels_array);
   }
 
   function makePanel(data) {
@@ -83,22 +79,44 @@ function Proposal_(Session, Panelfill, Client) {
       data[j].reverse();
       panel_coords.push(new google.maps.LatLng(data[j][0], data[j][1]));
     }
+    // this will determine the panel fill styles
     return new google.maps.Polygon({
       paths: panel_coords,
-      strokeColor: '#e7f3fc',
+      clickable: false,
+      strokeColor: '#B9BDCD',
       strokeOpacity: 0.3,
       strokeWeight: 1,
-      fillColor: '#000000',
+      fillColor: '#32333E',
       fillOpacity: 0.75,
     });
+
   }
 
   this.setTarget = function setTarget(design_id) {
-    proposal_map = new google.maps.Map(document.getElementById('gmap'), map_options);
-    getStarted(design_id);
+    var tilt_ref
+    if (design_id) {
+      Client.emit("Share Proposal: share_session set", {
+        share: true,
+        lat: $stateParams.lat,
+        lng: $stateParams.lng,
+      });
+    }
+    // get the rx_s
+    Session.rx_session()
+    // set the proposal map center to the val on session
+    .then(function makePanelfillMap (rx_s) {
+      proposal_map = new google.maps.Map(document.getElementById('gmap'), map_options);
+      proposal_map.setCenter(rx_s.value.map_center);
+      return proposal_map;
+    })
+    .then(function () {
+      getStarted(design_id);
+    });
 
-    var bounds = new google.maps.LatLngBounds()
     Client.listen('panelfill', function function_name(p_array) {
+        // for the map boundaries
+      var bounds = new google.maps.LatLngBounds();
+
       // for the map boundaries
       p_array.forEach(maxBounds);
 
@@ -118,6 +136,44 @@ function Proposal_(Session, Panelfill, Client) {
       });
 
       rx_panel_count.onNext(p_array.length);
+
+    });
+
+  }
+
+
+this.setTargetOverView = function setTargetOverView(data, pmap, mapnumber) {
+    var tilt_ref;
+
+    pmap.setCenter(new google.maps.LatLng(data.map_details.center.lng, data.map_details.center.lat))
+
+    Panelfill.getFilled(data.areas[0].wkt, data.areas[0].ridge, data.map_details.center.lat, data.areas[0].tilt).then(function callprocess(panels) { processTwoDArrayTwo(panels, mapnumber)});
+
+    Client.listen('panelfill'+mapnumber, function function_name(p_array) {
+        // for the map boundaries
+      var bounds = new google.maps.LatLngBounds();
+      pmap.setZoom(20);
+
+      // for the map boundaries
+      p_array.forEach(maxBounds);
+
+      function maxBounds(polygon){
+        var point_array = polygon.getPath().getArray();
+        point_array.forEach(compareAgainstMax);
+      }
+
+      function compareAgainstMax(pt){
+        bounds.extend(pt);
+      }
+
+      pmap.setCenter(bounds.getCenter());      
+
+      p_array.forEach(function(polygon){
+        polygon.setMap(pmap);
+      });
+
+
     });
   }
+
 }

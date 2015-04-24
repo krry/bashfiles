@@ -9,7 +9,7 @@
 
 ========================================================= */
 
-providers.provider("Gmap", GmapFactory_);
+providers.provider("Gmap", [GmapFactory_]);
 
 function GmapFactory_ () {
 
@@ -94,21 +94,25 @@ function GmapFactory_ () {
     Client.listen('Geocoder: valid warehouse', zoomToHood);
     Client.listen('Geocoder: valid house', checkMaxZoom);
     Client.listen('Gmap: drop pin', dropPin);
-    Client.listen('clear pins', clearPins);
+    Client.listen('Gmap: clear pins', clearPins);
 
     function init (data) {
+      if (map !== undefined ) {
+        map_opts.center = map.getCenter();
+        map_opts.zoom = map.getZoom();
+      }
       map = new google.maps.Map(data, map_opts);
 
       google.maps.event.addListener(map, 'idle', function() {
-        dfd.resolve(map); 
+        dfd.resolve(map);
       });
-      
+
       return map;
     }
 
     function zoomToHood (data) {
       var zip = data.zip;
-      console.log('zooming into neighborhood in zipcode', zip);
+      // console.log('zooming into neighborhood in zipcode', zip);
       Client.emit('Gmap: max zoom found', 16);
     }
 
@@ -119,8 +123,6 @@ function GmapFactory_ () {
           location;
 
       location = addy.location;
-      // zoom = map.getZoom();
-      // console.log('old zoom level:', zoom);
 
       // handle case where .lng & .lng() differ.
       if (typeof location.lng === "function") {
@@ -128,7 +130,6 @@ function GmapFactory_ () {
       } else {
         latLng = new google.maps.LatLng(location.lat, location.lng);
       }
-      console.log('latlng', latLng);
 
       Client.emit('valid latlng', {
         lat: latLng.lat(),
@@ -139,11 +140,11 @@ function GmapFactory_ () {
 
       maxZoomService.getMaxZoomAtLatLng(latLng, function(response) {
         if (response.status !== google.maps.MaxZoomStatus.OK) {
-          console.log("max zoom failed:", response.status);
+          // console.log("max zoom failed:", response.status);
           // HACK: hardcode fallback when zoom ain't
           Client.emit('Gmap: max zoom found', 20);
         } else {
-          console.log("max zoom at location:", response.zoom);
+          // console.log("max zoom at location:", response.zoom);
           Client.emit('Gmap: max zoom found', response.zoom);
         }
       });

@@ -9,14 +9,10 @@ body {
 main.main {
   width: 100%;
   z-index: 1;
-  /* padding-top: 2.9rem; */
   height: 100%;
 }
 
 main.main.main-fixed {
-  /* position: fixed; */
-  /* top: 2.9rem; */
-  /* bottom: 2rem; */
   padding-top: 0;
   overflow: hidden;
   .overlayer {
@@ -24,21 +20,22 @@ main.main.main-fixed {
   }
 }
 
+.underlayer {
+  position: relative;
+}
+
+.main-fixed .underlayer {
+  position: fixed;
+  display: block;
+}
+
 .overlayer {
   position: relative;
-  /* top: 0; */
-  /* left: 0; */
   width: 100%;
   z-index: 1;
-  /* margin-top: 2.9rem; */
   background-color: $grey-lightest;
 }
 
-.prospect-form {
-  padding-top: 2.9rem;
-}
-
-.prospect-form.form-fixed,
 .full-height,
 .overlay.secondary {
   height: 100%;
@@ -51,21 +48,13 @@ main.main.main-fixed {
 }
 
 .overlay.short {
-  padding: 1em 2em 0.3em 2em;
+  padding: 0em 1em 0.5em 1em;
 }
 
 .overlay.primary,
 .overlay.only {
-  padding: 4em 2em 7em 2em;
+  padding: 2em;
   text-align: center;
-}
-
-.overlay.only {
-  /* background-color: $grey-lightest; */
-}
-
-.overlay.proposal-page {
-  background-color: $grey-lightest;
 }
 
 .overlay.secondary {
@@ -88,11 +77,6 @@ main.main.main-fixed {
   height: 100%;
 }
 
-.main-fixed .underlayer {
-  position: relative;
-  display: block;
-}
-
 .underlay {
   top: 0;
   width: 100%;
@@ -100,67 +84,50 @@ main.main.main-fixed {
 }
 
 .contain {
-  max-width: 75em;
+  max-width: 75rem;
   display: block !important;
   margin: auto;
 }
 
-.drop-top {
-  padding-top: 5.1rem;
-  font-size: 0.85em;
-  line-height: 120%;
-}
-.drop-top p {
-  margin-bottom: 0.75em;
+
+@media screen and (max-width: $width-min-lrg) {
+  .no-mobile {
+    display: none;
+  }
 }
 
-.territory-map figure {
-  background-image: url('../img/map_regions.png');
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: contain;
-  height: 200px;
-}
-
-.video-vision .video-tray {
-  border: none;
-}
-.video-vision p {
-  font-size: 0.75em;
-}
-.video-mysc {
-  width: 70%;
-  margin: 3em auto 0 auto;
-}
-.video-mysc .video-tray {
-  border: 1px solid $white;
-  margin-bottom: 1.5em;
-}
-
-.step-bill h3 {
-  margin-bottom: 0;
-}
-
-.step-bill button.tiny.gold {
-  margin: 1em 0 0 0;
-}
-
-.fine-print {
-  font-size: 0.7em;
-  text-align: left;
-  margin-top: 10em;
-  color: $grey-meh;
-}
-
-
-@media screen and (min-width: $width-min-med){
-  .step-bill button.tiny.gold {
-    margin: 0;
+@media screen and (min-width: $width-min-sml){
+  .step-fork .fifth.four {
+    width: 100%;
+  }
+  .step-fork .col.padded {
+    padding: 0;
   }
 }
 
 
-@media screen and (min-width: $width-min-lrg){
+@media screen and (max-height: $width-min-med) {
+  .no-mobile {
+    display: none;
+  }
+}
+
+@media screen and (min-width: $width-min-med) {
+  .step-fork .fifth.four {
+    width: 60%;
+  }
+  .step-fork .col.padded {
+    padding: 0;
+  }
+  .overlay.short {
+    padding: 0em 2em 0.5em 2em;
+  }
+}
+
+@media screen and (min-width: $width-min-lrg) {
+  .only-mobile {
+    display: none;
+  }
   .primary.primary {
     width: 75%;
     width: calc(100% - 20em);
@@ -168,6 +135,10 @@ main.main.main-fixed {
   .only.only {
     width: auto;
     height: 100%;
+  }
+  .overlay.primary,
+  .overlay.only {
+    padding: 2em;
   }
   .secondary.secondary {
     width: 25%;
@@ -183,19 +154,27 @@ main.main.main-fixed {
     }
   }
 
+  .overlay.primary,
+  .overlay.only {
+    padding-top: 4em;
+    padding-bottom: 7em;
+  }
+
   .step-address.primary,
   .step-bill.primary {
     width: 100%;
   }
 
-  .overlay-left.overlay-left {
-    overflow: visible;
+  .step-bill .row.padded {
+    margin-bottom: 0;
   }
 
-  .step-address h3 {
-    width: 85%;
+  .step-fork .fifth.four {
+    width: 100%;
   }
-
+  .step-fork .col.padded {
+    padding: 0;
+  }
 }
 
 @media screen and (min-width: $width-min-xlg){
@@ -209,25 +188,28 @@ main.main.main-fixed {
     width: calc(18em - 1px);
   }
   .overlay.short {
-    padding: 1em 2em 0.3em 2em;
+    padding: 0em 2em 0.5em 2em;
     height: auto;
-    box-shadow: 0 0 8px 0 $shade-40;
+    box-shadow: 0 0 8px 0 shade(.4);
     &.step-bill {
       padding: 1em 2em .5em;
     }
   }
-  .step-address h3 {
-    width: 75%;
+
+  .step-fork .fifth.four {
+    width: 80%;
+  }
+  .step-fork .col.padded {
+    padding: 0;
   }
 }
 
-/* prevents the CTA in the tallest right rail from falling out of reach on short screens */
-@media screen and (max-height: 778px) {
-  .overlay-left.overlay-left {
-    overflow-y: scroll;
-    .instructions {
-      margin-left: 0;
-      padding: 2em;
-    }
+
+@media screen and (min-width: $width-min-xxl){
+  .step-fork .fifth.four {
+    width: 65%;
+  }
+  .step-fork .col.padded {
+    padding: 0;
   }
 }

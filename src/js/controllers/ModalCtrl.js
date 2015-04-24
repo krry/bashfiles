@@ -3,9 +3,9 @@
   the modal controller
 ================================================== */
 
-controllers.controller("ModalCtrl", ["Clientstream", "ModalService", ModalCtrl_]);
+controllers.controller('ModalCtrl', ['$scope', 'Clientstream', 'ModalService', ModalCtrl_]);
 
-function ModalCtrl_(Client, ModalService) {
+function ModalCtrl_($scope, Client, ModalService) {
 
   var vm = this;
 
@@ -23,12 +23,14 @@ function ModalCtrl_(Client, ModalService) {
   function openModal() {
     $('body').css('overflow', 'hidden');
     ModalService.set(true);
+    if (!$scope.$$phase) $scope.$apply();
   }
 
   // turn modal state off
   function closeModal() {
     $('body').css('overflow-y', 'scroll');
     ModalService.set(false);
+    if (!$scope.$$phase) $scope.$apply();
   }
 
   // switch modal state on and off
@@ -40,6 +42,7 @@ function ModalCtrl_(Client, ModalService) {
       $('body').css('overflow', 'hidden');
     }
     ModalService.set(!shown);
+    if (!$scope.$$phase) $scope.$apply();
   }
 
   // select which dialog displays in the modal state
@@ -50,6 +53,7 @@ function ModalCtrl_(Client, ModalService) {
     }
     ModalService.set(true);
     ModalService.activate(dialog);
-    console.log('body is:', $('body'), 'and dialog is:', dialog);
+    // console.log('body is:', $('body'), 'and dialog is:', dialog);
+    if (!$scope.$$phase) $scope.$apply();
   }
 }

@@ -11,38 +11,69 @@ var gulp = require('gulp');
 var linker = require('gulp-linker');
 
 var env = process.env.NODE_ENV || 'development',
-    scriptSrc,
-    styleSrc;
+    styleSrc,
+    libHeadSrc,
+    libTailSrc,
+    tmplSrc;
 
-var tmplSrc = [
-  'src/index.html',
-];
+tmplSrc = [ 'src/*.html' ];
 
-scriptSrc = ['public/*.js', 'public/js/**/*.js', '!public/js/**/*.min.js'];
-styleSrc = ['public/css/**/*.css', '!public/css/**/*.min.css'];
+if (env === 'development') {
+  styleSrc = [
+    'public/lib/*.css',
+    'public/css/**/*.css',
+    '!public/css/**/*.min.css',
+    '!public/lib/**/*.min.css'
+  ];
 
-// if (env === 'development') {
-//   scriptSrc = ['public/*.js', 'public/js/**/*.js', '!public/js/**/*.min.js'];
-//   styleSrc = ['public/css/**/*.css', '!public/css/**/*.min.css'];
-// } else {
-//   scriptSrc = ['public/*.js', 'public/js/**/*.min.js'];
-//   styleSrc = ['public/css/**/*.min.css'];
-// }
+  libHeadSrc = [
+    'public/lib/libs-head-*.js',
+    '!public/lib/libs-head-*.min.js'
+  ];
 
-gulp.task('indexFile', ['styles', 'scripts', 'templates'], function(){
+  libTailSrc = [
+    'public/lib/libs-tail-*.js',
+    '!public/lib/libs-tail-*.min.js',
+    'public/*.js',
+    '!public/*.min.js',
+    'public/js/**/*.js',
+    '!public/js/**/*.min.js'
+  ];
+}
+
+else {
+  styleSrc = ['public/css/**/*.min.css'];
+
+  libHeadSrc = ['public/lib/libs-head-*.min.js'];
+
+  libTailSrc = [
+    'public/lib/libs-tail-*.min.js',
+    'public/*.min.js',
+    'public/js/**/*.min.js'
+  ];
+}
+
+gulp.task('indexFile', ['clearIndexes'], function(){
   return gulp.src(tmplSrc, {base: './src/'})
     .pipe(linker({
-      scripts: scriptSrc,
-      startTag: '<!-- ##### SCRIPTS ##### -->',
-      endTag: '<!-- ##### SCRIPTS END ##### -->',
+      scripts: styleSrc,
+      startTag: '<!-- ##### HEAD STYLES ##### -->',
+      endTag: '<!-- ##### HEAD STYLES END ##### -->',
+      fileTmpl: '<link href="%s" rel="stylesheet"></link>',
+      appRoot: 'public/'
+    }))
+    .pipe(linker({
+      scripts: libHeadSrc,
+      startTag: '<!-- ##### HEAD SCRIPTS ##### -->',
+      endTag: '<!-- ##### HEAD SCRIPTS END ##### -->',
       fileTmpl: '<script src="%s"></script>',
       appRoot: 'public/'
     }))
     .pipe(linker({
-      scripts: styleSrc,
-      startTag: '<!-- ##### STYLES ##### -->',
-      endTag: '<!-- ##### STYLES END ##### -->',
-      fileTmpl: '<link href="%s" rel="stylesheet"></link>',
+      scripts: libTailSrc,
+      startTag: '<!-- ##### TAIL SCRIPTS ##### -->',
+      endTag: '<!-- ##### TAIL SCRIPTS END ##### -->',
+      fileTmpl: '<script src="%s"></script>',
       appRoot: 'public/'
     }))
     .pipe(gulp.dest('./public/'))

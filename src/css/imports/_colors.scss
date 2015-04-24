@@ -1,92 +1,133 @@
 @import "functions";
 
-// =-=-=-=-=-=-=-=-=-
-// SCTY COLOR PALETTE
-
-$gold:          #eeb111;  // rgb(238, 177, 017)  hsl(43.4, 86.7%, 50%)
-$green:         #008752;  // rgb(000, 135, 082)  hsl(156.4, 100%, 26.5%)
-$green-bright:  #13ab4a;  // rgb(019, 171, 074)  hsl(141.7, 80%, 37.3%)
-$green-dark:    #099160;  // rgb(000, 156, 093)  hsl(156.4, 100%, 30.5%)
-$green-apple:   #67bd57;  // rgb(103, 189, 087)  hsl(110.6, 43.6%, 54.1%)
-$green-lime:    #c7dd7b;  // rgb(199, 221, 123)  hsl(73, 59%, 67%)
-$green-pale:    #d3e8c9;  // rgb(211, 232, 201)  hsl(100.6, 40.3%, 84.9%)
-$aqua-dark:     #007f70;  // rgb(016, 127, 112)
-$aqua-light:    #5ac1a5;  // rgb(090, 193, 165)  hsl(163.7, 45.4%, 55.5%)
-$blue-bright:   #59b0e0;  // rgb(089, 176, 224)  hsl(203, 76%, 51%)
-$blue-dark:     #054c6b;  // rgb(031, 092, 129)  hsl(203, 61%, 31%)
-$blue-mid:      #6a9ebe;  // rgb(106, 158, 190)  hsl(203, 39%, 58%)
-$blue-light:    #59b1e0;  // rgb(089, 177, 224)  hsl(201.3, 68.5%, 61.4%)
-$blue-pale:     #e7f3fc;  // rgb(231, 243, 252)  hsl(205.7, 77.8%, 94.7%)
-$blue-grey:     #98a7b7;  // rgb(152, 167, 183)  hsl(211, 17.7%, 65.7%)
-$blue-smoke:    #374860;  // rgb(055, 072, 096)  hsl(215, 27%, 30%)
-$red-dark:      #8a212a;  // rgb(138, 033, 042)  hsl(354.9, 61.4%, 33.5%)
-$red:           #c22026;  // rgb(194, 032, 038)  hsl(357.8, 71.7%, 44.3%)
-$ginger:        #d94a26;  // rgb(217, 074, 038)  hsl(12.1, 70.2%, 50%)
-$orange:        #ed8022;  // rgb(237, 128, 034)  hsl(27.8, 84.9%, 53.1%)
-$flesh:         #f1d0b3;  // rgb(241, 208, 179)  hsl(28.1, 68.9%, 82.4%)
-$beige:         #e5e3db;  // rgb(229, 227, 219)
-$tan:           #c78e58;  // rgb(199, 142, 088)
-$cream:         #fcf2e8;  // rgb(252, 242, 232)  hsl(30, 76.9%, 94.9%)
-$white:         #ffffff;  // rgb(255, 255, 255)  hsl(0, 0%, 100%)
-$white-off:     #f7f7f7;  // rgb(255, 255, 255)  hsl(0, 0%, 100%)
-$white-dark:    #fafafa;  // for Ericson :)
-$grey-lightest: #edefee;
-$grey-lighter:  #d9d9d9;  // rgb(217, 217, 217)  hsl(0, 0%, 85%)
-$grey-light:    #b3b3b3;  // rgb(179, 179, 179)  hsl(0, 0%, 70%)
-$grey-medium:   #cccccc;
-$grey-mid:      #999999;
-$grey-meh:      #777777;
-$grey-dark:     #5f5f5f;  // rgb(095, 095, 095)  hsl(0, 0%, 37%)
-$grey-darker:   #333333;  // rgb(051, 051, 051)  hsl(0, 0%, 20%)
-$grey-darkest:  #171717;  // rgb(023, 023, 023)  hsl(0, 0%, 9%)
-$black:         #000000;  // rgb(000, 000, 000)  hsl(0, 0%, 0%)
-
-@mixin shade($opacity: .5) {
-  color: transparentize($black, 1 - $opacity);
+// COLOR FUNCTIONS
+@function grey($light: 50%) {
+  @return lighten(black, 100% - $light);
 }
 
-$shade-05: rgba(0, 0, 0, .05);
-$shade-10: rgba(0, 0, 0, .10);
-$shade-20: rgba(0, 0, 0, .20);
-$shade-40: rgba(0, 0, 0, .40);
-$shade-60: rgba(0, 0, 0, .60);
-$shade-80: rgba(0, 0, 0, .80);
-$shade-90: rgba(0, 0, 0, .90);
-$shade-95: rgba(0, 0, 0, .95);
-
-@mixin tint($opacity: .5) {
-  color: transparentize($white, 1 - $opacity);
+@function shade($opacity: .5) {
+  @return transparentize($black, 1 - $opacity);
 }
 
-$tint-10:  rgba(255, 255, 255, .10);
-$tint-20:  rgba(255, 255, 255, .20);
-$tint-40:  rgba(255, 255, 255, .40);
-$tint-50:  rgba(255, 255, 255, .50);
-$tint-60:  rgba(255, 255, 255, .60);
-$tint-80:  rgba(255, 255, 255, .80);
-$tint-85:  rgba(255, 255, 255, .85);
-$tint-90:  rgba(255, 255, 255, .90);
-$tint-95:  rgba(255, 255, 255, .95);
+@function tint($opacity: .5) {
+  @return transparentize($white, 1 - $opacity);
+}
 
-$glass-smoked:  transparentize($grey-darkest, 0.07);
-$glass-frosted: transparentize($grey-lightest, 0.07);
-$glass-green:   transparentize($green-dark, 0.07);
-$glass-amber:   transparentize($gold, 0.07);
-$glass-red:     transparentize($red-dark, 0.07);
-$gold-bright:   lighten($gold, .2);
+@function glass($hue: $grey-medium) {
+  @return transparentize($hue, 0.07);
+}
 
+@function bright($hue: $gold) {
+  @return saturate(lighten($hue, 20%), 10%);
+}
+
+@function dark($hue: $blue) {
+  @return desaturate(darken($hue, 40%), 10%);
+}
+
+// TODO: find a place for these in the above spectra
+// these are being used below for error states
+$ginger:           #d94a26;  // rgb(217, 074, 038)  hsl(12.1, 70.2%, 50%)
+$orange:           #ed8022;  // rgb(237, 128, 034)  hsl(27.8, 84.9%, 53.1%)
+$orange:           #ed8022;  // rgb(237, 128, 034)  hsl(27.8, 84.9%, 53.1%)
+$flesh:            #f1d0b3;  // rgb(241, 208, 179)  hsl(28.1, 68.9%, 82.4%)
+$cream:            #fcf4e6;  // rgb(252, 242, 232)  hsl(30, 76.9%, 94.9%)
+
+// TODO: tune the new greyscale to fit these greys
+// obsolete with the new grey/gray functions
+$white:            #ffffff;  // rgb(255, 255, 255)  hsl(0, 0%, 100%)
+$white-off:        #f7f7f7;  // rgb(255, 255, 255)  hsl(0, 0%, 100%)
+$white-dark:       #f4f5f5;  // rgb(244, 245, 245)
+$grey-lightest:    #eaefec;  // rgb(234, 239, 236)
+$grey-lighter:     #d9d9d9;  // rgb(217, 217, 217)  hsl(0, 0%, 85%)
+$grey-light:       #b3b3b3;  // rgb(179, 179, 179)  hsl(0, 0%, 70%)
+$grey-medium:      #cccccc;  // rgb(204, 204, 204)
+$grey-mid:         #999999;  // rgb(153, 153, 153)
+$grey-dark:        #5f5f5f;  // rgb(095, 095, 095)  hsl(0, 0%, 37%)
+$grey-darker:      #333333;  // rgb(051, 051, 051)  hsl(0, 0%, 20%)
+$grey-darkest:     #171717;  // rgb(023, 023, 023)  hsl(0, 0%, 9%)
+$black:            #000000;  // rgb(000, 000, 000)  hsl(0, 0%, 0%)
+
+//////////////////////////////////////////////////
+// SCTY BRAND PALETTE
+$brand-logo:       #00B675;  // rgb(023, 193, 136)
+$brand-flora:      #00D797;  // rgb(000, 215, 151)
+$brand-cerulean:   #1EDFE6;  // rgb(030, 223, 230)
+$brand-rain:       #4887FF;  // rgb(072, 135, 255)
+$brand-atmosphere: #AD3EF5;  // rgb(173, 062, 245)
+$brand-fire:       #F06953;  // rgb(240, 105, 083)
+$brand-sun:        #FFC003;  // rgb(255, 189, 072)
+
+// BASE HUE SPECTRUM
+$red:              $brand-fire;
+/* $orange: */
+$gold:             $brand-sun;
+$green:            $brand-logo;
+$teal:             $brand-cerulean;
+$blue:             $brand-rain;
+/* $indigo: */
+$violet:           $brand-atmosphere;
+
+// BRIGHTENED SPECTRUM
+$red-bright:       lighten($red, 20%);
+$gold-bright:      lighten($gold, 20%);
+$green-bright:     $brand-flora;
+$teal-bright:      lighten($teal, 20%);
+$blue-bright:      lighten($blue, 20%);
+$violet-bright:    lighten($violet, 20%);
+
+// DARKENED SPECTRUM
+$red-dark:         dark($red);
+$gold-dark:        dark($gold);
+$green-dark:       dark($green);
+$teal-dark:        dark($teal);
+$blue-dark:        dark($blue);
+$violet-dark:      dark($violet);
+
+// BURNT SPECTRUM
+$red-ash:          desaturate(darken($red, 30%), 55%);
+$gold-ash:         desaturate(darken($gold, 30%), 55%);
+$green-ash:        desaturate(darken($green, 30%), 55%);
+$teal-ash:         desaturate(darken($teal, 30%), 55%);
+$blue-ash:         desaturate(darken($blue, 30%), 55%);
+$violet-ash:       desaturate(darken($violet, 30%), 55%);
+
+// PALED SPECTRUM
+$red-pale:         desaturate(lighten($red, 20%), 20%);
+$gold-pale:        desaturate(lighten($gold, 40%), 35%);
+$green-pale:       desaturate(lighten($green, 20%), 20%);
+$teal-pale:        desaturate(lighten($teal, 20%), 20%);
+$blue-pale:        desaturate(lighten($blue, 40%), 20%);
+$violet-pale:      desaturate(lighten($violet, 20%), 20%);
+
+// GRÆYSCALE
+$white:            grey(0%);
+$white-off:        grey(1%);
+$white-dark:       grey(2%);
+$grey-lightest:    grey(5%);
+$grey-lighter:     grey(15%);
+$grey-light:       grey(30%);
+$grey-medium:      grey(40%);
+$grey:             grey(50%);
+$grey-mid:         grey(50%);
+$grey-dark:        grey(63%);
+$grey-darker:      grey(80%);
+$grey-darkest:     grey(91%);
+$black:            grey(100%);
+
+// light effects based on our spectrum
+// default interface colors
 $color-text-main:            $grey-darker;
-$color-border-main:          $grey-light;
-// $color-bkgd-main:            $grey-lightest;
+$color-border-main:          $grey-lighter;
 $color-bkgd-main:            $white;
-// $color-bkgd-primary:         $tint-90;
 $color-bkgd-footer:          $grey-lightest;
 $color-bkgd-primary:         $white;
 
-$color-link-main:            $green-dark;
-$color-link-visited-main:    $green-dark;
+$color-link-main:            $green;
+$color-link-visited-main:    $green;
 
-$color-highlight:            $green-dark;
+$color-selection:            $white;
+$color-selection-bkgd:       darken($green, 0.2);
 
 $color-input-text:           $grey-darker;
 $color-input-bkgd:           $white-dark;
@@ -96,28 +137,23 @@ $color-headline-text:        $grey-darker;
 $color-text-inverse:         $white;
 $color-border-inverse:       $white;
 $color-bkgd-inverse:         $grey-darkest;
-$color-link-inverse:         $green-lime;
-$color-link-visited-inverse: $green-apple;
+$color-link-inverse:         $green;
+$color-link-visited-inverse: $green-bright;
 
 $color-error-text:           $red;
-$color-error-bkgd:           $flesh;
-$color-input-invalid-text:   rgba(174, 120, 27, 1);
-$color-input-invalid-bkgd:   rgba(249, 242, 216, 1);
+$color-error-bkgd:           $gold-pale;
+$color-input-invalid-text:   $grey-darker;
+$color-input-invalid-bkgd:   $gold-pale;
 
-$color-button-bkgd:          $grey-mid;
+$color-button-bkgd:          $grey-medium;
 
 $color-header-text:          $white;
-// $color-header-bkgd:          rgba(19, 40, 48, 0.80);
-// $color-header-bkgd:          rgba(01, 30, 33, 0.70);
-// $color-header-bkgd:          rgba(42, 54, 59, 0.9);
-// $color-header-bkgd:          rgba(22, 48, 62, 0.93);
-$color-header-bkgd:          $green-dark;
-// $color-header-bkgd:          rgba(20, 40, 48, 0.95);
-// $color-header-shadow:        rgba(42, 54, 59, 0.5);
-// $color-header-shadow:        rgba(22, 48, 62, 0.5);
+$color-header-bkgd:          $grey-darker;
 $color-header-shadow:        transparentize($grey-darker, 0.5);
 
-$color-dev-tools:            $glass-smoked;
-$color-oda-tools:            $glass-smoked;
+$color-chat-trigger:         $blue-ash;
+
+$color-dev-tools:            glass($grey-darkest);
+$color-oda-tools:            glass($blue-dark);
 
 $shadow-input: 0px 0px 4px rgba(0,0,0,0.15);

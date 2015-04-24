@@ -15,16 +15,20 @@
 @import "../imports/typography";
 
 .header {
-  @include apercu-regular;
+  @include apercu-medium;
   background: $color-header-bkgd;
+  background-image: url('../img/fractalSubhead-900x100.png');
+  background-position: top right;
+  background-repeat: no-repeat;
+  background-size: 900px 100px;
   color: $color-header-text;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 10;
+  z-index: 20;
   height: 2.9rem;
-  box-shadow: 0 1px 3px $color-header-shadow;
+  box-shadow: 0 1px 2px $color-header-shadow;
 
   a, span, ul, li {
     display: inline-block;
@@ -52,28 +56,31 @@
 
   li {
     position: relative;
-    opacity: 0.9;
+    opacity: 1;
     text-shadow: none;
     cursor: default;
     &.active {
       opacity: 1;
       font-weight: 800;
     }
+
+    a.disabled {
+      cursor: default;
+    }
   }
 
   .stage-nav {
-    // display: none;
     width: 100%;
     margin-right: 2rem;
     text-align: left;
   }
 
   .logo {
-    background-image: url('../img/logo-white.svg');
-    background-position: left -7px;
+    background-image: url('../img/logo-white-new.svg');
+    background-position: -20px -10px;
     background-repeat: no-repeat;
-    background-size: auto 130%;
-    width: 9.8rem;
+    background-size: auto 150%;
+    width: 8.8rem;
     opacity: 1;
     a {
       text-indent: -9999px;
@@ -83,17 +90,17 @@
   }
 
   .chevron.right {
-    @include chevron("right", $height: 2.9rem);
     font-size: .7rem;
-    padding: 0 1.72rem 0 2rem;
-    line-height: 2.9rem;
+    padding: 0;
+    line-height: 3rem;
     display: none;
+    opacity: 0.85;
   }
 
   .top-five {
     @include apercu-bold;
     opacity: 1;
-    border-left: 0px solid $tint-20;
+    border-left: 0px solid tint(.2);
   }
 
   a.questions {
@@ -101,7 +108,7 @@
     padding: 0 1.5em;
     &:hover {
       font-weight: 800;
-      background-color: $tint-20;
+      background-color: shade(.10);
     }
   }
 
@@ -119,8 +126,17 @@
   }
 
   .header-detail {
-    @include apercu-light;
+    @include apercu-medium;
     display: none;
+  }
+}
+
+@media screen and (min-width: $width-min-sml) {
+  .header {
+    /* z-index: 12; */
+  }
+  .logo {
+    background-position: -15px -12px !important;
   }
 }
 
@@ -146,11 +162,21 @@
 @media screen and (min-width: $width-min-xlg) {
   .header {
     .logo {
-      background-position: left -9px;
+      background-position: -13px -13px !important;
     }
     .header-detail {
-      @include apercu-light;
+      @include apercu-medium;
       display: inline;
+      cursor: pointer;
     }
+  }
+}
+
+@media screen and (min-width: $width-min-xxl) {
+}
+
+@media screen and (min-width: $width-min-uhd) {
+  .header .logo {
+    background-size: auto 140%;
   }
 }

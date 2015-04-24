@@ -10,6 +10,10 @@
   ng-model="form.prospect().street"
   ng-model-options="{ debounce: 100 }"
   ng-minlength="4"
-  ng-blur="form.checkAddress(form.prospect().street)"
-  bind-key="form.checkAddress(form.prospect().street)"
-  key="13">
+  bind-key="{enter: 'form.checkAddress()'}">
+<button
+  class="btn gold nested round"
+  ng-click="form.checkAddress()"
+  tabindex="-1">
+  <span class="icon search"></span>
+</button>

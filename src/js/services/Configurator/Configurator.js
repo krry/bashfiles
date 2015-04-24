@@ -7,9 +7,9 @@
  *
  */
 
-angular.module('flannel').service('newConfigurator', ['$q','Clientstream','View', 'Interactions', 'Layers', 'MapFactory', newConfigurator_]);
+angular.module('flannel').service('newConfigurator', ['$q', 'Clientstream', 'Design', 'View', 'Interactions', 'Layers', 'MapFactory', newConfigurator_]);
 
-function newConfigurator_($q, Client, View, Interactions, Layers, MapFactory) {
+function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFactory) {
   var gmap,
       omap,
       // defaults
@@ -23,7 +23,7 @@ function newConfigurator_($q, Client, View, Interactions, Layers, MapFactory) {
     disableDefaultUI: true,
     keyboardShortcuts: false,
     draggable: false,
-    mapTypeId: google.maps.MapTypeId.SATELLITE,
+    mapTypeId: google.maps.MapTypeId.HYBRID,
     disableDoubleClickZoom: true,
     scrollwheel: false,
     streetViewControl: false
@@ -39,6 +39,7 @@ function newConfigurator_($q, Client, View, Interactions, Layers, MapFactory) {
     layers: Layers.collection,
     interactions: Interactions.collection,
     controls:  omap_controls,
+    overlays: Layers.overlay_collection,
     view: View
   }
 
@@ -62,9 +63,6 @@ function newConfigurator_($q, Client, View, Interactions, Layers, MapFactory) {
   }
 
   function setTargetOfMaps(g_div, o_div) {
-
-    console.debug('Configurator.setTarget(g_div, o_div) => g_div, o_div: ', g_div, o_div);
-
     // two target divs for the olmap and googlemap
     // TODO: use a directive or link function to select the elements
     // DOM selection or manipulation should not occur in a service
@@ -80,14 +78,14 @@ function newConfigurator_($q, Client, View, Interactions, Layers, MapFactory) {
     // initialize the map
 
     // subscribe google's zoom and center to OL View's resolution & center
-    View.rx_center.subscribe(subGoogleMapToViewCenter)
+    View.rx_center.subscribe(subGoogleMapToViewCenter);
     View.rx_zoom.subscribe(subGoogleMapToViewZoomLevel);
 
     this.map = {
       omap: omap,
       gmap: gmap,
     }
-    maps = this.map; // HACK... this shouldn't be public. only here for testing
+    maps = this.map; // HACK... this doesn't need to be public. only here for testing.
 
     gmap.addListener('projection_changed', function(){
       // TODO: be prepared to fix projection of OLmap for zoom < 17 (currently disallowed by map_options)
@@ -97,14 +95,15 @@ function newConfigurator_($q, Client, View, Interactions, Layers, MapFactory) {
       google.maps.event.trigger(gmap, 'resize');
       omap.updateSize();
     });
-
+	
     maps.omap.on('change:size', function() {
       // resize the target element
       google.maps.event.trigger(gmap, 'resize');
 
     })
 
-    maps.omap.updateSize()
+    maps.omap.updateSize();
+    Client.emit('Configurator: update mapsize', maps.gmap)
     Client.emit('Configurator: target set');
   }
 
@@ -123,8 +122,8 @@ function newConfigurator_($q, Client, View, Interactions, Layers, MapFactory) {
 
   this.drawAdd = function () {
     result.promise.then(function (map) {
-      Client.emit('Configurator: update mapsize', map)
-    })
+      Client.emit('Configurator: update mapsize', map);
+    });
     Layers.collection.push(Layers.draw);
     Interactions.collection.push(Interactions.draw);
     if (typeof maps !== 'undefined') { if ( maps.omap) {maps.omap.updateSize()}}
@@ -191,30 +190,26 @@ function newConfigurator_($q, Client, View, Interactions, Layers, MapFactory) {
   this.roofpeakAdd = function() {
     result.promise.then(function (map) {
       Client.emit('Configurator: update mapsize', map)
-    })
-
-    result.promise.then(function (map) {
       map.updateSize()
       // add the layer
-      map.addLayer(Layers.roofpeak)
+      // map.addLayer(Layers.roofpeak)
+      Layers.collection.push(Layers.roofpeak)
       // add the overlay
-      map.addOverlay(Layers.roofpeak_overlay)
-      // setup listers on the layer
-      // $(map.getViewport()).addClass('roofpeak')
-
-
+      // Layers.roofpeak_overlay.setMap(maps.omap)
+      maps.omap.addOverlay(Layers.roofpeak_overlay);
     })
+    if (typeof maps !== 'undefined') { if ( maps.omap) {
+      maps.omap.updateSize()
+    }}
   }
   this.roofpeakDel = function() {
     result.promise.then(function (map) {
       map.updateSize();
       // remove the layer
-      map.removeLayer(Layers.roofpeak);
-      // remove the overlay
-      map.removeOverlay(Layers.roofpeak_overlay);
-      // disable listeners??
-      $(map.getViewport()).removeClass('roofpeak')
-
+      // map.removeLayer(Layers.roofpeak);
+      Layers.collection.remove(Layers.roofpeak);
+      // remove the map from the overlay... seems weird, but necessary
+      Layers.roofpeak_overlay.setMap(null);
     })
   }
 }

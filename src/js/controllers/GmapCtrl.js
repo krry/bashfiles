@@ -1,6 +1,6 @@
-controllers.controller("GmapCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Gmap", "MapService", "NearMe", GmapCtrl_]);
+controllers.controller("GmapCtrl", ["$scope", "$element", "Clientstream", "Geocoder", "Gmap", "NearMe", GmapCtrl_]);
 
-function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe) {
+function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap,  NearMe) {
 
   var vm,
       center,
@@ -8,7 +8,9 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
       map,
       mapEl,
       mapOpts,
-      spinnerEventCount;
+      spinnerEventCount,
+      isLoading,
+      maxNearMeCalls;
 
   vm = this;
 
@@ -21,15 +23,26 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
   mapEl = $element[0];
   mapOpts = Gmap.opts;
   spinnerEventCount = 0;
-
-  // once window loads, activate map using defaults
-  google.maps.event.addDomListenerOnce(window, "load", activate);
+  isLoading = false;
+  maxNearMeCalls = 10;
+  activate();
 
   // stream listeners
   Client.listen('center changed', applyCenter);
   Client.listen('Gmap: max zoom found', applyMaxZoom);
-  Client.listen('Gmap: switch to satellite', switchToSatellite);
+  Client.listen('Gmap: switch map type', switchMapType);
   Client.listen('Spinner: add to spin count', setSpinCount);
+  // Client.listen('Stages: step complete', cloudMap);
+
+  function cloudMap (step) {
+    // TODO: on hotload of bill step, ensure cloudiness
+    if (step === "monthly-bill") {
+      $element.addClass('cloudy');
+    }
+    else {
+      $element.removeClass('cloudy');
+    }
+  }
   // Client.listen('Gmap: get nearme data', getNearMeData);
 
   function init (el) {
@@ -37,6 +50,9 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
   }
 
   function activate () {
+    if (map) {
+      return;
+    }
     // init the map object with defaults
     init(mapEl, mapOpts);
     // listen to the map for user's changes
@@ -59,25 +75,27 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
 
   function setSpinCount(data) {
     spinnerEventCount += data ? 1 : -1;
-    console.log('spin event count is', spinnerEventCount);
+    // console.log('spin event count is', spinnerEventCount);
   }
 
   function hideSpinner () {
-    console.log('hiding spinner');
+    // console.log('hiding spinner');
     // TODO: ensure that the spinner stays up until the tiles are actually loaded
     // switching from TERRAIN to HYBRID map causes an extra `tilesloaded` event to be emitted, prematurely hiding the spinner for the HYBRID map load
     Client.emit('Spinner: spin it', false);
     if (spinnerEventCount < 1) {
       if (spinnerEventCount < 0) spinnerEventCount = 0;
-      console.log('spinner counter', spinnerEventCount);
+      // console.log('spinner counter', spinnerEventCount);
     }
   }
 
-  function switchToSatellite (data) {
+  function switchMapType (data) {
     Gmap.loaded.then(function() {
-      if (data && map.getMapTypeId() !== "hybrid") {
+      if (data === "hybrid" && map.getMapTypeId() !== "hybrid") {
         Client.emit('Spinner: add to spin count', true);
         map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+      } else if (data === "terrain" && map.getMapTypeId() !== "terrain"){
+        map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
       }
     });
   }
@@ -108,7 +126,7 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
   function saveZoom () {
     Gmap.loaded.then(function() {
       var zoom = map.getZoom();
-      console.log('saving zoom as', zoom);
+      // console.log('saving zoom as', zoom);
       if (mapOpts.zoom !== zoom){
         mapOpts.zoom = zoom;
       }
@@ -117,15 +135,19 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
 
   function applyMaxZoom (zoom) {
     Gmap.loaded.then(function() {
-      console.log('setting zoom to', zoom);
+      // console.log('setting zoom to', zoom);
       map.setZoom(zoom);
       mapOpts.zoom = zoom;
       // TODO: prevent nearme call when advancing from checkZip to checkAddress directly
-      if (zoom < 17 && zoom > 4) getNearMeData();
+      // isLoading prevents more than one chain of near me calls from happening at one time
+      if (zoom < 17 && zoom > 4 && !isLoading) getNearMeData();
     });
   }
 
-  function getNearMeData(data) {
+  function getNearMeData(data, count) {
+    count = count || 1;
+    isLoading = true;
+
     // Reset the view state while we are still getting the data
     // This prevents old data from lingering in the view while we're processing the new location
     Client.emit('neighbor_count saved', 0);
@@ -160,16 +182,18 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
       area = Math.abs(coords.top - coords.bottom) * Math.abs(coords.left - coords.right);
       if (area > 0.8) {
         // If can't get a larger area, just plot what we have from the last call
-        return plotMarkers(data, true);
+        return plotMarkers(data, maxNearMeCalls);
       }
 
       // send the coordinates to NearMe, then check if there are enough, then plot the pins if so
-      return NearMe.get(coords).then(getEnoughPins).then(plotMarkers);
+      return NearMe.get(coords).then(getEnoughPins).then(function(data) {
+        plotMarkers(data, count);
+      });
     });
   }
 
   function getEnoughPins(data) {
-    if (data.length >= 250) {
+    if (data.length >= 150) {
       return data;
     } else {
       map.setZoom(map.getZoom() - 1);
@@ -177,14 +201,15 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
     }
   }
 
-  function plotMarkers(data, isFinalData) {
+  function plotMarkers(data, count) {
     var opts;
-    if (!data && !isFinalData) {
-      getNearMeData(data);
+
+    if (!data && (count < maxNearMeCalls)) {
+      getNearMeData(data, ++count);
     } else {
       data = data || [];
       // clear any old pins from the map
-      Client.emit('clear pins', true);
+      Client.emit('Gmap: clear pins', true);
 
       // parse the JSON response from NearMe API
       angular.forEach(data, function(point) {
@@ -201,9 +226,12 @@ function GmapCtrl_ ($scope, $element, Client, Geocoder, Gmap, MapService, NearMe
       // let the view model know how many pins were found
       Client.emit('neighbor_count saved', data.length);
 
-      if (isFinalData) {
+      if (count >= maxNearMeCalls) {
         Client.emit('Form: final near me data', true);
       }
+
+      // Flag we are finally done with the nearme calls
+      isLoading = false;
     }
   }
 

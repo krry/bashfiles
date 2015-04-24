@@ -2,12 +2,13 @@
 @import "../imports/typography";
 @import "../imports/fonts";
 
-.proposal-page {
+.step-proposal {
+  background: $white-dark;
   strong + p {
     margin-top: .25em;
   }
   dt {
-    font-family: 'Apercu Medium';
+    @include apercu-medium;
   }
   strong + dl {
     margin-top: 0;
@@ -20,53 +21,51 @@
   }
 }
 
+.panelfill {
+  min-height: 16rem;
+  width: 100%;
+}
+
 .proposal.proposal {
   background-color: $white;
   color: $green;
   border-radius: 2px;
-  margin-bottom: 1rem;
-  .row:not(:last-child) {
+  .col.third.padded.padded {
+    overflow: hidden;
+    padding-bottom: .5em;
     border-bottom: 2px solid $grey-lightest;
   }
-  .col:not(.fifth) {
-    border-right: 2px solid $grey-lightest;
-    // TODO: figure out how to avoid this important shit
-    padding: 1em !important;
-    // margin: 1em 0;
-  }
-  .col:last-child {
-    border-right: 0;
-  }
   .utes {
-    color: $grey-dark;
+    color: $grey-mid;
   }
   label:first-child {
     @include apercu-light;
-    font-size: .875em;
-    margin: .25em 0 -.25em;
-    color: $grey-dark;
+    font-size: .9em;
+    line-height: 120%;
+    margin: 1.5em 0 0 0;
+    color: $grey-darker;
   }
-  label:last-child {
+  label:not(:first-child) {
     @include apercu-light;
     @include caps;
     font-size: .6em;
-    margin: .25em 0;
+    margin: 0 0 .2em 0;
     letter-spacing: 0.5px;
     color: $grey-dark;
   }
   figure {
     margin: 0;
+    letter-spacing: -0.5px;
   }
   figure span.cents,
   figure span.dollars {
     @include apercu-bold;
-    font-size: 3em;
+    font-size: 2.8em;
     &:before,
     &:after {
       @include apercu-light;
     }
   }
-
 }
 
 .aerial {
@@ -93,45 +92,36 @@
   vertical-align: .75em;
 }
 
-.proposal-page .financing-options {
-  width: 80%;
-  font-size: .95em;
+.step-proposal .financing-options-bar {
+  font-size: 0.85rem;
   line-height: 1.4;
-  margin: -.25em 0 0 0;
+  padding: 2em 1em;
+  background: #ffffff;
 }
 
-.financing-option {
-  padding: 1em 1.5em 2em 1.5em;
-  border: 2px solid $gold;
-  border-radius: .5em;
 
-  em {
-    font-size: .75em;
-    text-align: right;
-  }
-  h3 {
-    font-family:'Apercu Light';
-    font-size: 1.4em;
-    letter-spacing: 0.05em;
-  }
-  p {
-    line-height: 160%;
-  }
+.down-blk {
+  background: url('../img/arrow-down-blk-01.svg') no-repeat center;
+  background-size: 14px;
+  width: 14px;
+  height: 14px;
+  margin: 2em auto 2em auto;
 }
 
 .faq-item {
   figure {
     background-repeat: no-repeat;
-    background-position: center center;
+    background-position: top center;
     background-size: cover;
-    background-color: pink;
+    background-color: transparent;
     height: 200px;
   }
   p {
-    line-height: 160%;
+    line-height: 130%;
+    font-size: 0.8em;
   }
   dt {
-    font-family: 'Apercu Medium';
+    @include apercu-medium;
   }
   ul {
     margin: 0.5em 0;
@@ -154,5 +144,102 @@
   }
   &.faq-work figure {
     background-image: url('../img/top5-HowItWorks.jpg');
+  }
+}
+
+.benefits {
+  .icon {
+    display: block;
+    width: 12em;
+    height: 6em;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 700%;
+    margin: 1em auto;
+  }
+  strong {
+    display: block;
+    text-align: center;
+    font-size: 1.125em;
+  }
+}
+
+@media screen and (min-width: $width-min-med) {
+  .proposal {
+    .row:not(:last-child) {
+      border-bottom: 1px solid $grey-lightest;
+    }
+    .col {
+      min-height: 9.5em;
+      &.padded.padded.third {
+        border-left: 1px solid $grey-lightest;
+        border-right: 1px solid $grey-lightest;
+        &:nth-of-type(2n) {
+          border-right: none;
+        }
+        & + .third.padded + .third.padded {
+          border-top: 1px solid $grey-lightest;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $width-min-lrg) {
+  .faq-item figure {
+    height: 180px;
+  }
+  .benefits {
+    .icon {
+      width: 4em;
+      height: 4em;
+      background-color: #fff;
+      background-size: 700%;
+      border-radius: 50%;
+      float: right;
+      margin: 0 1em 0 0;
+    }
+    strong {
+      font-size: 1em;
+      display: inline;
+      text-align: left;
+    }
+  }
+  .panelfill {
+    min-height: 21rem;
+    width: 100%;
+  }
+
+  .proposal {
+    .col.fifth.three > .row {
+      margin-right: -2px;
+    }
+    .row:not(:last-child) {
+      border-bottom: 1px solid $grey-lightest;
+    }
+    .col {
+      min-height: 10.5em;
+      &.padded.padded.third {
+        border-left: 1px solid $grey-lightest;
+        border-right: 1px solid $grey-lightest;
+        &:nth-of-type(3n-2) {
+          border-right: 1px solid $grey-lightest;
+          border-left: none;
+        }
+        &:nth-of-type(3n-1) {
+          border-left: 1px solid $grey-lightest;
+          border-right: 1px solid $grey-lightest;
+        }
+        &:nth-of-type(3n) {
+          border-right: none;
+        }
+        & + .third.padded + .third.padded {
+          border-top: none;
+        }
+        & + .third.padded + .third.padded + .third.padded {
+          border-top: 1px solid $grey-lightest;
+        }
+      }
+    }
   }
 }

@@ -7,7 +7,6 @@
 .map {
   width: 100%;
   height: 100%;
-  // HACK: might gotta revert this
   position: absolute;
   overflow: hidden;
   transition: opacity 150ms $easing-quick;
@@ -31,34 +30,28 @@
 .ogmap {
   height: 100%;
   z-index: 1;
-  /* we can zoom the map like this */
-  /* transform: scale(1.5) translateZ(0px) !important;   */
 }
 
-.roofpeak {
-  background: $tint-40;
+.cloudy {
+  background: radial-gradient(circle closest-side, transparent, transparent 180px, shade(.35) 180px);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
 }
 
-.instructions {
-  background: $white;
-  // box-shadow: 0 .5em .25em -.25em $shade-20;
-  box-shadow: 0 0 .75em -.25em $shade-60;
-  margin-left: -2em;
-  padding: 3em 2em 2em 2.5em;
-  line-height: 120%;
+.roofpeak .ol-viewport,
+.roofpeak .ol-touch,
+.roofpeak .omap > div {
+  background: tint(.4);
 }
-.instructions button.gold {
-  min-width: 10em;
-  margin-top: 2em;
-}
-.instructions figure img {
-  border: none;
-  width: 286px;
-  height: 143px;
-}
-.instructions button.tiny.white {
-  min-width: 8em;
-  margin: 0 auto;
+
+.crosshair .omap > div {
+  background-image: url('../img/crosshair.svg');
+  background-position: center center;
+  background-size: 35em;
+  background-repeat: no-repeat;
+  opacity: 0.6;
 }
 
 .area-detail {
@@ -66,27 +59,23 @@
   top: 0;
   height: 100%;
   z-index: 2;
-  background: $tint-60;
+  background: tint(.6);
 }
 
-.ol-viewport {
+.ol-viewport,
+.ol-touch,
+.omap > div {
   position: relative;
-  // background: $grey-mid;
 
   .ol-overlaycontainer-stopevent {
     position: absolute;
-    top: 4em;
-    left: 1.5em;
-    background-color: $tint-40;
+    top: 3em;
+    left: 2.6em;
+    background-color: tint(.4);
     border-radius: .35em;
-    // background: rgba(255,255,255,0.3);
-    // padding: .125em;
-    // width: 2.25em;
-    // height: 7em;
   }
 
   .ol-control {
-    // padding: .25em;
     position: static;
     border-radius: .5em;
   }
@@ -100,53 +89,47 @@
 
     .fln-zoom-in,
     .fln-zoom-out {
-      // position: relative;
-      color: transparent;
-      height: 2.3em;
-      width: 2.3em;
+      height: 40px;
+      width: 40px;
       padding: 0;
       border-radius: .2em;
       background: $white no-repeat center center;
-      background-size: 90% auto;
+      background-size: 40px 40px;
       border: 0;
       display: block;
-      // @include apercu-bold;
-      // font-size: 1.25em;
-      // padding: .375em .75em;
-      // box-shadow: 0px 2px 4px -2px $shade-40;
-      // border: 3px solid;
-      // line-height: inherit;
-      // min-width: 0;
-      margin: .35em;
+      margin: .3em;
+      &::selection {
+        background: transparent;
+      }
 
       &:hover {
-        // color: $grey-mid;
-        // background: $white;
       }
 
       & + .fln-zoom-out {
         margin-top: .3025em;
       }
 
+      &::selection {
+        background: transparent;
+      }
+
       span {
-        // position: absolute;
-        // right: 100%;
         display: none;
       }
     }
 
     .fln-zoom-in {
-      background-image: url('../img/zoom-in.svg');
+      background-image: url('../img/zoom-in-01.svg');
     }
 
     .fln-zoom-out {
-      background-image: url('../img/zoom-out.svg');
+      background-image: url('../img/zoom-out-01.svg');
     }
   }
 }
 
 .inset-right {
-  box-shadow: inset 0 0 8px -2px $shade-40;
+  box-shadow: inset 0 0 8px -2px shade(.4);
   position: relative;
   z-index: 0;
 }
@@ -158,7 +141,6 @@
   left: 0;
   z-index: 2;
   pointer-events: none;
-  // background: $shade;
   text-align: center;
   height: 100%;
 
@@ -167,10 +149,9 @@
     pointer-events: auto;
     position: absolute;
     margin: auto;
-    width: 3em;
-    height: 3em;
+    width: 30px;
+    height: 30px;
     overflow: auto;
-    // opacity: .5;
     padding: 0;
     min-width: 0;
     border-radius: 50%;
@@ -180,43 +161,43 @@
       top: 1em;
       right: 0;
       left: 0;
-      background: url('../img/arrow-up-blk.svg') no-repeat center;
-      background-size: 70% auto;
-      background-color: $tint-80;
+      background: url('../img/arrow-up-blk-01.svg') no-repeat center;
+      background-size: 12px;
+      background-color: tint(.8);
     }
     &.pan-down {
       right: 0;
-      bottom: 1em;
+      bottom: 3em;
       left: 0;
-      background: url('../img/arrow-down-blk.svg') no-repeat center;
-      background-size: 70% auto;
-      background-color: $tint-80;
+      background: url('../img/arrow-down-blk-01.svg') no-repeat center;
+      background-size: 12px;
+      background-color: tint(.8);
     }
     &.pan-right {
       top: 0;
       bottom: 0;
-      right: 3.5em;
-      background: url('../img/arrow-right-blk.svg') no-repeat center;
-      background-size: 70% auto;
-      background-color: $tint-80;
+      right: 1em;
+      background: url('../img/arrow-right-blk-01.svg') no-repeat center;
+      background-size: 12px;
+      background-color: tint(.8);
     }
     &.pan-left {
       top: 0;
       left: 1em;
       bottom: 0;
-      background: url('../img/arrow-left-blk.svg') no-repeat center;
-      background-size: 70% auto;
-      background-color: $tint-80;
+      background: url('../img/arrow-left-blk-01.svg') no-repeat center;
+      background-size: 12px;
+      background-color: tint(.8);
     }
     &:hover,
     &:active {
-      // opacity: 1;
-      background-color: $tint-40;
+      background-color: tint(.95);
     }
   }
 }
 
-.panelfill {
-  height: 18em;
-  width: 100%;
+@media screen and (min-width: $width-min-xlg) {
+  .fln-control-pan button.pan-right {
+    right: 3.5em;
+  }
 }

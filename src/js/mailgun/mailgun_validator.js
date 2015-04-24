@@ -42,7 +42,7 @@ $.fn.mailgun_validator = function(options) {
 function run_validator(address_text, options) {
     var success,
         error_message;
-    console.log('loading Mailgun validator');
+    // console.log('loading Mailgun validator');
     // don't run validator without input
     if (!address_text) {
         return;
@@ -55,7 +55,7 @@ function run_validator(address_text, options) {
             options.error(error_message);
         }
         else {
-            console.log(error_message);
+            // console.log(error_message);
         }
         return;
     }
@@ -66,29 +66,29 @@ function run_validator(address_text, options) {
     }
 
     if (options && options.api_key === undefined) {
-        console.log('Please pass in api_key to mailgun_validator.')
+        // console.log('Please pass in api_key to mailgun_validator.')
     }
 
     success = false;
 
-    console.log('making ajax call to get validation results')
+    // console.log('making ajax call to get validation results')
     // make ajax call to get validation results
     $.getJSON('https://api:' + options.api_key + '@api.mailgun.net/v2/address/validate?callback=?', {
         address: address_text,
     }).done(function(data, text_status, jq_xhr) {
         success = true;
         if (options && options.success) {
-            console.log('Validation data returned:', data);
+            // console.log('Validation data returned:', data);
             options.success(data);
         }
     }).error(function(jq_xhr, text_status, error_thrown) {
         success = true;
         if (options && options.error) {
-            console.log('Error from validation service:', text_status);
+            // console.log('Error from validation service:', text_status);
             options.error(jq_xhr);
         }
         else {
-            console.log(jq_xhr);
+            // console.log(jq_xhr);
         }
     });
 
@@ -99,7 +99,7 @@ function run_validator(address_text, options) {
                 options.error(error_message);
             }
             else {
-                console.log(error_message);
+                // console.log(error_message);
             }
         }
     }, 30000);

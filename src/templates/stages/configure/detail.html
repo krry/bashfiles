@@ -1,14 +1,13 @@
 <fln-roofpeak></fln-roofpeak>
 
-<div class="position-relative">
+<fln-expander>
   <div ui-view name="instructions" class="instructions">
-    <h4>Identify the peak of your roof.</h4>
-    <p>Select the highest point or line of this area of your roof in order to determine the direction your panels will face. If your roof is flat, select the northernmost facing line.</p>
-    <figure>
-      <img src="../img/config_example_peak.svg" alt="Indicate the highest point or side of the shape." loop=infinite>
+    <h4>Select a point or line to identify the peak of your&nbsp;roof.</h4>
+    <figure class="no-mobile">
+      <img src="../img/config_example_peak-01.svg" alt="Indicate the highest point or side of the shape.">
     </figure>
-    <!-- TODO: add back in switch ng-hide="!roof_peak_chosen" -->
-    <button class="gold" ng-hide="!roof_peak_chosen" ng-click="stages.next()" ng-hide="">Next</button>
-    <!-- <button class="tiny white" fln-omap-clear-poly>Redo</button> -->
+    <p>This will help us determine what direction your panels will face. If your roof is flat, select the northernmost line.</p>
+
+    <button class="gold" ng-disabled="!roof_peak_chosen" ng-click="stages.next() && app.notifyTrackerAboutClick('roof_alignment_determined')" ng-hide="">Next</button>
   </div>
-</div>
+</fln-expander>

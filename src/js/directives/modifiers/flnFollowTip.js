@@ -14,37 +14,36 @@
 //
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-directives.directive("flnFollowTip", flnFollowTip_);
+directives.directive("flnFollowTip", [flnFollowTip_]);
 
 function flnFollowTip_ () {
   return {
     restrict: "CA",
-    transclude: true,
+    // transclude: true,
     // replace: true,
     scope: {
       position: "@position",
       tip: "@tipText",
     },
     templateUrl: "templates/directives/modifiers/flnFollowTip.html",
-    link: function FollowTipLink(scope, el, attrs) {
+    link: function flnFollowTipLink(scope, el, attrs) {
       var tip,
           offsetX,
           offsetY;
 
       tip = $(el[0]).find('span');
-      console.log("parent div starts at top:", $(el).offset().top, "and left:", $(el).offset().left);
       offsetX = tip.offset().left + 20;
       offsetY = tip.offset().top;
-      console.log(offsetX);
 
-      $(el).addClass('followtipped');
+      var configurator_div = $('div[fln-configurator]');
+      configurator_div.addClass('followtipped');
 
       // only show the followtip when the mouse is over the proper div
-      $(el).on('mouseover', function(){
+      configurator_div.on('mouseover', function(){
         tip.css('visibility', 'visible');
       });
 
-      $(el).on('mouseout', function(){
+      configurator_div.on('mouseout', function(){
         tip.css('visibility', 'hidden');
       });
 
@@ -55,10 +54,10 @@ function flnFollowTip_ () {
 
 
       window.onmousemove = function (e) {
-          var x = e.clientX,
-              y = e.clientY;
-          tip.css("left", (x - offsetX - 30));
-          tip.css("top", (y - offsetY - 40));
+        var x = e.clientX,
+            y = e.clientY;
+        tip.css("left", (x - offsetX - 30));
+        tip.css("top", (y - offsetY - 40));
       };
     }
   };

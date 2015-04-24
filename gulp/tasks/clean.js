@@ -15,33 +15,55 @@ var gulp  = require('gulp');
 var del = require('del');
 
 var laundry = [
+  './public/*.html',
+  './src/js/templates-*.js',
   './public/templates/**/*',
   './public/fonts/**/*',
   './public/img/**/*',
   './public/lib/**/*',
   './public/css/**/*',
   './public/js/**/*',
-  './public/index.html',
+  './public/lib/**/*',
   './public/*.js'
 ];
 
-var templates = './public/templates-*.js';
+var templates = './src/js/templates-*.js';
 var scripts = './public/js/all-*.js';
 var styles = './public/css/all-*.css';
+var fonts = './public/fonts/**/*.*';
+var images = './public/img/*';
+var libs = './public/lib/libs-*';
+var indexes = './public/*.html';
 
 gulp.task('clean', function() {
   console.log('[clean   ] now cleaning dist folders');
-  return del(laundry);
+  if (laundry) return del(laundry);
 });
 
 gulp.task('clearTemplates', function () {
-  return del(templates);
-})
+  if (templates) return del(templates);
+});
 
 gulp.task('clearScripts', function () {
-  return del(scripts);
-})
+  if (scripts) return del(scripts);
+});
 
 gulp.task('clearStyles', function () {
-  return del(styles);
-})
+  if (styles) return del(styles);
+});
+
+gulp.task('clearLibs', function () {
+  if (libs) return del(libs);
+});
+
+gulp.task('clearFonts', function () {
+  if (fonts) return del(fonts);
+});
+
+gulp.task('clearImages', function () {
+  if (images) return del(images);
+});
+
+gulp.task('clearIndexes', function () {
+  if (indexes) return del(indexes);
+});

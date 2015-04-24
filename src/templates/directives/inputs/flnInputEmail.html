@@ -1,14 +1,14 @@
 <label for="prospect_email" class="field-label">Email address</label>
 <input
   type="text"
-  name="email"
   id="prospect_email"
+  name="email"
   class="email"
   placeholder="email@domain.com"
   autocapitalize="none"
   autocomplete="on"
   autocorrect="off"
-  ng-model="form.prospect.email"
+  ng-model="form.prospect().email"
   ng-required="true"
   ng-pattern="/^[_a-zA-Z0-9]+(\.[_a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,4})$/"
   ng-model-options="{ updateOn: 'default change blur', debounce: { default: 500, blur: 0 } }">

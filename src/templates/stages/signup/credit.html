@@ -1,40 +1,29 @@
 <!-- main.html for qualify stage -->
 <div>
-  <div class="spinner-tray" ng-show="form.isSubmitting">
-    <fln-spinner></fln-spinner>
-  </div>
-
-  <div class="overlay primary col">
-    <h1 ng-if="!form.timedOut">Great, now let’s see what we can do for you.<br><small>Enter your date of birth to see if you qualify for our flexible financing options.</small></h1>
+  <div class="overlay primary col step-credit">
+    <div class="spinner-tray" ng-show="form.isSubmitting">
+      <fln-spinner></fln-spinner>
+    </div>
+    <h1 ng-if="!form.timedOut">Enter your date of birth.<br><small>We will run a soft credit check to see which financing options we can offer&nbsp;you. Don't worry, this won't affect your credit&nbsp;score.</small></h1>
     <h1 ng-if="form.timedOut">Sorry! Our connection timed out. <small>Please re-enter your information and try again.</small></h1>
     <form name="prospectForm" novalidate>
       <div class="row center">
-        <div class="col third two padded center">
-          <!-- <label for="" class="caps">Date of birth</label> -->
+        <div class="col center">
           <fln-input-dob form="prospectForm"></fln-input-dob>
-        </div>
-      </div>
-      <div class="row center">
-        <div class="col half padded center">
           <fln-input-terms></fln-input-terms>
+          <button class="gold" ng-click="form.checkCredit(form.prospect) && app.notifyTrackerAboutClick('credit_check_started')" ng-disabled="prospectForm.$invalid || form.isSubmitting">Qualify Me</button>
         </div>
       </div>
     </form>
-    <div class="row center">
-      <div class="col half padded center">
-        <button class="ib gold" ng-click="form.checkCredit(form.prospect)" ng-disabled="prospectForm.$invalid || form.isSubmitting">Qualify Me</button>
-      </div>
-    </div>
   </div>
 
   <div class="overlay secondary col sml-full med-full">
-    <!-- <p>We need your consent to a quick credit check so we can determine what kind of savings we can offer you.</p> -->
-    <!-- <p>This is solely for the purpose of providing you with a solar system. We won't share your information with anyone else.</p> -->
-
     <div class="drop-top">
       <!-- TODO: remove internal jargon from this copy; prospects won't know a 'soft' from a 'hard' credit check -->
-      <p>We’ll run a soft credit check to determine what financing we can offer you. We’ll walk through your financing options with you once your professional design is complete so we know your exact system size/production.</p>
-      <p>If you’re not interested in financing and prefer to purchase your system, skip this step and give us a call at <strong><a href="tel:16502880975">(650) 288-0975</a></strong> to speak with a solar consultant.</p>
+      <p><strong>What's a soft credit check?</strong></p>
+      <p>A soft credit check is one that does not affect your credit score. A soft credit check is recorded in your credit history, but is only visible to you and not visible to lenders.</p>
+      <p>We do this to determine what financing we can offer you. We’ll walk through your financing options with you once your professional design is complete so we know your exact system size/production.</p>
+      <p>If you’re not interested in financing and prefer to purchase your system, skip this step and give us a call at <strong><a href="tel:18776707652">(877) 670-7652</a></strong> to speak with a solar consultant.</p>
     </div>
   </div>
 </div>

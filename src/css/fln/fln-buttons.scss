@@ -1,14 +1,59 @@
-.step-fork .button-set {
-  padding: 0.7em;
-}
-.step-fork .button-set .set-or {
-  padding: 0.5em;
+@import "../imports/colors";
+@import "../imports/sizes";
+
+.step-bill button.tiny.gold {
+  margin: 1em 0 0 0;
 }
 
-.step-zip .button-set {
-  display: block;
+.set-or {
+  font-size: 0.83em;
+  padding: 1.5em 0 1em;
 }
 
-.step-zip .alternav {
-  padding: 2em 0 1em;
+.step-fork button {
+  width: 100%;
+  max-width: 200px;
+}
+.step-fork .col.fifth.two p {
+  padding: 0.5em 0 0 0.5em;
+}
+
+.button-set {
+  padding: 0;
+  margin-top: -1.5em;
+  margin-bottom: 0;
+  text-align: center;
+  button.ib {
+    margin-bottom: 0;
+  }
+}
+
+.credit-check button.gold {
+  min-width: 15em;
+}
+
+@media screen and (min-width: $width-min-med) {
+  .button-set {
+    button:not(:first-child) {
+      margin-left: 1em;
+    }
+  }
+}
+
+@media screen and (min-width: $width-min-lrg) {
+  .button-set {
+    margin-top: -2em;
+    margin-bottom: 1em;
+  }
+  .step-bill button.tiny.gold {
+    margin: 0;
+  }
+  .set-or {
+    line-height: 5.5em;
+    padding: 0;
+  }
+
+  .step-fork button {
+    max-width: none;
+  }
 }

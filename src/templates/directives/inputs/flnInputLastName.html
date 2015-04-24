@@ -1,5 +1,6 @@
 <label for="prospect_last_name" class="field-label">Last name</label>
 <input
+  id="prospect_last_name"
   type="text"
   id="prospect_last_name"
   name="lastName"
@@ -8,7 +9,7 @@
   placeholder="Last"
   autocomplete="on"
   autocorrect="off"
-  ng-model="form.prospect.lastName"
+  ng-model="form.prospect().lastName"
   ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"
   ng-required="true"
   ng-minlength="2"

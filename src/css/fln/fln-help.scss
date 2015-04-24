@@ -13,16 +13,17 @@
 
 fln-help {
   position: fixed;
-  display: block;
-  z-index: 3;
+  display: none;
+  z-index: 11;
   bottom: 0;
-  right: 1rem;
+  right: 15%;
   width: 15rem;
   height: 17.5rem;
   background: hsl(0, 100%, 100%);
   box-shadow: 0 0 12px -4px hsla(0, 0%, 0%, 0.8);
   border-style: none;
-  border-radius: 4px 4px 0 0;
+  border-radius: 5px 5px 0 0;
+  border: 1px solid #a8b2c1;
   transform: translate3d(0, 15rem, 0);
   transition: transform 250ms $easing-quick;
 
@@ -35,15 +36,21 @@ fln-help {
     font-size: .85rem;
     color: $white;
     height: 2.5rem;
-    background-color: $blue-smoke;
+    background-color: $color-chat-trigger;
     border: 0;
     border-radius: 4px 4px 0 0;
     display: block !important;
     width: 100%;
     padding: .25em 1em;
     text-align: left;
-    .icon {
+    .icon.up,
+    .icon.down {
       float: right;
+    }
+    .icon.inactive,
+    .icon.active {
+      float: left;
+      margin-right: .5em;
     }
   }
 }
@@ -84,7 +91,7 @@ button.trigger-bar span.icon {
     background-size: auto 70%;
 
     &:hover {
-      background-color: $shade-05;
+      background-color: shade(.05);
       // color: $white;
       border: 0;
     }
@@ -100,16 +107,9 @@ button.trigger-bar span.icon {
   font-size: 2em;
 }
 
-.chat-buttons {
-  position: fixed;
-  z-index: 20;
-  bottom: 2em;
-  right: 3em;
-}
-
 iframe.chatframe {
   border: 0;
-  background: $tint-90;
+  background: tint(.9);
   height: 15em;
   width: 100%;
 }
@@ -122,5 +122,11 @@ iframe.chatframe {
   right: 0;
   bottom: 0;
   position: fixed;
-  z-index: 10;
+  z-index: 11;
+}
+
+@media screen and (min-width: $width-min-med) {
+  fln-help {
+    display: block;
+  }
 }
