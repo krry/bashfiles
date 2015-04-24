@@ -1,3 +1,8 @@
+<div class="col half">
+  <h4 class="question">Is your attic accessible?</h4>
+  <p ng-show="schedule.prospect().attic">Please be sure that the entrance is clear for our surveyor.</p>
+  <p ng-show="schedule.prospect().attic == false">Our surveyor will attempt alternative assessments.</p>
+</div>
 <div class="col half radio-options">
   <div class="ib">
     <input type="radio" class="choice" name="attic" id="attic-yes" ng-model="schedule.prospect().attic" ng-value="true">
@@ -7,9 +12,4 @@
     <input type="radio" class="choice" name="attic" id="attic-no" ng-model="schedule.prospect().attic" ng-value="false">
     <label class="field-label" for="attic-no">No</label>
   </div>
-</div>
-<div class="col half">
-  <h4 class="question">Is your attic accessible?</h4>
-  <p ng-show="schedule.prospect().attic">Please be sure that the entrance is clear for our surveyor.</p>
-  <p ng-show="schedule.prospect().attic == false">Our surveyor will attempt alternative assessments.</p>
 </div>

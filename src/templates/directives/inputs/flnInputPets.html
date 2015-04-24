@@ -1,3 +1,7 @@
+<div class="col half">
+  <h4 class="question">Do you have pets at this residence?</h4>
+  <p ng-show="schedule.prospect().pets">We love animals, but please be sure your pets are restrained during the survey.</p>
+</div>
 <div class="col half radio-options">
   <div class="ib">
     <input type="radio" class="choice" name="pets" id="pets-yes" ng-model="schedule.prospect().pets" ng-value="true">
@@ -7,8 +11,4 @@
     <input type="radio" class="choice" name="pets" id="pets-no" ng-model="schedule.prospect().pets" ng-value="false">
     <label class="field-label" for="pets-no">No</label>
   </div>
-</div>
-<div class="col half">
-  <h4 class="question">Do you have pets at this residence?</h4>
-  <p ng-show="schedule.prospect().pets">We love animals, but please be sure your pets are restrained during the survey.</p>
 </div>

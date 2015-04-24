@@ -163,20 +163,22 @@
 
 .survey-question {
   padding: 1em 1em;
-  margin: 0 0 1px 0;
+  margin: 0;
+  border-bottom: 1px solid $grey-lighter;
   h4 {
-    padding: .2em 0 .3em 0;
     font-size: 0.9em;
   }
   &.selected {
-    background: $grey-lightest;
+    // background: $white-dark;
   }
   .ib:first-child {
     margin-right: 1em;
   }
 
   h4, p {
+    padding-bottom: 0.3em;
     margin-bottom: 0;
+    line-height: 1.2;
   }
   .choice {
     display: inline-block;
@@ -224,6 +226,7 @@ select.hoa-dropdown {
     width: 100%;
   }
   .survey-question {
+    width: 80%;
     h4, p {
       text-align: left;
     }
@@ -234,6 +237,7 @@ select.hoa-dropdown {
 }
 @media screen and (min-width: $width-min-lrg){
   .survey-question {
+    max-width: 40rem;
     p {
       margin-bottom: 0;
     }
