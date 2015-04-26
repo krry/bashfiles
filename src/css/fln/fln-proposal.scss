@@ -163,11 +163,13 @@
 .benefits {
   .icon {
     display: block;
-    width: 12em;
-    height: 6em;
+    width: 4em;
+    height: 4em;
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 700%;
+    background-size: 800%;
+    background-color: #fff;
+    border-radius: 50%;
     margin: 1em auto;
   }
   strong {
@@ -211,7 +213,7 @@
       min-height: 15rem;
     }
     label {
-      max-width: 95%;
+      max-width: 85%;
     }
     .row:not(:last-child) {
       // border-bottom: 2px solid red;

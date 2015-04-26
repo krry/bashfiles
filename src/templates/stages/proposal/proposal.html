@@ -16,7 +16,7 @@
           <figure>
             <span id="current_rate" class="cents">{{ 100 * proposal.prospect().utilityRate | number: 1 }}</span>
           </figure>
-          <label for="current_rate"><span>Avg Utility Cost</span> per kwh in your zip&nbsp;code</label>
+          <label for="current_rate"><span>Average Utility Cost</span> per kwh in your zip&nbsp;code</label>
         </div>
         <div class="col third center padded">
           <figure>
@@ -34,7 +34,7 @@
           <figure>
             <span id="monthly_bill" class="dollars">{{proposal.prospect().bill}}</span>
           </figure>
-          <label for="ppa_plan"><span>Avg Monthly Electric Bill</span></label>
+          <label for="ppa_plan"><span>Average Monthly Electric Bill</span></label>
           <fln-input-bill-slider proposal-bill="true"></fln-input-bill-slider>
         </div>
         <div class="col third center padded">

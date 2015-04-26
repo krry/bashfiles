@@ -99,7 +99,9 @@ h3.social-proof-count {
 .fine-print {
   font-size: 0.7em;
   text-align: left;
-  margin-top: 10em;
+  margin-top: 8em;
+  padding-top: 2em;
+  border-top: 1px solid $grey-lighter;
   color: transparentize($grey-darker, 0.5);
   & p {
     margin-bottom: 1em;
