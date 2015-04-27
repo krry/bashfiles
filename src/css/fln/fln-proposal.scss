@@ -3,7 +3,7 @@
 @import "../imports/fonts";
 
 .step-proposal {
-  background: $white-dark;
+  background: $grey-lightest;
   strong + p {
     margin-top: .25em;
   }
@@ -52,7 +52,7 @@
   border-radius: 2px;
   .col.third.padded.padded {
     overflow: hidden;
-    padding: .5em 0 1em 0;
+    padding: 1em 0 1em 0;
     // border-bottom: 2px solid grey(3%);
   }
   .utes {
@@ -260,7 +260,7 @@
       padding: 0.4em 0 0 0;
     }
     .panelfill {
-      min-height: 17rem;
+      min-height: 18.7rem;
     }
     .col.fifth.three > .row {
       //margin-right: -2px;
