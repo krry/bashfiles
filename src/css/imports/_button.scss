@@ -14,9 +14,9 @@
 
   display: block;
   width: auto;
-  min-width: 7.5em;
+  min-width: 11em;
   height: auto;
-  margin: 0.25em auto;
+  margin: 0.5em auto;
   padding: $pad;
 
   color: $white;
@@ -45,10 +45,9 @@
     color: $grey-medium;
     background-color: $color;
     border: 1px solid $grey-lighter;
-    padding: 0.85em 2em 0.85em;
+    padding: 0.85em 2em;
     border-radius: 1.5em/50%;
     letter-spacing: .1em;
-    min-width: 18.5em;
   }
 
   @if $color == tint(.8) {

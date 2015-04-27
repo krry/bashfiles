@@ -1,19 +1,22 @@
-<label for="prospect_street" class="field-label">Street address</label>
-<input
-  type="text"
-  name="street"
-  id="prospect_street"
-  class="street"
-  minlength="4"
-  autofocus
-  placeholder="Your street address"
-  ng-model="form.prospect().street"
-  ng-model-options="{ debounce: 100 }"
-  ng-minlength="4"
-  bind-key="{enter: 'form.checkAddress()'}">
-<button
-  class="btn gold nested round"
-  ng-click="form.checkAddress()"
-  tabindex="-1">
-  <span class="icon search"></span>
-</button>
+<div class="field street ib">
+  <label for="prospect_street" class="field-label show-hide" ng-show="form.focused.street">Street address</label>
+  <input
+    type="text"
+    name="street"
+    id="prospect_street"
+    class="street"
+    minlength="4"
+    placeholder="Your street address"
+    ng-model="form.prospect().street"
+    ng-model-options="{ debounce: 100 }"
+    ng-focus="form.showLabel('street')"
+    ng-blur="form.hideLabel('street')"
+    ng-minlength="4"
+    bind-key="{enter: 'form.checkAddress()'}">
+  <button
+    class="btn gold nested round"
+    ng-click="form.checkAddress()"
+    tabindex="-1">
+    <span class="icon search"></span>
+  </button>
+</div>

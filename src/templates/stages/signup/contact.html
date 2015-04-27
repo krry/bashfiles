@@ -4,22 +4,22 @@
     <fln-spinner></fln-spinner>
   </div>
 
-  <div class="overlay primary col">
+  <div class="overlay primary col step-contact">
     <h1 ng-if="form.prospect().qualified !== false && !form.timedOut">Enter your information.<br><small>Let's take the next step to get you set up with your solar home.</small></h1>
     <h1 ng-if="form.prospect().qualified !== false && form.timedOut">Sorry! Our connection timed out. <small>Please re-enter your information and try again.</small></h1>
     <h1 ng-if="form.prospect().qualified === false">Hey Waldo, we couldn't find you!<br><small>We could not match the information you submitted. Please check your entries and try again.</small></h1>
     <form name="prospectForm" novalidate>
       <div class="row fifth four center contain">
-        <div class="col half padded">
-          <fln-input-first-name hint="First" form="prospectForm"></fln-input-full-name>
+        <div class="col half padded med-right">
+          <fln-input-first-name hint="First" form="prospectForm"></fln-input-first-name>
         </div>
-         <div class="col half padded">
-          <fln-input-last-name hint="Last" form="prospectForm"></fln-input-full-name>
+        <div class="col half padded med-left">
+          <fln-input-last-name hint="Last" form="prospectForm"></fln-input-last-name>
         </div>
-        <div class="col half padded">
+        <div class="col half padded med-right">
           <fln-input-email hint="you@domain.com" form="prospectForm"></fln-input-email>
         </div>
-        <div class="col half padded">
+        <div class="col half padded med-left">
           <fln-input-phone hint="(---) --- ----" form="prospectForm"></fln-input-phone>
         </div>
         <div class="col full center">

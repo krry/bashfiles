@@ -4,6 +4,7 @@
 
 body {
   background-color: $grey-lightest;
+  padding-top: 2.9rem;
 }
 
 main.main {
@@ -174,6 +175,15 @@ main.main.main-fixed {
   }
   .step-fork .col.padded {
     padding: 0;
+  }
+  .step-fork.overlay.primary {
+    width: calc(100% - 16em);
+  }
+  .step-fork + .overlay.secondary {
+    width: calc(16em - 1px);
+  }
+  .step-schedule.overlay.primary {
+    min-height: 34em;
   }
 }
 

@@ -1,5 +1,4 @@
 <div class="field bill ib">
-  <label for="prospect_bill" class="field-label show-hide" ng-show="form.focused.bill">Bill</label>
   <input
     type="tel"
     id="prospect_bill"
@@ -8,8 +7,6 @@
     value="100"
     maxlength="3"
     ng-pattern="/\d/"
-    ng-focus="form.showLabel('bill')"
-    ng-blur="form.showLabel('bill')"
     ng-model="form.prospect().bill"
     ng-model-options="{ updateOn: 'default blur change', debounce: 0 }"
     ng-cloak>

@@ -14,6 +14,7 @@
 @import "../imports/functions";
 @import "../imports/typography";
 @import "../imports/button";
+@import "../imports/fonts";
 
 
 // reset anchors and links
@@ -35,9 +36,8 @@ a {
   cursor: default;
 }
 
-input {
+input, p, a, h1, h2, h3, h4, h5 {
   user-select: auto;
-  cursor: text;
 }
 
 button, a {
@@ -220,6 +220,10 @@ select {
   border: 1px solid;
 }
 
+select option[default] {
+  color: $red;
+}
+
 textarea {
   margin: 0 0 1em;
   width: 100%;
@@ -282,6 +286,7 @@ select[multiple=multiple] {
   font-weight: 700;
   transition: all 250ms $easing-quick;
   -webkit-appearance: none;
+  cursor: text;
 }
 
 textarea:hover,
@@ -324,16 +329,18 @@ input[type="week"]:focus {
 }
 
 select {
-  @include btn($color: $white, $corners: .25em);
+  @include btn($color: $white);
   position: relative;
   padding: 1em;
-  padding-right: 2.5em;
+  padding-right: 2em;
   color: grey(80%);
   text-align: left;
   background: $white url('../img/down-arrow.svg') no-repeat 97% 48%;
   background-size: auto 50%;
   border: 1px solid $grey-mid;
   letter-spacing: inherit;
+  min-width: 3em;
+  border-radius: 4px;
   &[multiple] {
     @include apercu-bold;
     font-size: .875em;
