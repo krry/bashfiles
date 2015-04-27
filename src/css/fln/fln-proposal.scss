@@ -180,10 +180,10 @@
 }
 
 @media screen and (min-width: $width-min-xsm) {
-  label {
-    max-width: 70%;
-  }
   .proposal {
+    label {
+      max-width: 70%;
+    }
     .col {
       border-bottom: 1px solid grey(5%);
     }
@@ -194,8 +194,10 @@
 }
 
 @media screen and (min-width: $width-min-sml) {
-  label {
-    max-width: 80%;
+  .proposal {
+    label {
+      max-width: 80%;
+    }
   }
 }
 
