@@ -1,11 +1,14 @@
-<label for="prospect_hoa" class="field-label">Homeowner Association</label>
-<input
-  type="text"
-  id="prospect_hoa"
-  name="HoaName"
-  class="hoa-input"
-  placeholder="Name of your association"
-  ng-model="schedule.prospect().hoaName"
-  ng-show="schedule.prospect.hoa && schedule.selectedAhj.id === -1"
-  ng-required="schedule.prospect().hoa && schedule.selectedAhj.id === -1"
-  ng-minlength="3">
+<div class="field ib hoa">
+  <label for="prospect_hoa" class="field-label show-hide" ng-show="form.focused.HoaName">Homeowner Association</label>
+  <input
+    type="text"
+    id="prospect_hoa"
+    name="HoaName"
+    class="hoa-input"
+    placeholder="Enter the name of your HOA"
+    ng-focus="form.showLabel('HoaName')"
+    ng-blur="form.hideLabel('HoaName')"
+    ng-model="schedule.prospect().hoaName"
+    ng-required="schedule.prospect().hoa && schedule.selectedAhj.id === -1"
+    ng-minlength="3">
+</div>

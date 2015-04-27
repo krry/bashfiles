@@ -1,58 +1,13 @@
 <div class="row">
   <div class="col full center">
-    <div class="field month ib">
-      <label for="prospect_month" class="field-label show-hide" ng-show="form.focused.month">Month</label>
-      <input
-        type="text"
-        id="prospect_month"
-        name="month"
-        class="birthdate ib month"
-        placeholder="mm"
-        minlength="1"
-        maxlength="2"
-        autofocus
-        ng-pattern="/\b[1-9]\b|0[1-9]|1[012]/"
-        ng-model="form.prospect.month"
-        ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"
-        ng-required="true">
-    </div>
-    <label for="prospect_day" class="field-label">Day</label>
-    <input
-      type="text"
-      id="prospect_day"
-      name="day"
-      class="birthdate ib day"
-      placeholder="dd"
-      minlength="1"
-      maxlength="2"
-      ng-pattern="/\b[1-9]\b|0[1-9]|[1-2][0-9]|3[01]/"
-      ng-model="form.prospect().day"
-      ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"
-      ng-required="true">
-    <label for="prospect_year" class="field-label">Year</label>
-    <input
-      type="text"
-      id="prospect_year"
-      name="year"
-      class="birthdate ib year"
-      placeholder="yyyy"
-      minlength="4"
-      maxlength="4"
-      ng-pattern="/19(1[5-9]|[2-8][0-9]|9[0-7])/"
-      ng-model="form.prospect().year"
-      ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"
-      ng-required="true">
+    <fln-input-dob-year></fln-input-dob-year>
+    <fln-input-dob-month></fln-input-dob-month>
+    <fln-input-dob-day></fln-input-dob-day>
   </div>
 </div>
 <div class="status center" ng-hide="prospectForm.month.$pristine">
-  <span ng-show="prospectForm.month.$error.required">Month is required.</span>
-  <span ng-show="prospectForm.month.$error.pattern">Month must be valid.</span>
-</div>
-<div class="status center" ng-hide="prospectForm.day.$pristine">
-  <span ng-show="prospectForm.day.$error.required">Day is required.</span>
-  <span ng-show="prospectForm.day.$error.pattern">Day must be valid.</span>
-</div>
-<div class="status center" ng-hide="prospectForm.year.$pristine">
-  <span ng-show="prospectForm.year.$error.required">Year is required.</span>
-  <span ng-show="prospectForm.year.$error.pattern">Year must be between 1915 and 1997.</span>
+  <span ng-show="prospectForm.month.$error.required">required</span>
+  <span ng-show="prospectForm.day.$error.required">required</span>
+  <span ng-show="prospectForm.year.$error.required">required</span>
+  <span ng-show="prospectForm.year.$error.pattern">You must be at least 18 years old.
 </div>

@@ -67,16 +67,46 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
     User.isNew = true;
   }
 
+  vm.days = [];
+
+  for (var i = 1, len = 31; i <= len; i++) {
+    vm.days.push(i);
+  }
+
   vm.gmapShown = false;
   vm.invalidZip = false;
   vm.invalidTerritory = false;
   vm.validAddress = false;
   vm.isSubmitting = false;
+  vm.NumberOfDays = vm.days.length;
   vm.focused = {};
   vm.showLabel = showLabel;
+  vm.hideLabel = hideLabel;
+
+  function isLeapYear (selectedYear) {
+    var year = vm.prospect().year || 0;
+    return ((year % 400 == 0 || year % 100 != 0) && (year % 4 == 0)) ? 1 : 0;
+  }
+
+  function getNumberOfDaysInMonth (selectedMonth) {
+    var month = selectedMonth || 0;
+    var days = 31 - ((month == 2) ? (3 - isLeapYear()) : ((month - 1) % 7 % 2));
+    console.log("calculated", days, "for month", month);
+    return days;
+  }
+
+  function updateNumberOfDays () {
+    var month = vm.prospect().month;
+    console.log("updating number of days for month", month);
+    return vm.NumberOfDays = getNumberOfDaysInMonth(month);
+  }
 
   function showLabel(field_name) {
-    vm.focused[field_name] = !vm.focused[field_name];
+    vm.focused[field_name] = true;
+  }
+
+  function hideLabel(field_name) {
+    vm.focused[field_name] = false;
   }
 
   vm.prevStep = prev;
@@ -87,6 +117,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
   vm.checkCredit = checkCredit;
   vm.createContact = createContact;
   vm.skipConfigurator = skipConfigurator;
+  vm.updateNumberOfDays = updateNumberOfDays;
 
   Client.listen('zip rejected', rejectZip);
   Client.listen('check zip', checkZip);
@@ -361,7 +392,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
       ProposalLink: vm.prospect().proposalLink,
       SiteSurveyLink: vm.prospect().siteSurveyLink,
       Skipped: vm.prospect().skipped,
-      Share_Proposal_Link__c: vm.prospect().share_link, 
+      Share_Proposal_Link__c: vm.prospect().share_link,
       ExternalId: Session.id()
     }).then(function(data) {
       if (data.id) {

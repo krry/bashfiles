@@ -92,7 +92,6 @@ button.trigger-bar span.icon {
 
     &:hover {
       background-color: shade(.05);
-      // color: $white;
       border: 0;
     }
   }
@@ -125,7 +124,13 @@ iframe.chatframe {
   z-index: 11;
 }
 
-@media screen and (min-width: $width-min-med) {
+@media screen and (min-width: $width-min-med) and (orientation: portrait) {
+  fln-help {
+    display: block;
+  }
+}
+
+@media screen and (min-width: $width-min-lrg) {
   fln-help {
     display: block;
   }
