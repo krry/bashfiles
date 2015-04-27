@@ -73,7 +73,7 @@
   }
   figure {
     /* margin: 1em 0 0 0; */
-    letter-spacing: -1px;
+    letter-spacing: -2px;
     height: 3.6em;
     margin: 0;
   }
@@ -197,11 +197,6 @@
   label {
     max-width: 80%;
   }
-  .proposal {
-    .col {
-      border-bottom: 0px solid grey(3%);
-    }
-  }
 }
 
 @media screen and (min-width: $width-min-med) {
@@ -229,6 +224,7 @@
         & + .third.padded + .third.padded {
           border-top: 2px solid grey(3%);
         }
+      border-bottom: 0px solid;
       }
     }
   }

@@ -1,8 +1,10 @@
 <button ng-click="modal.close()" class="close"></button>
 <h5>Save For Later</h5>
-<p>We'll email you a link to this custom proposal.</p>
+<p>Enter your email address and we'll send you the link to get back to this later. Don't worry, we won't spam you or share your information with anyone else.</p>
 <form novalidate name="emailForm">
   <fln-input-email></fln-input-email>
-  <button id="submit_email" class="gold" ng-disabled="emailForm.$invalid">Submit</button>
-  <footer>Don't worry, we're spam-free.<br>Here's our <a href="http://www.solarcity.com/company/privacy-policy" target="_blank">privacy policy</a>.</footer>
+  <div class="actionbar">
+    <button id="submit_email" class="gold" ng-disabled="emailForm.$invalid">Submit</button>
+  </div>
+  <footer>Read our <a href="http://www.solarcity.com/company/privacy-policy" target="_blank">privacy policy</a>.</footer>
 </form>
