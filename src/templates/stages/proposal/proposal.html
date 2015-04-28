@@ -3,11 +3,6 @@
   <div class="row padded">
     <div class="col full center">
       <h1>Nice work! You may be eligible to go solar for $0&nbsp;down.<br><small>Based on the system you designed and your average monthly bill of <span id="current_bill" class="dollars">{{ proposal.prospect().bill | number: 0 }}</span>, here is your estimated solar&nbsp;proposal.</small></h1>
-      <div class="button-set">
-        <button class="btn white tiny ib" ng-click="proposal.changeDesign()">Redo my design</button>
-        <button class="btn white tiny ib" ng-click="modal.showDialog({dialog:'share-proposal', data: ''})">Save my proposal</button>
-        <button class="btn gold wide ib" ng-click="stages.advanceFromProposal(proposal.prospect().qualified)">Sign me up</button>
-      </div>
     </div>
   </div>
   <div class="proposal row">
@@ -63,9 +58,15 @@
     </div>
   </div>
 
+  <div class="actionbar">
+      <button class="btn gold wide ib" ng-click="stages.advanceFromProposal(proposal.prospect().qualified)">Yes sign me up</button>
+  </div>
+
   <div class="row padded-less proposal-button-tray" ng-controller="ModalCtrl as modal">
     <div class="col full center">
-      <div class="financing-options-bar"><strong>Remember &mdash; this is only a rough draft.</strong> After your site survey, our experts will create a custom system design and proposal with available <a ng-click="modal.showDialog({dialog: 'financing', data: ''})">financing options</a>.</div>
+      <div class="financing-options-bar"><strong>Remember &mdash; this is only a rough draft.</strong> After your site survey, our experts will create a custom system design and proposal with available <a ng-click="modal.showDialog({dialog: 'financing', data: ''})">financing&nbsp;options</a>.</div>
+      <button class="btn white tiny ib" ng-click="proposal.changeDesign() && app.notifyTrackerAboutClick('redoing design')">Redo my design</button>
+      <button class="btn white tiny ib no-mobile no-tablet" ng-click="modal.showDialog({dialog:'share-proposal', data: ''}) && app.notifyTrackerAboutClick('saving_proposal')">Save my proposal</button>
     </div>
   </div>
 
@@ -162,6 +163,9 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="actionbar">
+      <button class="btn gold wide ib" ng-click="stages.advanceFromProposal(proposal.prospect().qualified)">Yes sign me up</button>
   </div>
   <fln-fine-print>
     <p>The figures on this page are only estimates, subject to change after review from a solar consultant. System size and production may be affected by shading, roof type, compliance fire codes and other factors.</p>
