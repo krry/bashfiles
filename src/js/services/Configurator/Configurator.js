@@ -133,7 +133,7 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
       $(maps.omap.getViewport()).on('touchend', function (e) {
         if (tempStopGapForTouchendBugHack === null) {
           e.stopImmediatePropagation();
-          tempStopGapForTouchendBug = 'butts';
+          tempStopGapForTouchendBugHack = 'butts';
         }
       });
 
