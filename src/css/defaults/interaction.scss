@@ -369,7 +369,7 @@ select, option {
 }
 
 :focus::placeholder {
-  opacity: .4;
+  opacity: 0;
 }
 
 input::placeholder {
