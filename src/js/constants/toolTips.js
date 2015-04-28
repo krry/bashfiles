@@ -1,6 +1,5 @@
 constants.constant('TOOL_TIP_TEXT', [
-  "Click one corner of your roof to start",
-  "Outline a single field of your roof by clicking the next corner",
-  "Keep going! You're doing great!",
-  "Finish this step by clicking the first point",
+  "Click a corner to start tracing an area",
+  "Click to continue tracing an area",
+  "Click the first point to close the area",
 ]);
