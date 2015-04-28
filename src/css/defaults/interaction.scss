@@ -208,8 +208,11 @@ label.field-label {
 
 .field {
   position: relative;
-  margin-bottom: 1em;
   padding-bottom: 1em;
+}
+
+.step-address .field {
+  margin-bottom: 0;
 }
 
 label abbr {
@@ -374,4 +377,10 @@ select, option {
 
 input::placeholder {
   color: $grey-mid;
+}
+
+@media screen and (min-width: $width-min-med) {
+  .field {
+    margin-bottom: 1em;
+  }
 }

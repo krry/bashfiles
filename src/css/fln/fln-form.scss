@@ -50,22 +50,22 @@ input.phone {
   position: relative;
   border: 1px solid $grey-mid;
   border-radius: 4px;
-  padding: 0 .5em 0 1.75em;
+  padding: 0 .25em 0 1.75em;
   margin-right: .25em;
-  vertical-align: middle;
+  vertical-align: 0;
   &:before {
     font-weight: 700;
     content: '19';
     text-align: right;
     position: absolute;
-    left: .875em;
-    top: .675em;
+    left: 11px;
+    top: 11px;
   }
 }
 input.year.birthdate {
   font-size: 1em;
   width: 1.5em;
-  padding: .75em 0 .2875em;
+  padding: 12px 0 7px;
   border: none;
   background: none;
   text-align: left;
@@ -73,6 +73,81 @@ input.year.birthdate {
     border: none;
     background: none;
     box-shadow: none;
+  }
+  &::placeholder {
+    letter-spacing: 1px;
+  }
+}
+
+.field.birthdate select {
+  font-size: 1em;
+}
+
+@media screen and (min-width: $width-min-sml) {
+  .field.year.birthdate {
+    vertical-align: 0;
+    padding: 0 .25em 0 1.75em;
+    &:before {
+      left: 13px;
+      top: 13px;
+    }
+  }
+  input.year.birthdate {
+    padding: 14px 0 7px;
+  }
+}
+
+@media screen and (min-width: $width-min-lrg) {
+  .field.year.birthdate {
+    padding: 0 .4em 0 1.9em;
+    &:before {
+      left: 16px;
+    }
+  }
+  input.year.birthdate::placeholder {
+    padding-left: 1px;
+  }
+}
+
+@media screen and (min-width: $width-min-xlg) {
+  .field.year.birthdate {
+    vertical-align: -2px;
+    &:before {
+      left: 17px;
+      top: 15px;
+    }
+  }
+  input.year.birthdate {
+    padding: 16px 0 8px;
+  }
+  input.year.birthdate::placeholder {
+    padding-left: 0;
+  }
+}
+
+@media screen and (min-width: $width-min-xxl) {
+  .field.year.birthdate {
+    vertical-align: -1px;
+    &:before {
+      left: 17px;
+      top: 16px;
+    }
+  }
+  input.year.birthdate {
+    padding: 17px 0 7px;
+  }
+}
+
+@media screen and (min-width: $width-min-uhd) {
+  .field.year.birthdate {
+    vertical-align: 0;
+    &:before {
+      left: 21px;
+      top: 17px;
+    }
+  }
+  input.year.birthdate {
+    padding: 19px 0 10px;
   }
 }
 
@@ -176,8 +251,8 @@ button.nested {
   position: absolute;
   width: 2.25rem;
   height: 2.25rem;
-  right: .3rem;
-  top: .3rem;
+  right: .4rem;
+  top: .6rem;
   margin: 0;
 }
 
@@ -235,8 +310,8 @@ span.autolocate-icon {
   button.nested {
     width: 2.25rem;
     height: 2.25rem;
-    right: .3rem;
-    top: .3rem;
+    /* right: .3rem; */
+    /* top: .3rem; */
   }
   .step-contact .field {
     max-width: 16em;
