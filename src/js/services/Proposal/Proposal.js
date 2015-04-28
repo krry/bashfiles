@@ -172,6 +172,11 @@ this.setTargetOverView = function setTargetOverView(data, pmap, mapnumber) {
         polygon.setMap(pmap);
       });
 
+      var listener = google.maps.event.addListener(pmap, "idle", function() { 
+        pmap.setZoom(20);
+        google.maps.event.removeListener(listener); 
+      });
+
 
     });
   }
