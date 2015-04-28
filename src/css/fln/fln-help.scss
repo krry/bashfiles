@@ -125,7 +125,13 @@ iframe.chatframe {
   z-index: 11;
 }
 
-@media screen and (min-width: $width-min-med) {
+@media screen and (min-width: $width-min-med) and (orientation: portrait) {
+  fln-help {
+    display: block;
+  }
+}
+
+@media screen and (min-width: $width-min-lrg) {
   fln-help {
     display: block;
   }
