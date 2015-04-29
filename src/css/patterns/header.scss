@@ -137,6 +137,7 @@
   }
   .logo {
     background-position: -15px -12px !important;
+    -ms-background-position-x: -25px !important;
   }
 }
 
@@ -147,6 +148,9 @@
     }
     .questions-extended {
       display: inline;
+    }
+    .logo {
+      -ms-background-position-x: -38px !important;
     }
   }
 }
@@ -163,6 +167,7 @@
   .header {
     .logo {
       background-position: -13px -13px !important;
+      -ms-background-position-x: -38px !important;
     }
     .header-detail {
       @include apercu-medium;
