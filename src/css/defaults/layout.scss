@@ -94,8 +94,8 @@ main.main.main-fixed {
 }
 
 @media screen and (max-width: $width-min-lrg) {
-  .no-mobile {
-    display: none;
+  .no-mobile.no-mobile {
+    display: none !important;
   }
 }
 
@@ -110,8 +110,8 @@ main.main.main-fixed {
 
 
 @media screen and (max-height: $width-min-med) {
-  .no-mobile {
-    display: none;
+  .no-mobile.no-mobile {
+    display: none !important;
   }
 }
 
@@ -124,6 +124,12 @@ main.main.main-fixed {
   }
   .overlay.short {
     padding: 0em 2em 0.5em 2em;
+  }
+}
+
+@media screen and (max-width: $width-min-xlg) {
+  .no-tablet.no-tablet {
+    display: none !important;
   }
 }
 
