@@ -81,6 +81,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
   vm.checkCredit = checkCredit;
   vm.createContact = createContact;
   vm.skipConfigurator = skipConfigurator;
+  vm.checkUtility = checkUtility;
 
   Client.listen('zip rejected', rejectZip);
   Client.listen('check zip', checkZip);
@@ -97,6 +98,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
   Client.listen('Form: save lead', createLead);
   Client.listen('create hotload link', createHotloadLink);
   Client.listen('Form: final near me data', setFinalNearMeData);
+  Client.listen('Form: save utility', saveUtility);
 
   var old_zip,
       new_zip,
@@ -410,6 +412,25 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
     Client.emit('Stages: jump to stage', 'flannel.signup');
   }
 
+  function checkUtility() {
+    Client.emit('Spinner: spin it', true);
+
+    getUtilities().then(function(data) {
+      Client.emit('Spinner: spin it', false);
+
+      // Only show the utilities modal when there's more than 1 utility to choose from
+      if (data.length > 1) {
+        Client.emit('Modal: show dialog', { dialog: 'utility', data: data });
+      // Otherwise, save the first utility and get the rates for it
+      } else {
+        saveUtility(data[0].UtilityId);
+      }
+    }, function() {
+      Client.emit('Spinner: spin it', false);
+      Client.emit('Stages: stage', 'next');
+    });
+  }
+
   function rejectZip(data) {
     vm.invalidZip = data;
     vm.invalid = vm.invalidZip;
@@ -454,33 +475,26 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
       Client.emit('Form: valid data', data);
       Client.emit('Stages: stage', 'next');
       // console.log('valid house accepted', data);
-      getUtilities();
     }
   }
 
   function getUtilities() {
-    if (Utility.isSubmitting) {
-      return;
-    }
-
-    Utility.isSubmitting = true;
-
     return Utility.get({
       city: vm.prospect().city,
       zip: vm.prospect().zip
-    }).then(getUtilityRates).then(saveUtility);
+    });
   }
 
   function saveUtility (data) {
     // console.log(data);
     vm.prospect().utilityId = data;
     Client.emit('Form: valid data', {utilityId: data});
+    Client.emit('Stages: stage', 'next');
+    return getUtilityRates(data);
   }
 
-  function getUtilityRates (data) {
-    var utilityId = data[0].UtilityId;
-    Rates.get({ utilityid: utilityId }).then(saveRates);
-    return utilityId;
+  function getUtilityRates (id) {
+    return Rates.get({ utilityid: id }).then(saveRates);
   }
 
   function saveRates (data) {
