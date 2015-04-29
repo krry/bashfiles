@@ -95,7 +95,7 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
       google.maps.event.trigger(gmap, 'resize');
       omap.updateSize();
     });
-	
+
     maps.omap.on('change:size', function() {
       // resize the target element
       google.maps.event.trigger(gmap, 'resize');
@@ -123,6 +123,20 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
   this.drawAdd = function () {
     result.promise.then(function (map) {
       Client.emit('Configurator: update mapsize', map);
+
+      // HACK: see FLNL-610. this prevents an issue where a user on a touch enabled device
+      // would begin drawing a polygon immediately after centering their design and moving
+      // to the drawstate. the touchend event was propagating through to the map viewport.
+      // there's a known issue with angular that is related. we can also change the mobile
+      // layout to solve this issue.
+      var tempStopGapForTouchendBugHack = null;
+      $(maps.omap.getViewport()).on('touchend', function (e) {
+        if (tempStopGapForTouchendBugHack === null) {
+          e.stopImmediatePropagation();
+          tempStopGapForTouchendBugHack = 'butts';
+        }
+      });
+
     });
     Layers.collection.push(Layers.draw);
     Interactions.collection.push(Interactions.draw);
@@ -160,7 +174,7 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
   }
   this.dragpanAdd = function () {
     result.promise.then(function (map) {
-      Client.emit('Configurator: update mapsize', map)
+      Client.emit('Configurator: update mapsize', map);
     })
 
     Interactions.collection.push(Interactions.dragpan);
