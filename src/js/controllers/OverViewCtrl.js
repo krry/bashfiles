@@ -10,7 +10,10 @@ controllers.controller('OverViewCtrl', ['Clientstream', 'defaultValues', '$state
 
 function OverViewCtrl_ (Client, defaultValues, $stateParams, Proposal, FIREBASE_URL) {
 
-  var i = 1;
+var vm = this;
+var i = 1;
+var localdata = [];
+var clicklisteners = [];
 
   var map_options = {
     zoom: 20,
@@ -23,40 +26,56 @@ function OverViewCtrl_ (Client, defaultValues, $stateParams, Proposal, FIREBASE_
     draggable: false,
   };
 
-  var _ref = new Firebase(FIREBASE_URL).child('designs');
+  /* temporarily point to production per TB's request */
+      //var ref = new Firebase(FIREBASE_URL).child('designs');
+      var ref = new Firebase('https://scty-prod.firebaseio.com').child('designs');
+      var data;
 
-  _ref.limitToLast(10).on('child_changed', function (ds) {
-    var data, pmap;
-    data = ds.exportVal();
+       ref.limitToLast(10).on('child_changed', function (ds) {
+        data = ds.exportVal();
+        if(data.areas != null)
+        {
+          if(data.areas[0].ridge != null) 
+          {
+            if(data.areas[0].tilt != null)
+            {
 
-    if (data.areas !== null && data.areas[0].ridge !== null && data.areas[0].tilt !== null) {
-      pmap = new google.maps.Map(document.getElementById('gmap'+i), map_options);
-      document.getElementById('gmap'+i).removeEventListener('click')
-      google.maps.event.addDomListener(document.getElementById('gmap'+i), 'click', showPrompt);
+              localdata[i] = data;
+              var pmap = new google.maps.Map(document.getElementById('gmap'+i), map_options);
+              if(clicklisteners[i] !== null)
+              {
+                google.maps.event.removeListener(clicklisteners[i]); 
+              }
+              clicklisteners[i] = google.maps.event.addDomListener(document.getElementById('gmap'+i), 'click', showPrompt);
 
-      function showPrompt() {
-        var prompt_string = [data.areas[0].wkt ,
+              function showPrompt() {
+                mydata = localdata[parseInt(this.id.replace('gmap', ''))]
+                        var prompt_string = [mydata.areas[0].wkt ,
                              ' lat:' ,
-                             data.map_details.center.lat ,
+                             mydata.map_details.center.lat ,
                              ' lng:' ,
-                             data.map_details.center.lng ,
+                             mydata.map_details.center.lng ,
                              ' tilt:' ,
-                             data.areas[0].tilt ,
+                             mydata.areas[0].tilt ,
                              ' ridge:' ,
-                             data.areas[0].ridge[0] ,
+                             mydata.areas[0].ridge[0] ,
                              ' ' ,
-                             data.areas[0].ridge[1]].join(' ');
+                             mydata.areas[0].ridge[1]].join(' ');
+                        prompt("Copy to clipboard: Ctrl+C, Enter", prompt_string );
+              };
+              Proposal.setTargetOverView(data, pmap, i);    
+              var listener = google.maps.event.addListener(pmap, "idle", function() { 
+                pmap.setZoom(20);
+                google.maps.event.removeListener(listener); 
+              });
 
-        prompt("Copy to clipboard: Ctrl+C, Enter", prompt_string );
-      };
-
-      Proposal.setTargetOverView(data, pmap, i);
-
-      // only allow 6 map divs on the page
-      i++;
-      if (i == 7) {
-        i = 1;
-      }
-    }
-  });
+              i++;
+              if(i == 7)
+              {
+                i = 1;
+              }
+            }
+          }
+        }
+      });
 }

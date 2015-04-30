@@ -55,7 +55,7 @@ function AppCtrl_($location, $sce, GMAP_CLIENT, MINIFIED, APP_TITLE, ENV, Client
     // trim query string off path, cache and send to google analytics
     location = $location.url();
     //ga('send', 'pageview', $location.$$path); // relative url
-    console.log('~~~~~~~~~~ emitting GA pageview for:', location);
+    // console.log('~~~~~~~~~~ emitting GA pageview for:', location);
     dataLayer.push({
       'event': 'pageview',
       'pageURL': location,

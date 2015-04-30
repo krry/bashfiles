@@ -33,7 +33,7 @@ angular.module('stages',[
     }
   })
 
-}]).run(['$rootScope', '$state', 'Clientstream', 'User', function ui_router_run($rootScope, $state, Client, User) {
+}]).run(['$rootScope', '$state', '$window', 'Clientstream', 'User', function ui_router_run($rootScope, $state, $window, Client, User) {
   // this runs after all the dependencies are bootstrapped
   $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
     // Avoid emitting when arriving from share_link
@@ -49,6 +49,7 @@ angular.module('stages',[
     // Avoid emitting when transitioning to a new stage, which is an intermediary abstract state and has no step
     if (toState.step === 0 || toState.step) {
       Client.emit('Router: state change success', { stage: toState.stage, step: toState.step });
+      $window.scrollTo(0, 0);
     }
   });
 }]);

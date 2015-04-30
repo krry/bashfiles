@@ -19,11 +19,31 @@
   ul li, p {
     line-height: 160%;
   }
+  .proposal-button-tray {
+    margin-top: 1rem;
+  }
+  .proposal-button-tray button.tiny.white {
+    min-width: 12rem;
+  }
+  .financing-options-bar {
+    margin-bottom: 1em;
+  }
+}
+
+.pit {
+  background-color: $white;
+  padding: 1em 2em 2em;
+  margin: 1em auto;
+  border: 1px solid $grey-mid;
 }
 
 .panelfill {
   min-height: 16rem;
   width: 100%;
+}
+
+.actionbar + .proposal {
+  margin-top: 1rem;
 }
 
 .proposal.proposal {
