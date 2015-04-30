@@ -1,26 +1,31 @@
-<label for="prospect_phone" class="field-label">Phone number</label>
-<input
-  id="prospect_phone"
-  type="tel"
-  name="phone"
-  class="phone"
-  autocapitalize="none"
-  autocomplete="on"
-  autocorrect="off"
-  placeholder="(___) ___-____"
-  ng-model="form.prospect().phone"
-  ng-model-options="{ updateOn: 'default blur', debounce: { default: 0, blur: 0 } }"
-  ng-required="true"
-  ng-minlength="14"
-  ng-maxlength="14"
-  ui-us-phone-number>
-<div class="status" ng-hide="prospectForm.phone.$pristine">
-  <span ng-show="prospectForm.phone.$error.required">
-    Required
-  </span>
-  <span ng-show="prospectForm.phone.$error.pattern ||
-   prospectForm.phone.$error.minlength ||
-   prospectForm.phone.$error.maxlength">
-    That's not a real US phone number.
- </span>
+<div class="field phone">
+  <div class="status" ng-hide="prospectForm.phone.$pristine">
+    <span ng-show="prospectForm.phone.$error.required">
+      Required
+    </span>
+    <span ng-show="prospectForm.phone.$error.pattern ||
+     prospectForm.phone.$error.minlength ||
+     prospectForm.phone.$error.maxlength">
+      That's not a real US phone number.
+   </span>
+  </div>
+  <label for="prospect_phone" class="field-label show-hide" ng-show="form.focused.phone">Phone number</label>
+  <input
+    id="prospect_phone"
+    type="tel"
+    id="prospect_phone"
+    name="phone"
+    class="phone"
+    autocapitalize="none"
+    autocomplete="on"
+    autocorrect="off"
+    placeholder="phone number"
+    ng-model="form.prospect().phone"
+    ng-model-options="{ updateOn: 'default blur', debounce: { default: 0, blur: 0 } }"
+    ng-focus="form.showLabel('phone')"
+    ng-blur="form.hideLabel('phone')"
+    ng-required="true"
+    ng-minlength="14"
+    ng-maxlength="14"
+    ui-us-phone-number>
 </div>

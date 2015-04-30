@@ -4,6 +4,7 @@
 
 body {
   background-color: $grey-lightest;
+  padding-top: 2.9rem;
 }
 
 main.main {
@@ -112,7 +113,9 @@ main.main.main-fixed {
   .step-fork .fifth.four {
     width: 100%;
   }
-  .step-fork .col.padded {
+  .step-fork .col.padded,
+  .step-contact .col.padded,
+  .step-address .col.padded {
     padding: 0;
   }
   .overlay.primary,
@@ -131,9 +134,6 @@ main.main.main-fixed {
 @media screen and (min-width: $width-min-med) {
   .step-fork .fifth.four {
     width: 60%;
-  }
-  .step-fork .col.padded {
-    padding: 0;
   }
   .overlay.short {
     padding: 0em 2em 0.5em 2em;
@@ -189,8 +189,14 @@ main.main.main-fixed {
   .step-fork .fifth.four {
     width: 100%;
   }
-  .step-fork .col.padded {
-    padding: 0;
+  .step-fork.overlay.primary {
+    width: calc(100% - 16em);
+  }
+  .step-fork + .overlay.secondary {
+    width: calc(16em - 1px);
+  }
+  .step-schedule.overlay.primary {
+    min-height: 34em;
   }
 }
 
@@ -228,8 +234,5 @@ main.main.main-fixed {
 @media screen and (min-width: $width-min-xxl){
   .step-fork .fifth.four {
     width: 65%;
-  }
-  .step-fork .col.padded {
-    padding: 0;
   }
 }

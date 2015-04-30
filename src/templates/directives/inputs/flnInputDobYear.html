@@ -1,0 +1,16 @@
+<div class="field birthdate ib year">
+  <!-- <label for="prospect_year" class="field-label show-hide" ng-show="form.focused.year">Year</label> -->
+  <input
+    type="text"
+    id="prospect_year"
+    name="year"
+    class="birthdate ib year"
+    placeholder="YY"
+    minlength="2"
+    maxlength="2"
+    ng-change="form.updateNumberOfDays()"
+    ng-pattern="/1[5-9]|[2-8][0-9]|9[0-7]/"
+    ng-model="form.prospect().year"
+    ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"
+    ng-required="true">
+</div>
