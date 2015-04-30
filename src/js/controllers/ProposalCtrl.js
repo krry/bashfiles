@@ -28,7 +28,7 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, $state, Session, Form, Clie
 
   vm.changeDesign = changeDesign;
   vm.toggleSave = toggleSave;
-  vm.save = false;
+  vm.saving = false;
   vm.sendEmail = sendEmail;
 
   function sendEmail() {
@@ -37,7 +37,7 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, $state, Session, Form, Clie
   }
 
   function toggleSave () {
-    vm.save = !vm.save;
+    vm.saving = !vm.saving;
   }
 
   calculateProposal();

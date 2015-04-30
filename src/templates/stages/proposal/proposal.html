@@ -67,9 +67,9 @@
     <div class="col full center">
       <div class="financing-options-bar"><strong>Remember &mdash; this is only a rough draft.</strong> After your site survey, our experts will create a custom system design and proposal with available <a ng-click="modal.showDialog({dialog: 'financing', data: ''})">financing&nbsp;options</a>.</div>
       <button class="btn white tiny ib" ng-click="proposal.changeDesign(); app.notifyTrackerAboutClick('redoing design')">Redo my design</button>
-      <button class="btn white tiny ib" ng-click="proposal.toggleSave(); app.notifyTrackerAboutClick('saving_proposal')" ng-hide="proposal.save">Save my proposal</button>
-      <div class="row center">
-        <div class="proposal-save pit col half center" ng-show="proposal.save">
+      <button class="btn white tiny ib" ng-click="proposal.toggleSave(); app.notifyTrackerAboutClick('saving_proposal')" ng-hide="proposal.saving">Save my proposal</button>
+      <div class="row center" ng-show="proposal.saving">
+        <div class="proposal-save pit col half center">
           <h5>Save your solar proposal</h5>
           <p>We'll email you a link to this custom proposal.</p>
           <fln-input-email></fln-input-email>
