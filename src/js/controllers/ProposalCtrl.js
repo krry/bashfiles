@@ -33,7 +33,9 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, $state, Session, Form, Clie
 
   function sendEmail() {
     Client.emit('Modal: email submitted', vm.prospect().email);
-    toggleSave();
+    if (vm.saving) {
+      toggleSave();
+    }
   }
 
   function toggleSave () {
