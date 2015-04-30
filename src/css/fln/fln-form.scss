@@ -278,7 +278,11 @@ span.autolocate-icon {
 }
 
 .step-contact .field {
-  margin-bottom: 0;
+  margin: 0.5em;
+  padding: 0;
+}
+.step-contact .field input {
+  box-sizing: border-box;
 }
 
 @media screen and (min-width: $width-min-med){
@@ -317,7 +321,7 @@ span.autolocate-icon {
     /* top: .3rem; */
   }
   .step-contact .field {
-    max-width: 16em;
+    //max-width: 16em;
   }
   .med-left .field {
     float: left;
