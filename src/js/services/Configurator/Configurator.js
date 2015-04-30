@@ -118,7 +118,7 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
 
   /* Interaction handlers */
   // Configurator is responsible for orchestrating the layers and interactions
-  // it is not responsible for managing the Area polygons.6
+  // it is not responsible for managing the Area polygons
 
   this.drawAdd = function () {
     result.promise.then(function (map) {
@@ -129,14 +129,13 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
       // to the drawstate. the touchend event was propagating through to the map viewport.
       // there's a known issue with angular that is related. we can also change the mobile
       // layout to solve this issue.
-      var tempStopGapForTouchendBugHack = null;
-      $(maps.omap.getViewport()).on('touchend', function (e) {
-        if (tempStopGapForTouchendBugHack === null) {
-          e.stopImmediatePropagation();
-          tempStopGapForTouchendBugHack = 'butts';
-        }
-      });
-
+      // var tempStopGapForTouchendBugHack = null;
+      // $(maps.omap.getViewport()).on('touchend', function (e) {
+      //   if (tempStopGapForTouchendBugHack === null) {
+      //     e.stopImmediatePropagation();
+      //     tempStopGapForTouchendBugHack = 'butts';
+      //   }
+      // });
     });
     Layers.collection.push(Layers.draw);
     Interactions.collection.push(Interactions.draw);
