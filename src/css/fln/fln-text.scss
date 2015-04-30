@@ -25,13 +25,13 @@ h3.social-proof-count {
 }
 
 .step-bill.overlay.short {
-  padding-top: 1.5em;
+  //padding-top: 1.5em;
 }
 
 @media screen and (min-width: $width-min-med) {
   .get-involved {
     width: 85%;
-  }  
+  }
 }
 .get-involved .col {
   margin-bottom: 2.6em;
@@ -114,6 +114,10 @@ h3.social-proof-count {
   text-align: center;
 }
 
+@media screen and (min-width: $width-min-sml) {
+}
+
+
 @media screen and (min-width: $width-min-med) {
   .step-address h3 {
     width: 80%;
@@ -137,6 +141,9 @@ h3.social-proof-count {
   }
   .step-fork p {
     text-align: left;
+  }
+  .step-bill h3 {
+    margin-bottom: 0em
   }
 }
 

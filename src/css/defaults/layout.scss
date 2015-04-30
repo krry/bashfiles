@@ -50,6 +50,10 @@ main.main.main-fixed {
 
 .overlay.short {
   padding: 0em 1em 0.5em 1em;
+  border: 1px solid red;
+  &.step-bill {
+    padding: 1.5em 1em 1em 1em;
+  }
 }
 
 .overlay.primary,
@@ -137,6 +141,10 @@ main.main.main-fixed {
   }
   .overlay.short {
     padding: 0em 2em 0.5em 2em;
+    border: 1px solid blue;
+    &.step-bill {
+      padding: 1.5em 1em 1em 1em;
+    }
   }
 }
 
@@ -184,6 +192,7 @@ main.main.main-fixed {
 
   .step-bill .row.padded {
     margin-bottom: 0;
+    border: 1px solid red;
   }
 
   .step-fork .fifth.four {
@@ -214,8 +223,9 @@ main.main.main-fixed {
     padding: 0em 2em 0.5em 2em;
     height: auto;
     box-shadow: 0 0 8px 0 shade(.4);
+    border: 1px solid green;
     &.step-bill {
-      padding: 1em 2em .5em;
+      padding: 1em 2em 1em 2em;
     }
   }
 
