@@ -4,6 +4,9 @@
 
 .step-proposal {
   background: $grey-lightest;
+  h1 small {
+    margin-bottom: 0em;
+  }
   strong + p {
     margin-top: .25em;
   }
@@ -24,13 +27,14 @@
     font-size: 0.75em;
     @include apercu-regular;
   }
-  .actionbar button.gold {
+  button.gold {
     min-width: 18em;
+    margin-bottom: 1em;
   }
   .financing-options-bar {
     font-size: 0.85rem;
     line-height: 1.4;
-    padding: 2em 1em 1em 1em;
+    padding: 1em;
     margin: 0 auto;
   }
   .proposal-button-tray {
@@ -244,6 +248,9 @@
 }
 
 @media screen and (min-width: $width-min-lrg) {
+  .step-proposal h1 small {
+    margin-bottom: 1.9em;
+  }
   .faq-item figure {
     height: 180px;
   }

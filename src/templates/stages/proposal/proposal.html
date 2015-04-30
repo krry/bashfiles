@@ -5,10 +5,8 @@
       <h1>Nice work! You may be eligible to go solar for $0&nbsp;down.<br><small>Based on your design and your monthly bill of <span id="current_bill" class="dollars">{{ proposal.prospect().bill | number: 0 }}</span>, here is your estimated solar&nbsp;proposal.</small></h1>
     </div>
   </div>
-  <div class="row padded center only-mobile">
-    <div class="col center full">
+  <div class="only-mobile">
       <button class="btn gold wide ib" ng-click="stages.advanceFromProposal(proposal.prospect().qualified)">Yes sign me up</button>
-    </div>
   </div>
   <div class="proposal row">
     <div fln-panelfill class="col fifth two">
