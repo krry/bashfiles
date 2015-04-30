@@ -12,7 +12,9 @@
 @import "../imports/colors";
 @import "../imports/links";
 @import "../imports/functions";
+@import "../imports/typography";
 @import "../imports/button";
+@import "../imports/fonts";
 
 
 // reset anchors and links
@@ -30,13 +32,12 @@ a {
 }
 
 * {
-  user-select: none;
+  user-select: auto;
   cursor: default;
 }
 
-input {
+input, p, a, h1, h2, h3, h4, h5 {
   user-select: auto;
-  cursor: text;
 }
 
 button, a {
@@ -44,8 +45,8 @@ button, a {
 }
 
 ::selection {
-  background-color: $color-selection-bkgd;
-  color: white;
+  //background-color: $color-selection-bkgd;
+  //color: white;
 }
 
 button,
@@ -186,8 +187,6 @@ label {
 
 label.field-label {
   @include apercu-light;
-  /* margin-top: 0.5em; */
-  /* margin-bottom: -0.5em; */
   text-transform: uppercase;
   color: $grey-dark;
   letter-spacing: 0.5px;
@@ -199,12 +198,25 @@ label.field-label {
   }
 }
 
+.field {
+  position: relative;
+  padding-bottom: 1em;
+}
+
+.step-address .field {
+  margin-bottom: 0;
+}
+
 label abbr {
   display: none;
 }
 
 select {
   border: 1px solid;
+}
+
+select option[default] {
+  color: $red;
 }
 
 textarea {
@@ -237,6 +249,7 @@ input[type=checkbox],
 input[type=radio] + label,
 input[type=checkbox] + label {
   display: inline;
+  cursor: pointer;
 }
 
 textarea,
@@ -260,7 +273,7 @@ select[multiple=multiple] {
   transition: border-color;
   background-color: $color-input-bkgd;
   color: inherit;
-  padding: .5em .75em;
+  padding: .5em 0 .5em .75em;
   border-radius: 4px;
   border: 1px solid $grey-light;
   margin-bottom: .5em;
@@ -269,6 +282,9 @@ select[multiple=multiple] {
   font-weight: 700;
   transition: all 250ms $easing-quick;
   -webkit-appearance: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 textarea:hover,
@@ -311,16 +327,18 @@ input[type="week"]:focus {
 }
 
 select {
-  @include btn($color: $white, $corners: .25em);
+  @include btn($color: $white);
   position: relative;
   padding: 1em;
-  padding-right: 2.5em;
+  padding-right: 2em;
   color: grey(80%);
   text-align: left;
   background: $white url('../img/down-arrow.svg') no-repeat 97% 48%;
   background-size: auto 50%;
   border: 1px solid $grey-mid;
   letter-spacing: inherit;
+  min-width: 3em;
+  border-radius: 4px;
   &[multiple] {
     @include apercu-bold;
     font-size: .875em;
@@ -349,9 +367,15 @@ select, option {
 }
 
 :focus::placeholder {
-  opacity: .4;
+  opacity: 0;
 }
 
 input::placeholder {
   color: $grey-mid;
+}
+
+@media screen and (min-width: $width-min-med) {
+  .field {
+    margin-bottom: 1em;
+  }
 }

@@ -10,9 +10,9 @@
 @import "../imports/sizes";
 @import "../imports/colors";
 @import "../imports/functions";
+@import "../imports/fonts";
 
 .prospect-form {
-  margin-top: 2.9rem;
   margin-bottom: 0;
 }
 
@@ -31,7 +31,6 @@ input.zipcode,
 input.name,
 input.email,
 input.bill,
-input.birthdate,
 input.full-name,
 input.phone {
   font-size: 1.25em;
@@ -41,15 +40,121 @@ input.phone {
   color: $color-input-text;
 }
 
-input.birthdate {
-  font-size: 1.5em;
-  padding: .25em .5em;
-  width: auto;
-  max-width: 3em;
-  text-align: center;
-  &.year {
-    max-width: 3.5em;
+.field.birthdate {
+  padding: .25em;
+  padding-top: 0;
+  margin-bottom: 0;
+}
+
+.field.year.birthdate {
+  position: relative;
+  border: 1px solid $grey-mid;
+  border-radius: 4px;
+  padding: 0 .25em 0 1.75em;
+  margin-right: .25em;
+  vertical-align: 0;
+  &:before {
+    font-weight: 700;
+    content: '19';
+    text-align: right;
+    position: absolute;
+    left: 11px;
+    top: 11px;
   }
+}
+input.year.birthdate {
+  font-size: 1em;
+  width: 1.5em;
+  padding: 12px 0 7px;
+  border: none;
+  background: none;
+  text-align: left;
+  &:focus {
+    border: none;
+    background: none;
+    box-shadow: none;
+  }
+  &::placeholder {
+    letter-spacing: 1px;
+  }
+}
+
+.field.birthdate select {
+  font-size: 1em;
+}
+
+@media screen and (min-width: $width-min-sml) {
+  .field.year.birthdate {
+    vertical-align: 0;
+    padding: 0 .25em 0 1.75em;
+    &:before {
+      left: 13px;
+      top: 13px;
+    }
+  }
+  input.year.birthdate {
+    padding: 14px 0 7px;
+  }
+}
+
+@media screen and (min-width: $width-min-lrg) {
+  .field.year.birthdate {
+    padding: 0 .4em 0 1.9em;
+    &:before {
+      left: 16px;
+    }
+  }
+  input.year.birthdate::placeholder {
+    padding-left: 1px;
+  }
+}
+
+@media screen and (min-width: $width-min-xlg) {
+  .field.year.birthdate {
+    vertical-align: -2px;
+    &:before {
+      left: 17px;
+      top: 15px;
+    }
+  }
+  input.year.birthdate {
+    padding: 16px 0 8px;
+  }
+  input.year.birthdate::placeholder {
+    padding-left: 0;
+  }
+}
+
+@media screen and (min-width: $width-min-xxl) {
+  .field.year.birthdate {
+    vertical-align: -1px;
+    &:before {
+      left: 17px;
+      top: 16px;
+    }
+  }
+  input.year.birthdate {
+    padding: 17px 0 7px;
+  }
+}
+
+@media screen and (min-width: $width-min-uhd) {
+  .field.year.birthdate {
+    vertical-align: 0;
+    &:before {
+      left: 21px;
+      top: 17px;
+    }
+  }
+  input.year.birthdate {
+    padding: 19px 0 10px;
+  }
+}
+
+
+[fln-input-terms] {
+  display: block;
+  margin-top: .5em;
 }
 
 // Address fields
@@ -64,12 +169,15 @@ input.zipcode {
 }
 
 .step-zip {
-  input.zipcode {
-    text-align: center;
-    font-size: 2.25em;
-    width: 6.75em;
-    padding: .6em .75em;
-    margin: 0em auto 1.5em;
+  .field.zip {
+    width: 14em;
+    margin: .25em auto 1.5em;
+    input.zipcode {
+      text-align: center;
+      font-size: 2.25em;
+      padding: .6em .75em;
+      width: 6.75em;
+    }
   }
   p {
       font-size: .75em;
@@ -98,13 +206,22 @@ input.state {
   width: 4em;
 }
 
+.field.zip {
+  width: 6.75em;
+  text-align: left;
+}
+
+.step-address input.zipcode {
+  border-radius: 4px;
+  width: 14em;
+}
+
 input.date {
   padding: .18em .5em;
 }
 
 label input.full-name,
 label input.email,
-label input.birthdate,
 label input.phone {
   font-size: 1.5em;
   margin-top: .325em;
@@ -118,8 +235,9 @@ label .ib.status {
 
 .status {
   font-size: .75em;
-  float: right;
-  margin-top: -.75em;
+  position: absolute;
+  right: 0;
+  top: -1em;
   &.center {
     float: none;
     width: 100%;
@@ -133,8 +251,8 @@ button.nested {
   position: absolute;
   width: 2.25rem;
   height: 2.25rem;
-  right: .3rem;
-  top: .3rem;
+  right: .4rem;
+  top: .6rem;
   margin: 0;
 }
 
@@ -156,16 +274,18 @@ span.autolocate-icon {
   height: 20px;
 }
 
+.step-contact .field {
+  margin-bottom: 0;
+}
 
-
-@media screen and (min-width: $width-min-med) {
-  .step-zip {
+@media screen and (min-width: $width-min-med){
+  .step-address .field.zip {
+    width: 6.75em;
     input.zipcode {
-      width: 6.75em;
+      border-radius: 4px;
       max-width: 100%;
     }
   }
-
   input.street,
   input.city,
   input.state,
@@ -180,9 +300,6 @@ span.autolocate-icon {
   input.street {
     max-width: 14em;
   }
-  input.zipcode {
-    max-width: 4.75em;
-  }
   .nest {
     display: inline-block;
     margin-right: 1rem;
@@ -193,8 +310,17 @@ span.autolocate-icon {
   button.nested {
     width: 2.25rem;
     height: 2.25rem;
-    right: .3rem;
-    top: .3rem;
+    /* right: .3rem; */
+    /* top: .3rem; */
+  }
+  .step-contact .field {
+    max-width: 16em;
+  }
+  .med-left .field {
+    float: left;
+  }
+  .med-right .field {
+    float: right;
   }
 }
 
@@ -206,7 +332,6 @@ span.autolocate-icon {
   input.name,
   input.email,
   input.bill,
-  input.birthdate,
   input.full-name,
   input.phone {
     font-size: 1.5em;
@@ -219,6 +344,6 @@ span.autolocate-icon {
     width: 2.58rem;
     height: 2.58rem;
     right: .43rem;
-    top: .43rem;
+    top: .75rem;
   }
 }

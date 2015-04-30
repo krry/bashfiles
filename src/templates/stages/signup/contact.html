@@ -4,25 +4,25 @@
     <fln-spinner></fln-spinner>
   </div>
 
-  <div class="overlay primary col">
-    <h1 ng-if="form.prospect().qualified !== false && !form.timedOut">Enter your information.<br><small>Let's take the next step to get you set up with your solar home.</small></h1>
-    <h1 ng-if="form.prospect().qualified !== false && form.timedOut">Sorry! Our connection timed out. <small>Please re-enter your information and try again.</small></h1>
-    <h1 ng-if="form.prospect().qualified === false">Hey Waldo, we couldn't find you!<br><small>We could not match the information you submitted. Please check your entries and try again.</small></h1>
+  <div class="overlay primary col step-contact">
+    <h1 ng-if="form.prospect().qualified !== false && !form.timedOut">Enter your information.<br><small>Let's take the next step to get you set up with your solar&nbsp;home.</small></h1>
+    <h1 ng-if="form.prospect().qualified !== false && form.timedOut">Sorry! Our connection timed out. <small>Please re-enter your information and try&nbsp;again.</small></h1>
+    <h1 ng-if="form.prospect().qualified === false">Hey Waldo, we couldn't find you!<br><small>We could not match the information you submitted. Please check your entries and try&nbsp;again.</small></h1>
     <form name="prospectForm" novalidate>
       <div class="row fifth four center contain">
-        <div class="col half padded">
-          <fln-input-first-name hint="First" form="prospectForm"></fln-input-full-name>
+        <div class="col half padded med-right">
+          <fln-input-first-name hint="First" form="prospectForm"></fln-input-first-name>
         </div>
-         <div class="col half padded">
-          <fln-input-last-name hint="Last" form="prospectForm"></fln-input-full-name>
+        <div class="col half padded med-left">
+          <fln-input-last-name hint="Last" form="prospectForm"></fln-input-last-name>
         </div>
-        <div class="col half padded">
+        <div class="col half padded med-right">
           <fln-input-email hint="you@domain.com" form="prospectForm"></fln-input-email>
         </div>
-        <div class="col half padded">
+        <div class="col half padded med-left">
           <fln-input-phone hint="(---) --- ----" form="prospectForm"></fln-input-phone>
         </div>
-        <div class="col full center">
+        <div class="col full center actionbar">
           <button class="gold" ng-click="form.createContact(); app.notifyTrackerAboutClick('contact_submitted')" ng-disabled="prospectForm.$invalid || form.isSubmitting">Submit</button>
         </div>
       </div>
@@ -31,7 +31,8 @@
 
   <aside class="overlay secondary col sml-full med-full lrg-full full-height">
     <div class="drop-top">
-      <p>Remember, if you have any questions, we're here to help. You can always chat live with a solar consultant below, or call <strong><a href="tel:18776707652">(877)&nbsp;670-7652</a></strong> to speak directly.</p>
+      <p class="only-mobile">Remember, if you have any questions, we're here to help. You can always call <strong><a href="tel:18776707652">(877)&nbsp;670-7652</a></strong> to speak directly with a solar consultant.</p>
+      <p class="no-mobile">Remember, if you have any questions, we're here to help. You can always chat live with a solar consultant below, or call <strong><a href="tel:18776707652">(877)&nbsp;670-7652</a></strong> to speak directly.</p>
     </div>
   </aside>
 </div>

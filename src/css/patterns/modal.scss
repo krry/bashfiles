@@ -23,7 +23,7 @@
     position: relative;
 
     &.small {
-      padding: 2.5em 2.3em;
+      padding: 3em 1em;
       margin: 4rem auto auto;
       border-radius: 4px;
       bottom: auto;
@@ -60,7 +60,7 @@
       margin: 0 0 0.8em 0;
       text-align: center;
       font-size: 0.9em;
-      @include apercu-regular;
+      @include apercu-medium;
     }
     h4 {
       // margin-top: 1em;
@@ -103,7 +103,7 @@
 
   }
 
-  button.close.close {
+  button.close {
     position: absolute;
     // top: 0;
     top: .9em;
@@ -121,6 +121,7 @@
     .dialog.small {
       margin: 12em auto auto;
       /* width: $width-min-sml; */
+      padding: 3em;
     }
   }
 }

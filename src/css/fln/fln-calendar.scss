@@ -4,7 +4,7 @@
 
 .calendar {
   $box-width: 100px;
-  $box-border: 2px;
+  $box-border: 1px;
 
   width: 7 * $box-width;
   margin: 0 auto;
@@ -13,8 +13,9 @@
     border-bottom: 0;
     text-transform: uppercase;
     text-align: center;
-    color: $grey-mid;
+    color: $grey-dark;
     font-size: 0.8em;
+    letter-spacing: 0.08em;
     padding: 1.2em 0 0.9em 0;
   }
 
@@ -58,17 +59,19 @@
   .month {
     @include apercu-bold;
     position: absolute;
-    top: 5%;
-    left: 5%;
+    top: 5px;
+    left: 5px;
     font-weight: bold;
     text-transform: uppercase;
+    line-height: 1;
   }
 
   .day {
     position: absolute;
     right: 5px;
     bottom: 5px;
-    @include apercu-bold;
+    @include apercu-regular;
+    line-height: 1;
   }
 
   .label {
@@ -79,9 +82,9 @@
 
   .key {
     display: inline-block;
-    width: 20px;
-    height: 20px;
-    margin-right: 5px;
+    width: 14px;
+    height: 14px;
+    margin-right: 4px;
     vertical-align: text-bottom;
     border-radius: 15px;
   }
@@ -90,8 +93,9 @@
     margin: 1em 0 0;
     text-align: left;
     text-transform: uppercase;
-    font-weight: bold;
-    font-size: 0.75em;
+    letter-spacing: 0.08em;
+    font-size: 0.7em;
+    color: $grey-dark;
 
     .label:first-child {
       margin-left: 0;
@@ -158,21 +162,23 @@
 }
 
 .survey-question {
-  padding: 1em;
-  margin: .25em 0;
-  line-height: 1;
+  padding: 1em 1em;
+  margin: 0;
+  border-bottom: 1px solid $grey-lighter;
   h4 {
-    padding-bottom: .5em;
+    font-size: 0.9em;
   }
   &.selected {
-    background: $white-dark;
+    // background: $white-dark;
   }
   .ib:first-child {
     margin-right: 1em;
   }
 
   h4, p {
+    padding-bottom: 0.3em;
     margin-bottom: 0;
+    line-height: 1.2;
   }
   .choice {
     display: inline-block;
@@ -180,14 +186,19 @@
 
   input[type="radio"] + label {
     position: relative;
-    bottom: -2px;
-    font-size: 1em;
+    bottom: 0px;
+    font-size: 0.9em;
     padding-left: .5em;
+  }
+  .radio-options {
+    margin-bottom: 0.3em;
+    padding-right: 1.3em;
   }
 }
 
 .hoa {
   margin-top: .5rem;
+  width: 100%;
 }
 
 .hoa-dropdown {
@@ -198,6 +209,7 @@
   padding: 0 2.25em 0 .75em;
   height: 2.25em;
   line-height: 2.25em;
+  border-radius: 2px;
 }
 
 input.hoa-input,
@@ -215,13 +227,18 @@ select.hoa-dropdown {
     width: 100%;
   }
   .survey-question {
+    width: 80%;
     h4, p {
+      text-align: left;
+    }
+    .radio-options {
       text-align: right;
     }
   }
 }
 @media screen and (min-width: $width-min-lrg){
   .survey-question {
+    max-width: 40rem;
     p {
       margin-bottom: 0;
     }
