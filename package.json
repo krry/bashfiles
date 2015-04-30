@@ -1,6 +1,6 @@
 {
   "name": "flannel",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "server/server.js",
   "repository": {
     "type": "git",
