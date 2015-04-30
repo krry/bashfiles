@@ -43,9 +43,9 @@ input.phone {
 
 input.birthdate {
   font-size: 1.5em;
-  padding: .25em .5em;
+  /* padding: .25em .5em; */
   width: auto;
-  max-width: 3em;
+  max-width: 3.5em;
   text-align: center;
   &.year {
     max-width: 3.5em;

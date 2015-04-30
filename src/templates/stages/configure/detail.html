@@ -2,12 +2,15 @@
 
 <fln-expander>
   <div ui-view name="instructions" class="instructions">
-    <h4>Select a point or line to identify the peak of your&nbsp;roof.</h4>
+    <h4>Select a line or point to identify the peak of your&nbsp;roof.</h4>
     <figure class="no-mobile">
       <img src="../img/config_example_peak-01.svg" alt="Indicate the highest point or side of the shape.">
     </figure>
-    <p class="no-mobile">This will help us determine what direction your panels will face. If your roof is flat, select the northernmost line.</p>
+    <div class="actionbar pair">
+      <p class="no-mobile">This will help us determine what direction your panels will face. If your roof is flat, select the (top) northernmost&nbsp;line.</p>
 
-    <button class="gold" ng-disabled="!roof_peak_chosen" ng-click="stages.next(); app.notifyTrackerAboutClick('roof_alignment_determined')" ng-hide="">Next</button>
+      <button class="gold" ng-disabled="!roof_peak_chosen" ng-click="stages.next(); app.notifyTrackerAboutClick('roof_alignment_determined')" ng-hide="">Next</button>
+      <button class="tiny white" fln-omap-clear-poly>Redo</button>
+    </div>
   </div>
 </fln-expander>
