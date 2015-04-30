@@ -11,16 +11,16 @@
     <form name="prospectForm" novalidate>
       <div class="row fifth four center contain">
         <div class="col half padded">
-          <fln-input-first-name hint="First" form="prospectForm"></fln-input-full-name>
+          <fln-input-first-name form="prospectForm"></fln-input-full-name>
         </div>
          <div class="col half padded">
-          <fln-input-last-name hint="Last" form="prospectForm"></fln-input-full-name>
+          <fln-input-last-name form="prospectForm"></fln-input-full-name>
         </div>
         <div class="col half padded">
-          <fln-input-email hint="you@domain.com" form="prospectForm"></fln-input-email>
+          <fln-input-email form="prospectForm"></fln-input-email>
         </div>
         <div class="col half padded">
-          <fln-input-phone hint="(---) --- ----" form="prospectForm"></fln-input-phone>
+          <fln-input-phone form="prospectForm"></fln-input-phone>
         </div>
         <div class="col full center">
           <button class="gold" ng-click="form.createContact(); app.notifyTrackerAboutClick('contact_submitted')" ng-disabled="prospectForm.$invalid || form.isSubmitting">Submit</button>
