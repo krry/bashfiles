@@ -118,7 +118,7 @@ function ShareCtrl_ (Client, defaultValues, $stateParams, Proposal) {
     chartData = [
       {
         value: percent_solar,
-        color: '#17c188',
+        color: '#00B675',
         highlight: '#559933',
         label: 'Solar Power'
       },

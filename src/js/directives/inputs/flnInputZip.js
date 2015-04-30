@@ -5,8 +5,5 @@ function flnInputZip_ () {
     restrict: "E",
     templateUrl: "templates/directives/inputs/flnInputZip.html",
     require: '^flnForm',
-    link: function (scope, element, attrs) {
-      scope.hint = attrs.hint;
-    },
   };
 }

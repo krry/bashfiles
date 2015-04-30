@@ -1,9 +1,12 @@
-<input
-  type="tel"
-  class="bill"
-  value="100"
-  maxlength="3"
-  ng-pattern="/\d/"
-  ng-model="form.prospect().bill"
-  ng-model-options="{ updateOn: 'default blur change', debounce: 0 }"
-  ng-cloak>
+<div class="field bill ib">
+  <input
+    type="tel"
+    id="prospect_bill"
+    class="bill"
+    value="100"
+    maxlength="3"
+    ng-pattern="/\d/"
+    ng-model="form.prospect().bill"
+    ng-model-options="{ updateOn: 'default blur change', debounce: 0 }"
+    ng-cloak>
+</div>

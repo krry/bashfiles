@@ -28,8 +28,10 @@ h3.social-proof-count {
   padding-top: 1.5em;
 }
 
-.get-involved {
-  width: 85%;
+@media screen and (min-width: $width-min-med) {
+  .get-involved {
+    width: 85%;
+  }  
 }
 .get-involved .col {
   margin-bottom: 2.6em;
@@ -83,7 +85,7 @@ h3.social-proof-count {
   margin: 3em auto 0 auto;
 }
 .video-mysc .video-tray {
-  border: 1px solid $white;
+  //border: 1px solid $white;
   margin-bottom: 1.5em;
 }
 
@@ -99,7 +101,9 @@ h3.social-proof-count {
 .fine-print {
   font-size: 0.7em;
   text-align: left;
-  margin-top: 10em;
+  margin-top: 8em;
+  padding-top: 2em;
+  border-top: 1px solid $grey-lighter;
   color: transparentize($grey-darker, 0.5);
   & p {
     margin-bottom: 1em;
@@ -110,9 +114,18 @@ h3.social-proof-count {
   text-align: center;
 }
 
+@media screen and (min-width: $width-min-med) {
+  .step-address h3 {
+    width: 80%;
+  }
+  .step-fork h1 {
+    max-width: 34rem;
+  }
+}
+
 @media screen and (min-width: $width-min-lrg) {
   .drop-top {
-    padding-top: 5rem;
+    padding-top: 6em;
     font-size: 0.85em;
     line-height: 130%;
   }
@@ -132,12 +145,9 @@ h3.social-proof-count {
     width: 80%;
   }
   .step-fork h1 {
-    width: 85%;
+    max-width: 40rem;
   }
 }
 
 @media screen and (min-width: $width-min-xxl){
-  .step-fork h1 {
-    width: 85%;
-  }
 }

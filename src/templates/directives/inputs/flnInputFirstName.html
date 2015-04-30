@@ -1,25 +1,29 @@
-<label for="prospect_first_name" class="field-label">First name</label>
-<input
-  type="text"
-  id="prospect_first_name"
-  name="firstName"
-  class="full-name"
-  placeholder="First"
-  autocomplete="on"
-  autocorrect="off"
-  ng-model="form.prospect().firstName"
-  ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"
-  ng-required="true"
-  ng-minlength="2"
-  ng-pattern="/^([A-Za-z]|_|-|\.|\s)+$/">
-<div class="status" ng-hide="prospectForm.firstName.$pristine">
-  <span ng-show="prospectForm.firstName.$error.required">
-    Required
-  </span>
-  <span ng-show="prospectForm.firstName.$error.minlength">
-    First name, not first initial.
-  </span>
-  <span ng-show="prospectForm.firstName.$error.pattern">
-    Letters only please, unless you are a robot.
-  </span>
+<div class="field name-first">
+  <div class="status" ng-hide="prospectForm.firstName.$pristine">
+    <span ng-show="prospectForm.firstName.$error.required">
+      Required
+    </span>
+    <span ng-show="prospectForm.firstName.$error.minlength">
+      First name, not first initial.
+    </span>
+    <span ng-show="prospectForm.firstName.$error.pattern">
+      Letters only please, unless you are a robot.
+    </span>
+  </div>
+  <label for="prospect_first_name" class="field-label show-hide" ng-show="form.focused.firstName">First name</label>
+  <input
+    type="text"
+    id="prospect_first_name"
+    name="firstName"
+    class="full-name"
+    placeholder="first name"
+    autocomplete="on"
+    autocorrect="off"
+    ng-model="form.prospect().firstName"
+    ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"
+    ng-focus="form.showLabel('firstName')"
+    ng-blur="form.hideLabel('firstName')"
+    ng-required="true"
+    ng-minlength="2"
+    ng-pattern="/^([A-Za-z]|_|-|\.|\s)+$/">
 </div>
