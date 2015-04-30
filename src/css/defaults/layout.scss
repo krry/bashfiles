@@ -4,6 +4,7 @@
 
 body {
   background-color: $grey-lightest;
+  padding-top: 2.9rem;
 }
 
 main.main {
@@ -53,7 +54,7 @@ main.main.main-fixed {
 
 .overlay.primary,
 .overlay.only {
-  padding: 2em;
+  padding: 2em 1em 3.5em 1em;
   text-align: center;
 }
 
@@ -88,6 +89,15 @@ main.main.main-fixed {
   display: block !important;
   margin: auto;
 }
+.actionbar {
+  margin-top: 1.3em;
+}
+.alternav {
+  margin: 3em auto 2em auto;
+  & button.tiny.white {
+    min-width: 18em;
+  }
+}
 
 .actionbar {
   margin-top: 1.3em;
@@ -103,8 +113,14 @@ main.main.main-fixed {
   .step-fork .fifth.four {
     width: 100%;
   }
-  .step-fork .col.padded {
+  .step-fork .col.padded,
+  .step-contact .col.padded,
+  .step-address .col.padded {
     padding: 0;
+  }
+  .overlay.primary,
+  .overlay.only {
+    padding: 3em 2em 3.5em 2em;
   }
 }
 
@@ -118,9 +134,6 @@ main.main.main-fixed {
 @media screen and (min-width: $width-min-med) {
   .step-fork .fifth.four {
     width: 60%;
-  }
-  .step-fork .col.padded {
-    padding: 0;
   }
   .overlay.short {
     padding: 0em 2em 0.5em 2em;
@@ -145,10 +158,6 @@ main.main.main-fixed {
     width: auto;
     height: 100%;
   }
-  .overlay.primary,
-  .overlay.only {
-    padding: 2em;
-  }
   .secondary.secondary {
     width: 25%;
     width: calc(20em - 1px);
@@ -165,8 +174,7 @@ main.main.main-fixed {
 
   .overlay.primary,
   .overlay.only {
-    padding-top: 4em;
-    padding-bottom: 7em;
+    padding: 4em 2em 7em 2em;
   }
 
   .step-address.primary,
@@ -181,8 +189,14 @@ main.main.main-fixed {
   .step-fork .fifth.four {
     width: 100%;
   }
-  .step-fork .col.padded {
-    padding: 0;
+  .step-fork.overlay.primary {
+    width: calc(100% - 16em);
+  }
+  .step-fork + .overlay.secondary {
+    width: calc(16em - 1px);
+  }
+  .step-schedule.overlay.primary {
+    min-height: 34em;
   }
 }
 
@@ -211,14 +225,14 @@ main.main.main-fixed {
   .step-fork .col.padded {
     padding: 0;
   }
+  .contain {
+    max-width: 60rem;
+  }
 }
 
 
 @media screen and (min-width: $width-min-xxl){
   .step-fork .fifth.four {
     width: 65%;
-  }
-  .step-fork .col.padded {
-    padding: 0;
   }
 }

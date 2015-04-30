@@ -3,13 +3,15 @@
   <div ng-hide="form.invalidTerritory">
     <h1 ng-hide="form.invalidZip">Every 3 minutes, someone switches to&nbsp;SolarCity.<br><small>Are we in your neighborhood?</small></h1>
     <h1 class="error" ng-show="form.invalidZip">We've never seen that zip.<br><small>Let's try it again.</small></h1>
-    <fln-input-zip hint="ZIP CODE"></fln-input-zip>
+    <fln-input-zip></fln-input-zip>
   </div>
 
   <div ng-show="form.invalidTerritory">
-    <h1 class="error">Sorry, we're not in your area&nbsp;yet.<br><small>Enter your email and we'll let you know when we get&nbsp;there.</small></h1>
+    <h1 class="error">Sorry, we're not in your area&nbsp;yet.<br><small>Enter your email and we'll let you know when zwe get&nbsp;there.</small></h1>
     <fln-input-email hint="Leave us your email"></fln-input-email>
-    <button class="gold">Notify Me</button>
+    <div class="actionbar">
+      <button class="gold">Notify Me</button>
+    </div>
     <div fln-alternav alternatives="true"></div fln-alternav>
   </div>
 

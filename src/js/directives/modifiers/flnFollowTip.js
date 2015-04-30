@@ -32,8 +32,8 @@ function flnFollowTip_ () {
           offsetY;
 
       tip = $(el[0]).find('span');
-      offsetX = tip.offset().left + 20;
-      offsetY = tip.offset().top;
+      offsetX = tip.offset().left + 40;
+      offsetY = tip.offset().top - 70;
 
       var configurator_div = $('div[fln-configurator]');
       configurator_div.addClass('followtipped');

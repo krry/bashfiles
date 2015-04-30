@@ -30,7 +30,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: .5em;
 }
 
-.col > h1:first-child,
+.col > h1:first-of-type,
 .col > h2:first-child,
 .col > h3:first-child,
 .col > h4:first-child,

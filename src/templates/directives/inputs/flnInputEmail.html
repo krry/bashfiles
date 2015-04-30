@@ -1,22 +1,26 @@
-<label for="prospect_email" class="field-label">Email address</label>
-<input
-  type="text"
-  id="prospect_email"
-  name="email"
-  class="email"
-  placeholder="email@domain.com"
-  autocapitalize="none"
-  autocomplete="on"
-  autocorrect="off"
-  ng-model="form.prospect().email"
-  ng-required="true"
-  ng-pattern="/^[_a-zA-Z0-9]+(\.[_a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,4})$/"
-  ng-model-options="{ updateOn: 'default change blur', debounce: { default: 500, blur: 0 } }"
-  bind-key="{enter: 'proposal.sendEmail()'}">
-<div class="status" ng-hide="prospectForm.email.$pristine">
-  <span ng-show="prospectForm.email.$error.required && prospectForm.email.$invalid">Required.</span>
-  <span ng-show="prospectForm.email.$error.pattern">That's not an email address.</span>
-  <span ng-show="prospectForm.email.$error.MailgunInProgress">Validating email address</span>
-  <span ng-show="prospectForm.email.$error.MailgunEmailValid">Did you mean <a ng-click="replaceEmailWithSuggestion(did_you_mean)">{{ did_you_mean }}</a>?</span>
-  <span ng-show="Mailgun.mailgunStatus">Validation error: {{ Mailgun.mailgunStatus }}</span>
+<div class="field email">
+  <div class="status" ng-hide="prospectForm.email.$pristine">
+    <span ng-show="prospectForm.email.$error.required && prospectForm.email.$invalid">Required.</span>
+    <span ng-show="prospectForm.email.$error.pattern">That's not an email address.</span>
+    <span ng-show="prospectForm.email.$error.MailgunInProgress">Validating email address</span>
+    <span ng-show="prospectForm.email.$error.MailgunEmailValid">Did you mean <a ng-click="replaceEmailWithSuggestion(did_you_mean)">{{ did_you_mean }}</a>?</span>
+    <span ng-show="Mailgun.mailgunStatus">Validation error: {{ Mailgun.mailgunStatus }}</span>
+  </div>
+  <label for="prospect_email" class="field-label show-hide" ng-show="form.focused.email">Email address</label>
+  <input
+    type="text"
+    id="prospect_email"
+    name="email"
+    class="email"
+    placeholder="email address"
+    autocapitalize="none"
+    autocomplete="on"
+    autocorrect="off"
+    ng-model="form.prospect().email"
+    ng-focus="form.showLabel('email')"
+    ng-blur="form.hideLabel('email')"
+    ng-required="true"
+    ng-pattern="/^[_a-zA-Z0-9]+(\.[_a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,4})$/"
+    ng-model-options="{ updateOn: 'default change blur', debounce: { default: 500, blur: 0 } }"
+    bind-key="{enter: 'proposal.sendEmail()'}">
 </div>
