@@ -49,11 +49,7 @@ main.main.main-fixed {
 }
 
 .overlay.short {
-  padding: 0em 1em 0.5em 1em;
-  border: 1px solid red;
-  &.step-bill {
-    padding: 1.5em 1em 1em 1em;
-  }
+  padding: 1.5em 1em 1em 1em;
 }
 
 .overlay.primary,
@@ -140,11 +136,7 @@ main.main.main-fixed {
     width: 60%;
   }
   .overlay.short {
-    padding: 0em 2em 0.5em 2em;
-    border: 1px solid blue;
-    &.step-bill {
-      padding: 1.5em 1em 1em 1em;
-    }
+    padding: 1.5em 1em 1em 1em;
   }
 }
 
@@ -220,13 +212,9 @@ main.main.main-fixed {
     width: calc(18em - 1px);
   }
   .overlay.short {
-    padding: 0em 2em 0.5em 2em;
+    padding: 1.5em 2em 1em 2em;
     height: auto;
     box-shadow: 0 0 8px 0 shade(.4);
-    border: 1px solid green;
-    &.step-bill {
-      padding: 1em 2em 1em 2em;
-    }
   }
 
   .step-fork .fifth.four {

@@ -206,14 +206,16 @@ input.state {
   width: 4em;
 }
 
+.field.street,
 .field.zip {
-  width: 6.75em;
+  // width: 6.75em;
   text-align: left;
+  width: 100%;
 }
 
 .step-address input.zipcode {
   border-radius: 4px;
-  width: 14em;
+  width: 100%;
 }
 
 input.date {
@@ -259,7 +261,7 @@ button.nested {
 .nest {
   position: relative;
   display: block;
-  input {
+  input.street {
     padding-right: 3rem !important;
   }
 }
@@ -280,7 +282,7 @@ span.autolocate-icon {
 
 @media screen and (min-width: $width-min-med){
   .step-address .field.zip {
-    width: 6.75em;
+    width: 7.75em;
     input.zipcode {
       border-radius: 4px;
       max-width: 100%;
@@ -345,5 +347,8 @@ span.autolocate-icon {
     height: 2.58rem;
     right: .43rem;
     top: .75rem;
+  }
+  .step-address .field.zip {
+    width: 9em;
   }
 }
