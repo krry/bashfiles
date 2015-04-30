@@ -16,7 +16,7 @@
     <li class="chevron right caps col" ng-class="{ active: nav.onActiveStage('configure') }">&nbsp;&nbsp;&#62;&nbsp;&nbsp;Configure</li>
     <li class="chevron right caps col" ng-class="{ active: nav.onActiveStage('signup') }">&nbsp;&nbsp;&#62;&nbsp;&nbsp;Sign up</li>
     <li ng-controller="ModalCtrl as modal" class="col float right top-five">
-      <a class="questions" ng-click="modal.showDialog({dialog:'faq', data: ''}) && app.notifyTrackerAboutClick('faq_viewed')">Top 5 <span class="questions-extended">Questions</span>&nbsp;&nbsp;<span class="icon question"></span></a>
+      <a class="questions" ng-click="modal.showDialog({dialog:'faq', data: ''}); app.notifyTrackerAboutClick('faq_viewed')">Top 5 <span class="questions-extended">Questions</span>&nbsp;&nbsp;<span class="icon question"></span></a>
     </li>
   </ul>
 </nav>

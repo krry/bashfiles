@@ -44,8 +44,8 @@
     </h1>
     <div class="row">
       <div class="col full center">
-        <button class="gold" ng-click="schedule.check() && app.notifyTrackerAboutClick('attempt_scheduling')">Schedule site survey</button>
-        <button class="white tiny" ng-click="schedule.skipScheduling() && app.notifyTrackerAboutClick('skip_scheduling')">Schedule this later</button>
+        <button class="gold" ng-click="schedule.check(); app.notifyTrackerAboutClick('attempt_scheduling')">Schedule site survey</button>
+        <button class="white tiny" ng-click="schedule.skipScheduling(); app.notifyTrackerAboutClick('skip_scheduling')">Schedule this later</button>
 
       </div>
     </div>
