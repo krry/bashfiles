@@ -276,7 +276,7 @@ select[multiple=multiple] {
   transition: border-color;
   background-color: $color-input-bkgd;
   color: inherit;
-  padding: .5em 0 .5em .75em;
+  padding: .5em 0 .5em .65em;
   border-radius: 4px;
   border: 1px solid $grey-light;
   margin-bottom: .5em;
@@ -336,7 +336,7 @@ select {
   padding-right: 2em;
   color: grey(80%);
   text-align: left;
-  background: $white url('../img/down-arrow.svg') no-repeat 97% 48%;
+  background: $white url('../img/dropdown-arrow.svg') no-repeat 97% 43%;
   background-size: auto 50%;
   border: 1px solid $grey-mid;
   letter-spacing: inherit;
@@ -360,6 +360,7 @@ select {
 select, option {
   text-overflow: ellipsis;
 }
+
 
 
 // input placeholders
