@@ -354,6 +354,12 @@ select {
   }
 }
 
+select:focus {
+  border-color: $gold !important;
+  background-color: $color-input-bkgd-focus;
+  box-shadow: $shadow-input;
+}
+
 select, option {
   text-overflow: ellipsis;
 }
