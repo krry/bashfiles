@@ -143,7 +143,7 @@ $color-link-visited-inverse: $green-bright;
 $color-error-text:           $red;
 $color-error-bkgd:           $gold-pale;
 $color-input-invalid-text:   $grey-darker;
-$color-input-invalid-bkgd:   $gold-pale;
+$color-input-invalid-bkgd:   lighten($gold, 41%);;
 
 $color-button-bkgd:          $grey-medium;
 
