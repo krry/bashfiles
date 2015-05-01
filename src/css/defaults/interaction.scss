@@ -64,6 +64,10 @@ input + button {
   display: block;
 }
 
+button.ib + button.ib {
+  margin-left: .5em;
+}
+
 button,
 input[type='submit'],
 input[type='button'],
@@ -190,11 +194,8 @@ label.field-label {
   text-transform: uppercase;
   color: $grey-dark;
   letter-spacing: 0.5px;
-  & + input[type="text"],
-  & + input[type="email"],
-  & + input[type="tel"],
   & + select {
-    margin-top: 0.25em;
+    margin: 0.25em 0;
   }
 }
 
@@ -276,7 +277,7 @@ select[multiple=multiple] {
   padding: .5em 0 .5em .75em;
   border-radius: 4px;
   border: 1px solid $grey-light;
-  margin-bottom: .5em;
+  margin-bottom: .75em;
   width: 100%;
   font-size: 1.5em;
   font-weight: 700;
