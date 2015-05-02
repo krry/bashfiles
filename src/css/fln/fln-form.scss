@@ -236,8 +236,9 @@ label .ib.status {
 .status {
   font-size: .75em;
   position: absolute;
-  right: 0;
+  left: 0;
   top: -1em;
+  color: $brand-fire;
   &.center {
     float: none;
     width: 100%;

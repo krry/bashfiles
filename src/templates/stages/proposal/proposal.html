@@ -7,11 +7,11 @@
   </div>
   <div class="only-mobile actionbar top">
       <button class="btn white wide ib" ng-click="proposal.toggleSave(); app.notifyTrackerAboutClick('saving_proposal')" ng-hide="proposal.saving">Save proposal</button>
-      <div class="row center" ng-show="proposal.saving">
+      <div class="row center pit-wrapper" ng-show="proposal.saving">
         <div class="proposal-save pit col full center">
-          <p>Enter your email address and we'll send you a link to this custom proposal. <!-- Don't worry, we're spam-free. Here's our <a href="http://www.solarcity.com/company/privacy-policy" target="_blank">privacy policy</a>. --></p>
+          <p>Enter your email address and we'll send you a link to this custom&nbsp;proposal. <!-- Don't worry, we're spam-free. Here's our <a href="http://www.solarcity.com/company/privacy-policy" target="_blank">privacy policy</a>. --></p>
           <div fln-input-email form="emailForm"></div>
-          <button id="submit_email" class="gold cushion" ng-disabled="!proposal.prospect().email" ng-click="proposal.sendEmail()">Submit</button>
+          <button id="submit_email" class="gold square" ng-disabled="!proposal.prospect().email" ng-click="proposal.sendEmail()">OK</button>
         </div>
       </div>
       <button class="btn gold wide ib" ng-click="stages.advanceFromProposal(proposal.prospect().qualified)">Yes sign me up</button>
@@ -63,14 +63,12 @@
     </div>
   </div>
   <div class="actionbar bottom">
-    <button class="btn white ib" ng-click="proposal.toggleSave(); app.notifyTrackerAboutClick('saving_proposal')" ng-hide="proposal.saving">Save proposal</button>
-    <div class="row center" ng-show="proposal.saving">
-      <div class="proposal-save pit col half center">
-        <h5>Save your solar proposal</h5>
-        <p>We'll email you a link to this custom proposal.</p>
+    <button class="btn white wide ib" ng-click="proposal.toggleSave(); app.notifyTrackerAboutClick('saving_proposal')" ng-hide="proposal.saving">Save proposal</button>
+    <div class="row center pit-wrapper" ng-show="proposal.saving">
+      <div class="proposal-save pit col full center">
+        <p>Enter your email address and we'll send you a link to this custom&nbsp;proposal. <!-- Don't worry, we're spam-free. Here's our <a href="http://www.solarcity.com/company/privacy-policy" target="_blank">privacy policy</a>. --></p>
+        <button id="submit_email" class="gold square" ng-disabled="!proposal.prospect().email" ng-click="proposal.sendEmail()">OK</button>
         <div fln-input-email form="emailForm"></div>
-        <button id="submit_email" class="gold cushion" ng-disabled="!proposal.prospect().email" ng-click="proposal.sendEmail()">Submit</button>
-        <footer>Don't worry, we're spam-free.<br>Here's our <a href="http://www.solarcity.com/company/privacy-policy" target="_blank">privacy policy</a>.</footer>
       </div>
     </div>
     <button class="btn gold wide ib" ng-click="stages.advanceFromProposal(proposal.prospect().qualified)">Yes sign me up</button>

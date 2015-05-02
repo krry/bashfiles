@@ -114,6 +114,9 @@ a.btn {
   &.wide {
     min-width: 12em;
   }
+  &.square {
+    border-radius: 3px;
+  }
   &.round {
     border-radius: 50%;
     padding: 0;
