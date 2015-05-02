@@ -46,12 +46,6 @@
     color: $grey-medium;
     background-color: $color;
     border: 1px solid $grey-lighter;
-    padding: 0.76em 2em 0.76em 2em;
-    border-radius: 1.4em/50%;
-    letter-spacing: .1em;
-    // min-width: 18.5em;
-    margin: 0.5em;
-    line-height: 100%;
   }
 
   @if $color == tint(.8) {
