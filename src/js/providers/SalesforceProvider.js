@@ -18,7 +18,8 @@ function SalesforceProvider_ () {
       passCredit: 'Pass credit',
       noCreditResult: 'Credit unknown',
       scheduledSiteSurvey: 'Scheduled site survey',
-      networkError: 'Network error'
+      networkError: 'Network error',
+      noFinancing: 'No TPO available'
     };
 
     function createLead(data) {
