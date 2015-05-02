@@ -322,7 +322,7 @@ input[type="datetime-local"]:focus,
 input[type="month"]:focus,
 input[type="time"]:focus,
 input[type="week"]:focus {
-  border-color: $grey-mid;
+  border-color: $gold !important;
   background-color: $color-input-bkgd-focus;
   box-shadow: $shadow-input;
 }
@@ -353,6 +353,12 @@ select {
       color: inherit;
     }
   }
+}
+
+select:focus {
+  border-color: $gold !important;
+  background-color: $color-input-bkgd-focus;
+  box-shadow: $shadow-input;
 }
 
 select, option {
