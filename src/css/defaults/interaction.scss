@@ -189,7 +189,7 @@ label.field-label {
   @include apercu-light;
   text-transform: uppercase;
   color: $grey-dark;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   & + input[type="text"],
   & + input[type="email"],
   & + input[type="tel"],
