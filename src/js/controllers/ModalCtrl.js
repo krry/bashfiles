@@ -16,9 +16,6 @@ function ModalCtrl_($scope, Client, ModalService) {
   vm.toggle      = toggleModal;
   vm.showDialog  = showDialog;
 
-  Client.listen('Modal: show dialog', showDialog);
-  Client.listen('Modal: close', closeModal);
-
   // Showing full page instead of modal when territory is invalid
   // Client.listen('Geocoder: invalid territory', showDialog);
 

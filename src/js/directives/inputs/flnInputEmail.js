@@ -2,7 +2,7 @@ directives.directive('flnInputEmail', [flnInputEmail_]);
 
 function flnInputEmail_ () {
   return {
-    restrict: "EA",
+    restrict: "E",
     templateUrl: "templates/directives/inputs/flnInputEmail.html",
     require: '^flnForm',
   };

@@ -41,10 +41,9 @@ input.phone {
 }
 
 .field.birthdate {
-  @include apercu-medium;
-  font-size: 1em;
-  padding: 0 0 0 0.5em;
-  margin: 0;
+  padding: .25em;
+  padding-top: 0;
+  margin-bottom: 0;
 }
 
 .field.year.birthdate {
@@ -52,7 +51,7 @@ input.phone {
   border: 1px solid $grey-mid;
   border-radius: 4px;
   padding: 0 .25em 0 1.75em;
-  //margin-right: .25em;
+  margin-right: .25em;
   vertical-align: 0;
   &:before {
     font-weight: 700;
@@ -64,7 +63,6 @@ input.phone {
   }
 }
 input.year.birthdate {
-  @include apercu-medium;
   font-size: 1em;
   width: 1.5em;
   padding: 12px 0 7px;
@@ -82,9 +80,7 @@ input.year.birthdate {
 }
 
 .field.birthdate select {
-  @include apercu-medium;
   font-size: 1em;
-  margin: 0;
 }
 
 @media screen and (min-width: $width-min-sml) {
@@ -103,7 +99,7 @@ input.year.birthdate {
 
 @media screen and (min-width: $width-min-lrg) {
   .field.year.birthdate {
-    padding: 0 .4em 0 1.95em;
+    padding: 0 .4em 0 1.9em;
     &:before {
       left: 16px;
     }
@@ -115,8 +111,7 @@ input.year.birthdate {
 
 @media screen and (min-width: $width-min-xlg) {
   .field.year.birthdate {
-    padding: 0 .4em 0 1.95em;
-    vertical-align: -1px;
+    vertical-align: -2px;
     &:before {
       left: 17px;
       top: 15px;
@@ -132,7 +127,6 @@ input.year.birthdate {
 
 @media screen and (min-width: $width-min-xxl) {
   .field.year.birthdate {
-    padding: 0 .4em 0 1.8em;
     vertical-align: -1px;
     &:before {
       left: 17px;
@@ -146,11 +140,10 @@ input.year.birthdate {
 
 @media screen and (min-width: $width-min-uhd) {
   .field.year.birthdate {
-    padding: 0em .4em 0 1.9em;
     vertical-align: 0;
     &:before {
       left: 21px;
-      top: 18px;
+      top: 17px;
     }
   }
   input.year.birthdate {
@@ -184,7 +177,6 @@ input.zipcode {
       font-size: 2.25em;
       padding: .6em .75em;
       width: 6.75em;
-      margin: 0;
     }
   }
   p {
@@ -286,11 +278,7 @@ span.autolocate-icon {
 }
 
 .step-contact .field {
-  margin: 0 0.5em;
-  padding: 0;
-}
-.step-contact .field input {
-  box-sizing: border-box;
+  margin-bottom: 0;
 }
 
 @media screen and (min-width: $width-min-med){
@@ -313,7 +301,7 @@ span.autolocate-icon {
     font-size: 1.25em;
   }
   input.street {
-    width: 16em;
+    max-width: 14em;
   }
   .nest {
     display: inline-block;
@@ -329,7 +317,7 @@ span.autolocate-icon {
     /* top: .3rem; */
   }
   .step-contact .field {
-    //max-width: 16em;
+    max-width: 16em;
   }
   .med-left .field {
     float: left;

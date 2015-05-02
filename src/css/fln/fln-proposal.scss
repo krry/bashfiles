@@ -45,11 +45,6 @@
   }
 }
 
-/* HACK: giving button in share proposal dialog some room with a solitary class */
-.cushion.cushion {
-  margin: 1em auto;
-}
-
 .pit {
   background-color: $white;
   padding: 1em 2em 2em;
@@ -131,6 +126,7 @@
   font-size: .5em;
   vertical-align: .75em;
 }
+
 
 .down-blk {
   background: url('../img/arrow-down-blk-01.svg') no-repeat center;
