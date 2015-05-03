@@ -16,6 +16,11 @@
       </div>
       <button class="btn gold wide ib" ng-click="stages.advanceFromProposal(proposal.prospect().qualified)">Yes sign me up</button>
   </div>
+
+  <div class="proposal-redo">
+    <button class="btn white tiny ib" ng-click="proposal.changeDesign(); app.notifyTrackerAboutClick('redoing design')">Redo</button>
+  </div>
+
   <div class="proposal row">
     <div fln-panelfill class="col fifth two">
       <!-- TODO: render the design here instead of this placeholder -->
@@ -62,6 +67,7 @@
       </div>
     </div>
   </div>
+
   <div class="actionbar bottom">
     <button class="btn white wide ib" ng-click="proposal.toggleSave(); app.notifyTrackerAboutClick('saving_proposal')" ng-hide="proposal.saving">Save proposal</button>
     <div class="row center pit-wrapper" ng-show="proposal.saving">
@@ -73,11 +79,8 @@
     </div>
     <button class="btn gold wide ib" ng-click="stages.advanceFromProposal(proposal.prospect().qualified)">Yes sign me up</button>
   </div>
-  <div class="row padded-less proposal-button-tray" ng-controller="ModalCtrl as modal">
-    <div class="col full center">
-      <div class="financing-options-bar"><strong>Remember &mdash; this is only a rough draft.</strong> After your site survey, our experts will create a custom system design and proposal with available <a ng-click="modal.showDialog({dialog: 'financing', data: ''})">financing&nbsp;options</a>.</div>
-      <button class="btn white tiny ib" ng-click="proposal.changeDesign(); app.notifyTrackerAboutClick('redoing design')">Redo my design</button>
-    </div>
+  <div ng-controller="ModalCtrl as modal">
+    <div class="financing-options-bar contain"><strong>Remember &mdash; this is only a rough draft.</strong> After your site survey, our experts will create a custom system design and proposal with available <a ng-click="modal.showDialog({dialog: 'financing', data: ''})">financing&nbsp;options</a>.</div>
   </div>
 
   <!-- <hr class="jump-down"> -->
