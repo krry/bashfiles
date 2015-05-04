@@ -189,12 +189,12 @@ label.field-label {
   @include apercu-light;
   text-transform: uppercase;
   color: $grey-dark;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   & + input[type="text"],
   & + input[type="email"],
   & + input[type="tel"],
   & + select {
-    margin-top: 0.25em;
+    margin-top: 0.2em;
   }
 }
 
