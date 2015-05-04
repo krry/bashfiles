@@ -48,6 +48,15 @@ h2 {
   font-size: 1.3em;
 }
 
+h1 small, h2 small {
+  @include apercu-light;
+  font-size: 65%;
+  line-height: 1.4;
+  display: block;
+  margin-top: .5em;
+  margin-bottom: 2em;
+}
+
 h3 {
   font-size: 1.2em;
 }
@@ -256,7 +265,6 @@ code, kbd, pre, samp {
   h1 {
     font-size: 1.75em;
     line-height: 1.2em;
-    width: 90%;
   }
 
   h2 {

@@ -51,7 +51,7 @@ input.phone {
   position: relative;
   border: 1px solid $grey-mid;
   border-radius: 4px;
-  padding: 0 .25em 0 1.75em;
+  padding: 0 .5em 0 1.75em;
   //margin-right: .25em;
   vertical-align: 0;
   &:before {
@@ -67,7 +67,7 @@ input.year.birthdate {
   @include apercu-medium;
   font-size: 1em;
   width: 1.5em;
-  padding: 12px 0 7px;
+  padding: 12px 0 7px 0;
   border: none;
   background: none;
   text-align: left;
@@ -90,7 +90,7 @@ input.year.birthdate {
 @media screen and (min-width: $width-min-sml) {
   .field.year.birthdate {
     vertical-align: 0;
-    padding: 0 .25em 0 1.75em;
+    padding: 0 .5em 0 1.75em;
     &:before {
       left: 13px;
       top: 13px;
@@ -103,7 +103,7 @@ input.year.birthdate {
 
 @media screen and (min-width: $width-min-lrg) {
   .field.year.birthdate {
-    padding: 0 .4em 0 1.95em;
+    padding: 0 .5em 0 1.95em;
     &:before {
       left: 16px;
     }
@@ -115,7 +115,7 @@ input.year.birthdate {
 
 @media screen and (min-width: $width-min-xlg) {
   .field.year.birthdate {
-    padding: 0 .4em 0 1.95em;
+    padding: 0 .5em 0 1.95em;
     vertical-align: -1px;
     &:before {
       left: 17px;
@@ -132,7 +132,7 @@ input.year.birthdate {
 
 @media screen and (min-width: $width-min-xxl) {
   .field.year.birthdate {
-    padding: 0 .4em 0 1.8em;
+    padding: 0 .5em 0 1.8em;
     vertical-align: -1px;
     &:before {
       left: 17px;
@@ -146,7 +146,7 @@ input.year.birthdate {
 
 @media screen and (min-width: $width-min-uhd) {
   .field.year.birthdate {
-    padding: 0em .4em 0 1.9em;
+    padding: 0em .5em 0 1.9em;
     vertical-align: 0;
     &:before {
       left: 21px;

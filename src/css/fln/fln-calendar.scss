@@ -151,7 +151,7 @@
 }
 
 .calendar-links {
-  font-size: 0.8em;
+  font-size: 0.75em;
   letter-spacing: initial;
   margin: 0 0 20px;
 
@@ -218,14 +218,8 @@ select.hoa-dropdown {
 }
 
 @media screen and (min-width: $width-min-sml){
-  .calendar {
-    width: 100%;
-  }
 }
 @media screen and (min-width: $width-min-med){
-  .calendar {
-    width: 100%;
-  }
   .survey-question {
     width: 80%;
     h4, p {
@@ -243,21 +237,10 @@ select.hoa-dropdown {
       margin-bottom: 0;
     }
   }
-  .calendar {
-    width: 100%;
-  }
 }
 @media screen and (min-width: $width-min-xlg){
-  .calendar {
-    width: 80%;
-    max-width: 800px;
-  }
 }
 @media screen and (min-width: $width-min-xxl){
-  .calendar {
-    width: 80%;
-    max-width: 800px;
-  }
   p.note-time {
     width: 80%;
     max-width: 800px;
