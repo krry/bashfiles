@@ -187,6 +187,13 @@ input.zipcode {
       margin: 0;
     }
   }
+  .field.email {
+    width: 20em;
+    margin: 0 auto;
+    input.email {
+      margin: 0;
+    }
+  }
   p {
       font-size: .75em;
   }
@@ -194,12 +201,6 @@ input.zipcode {
 
 input.street {
   max-width: 100%;
-}
-
-.step-zip input.email {
-  max-width: 14em;
-  text-align: center;
-  margin-top: 0.5em;
 }
 
 input.city {
