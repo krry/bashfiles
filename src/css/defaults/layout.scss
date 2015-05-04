@@ -85,13 +85,15 @@ main.main.main-fixed {
 }
 
 .contain {
-  max-width: 60rem;
+  max-width: 50rem;
   display: block !important;
   margin: auto;
-
   &.narrow {
     max-width: 33rem;
   }
+}
+.step-proposal .contain {
+  max-width: 70rem;
 }
 
 .actionbar {
