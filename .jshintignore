@@ -1,0 +1,5 @@
+src/js/services/Configurator/Layers.js
+src/js/services/Proposal/Panelfill.js
+src/js/services/StyleService.js
+src/js/controllers/OverViewCtrl.js
+src/js/directives/olmap/flnOlMapUi.js
