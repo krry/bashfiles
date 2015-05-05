@@ -7,8 +7,10 @@
     <h2 ng-show="!form.prospect().neighbor_count && !form.finalNearMeData">Let’s take a closer look at your&nbsp;house.</h2>
   </div>
 
-  <h1 ng-show="form.invalidTerritory">We're not in that neighborhood yet. Care to try another?</h1>
-  <h1 class="error" ng-show="form.invalidZip">We've never seen that zip. Try again?</h1>
+  <div class="contain">
+    <h2 ng-show="form.invalidTerritory">We're not in that neighborhood yet. Care to try another?</h2>
+    <h2 class="error" ng-show="form.invalidZip">We've never seen that zip. Try again?</h2>
+  </div>
 
   <div class="row">
     <div class="col full padded center sml-full">

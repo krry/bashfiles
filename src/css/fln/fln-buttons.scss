@@ -3,6 +3,9 @@
 
 .step-bill button.tiny.gold {
   margin: 1em 0 0 0;
+  padding: 1em;
+  min-width: 8em;
+  border-radius: 1.5em/50%;
 }
 
 .set-or {
@@ -52,9 +55,5 @@
   .set-or {
     line-height: 5.5em;
     padding: 0;
-  }
-
-  .step-fork button {
-    max-width: none;
   }
 }
