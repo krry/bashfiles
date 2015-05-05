@@ -109,7 +109,7 @@ function DesignProvider_ (FIREBASE_URL) {
       })
 
       // in case the session is restarted, restart the design, too.
-      Client.listen('Session: Loaded', function(){
+      Client.listen('Session: Loaded', function() {
         return Session.ref().once('value', bootstrapDesign);
       });
     }
@@ -193,7 +193,7 @@ function DesignProvider_ (FIREBASE_URL) {
           return _ref;
         },
         stream: function(){return _ref_stream},
-        id:     function(){return _ref.id()},
+        id:     function(){return _ref.key()},
         areas_ref: function(){ return areas_ref; },
         areas_stream: function() { return areas_stream;},
         map_center: function (){ return map_center;},

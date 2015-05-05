@@ -4,6 +4,13 @@
 @import "../imports/sizes";
 @import "../imports/button";
 
+
+// default css overrides this behavior
+// we need to inherit the Openlayer's cursor
+canvas {
+  cursor: inherit;
+}
+
 .map {
   width: 100%;
   height: 100%;
@@ -68,9 +75,9 @@
 .omap > div {
   position: relative;
 
-  .ol-unselectable {
-    cursor: crosshair;
-  }
+  // .ol-unselectable {
+  //   cursor: crosshair;
+  // }
 
   .ol-overlaycontainer-stopevent {
     position: absolute;

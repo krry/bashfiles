@@ -44,6 +44,8 @@ function flnDraw_ (newConfigurator, Clientstream) {
         listener_key = $(maps.omap.getViewport()).on('click', mapClickToolTipStuff )
         dCtrl.setTooltipStep(0);
         dCtrl.setActive();
+        // add the crosshair tooltip
+        $(maps.omap.getViewport()).css('cursor', 'crosshair');
       });
 
       element.on('$destroy', function drawDestroy (e) {
@@ -53,11 +55,13 @@ function flnDraw_ (newConfigurator, Clientstream) {
           // however, we don't actually use the promise object. this will break.
           dCtrl.setInactive();
           $(maps.omap.getViewport()).off('click', mapClickToolTipStuff )
+          // remove the crosshair tooltip
+          $(maps.omap.getViewport()).css('cursor', 'inherit');
         })
       });
-
     },
     controller: ['$scope', '$element', '$compile', 'TOOL_TIP_TEXT', function addDrawTips($scope, $element, $compile, TOOL_TIP_TEXT){
+
       var tip_step = 0;
       var tip_div = $element.find('fln-follow-tip');
       tips = TOOL_TIP_TEXT;
