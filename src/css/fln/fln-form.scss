@@ -52,7 +52,6 @@ input.phone {
   border: 1px solid $grey-mid;
   border-radius: 4px;
   padding: 0 .5em 0 1.75em;
-  //margin-right: .25em;
   vertical-align: 0;
   &:before {
     font-weight: 700;
@@ -68,6 +67,7 @@ input.year.birthdate {
   font-size: 1em;
   width: 1.5em;
   padding: 12px 0 7px 0;
+  margin-bottom: .5em;
   border: none;
   background: none;
   text-align: left;
@@ -185,6 +185,7 @@ input.zipcode {
       padding: .6em .75em;
       width: 6.75em;
       margin: 0;
+      margin-bottom: .25em;
     }
   }
   .field.email {
@@ -192,6 +193,7 @@ input.zipcode {
     margin: 0 auto;
     input.email {
       margin: 0;
+      margin-bottom: .25em;
     }
   }
   p {
@@ -303,6 +305,15 @@ span.autolocate-icon {
       max-width: 100%;
     }
   }
+
+  .step-zip,
+  .step-bill,
+  .credit-check {
+    button.tiny + button.tiny {
+      margin-left: .5em;
+    }
+  }
+
   input.street,
   input.city,
   input.state,
@@ -330,6 +341,7 @@ span.autolocate-icon {
     /* right: .3rem; */
     /* top: .3rem; */
   }
+
   .step-contact .field {
     //max-width: 16em;
   }
