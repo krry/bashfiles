@@ -1,6 +1,7 @@
 {
   "name": "flannel",
   "version": "1.0.6",
+  "owner": "SolarCity Corporation",
   "main": "server/server.js",
   "repository": {
     "type": "git",

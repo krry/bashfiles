@@ -64,10 +64,6 @@ input + button {
   display: block;
 }
 
-button.ib + button.ib {
-  margin-left: .5em;
-}
-
 button,
 input[type='submit'],
 input[type='button'],
@@ -396,5 +392,8 @@ input::placeholder {
   .field {
     margin-bottom: 1em;
     padding-bottom: 1em;
+  }
+  button.ib + button.ib {
+    margin-left: .5em;
   }
 }
