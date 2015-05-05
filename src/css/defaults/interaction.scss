@@ -383,5 +383,5 @@ select, option {
 }
 
 input::placeholder {
-  color: $grey-mid;
+  color: transparentize($grey-darker, 0.5);
 }
