@@ -64,6 +64,10 @@ input + button {
   display: block;
 }
 
+button.ib + button.ib {
+  margin-left: .5em;
+}
+
 button,
 input[type='submit'],
 input[type='button'],
@@ -190,17 +194,14 @@ label.field-label {
   text-transform: uppercase;
   color: $grey-dark;
   letter-spacing: 0.5px;
-  & + input[type="text"],
-  & + input[type="email"],
-  & + input[type="tel"],
   & + select {
-    margin-top: 0.25em;
+    margin: 0.25em 0;
   }
 }
 
 .field {
   position: relative;
-  padding-bottom: 1em;
+  padding-bottom: .25em;
 }
 
 .step-address .field {
@@ -321,7 +322,7 @@ input[type="datetime-local"]:focus,
 input[type="month"]:focus,
 input[type="time"]:focus,
 input[type="week"]:focus {
-  border-color: $grey-mid;
+  border-color: $gold !important;
   background-color: $color-input-bkgd-focus;
   box-shadow: $shadow-input;
 }
@@ -354,6 +355,12 @@ select {
   }
 }
 
+select:focus {
+  border-color: $gold !important;
+  background-color: $color-input-bkgd-focus;
+  box-shadow: $shadow-input;
+}
+
 select, option {
   text-overflow: ellipsis;
 }
@@ -377,5 +384,6 @@ input::placeholder {
 @media screen and (min-width: $width-min-med) {
   .field {
     margin-bottom: 1em;
+    padding-bottom: 1em;
   }
 }

@@ -113,11 +113,6 @@ main.main.main-fixed {
   .step-fork .fifth.four {
     width: 100%;
   }
-  .step-fork .col.padded,
-  .step-contact .col.padded,
-  .step-address .col.padded {
-    padding: 0;
-  }
   .overlay.primary,
   .overlay.only {
     padding: 3em 2em 3.5em 2em;
@@ -128,6 +123,11 @@ main.main.main-fixed {
 @media screen and (max-height: $width-min-med) {
   .no-mobile.no-mobile {
     display: none !important;
+  }
+  .step-fork .col.padded,
+  .step-contact .col.padded,
+  .step-address .col.padded {
+    padding: 0;
   }
 }
 
