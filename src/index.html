@@ -67,7 +67,7 @@
     <main ui-view name="main" id="main" class="main" ng-class="{ 'main-fixed': stages.fixed }"></main>
   </form>
 
-  <fln-help ng-show="stages.helpActivated" shown="false" ng-class="{shown: shown}"></fln-help>
+  <fln-help class="no-mobile no-tablet" ng-show="stages.helpActivated" shown="false" ng-class="{shown: shown}"></fln-help>
 
   <footer ui-view name="footer" id="footer" class="footer row" ng-class="{ 'footer-fixed': stages.fixed }"></footer>
 
