@@ -222,6 +222,7 @@ input.state {
 .step-address .field.street {
   width: 100%;
   max-width: 20em;
+  margin-bottom: 0.9em;
   input.street {
     border-radius: 4px;
     max-width: 100%;
@@ -301,6 +302,9 @@ span.autolocate-icon {
 @media screen and (min-width: $width-min-med){
   .step-address .field.zip {
     width: 7.75em;
+  }
+  .step-address .field.street {
+    margin-bottom: 0; // This removes spacing needed for responsive layout.
   }
 
   input.street,
