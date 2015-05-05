@@ -1,6 +1,5 @@
 angular.module('flannel', [
   'ngCookies',
-  'ngAnimate',
   'flannel.config',
   'ui.router',
   'firebase',

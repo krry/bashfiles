@@ -30,9 +30,9 @@ function bindKey_ (keyCodes) {
       }
 
       function wireKeyToInput (event) {
-        console.log('bindings has: ', event.which);
+        // console.log('bindings has: ', event.which);
         if (bindings.hasOwnProperty(event.which)) {
-          console.log('enter hit on input');
+          // console.log('enter hit on input');
           scope.$apply(function () {
             scope.$eval(bindings[event.which]);
           });
