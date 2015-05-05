@@ -22,21 +22,24 @@
     transition: all $easing-quick .2s;
     position: absolute;
     bottom: 0;
-    transform: translateY(.6em);
+    transform: translateY(-.5em);
     color: $grey-mid;
     font-size: 0.75em;
   }
 }
 
 @media screen and (min-width: $width-min-sml) {
-  .field > label {
+  /* .field > label {
     transform: translateY(.5em);
-  }
+  } */
 }
 
 @media screen and (min-width: $width-min-med) {
+  .field > label {
+    transform: translateY(-.5em);
+  }
   .show-hide.ng-hide-add,
   .show-hide.ng-hide-remove.ng-hide-remove-active {
-    transform: translateY(-.75em);
+    transform: translateY(-.5em);
   }
 }

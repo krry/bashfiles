@@ -97,6 +97,10 @@ a.btn {
   }
   &.tiny {
     font-size: .75em;
+    padding: 0.76em 2em;
+    border-radius: 1.4em/50%;
+    margin: 0.5em;
+    line-height: 100%;
   }
   &.small {
     font-size: .875em;
@@ -109,6 +113,9 @@ a.btn {
   }
   &.wide {
     min-width: 12em;
+  }
+  &.square {
+    border-radius: 3px;
   }
   &.round {
     border-radius: 50%;

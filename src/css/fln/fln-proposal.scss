@@ -27,21 +27,29 @@
     font-size: 0.75em;
     @include apercu-regular;
   }
-  button.gold {
-    min-width: 18em;
-    margin-bottom: 1em;
+  button.gold,
+  button.white {
+    margin: 0.35em;
   }
   .financing-options-bar {
     font-size: 0.85rem;
     line-height: 1.4;
-    padding: 1em;
+    padding: 3em 0;
     margin: 0 auto;
   }
-  .proposal-button-tray {
-    margin-top: 1rem;
-  }
-  .proposal-button-tray button.tiny.white {
-    min-width: 12rem;
+  .proposal-redo {
+    position: relative;
+    & button {
+      position: absolute;
+      left: -10px;
+      bottom: -50px;
+      z-index: 100;
+      background-color: transparentize($grey-darker, 0.5);
+      border-radius: 2px;
+      color: $white;
+      border: 0px;
+      min-width: 2.7em;
+    }
   }
 }
 
@@ -50,11 +58,37 @@
   margin: 1em auto;
 }
 
+.pit-wrapper {
+  border: 1px dashed grey(30%);
+  margin-bottom: 1rem;
+  //background-color: lighten($grey-lightest, 10%);
+}
 .pit {
-  background-color: $white;
-  padding: 1em 2em 2em;
-  margin: 1em auto;
-  border: 1px solid $grey-mid;
+  padding: 2em 2em 0.75em 2em;
+  margin: 0 auto 1em;
+  border: 0px solid $grey-lighter;
+  max-width: 500px;
+  & p {
+    //font-size: 1em;
+    line-height: 1.3;
+    @include apercu-medium;
+  }
+  & .field {
+    margin: 0;
+    width: 72%;
+    float: left;
+    & input {
+      font-size: 1.25em
+    }
+  }
+  & button {
+    width: 26%;
+    font-size: 0.85em;
+    min-width: 0;
+    padding: 1.15em 0;
+    margin: 0.35em 0 !important;
+    float: right;
+  }
 }
 
 .panelfill {
@@ -63,7 +97,7 @@
 }
 
 .actionbar + .proposal {
-  margin-top: 1rem;
+  // margin-top: 1rem;
 }
 
 .proposal.proposal {
@@ -222,7 +256,7 @@
 
 @media screen and (min-width: $width-min-med) {
   .financing-options-bar {
-    max-width: 40rem;;
+    max-width: 40rem;
   }
   .proposal {
     .panelfill {
