@@ -41,11 +41,11 @@ app.settings.nconf = nconf;
 // Must be set before we define the index, static assets, and individual routes
 if (app.settings.nconf.get('SSL_ENABLED')) {
   app.use(function(req, res, next) {
-    if (!req.secure) {
+    if (req.headers['x-forwarded-proto'] !== 'https') {
       return res.redirect('https://' + req.headers.host + req.url);
+    } else {
+      return next();
     }
-
-    next();
   });
 }
 

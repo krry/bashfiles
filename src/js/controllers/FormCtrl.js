@@ -356,7 +356,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
         email: vm.prospect().email
       });
 
-      if (vm.prospect().hasFinancingOptions) { 
+      if (vm.prospect().hasFinancingOptions) {
         Client.emit('Stages: jump to step', 'credit-check')
       } else {
         createLead(Salesforce.statuses.noFinancing);
@@ -459,7 +459,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
       if (data.length > 1) {
         Client.emit('Modal: show dialog', { dialog: 'utility', data: data });
       // Otherwise, save the first utility and get the rates for it
-      } else {
+      } else if (data.length === 1) {
         saveUtility(data[0].UtilityId);
       }
     }, function() {

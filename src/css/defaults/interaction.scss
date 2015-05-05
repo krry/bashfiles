@@ -64,6 +64,10 @@ input + button {
   display: block;
 }
 
+button.ib + button.ib {
+  margin-left: .5em;
+}
+
 button,
 input[type='submit'],
 input[type='button'],
@@ -197,9 +201,6 @@ label.field-label {
   text-transform: uppercase;
   color: $grey-dark;
   letter-spacing: 0.5px;
-  & + input[type="text"],
-  & + input[type="email"],
-  & + input[type="tel"],
   & + select {
     margin-top: 0.2em;
   }
@@ -207,7 +208,7 @@ label.field-label {
 
 .field {
   position: relative;
-  padding-bottom: 1em;
+  padding-bottom: .25em;
 }
 .step-bill .field {
   padding-bottom: 0.75em;
@@ -394,5 +395,6 @@ input::placeholder {
 @media screen and (min-width: $width-min-med) {
   .field {
     margin-bottom: 1em;
+    padding-bottom: 1em;
   }
 }

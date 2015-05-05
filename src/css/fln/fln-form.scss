@@ -118,15 +118,15 @@ input.year.birthdate {
     padding: 0 .5em 0 1.95em;
     vertical-align: -1px;
     &:before {
-      left: 17px;
-      top: 15px;
+      left: 18px;
+      top: 14px;
     }
   }
   input.year.birthdate {
-    padding: 16px 0 8px;
+    padding: 15px 0 8px;
   }
   input.year.birthdate::placeholder {
-    padding-left: 0;
+    padding-left: 1px;
   }
 }
 
@@ -250,8 +250,9 @@ label .ib.status {
   font-size: .75em;
   position: absolute;
   left: 0;
-  top: -1em;
   color: $brand-fire;
+  top: -1em;
+  top: -1.5em;
   &.center {
     float: none;
     width: 100%;
