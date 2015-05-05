@@ -1,11 +1,11 @@
 <!-- main.html for qualify stage -->
-<div fln-share class="overlay only col full center contain step-proposal">
-  <div class="row padded">
+<div fln-share class="overlay only col full center step-proposal">
+  <div class="contain row padded">
     <div class="col full center">
       <h1>Nice work! You may be eligible to go solar for $0 down.<br><small>Based on your design and your monthly bill of <span id="current_bill" class="dollars">{{ share.numbers.bill | number: 0 }}</span>, here is your estimated solar&nbsp;proposal.</small></h1>
     </div>
   </div>
-  <div class="proposal row">
+  <div class="contain proposal row">
     <div fln-panelfill class="col fifth two">
       <!-- TODO: render the design here instead of this placeholder -->
     </div>
@@ -55,18 +55,16 @@
   </div>
 
   <!-- <hr class="jump-down"> -->
-  <div class="row">
+  <div class="contain row">
     <div class="col full center">
       <div class="down-blk"></div>
     </div>
   </div>
-  <hr>
-  <div class="row padded center">
-    <div class="col third two center">
+  <div class="contain row padded benefits">
+    <div class="col full center">
       <h1><small>Signing up with America's #1 full-service solar provider means premium service every step of the&nbsp;way.</small></h1>
     </div>
-  </div>
-  <div class="row padded benefits">
+    <br>
     <div class="col half padded">
       <div class="row">
         <div class="col fifth center">

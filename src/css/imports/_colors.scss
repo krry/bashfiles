@@ -38,9 +38,9 @@ $cream:            #fcf4e6;  // rgb(252, 242, 232)  hsl(30, 76.9%, 94.9%)
 $white:            #ffffff;  // rgb(255, 255, 255)  hsl(0, 0%, 100%)
 $white-off:        #f7f7f7;  // rgb(255, 255, 255)  hsl(0, 0%, 100%)
 $white-dark:       #f4f5f5;  // rgb(244, 245, 245)
-$grey-lightest:    #eaefec;  // rgb(234, 239, 236)
+$grey-lightest:    #f0f2f3;  // rgb(234, 239, 236)
 $grey-lighter:     #d9d9d9;  // rgb(217, 217, 217)  hsl(0, 0%, 85%)
-$grey-light:       #b3b3b3;  // rgb(179, 179, 179)  hsl(0, 0%, 70%)
+$grey-light:       #c0c2c3;  // rgb(179, 179, 179)  hsl(0, 0%, 70%)
 $grey-medium:      #cccccc;  // rgb(204, 204, 204)
 $grey-mid:         #999999;  // rgb(153, 153, 153)
 $grey-dark:        #5f5f5f;  // rgb(095, 095, 095)  hsl(0, 0%, 37%)
@@ -104,9 +104,9 @@ $violet-pale:      desaturate(lighten($violet, 20%), 20%);
 $white:            grey(0%);
 $white-off:        grey(1%);
 $white-dark:       grey(2%);
-$grey-lightest:    grey(5%);
+// $grey-lightest:    grey(5%); This is already defined above.
 $grey-lighter:     grey(15%);
-$grey-light:       grey(30%);
+// $grey-light:       grey(30%); This is already defined above.
 $grey-medium:      grey(40%);
 $grey:             grey(50%);
 $grey-mid:         grey(50%);

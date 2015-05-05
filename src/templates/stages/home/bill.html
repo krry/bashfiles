@@ -9,11 +9,11 @@
     </div>
   </div>
 
-  <div class="row" ng-controller="ModalCtrl as modal">
+  <div class="contain row" ng-controller="ModalCtrl as modal">
     <div class="col half right baseline sml-center med-full lrg-right">
       <h3>Do you own your house?</h3>
     </div>
-    <div class="col half padded baseline sml-center med-full lrg-left">
+    <div class="col half baseline sml-center med-full lrg-left">
       <button class="btn answer-yes gold ib tiny" ng-click="form.checkUtility()">Yes</button>
       <button class="btn answer-no gold ib tiny" ng-click="modal.showDialog({dialog: 'alternatives', data: ''}); app.notifyTrackerAboutClick('not_a_homeowner')">No</button>
     </div>

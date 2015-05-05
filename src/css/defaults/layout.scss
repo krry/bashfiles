@@ -85,16 +85,27 @@ main.main.main-fixed {
 }
 
 .contain {
-  max-width: 75rem;
+  max-width: 50rem;
   display: block !important;
   margin: auto;
+  &.narrow {
+    max-width: 33rem;
+  }
 }
-.actionbar.top {
-  padding-bottom: 1.3em;
+.step-proposal .contain {
+  max-width: 70rem;
 }
-.actionbar.bottom{
-  padding-top: 1.3em;
+
+.actionbar {
+  margin-top: 1.3em;
+  &.top {
+    padding-bottom: 1.3em;
+  }
+  &.bottom{
+    padding-top: 1.3em;
+  }
 }
+
 .alternav {
   margin: 3em auto 2em auto;
   & button.tiny.white {
@@ -222,9 +233,6 @@ main.main.main-fixed {
   }
   .step-fork .col.padded {
     padding: 0;
-  }
-  .contain {
-    max-width: 60rem;
   }
 }
 

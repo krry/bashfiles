@@ -2,9 +2,10 @@
 <div class="overlay primary col" ng-controller="ScheduleCtrl as schedule">
   <div ng-if="schedule.prospect().scheduledTime">
     <div class="col fourth three center">
-      <h1>We'll see you then.<br><small>Our solar consultant will be in touch with you to confirm your appointment and answer any questions you may have.</small>
-      </h1>
-      <div class="col full center">
+      <div class="contain">
+        <h1>We'll see you then.<br><small>Our solar consultant will be in touch with you to confirm your appointment and answer any questions you may&nbsp;have.</small></h1>
+      </div>
+      <div class="contain narrow col full center">
         <div class="icon icon-calendar"></div>
         <h1 class="caps">{{form.prospect().scheduledTime.month}} {{form.prospect().scheduledTime.day}}</h1>
         <p>
@@ -23,11 +24,11 @@
   </div>
 
   <div class="col center">
-    <div ng-if="!schedule.prospect().scheduledTime">
+    <div class="contain" ng-if="!schedule.prospect().scheduledTime">
       <h1 ng-if="schedule.prospect().skipped && schedule.prospect().qualified">Congratulations - you qualified!<br><small>A solar consultant will be in touch with you soon to review your custom solar proposal and schedule your solar site&nbsp;survey.</small></h1>
       <h1 ng-if="!schedule.prospect().skipped || !schedule.prospect().qualified">You're one step closer to going&nbsp;solar.<br><small>Our solar consultant will be in touch with you soon to schedule your site survey, then review a final system design for your&nbsp;rooftop.</small></h1>
     </div>
-    <div class="video-mysc">
+    <div class="contain narrow video-mysc">
       <figure class="video-tray framed">
         <iframe frameborder="0" allowfullscreen src="//www.youtube.com/embed/MXZiwI_0UrM?controls=0&amp;showinfo=0&amp;wmode=transparent"></iframe>
       </figure>
