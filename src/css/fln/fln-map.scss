@@ -62,10 +62,15 @@
   background: tint(.6);
 }
 
+
 .ol-viewport,
 .ol-touch,
 .omap > div {
   position: relative;
+
+  .ol-unselectable {
+    cursor: crosshair;
+  }
 
   .ol-overlaycontainer-stopevent {
     position: absolute;
