@@ -80,19 +80,19 @@
     .utility {
       .list {
         list-style: none;
-        background: $grey-lighter;
+        //background: $white-dark;
         border: 1px solid $grey-light;
-        border-radius: 5px;
-        padding: 2px 0;
+        border-radius: 4px;
+        padding: 2px;
       }
       .choice {
-        padding: 5px 10px;
+        padding: 10px;
         cursor: pointer;
         &:hover {
           background: $grey-lightest;
         }
         &.selected {
-          background: $white-off;
+          background: lighten($gold, 42%);
         }
       }
     }

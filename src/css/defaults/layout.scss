@@ -98,7 +98,14 @@ main.main.main-fixed {
 
 .actionbar {
   margin-top: 1.3em;
+  &.top {
+    padding-bottom: 1.3em;
+  }
+  &.bottom{
+    padding-top: 1.3em;
+  }
 }
+
 .alternav {
   margin: 3em auto 2em auto;
   & button.tiny.white {
@@ -106,9 +113,6 @@ main.main.main-fixed {
   }
 }
 
-.actionbar {
-  margin-top: 1.3em;
-}
 
 @media screen and (max-width: $width-min-lrg) {
   .no-mobile.no-mobile {
