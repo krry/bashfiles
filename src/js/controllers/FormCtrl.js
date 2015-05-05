@@ -90,7 +90,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
 
   function getNumberOfDaysInMonth (selectedMonth) {
     var month = selectedMonth || 0;
-    var days = 31 - ((month == 2) ? (3 - isLeapYear()) : ((month - 1) % 7 % 2));d
+    var days = 31 - ((month == 2) ? (3 - isLeapYear()) : ((month - 1) % 7 % 2));
     console.log("calculated", days, "for month", month);
     return days;
   }
