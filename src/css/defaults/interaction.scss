@@ -208,14 +208,16 @@ label.field-label {
 
 .field {
   position: relative;
-  padding-bottom: .25em;
+  padding: 0;
+  margin: 0;
+  //padding-bottom: .25em;
 }
 .step-bill .field {
-  padding-bottom: 0.75em;
+  //padding-bottom: 0.75em;
 }
 .step-address .field {
-  margin-bottom: 0;
-  padding-bottom: 0;
+  //margin-bottom: 0;
+  //padding-bottom: 0;
 }
 
 label abbr {
