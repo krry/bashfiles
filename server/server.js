@@ -35,6 +35,20 @@ app = express(); // the app used throughout the server
 app.publicRoot = __dirname + '/../public';
 oneYear = 1*365.25*24*60*60*1000; // 1 yr = 31557600000ms
 
+app.settings.nconf = nconf;
+
+// Redirect all http traffic to https
+// Must be set before we define the index, static assets, and individual routes
+if (app.settings.nconf.get('SSL_ENABLED')) {
+  app.use(function(req, res, next) {
+    if (req.headers['x-forwarded-proto'] !== 'https') {
+      return res.redirect('https://' + req.headers.host + req.url);
+    } else {
+      return next();
+    }
+  });
+}
+
 app.use(cookieParser(nconf.get('FLANNEL_SECRET')));
 app.get('/', require('./controllers/appController.js')(app).index);
 app.use(express.static(app.publicRoot, {maxAge: oneYear}));

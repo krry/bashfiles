@@ -323,7 +323,12 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
     });
 
     // Create a promise on the lead the first time it's created during contact creation
-    leadPromise = createLead(Salesforce.statuses.contact);
+    if (vm.prospect().hasFinancingOptions) { 
+      leadPromise = createLead(Salesforce.statuses.contact);
+    } else {
+      leadPromise = createLead(Salesforce.statuses.noFinancing);
+    }
+
     vm.leadPromise = vm.leadPromise || leadPromise;
 
     Contact.create({
@@ -356,10 +361,9 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
         email: vm.prospect().email
       });
 
-      if (vm.prospect().hasFinancingOptions) { 
+      if (vm.prospect().hasFinancingOptions) {
         Client.emit('Stages: jump to step', 'credit-check')
       } else {
-        createLead(Salesforce.statuses.noFinancing);
         vm.prospect().qualified = false;
         Client.emit('Form: valid data', { qualified: false });
         Client.emit('Stages: jump to step', 'qualify');
@@ -459,7 +463,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
       if (data.length > 1) {
         Client.emit('Modal: show dialog', { dialog: 'utility', data: data });
       // Otherwise, save the first utility and get the rates for it
-      } else {
+      } else if (data.length === 1) {
         saveUtility(data[0].UtilityId);
       }
     }, function() {
