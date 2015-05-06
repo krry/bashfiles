@@ -22,10 +22,10 @@ directives
 .directive('flnModify', ['newConfigurator', flnModify_] )
 .directive('flnZoom', ['newConfigurator', flnZoom_] )
 .directive('flnDragpan', ['newConfigurator', flnDragPan_] )
-.directive('flnOmapClearPoly', ['Design', flnOmapClearPoly_] );
-var testDOMone;
-var testDOMtwo;
-function flnDraw_ (newConfigurator, Clientstream) {
+.directive('flnOmapClearPoly', ['Design', flnOmapClearPoly_] )
+.directive('flnOmapRedoModify', ['Clientstream', flnRedoModify_] );
+
+function flnDraw_ (newConfigurator) {
   var listener_key;
   return {
     restrict: "EA",
@@ -139,4 +139,16 @@ function flnOmapClearPoly_ (Design) {
       })
     },
   };
+}
+
+function flnRedoModify_ (Client) {
+  return {
+    restrict: "A",
+    link: function (scope, ele, attrs) {
+      ele.on('click', function returnToModify() {
+        alert('but')
+        Client.emit('Stages: jump to step', 'edit-area');
+      })
+    }
+  }
 }
