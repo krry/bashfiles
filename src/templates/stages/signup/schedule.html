@@ -5,15 +5,19 @@
   </div>
 
   <div class="overlay primary col step-schedule center">
-    <h1 ng-if="!schedule.timedOut">Thank you for inviting us to your home.
-      <br><small>What time works for you?
-    </h1>
-    <h1 ng-if="schedule.timedOut">
-      Sorry! Our connection timed out. <small>Please try again.</small>
-    </h1>
-    <h2 class="caps">{{schedule.prospect().scheduledDate.month}} {{schedule.prospect().scheduledDate.day}}</h2>
-    <fln-time-selection></fln-time-selection>
-    <p class="small note-time"><strong>Note:</strong> These are 2-hour arrival windows for our site surveyor. The site survey will take 1&nbsp;to&nbsp;2&nbsp;hours.</p>
+    <div class="contain">
+      <h1 ng-if="!schedule.timedOut">Thank you for inviting us to your home.
+        <br><small>What time works for you?
+      </h1>
+      <h1 ng-if="schedule.timedOut">
+        Sorry! Our connection timed out. <small>Please try again.</small>
+      </h1>
+      <h2 class="caps">{{schedule.prospect().scheduledDate.month}} {{schedule.prospect().scheduledDate.day}}</h2>
+    </div>
+    <div class="contain narrow">
+      <fln-time-selection></fln-time-selection>
+      <p class="small note-time"><strong>Note:</strong> These are 2-hour arrival windows for our site surveyor. The site survey will take 1&nbsp;to&nbsp;2&nbsp;hours.</p>
+    </div>
     <div class="row padded center">
       <div class="actionbar col full">
         <button class="std gold" ng-click="schedule.save(); app.notifyTrackerAboutClick('time_scheduled')" ng-disabled="!schedule.prospect().scheduledTime">Schedule it</button>

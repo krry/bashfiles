@@ -49,7 +49,7 @@ main.main.main-fixed {
 }
 
 .overlay.short {
-  padding: 0em 1em 0.5em 1em;
+  padding: 1.5em 1em 1em 1em;
 }
 
 .overlay.primary,
@@ -85,13 +85,27 @@ main.main.main-fixed {
 }
 
 .contain {
-  max-width: 75rem;
+  max-width: 50rem;
   display: block !important;
   margin: auto;
+  &.narrow {
+    max-width: 33rem;
+  }
 }
+.step-proposal .contain {
+  max-width: 70rem;
+}
+
 .actionbar {
   margin-top: 1.3em;
+  &.top {
+    padding-bottom: 1.3em;
+  }
+  &.bottom{
+    padding-top: 1.3em;
+  }
 }
+
 .alternav {
   margin: 3em auto 2em auto;
   & button.tiny.white {
@@ -99,9 +113,6 @@ main.main.main-fixed {
   }
 }
 
-.actionbar {
-  margin-top: 1.3em;
-}
 
 @media screen and (max-width: $width-min-lrg) {
   .no-mobile.no-mobile {
@@ -136,7 +147,7 @@ main.main.main-fixed {
     width: 60%;
   }
   .overlay.short {
-    padding: 0em 2em 0.5em 2em;
+    padding: 1.5em 1em 1em 1em;
   }
 }
 
@@ -184,6 +195,7 @@ main.main.main-fixed {
 
   .step-bill .row.padded {
     margin-bottom: 0;
+    border: 1px solid red;
   }
 
   .step-fork .fifth.four {
@@ -211,12 +223,9 @@ main.main.main-fixed {
     width: calc(18em - 1px);
   }
   .overlay.short {
-    padding: 0em 2em 0.5em 2em;
+    padding: 1.5em 2em 1em 2em;
     height: auto;
     box-shadow: 0 0 8px 0 shade(.4);
-    &.step-bill {
-      padding: 1em 2em .5em;
-    }
   }
 
   .step-fork .fifth.four {
@@ -224,9 +233,6 @@ main.main.main-fixed {
   }
   .step-fork .col.padded {
     padding: 0;
-  }
-  .contain {
-    max-width: 60rem;
   }
 }
 

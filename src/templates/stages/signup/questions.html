@@ -5,26 +5,31 @@
   </div>
 
   <div class="center">
-    <h1 ng-if="!schedule.timedOut">About your site visit.
-      <br><small>We just need to know a few bits of information before our site surveyor shows up at your&nbsp;home.</small>
-    </h1>
-    <h1 ng-if="schedule.timedOut">
-      Sorry! Our connection timed out. <small>Please try again.</small>
-    </h1>
+    <div class="contain">
+      <h1 ng-if="!schedule.timedOut">About your site visit.
+        <br><small>We just need to know a few bits of information before our site surveyor shows up at your&nbsp;home.</small>
+      </h1>
+      <h1 ng-if="schedule.timedOut">
+        Sorry! Our connection timed out. <small>Please try again.</small>
+      </h1>
+    </div>
+
     <form name="prospectForm">
-      <div class="row center">
-        <div class="col full center survey-question" ng-class="{ selected: schedule.prospect().attic != null }">
-          <fln-input-attic></fln-input-attic>
+      <div class="contain narrow">
+        <div class="row center">
+          <div class="col full center survey-question" ng-class="{ selected: schedule.prospect().attic != null }">
+            <fln-input-attic></fln-input-attic>
+          </div>
         </div>
-      </div>
-      <div class="row center">
-        <div class="col full center survey-question" ng-class="{ selected: schedule.prospect().pets != null }">
-          <fln-input-pets></fln-input-pets>
+        <div class="row center">
+          <div class="col full center survey-question" ng-class="{ selected: schedule.prospect().pets != null }">
+            <fln-input-pets></fln-input-pets>
+          </div>
         </div>
-      </div>
-      <div class="row center">
-        <div class="col full center survey-question" ng-class="{ selected: schedule.prospect().hoa != null }">
-          <fln-input-hoa></fln-input-hoa>
+        <div class="row center">
+          <div class="col full center survey-question" ng-class="{ selected: schedule.prospect().hoa != null }">
+            <fln-input-hoa></fln-input-hoa>
+          </div>
         </div>
       </div>
       <div class="actionbar col full">
