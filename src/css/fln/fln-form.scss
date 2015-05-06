@@ -188,10 +188,10 @@ input.street {
   max-width: 100%;
 }
 
-.step-zip input.email {
-  max-width: 14em;
+.step-zip .field.email {
+  max-width: 18em;
   text-align: center;
-  margin-top: 0.5em;
+  margin: .25em auto 0;
 }
 
 input.city {
