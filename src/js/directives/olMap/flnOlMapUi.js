@@ -146,7 +146,6 @@ function flnRedoModify_ (Client) {
     restrict: "A",
     link: function (scope, ele, attrs) {
       ele.on('click', function returnToModify() {
-        alert('but')
         Client.emit('Stages: jump to step', 'edit-area');
       })
     }
