@@ -1,28 +1,11 @@
-<div class="field birthdate ib">
-  <select
-    name="day"
-    id="prospect_day"
-    placeholder="DD"
-    required
-    ng-model="form.prospect().day"
-    ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"
-    ng-required="true"
-    ng-options="label for label in form.days | limitTo:form.NumberOfDays">
-    <option value="" selected default>Day</option>
-  </select>
-  <!-- <label for="prospect_day" class="field-label">Day</label> -->
-  <!-- <input
-    type="text"
-    id="prospect_day"
-    name="day"
-    class="birthdate ib day"
-    placeholder="DD"
-    minlength="1"
-    maxlength="2"
-    ng-focus="form.showLabel('day')"
-    ng-blur="form.hideLabel('day')"
-    ng-pattern="/b[1-9]b|0[1-9]|[1-2][0-9]|3[01]/"
-    ng-model="form.prospect().day"
-    ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"
-    ng-required="true"> -->
-</div>
+<select
+  name="day"
+  id="prospect_day"
+  placeholder="DD"
+  required
+  ng-model="form.prospect().day"
+  ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"
+  ng-required="true"
+  ng-options="label for label in form.days | limitTo:form.NumberOfDays">
+  <option value="" selected default>Day</option>
+</select>

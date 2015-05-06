@@ -6,9 +6,9 @@
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
-controllers.controller('ProposalCtrl', ['URL_ROOT', '$location', '$scope', '$state', 'Session', 'Form', 'Clientstream', 'ModalService', 'defaultValues', 'Proposal', ProposalCtrl_]);
+controllers.controller('ProposalCtrl', ['URL_ROOT', '$location', '$scope', '$window', '$timeout', '$state', 'Session', 'Form', 'Clientstream', 'ModalService', 'defaultValues', 'Proposal', ProposalCtrl_]);
 
-function ProposalCtrl_ (URL_ROOT, $location, $scope, $state, Session, Form, Client, Modal, defaultValues, Proposal) {
+function ProposalCtrl_ (URL_ROOT, $location, $scope, $window, $timeout, $state, Session, Form, Client, Modal, defaultValues, Proposal) {
   var vm = this;
   vm.prospect = Form.prospect;
 
@@ -30,17 +30,30 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, $state, Session, Form, Clie
   vm.toggleSave = toggleSave;
   vm.saving = false;
   vm.sendEmail = sendEmail;
+  vm.scrollUp = scrollUp;
 
   function sendEmail() {
-    Client.emit('Modal: email submitted', vm.prospect().email);
-    toggleSave();
+    // console.log('send email called');
+    if (vm.prospect().email) {
+      // console.log('sending email', vm.prospect().email);
+      Client.emit('Modal: email submitted', vm.prospect().email);
+      if (vm.saving) toggleSave(); console.log('toggling save');
+    }
   }
 
   function toggleSave () {
     vm.saving = !vm.saving;
   }
 
+  function scrollUp () {
+    // HACK: forcing proposal view to scroll to top on load because we don't know why it's trying to scroll down halfway
+    $timeout(function(){
+      $window.scrollTo(0,0);
+    }, 0);
+  }
+
   calculateProposal();
+  scrollUp();
 
   $scope.$watch(function(scope) { return vm.prospect() }, calculateProposal);
 

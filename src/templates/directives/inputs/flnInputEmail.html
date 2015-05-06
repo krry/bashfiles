@@ -21,5 +21,6 @@
     ng-blur="form.hideLabel('email')"
     ng-required="true"
     ng-pattern="/^[_a-zA-Z0-9]+(\.[_a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,4})$/"
-    ng-model-options="{ updateOn: 'default change blur', debounce: { default: 500, blur: 0 } }">
+    ng-model-options="{ updateOn: 'default change blur', debounce: { default: 500, blur: 0 } }"
+    bind-key="{enter: 'proposal.sendEmail()'}">
 </div>

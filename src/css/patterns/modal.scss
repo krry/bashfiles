@@ -77,6 +77,26 @@
       }
     }
 
+    .utility {
+      .list {
+        list-style: none;
+        //background: $white-dark;
+        border: 1px solid $grey-light;
+        border-radius: 4px;
+        padding: 2px;
+      }
+      .choice {
+        padding: 10px;
+        cursor: pointer;
+        &:hover {
+          background: $grey-lightest;
+        }
+        &.selected {
+          background: lighten($gold, 42%);
+        }
+      }
+    }
+
     figure > img {
       min-height: 10em;
     }

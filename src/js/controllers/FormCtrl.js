@@ -117,6 +117,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
   vm.checkCredit = checkCredit;
   vm.createContact = createContact;
   vm.skipConfigurator = skipConfigurator;
+  vm.checkUtility = checkUtility;
   vm.updateNumberOfDays = updateNumberOfDays;
 
   Client.listen('zip rejected', rejectZip);
@@ -134,6 +135,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
   Client.listen('Form: save lead', createLead);
   Client.listen('create hotload link', createHotloadLink);
   Client.listen('Form: final near me data', setFinalNearMeData);
+  Client.listen('Form: save utility', saveUtility);
 
   var old_zip,
       new_zip,
@@ -222,7 +224,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
       vm.timedOut = false;
 
       if (data.CreditResultFound && !data.qualified) {
-        vm.prospect.qualified = data.qualified;
+        vm.prospect().qualified = data.qualified;
         Client.emit('Form: valid data', { qualified: data.qualified });
         createLead(Salesforce.statuses.failCredit);
         Client.emit('Stages: stage', 'next');
@@ -321,7 +323,12 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
     });
 
     // Create a promise on the lead the first time it's created during contact creation
-    leadPromise = createLead(Salesforce.statuses.contact);
+    if (vm.prospect().hasFinancingOptions) { 
+      leadPromise = createLead(Salesforce.statuses.contact);
+    } else {
+      leadPromise = createLead(Salesforce.statuses.noFinancing);
+    }
+
     vm.leadPromise = vm.leadPromise || leadPromise;
 
     Contact.create({
@@ -354,7 +361,13 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
         email: vm.prospect().email
       });
 
-      Client.emit('Stages: jump to step', 'credit-check');
+      if (vm.prospect().hasFinancingOptions) {
+        Client.emit('Stages: jump to step', 'credit-check')
+      } else {
+        vm.prospect().qualified = false;
+        Client.emit('Form: valid data', { qualified: false });
+        Client.emit('Stages: jump to step', 'qualify');
+      }
     }, function(resp) {
       vm.isSubmitting = false;
 
@@ -440,6 +453,25 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
     Client.emit('Stages: jump to stage', 'flannel.signup');
   }
 
+  function checkUtility() {
+    Client.emit('Spinner: spin it', true);
+
+    getUtilities().then(function(data) {
+      Client.emit('Spinner: spin it', false);
+
+      // Only show the utilities modal when there's more than 1 utility to choose from
+      if (data.length > 1) {
+        Client.emit('Modal: show dialog', { dialog: 'utility', data: data });
+      // Otherwise, save the first utility and get the rates for it
+      } else if (data.length === 1) {
+        saveUtility(data[0].UtilityId);
+      }
+    }, function() {
+      Client.emit('Spinner: spin it', false);
+      Client.emit('Stages: stage', 'next');
+    });
+  }
+
   function rejectZip(data) {
     vm.invalidZip = data;
     vm.invalid = vm.invalidZip;
@@ -484,33 +516,26 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
       Client.emit('Form: valid data', data);
       Client.emit('Stages: stage', 'next');
       // console.log('valid house accepted', data);
-      getUtilities();
     }
   }
 
   function getUtilities() {
-    if (Utility.isSubmitting) {
-      return;
-    }
-
-    Utility.isSubmitting = true;
-
     return Utility.get({
       city: vm.prospect().city,
       zip: vm.prospect().zip
-    }).then(getUtilityRates).then(saveUtility);
+    });
   }
 
   function saveUtility (data) {
     // console.log(data);
     vm.prospect().utilityId = data;
     Client.emit('Form: valid data', {utilityId: data});
+    Client.emit('Stages: stage', 'next');
+    return getUtilityRates(data);
   }
 
-  function getUtilityRates (data) {
-    var utilityId = data[0].UtilityId;
-    Rates.get({ utilityid: utilityId }).then(saveRates);
-    return utilityId;
+  function getUtilityRates (id) {
+    return Rates.get({ utilityid: id }).then(saveRates);
   }
 
   function saveRates (data) {
@@ -524,18 +549,20 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
     // UtilityAverageSystemEfficiency: 1468
     // UtilityID: 3
 
-    var rates;
+    var rateInfo;
     vm.prospect().utilityRate = data.MedianUtilityPrice;
     vm.prospect().sctyRate = data.FinancingKwhPrice;
     vm.prospect().averageYield = data.UtilityAverageSystemEfficiency;
+    vm.prospect().hasFinancingOptions = data.LeaseAvailable || data.PPAAvailable;
 
-    rates = {
+    rateInfo = {
       utilityRate: vm.prospect().utilityRate,
       sctyRate: vm.prospect().sctyRate,
-      averageYield: vm.prospect().averageYield
+      averageYield: vm.prospect().averageYield,
+      hasFinancingOptions: vm.prospect().hasFinancingOptions
     };
 
-    Client.emit('Form: valid data', rates);
+    Client.emit('Form: valid data', rateInfo);
   }
 
   function saveBill (data) {

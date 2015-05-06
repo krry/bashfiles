@@ -1,16 +1,26 @@
 <!-- main.html for qualify stage -->
-<div fln-proposal class="overlay only col full center contain step-proposal">
-  <div class="row">
+<div fln-proposal class="overlay only col full center step-proposal">
+  <div class="contain row">
     <div class="col full center">
       <h1>Nice work! You may be eligible to go solar for $0&nbsp;down.<br><small>Based on your design and your monthly bill of <span id="current_bill" class="dollars">{{ proposal.prospect().bill | number: 0 }}</span>, here is your estimated solar&nbsp;proposal.</small></h1>
     </div>
   </div>
-  <div class="row padded center only-mobile">
-    <div class="col center full">
-      <button class="btn gold wide ib" ng-click="stages.advanceFromProposal(proposal.prospect().qualified)">Yes sign me up</button>
+  <div class="only-mobile actionbar top">
+    <div class="row center pit-wrapper" ng-show="proposal.saving">
+      <div class="proposal-save pit col full center">
+        <p>Enter your email address and we'll send you a link to this custom&nbsp;proposal. <!-- Don't worry, we're spam-free. Here's our <a href="http://www.solarcity.com/company/privacy-policy" target="_blank">privacy policy</a>. --></p>
+        <div fln-input-email form="emailForm"></div>
+        <button id="submit_email" class="gold square" ng-disabled="!proposal.prospect().email" ng-click="proposal.sendEmail()">OK</button>
+      </div>
     </div>
+    <button class="btn white wide ib" ng-click="proposal.toggleSave(); app.notifyTrackerAboutClick('saving_proposal')" ng-show="!proposal.saving">Save proposal</button>
+    <button class="btn gold wide ib" ng-click="stages.advanceFromProposal(proposal.prospect().qualified)">Yes sign me up</button>
   </div>
-  <div class="proposal row">
+
+  <div class="proposal-redo">
+    <button class="btn white tiny ib" ng-click="proposal.changeDesign(); app.notifyTrackerAboutClick('redoing design')">Redo</button>
+  </div>
+  <div class="contain proposal row">
     <div fln-panelfill class="col fifth two">
       <!-- TODO: render the design here instead of this placeholder -->
     </div>
@@ -56,39 +66,33 @@
       </div>
     </div>
   </div>
-  <div class="actionbar">
-    <button class="btn gold wide ib" ng-click="stages.advanceFromProposal(proposal.prospect().qualified)">Yes sign me up</button>
-  </div>
-  <div class="row padded-less proposal-button-tray" ng-controller="ModalCtrl as modal">
-    <div class="col full center">
-      <div class="financing-options-bar"><strong>Remember &mdash; this is only a rough draft.</strong> After your site survey, our experts will create a custom system design and proposal with available <a ng-click="modal.showDialog({dialog: 'financing', data: ''})">financing&nbsp;options</a>.</div>
-      <button class="btn white tiny ib" ng-click="proposal.changeDesign(); app.notifyTrackerAboutClick('redoing design')">Redo my design</button>
-      <button class="btn white tiny ib" ng-click="proposal.toggleSave(); app.notifyTrackerAboutClick('saving_proposal')" ng-hide="proposal.saving">Save my proposal</button>
-      <div class="row center" ng-show="proposal.saving">
-        <div class="proposal-save pit col half center">
-          <h5>Save your solar proposal</h5>
-          <p>We'll email you a link to this custom proposal.</p>
-          <fln-input-email></fln-input-email>
-          <button id="submit_email" class="gold" ng-disabled="emailForm.$invalid" ng-click="proposal.sendEmail()">Submit</button>
-          <footer>Don't worry, we're spam-free.<br>Here's our <a href="http://www.solarcity.com/company/privacy-policy" target="_blank">privacy policy</a>.</footer>
-        </div>
+  <div class="actionbar bottom">
+    <button class="btn white wide ib" ng-click="proposal.toggleSave(); app.notifyTrackerAboutClick('saving_proposal')" ng-hide="proposal.saving">Save proposal</button>
+    <div class="row center pit-wrapper" ng-show="proposal.saving">
+      <div class="proposal-save pit col full center">
+        <p>Enter your email address and we'll send you a link to this custom&nbsp;proposal. <!-- Don't worry, we're spam-free. Here's our <a href="http://www.solarcity.com/company/privacy-policy" target="_blank">privacy policy</a>. --></p>
+        <button id="submit_email" class="gold square" ng-disabled="!proposal.prospect().email" ng-click="proposal.sendEmail()">OK</button>
+        <div fln-input-email form="emailForm"></div>
       </div>
     </div>
+    <button class="btn gold wide ib" ng-click="stages.advanceFromProposal(proposal.prospect().qualified)">Yes sign me up</button>
+  </div>
+  <div ng-controller="ModalCtrl as modal">
+    <div class="financing-options-bar contain"><strong>Remember &mdash; this is only a rough draft.</strong> After your site survey, our experts will create a custom system design and proposal with available <a ng-click="modal.showDialog({dialog: 'financing', data: ''})">financing&nbsp;options</a>.</div>
   </div>
 
   <!-- <hr class="jump-down"> -->
-  <div class="row">
+  <div class="contain row">
     <div class="col full center">
       <div class="down-blk"></div>
     </div>
   </div>
-  <hr>
-  <div class="row padded center">
-    <div class="col padded third two center">
+
+  <div class="contain row padded benefits">
+    <div class="col full center">
       <h1><small>Signing up with America's #1 full-service solar provider means premium service every step of the&nbsp;way.</small></h1>
     </div>
-  </div>
-  <div class="row padded benefits">
+    <br>
     <div class="col half padded">
       <div class="row">
         <div class="col fifth center">
@@ -169,8 +173,16 @@
       </div>
     </div>
   </div>
-  <div class="actionbar">
-      <button class="btn gold wide ib" ng-click="stages.advanceFromProposal(proposal.prospect().qualified)">Yes sign me up</button>
+  <div class="actionbar top">
+    <button class="btn white wide ib" ng-click="proposal.toggleSave(); app.notifyTrackerAboutClick('saving_proposal')" ng-hide="proposal.saving">Save proposal</button>
+    <div class="row center pit-wrapper" ng-show="proposal.saving">
+      <div class="proposal-save pit col full center">
+        <p>Enter your email address and we'll send you a link to this custom&nbsp;proposal. <!-- Don't worry, we're spam-free. Here's our <a href="http://www.solarcity.com/company/privacy-policy" target="_blank">privacy policy</a>. --></p>
+        <div fln-input-email form="emailForm"></div>
+        <button id="submit_email" class="gold square" ng-disabled="!proposal.prospect().email" ng-click="proposal.sendEmail()">OK</button>
+      </div>
+    </div>
+    <button class="btn gold wide ib" ng-click="stages.advanceFromProposal(proposal.prospect().qualified)">Yes sign me up</button>
   </div>
   <fln-fine-print>
     <p>The figures on this page are only estimates, subject to change after review from a solar consultant. System size and production may be affected by shading, roof type, compliance fire codes and other factors.</p>

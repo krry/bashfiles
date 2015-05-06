@@ -4,6 +4,7 @@
 
 .step-proposal {
   background: $grey-lightest;
+
   strong + p {
     margin-top: .25em;
   }
@@ -16,36 +17,75 @@
   ul {
     margin: 0.5em 0;
   }
-  ul li, p {
+  /* ul li, p {
     line-height: 160%;
-  }
+  } */
   h5 {
     text-align: center;
     font-size: 0.75em;
     @include apercu-regular;
   }
-  .actionbar button.gold {
-    min-width: 18em;
+  button.gold,
+  button.white {
+    margin: 0.35em;
   }
   .financing-options-bar {
     font-size: 0.85rem;
     line-height: 1.4;
-    padding: 2em 1em 1em 1em;
+    padding: 3em 0;
     margin: 0 auto;
   }
-  .proposal-button-tray {
-    margin-top: 1rem;
-  }
-  .proposal-button-tray button.tiny.white {
-    min-width: 12rem;
+  .proposal-redo {
+    position: relative;
+    & button {
+      position: absolute;
+      left: -10px;
+      bottom: -50px;
+      z-index: 100;
+      background-color: transparentize($grey-darker, 0.5);
+      border-radius: 2px;
+      color: $white;
+      border: 0px;
+      min-width: 2.7em;
+    }
   }
 }
 
-.pit {
-  background-color: $white;
-  padding: 1em 2em 2em;
+/* HACK: giving button in share proposal dialog some room with a solitary class */
+.cushion.cushion {
   margin: 1em auto;
-  border: 1px solid $grey-mid;
+}
+
+.pit-wrapper {
+  border: 1px dashed grey(30%);
+  margin-bottom: 1rem;
+}
+.pit {
+  padding: 2em 2em 0.75em 2em;
+  margin: 0 auto 1em;
+  max-width: 500px;
+  background-color: $white;
+  p {
+    margin-bottom: 1.5em;
+    line-height: 1.3;
+    @include apercu-medium;
+  }
+  .field {
+    margin: 0;
+    width: 72%;
+    float: left;
+    input {
+      font-size: 1.25em;
+    }
+  }
+  button {
+    width: 26%;
+    font-size: 0.85em;
+    min-width: 0;
+    padding: 1.15em 0;
+    margin: 0.35em 0 !important;
+    float: right;
+  }
 }
 
 .panelfill {
@@ -54,7 +94,7 @@
 }
 
 .actionbar + .proposal {
-  margin-top: 1rem;
+  // margin-top: 1rem;
 }
 
 .proposal.proposal {
@@ -123,7 +163,6 @@
   vertical-align: .75em;
 }
 
-
 .down-blk {
   background: url('../img/arrow-down-blk-01.svg') no-repeat center;
   background-size: 14px;
@@ -172,6 +211,8 @@
 }
 
 .benefits {
+  border-top: 1px solid $color-border-main;
+  padding-top: 2rem;
   .icon {
     display: block;
     width: 4em;
@@ -185,8 +226,11 @@
   }
   strong {
     display: block;
-    text-align: center;
-    font-size: 1.125em;
+    text-align: left;
+    font-size: 1em;
+  }
+  p, ul, dl {
+    font-size: 0.8em;
   }
 }
 
@@ -214,7 +258,7 @@
 
 @media screen and (min-width: $width-min-med) {
   .financing-options-bar {
-    max-width: 40rem;;
+    max-width: 40rem;
   }
   .proposal {
     .panelfill {
@@ -244,6 +288,9 @@
 }
 
 @media screen and (min-width: $width-min-lrg) {
+/*   .step-proposal h1 small {
+  margin-bottom: 1.9em;
+} */
   .faq-item figure {
     height: 180px;
   }

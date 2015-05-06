@@ -49,7 +49,12 @@ angular.module('stages',[
     // Avoid emitting when transitioning to a new stage, which is an intermediary abstract state and has no step
     if (toState.step === 0 || toState.step) {
       Client.emit('Router: state change success', { stage: toState.stage, step: toState.step });
+
       $window.scrollTo(0, 0);
+      // TODO: figure out why form fields are overriding the scroll jack
+      $window.setTimeout(function() {
+        $window.scrollTo(0, 0);
+      }, 0);
     }
   });
 }]);
