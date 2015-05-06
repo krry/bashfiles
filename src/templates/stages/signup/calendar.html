@@ -4,17 +4,19 @@
     <fln-spinner></fln-spinner>
   </div>
 
-  <h1>Time to schedule a site&nbsp;survey.
-    <br><small>What day works for you?</small>
-  </h1>
-  <div>
+  <div class="contain">
+    <h1>Time to schedule a site&nbsp;survey.
+      <br><small>What day works for you?</small>
+    </h1>
+  </div>
+  <div class="contain">
     <fln-calendar config="schedule.config"
      select-fn="schedule.selectDate(date)"
      available-times="schedule.availableTimes">
     </fln-calendar>
+    <br><br>
+    <p class="small">Select a day above or <a ng-click="stages.jumpToStep('congrats')">schedule this later</a>.</p>
   </div>
-  <br><br>
-  <p class="small">Select a day above or <a ng-click="stages.jumpToStep('congrats')">schedule this later</a>.</p>
 </div>
 
 <aside class="overlay secondary col sml-full med-full lrg-full full-height">

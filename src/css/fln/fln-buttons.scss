@@ -2,6 +2,9 @@
 @import "../imports/sizes";
 
 .step-bill button.tiny.gold {
+  padding: 1em;
+  min-width: 8em;
+  border-radius: 1.5em/50%;
   margin-top: 1em;
 }
 
@@ -12,7 +15,7 @@
 
 .step-fork button {
   width: 100%;
-  max-width: 200px;
+  max-width: 16em;
   padding: 1.25em 0em;
 }
 .step-fork .col.fifth.two p {
@@ -52,9 +55,5 @@
   .set-or {
     line-height: 5.5em;
     padding: 0;
-  }
-
-  .step-fork button {
-    max-width: none;
   }
 }
