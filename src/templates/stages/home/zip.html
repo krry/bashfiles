@@ -1,21 +1,24 @@
 <section class="overlay primary col step-zip" ng-init="stages.checkZipParam()">
 
-  <div ng-hide="form.invalidTerritory">
+  <div class="contain" ng-hide="form.invalidTerritory">
     <h1 ng-hide="form.invalidZip">Every 3 minutes, someone switches to&nbsp;SolarCity.<br><small>Are we in your neighborhood?</small></h1>
     <h1 class="error" ng-show="form.invalidZip">We've never seen that zip.<br><small>Let's try it again.</small></h1>
     <fln-input-zip></fln-input-zip>
+    <p>If you prefer to speak with a sales representative, call <strong><a href="tel:18887652489">(888)&nbsp;765-2489</a></strong>.</p>
   </div>
 
-  <div ng-show="form.invalidTerritory">
+  <div class="contain" ng-show="form.invalidTerritory">
     <h1 class="error">Sorry, we're not in your area&nbsp;yet.<br><small>Enter your email and we'll let you know when we get&nbsp;there.</small></h1>
     <fln-input-email hint="Leave us your email"></fln-input-email>
-    <div class="actionbar">
-      <button class="gold">Notify Me</button>
+    <div class="row">
+      <div class="col center full">
+        <button class="gold">Notify Me</button>
+      </div>
     </div>
     <div fln-alternav alternatives="true"></div fln-alternav>
+    <p>If you prefer to speak with a sales representative, call <strong><a href="tel:18887652489">(888)&nbsp;765-2489</a></strong>.</p>
   </div>
 
-  <p>If you prefer to speak with a sales representative, call <strong><a href="tel:18887652489">(888)&nbsp;765-2489</a></strong>.</p>
 </section>
 
 <aside class="overlay secondary col sml-full med-full lrg-full full-height" ng-class="{ 'bleed-right': !form.invalidTerritory }">
