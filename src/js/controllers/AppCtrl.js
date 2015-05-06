@@ -17,6 +17,7 @@ function AppCtrl_($location, $sce, GMAP_CLIENT, MINIFIED, APP_TITLE, ENV, Client
   vm.appTitle = APP_TITLE;
   vm.gmapClient = GMAP_CLIENT;
   vm.analyticsId = ANALYTICS_ID;
+  vm.notifyTrackerAboutClick = notifyTrackerAboutClick;
 
   // if user is an ODA, trigger ODA mode to show ODA tools
   if (window.location.href.indexOf('oda') > -1) {
@@ -64,6 +65,7 @@ function AppCtrl_($location, $sce, GMAP_CLIENT, MINIFIED, APP_TITLE, ENV, Client
   }
 
   function notifyTrackerAboutClick (click) {
+    var location = $location.url();
     var obj = {
       'event': click,
       'pageURL': location
