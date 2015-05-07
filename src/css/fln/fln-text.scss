@@ -23,7 +23,6 @@ h3.social-proof-count {
   padding: 1em;
   text-align: center;
   font-size: .75em;
-  margin-bottom: 0;
 }
 
 .step-credit {
@@ -65,6 +64,7 @@ h3.social-proof-count {
 .step-address h2,
 .step-address h3 {
   margin-top: 0;
+  margin-bottom: 0.4em;
 }
 
 .step-bill h3 {
@@ -93,7 +93,7 @@ h3.social-proof-count {
   }
 }
 
-@media screen and (min-width: $width-min-lrg) and (min-height: $width-min-med) {
+@media screen and (min-width: $width-min-lrg) {
   .drop-top {
     padding-top: 6em;
     font-size: 0.85em;

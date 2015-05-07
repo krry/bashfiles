@@ -49,11 +49,7 @@ main.main.main-fixed {
 }
 
 .overlay.short {
-  padding: 1em;
-}
-
-.step-address.overlay.short {
-  padding-bottom: .5em;
+  padding: 1.5em 1em 1em 1em;
 }
 
 .overlay.primary,
@@ -145,12 +141,12 @@ main.main.main-fixed {
   }
 }
 
-@media screen and (min-width: $width-min-med) and (min-height: $width-min-med) {
+@media screen and (min-width: $width-min-med) {
   .step-fork .fifth.four {
     width: 60%;
   }
   .overlay.short {
-    padding: 1.5em 1em 1.5em;
+    padding: 1.5em 1em 1em 1em;
   }
 }
 
@@ -221,7 +217,7 @@ main.main.main-fixed {
     width: calc(18em - 1px);
   }
   .overlay.short {
-    padding: 1.5em 2em;
+    padding: 1.5em 2em 1em 2em;
     height: auto;
     box-shadow: 0 0 8px 0 shade(.4);
   }

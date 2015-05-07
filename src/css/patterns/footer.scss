@@ -5,6 +5,7 @@
   background: $color-bkgd-footer;
   width: 100%;
   position: relative;
+  /* display: none; */
   display: block;
 }
 
@@ -36,38 +37,8 @@
   border-left: 1px solid shade(.10);
 }
 
-@media screen
-  and (min-width: $width-min-lrg)
-  and (min-height: $width-min-med)
-  and (max-width: $width-min-xxl) {
-  .footer-fixed {
-    bottom: 0;
-    position: fixed;
-  }
-}
 
-@media screen
-  and (min-width: $width-min-med)
-  and (min-height: $width-min-lrg)
-  and (max-width: $width-min-xxl) {
-  .footer-fixed {
-    bottom: 0;
-    position: fixed;
-  }
-}
-
-@media screen
-  and (min-width: $width-min-xxl)
-  and (min-height: $width-min-lrg) {
-  .footer-fixed {
-    bottom: 0;
-    position: fixed;
-  }
-}
-
-@media screen
-  and (min-width: $width-min-uhd)
-  and (min-height: $width-min-lrg) {
+@media screen and (min-width: $width-min-lrg) {
   .footer-fixed {
     bottom: 0;
     position: fixed;
