@@ -97,7 +97,6 @@ main.main.main-fixed {
 }
 
 .actionbar {
-  margin-top: 1.3em;
   &.top {
     padding-bottom: 1.3em;
   }
@@ -109,7 +108,7 @@ main.main.main-fixed {
 .alternav {
   margin: 3em auto 2em auto;
   & button.tiny.white {
-    min-width: 18em;
+    min-width: 17em;
   }
 }
 
@@ -145,9 +144,6 @@ main.main.main-fixed {
 @media screen and (min-width: $width-min-med) {
   .step-fork .fifth.four {
     width: 60%;
-  }
-  .overlay.short {
-    padding: 1.5em 1em 1em 1em;
   }
 }
 
@@ -193,11 +189,6 @@ main.main.main-fixed {
     width: 100%;
   }
 
-  .step-bill .row.padded {
-    margin-bottom: 0;
-    border: 1px solid red;
-  }
-
   .step-fork .fifth.four {
     width: 100%;
   }
@@ -222,12 +213,6 @@ main.main.main-fixed {
   .secondary.secondary {
     width: calc(18em - 1px);
   }
-  .overlay.short {
-    padding: 1.5em 2em 1em 2em;
-    height: auto;
-    box-shadow: 0 0 8px 0 shade(.4);
-  }
-
   .step-fork .fifth.four {
     width: 80%;
   }

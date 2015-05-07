@@ -178,23 +178,17 @@ input.zipcode {
 .step-zip {
   .field.zip {
     width: 14em;
-    margin: .25em auto 1.5em;
+    margin: 1em auto 5em auto;
     input.zipcode {
       text-align: center;
       font-size: 2.25em;
       padding: .6em .75em;
       width: 6.75em;
-      margin: 0;
-      margin-bottom: .25em;
     }
   }
   .field.email {
-    width: 20em;
+    max-width: 20em;
     margin: 0 auto;
-    input.email {
-      margin: 0;
-      margin-bottom: .25em;
-    }
   }
   p {
       font-size: .75em;
@@ -217,16 +211,22 @@ input.state {
   width: 4em;
 }
 
-.field.street,
-.field.zip {
-  // width: 6.75em;
-  text-align: left;
+.step-address .field.zip {
   width: 100%;
+  max-width: 20em;
+  input.zipcode {
+    border-radius: 4px;
+    max-width: 100%;
+  }
 }
-
-.step-address input.zipcode {
-  border-radius: 4px;
+.step-address .field.street {
   width: 100%;
+  max-width: 20em;
+  margin-bottom: 0.9em;
+  input.street {
+    border-radius: 4px;
+    max-width: 100%;
+  }
 }
 
 input.date {
@@ -291,28 +291,20 @@ span.autolocate-icon {
 }
 
 .step-contact .field {
-  margin: 0.25em 0.5em;
+  margin: 0 0.5em 1.35em 0.5em;
   padding: 0;
 }
 .step-contact .field input {
   box-sizing: border-box;
 }
 
+
 @media screen and (min-width: $width-min-med){
   .step-address .field.zip {
     width: 7.75em;
-    input.zipcode {
-      border-radius: 4px;
-      max-width: 100%;
-    }
   }
-
-  .step-zip,
-  .step-bill,
-  .credit-check {
-    button.tiny + button.tiny {
-      margin-left: .5em;
-    }
+  .step-address .field.street {
+    margin-bottom: 0; // This removes spacing needed for responsive layout.
   }
 
   input.street,
@@ -339,12 +331,6 @@ span.autolocate-icon {
   button.nested {
     width: 2.25rem;
     height: 2.25rem;
-    /* right: .3rem; */
-    /* top: .3rem; */
-  }
-
-  .step-contact .field {
-    //max-width: 16em;
   }
   .med-left .field {
     float: left;
@@ -371,12 +357,29 @@ span.autolocate-icon {
     width: 20em;
   }
   button.nested {
-    width: 2.58rem;
-    height: 2.58rem;
+    width: 2.85rem;
+    height: 2.85rem;
     right: .43rem;
     top: .43rem;
   }
+  .step-address .field.street {
+    max-width: 30em;
+  }
   .step-address .field.zip {
     width: 9em;
+  }
+}
+
+@media screen and (min-width: $width-min-xlg) {
+  button.nested {
+    width: 2.80rem;
+    height: 2.80rem;
+  }
+}
+
+@media screen and (min-width: $width-min-xxl) {
+  button.nested {
+    width: 2.75rem;
+    height: 2.75rem;
   }
 }
