@@ -371,8 +371,6 @@ select, option {
   text-overflow: ellipsis;
 }
 
-
-
 // input placeholders
 ::placeholder {
   opacity: .6;
@@ -392,6 +390,11 @@ input::placeholder {
   .field {
     margin-bottom: 1em;
     padding-bottom: 1em;
+  }
+  .center {
+    button + button {
+      margin-top: 2em;
+    }
   }
   button.ib + button.ib {
     margin-left: .5em;

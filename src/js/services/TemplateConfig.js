@@ -109,11 +109,11 @@ function TemplateConfig_ () {
           step: 'schedule-survey',
           partial: 'schedule.html'
         },
-        {
-          staticLayout: true,
-          step: 'survey-questions',
-          partial: 'questions.html'
-        },
+        // {
+        //   staticLayout: true,
+        //   step: 'survey-questions',
+        //   partial: 'questions.html'
+        // },
         {
           staticLayout: true,
           step: 'congrats',
