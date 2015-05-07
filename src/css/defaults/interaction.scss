@@ -206,13 +206,6 @@ label.field-label {
   position: relative;
   padding-bottom: .25em;
 }
-.step-bill .field {
-  padding-bottom: 0.75em;
-}
-.step-address .field {
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
 
 label abbr {
   display: none;
@@ -385,10 +378,19 @@ input::placeholder {
   color: transparentize($grey-darker, 0.5);
 }
 
+.field {
+  margin-bottom: 1em;
+  padding-bottom: 1em;
+}
+
 @media screen and (min-width: $width-min-med) {
   .field {
     margin-bottom: 1em;
-    padding-bottom: 1em;
+  }
+  .center {
+    button + button {
+      margin-top: 2em;
+    }
   }
   .center {
     button + button {

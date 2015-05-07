@@ -140,7 +140,7 @@ input.year.birthdate {
     }
   }
   input.year.birthdate {
-    padding: 17px 0 7px;
+    padding: 16px 0 7px;
   }
 }
 
@@ -154,7 +154,7 @@ input.year.birthdate {
     }
   }
   input.year.birthdate {
-    padding: 19px 0 10px;
+    padding: 19px 0 9px;
   }
 }
 
@@ -184,8 +184,6 @@ input.zipcode {
       font-size: 2.25em;
       padding: .6em .75em;
       width: 6.75em;
-      margin: 0;
-      margin-bottom: .25em;
     }
   }
   .field.email {
@@ -195,6 +193,10 @@ input.zipcode {
   p {
       font-size: .75em;
   }
+}
+
+.step-address .field {
+  margin-bottom: 0.25em;
 }
 
 input.street {
@@ -286,17 +288,18 @@ span.autolocate-icon {
   height: 20px;
 }
 
-.step-contact .field {
-  margin: 0.25em 0.5em;
-  padding: 0;
-}
-.step-contact .field input {
-  box-sizing: border-box;
+.step-contact .padded.med-left,
+.step-contact .padded.med-right {
+  padding-bottom: 0;
 }
 
-@media screen and (min-width: $width-min-med){
+@media screen and (min-width: $width-min-med) {
   .step-address .field.zip {
     width: 7.75em;
+  }
+
+  .step-address .field {
+    margin-bottom: 0em;
   }
 
   .step-zip,
@@ -331,13 +334,8 @@ span.autolocate-icon {
   button.nested {
     width: 2.25rem;
     height: 2.25rem;
-    /* right: .3rem; */
-    /* top: .3rem; */
   }
 
-  .step-contact .field {
-    //max-width: 16em;
-  }
   .med-left .field {
     float: left;
   }
