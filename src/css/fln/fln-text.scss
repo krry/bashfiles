@@ -23,6 +23,7 @@ h3.social-proof-count {
   padding: 1em;
   text-align: center;
   font-size: .75em;
+  margin-bottom: 0;
 }
 
 .step-credit {
@@ -64,7 +65,6 @@ h3.social-proof-count {
 .step-address h2,
 .step-address h3 {
   margin-top: 0;
-  margin-bottom: 0.4em;
 }
 
 .step-bill h3 {
@@ -89,10 +89,14 @@ h3.social-proof-count {
 @media screen and (min-width: $width-min-sml) {
 }
 
-@media screen and (min-width: $width-min-med) {
+@media screen and (min-width: $width-min-med) and (min-height: $width-min-med) {
+  .step-address h2,
+  .step-address h3 {
+    margin-bottom: 1em;
+  }
 }
 
-@media screen and (min-width: $width-min-lrg) {
+@media screen and (min-width: $width-min-lrg) and (min-height: $width-min-med) {
   .drop-top {
     padding-top: 6em;
     font-size: 0.85em;
