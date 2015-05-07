@@ -140,7 +140,7 @@ input.year.birthdate {
     }
   }
   input.year.birthdate {
-    padding: 16px 0 7px;
+    padding: 17px 0 7px;
   }
 }
 
@@ -154,7 +154,7 @@ input.year.birthdate {
     }
   }
   input.year.birthdate {
-    padding: 19px 0 9px;
+    padding: 19px 0 10px;
   }
 }
 
@@ -286,13 +286,13 @@ span.autolocate-icon {
   height: 20px;
 }
 
-/* .step-contact .field {
+.step-contact .field {
   margin: 0.25em 0.5em;
   padding: 0;
 }
 .step-contact .field input {
   box-sizing: border-box;
-} */
+}
 
 @media screen and (min-width: $width-min-med){
   .step-address .field.zip {
