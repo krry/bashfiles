@@ -381,3 +381,13 @@ select, option {
 input::placeholder {
   color: transparentize($grey-darker, 0.5);
 }
+
+@media screen and (min-width: $width-min-med) {
+  .field {
+    margin-bottom: 1em;
+    padding-bottom: 1em;
+  }
+  button.ib + button.ib {
+    margin-left: .5em;
+  }
+}

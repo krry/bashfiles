@@ -5,6 +5,9 @@
   width: 100%;
   display: block;
   height: auto;
+  position: fixed;
+  top: 2.9rem;
+  right: 0;
 }
 
 .inset-right.inset-right.inset-right.inset-right {
@@ -15,13 +18,10 @@
   z-index: 4;
   padding: 1.5em 1.5em 1.3em 1.5em;
   margin: 0;
-  position: fixed;
   background-color: $white;
   line-height: 120%;
-  top: 2.9rem;
   width: 100%;
   text-align: center;
-  border-bottom-left-radius: 3px;
 
   h4 {
     font-size: 1.1em;
@@ -152,6 +152,7 @@
     box-shadow: 0 0 .75em -.25em shade(.6);
     margin-left: -2em;
     padding: 3em 1em 1.3em 2em;
+    border-bottom-left-radius: 3px;
   }
 }
 

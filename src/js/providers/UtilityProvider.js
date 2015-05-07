@@ -43,7 +43,8 @@ function UtilityProvider_ () {
 
       // All calls also have an 'Other Electric Utility' which we don't care about
       // Checking the last index for this and removing it if found
-      if (unique[unique.length - 1].UtilityId === otherUtilityID) {
+      // Don't remove it if it's the only utility returned - still need a id for rates check
+      if (unique.length > 1 && unique[unique.length - 1].UtilityId === otherUtilityID) {
         unique.pop();
       }
 
