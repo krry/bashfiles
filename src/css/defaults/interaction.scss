@@ -99,7 +99,6 @@ a.btn {
     font-size: .75em;
     padding: 0.76em 2em;
     border-radius: 1.4em/50%;
-    /* margin: 0.5em; */
     line-height: 100%;
   }
   &.small {
@@ -250,6 +249,11 @@ input[type=radio] + label,
 input[type=checkbox] + label {
   display: inline;
   cursor: pointer;
+}
+
+input[type=radio]:focus + label,
+input[type=checkbox]:focus + label {
+  text-decoration: underline;
 }
 
 textarea,
