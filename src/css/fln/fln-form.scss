@@ -178,7 +178,7 @@ input.zipcode {
 .step-zip {
   .field.zip {
     width: 14em;
-    margin: 1em auto 5em auto;
+    margin: 1em auto 5em;
     input.zipcode {
       text-align: center;
       font-size: 2.25em;
@@ -193,6 +193,10 @@ input.zipcode {
   p {
       font-size: .75em;
   }
+}
+
+.step-address .field {
+  margin-bottom: 0.25em;
 }
 
 input.street {
@@ -211,18 +215,12 @@ input.state {
   width: 4em;
 }
 
-.step-address .field.zip {
-  width: 100%;
-  max-width: 20em;
-  input.zipcode {
-    border-radius: 4px;
-    max-width: 100%;
-  }
-}
+.step-address .field.zip,
 .step-address .field.street {
+  text-align: left;
   width: 100%;
   max-width: 20em;
-  margin-bottom: 0.9em;
+  input.zipcode,
   input.street {
     border-radius: 4px;
     max-width: 100%;
@@ -290,15 +288,26 @@ span.autolocate-icon {
   height: 20px;
 }
 
-.step-contact .field {
-  margin: 0 0.5em 1.35em 0.5em;
+.step-contact .padded.med-left,
+.step-contact .padded.med-right {
+  padding-bottom: 0;
+}
 
-@media screen and (min-width: $width-min-med){
+@media screen and (min-width: $width-min-med) {
   .step-address .field.zip {
     width: 7.75em;
   }
-  .step-address .field.street {
-    margin-bottom: 0; // This removes spacing needed for responsive layout.
+
+  .step-address .field {
+    margin-bottom: 0em;
+  }
+
+  .step-zip,
+  .step-bill,
+  .credit-check {
+    button.tiny + button.tiny {
+      margin-left: .5em;
+    }
   }
 
   input.street,
@@ -326,6 +335,7 @@ span.autolocate-icon {
     width: 2.25rem;
     height: 2.25rem;
   }
+
   .med-left .field {
     float: left;
   }
