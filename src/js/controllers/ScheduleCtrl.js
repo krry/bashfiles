@@ -139,7 +139,12 @@ function ScheduleCtrl_ ($q, Form, Client, Session, SiteSurvey, Installation, Sal
 
   function check() {
     var installation, dfd;
+    saveAnswers();
 
+    if (vm.prospect().battery) {
+      Client.emit('Modal: show dialog', { dialog: 'battery' });
+      return false;
+    }
     // Resolve an empty promise if installation guid has already been created and stored
     if (vm.prospect().installationGuid) {
       dfd = $q.defer();
@@ -163,11 +168,12 @@ function ScheduleCtrl_ ($q, Form, Client, Session, SiteSurvey, Installation, Sal
   }
 
   function skipScheduling() {
+    saveAnswers();
     if (vm.prospect().scheduledTime) {
       vm.prospect().scheduledTime.isSelected = false;
       vm.prospect().scheduledTime = false;
     }
-    
+
     Client.emit('Stages: jump to step', 'congrats');
   }
 
