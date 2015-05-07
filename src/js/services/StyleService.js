@@ -21,6 +21,8 @@ function StyleService_ ($q) {
   c.$brand_fire_thirty          = "rgba(240, 105, 083, 0.3)"; // $brand-fire 30%
   c.$brand_white                = "rgba(255, 255, 255, 1.0)"; // white
   c.$brand_black                = "rgba(0, 0, 0, 1.0)"; // not white
+  c.$brand_rain                 = "rgb(072, 135, 255)"; // like blue, but more refined
+  c.$brand_rain_thirty          = "rgba(072, 135, 255, 0.3)"; // like blue, 70% less refined
 
   // fill
   c.brandFireFill    = new ol.style.Fill({
@@ -169,6 +171,28 @@ function StyleService_ ($q) {
     };
 
   })();
+
+  StyleService.drawStyle =
+    new ol.style.Style({
+      fill: new ol.style.Fill({
+        color: 'rgba(255, 255, 255, 0.2)'
+      }),
+      stroke: new ol.style.Style({
+        stroke: [new ol.style.Stroke({
+          color: 'rgba(0, 0, 0, 0.5)',
+          lineDash: [10, 10],
+          width: 2
+        })],
+      image: new ol.style.Circle({
+        radius: 5,
+        stroke: new ol.style.Stroke({
+          color: 'rgba(0, 0, 0, 0.7)'
+        }),
+        fill: new ol.style.Fill({
+          color: 'rgba(255, 255, 255, 0.2)'
+        })
+      })
+    })
 
 
   StyleService.highlightStyleFunction = (function() {
