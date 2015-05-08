@@ -9,8 +9,8 @@ body {
 
 main.main {
   width: 100%;
-  z-index: 1;
   height: 100%;
+  z-index: 1;
 }
 
 main.main.main-fixed {
@@ -49,12 +49,16 @@ main.main.main-fixed {
 }
 
 .overlay.short {
-  padding: 1.5em 1em 1em 1em;
+  padding: 1em;
+}
+
+.step-address.overlay.short {
+  padding-bottom: .5em;
 }
 
 .overlay.primary,
 .overlay.only {
-  padding: 2em 1em 3.5em 1em;
+  padding: 2em 1em 3.5em;
   text-align: center;
 }
 
@@ -97,7 +101,6 @@ main.main.main-fixed {
 }
 
 .actionbar {
-  margin-top: 1.3em;
   &.top {
     padding-bottom: 1.3em;
   }
@@ -109,7 +112,7 @@ main.main.main-fixed {
 .alternav {
   margin: 3em auto 2em auto;
   & button.tiny.white {
-    min-width: 18em;
+    min-width: 17em;
   }
 }
 
@@ -126,7 +129,7 @@ main.main.main-fixed {
   }
   .overlay.primary,
   .overlay.only {
-    padding: 3em 2em 3.5em 2em;
+    padding: 3em 2em 3.5em;
   }
 }
 
@@ -142,12 +145,12 @@ main.main.main-fixed {
   }
 }
 
-@media screen and (min-width: $width-min-med) {
+@media screen and (min-width: $width-min-med) and (min-height: $width-min-med) {
   .step-fork .fifth.four {
     width: 60%;
   }
   .overlay.short {
-    padding: 1.5em 1em 1em 1em;
+    padding: 1.5em 1em;
   }
 }
 
@@ -185,17 +188,12 @@ main.main.main-fixed {
 
   .overlay.primary,
   .overlay.only {
-    padding: 4em 2em 7em 2em;
+    padding: 4em 2em 7em;
   }
 
   .step-address.primary,
   .step-bill.primary {
     width: 100%;
-  }
-
-  .step-bill .row.padded {
-    margin-bottom: 0;
-    border: 1px solid red;
   }
 
   .step-fork .fifth.four {
@@ -210,6 +208,9 @@ main.main.main-fixed {
   .step-schedule.overlay.primary {
     min-height: 34em;
   }
+  .step-qualify .secondary {
+    min-height: 56em;
+  }
 }
 
 @media screen and (min-width: $width-min-xlg){
@@ -223,7 +224,7 @@ main.main.main-fixed {
     width: calc(18em - 1px);
   }
   .overlay.short {
-    padding: 1.5em 2em 1em 2em;
+    padding: 1.5em 2em;
     height: auto;
     box-shadow: 0 0 8px 0 shade(.4);
   }
@@ -234,11 +235,17 @@ main.main.main-fixed {
   .step-fork .col.padded {
     padding: 0;
   }
+  .step-qualify .secondary {
+    min-height: 49em;
+  }
 }
 
 
 @media screen and (min-width: $width-min-xxl){
   .step-fork .fifth.four {
     width: 65%;
+  }
+  .step-qualify .secondary {
+    min-height: 48em;
   }
 }

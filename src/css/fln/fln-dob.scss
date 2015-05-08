@@ -1,0 +1,125 @@
+@import "../imports/fonts";
+@import "../imports/colors";
+@import "../imports/sizes";
+
+[fln-input-dob] {
+  position: relative;
+}
+
+.field.birthdate {
+  @include apercu-medium;
+  font-size: 1em;
+  padding: 0 0 0 0.5em;
+  margin: 0;
+}
+
+.field.year.birthdate {
+  position: relative;
+  border: 1px solid $grey-mid;
+  border-radius: 4px;
+  padding: 0 .5em 0 1.75em;
+  vertical-align: 0;
+  &:before {
+    font-weight: 700;
+    content: '19';
+    text-align: right;
+    position: absolute;
+    left: 11px;
+    top: 11px;
+  }
+}
+input.year.birthdate {
+  @include apercu-medium;
+  font-size: 1em;
+  width: 1.5em;
+  padding: 12px 0 7px 0;
+  margin-bottom: .5em;
+  border: none;
+  background: none;
+  text-align: left;
+  &:focus {
+    border: none;
+    background: none;
+    box-shadow: none;
+  }
+  &::placeholder {
+    letter-spacing: 1px;
+  }
+}
+
+.field.birthdate select {
+  @include apercu-medium;
+  font-size: 1em;
+  margin: 0;
+}
+
+@media screen and (min-width: $width-min-sml) {
+  .field.year.birthdate {
+    vertical-align: 0;
+    padding: 0 .5em 0 1.75em;
+    &:before {
+      left: 13px;
+      top: 13px;
+    }
+  }
+  input.year.birthdate {
+    padding: 14px 0 7px;
+  }
+}
+
+@media screen and (min-width: $width-min-lrg) {
+  .field.year.birthdate {
+    padding: 0 .5em 0 1.95em;
+    &:before {
+      left: 16px;
+    }
+  }
+  input.year.birthdate::placeholder {
+    padding-left: 1px;
+  }
+}
+
+@media screen and (min-width: $width-min-xlg) {
+  .field.year.birthdate {
+    padding: 0 .5em 0 1.95em;
+    vertical-align: -1px;
+    &:before {
+      left: 18px;
+      top: 14px;
+    }
+  }
+  input.year.birthdate {
+    padding: 15px 0 8px;
+  }
+  input.year.birthdate::placeholder {
+    padding-left: 1px;
+  }
+}
+
+@media screen and (min-width: $width-min-xxl) {
+  .field.year.birthdate {
+    padding: 0 .5em 0 1.8em;
+    vertical-align: -1px;
+    &:before {
+      left: 17px;
+      top: 16px;
+    }
+  }
+  input.year.birthdate {
+    padding: 16px 0 7px;
+  }
+}
+
+@media screen and (min-width: $width-min-uhd) {
+  .field.year.birthdate {
+    padding: 0em .5em 0 1.9em;
+    vertical-align: 0;
+    &:before {
+      left: 21px;
+      top: 18px;
+    }
+  }
+  input.year.birthdate {
+    padding: 19px 0 9px;
+  }
+}
