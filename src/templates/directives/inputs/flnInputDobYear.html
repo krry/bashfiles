@@ -7,7 +7,8 @@
   minlength="2"
   maxlength="2"
   ng-change="form.updateNumberOfDays()"
-  ng-pattern="/1[5-9]|[2-8][0-9]|9[0-7]/"
+  ng-pattern="/1[5-9]|[0-8][0-9]|9[0-7]/"
+  ng-minlength="2"
   ng-model="form.prospect().year"
-  ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"
+  ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
   ng-required="true">

@@ -3,11 +3,10 @@
     <div class="field birthdate ib year" fln-input-dob-year></div>
     <div class="field birthdate ib" fln-input-dob-month></div>
     <div class="field birthdate ib" fln-input-dob-day></div>
+    <div class="status left" ng-hide="prospectForm.year.$pristine">
+      <span ng-show="prospectForm.year.$error.required">Year is not optional.</span>
+      <span ng-show="prospectForm.year.$error.minlength && !prospectForm.year.$error.required">Year is not optional.</span>
+      <span ng-show="prospectForm.year.$error.pattern && !prospectForm.year.$error.minlength">You must be at least 18 years old.</span>
+    </div>
   </div>
-</div>
-<div class="status center" ng-hide="prospectForm.month.$pristine">
-  <span ng-show="prospectForm.month.$error.required">required</span>
-  <span ng-show="prospectForm.day.$error.required">required</span>
-  <span ng-show="prospectForm.year.$error.required">required</span>
-  <span ng-show="prospectForm.year.$error.pattern">You must be at least 18 years old.
 </div>

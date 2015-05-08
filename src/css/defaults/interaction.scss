@@ -99,7 +99,6 @@ a.btn {
     font-size: .75em;
     padding: 0.76em 2em;
     border-radius: 1.4em/50%;
-    /* margin: 0.5em; */
     line-height: 100%;
   }
   &.small {
@@ -204,8 +203,8 @@ label.field-label {
 
 .field {
   position: relative;
-  padding: 0;
-  margin: 0;
+  margin-bottom: 1em;
+  padding-bottom: 1em;
 }
 
 label abbr {
@@ -233,8 +232,9 @@ textarea {
 input[type=radio] + label,
 input[type=checkbox] + label {
   font-size: 1em;
-  padding-left: .5em;
+  margin-left: .5em;
   text-indent: .5em;
+  text-align: left;
   position: relative;
   bottom: -2px;
 }
@@ -251,6 +251,11 @@ input[type=radio] + label,
 input[type=checkbox] + label {
   display: inline;
   cursor: pointer;
+}
+
+input[type=radio]:focus + label,
+input[type=checkbox]:focus + label {
+  border-bottom: 1px solid;
 }
 
 textarea,
@@ -277,7 +282,6 @@ select[multiple=multiple] {
   padding: .5em 0 .5em .65em;
   border-radius: 4px;
   border: 1px solid $grey-light;
-  margin: 0;
   width: 100%;
   font-size: 1.5em;
   font-weight: 700;
@@ -365,8 +369,6 @@ select, option {
   text-overflow: ellipsis;
 }
 
-
-
 // input placeholders
 ::placeholder {
   opacity: .6;
@@ -383,9 +385,10 @@ input::placeholder {
 }
 
 @media screen and (min-width: $width-min-med) {
-  .field {
-    margin-bottom: 1em;
-    padding-bottom: 1em;
+  .center {
+    button + button {
+      margin-top: 2em;
+    }
   }
   button.ib + button.ib {
     margin-left: .5em;
