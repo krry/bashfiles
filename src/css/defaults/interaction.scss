@@ -203,7 +203,8 @@ label.field-label {
 
 .field {
   position: relative;
-  padding-bottom: .25em;
+  margin-bottom: 1em;
+  padding-bottom: 1em;
 }
 
 label abbr {
@@ -231,8 +232,9 @@ textarea {
 input[type=radio] + label,
 input[type=checkbox] + label {
   font-size: 1em;
-  padding-left: .5em;
+  margin-left: .5em;
   text-indent: .5em;
+  text-align: left;
   position: relative;
   bottom: -2px;
 }
@@ -253,7 +255,7 @@ input[type=checkbox] + label {
 
 input[type=radio]:focus + label,
 input[type=checkbox]:focus + label {
-  text-decoration: underline;
+  border-bottom: 1px solid;
 }
 
 textarea,
@@ -382,20 +384,7 @@ input::placeholder {
   color: transparentize($grey-darker, 0.5);
 }
 
-.field {
-  margin-bottom: 1em;
-  padding-bottom: 1em;
-}
-
 @media screen and (min-width: $width-min-med) {
-  .field {
-    margin-bottom: 1em;
-  }
-  .center {
-    button + button {
-      margin-top: 2em;
-    }
-  }
   .center {
     button + button {
       margin-top: 2em;

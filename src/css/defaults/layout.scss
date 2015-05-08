@@ -9,8 +9,8 @@ body {
 
 main.main {
   width: 100%;
-  z-index: 1;
   height: 100%;
+  z-index: 1;
 }
 
 main.main.main-fixed {
@@ -58,7 +58,7 @@ main.main.main-fixed {
 
 .overlay.primary,
 .overlay.only {
-  padding: 2em 1em 3.5em 1em;
+  padding: 2em 1em 3.5em;
   text-align: center;
 }
 
@@ -129,7 +129,7 @@ main.main.main-fixed {
   }
   .overlay.primary,
   .overlay.only {
-    padding: 3em 2em 3.5em 2em;
+    padding: 3em 2em 3.5em;
   }
 }
 
@@ -150,7 +150,7 @@ main.main.main-fixed {
     width: 60%;
   }
   .overlay.short {
-    padding: 1.5em 1em 1.5em;
+    padding: 1.5em 1em;
   }
 }
 
@@ -188,7 +188,7 @@ main.main.main-fixed {
 
   .overlay.primary,
   .overlay.only {
-    padding: 4em 2em 7em 2em;
+    padding: 4em 2em 7em;
   }
 
   .step-address.primary,
@@ -207,6 +207,9 @@ main.main.main-fixed {
   }
   .step-schedule.overlay.primary {
     min-height: 34em;
+  }
+  .step-qualify .secondary {
+    min-height: 56em;
   }
 }
 
@@ -232,11 +235,17 @@ main.main.main-fixed {
   .step-fork .col.padded {
     padding: 0;
   }
+  .step-qualify .secondary {
+    min-height: 49em;
+  }
 }
 
 
 @media screen and (min-width: $width-min-xxl){
   .step-fork .fifth.four {
     width: 65%;
+  }
+  .step-qualify .secondary {
+    min-height: 48em;
   }
 }

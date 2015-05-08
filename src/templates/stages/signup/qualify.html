@@ -1,9 +1,9 @@
 <!-- main.html for qualify stage -->
-<div ng-controller="ScheduleCtrl as schedule" class="overlay">
+<div ng-controller="ScheduleCtrl as schedule" class="overlay step-qualify">
   <div class="spinner-tray" ng-show="schedule.isSubmitting">
     <fln-spinner></fln-spinner>
   </div>
-  <div class="overlay only primary col fourth three center" ng-if="!schedule.prospect().qualified">
+  <div class="overlay only primary col fourth three center" ng-if="schedule.prospect().qualified">
     <div class="contain row">
       <div class="col full center" ng-if="!schedule.prospect().invalidTerritory">
         <h1>Thank you for your interest in going solar.
@@ -34,7 +34,7 @@
       </div>
     </div>
   </div>
-  <div class="overlay primary col" ng-if="schedule.prospect().qualified">
+  <div class="overlay primary col" ng-if="!schedule.prospect().qualified">
     <div class="contain">
       <h1>
         <span ng-if="stages.initialState !== 'flannel.signup.qualify'">Congratulations &mdash; you qualified!</span>
@@ -77,7 +77,7 @@
       </div>
     </div>
   </div>
-  <aside class="overlay secondary col sml-full med-full lrg-full full-height" ng-if="schedule.prospect().qualified">
+  <aside class="overlay secondary col sml-full med-full lrg-full full-height" ng-if="!schedule.prospect().qualified">
     <div class="drop-top">
       <p><strong>What's next?</strong></p>
       <ul class="connect-the-dots">
