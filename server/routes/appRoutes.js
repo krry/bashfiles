@@ -19,6 +19,7 @@ module.exports = function(app) {
   app.get('/dns', dnsController.index);
 
   app.get('/jwt', appController.jwt );
+  app.get('/calculator/*', proxyController.dynamoCalc);
 
   app.post(conf.CLIENT.SFLEAD_API, salesforceController.addEditLead);
 
