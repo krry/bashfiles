@@ -7,9 +7,9 @@
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
-controllers.controller('ScheduleCtrl', ['$q', 'Form', 'Clientstream', 'Session', 'SiteSurvey', 'Installation', 'Salesforce', 'Ahj', 'SurveyQuestions', ScheduleCtrl_]);
+controllers.controller('ScheduleCtrl', ['$q', '$window', 'Form', 'Clientstream', 'Session', 'SiteSurvey', 'Installation', 'Salesforce', 'Ahj', 'SurveyQuestions', ScheduleCtrl_]);
 
-function ScheduleCtrl_ ($q, Form, Client, Session, SiteSurvey, Installation, Salesforce, Ahj, SurveyQuestions) {
+function ScheduleCtrl_ ($q, $window, Form, Client, Session, SiteSurvey, Installation, Salesforce, Ahj, SurveyQuestions) {
   var vm = this;
   vm.prospect = Form.prospect;
   vm.eventDetails = eventDetails;
@@ -30,11 +30,17 @@ function ScheduleCtrl_ ($q, Form, Client, Session, SiteSurvey, Installation, Sal
   vm.skipScheduling = skipScheduling;
 
   Client.listen('Form: Loaded', init);
+  Client.listen('Schedule: confirm battery lead', confirmBatteryLead);
 
   vm.config = {
     startDate: moment().format('MM/D/YYYY'),
     range: 21
   };
+
+  function confirmBatteryLead() {
+    Client.emit('Form: save lead', Salesforce.statuses.batteryLead);
+    $window.location.href = '//www.solarcity.com/battery-backup';
+  }
 
   function eventDetails() {
     var obj = moment(new Date(vm.prospect().scheduledTime.date)),
@@ -94,7 +100,9 @@ function ScheduleCtrl_ ($q, Form, Client, Session, SiteSurvey, Installation, Sal
     return SiteSurvey.scheduleTime({
       installationGuid: vm.prospect().installationGuid,
       dateTime: moment(new Date(vm.prospect().scheduledTime.date)).format(SiteSurvey.timeFormat)
-    }).then(function() {
+    })
+    .then(saveAnswers)
+    .then(function() {
       vm.timedOut = false;
       Client.emit('Form: save lead', Salesforce.statuses.scheduledSiteSurvey);
 
@@ -139,7 +147,16 @@ function ScheduleCtrl_ ($q, Form, Client, Session, SiteSurvey, Installation, Sal
 
   function check() {
     var installation, dfd;
-    saveAnswers();
+
+    Client.emit('Form: valid data', {
+      installationGuid: vm.prospect().installationGuid,
+      attic: vm.prospect().attic,
+      pets: vm.prospect().pets,
+      hoa: vm.prospect().hoa,
+      ahjId: vm.prospect().ahjId || null,
+      hoaName: vm.prospect().hoaName || null,
+      battery: vm.prospect().battery
+    });
 
     if (vm.prospect().battery) {
       Client.emit('Modal: show dialog', { dialog: 'battery' });
@@ -168,7 +185,6 @@ function ScheduleCtrl_ ($q, Form, Client, Session, SiteSurvey, Installation, Sal
   }
 
   function skipScheduling() {
-    saveAnswers();
     if (vm.prospect().scheduledTime) {
       vm.prospect().scheduledTime.isSelected = false;
       vm.prospect().scheduledTime = false;
@@ -250,7 +266,6 @@ function ScheduleCtrl_ ($q, Form, Client, Session, SiteSurvey, Installation, Sal
     }).then(function() {
       vm.isSubmitting = false;
       vm.timedOut = false;
-      Client.emit('Stages: stage', 'next');
     }, function(resp) {
       vm.isSubmitting = false;
 
