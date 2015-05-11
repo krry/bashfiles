@@ -149,7 +149,6 @@ function ScheduleCtrl_ ($q, $window, Form, Client, Session, SiteSurvey, Installa
     var installation, dfd;
 
     Client.emit('Form: valid data', {
-      installationGuid: vm.prospect().installationGuid,
       attic: vm.prospect().attic,
       pets: vm.prospect().pets,
       hoa: vm.prospect().hoa,
