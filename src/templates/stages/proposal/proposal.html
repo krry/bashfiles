@@ -78,7 +78,7 @@
     <button class="btn gold wide ib" ng-click="stages.advanceFromProposal(proposal.prospect().qualified)">Yes sign me up</button>
   </div>
   <div ng-controller="ModalCtrl as modal">
-    <div class="financing-options-bar contain"><strong>Remember &mdash; this is only a rough draft.</strong> After your site survey, our experts will create a custom system design and proposal with available <a ng-click="modal.showDialog({dialog: 'financing', data: ''})">financing&nbsp;options</a>.</div>
+    <div class="financing-options-bar contain"><strong>Remember &mdash; this is only a rough draft.</strong> After your site survey, our experts will create<br class="no-mobile">a custom system design and proposal with available <a ng-click="modal.showDialog({dialog: 'financing', data: ''})">financing&nbsp;options</a>.</div>
   </div>
 
   <!-- <hr class="jump-down"> -->
@@ -94,7 +94,7 @@
     </div>
     <br>
     <div class="col half padded">
-      <div class="row">
+      <div class="row padded-less">
         <div class="col fifth center">
           <span class="icon house"></span>
         </div>
@@ -105,7 +105,7 @@
       </div>
     </div>
     <div class="col half padded">
-      <div class="row">
+      <div class="row padded-less">
         <div class="col fifth center">
           <span class="icon coin"></span>
         </div>
@@ -116,7 +116,7 @@
       </div>
     </div>
     <div class="col half padded">
-      <div class="row">
+      <div class="row padded-less">
         <div class="col fifth center">
           <span class="icon document"></span>
         </div>
@@ -134,7 +134,7 @@
       </div>
     </div>
     <div class="col half padded">
-      <div class="row">
+      <div class="row padded-less">
         <div class="col fifth center">
           <span class="icon bulb"></span>
         </div>
@@ -151,7 +151,7 @@
       </div>
     </div>
     <div class="col half padded">
-      <div class="row">
+      <div class="row padded-less">
         <div class="col fifth center">
           <span class="icon graph"></span>
         </div>
@@ -162,7 +162,7 @@
       </div>
     </div>
     <div class="col half padded">
-      <div class="row">
+      <div class="row padded-less">
         <div class="col fifth center">
           <span class="icon palm"></span>
         </div>
@@ -173,7 +173,7 @@
       </div>
     </div>
   </div>
-  <div class="actionbar top">
+  <div class="actionbar bottom">
     <button class="btn white wide ib" ng-click="proposal.toggleSave(); app.notifyTrackerAboutClick('saving_proposal')" ng-hide="proposal.saving">Save proposal</button>
     <div class="row center pit-wrapper" ng-show="proposal.saving">
       <div class="proposal-save pit col full center">

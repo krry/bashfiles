@@ -60,8 +60,9 @@
     box-shadow: none;
 
     @if $color == $white {
-      color: $grey-medium;
+      color: $grey-mid;
       background-color: darken($color, 2%);
+      border: 1px solid $grey-light;
     }
   }
 

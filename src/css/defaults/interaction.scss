@@ -203,8 +203,8 @@ label.field-label {
 
 .field {
   position: relative;
-  margin-bottom: 1em;
-  padding-bottom: 1em;
+  margin-bottom: 0.4em;
+  padding-bottom: 0.8em;
 }
 
 label abbr {
@@ -387,10 +387,10 @@ input::placeholder {
 @media screen and (min-width: $width-min-med) {
   .center {
     button + button {
-      margin-top: 2em;
+      //margin-top: 2em;
     }
   }
   button.ib + button.ib {
-    margin-left: .5em;
+    //margin-left: .5em;
   }
 }
