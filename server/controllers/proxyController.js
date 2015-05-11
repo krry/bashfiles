@@ -20,6 +20,15 @@ module.exports = function(app) {
     }).pipe(res);
   }
 
+  function dynamoCalc(req, res) {
+    var url = [
+      conf.DYNAMO_CALC,
+      '/',
+      req.params[0],
+    ].join('');
+    proxyGET(url, res);
+  }
+
   function ahj(req, res) {
     var url = [
       conf.AHJ_API,
@@ -143,6 +152,7 @@ module.exports = function(app) {
   }
 
   return {
+    dynamoCalc: dynamoCalc,
     ahj: ahj,
     utilities: utilities,
     warehouses: warehouses,
