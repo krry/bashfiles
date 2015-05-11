@@ -17,7 +17,7 @@
     <button class="btn gold wide ib" ng-click="stages.advanceFromProposal(proposal.prospect().qualified)">Yes sign me up</button>
   </div>
 
-  <div class="proposal-redo">
+  <div class="contain proposal-redo">
     <button class="btn white tiny ib" ng-click="proposal.changeDesign(); app.notifyTrackerAboutClick('redoing design')">Redo</button>
   </div>
   <div class="contain proposal row">
@@ -42,7 +42,7 @@
           <figure>
             <span id="est_savings" class="dollars">{{ proposal.prospect().firstYearSavings | number: 0 }}</span>
           </figure>
-          <label for="est_savings"><span>Estimated Savings</span> year&nbsp;one</label>
+          <label for="est_savings"><span>Estimated Savings</span><br class="no-mobile">&nbsp;year one</label>
         </div>
         <div class="col third center padded utes">
           <figure>

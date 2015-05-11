@@ -42,7 +42,7 @@
       left: -10px;
       bottom: -50px;
       z-index: 100;
-      background-color: transparentize($grey-darker, 0.5);
+      background-color: transparentize($grey-darker, 0.2);
       border-radius: 2px;
       color: $white;
       border: 0px;
@@ -64,7 +64,6 @@
   padding: 2em 2em 0.75em 2em;
   margin: 0 auto 1em;
   max-width: 500px;
-  background-color: $white;
   p {
     margin-bottom: 1.5em;
     line-height: 1.3;
@@ -83,7 +82,7 @@
     font-size: 0.85em;
     min-width: 0;
     padding: 1.15em 0;
-    margin: 0.35em 0 !important;
+    margin: 0 !important;
     float: right;
   }
 }
