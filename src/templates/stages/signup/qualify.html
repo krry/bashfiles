@@ -34,7 +34,7 @@
       </div>
     </div>
   </div>
-  <div class="overlay primary col" ng-if="schedule.prospect().qualified">
+  <div class="overlay primary col" ng-if="schedule.prospect().qualified" ng-init="schedule.getHOAs()">
     <div class="contain">
       <h1>
         <span ng-if="stages.initialState !== 'flannel.signup.qualify'">Congratulations &mdash; you qualified!</span>
