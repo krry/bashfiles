@@ -26,6 +26,7 @@
   "SFDCSECRETTOKEN": "0uquMSmp77XgDWb0zhWIa7b2n",
   "SFDCRECORDTYPEID": "01214000000AVgoAAG",
   "SFOPPOWNERID": "0051400000Bh64TAAR",
+  "DYNAMO_CALC": "https://pure-atoll-3387.herokuapp.com",
   "CLIENT": {
     "ENV": "train",
     "ANALYTICS_ID": "GTM-WKVJF6",
