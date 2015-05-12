@@ -6,9 +6,9 @@
 
 ================================================== */
 
-controllers.controller("FormCtrl", ["$scope", "$location", "$element", "Clientstream", "Session", "User", "Geocoder", "Form", "Credit", "Contact", "Utility", "Rates", "Salesforce", "CREDIT_FAIL", "URL_ROOT", "defaultValues", FormCtrl_]);
+controllers.controller("FormCtrl", ["$scope", "$window", "$location", "$element", "Clientstream", "Session", "User", "Geocoder", "Form", "Credit", "Contact", "Utility", "Rates", "Salesforce", "CREDIT_FAIL", "URL_ROOT", "defaultValues", FormCtrl_]);
 
-function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder, Form, Credit, Contact, Utility, Rates, Salesforce, CREDIT_FAIL, URL_ROOT, defaultValues) {
+function FormCtrl_($scope, $window, $location, $element, Client, Session, User, Geocoder, Form, Credit, Contact, Utility, Rates, Salesforce, CREDIT_FAIL, URL_ROOT, defaultValues) {
 
   var vm = this;
   var form_stream;
@@ -136,6 +136,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
   Client.listen('create hotload link', createHotloadLink);
   Client.listen('Form: final near me data', setFinalNearMeData);
   Client.listen('Form: save utility', saveUtility);
+  Client.listen('Form: confirm battery lead', confirmBatteryLead);
 
   var old_zip,
       new_zip,
@@ -568,6 +569,16 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
   function saveBill (data) {
     // console.log("bill", data);
     Client.emit('Form: valid data', { bill: data });
+  }
+
+  function confirmBatteryLead() {
+    // Redirect to battery page regardless of if lead status update passes / fails
+    // We want to wait for the response so that we don't redirect before sending the call
+    createLead(Salesforce.statuses.batteryLead).then(redirectBattery, redirectBattery);
+  }
+
+  function redirectBattery() {
+    $window.location.href = '//www.solarcity.com/battery-backup';
   }
 
   function acceptNeighborCount (data) {
