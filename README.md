@@ -8,7 +8,7 @@ Clone the repo:
 
 Install the dependencies:
 ```bash
-$ npm install -g gulp nodemon bower karma jshint # sudone?
+$ npm install -g gulp nodemon bower jshint # sudone?
 $ npm install
 $ bower install
 ```
