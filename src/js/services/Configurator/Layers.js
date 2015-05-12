@@ -90,7 +90,10 @@ function Layers_(Design, Styles, AreaService, Client) {
 
   // update based on changes at firebase
   Design.rx_areas.subscribe(function (area) {
-    if (area && areas_collection.getLength()) {
+    if (area === 'removed by client' && areas_collection.getLength() === 0 ) {
+      // case where user presses "redo", deletes the feature, then browser back
+      Client.emit('Stages: stage', 'back'); // TODO: move this to a subscription in StagesCtrl
+    } else if (area && areas_collection.getLength()) {
       // we have a message, and a feature on the client
       if (area === 'removed by client') { // TODO: this  message string should be a global Var for Remove Feature From Client
         // sent by 'clear polygon' button

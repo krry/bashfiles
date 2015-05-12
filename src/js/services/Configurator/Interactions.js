@@ -34,6 +34,7 @@ function Interactions_(Design, Client, Styles, AreaService) {
     geometryName: 'area',
     // make drawing more precise
     snapTolerance: 15, // defaults to 12
+    style: Styles.drawStyle,
   });
 
   interactions.draw.on('drawend', function(e){

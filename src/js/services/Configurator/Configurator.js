@@ -52,6 +52,15 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
     gmap: gmap,
   };
 
+  // resolve this promise to the configurator's viewport
+  // this is used for flow control
+  var $configurator = $q.defer()
+  Client.listen('Configurator: target set', resolveViewport);
+
+  function resolveViewport() {
+    $configurator.resolve(omap.getViewport());
+  }
+
   // View subscriptions
   function subGoogleMapToViewCenter() {
     var center = View.getCenter();
@@ -75,7 +84,6 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
     // shove OL map into Google's ControlPosition div
     o_div.parentNode.removeChild(o_div);
     gmap.controls[google.maps.ControlPosition.TOP_LEFT].push(o_div);
-    // initialize the map
 
     // subscribe google's zoom and center to OL View's resolution & center
     View.rx_center.subscribe(subGoogleMapToViewCenter);
@@ -85,8 +93,9 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
       omap: omap,
       gmap: gmap,
     }
-    maps = this.map; // HACK... this doesn't need to be public. only here for testing.
+    maps = this.map; // HACK... this shouldn't need to be public. only here for testing.
 
+    // set map listeners
     gmap.addListener('projection_changed', function(){
       // TODO: be prepared to fix projection of OLmap for zoom < 17 (currently disallowed by map_options)
       // the proj_changed, now fix the projection of the layers
@@ -96,50 +105,39 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
       omap.updateSize();
     });
 
+
+    // resize the target element
     maps.omap.on('change:size', function() {
-      // resize the target element
       google.maps.event.trigger(gmap, 'resize');
-
     })
-
     maps.omap.updateSize();
-    Client.emit('Configurator: update mapsize', maps.gmap)
-    Client.emit('Configurator: target set');
-  }
 
-  var result = $q.defer()
-  Client.listen('Configurator: target set', function (argument) {
-    result.resolve(omap);
-  })
+    Client.emit('Configurator: update mapsize', omap.getViewport());
+    Client.emit('Configurator: target set', omap);
+  }
 
   this.configurator = function() {
-    return result.promise
+    return $configurator.promise
   }
 
+  this.resetPromiseObject = function resetPromiseObject() {
+    // reset the promise
+    $configurator = null;
+    // create a new promise object
+    $configurator = $q.defer();
+  };
+
   /* Interaction handlers */
-  // Configurator is responsible for orchestrating the layers and interactions
+  // Configurator service is responsible for orchestrating the layers and interactions
   // it is not responsible for managing the Area polygons
-
   this.drawAdd = function () {
-    result.promise.then(function (map) {
-      Client.emit('Configurator: update mapsize', map);
-
-      // HACK: see FLNL-610. this prevents an issue where a user on a touch enabled device
-      // would begin drawing a polygon immediately after centering their design and moving
-      // to the drawstate. the touchend event was propagating through to the map viewport.
-      // there's a known issue with angular that is related. we can also change the mobile
-      // layout to solve this issue.
-      // var tempStopGapForTouchendBugHack = null;
-      // $(maps.omap.getViewport()).on('touchend', function (e) {
-      //   if (tempStopGapForTouchendBugHack === null) {
-      //     e.stopImmediatePropagation();
-      //     tempStopGapForTouchendBugHack = 'butts';
-      //   }
-      // });
+    $configurator.promise.then(function (viewport) {
+      Client.emit('Configurator: update mapsize', viewport);
     });
     Layers.collection.push(Layers.draw);
     Interactions.collection.push(Interactions.draw);
     if (typeof maps !== 'undefined') { if ( maps.omap) {maps.omap.updateSize()}}
+
   }
   this.drawDel = function () {
     Layers.collection.remove(Layers.draw);
@@ -147,20 +145,17 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
     if (typeof maps !== 'undefined') { if ( maps.omap) {maps.omap.updateSize()}}
   }
   this.modifyAdd = function () {
-    result.promise.then(function (map) {
-      Client.emit('Configurator: update mapsize', map)
+    $configurator.promise.then(function (viewport) {
+      Client.emit('Configurator: update mapsize', viewport)
     })
 
     // Layers.collection.remove(Layers.draw);
     Layers.collection.push(Layers.modify);
     Interactions.collection.push(Interactions.modify);
-    result.promise.then(function (map) {
-      map.updateSize()
+    $configurator.promise.then(function (viewport) {
+      // map.updateSize()
       Interactions.modify_overlay.setMap(maps.omap);
-    })
-    // if (typeof maps !== 'undefined') { if ( maps.omap) {
-    //   maps.omap.updateSize()
-    // }}
+    });
   }
   this.modifyDel = function () {
     Interactions.collection.remove(Interactions.modify);
@@ -172,8 +167,8 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
     }}
   }
   this.dragpanAdd = function () {
-    result.promise.then(function (map) {
-      Client.emit('Configurator: update mapsize', map);
+    $configurator.promise.then(function (viewport) {
+      Client.emit('Configurator: update mapsize', viewport);
     })
 
     Interactions.collection.push(Interactions.dragpan);
@@ -184,8 +179,8 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
     if (typeof maps !== 'undefined') { if ( maps.omap) {maps.omap.updateSize()}}
   }
   this.zoomAdd = function () {
-    result.promise.then(function (map) {
-      Client.emit('Configurator: update mapsize', map)
+    $configurator.promise.then(function (viewport) {
+      Client.emit('Configurator: update mapsize', viewport)
     })
 
     Interactions.collection.push(Interactions.zoom);
@@ -201,25 +196,20 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
     if (typeof maps !== 'undefined') { if ( maps.omap) {maps.omap.updateSize()}}
   }
   this.roofpeakAdd = function() {
-    result.promise.then(function (map) {
-      Client.emit('Configurator: update mapsize', map)
-      map.updateSize()
+    $configurator.promise.then(function (viewport) {
+      Client.emit('Configurator: update mapsize', viewport)
+      // map.updateSize()
       // add the layer
-      // map.addLayer(Layers.roofpeak)
       Layers.collection.push(Layers.roofpeak)
       // add the overlay
-      // Layers.roofpeak_overlay.setMap(maps.omap)
       maps.omap.addOverlay(Layers.roofpeak_overlay);
     })
-    if (typeof maps !== 'undefined') { if ( maps.omap) {
-      maps.omap.updateSize()
-    }}
+    if (typeof maps !== 'undefined') { if ( maps.omap) {maps.omap.updateSize()}}
   }
   this.roofpeakDel = function() {
-    result.promise.then(function (map) {
-      map.updateSize();
+    $configurator.promise.then(function (viewport) {
+      // map.updateSize();
       // remove the layer
-      // map.removeLayer(Layers.roofpeak);
       Layers.collection.remove(Layers.roofpeak);
       // remove the map from the overlay... seems weird, but necessary
       Layers.roofpeak_overlay.setMap(null);
