@@ -13,9 +13,9 @@
 
 ================================================== */
 
-controllers.controller("StageCtrl", ["$scope", "$location", "$state", "$timeout", "User", "TemplateConfig", "Session", "Clientstream", "ModalService", StageCtrl_]);
+controllers.controller("StageCtrl", ["$scope", "$location", "$state", "$timeout", "$animate", "User", "TemplateConfig", "Session", "Clientstream", "ModalService", StageCtrl_]);
 
-function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Session, Client, Modal) {
+function StageCtrl_($scope, $location, $state, $timeout, $animate, User, Templates, Session, Client, Modal) {
   var vm,
       session_ref,
       stage,
@@ -57,6 +57,7 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
   vm.partials = flattenPartialsArray(Templates.partials);
   vm.states = Templates.states;
   vm.currentStep = currentStep;
+  vm.animateInstructionsOut = animateInstructionsOut;
 
   // determines whether view layout is fixed or static
   vm.fixed = !Templates.config[stage].steps[step].staticLayout;
@@ -98,6 +99,85 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
   Client.listen('Stages: stage', stageLayout);
   Client.listen('ODA: Request session', unlockODAState);
   Client.listen('Stages: set initial state', setInitialState);
+  Client.listen('Stages: step complete', animateInstructions);
+
+
+  function animateInstructions(data) {
+    if (stage === 1) {
+
+      $timeout(function() {
+        var instructionsBar;
+        instructionsBar = document.getElementsByClassName("instructions");
+        $animate.addClass(instructionsBar, 'in');
+      },100);
+
+      //this is a test that's come back with the instruction bar being the same in
+      //both cases:
+
+      // var instructionsBartest = document.getElementsByClassName("instructions");
+      // console.log(instructionsBartest);
+
+      // with and without timeout.
+
+      //But the instructionbar is not there immediately
+      //I just ran this test:
+
+      // var instructionsBar;
+      // instructionsBar = document.getElementsByClassName("instructions");
+      // $animate.addClass(instructionsBar, 'in');
+
+      // and it actually does fail. I'm just not clear if the 100 timeout will always
+      //work, like on a slow processor maybe.
+
+
+
+      //option to leave the white back and just animate in the child nodes
+
+      // var instructionsBar;
+      // instructionsBar = document.getElementsByClassName("instructions");
+
+      // var instructionsBarLength = instructionsBar.length;
+
+      // $timeout(function() {
+      //   var kids = angular.element(instructionsBar).children();
+
+      //   for(var i = 0; i < kids.length; i++){
+      //     //make sure the item isn't a mobile piece
+      //     if (!(kids[i].classList.contains('only-mobile'))) {
+      //       $animate.addClass(kids[i], 'in');
+      //     }
+      //   }
+      // }, 500);
+    }
+  }
+
+  function animateInstructionsOut(goToStep) {
+    if (stage === 1) {
+
+      var instructionsBar;
+      instructionsBar = document.getElementsByClassName("instructions");
+
+      $animate.removeClass(instructionsBar, 'in');
+
+      $timeout(function() {
+        jumpToStep(goToStep);
+      }, 200);
+
+      //same extra option as above but on the exit animation
+
+  //     var instructionsBarLength = instructionsBar.length;
+
+  //     var kids = angular.element(instructionsBar).children();
+
+  //     for(var i = 0; i < kids.length; i++){
+  //       //make sure the item isn't a mobile piece
+  //       if (!(kids[i].classList.contains('only-mobile'))) {
+  //         $animate.removeClass(kids[i], 'in');
+  //       }
+  //     }
+    }
+  }
+
 
   function currentStep (step) {
     return step === step;
