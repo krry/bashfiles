@@ -107,12 +107,12 @@ main.main.main-fixed {
   &.bottom{
     padding-top: 1.3em;
   }
-}
-
-.alternav {
-  margin: 3em auto 2em auto;
-  & button.tiny.white {
-    min-width: 17em;
+  &.sub-actions {
+    padding: 3em 0 1em 0;
+    width: 100%;
+    & button.tiny.white {
+      min-width: 17em;
+    }
   }
 }
 

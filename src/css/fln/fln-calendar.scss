@@ -183,12 +183,14 @@
   .choice {
     display: inline-block;
   }
-
+  input[type="radio"] {
+    margin-right: .5em;
+  }
   input[type="radio"] + label {
     position: relative;
     bottom: 0px;
     font-size: 0.9em;
-    padding-left: .5em;
+    margin-right: .5em;
   }
   .radio-options {
     margin-bottom: 0.3em;

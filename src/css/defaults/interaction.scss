@@ -229,11 +229,15 @@ textarea {
   font-family: $font-interface;
 }
 
+input[type=radio],
+input[type=checkbox] {
+  margin-right: .5em;
+
+}
 input[type=radio] + label,
 input[type=checkbox] + label {
   font-size: 1em;
-  margin-left: .5em;
-  text-indent: .5em;
+  /* text-indent: .5em; */
   text-align: left;
   position: relative;
   bottom: -2px;
@@ -382,15 +386,4 @@ select, option {
 
 input::placeholder {
   color: transparentize($grey-darker, 0.5);
-}
-
-@media screen and (min-width: $width-min-med) {
-  .center {
-    button + button {
-      margin-top: 2em;
-    }
-  }
-  button.ib + button.ib {
-    margin-left: .5em;
-  }
 }
