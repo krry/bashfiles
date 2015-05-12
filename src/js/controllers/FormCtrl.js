@@ -323,7 +323,7 @@ function FormCtrl_($scope, $location, $element, Client, Session, User, Geocoder,
     });
 
     // Create a promise on the lead the first time it's created during contact creation
-    if (vm.prospect().hasFinancingOptions) { 
+    if (vm.prospect().hasFinancingOptions) {
       leadPromise = createLead(Salesforce.statuses.contact);
     } else {
       leadPromise = createLead(Salesforce.statuses.noFinancing);

@@ -22,7 +22,7 @@
       <div class="actionbar bottom col full">
         <button class="gold" ng-click="schedule.save(); app.notifyTrackerAboutClick('site_survey_scheduled')" ng-disabled="!schedule.prospect().scheduledTime">Schedule it</button>
       </div>
-      <div class="alternav col center">
+      <div class="actionbar sub-actions alternav col center">
         <button class="ib white tiny" ng-click="stages.prev()">Change date</button>
         <button class="ib white tiny" ng-click="schedule.skipScheduling(); app.notifyTrackerAboutClick('skip_scheduling')">Schedule this later</button>
       </div>

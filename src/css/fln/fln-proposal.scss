@@ -209,9 +209,12 @@
   }
 }
 
-.benefits {
+.divider {
   border-top: 1px solid $color-border-main;
   padding-top: 2rem;
+}
+
+.benefits {
   .icon {
     display: block;
     width: 4em;
