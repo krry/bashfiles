@@ -1,9 +1,9 @@
 <div class="field name-last">
   <div class="status" ng-hide="prospectForm.lastName.$pristine">
     <span ng-show="prospectForm.lastName.$error.required">
-      Required
+      Last name is not optional.
     </span>
-    <span ng-show="prospectForm.lastName.$error.minlength">
+    <span ng-show="prospectForm.lastName.$error.minlength && !prospectForm.lastName.$error.pattern">
       Last name, not last initial.
     </span>
     <span ng-show="prospectForm.lastName.$error.pattern">

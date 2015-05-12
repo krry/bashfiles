@@ -1,6 +1,6 @@
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 //
-//  FORMS (app-specific)
+//  FORMS (flannel-specific)
 //
 //  styles for forms, form fields, labels, inputs, and
 //  other user interface controls
@@ -40,127 +40,8 @@ input.phone {
   color: $color-input-text;
 }
 
-.field.birthdate {
-  @include apercu-medium;
-  font-size: 1em;
-  padding: 0 0 0 0.5em;
-  margin: 0;
-}
-
-.field.year.birthdate {
-  position: relative;
-  border: 1px solid $grey-mid;
-  border-radius: 4px;
-  padding: 0 .5em 0 1.75em;
-  vertical-align: 0;
-  &:before {
-    font-weight: 700;
-    content: '19';
-    text-align: right;
-    position: absolute;
-    left: 11px;
-    top: 11px;
-  }
-}
-input.year.birthdate {
-  @include apercu-medium;
-  font-size: 1em;
-  width: 1.5em;
-  padding: 12px 0 7px 0;
-  margin-bottom: .5em;
-  border: none;
-  background: none;
-  text-align: left;
-  &:focus {
-    border: none;
-    background: none;
-    box-shadow: none;
-  }
-  &::placeholder {
-    letter-spacing: 1px;
-  }
-}
-
-.field.birthdate select {
-  @include apercu-medium;
-  font-size: 1em;
-  margin: 0;
-}
-
-@media screen and (min-width: $width-min-sml) {
-  .field.year.birthdate {
-    vertical-align: 0;
-    padding: 0 .5em 0 1.75em;
-    &:before {
-      left: 13px;
-      top: 13px;
-    }
-  }
-  input.year.birthdate {
-    padding: 14px 0 7px;
-  }
-}
-
-@media screen and (min-width: $width-min-lrg) {
-  .field.year.birthdate {
-    padding: 0 .5em 0 1.95em;
-    &:before {
-      left: 16px;
-    }
-  }
-  input.year.birthdate::placeholder {
-    padding-left: 1px;
-  }
-}
-
-@media screen and (min-width: $width-min-xlg) {
-  .field.year.birthdate {
-    padding: 0 .5em 0 1.95em;
-    vertical-align: -1px;
-    &:before {
-      left: 18px;
-      top: 14px;
-    }
-  }
-  input.year.birthdate {
-    padding: 15px 0 8px;
-  }
-  input.year.birthdate::placeholder {
-    padding-left: 1px;
-  }
-}
-
-@media screen and (min-width: $width-min-xxl) {
-  .field.year.birthdate {
-    padding: 0 .5em 0 1.8em;
-    vertical-align: -1px;
-    &:before {
-      left: 17px;
-      top: 16px;
-    }
-  }
-  input.year.birthdate {
-    padding: 17px 0 7px;
-  }
-}
-
-@media screen and (min-width: $width-min-uhd) {
-  .field.year.birthdate {
-    padding: 0em .5em 0 1.9em;
-    vertical-align: 0;
-    &:before {
-      left: 21px;
-      top: 18px;
-    }
-  }
-  input.year.birthdate {
-    padding: 19px 0 10px;
-  }
-}
-
 
 [fln-input-terms] {
-  display: block;
   margin-top: .5em;
 }
 
@@ -178,27 +59,25 @@ input.zipcode {
 .step-zip {
   .field.zip {
     width: 14em;
-    margin: .25em auto 1.5em;
+    margin: 0 auto 4em;
     input.zipcode {
       text-align: center;
       font-size: 2.25em;
       padding: .6em .75em;
       width: 6.75em;
-      margin: 0;
-      margin-bottom: .25em;
     }
   }
   .field.email {
-    width: 20em;
+    max-width: 20em;
     margin: 0 auto;
-    input.email {
-      margin: 0;
-      margin-bottom: .25em;
-    }
   }
   p {
       font-size: .75em;
   }
+}
+
+.step-address .field {
+  margin-bottom: 0.25em;
 }
 
 input.street {
@@ -217,16 +96,16 @@ input.state {
   width: 4em;
 }
 
-.field.street,
-.field.zip {
-  // width: 6.75em;
+.step-address .field.zip,
+.step-address .field.street {
   text-align: left;
   width: 100%;
-}
-
-.step-address input.zipcode {
-  border-radius: 4px;
-  width: 100%;
+  max-width: 20em;
+  input.zipcode,
+  input.street {
+    border-radius: 4px;
+    max-width: 100%;
+  }
 }
 
 input.date {
@@ -247,11 +126,11 @@ label .ib.status {
 }
 
 .status {
+  @include apercu-regular;
   font-size: .75em;
   position: absolute;
-  left: 0;
+  right: 0;
   color: $brand-fire;
-  top: -1em;
   top: -1.5em;
   &.center {
     float: none;
@@ -259,6 +138,10 @@ label .ib.status {
     text-align: center;
     display: block;
     margin-bottom: .5em;
+  }
+  &.left {
+    left: 0;
+    right: auto;
   }
 }
 
@@ -290,21 +173,18 @@ span.autolocate-icon {
   height: 20px;
 }
 
-.step-contact .field {
-  margin: 0.25em 0.5em;
-  padding: 0;
-}
-.step-contact .field input {
-  box-sizing: border-box;
+.step-contact .padded.med-left,
+.step-contact .padded.med-right {
+  padding-bottom: 0;
 }
 
-@media screen and (min-width: $width-min-med){
+@media screen and (min-width: $width-min-med) {
   .step-address .field.zip {
     width: 7.75em;
-    input.zipcode {
-      border-radius: 4px;
-      max-width: 100%;
-    }
+  }
+
+  .step-address .field {
+    margin-bottom: 0em;
   }
 
   .step-zip,
@@ -339,13 +219,8 @@ span.autolocate-icon {
   button.nested {
     width: 2.25rem;
     height: 2.25rem;
-    /* right: .3rem; */
-    /* top: .3rem; */
   }
 
-  .step-contact .field {
-    //max-width: 16em;
-  }
   .med-left .field {
     float: left;
   }
@@ -371,12 +246,29 @@ span.autolocate-icon {
     width: 20em;
   }
   button.nested {
-    width: 2.58rem;
-    height: 2.58rem;
-    right: .43rem;
-    top: .43rem;
+    width: 2.85rem;
+    height: 2.85rem;
+    right: .3rem;
+    top: .3rem;
+  }
+  .step-address .field.street {
+    max-width: 30em;
   }
   .step-address .field.zip {
     width: 9em;
+  }
+}
+
+@media screen and (min-width: $width-min-xlg) {
+  button.nested {
+    width: 2.78rem;
+    height: 2.78rem;
+  }
+}
+
+@media screen and (min-width: $width-min-xxl) {
+  button.nested {
+    width: 2.78rem;
+    height: 2.78rem;
   }
 }
