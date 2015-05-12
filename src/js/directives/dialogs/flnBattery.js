@@ -6,7 +6,7 @@ function flnBattery_ (Client) {
     require: '^flnModal',
     controller: ['$scope', function($scope) {
       $scope.confirm = function() {
-        Client.emit('Schedule: confirm battery lead', true);
+        Client.emit('Form: confirm battery lead', true);
       };
     }]
   };
