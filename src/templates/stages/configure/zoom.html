@@ -1,6 +1,6 @@
 <fln-dragpan></fln-dragpan>
 <fln-zoom></fln-zoom>
-<fln-control-pan></fln-control-pan>
+<!-- <fln-control-pan></fln-control-pan> -->
 <!-- <fln-control-zoom></fln-control-zoom> -->
 <fln-expander>
   <div ui-view name="instructions" class="instructions">
@@ -10,7 +10,7 @@
     <p class="no-mobile">Can't find your house? Chat with us for help below.</p>
     <!-- <figure><img src="../img/config_example_zoom.svg" alt="Make sure your roof is large and centered." loop="infinite"></figure> -->
     <div class="actionbar">
-      <button class="gold" ng-click="stages.jumpToStep('trace-area')">Next</button>
+      <button class="gold" ng-click="stages.animateInstructionsOut('trace-area')">Next</button>
     </div>
   </div>
 </fln-expander>
