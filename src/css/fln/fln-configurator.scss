@@ -5,8 +5,8 @@
   width: 100%;
   display: block;
   height: auto;
-  position: fixed;
-  top: 2.9rem;
+  position: absolute;
+  top: 0;
   right: 0;
 }
 
@@ -15,6 +15,7 @@
 }
 
 .instructions {
+  box-shadow: 0 0 .75em 0 shade(.6);
   z-index: 4;
   padding: 1.5em 1.5em 1.3em 1.5em;
   margin: 0;
@@ -24,7 +25,7 @@
   text-align: center;
   position:relative;
   overflow:hidden;
-  top:-100vh;
+  top:-700px;
     &.in {
       top:0;
     }
@@ -101,9 +102,11 @@
 }
 @media screen and (min-width: $width-min-lrg) {
   .instructions {
-    left:100vw;
+    box-shadow: 0 0 0 0;
+    top:0;
+    right:-1200px;
       &.in {
-        left:0;
+        right:0;
       }
     .actionbar {
       width: 100%;
@@ -164,12 +167,13 @@
 }
 
 /* prevents the CTA in the tallest right rail from falling out of reach on short screens */
-@media screen and (max-height: 778px) {
+/* @media screen and (max-height: 778px) {
   .overlay-left.overlay-left {
     overflow-y: scroll;
     .instructions {
       margin-left: 0;
-      /* padding: 2em; */
+      padding: 2em;
     }
   }
 }
+ */
