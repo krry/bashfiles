@@ -10,7 +10,7 @@ angular.module('flannel').factory('Layers', ['Design', 'StyleService', 'AreaServ
 
 function Layers_(Design, Styles, AreaService, Client) {
 
-  var layers, l_draw, areas_collection, source, modify_collection;
+  var layers, l_draw, l_modify, l_roofpeak, areas_collection, source, modify_collection;
 
   var rx_drawcount = new Rx.BehaviorSubject(); // the next button subscribes to this
 
