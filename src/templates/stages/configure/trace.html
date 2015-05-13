@@ -16,6 +16,7 @@
     <!-- TO DO: There should not be any button here. The user completes the trace and gets automatically taken to the edit step. -->
     <div class="actionbar">
       <button class="gold" ng-disabled="!traced" ng-click="stages.jumpToStep('edit-area')">Next</button>
+      <button class="tiny white" ng-show="drawing" fln-omap-reset-draw ng-click="app.notifyTrackerAboutClick('reset_draw')" >Redo</button>
     </div>
   </div>
 </fln-expander>

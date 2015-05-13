@@ -23,7 +23,9 @@ directives
 .directive('flnZoom', ['newConfigurator', flnZoom_] )
 .directive('flnDragpan', ['newConfigurator', flnDragPan_] )
 .directive('flnOmapClearPoly', ['Design', flnOmapClearPoly_] )
-.directive('flnOmapRedoModify', ['Clientstream', flnRedoModify_] );
+.directive('flnOmapRedoModify', ['Clientstream', flnRedoModify_] )
+.directive('flnOmapResetDraw', ['Interactions', flnOmapResetDraw_] );
+
 
 function flnDraw_ (newConfigurator) {
   var listener_key;
@@ -140,6 +142,17 @@ function flnOmapClearPoly_ (Design) {
     link: function (scope, ele, attrs) {
       ele.on('click', function popThatPoly(){
         Design.rx_areas.onNext('removed by client');
+      })
+    },
+  };
+}
+
+function flnOmapResetDraw_ (Interactions) {
+  return {
+    restrict: "A",
+    link: function (scope, ele, attrs) {
+      ele.on('click', function preventThatPoly(){
+        Interactions.rx.onNext('reset draw');
       })
     },
   };
