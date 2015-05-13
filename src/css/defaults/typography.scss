@@ -159,7 +159,7 @@ code, kbd, pre, samp {
     font-size: $font-size;
   }
 }
-@media screen and (min-width: $width-min-med) {
+@media screen and (min-width: $width-min-med) and (min-height: $width-min-med) {
   html {
     /* font-size: $font-size; */
   }
@@ -192,7 +192,7 @@ code, kbd, pre, samp {
   }
 }
 
-@media screen and (min-width: $width-min-lrg) {
+@media screen and (min-width: $width-min-lrg) and (min-height: $width-min-med) {
   html {
     /* font-size: $font-size; */
   }
@@ -225,7 +225,7 @@ code, kbd, pre, samp {
   }
 }
 
-@media screen and (min-width: $width-min-xlg) {
+@media screen and (min-width: $width-min-xlg) and (min-height: $width-min-med) {
   html {
     font-size: em($font-size*1.115);
   }
@@ -258,7 +258,7 @@ code, kbd, pre, samp {
   }
 }
 
-@media screen and (min-width: $width-min-xxl) {
+@media screen and (min-width: $width-min-xxl) and (min-height: $width-min-lrg) {
   html {
     font-size: em($font-size*1.15);
   }
@@ -291,7 +291,7 @@ code, kbd, pre, samp {
   }
 }
 
-@media screen and (min-width: $width-min-uhd) {
+@media screen and (min-width: $width-min-uhd) and (min-height: $width-min-lrg) {
   html {
     font-size: em($font-size*1.375);
   }

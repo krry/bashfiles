@@ -134,7 +134,7 @@ main.main.main-fixed {
 }
 
 
-@media screen and (max-height: $width-min-med) {
+@media screen and (max-height: $width-min-med) and (max-width: $width-min-med) {
   .no-mobile.no-mobile {
     display: none !important;
   }
