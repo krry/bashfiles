@@ -94,6 +94,15 @@ h3.social-proof-count {
 }
 
 @media screen and (min-width: $width-min-lrg) and (min-height: $width-min-med) {
+  .step-fork p {
+    text-align: left;
+  }
+  .step-bill h3 {
+    margin-bottom: 0em
+  }
+}
+
+@media screen and (min-width: $width-min-lrg) {
   .drop-top {
     padding-top: 6em;
     font-size: 0.85em;
@@ -101,11 +110,5 @@ h3.social-proof-count {
   }
   .drop-top p {
     margin-bottom: 0.85em;
-  }
-  .step-fork p {
-    text-align: left;
-  }
-  .step-bill h3 {
-    margin-bottom: 0em
   }
 }

@@ -26,8 +26,6 @@ html, body {
   background-color: $color-bkgd-main;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  overflow-y: scroll; /* has to be scroll, not auto */
-  -webkit-overflow-scrolling: touch; /* ensures inertial scrolling on touch devices */
 }
 
 // set base font
@@ -116,4 +114,12 @@ strong, b {
 
 em, i {
   @include apercu-italic;
+}
+
+// enable momentum scrolling on smaller devices aka touchscreens
+@media screen and (max-width: $width-min-xlg) and (max-height: $width-min-xlg) {
+  html, body {
+    overflow-y: scroll; /* has to be scroll, not auto */
+    -webkit-overflow-scrolling: touch; /* ensures inertial scrolling on touch devices */
+  }
 }

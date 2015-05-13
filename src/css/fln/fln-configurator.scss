@@ -5,8 +5,8 @@
   width: 100%;
   display: block;
   height: auto;
-  position: fixed;
-  top: 2.9rem;
+  position: absolute;
+  top: 0;
   right: 0;
 }
 
@@ -157,12 +157,13 @@
 }
 
 /* prevents the CTA in the tallest right rail from falling out of reach on short screens */
-@media screen and (max-height: 778px) {
+/* @media screen and (max-height: 778px) {
   .overlay-left.overlay-left {
     overflow-y: scroll;
     .instructions {
       margin-left: 0;
-      /* padding: 2em; */
+      padding: 2em;
     }
   }
 }
+ */
