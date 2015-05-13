@@ -21,6 +21,8 @@ function StyleService_ ($q) {
   c.$brand_fire_thirty          = "rgba(240, 105, 083, 0.3)"; // $brand-fire 30%
   c.$brand_white                = "rgba(255, 255, 255, 1.0)"; // white
   c.$brand_black                = "rgba(0, 0, 0, 1.0)"; // not white
+  c.$brand_rain                 = "rgb(072, 135, 255)"; // like blue, but more refined
+  c.$brand_rain_thirty          = "rgba(072, 135, 255, 0.3)"; // like blue, 70% less refined
 
   // fill
   c.brandFireFill    = new ol.style.Fill({
@@ -29,6 +31,10 @@ function StyleService_ ($q) {
 
   c.whiteFill    = new ol.style.Fill({
     color: c.$brand_white,
+  });
+
+  c.brandRainFill    = new ol.style.Fill({
+    color: c.$brand_rain,
   });
 
   // polygon line strokes
@@ -54,6 +60,11 @@ function StyleService_ ($q) {
 
   c.whiteStroke_2px = new ol.style.Stroke({
     color: c.$brand_white,
+    width: 2
+  })
+
+  c.brandRainStroke_2px =  new ol.style.Stroke({
+    color: c.$brand_rain,
     width: 2
   })
 
@@ -170,6 +181,24 @@ function StyleService_ ($q) {
 
   })();
 
+  /* a style for the user to see while drawing their polygon.
+     not the same as the style used in the Vector Layer.
+  */
+  StyleService.drawStyle =
+    new ol.style.Style({
+      fill: new ol.style.Fill({
+        color: c.$brand_rain_thirty,
+      }),
+      stroke: new ol.style.Stroke({
+        color: c.$brand_rain,
+        width: 5
+      }),
+      image: new ol.style.Circle({
+        radius: 6,
+        fill: c.brandRainFill,
+        stroke: c.$brandRainStroke_2px,
+      })
+    })
 
   StyleService.highlightStyleFunction = (function() {
 
