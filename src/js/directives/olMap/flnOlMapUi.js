@@ -21,11 +21,7 @@ directives
 .directive('flnDraw', ['newConfigurator', flnDraw_] )
 .directive('flnModify', ['newConfigurator', flnModify_] )
 .directive('flnZoom', ['newConfigurator', flnZoom_] )
-.directive('flnDragpan', ['newConfigurator', flnDragPan_] )
-.directive('flnOmapClearPoly', ['Design', flnOmapClearPoly_] )
-.directive('flnOmapRedoModify', ['Clientstream', flnRedoModify_] )
-.directive('flnOmapResetDraw', ['Interactions', flnOmapResetDraw_] );
-
+.directive('flnDragpan', ['newConfigurator', flnDragPan_] );
 
 function flnDraw_ (newConfigurator) {
   var listener_key;
@@ -134,37 +130,4 @@ function flnDragPan_ (newConfigurator) {
       });
     },
   };
-}
-
-function flnOmapClearPoly_ (Design) {
-  return {
-    restrict: "A",
-    link: function (scope, ele, attrs) {
-      ele.on('click', function popThatPoly(){
-        Design.rx_areas.onNext('removed by client');
-      })
-    },
-  };
-}
-
-function flnOmapResetDraw_ (Interactions) {
-  return {
-    restrict: "A",
-    link: function (scope, ele, attrs) {
-      ele.on('click', function preventThatPoly(){
-        Interactions.rx.onNext('reset draw');
-      })
-    },
-  };
-}
-
-function flnRedoModify_ (Client) {
-  return {
-    restrict: "A",
-    link: function (scope, ele, attrs) {
-      ele.on('click', function returnToModify() {
-        Client.emit('Stages: jump to step', 'edit-area');
-      })
-    }
-  }
 }
