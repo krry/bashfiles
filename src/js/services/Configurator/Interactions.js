@@ -68,7 +68,11 @@ function Interactions_(Design, Client, Styles, AreaService) {
   interactions.modify_overlay = Design.modify_overlay;
   interactions.modify = new ol.interaction.Modify({
     features: Design.modify_collection,
-    style: Styles.highlightStyleFunction,
+    // current
+    style: Styles.drawStyle,
+    // uncomment next line to enable highlight style under the cursor
+    // DEV: why's this happening? .jfl.
+    // style: Styles.drawStyle,
     // lower pixelTolerance makes it easier to add a vertex during modify
     // higher pixelTolerance is advised to prevent users from adding too many pixels
     pixelTolerance: 25, // defaults to 10
