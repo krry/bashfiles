@@ -4,6 +4,13 @@
 @import "../imports/sizes";
 @import "../imports/button";
 
+
+// default css overrides this behavior
+// we need to inherit the Openlayer's cursor
+canvas {
+  cursor: inherit;
+}
+
 .map {
   width: 100%;
   height: 100%;
@@ -61,6 +68,7 @@
   z-index: 2;
   background: tint(.6);
 }
+
 
 .ol-viewport,
 .ol-touch,

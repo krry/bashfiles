@@ -19,6 +19,16 @@ function Interactions_(Design, Client, Styles, AreaService) {
     // defaults
       dragpan_opt = { enableKinetic: true };
 
+  // an interactions stream... obviously
+  interactions.rx = new Rx.BehaviorSubject(null);
+  interactions.rx.subscribe(resetDrawingOnRedo);
+
+  function resetDrawingOnRedo(x) {
+    if (x === 'reset draw') {
+      interactions.draw.setActive(false);
+      interactions.draw.setActive(true);
+    }
+  }
   // map subscribes to these collections to know what's
   interactions.collection = new ol.Collection();
   interactions.controls   = new ol.Collection();
@@ -27,13 +37,15 @@ function Interactions_(Design, Client, Styles, AreaService) {
   interactions.dragpan = new ol.interaction.DragPan(dragpan_opt);
   // mousewheel zoom
   interactions.zoom    = new ol.interaction.MouseWheelZoom();
-  // draw areas
+
+  // drawing areas on the map
   interactions.draw = new ol.interaction.Draw({
     // features: Design.areas_collection,
     type: 'Polygon',
     geometryName: 'area',
     // make drawing more precise
     snapTolerance: 15, // defaults to 12
+    style: Styles.drawStyle,
   });
 
   interactions.draw.on('drawend', function(e){
@@ -48,6 +60,7 @@ function Interactions_(Design, Client, Styles, AreaService) {
   interactions.draw.on('drawstart', function(e){
     // make sure that all modify shapes are eliminated
     Design.ref().child('areas').child('0').set(null);
+    interactions.rx.onNext('drawing');
   });
 
   // modify

@@ -1,6 +1,6 @@
-directives.directive('flnConfigurator', ['Clientstream', 'Design', 'newConfigurator', flnConfigurator_]);
+directives.directive('flnConfigurator', [ '$timeout', 'Clientstream', 'Design', 'newConfigurator', flnConfigurator_]);
 
-function flnConfigurator_ (Client, Design, newConfigurator) {
+function flnConfigurator_ ($timeout, Client, Design, newConfigurator) {
   return {
     restrict: "A",
     priority: 100,
@@ -10,9 +10,9 @@ function flnConfigurator_ (Client, Design, newConfigurator) {
       newConfigurator.configurator().then(function (map) {
         Client.emit('Configurator: update mapsize', map)
       })
-
       Client.listen('Configurator: update mapsize', function(){
-        setTimeout(function () {
+        // this shouldn't be here
+        $timeout(function () {
           maps.omap.updateSize();
           var c = maps.omap.getView().getCenter()
           maps.gmap.setCenter({lat:c[1], lng:c[0]});
@@ -28,7 +28,6 @@ function flnConfigurator_ (Client, Design, newConfigurator) {
       var g_div, o_div;
       g_div = $(element).find('#gmtest')[0];
       o_div = $(element).find('#oltest')[0];
-
       Design.rx_design().then(startConfiguratorMaps);
 
       function startConfiguratorMaps (rx_d) {
@@ -45,10 +44,15 @@ function flnConfigurator_ (Client, Design, newConfigurator) {
           var c = maps.omap.getView().getCenter()
           maps.gmap.setZoom(maps.omap.getView().getZoom());
           maps.gmap.setCenter({lat:c[1], lng:c[0]});
-          maps.omap.updateSize()
+          maps.omap.updateSize();
         });
       }
 
+      element.on('$destroy', resetConfiguratorPromise);
+      function resetConfiguratorPromise () {
+        // reset the configurator's promise by setting it to null
+        newConfigurator.resetPromiseObject();
+      }
     },
   };
 }

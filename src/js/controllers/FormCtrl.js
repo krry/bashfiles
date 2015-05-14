@@ -324,7 +324,7 @@ function FormCtrl_($scope, $window, $location, $element, Client, Session, User, 
     });
 
     // Create a promise on the lead the first time it's created during contact creation
-    if (vm.prospect().hasFinancingOptions) {
+    if (vm.prospect().hasFinancingOptions) { 
       leadPromise = createLead(Salesforce.statuses.contact);
     } else {
       leadPromise = createLead(Salesforce.statuses.noFinancing);
@@ -407,7 +407,15 @@ function FormCtrl_($scope, $window, $location, $element, Client, Session, User, 
       SiteSurveyLink: vm.prospect().siteSurveyLink,
       Skipped: vm.prospect().skipped,
       Share_Proposal_Link__c: vm.prospect().share_link,
-      ExternalId: Session.id()
+      ExternalId: Session.id(),
+      PanelCount: vm.prospect().panelCount,
+      AverageYield: vm.prospect().averageYield,
+      EstimatedProduction: vm.prospect().annualProduction,
+      AverageMonthlyBill: vm.prospect().bill,
+      UtilityRate: vm.prospect().utilityRate,
+      SolarCityRate: vm.prospect().sctyRate,
+      EstimatedFirstYearSavings: vm.prospect().firstYearSavings,
+      EstimatedOffset: vm.prospect().percentSolar
     }).then(function(data) {
       if (data.id) {
         vm.prospect().leadId = data.id;
