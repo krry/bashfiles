@@ -147,6 +147,15 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
   this.modifyAdd = function () {
     $configurator.promise.then(function (viewport) {
       Client.emit('Configurator: update mapsize', viewport)
+      omap.on('pointermove', function function_name(evt) {
+        $(maps.omap.getViewport()).css('cursor', 'inherit');
+        omap.forEachFeatureAtPixel(evt.pixel, function function_name(feat) {
+          if (feat) {
+            $(maps.omap.getViewport()).css('cursor', 'crosshair');
+          }
+
+        });
+      })
     })
 
     // Layers.collection.remove(Layers.draw);
@@ -156,6 +165,8 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
       // map.updateSize()
       Interactions.modify_overlay.setMap(maps.omap);
     });
+
+
   }
   this.modifyDel = function () {
     Interactions.collection.remove(Interactions.modify);
