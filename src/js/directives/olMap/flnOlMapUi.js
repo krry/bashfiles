@@ -23,7 +23,9 @@ directives
 .directive('flnZoom', ['newConfigurator', flnZoom_] )
 .directive('flnDragpan', ['newConfigurator', flnDragPan_] )
 .directive('flnOmapClearPoly', ['Design', flnOmapClearPoly_] )
-.directive('flnOmapRedoModify', ['Clientstream', flnRedoModify_] );
+.directive('flnOmapRedoModify', ['Clientstream', flnRedoModify_] )
+.directive('flnOmapResetDraw', ['Interactions', flnOmapResetDraw_] );
+
 
 function flnDraw_ (newConfigurator) {
   var listener_key;
@@ -44,6 +46,8 @@ function flnDraw_ (newConfigurator) {
         listener_key = $(maps.omap.getViewport()).on('click', mapClickToolTipStuff )
         dCtrl.setTooltipStep(0);
         dCtrl.setActive();
+        // add the crosshair tooltip
+        $(maps.omap.getViewport()).css('cursor', 'crosshair');
       });
 
       element.on('$destroy', function drawDestroy (e) {
@@ -53,11 +57,13 @@ function flnDraw_ (newConfigurator) {
           // however, we don't actually use the promise object. this will break.
           dCtrl.setInactive();
           $(maps.omap.getViewport()).off('click', mapClickToolTipStuff )
+          // remove the crosshair tooltip
+          $(maps.omap.getViewport()).css('cursor', 'inherit');
         })
       });
-
     },
     controller: ['$scope', '$element', '$compile', 'TOOL_TIP_TEXT', function addDrawTips($scope, $element, $compile, TOOL_TIP_TEXT){
+
       var tip_step = 0;
       var tip_div = $element.find('fln-follow-tip');
       tips = TOOL_TIP_TEXT;
@@ -136,6 +142,17 @@ function flnOmapClearPoly_ (Design) {
     link: function (scope, ele, attrs) {
       ele.on('click', function popThatPoly(){
         Design.rx_areas.onNext('removed by client');
+      })
+    },
+  };
+}
+
+function flnOmapResetDraw_ (Interactions) {
+  return {
+    restrict: "A",
+    link: function (scope, ele, attrs) {
+      ele.on('click', function preventThatPoly(){
+        Interactions.rx.onNext('reset draw');
       })
     },
   };

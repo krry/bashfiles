@@ -13,9 +13,9 @@
 
 ================================================== */
 
-controllers.controller("StageCtrl", ["$scope", "$location", "$state", "$timeout", "User", "TemplateConfig", "Session", "Clientstream", "ModalService", StageCtrl_]);
+controllers.controller("StageCtrl", ["$scope", "$location", "$state", "$timeout", "$animate", "User", "TemplateConfig", "Session", "Clientstream", "ModalService", StageCtrl_]);
 
-function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Session, Client, Modal) {
+function StageCtrl_($scope, $location, $state, $timeout, $animate, User, Templates, Session, Client, Modal) {
   var vm,
       session_ref,
       stage,
@@ -57,6 +57,7 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
   vm.partials = flattenPartialsArray(Templates.partials);
   vm.states = Templates.states;
   vm.currentStep = currentStep;
+  vm.animateInstructionsOut = animateInstructionsOut;
 
   // determines whether view layout is fixed or static
   vm.fixed = !Templates.config[stage].steps[step].staticLayout;
@@ -98,6 +99,9 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
   Client.listen('Stages: stage', stageLayout);
   Client.listen('ODA: Request session', unlockODAState);
   Client.listen('Stages: set initial state', setInitialState);
+  Client.listen('Stages: step complete', animateInstructions);
+
+
 
   function currentStep (step) {
     return step === step;
@@ -393,6 +397,34 @@ function StageCtrl_($scope, $location, $state, $timeout, User, Templates, Sessio
           step: 0
         });
       }
+    }
+  }
+
+  //animate in the intructions on the configurator stage on view load.
+  //todo, find a better place to put these animation functions.
+  function animateInstructions(data) {
+    if (stage === 1) {
+
+      $timeout(function() {
+        var instructionsBar;
+        instructionsBar = document.getElementsByClassName("instructions");
+        $animate.addClass(instructionsBar, 'in');
+      },100);
+    }
+  }
+
+  //animate out the intructions on the configurator stage on step button clicks.
+  function animateInstructionsOut(goToStep) {
+    if (stage === 1) {
+
+      var instructionsBar;
+      instructionsBar = document.getElementsByClassName("instructions");
+
+      $animate.removeClass(instructionsBar, 'in');
+
+      $timeout(function() {
+        jumpToStep(goToStep);
+      }, 200);
     }
   }
 
