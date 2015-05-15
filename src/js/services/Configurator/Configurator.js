@@ -39,7 +39,6 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
     layers: Layers.collection,
     interactions: Interactions.collection,
     controls:  omap_controls,
-    overlays: Layers.overlay_collection,
     view: View
   }
 
