@@ -31,18 +31,13 @@ function flnOmapResetDraw_ (Interactions, Layers) {
       $scope.tracing = false;
     }],
     link: function (scope, ele, attrs) {
+      scope.tracing = false;
+
       Layers.rx_drawcount.subscribe(showButtonIfTraced);
+      Interactions.rx.subscribe(showButtonOnDrawStart);
 
       ele.on('click', preventThatPoly);
-
-      Interactions.rx.subscribe(showButtonOnDrawStart);
-      Interactions.rx.subscribe(hideButtonOnReset);
-
-      function hideButtonOnReset(msg) {
-        if (msg === 'reset draw') {
-          scope.tracing = false;
-        }
-      }
+      ele.on('$destroy', setInteractionStreamToNull);
 
       function showButtonOnDrawStart (x) {
         if (x === 'drawing') {
@@ -50,19 +45,27 @@ function flnOmapResetDraw_ (Interactions, Layers) {
           scope.tracing = true;
         }
       }
+
       function showButtonIfTraced(x) {
         // allow the user to reset the drawing if they want
-        x && (scope.drawing = x);
+        if (!!x) {
+          scope.tracing = true;
+        } else {
+          scope.tracing = false;
+        }
       }
 
       function preventThatPoly (){
         Interactions.rx.onNext('reset draw');
-        scope.drawing = false;
+        scope.tracing = false;
       }
 
-      // ele.on('$destroy', function (scope, ele, attrs) {
-      //   scope.show = false;
-      // })
+      function setInteractionStreamToNull(scope, ele, attrs) {
+        // Interactions.rx is a behavior subject, so it retains it's last value.
+        // prevent the redo button from detecting 'drawing' when
+        // returning to this step by way of flnRedoModify
+        Interactions.rx.onNext(null);
+      }
     },
   };
 }
