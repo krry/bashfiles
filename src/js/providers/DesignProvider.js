@@ -78,7 +78,7 @@ function DesignProvider_ (FIREBASE_URL) {
     this.map_details.center = center;
   }
 
-  this.$get = [ "$q", "Session", "Clientstream", "StyleService", function designProviderFactory($q, Session, Client, Styles) {
+  this.$get = [ "$q", "Session", "Clientstream", function designProviderFactory($q, Session, Client) {
     // defer return of designstream until we're booted up.
     var rx_dfd = $q.defer();
 
@@ -169,7 +169,7 @@ function DesignProvider_ (FIREBASE_URL) {
         modify_source:    new ol.source.Vector(),
         roofpeak_source:  new ol.source.Vector(),
         // overlays
-        modify_overlay:   new ol.FeatureOverlay({style: Styles.highlightStyleFunction}),
+        modify_overlay:   new ol.FeatureOverlay(),
         // streams
         rx_center:        rx_center,
         rx_zoom:          rx_zoom,
