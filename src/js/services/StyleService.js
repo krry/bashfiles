@@ -130,13 +130,14 @@ function StyleService_ ($q) {
       // segment endpoint styling
       new ol.style.Style({
         image: c.roofpeakHighlightNode,
-        geometry: segmentEndpointCoords,
+        // geometry: segmentEndpointCoords,
       })
     ];
 
     styles['corner'] =  [
       new ol.style.Style({
         image: c.roofpeakHighlightNode,
+        // geometry: modifyMidpointCoords
       })
 
     ];
@@ -171,6 +172,11 @@ function StyleService_ ($q) {
               stroke: c.brandFireStroke_5px,
             })];
 
+    styles['test'] = [new ol.style.Style({
+              fill: c.brandFireFill,
+              stroke: c.blackStroke_5px,
+            })];
+
     return function(feature, resolution) {
       var radius = feature.get('radius');
       if (feature.getGeometryName()==='obstruction') {
@@ -200,46 +206,35 @@ function StyleService_ ($q) {
       })
     })
 
-  StyleService.highlightStyleFunction = (function() {
-
-    var styles = {};
-    styles['area'] = [
-      /* We are using two different styles for the polygons:
-       *  - The first style is for the polygons themselves.
-       *  - The second style is to draw the vertices of the polygons.
-       *    In a custom `geometry` function the vertices of a polygon are
-       *    returned as `MultiPoint` geometry, which will be used to render
-       *    the style.
-       */
-      // segment styling
-      c.roofpeakHighlightSegment,
-      // segment endpoint styling
-      new ol.style.Style({
-        image: new ol.style.Circle({
-          radius: 5,
-          fill: c.whiteFill,
-          stroke: c.brandFireStroke_2px,
-        }),
-        geometry: modifyEndpointCoords
+  StyleService.modifyStyle = [
+    /* We are using three different styles for the polygons:
+     *  - The first style is for the segments,
+     *  - The second are the larger endpoints,
+     *  - The third style is to draw the midpoints
+     *    In a custom `geometry` function the vertices of a polygon are
+     *    returned as `MultiPoint` geometry, which will be used to render
+     *    the style.
+     */
+    // segment styling
+    c.roofpeakHighlightSegment,
+    // segment endpoint styling
+    new ol.style.Style({
+      image: new ol.style.Circle({
+        radius: 5,
+        fill: c.whiteFill,
+        stroke: c.brandFireStroke_2px,
       }),
-      // segment midpoints styling
-      new ol.style.Style({
-        image: new ol.style.Circle({
-          radius: 3,
-          fill: c.whiteFill,
-        }),
-        geometry: modifyMidpointCoords
-      })
-    ];
-
-    return function(feature, resolution) {
-      var radius = feature.get('radius');
-      if (radius) {
-        return styles[feature.getGeometryName()](radius, resolution);
-      }
-      return styles[feature.getGeometryName()];
-    };
-  })();
+      geometry: modifyEndpointCoords
+    }),
+    // segment midpoints styling
+    new ol.style.Style({
+      image: new ol.style.Circle({
+        radius: 3,
+        fill: c.whiteFill,
+      }),
+      geometry: modifyMidpointCoords
+    })
+  ];
 
   return StyleService;
 }
