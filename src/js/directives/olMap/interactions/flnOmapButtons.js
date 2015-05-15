@@ -43,6 +43,7 @@ function flnOmapResetDraw_ (Interactions, Layers) {
         if (x === 'drawing') {
           // let the user reset the drawing once they've started
           scope.tracing = true;
+          $(ele.parent()).addClass('pair');
         }
       }
 
@@ -50,14 +51,17 @@ function flnOmapResetDraw_ (Interactions, Layers) {
         // allow the user to reset the drawing if they want
         if (!!x) {
           scope.tracing = true;
+          $(ele.parent()).addClass('pair');
         } else {
           scope.tracing = false;
+          $(ele.parent()).removeClass('pair');
         }
       }
 
       function preventThatPoly (){
         Interactions.rx.onNext('reset draw');
         scope.tracing = false;
+        $(ele.parent()).removeClass('pair');
       }
 
       function setInteractionStreamToNull(scope, ele, attrs) {
