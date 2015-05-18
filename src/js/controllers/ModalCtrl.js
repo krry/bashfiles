@@ -33,6 +33,7 @@ function ModalCtrl_($scope, Client, ModalService) {
   function closeModal() {
     $('body').css('overflow-y', 'scroll');
     ModalService.set(false);
+    ModalService.activate('');
     if (!$scope.$$phase) $scope.$apply();
   }
 
