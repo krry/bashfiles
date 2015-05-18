@@ -1,5 +1,4 @@
-// Configurator Layers
-/*
+/** Configurator Layers
  *
  *
  *
