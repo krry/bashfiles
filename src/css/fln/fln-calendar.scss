@@ -152,9 +152,9 @@
 
 .appointment-card {
   @include apercu-medium;
-  border: 1px solid $grey;
+  border: 1px solid $grey-medium;
   border-radius: 3px;
-  background-color: $gold-pale;
+  background-color: lighten($gold, 40%);
   margin-bottom: 4em;
   padding: 2em 0;
   h1 {
