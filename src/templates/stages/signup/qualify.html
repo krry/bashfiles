@@ -70,8 +70,10 @@
         </div>
       </div>
       <div class="row">
-        <div class="col full center">
+        <div class="actionbar bottom col full center">
           <button class="gold" ng-disabled="!schedule.answeredQuestions()" ng-click="schedule.check(); app.notifyTrackerAboutClick('attempt_scheduling')">Schedule site survey</button>
+        </div>
+        <div class="actionbar sub-actions col full center">
           <button class="white tiny" ng-click="schedule.skipScheduling(); app.notifyTrackerAboutClick('skip_scheduling')">Schedule this later</button>
         </div>
       </div>
