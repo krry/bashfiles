@@ -159,7 +159,7 @@ function GmapFactory_ () {
           position: opts.location,
           map: map,
           draggable: false,
-          icon: 'img/map_pin_1.svg'
+          icon: 'img/map_pin_2.svg'
         });
 
         pin.infowindow = new google.maps.InfoWindow({
