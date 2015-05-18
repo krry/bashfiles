@@ -15,6 +15,19 @@
   background: shade(.8);
   overflow-y: scroll;
 
+  .dialog.no-close {
+    transition: all 500ms $easing-quick 1000ms;
+    min-height: 90%;
+    margin: 1em auto;
+  }
+
+  .dialog.dialog-shown.no-close {
+    min-height: 0;
+    height: auto;
+    padding: 3em;
+    margin: 12em auto auto;
+  }
+
   .dialog {
     background: tint(.9);
     background: $white;
@@ -120,8 +133,13 @@
     }
     .dialog.small {
       margin: 12em auto auto;
-      /* width: $width-min-sml; */
       padding: 3em;
+    }
+    .dialog.no-close {
+      margin: 3em auto;
+      /* height: 90%; */
+      min-height: 90%;
+      padding: 30vh 3em;
     }
   }
 }
@@ -145,7 +163,6 @@
       margin-left: auto;
       margin-right: auto;
     }
-
     .dialog.center-vertical {
       bottom: auto;
     }

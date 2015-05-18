@@ -13,19 +13,10 @@ angular.module('configure', []).config(["$stateProvider", function ($stateProvid
       // replace the main ui-view @ index
       'main@': {
         templateUrl: stageUrl + "main.html",
-        controller:  ['$scope', 'Layers', 'Interactions', function ($scope, Layers, Interactions) {
+        controller:  ['$scope', 'Layers', function ($scope, Layers) {
           Layers.rx_drawcount.subscribe(function (x) {
             // allow the user to progress to next step
             $scope.traced = x
-            // allow the user to reset the drawing if they want
-            $scope.drawing = x;
-            if (!$scope.$$phase) $scope.$apply();
-          });
-          Interactions.rx.subscribe(function (x) {
-            if (x === 'drawing') {
-              // let the user reset the drawing once they've started
-              $scope.drawing = x;
-            }
             if (!$scope.$$phase) $scope.$apply();
           });
         }],
