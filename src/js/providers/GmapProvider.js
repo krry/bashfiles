@@ -160,8 +160,6 @@ function GmapFactory_ () {
           origin: new google.maps.Point(0, 0),
           anchor: new google.maps.Point(30, 60)
         };
-        var image2 = 'img/facebook.png';
-
         var shape = {
           type: "poly",
           coords: [1, 1, 60, 1, 60, 60, 1, 60]
@@ -170,8 +168,7 @@ function GmapFactory_ () {
         pin.marker = new google.maps.Marker({
           position: opts.location,
           map: map,
-          icon: image,
-          zIndex: 10
+          icon: image
         });
 
         pin.infowindow = new google.maps.InfoWindow({
