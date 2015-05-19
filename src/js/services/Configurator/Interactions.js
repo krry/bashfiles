@@ -1,4 +1,4 @@
-// Configurator Interactions
+ // Configurator Interactions
 /*
  *
  *
@@ -18,6 +18,8 @@ function Interactions_(Design, Client, Styles, AreaService) {
       dragpan,
     // defaults
       dragpan_opt = { enableKinetic: true };
+
+  draw_opt = { };
 
   // an interactions stream... obviously
   interactions.rx = new Rx.BehaviorSubject(null);
@@ -42,7 +44,7 @@ function Interactions_(Design, Client, Styles, AreaService) {
   interactions.draw = new ol.interaction.Draw({
     // features: Design.areas_collection,
     type: 'Polygon',
-    geometryName: 'area',
+    // geometryName: 'area',
     // make drawing more precise
     snapTolerance: 15, // defaults to 12
     style: Styles.drawStyle,
@@ -68,7 +70,8 @@ function Interactions_(Design, Client, Styles, AreaService) {
   interactions.modify_overlay = Design.modify_overlay;
   interactions.modify = new ol.interaction.Modify({
     features: Design.modify_collection,
-    style: Styles.highlightStyleFunction,
+    // current
+    style: Styles.mouseModifyStyle,
     // lower pixelTolerance makes it easier to add a vertex during modify
     // higher pixelTolerance is advised to prevent users from adding too many pixels
     pixelTolerance: 25, // defaults to 10

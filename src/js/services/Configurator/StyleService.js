@@ -21,7 +21,7 @@ function StyleService_ ($q) {
   c.$brand_fire_thirty          = "rgba(240, 105, 083, 0.3)"; // $brand-fire 30%
   c.$brand_white                = "rgba(255, 255, 255, 1.0)"; // white
   c.$brand_black                = "rgba(0, 0, 0, 1.0)"; // not white
-  c.$brand_rain                 = "rgb(072, 135, 255)"; // like blue, but more refined
+  c.$brand_rain                 = "rgba(072, 135, 255, 1.0)"; // like blue, but more refined
   c.$brand_rain_thirty          = "rgba(072, 135, 255, 0.3)"; // like blue, 70% less refined
 
   // fill
@@ -79,11 +79,16 @@ function StyleService_ ($q) {
     stroke: new ol.style.Stroke({
       color: c.$brand_fire,
       width: c.lineSegmentWidth
-    }),
+    })
   })
   c.roofpeakNode = new ol.style.Circle({
     radius: c.endpointRadius,
     fill: c.whiteFill,
+    stroke: c.blackStroke_2px,
+  })
+  c.modifyMouseNode = new ol.style.Circle({
+    radius: c.endpointRadius,
+    fill: c.blackFill,
     stroke: c.blackStroke_2px,
   })
   c.roofpeakHighlightNode = new ol.style.Circle({
@@ -91,6 +96,7 @@ function StyleService_ ($q) {
     fill: c.whiteFill,
     stroke: c.brandFireStroke_2px,
   })
+  c.modifyEndpoint = c.roofpeakHighlightSegment;
 
   /******************** custom styling functions *******/
   function segmentEndpointCoords (feature) {
@@ -120,6 +126,28 @@ function StyleService_ ($q) {
 
   /******************************************************/
 
+
+  /** Draw
+    a style for the user to see while drawing their polygon.
+  */
+  StyleService.drawStyle = [
+    new ol.style.Style({
+      fill: new ol.style.Fill({
+        color: c.$brand_rain_thirty,
+      }),
+      stroke: new ol.style.Stroke({
+        color: c.$brand_rain,
+        width: 5
+      }),
+      image: new ol.style.Circle({
+        radius: 6,
+        fill: c.brandRainFill,
+        stroke: c.brandRainStroke_2px,
+      }),
+      zIndex: Infinity
+    })
+  ];
+
   StyleService.remapHighlight = (function() {
 
     var styles = {};
@@ -130,6 +158,7 @@ function StyleService_ ($q) {
       // segment endpoint styling
       new ol.style.Style({
         image: c.roofpeakHighlightNode,
+        stroke: c.roofpeakHighlightSegment,
         geometry: segmentEndpointCoords,
       })
     ];
@@ -138,7 +167,6 @@ function StyleService_ ($q) {
       new ol.style.Style({
         image: c.roofpeakHighlightNode,
       })
-
     ];
 
     return function(feature, resolution) {
@@ -163,83 +191,48 @@ function StyleService_ ($q) {
     };
   })();
 
-  StyleService.defaultStyleFunction = (function() {
-    var styles = {};
-
-    styles['area'] = [new ol.style.Style({
-              fill: c.brandFireFill,
-              stroke: c.brandFireStroke_5px,
-            })];
-
-    return function(feature, resolution) {
-      var radius = feature.get('radius');
-      if (feature.getGeometryName()==='obstruction') {
-        return styles[feature.getGeometryName()](radius, resolution);
-      }
-      return styles[feature.getGeometryName()];
-    };
-
-  })();
-
-  /* a style for the user to see while drawing their polygon.
-     not the same as the style used in the Vector Layer.
-  */
-  StyleService.drawStyle =
+  StyleService.mouseModifyStyle = [
     new ol.style.Style({
-      fill: new ol.style.Fill({
-        color: c.$brand_rain_thirty,
-      }),
-      stroke: new ol.style.Stroke({
-        color: c.$brand_rain,
-        width: 5
-      }),
       image: new ol.style.Circle({
-        radius: 6,
-        fill: c.brandRainFill,
-        stroke: c.$brandRainStroke_2px,
-      })
-    })
-
-  StyleService.highlightStyleFunction = (function() {
-
-    var styles = {};
-    styles['area'] = [
-      /* We are using two different styles for the polygons:
-       *  - The first style is for the polygons themselves.
-       *  - The second style is to draw the vertices of the polygons.
-       *    In a custom `geometry` function the vertices of a polygon are
-       *    returned as `MultiPoint` geometry, which will be used to render
-       *    the style.
-       */
-      // segment styling
-      c.roofpeakHighlightSegment,
-      // segment endpoint styling
-      new ol.style.Style({
-        image: new ol.style.Circle({
-          radius: 5,
-          fill: c.whiteFill,
-          stroke: c.brandFireStroke_2px,
+        radius: 5,
+        fill: new ol.style.Fill({
+          color: c.$brand_black
         }),
-        geometry: modifyEndpointCoords
+        stroke: c.brandFireStroke_2px,
       }),
-      // segment midpoints styling
-      new ol.style.Style({
-        image: new ol.style.Circle({
-          radius: 3,
-          fill: c.whiteFill,
-        }),
-        geometry: modifyMidpointCoords
-      })
-    ];
+      zIndex: Infinity
+    })
+  ];
 
-    return function(feature, resolution) {
-      var radius = feature.get('radius');
-      if (radius) {
-        return styles[feature.getGeometryName()](radius, resolution);
-      }
-      return styles[feature.getGeometryName()];
-    };
-  })();
+  StyleService.modifyOverlayStyle = [
+    /* We are using three different styles for the polygons:
+     *  - The first style is for the segments,
+     *  - The second are the larger endpoints,
+     *  - The third style is to draw the midpoints
+     *    In a custom `geometry` function the vertices of a polygon are
+     *    returned as `MultiPoint` geometry, which will be used to render
+     *    the style.
+     */
+    // segment styling
+    c.roofpeakHighlightSegment,
+    // segment endpoint styling
+    new ol.style.Style({
+      image: new ol.style.Circle({
+        radius: 5,
+        fill: c.whiteFill,
+        stroke: c.brandFireStroke_2px,
+      }),
+      geometry: modifyEndpointCoords
+    }),
+    // segment midpoints styling
+    new ol.style.Style({
+      image: new ol.style.Circle({
+        radius: 3,
+        fill: c.whiteFill,
+      }),
+      geometry: modifyMidpointCoords,
+    })
+  ]
 
   return StyleService;
 }

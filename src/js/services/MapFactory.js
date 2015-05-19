@@ -1,6 +1,6 @@
 /**
- * this is an object
- * name: fln_area
+ * this module supports the roofpeak interaction.
+ * 
  *
  *
  */
@@ -28,11 +28,6 @@ function MapFactory_($rootScope, MapService, StyleService, Design, Client, AreaS
     remapFeature(feature);
   })
 
-  // function roofArea (feature) {
-
-  //   return remapFeature(feature);
-  // }
-
   function remapFeature (feature) {
     if (!feature) {
       return Client.listen('areas in collection', function function_name (f) {
@@ -44,9 +39,8 @@ function MapFactory_($rootScope, MapService, StyleService, Design, Client, AreaS
     f_source.addFeatures(feature_parts.segment);
   }
 
-// create new features
+  // create new features
   function construct (wkt_arr, style_param) {
-    // for each on array,
     var feat;
     var txt;
     var result = [];
