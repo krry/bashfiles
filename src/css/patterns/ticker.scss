@@ -4,13 +4,13 @@
   @include apercu-bold;
   font-size: 2em;
   line-height: 1;
-  // margin-bottom: .25em;
+  // margin-bottom: 0.25em;
   text-align: center;
 }
 
 .ticker:after {
   @include apercu-regular;
-  font-size: .33em;
+  font-size: 0.33em;
 }
 
 .ticker.kwh:after {
