@@ -1,4 +1,4 @@
-// Configurator Interactions
+ // Configurator Interactions
 /*
  *
  *
@@ -18,6 +18,8 @@ function Interactions_(Design, Client, Styles, AreaService) {
       dragpan,
     // defaults
       dragpan_opt = { enableKinetic: true };
+
+  draw_opt = { };
 
   // an interactions stream... obviously
   interactions.rx = new Rx.BehaviorSubject(null);
@@ -42,7 +44,7 @@ function Interactions_(Design, Client, Styles, AreaService) {
   interactions.draw = new ol.interaction.Draw({
     // features: Design.areas_collection,
     type: 'Polygon',
-    geometryName: 'area',
+    // geometryName: 'area',
     // make drawing more precise
     snapTolerance: 15, // defaults to 12
     style: Styles.drawStyle,
@@ -69,10 +71,7 @@ function Interactions_(Design, Client, Styles, AreaService) {
   interactions.modify = new ol.interaction.Modify({
     features: Design.modify_collection,
     // current
-    style: Styles.drawStyle,
-    // uncomment next line to enable highlight style under the cursor
-    // DEV: why's this happening? .jfl.
-    // style: Styles.drawStyle,
+    style: Styles.mouseModifyStyle,
     // lower pixelTolerance makes it easier to add a vertex during modify
     // higher pixelTolerance is advised to prevent users from adding too many pixels
     pixelTolerance: 25, // defaults to 10

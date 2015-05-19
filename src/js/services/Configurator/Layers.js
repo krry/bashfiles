@@ -25,12 +25,12 @@ function Layers_(Design, Styles, AreaService, Client) {
   // layers
   l_draw = new ol.layer.Vector({
     source: draw_source,
-    style:  Styles.defaultStyleFunction,
+    style:  Styles.drawStyle,
   });
 
   l_modify = new ol.layer.Vector({
     source: modify_source,
-    style:  Styles.modifyStyle,
+    // style:  Styles.modifyStyle,
   });
 
   l_roofpeak = new ol.layer.Vector({
@@ -41,14 +41,14 @@ function Layers_(Design, Styles, AreaService, Client) {
 
   // the overlay that renders features in the modify step
   modify_overlay = Design.modify_overlay;
-  modify_overlay.setStyle(Styles.modifyStyle);
+  modify_overlay.setStyle(Styles.modifyOverlayStyle);
 
   // roofpeak stuff
   // a collection to hold the highlighted feature
   var h_coll = new ol.Collection([]);
 
   // highlighted segments get rendered by this FeatureOverlay
-  highlight_overlay = new ol.FeatureOverlay({
+  roofpeak_overlay = new ol.FeatureOverlay({
     style: Styles.remapHighlight,
     features: h_coll,
   });
@@ -60,9 +60,10 @@ function Layers_(Design, Styles, AreaService, Client) {
     draw_source.addFeature(feature);
     // clear & set the visible vectors
     modify_overlay.getFeatures().clear();
-    // debugger;
-    // feature.setGeometry(convertPolygonToLineString(feature));
-    modify_overlay.addFeature(feature);
+
+
+
+    // modify_overlay.addFeature(m_feat);
     // clear & set the modifiable feature group
     Design.modify_collection.clear()
     Design.modify_collection.push(feature);
@@ -75,10 +76,8 @@ function Layers_(Design, Styles, AreaService, Client) {
         coords,
         geom;
 
-    geom = feature.getGeometry();
     coords = geom.getCoordinates();
     result = new ol.geom.LineString(coords[0]);
-    // debugger;
     return result;
   }
 
@@ -143,7 +142,7 @@ function Layers_(Design, Styles, AreaService, Client) {
     draw : l_draw,
     modify: l_modify,
     roofpeak: l_roofpeak,
-    roofpeak_overlay: highlight_overlay,
+    roofpeak_overlay: roofpeak_overlay,
     h_coll: h_coll,
     collection: new ol.Collection(),
     areas_collection:  areas_collection,
