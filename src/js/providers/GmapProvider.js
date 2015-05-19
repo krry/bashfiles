@@ -168,6 +168,7 @@ function GmapFactory_ () {
         pin.marker = new google.maps.Marker({
           position: opts.location,
           map: map,
+          draggable: false,
           icon: image
         });
 
