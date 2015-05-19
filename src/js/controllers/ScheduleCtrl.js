@@ -153,6 +153,7 @@ function ScheduleCtrl_ ($q, Form, Client, Session, SiteSurvey, Installation, Sal
 
     if (vm.prospect().battery) {
       Client.emit('Modal: show dialog', { dialog: 'battery' });
+      Client.emit('App: track event', 'viewed_battery_page');
       return false;
     }
     // Resolve an empty promise if installation guid has already been created and stored

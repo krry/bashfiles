@@ -29,6 +29,7 @@ function AppCtrl_($location, $sce, GMAP_CLIENT, MINIFIED, APP_TITLE, ENV, Client
 
   // loading google analytics trackers
   Client.listen('Stages: step complete', notifyTrackerAboutStep);
+  Client.listen('App: track event', notifyTrackerAboutClick);
 
   function notifyTrackerAboutStep (step) {
     var location;
