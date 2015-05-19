@@ -145,7 +145,8 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
   }
   this.modifyAdd = function () {
     $configurator.promise.then(function (viewport) {
-      Client.emit('Configurator: update mapsize', viewport)
+      Client.emit('Configurator: update mapsize', viewport);
+
       omap.on('pointermove', function function_name(evt) {
         $(maps.omap.getViewport()).css('cursor', 'inherit');
         omap.forEachFeatureAtPixel(evt.pixel, function function_name(feat) {
@@ -154,6 +155,7 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
           }
 
         });
+
       })
     })
 
