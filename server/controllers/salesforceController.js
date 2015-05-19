@@ -10,14 +10,14 @@ module.exports = function(app) {
       sfPassword    = conf.SFPASSWORD,
       sfToken       = conf.SFDCSECRETTOKEN,
       sfRecordType  = conf.SFDCRECORDTYPEID,
-      sfOppOwnerId  = conf.SFOPPOWNERID;
+      sfOppOwnerId  = conf.SFOPPOWNERID,
+      sessions      = {};
 
-
-  var conn = new jsforce.Connection({
+  var onlineSellingConn = new jsforce.Connection({
     loginUrl: sfLoginUrl
   });
 
-  var login = conn.login(sfUserName, sfPassword+sfToken);
+  var onlineSellingLogin = onlineSellingConn.login(sfUserName, sfPassword+sfToken);
 
   function leadObj(req) {
     return {
@@ -62,35 +62,117 @@ module.exports = function(app) {
     }
   }
 
-  function createLead(lead){
+  function createLead(conn, lead){
     return conn.sobject('Lead').create(lead, handleResponse);
   }
 
-  function updateLead(lead) {
+  function updateLead(conn, lead) {
     return conn.sobject('Lead').update(lead, handleResponse);
   }
 
   function addEditLead(req, res){
     var lead = leadObj(req),
-        result;
+        conn,
+        action;
+
+    // If we get passed a specific Salesforce session, use that for the connection
+    if (req.body.Session) {
+      lead.Partner_Detail__c = req.body.Session.partnerId;
+
+      conn = createConn({
+        serverUrl: req.body.Session.serverUrl,
+        sessionId: req.body.Session.sessionId
+      });
+    // Else, use the online selling API session
+    } else {
+      conn = onlineSellingConn;
+    }
 
     if (req.body.LeadId) {
       // Append the lead id only when updating
       lead.Id = req.body.LeadId;
-      result = login.then(updateLead.bind(this, lead));
-    }
-    else {
-      result = login.then(createLead.bind(this, lead));
+      action = updateLead.bind(this, conn, lead);
+    } else {
+      action = createLead.bind(this, conn, lead);
     }
 
-    result.then(function(result) {
+    onlineSellingLogin
+    .then(action)
+    .then(function(result) {
       res.json(result);
     }, function(err) {
       res.json(arguments);
     });
   }
 
+  // Stores Salesforce session info into memory
+  // Allows authenticating to Salesforce as a specific user
+  function storeSession(req, res) {
+    var id = req.body.sessionId,
+        success = false;
+
+    if (id) {
+      success = true;
+      sessions[id] = {
+        serverUrl: req.body.serverUrl,
+        sessionId: req.body.sessionId,
+        partnerId: req.body.partnerId
+      };
+    }
+
+    res.json({ success: success });
+  }
+
+  // Preloads a stored Salesforce session into the user's cookies
+  function preloadSession(req, res) {
+    var id = req.query.id,
+        data = sessions[id],
+        deleteConfig = { expires: new Date(1) },
+        cookieConfig = { maxAge: 1*24*60*60*1000 };
+
+    if (data) {
+      // res.clearCookie() doesn't seem to work
+      res.cookie('sf_server_url', '', deleteConfig);
+      res.cookie('sf_session_id', '', deleteConfig);
+      res.cookie('sf_partner_id', '', deleteConfig);
+
+      res.cookie('sf_server_url', data.serverUrl, cookieConfig);
+      res.cookie('sf_session_id', data.sessionId, cookieConfig);
+      res.cookie('sf_partner_id', data.partnerId, cookieConfig);
+
+      // Clear it out from memory once stored into cookies
+      sessions[id] = null;
+    }
+
+    res.redirect('/');
+  }
+
+  function getIdentity(req, res) {
+    var conn = createConn({
+      serverUrl: req.body.serverUrl,
+      sessionId: req.body.sessionId
+    });
+
+    conn.identity(function(err, resp) {
+      if (err) {
+        res.status(500);
+        res.json(err);
+      } else {
+        res.json({
+          display_name: resp.display_name
+        });
+      }
+    });
+  }
+
+  function createConn(credentials) {
+    return new jsforce.Connection(credentials);
+  }
+
   return {
-    addEditLead: addEditLead
+    addEditLead: addEditLead,
+    storeSession: storeSession,
+    preloadSession: preloadSession,
+    getIdentity: getIdentity
   };
 };
