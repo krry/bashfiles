@@ -5,21 +5,20 @@
       <div class="contain">
         <h1>We'll see you then.<br><small>Our solar consultant will be in touch with you to confirm your appointment and answer any questions you may&nbsp;have.</small></h1>
       </div>
-      <div class="contain narrow col full center">
+      <div class="appointment-card contain narrow col full center">
         <div class="icon icon-calendar"></div>
-        <h1 class="caps">{{form.prospect().scheduledTime.month}} {{form.prospect().scheduledTime.day}}</h1>
+        <h1>{{form.prospect().scheduledTime.month}} {{form.prospect().scheduledTime.day}}</h1>
         <p>
           {{form.prospect().scheduledTime.weekday}} arrival between {{form.prospect().scheduledTime.start}} to {{form.prospect().scheduledTime.end}}.<br>
           Survey may take 1 &mdash; 2 hours.
         </p>
-        <div class="calendar-links caps">
+        <p class="calendar-links caps">
           <span class="display-inline">Add to Calendar</span>
           <a class="display-inline aqua" fln-add-google-event="schedule.eventDetails()">Google</a>
           <a class="display-inline aqua" fln-download-ics="schedule.eventDetails()">Outlook</a>
           <a class="display-inline aqua" fln-download-ics="schedule.eventDetails()">iCal</a>
         </div>
-        <div class="icon icon-paper-airplane"></div>
-      </div>
+      </p>
     </div>
   </div>
 
