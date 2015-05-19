@@ -145,6 +145,21 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
     });
   }
 
+  function showRoofpeakTooltip (evt) {
+    if (maps.omap.hasFeatureAtPixel(evt.pixel)) {
+      tooltipOverlay.setMap(maps.omap);
+      tooltipOverlay.setPosition(evt.coordinate);
+    } else {
+      tooltipOverlay.setMap(null);
+    }
+  }
+
+  var tooltip = $('<div id="roofpeakTooltip"></div>');
+  var tooltipOverlay = new ol.Overlay({
+    element: tooltip,
+    html: 'true',
+  })
+
   /* Interaction handlers */
   // Configurator service is responsible for orchestrating the layers and interactions
   // it is not responsible for managing the Area polygons
@@ -216,19 +231,24 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
   }
 
   this.roofpeakAdd = function() {
+
+
     $configurator.promise.then(function (viewport) {
       Client.emit('Configurator: update mapsize', viewport)
       omap.on('pointermove', handCursorInRoofpeak);
+      omap.on('pointermove', showRoofpeakTooltip);
       // add the layer
       Layers.collection.push(Layers.roofpeak)
       // add the overlay
       maps.omap.addOverlay(Layers.roofpeak_overlay);
+      // maps.omap.addOverlay(tooltipOverlay);
     })
     if (typeof maps !== 'undefined') { if ( maps.omap) {maps.omap.updateSize()}}
   }
   this.roofpeakDel = function() {
     $configurator.promise.then(function (viewport) {
       omap.un('pointermove', handCursorInRoofpeak);
+      omap.un('pointermove', showRoofpeakTooltip);
       // remove the layer
       Layers.collection.remove(Layers.roofpeak);
       // remove the map from the overlay... seems weird, but necessary
