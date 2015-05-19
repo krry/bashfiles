@@ -1,5 +1,4 @@
- // Configurator Interactions
-/*
+/**  Configurator Interactions
  *
  *
  *
@@ -9,10 +8,11 @@
 angular.module('flannel').factory('Interactions', ['Design', 'Clientstream', 'StyleService', 'AreaService', Interactions_]);
 
 function Interactions_(Design, Client, Styles, AreaService) {
-    // returned by Factory
+
   var interactions = {},
     // interactions
       draw,
+      draw_options,
       modify,
       zoom,
       dragpan,
@@ -23,12 +23,23 @@ function Interactions_(Design, Client, Styles, AreaService) {
 
   // an interactions stream... obviously
   interactions.rx = new Rx.BehaviorSubject(null);
-  interactions.rx.subscribe(resetDrawingOnRedo);
+  interactions.rx.subscribe(subInteractions);
 
-  function resetDrawingOnRedo(x) {
+  // configure the draw
+  draw_options = {
+    type: 'Polygon',
+    geometryName: 'area',
+    snapTolerance: 15, // defaults to 12
+    style: Styles.drawStyle,
+  }
+
+  function subInteractions (x) {
     if (x === 'reset draw') {
       interactions.draw.setActive(false);
       interactions.draw.setActive(true);
+      Design.ref().child('areas').child('0').set(null);
+    } if (x === 'drawing') {
+      Design.ref().child('areas').child('0').set(null);
     }
   }
   // map subscribes to these collections to know what's
@@ -41,14 +52,7 @@ function Interactions_(Design, Client, Styles, AreaService) {
   interactions.zoom    = new ol.interaction.MouseWheelZoom();
 
   // drawing areas on the map
-  interactions.draw = new ol.interaction.Draw({
-    // features: Design.areas_collection,
-    type: 'Polygon',
-    // geometryName: 'area',
-    // make drawing more precise
-    snapTolerance: 15, // defaults to 12
-    style: Styles.drawStyle,
-  });
+  interactions.draw = new ol.interaction.Draw(draw_options);
 
   interactions.draw.on('drawend', function(e){
     // after user draws a shape, notify remote the feature is set.
@@ -61,12 +65,11 @@ function Interactions_(Design, Client, Styles, AreaService) {
 
   interactions.draw.on('drawstart', function(e){
     // make sure that all modify shapes are eliminated
-    Design.ref().child('areas').child('0').set(null);
     interactions.rx.onNext('drawing');
   });
 
   // modify
-  Design.modify_overlay.setFeatures(Design.modify_collection)
+  Design.modify_overlay.setFeatures(Design.modify_collection);
   interactions.modify_overlay = Design.modify_overlay;
   interactions.modify = new ol.interaction.Modify({
     features: Design.modify_collection,
