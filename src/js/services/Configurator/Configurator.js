@@ -156,7 +156,6 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
   function showRoofpeakTooltip (evt) {
     if (maps.omap.hasFeatureAtPixel(evt.pixel)) {
       tooltipOverlay.setMap(maps.omap);
-      console.log(tooltipOverlay.getPositioning());
       tooltipOverlay.setPosition(evt.coordinate);
     } else {
       tooltipOverlay.setMap(null);
