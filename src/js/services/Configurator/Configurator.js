@@ -145,6 +145,23 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
     });
   }
 
+  var tooltip = $('<span id="roofpeakTooltip" class="followtip">Click to select your roof peak</span>');
+  var tooltipOverlay = new ol.Overlay({
+    positioning: 'top-center',
+    element: tooltip,
+  })
+
+  tooltipOverlay.setOffset([-70, 0]);
+
+  function showRoofpeakTooltip (evt) {
+    if (maps.omap.hasFeatureAtPixel(evt.pixel)) {
+      tooltipOverlay.setMap(maps.omap);
+      tooltipOverlay.setPosition(evt.coordinate);
+    } else {
+      tooltipOverlay.setMap(null);
+    }
+  }
+
   /* Interaction handlers */
   // Configurator service is responsible for orchestrating the layers and interactions
   // it is not responsible for managing the Area polygons
@@ -219,6 +236,7 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
     $configurator.promise.then(function (viewport) {
       Client.emit('Configurator: update mapsize', viewport)
       omap.on('pointermove', handCursorInRoofpeak);
+      omap.on('pointermove', showRoofpeakTooltip);
       // add the layer
       Layers.collection.push(Layers.roofpeak)
       // add the overlay
@@ -229,10 +247,12 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
   this.roofpeakDel = function() {
     $configurator.promise.then(function (viewport) {
       omap.un('pointermove', handCursorInRoofpeak);
+      omap.un('pointermove', showRoofpeakTooltip);
       // remove the layer
       Layers.collection.remove(Layers.roofpeak);
       // remove the map from the overlay... seems weird, but necessary
       Layers.roofpeak_overlay.setMap(null);
+      tooltipOverlay.setMap(null);
     })
   }
 }

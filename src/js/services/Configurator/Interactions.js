@@ -19,8 +19,6 @@ function Interactions_(Design, Client, Styles, AreaService) {
     // defaults
       dragpan_opt = { enableKinetic: true };
 
-  draw_opt = { };
-
   // an interactions stream... obviously
   interactions.rx = new Rx.BehaviorSubject(null);
   interactions.rx.subscribe(subInteractions);
