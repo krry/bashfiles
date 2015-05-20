@@ -9,7 +9,7 @@ directives
 // erase a polygon
 .directive('flnOmapClearPoly', ['Design', flnOmapClearPoly_] )
 // step back from modify and erase the polygon you drew
-.directive('flnOmapRedoModify', ['Clientstream', flnRedoModify_] )
+.directive('flnOmapRedoModify', ['Clientstream','Design', flnRedoModify_] )
 // reset the draw interaction while the user is drawing
 .directive('flnOmapResetDraw', ['Interactions', 'Layers', flnOmapResetDraw_] );
 
@@ -74,12 +74,13 @@ function flnOmapResetDraw_ (Interactions, Layers) {
   };
 }
 
-function flnRedoModify_ (Client) {
+function flnRedoModify_ (Client, Design) {
   return {
     restrict: "A",
     link: function (scope, ele, attrs) {
       ele.on('click', function returnToModify() {
-        Client.emit('Stages: jump to step', 'edit-area');
+        Design.rx_areas.onNext('removed by client');
+        Client.emit('Stages: jump to step', 'trace-area');
       })
     }
   }
