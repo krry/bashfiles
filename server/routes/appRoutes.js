@@ -3,7 +3,8 @@ var env  = process.env.NODE_ENV || 'development';
 var protected_envs = ['development', 'test', 'stage', 'train'];
 
 module.exports = function(app) {
-  var appController   = require('../controllers/appController.js')(app),
+  var cors            = require('cors'),
+      appController   = require('../controllers/appController.js')(app),
       proxyController = require('../controllers/proxyController.js')(app),
       salesforceController = require('../controllers/salesforceController.js')(app),
       dnsController   = require('../controllers/dnsController.js')(app),
@@ -21,7 +22,11 @@ module.exports = function(app) {
   app.get('/jwt', appController.jwt );
   app.get('/calculator/*', proxyController.dynamoCalc);
 
-  app.post(conf.CLIENT.SFLEAD_API, salesforceController.addEditLead);
+  app.get('/salesforce', salesforceController.preloadSession);
+
+  app.post(conf.CLIENT.SF_LEAD_API, salesforceController.addEditLead);
+  app.post(conf.CLIENT.SF_SESSION_API, cors(), salesforceController.storeSession);
+  app.post(conf.CLIENT.SF_IDENTITY_API, salesforceController.getIdentity);
 
   app.get(conf.CLIENT.AHJ_API, proxyController.ahj);
   app.get(conf.CLIENT.UTILITIES_API, proxyController.utilities);

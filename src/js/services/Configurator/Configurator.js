@@ -39,7 +39,6 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
     layers: Layers.collection,
     interactions: Interactions.collection,
     controls:  omap_controls,
-    overlays: Layers.overlay_collection,
     view: View
   }
 
@@ -127,6 +126,42 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
     $configurator = $q.defer();
   };
 
+  /* cursor manipulators get done here because we have scope on omap */
+  function crossHairCursorInModify(evt) {
+    $(maps.omap.getViewport()).css('cursor', 'inherit');
+    omap.forEachFeatureAtPixel(evt.pixel, function function_name(feat) {
+      if (feat) {
+        $(maps.omap.getViewport()).css('cursor', 'move');
+      }
+    });
+  }
+
+  function handCursorInRoofpeak(evt) {
+    $(maps.omap.getViewport()).css('cursor', 'inherit');
+    omap.forEachFeatureAtPixel(evt.pixel, function function_name(feat) {
+      if (feat) {
+        $(maps.omap.getViewport()).css('cursor', 'pointer');
+      }
+    });
+  }
+
+  var tooltip = $('<span id="roofpeakTooltip" class="followtip">Click to select your roof peak</span>');
+  var tooltipOverlay = new ol.Overlay({
+    positioning: 'top-center',
+    element: tooltip,
+  })
+
+  tooltipOverlay.setOffset([-70, 0]);
+
+  function showRoofpeakTooltip (evt) {
+    if (maps.omap.hasFeatureAtPixel(evt.pixel)) {
+      tooltipOverlay.setMap(maps.omap);
+      tooltipOverlay.setPosition(evt.coordinate);
+    } else {
+      tooltipOverlay.setMap(null);
+    }
+  }
+
   /* Interaction handlers */
   // Configurator service is responsible for orchestrating the layers and interactions
   // it is not responsible for managing the Area polygons
@@ -144,18 +179,17 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
     Interactions.collection.remove(Interactions.draw);
     if (typeof maps !== 'undefined') { if ( maps.omap) {maps.omap.updateSize()}}
   }
+
+
   this.modifyAdd = function () {
     $configurator.promise.then(function (viewport) {
-      Client.emit('Configurator: update mapsize', viewport)
+      Interactions.modify_overlay.setMap(maps.omap);
+      Client.emit('Configurator: update mapsize', viewport);
+      omap.on('pointermove', crossHairCursorInModify);
     })
-
     // Layers.collection.remove(Layers.draw);
     Layers.collection.push(Layers.modify);
     Interactions.collection.push(Interactions.modify);
-    $configurator.promise.then(function (viewport) {
-      // map.updateSize()
-      Interactions.modify_overlay.setMap(maps.omap);
-    });
   }
   this.modifyDel = function () {
     Interactions.collection.remove(Interactions.modify);
@@ -165,12 +199,19 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
     if (typeof maps !== 'undefined') { if ( maps.omap) {
       maps.omap.updateSize()
     }}
+    $configurator.promise.then(function (viewport) {
+      omap.un('pointermove', crossHairCursorInModify);
+    })
   }
+  this.redoArea = function() {
+    Interactions.modify.clearArea();
+    if (typeof maps !== 'undefined') { if ( maps.omap) {maps.omap.updateSize()}}
+  }
+
   this.dragpanAdd = function () {
     $configurator.promise.then(function (viewport) {
       Client.emit('Configurator: update mapsize', viewport);
     })
-
     Interactions.collection.push(Interactions.dragpan);
     if (typeof maps !== 'undefined') { if ( maps.omap) {maps.omap.updateSize()}}
   }
@@ -178,11 +219,11 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
     Interactions.collection.remove(Interactions.dragpan);
     if (typeof maps !== 'undefined') { if ( maps.omap) {maps.omap.updateSize()}}
   }
+
   this.zoomAdd = function () {
     $configurator.promise.then(function (viewport) {
       Client.emit('Configurator: update mapsize', viewport)
     })
-
     Interactions.collection.push(Interactions.zoom);
     if (typeof maps !== 'undefined') { if ( maps.omap) {maps.omap.updateSize()}}
   }
@@ -190,15 +231,12 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
     Interactions.collection.remove(Interactions.zoom);
     if (typeof maps !== 'undefined') { if ( maps.omap) {maps.omap.updateSize()}}
   }
-  this.redoArea = function() {
 
-    Interactions.modify.clearArea();
-    if (typeof maps !== 'undefined') { if ( maps.omap) {maps.omap.updateSize()}}
-  }
   this.roofpeakAdd = function() {
     $configurator.promise.then(function (viewport) {
       Client.emit('Configurator: update mapsize', viewport)
-      // map.updateSize()
+      omap.on('pointermove', handCursorInRoofpeak);
+      omap.on('pointermove', showRoofpeakTooltip);
       // add the layer
       Layers.collection.push(Layers.roofpeak)
       // add the overlay
@@ -208,11 +246,13 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
   }
   this.roofpeakDel = function() {
     $configurator.promise.then(function (viewport) {
-      // map.updateSize();
+      omap.un('pointermove', handCursorInRoofpeak);
+      omap.un('pointermove', showRoofpeakTooltip);
       // remove the layer
       Layers.collection.remove(Layers.roofpeak);
       // remove the map from the overlay... seems weird, but necessary
       Layers.roofpeak_overlay.setMap(null);
+      tooltipOverlay.setMap(null);
     })
   }
 }

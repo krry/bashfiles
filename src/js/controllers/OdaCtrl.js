@@ -67,7 +67,7 @@ function OdaCtrl_($scope, $element, Client, Form) {
           position: result[0].geometry.location,
           map: rooftop_map,
           draggable: false,
-          icon: 'img/map_pin_1.svg'
+          icon: 'img/map_solar_house_4.svg'
         })
       });
     }
