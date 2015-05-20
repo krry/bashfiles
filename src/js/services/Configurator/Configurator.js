@@ -241,7 +241,6 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
       Layers.collection.push(Layers.roofpeak)
       // add the overlay
       maps.omap.addOverlay(Layers.roofpeak_overlay);
-      // maps.omap.addOverlay(tooltipOverlay);
     })
     if (typeof maps !== 'undefined') { if ( maps.omap) {maps.omap.updateSize()}}
   }
