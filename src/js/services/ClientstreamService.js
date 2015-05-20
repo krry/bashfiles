@@ -14,12 +14,9 @@
 providers.provider('Clientstream', [Clientstream_]);
 
 function Clientstream_ () {
-  this.$get = [function ClientStreamProviderFactory () {
 
-    function buts () {
-      return client_stream
-    }
-    return buts()
+  this.$get = [function ClientStreamProviderFactory () {
+    return client_stream
   }];
 
   var Stream = Emitter();

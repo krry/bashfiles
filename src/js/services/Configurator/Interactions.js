@@ -19,6 +19,8 @@ function Interactions_(Design, Client, Styles, AreaService) {
     // defaults
       dragpan_opt = { enableKinetic: true };
 
+  draw_opt = { };
+
   // an interactions stream... obviously
   interactions.rx = new Rx.BehaviorSubject(null);
   interactions.rx.subscribe(subInteractions);
@@ -67,11 +69,12 @@ function Interactions_(Design, Client, Styles, AreaService) {
   });
 
   // modify
-  Design.modify_overlay.setFeatures(Design.modify_collection)
+  Design.modify_overlay.setFeatures(Design.modify_collection);
   interactions.modify_overlay = Design.modify_overlay;
   interactions.modify = new ol.interaction.Modify({
     features: Design.modify_collection,
-    style: Styles.highlightStyleFunction,
+    // current
+    style: Styles.mouseModifyStyle,
     // lower pixelTolerance makes it easier to add a vertex during modify
     // higher pixelTolerance is advised to prevent users from adding too many pixels
     pixelTolerance: 25, // defaults to 10
