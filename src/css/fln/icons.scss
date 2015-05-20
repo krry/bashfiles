@@ -7,14 +7,14 @@
     @include icon('arrow-up');
     width: 1em;
     height: 1em;
-    margin-left: .75em;
-    margin-top: .125em;
+    margin-left: 0.75em;
+    margin-top: 0.125em;
   }
   &.down {
     @include icon('arrow-down');
     width: 1em;
     height: 1em;
-    margin-left: .75em;
+    margin-left: 0.75em;
   }
   &.question {
     @include icon("question-mark-white");
