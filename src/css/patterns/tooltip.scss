@@ -25,11 +25,16 @@
   background: shade(.6);
   border-radius: 3px;
   border: 0px solid tint(.3);
-  font-size: 0.7em;
+  font-size: 0.75em;
   padding: 0.35em 0.75em 0.4em 0.75em;
   @include apercu-regular;
 }
 
 .followtipped {
   position: relative;
+}
+
+#roofpeakTooltip {
+  font-size: 1.1em;
+  white-space: nowrap;
 }

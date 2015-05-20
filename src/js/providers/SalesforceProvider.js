@@ -9,7 +9,13 @@
 providers.provider('Salesforce', [SalesforceProvider_ ]);
 
 function SalesforceProvider_ () {
-  this.$get = ['$http', '$q', 'SFLEAD_API', function($http, $q, SFLEAD_API) {
+  var session;
+
+  this.setSession = function(obj) {
+    session = obj;
+  };
+
+  this.$get = ['$http', '$q', 'Clientstream', 'SF_LEAD_API', 'SF_IDENTITY_API', function($http, $q, Client, SF_LEAD_API, SF_IDENTITY_API) {
     var statuses = {
       savedDesign: 'Saved design',
       savedProposal: 'Saved proposal',
@@ -26,7 +32,19 @@ function SalesforceProvider_ () {
     function createLead(data) {
       var dfd = $q.defer();
       
-      $http.post(SFLEAD_API, data).then(function(resp) {
+      $http.post(SF_LEAD_API, data).then(function(resp) {
+        dfd.resolve(resp.data);
+      }, function(resp) {
+        dfd.reject(resp);
+      });
+
+      return dfd.promise;
+    }
+
+    function getIdentity(data) {
+      var dfd = $q.defer();
+
+      $http.post(SF_IDENTITY_API, data).then(function(resp) {
         dfd.resolve(resp.data);
       }, function(resp) {
         dfd.reject(resp);
@@ -37,7 +55,9 @@ function SalesforceProvider_ () {
 
     return {
       createLead: createLead,
-      statuses: statuses
+      getIdentity: getIdentity,
+      statuses: statuses,
+      session: session
     };
   }];
 }

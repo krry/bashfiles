@@ -53,6 +53,8 @@
       "ADDRESS_ID": 906304,
       "DOB": "05/27/1943"
     },
-    "SFLEAD_API": "/api/sflead/"
+    "SF_LEAD_API": "/api/sf/lead",
+    "SF_SESSION_API": "/api/sf/session",
+    "SF_IDENTITY_API": "/api/sf/identity"
   }
 }
