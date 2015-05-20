@@ -41,6 +41,7 @@ section {
 }
 
 a.dev-trigger.dev-trigger,
+a.fes-trigger.fes-trigger,
 a.oda-trigger.oda-trigger {
   position: absolute;
   margin: auto;
@@ -80,6 +81,16 @@ a.oda-trigger.oda-trigger {
   }
   &:hover.triggered {
     background: lighten($color-oda-tools, 10%);
+  }
+}
+
+a.fes-trigger.fes-trigger {
+  bottom: 1em;
+  box-shadow: 0px 0 6px -3px saturate($color-fes-tools, .2);
+  background-color: $color-fes-tools;
+  cursor: default;
+  &:hover {
+    background-color: $color-fes-tools;
   }
 }
 
