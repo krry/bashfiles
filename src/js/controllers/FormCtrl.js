@@ -68,9 +68,14 @@ function FormCtrl_($scope, $window, $location, $element, Client, Session, User, 
   }
 
   vm.days = [];
+  vm.years = [];
 
-  for (var i = 1, len = 31; i <= len; i++) {
-    vm.days.push(i);
+  for (var d = 1, len = 31; d <= len; d++) {
+    vm.days.push(d);
+  }
+
+  for (var y = 1997, len = 1915; y > len; y--) {
+    vm.years.push(y);
   }
 
   vm.gmapShown = false;
@@ -324,7 +329,7 @@ function FormCtrl_($scope, $window, $location, $element, Client, Session, User, 
     });
 
     // Create a promise on the lead the first time it's created during contact creation
-    if (vm.prospect().hasFinancingOptions) { 
+    if (vm.prospect().hasFinancingOptions) {
       leadPromise = createLead(Salesforce.statuses.contact);
     } else {
       leadPromise = createLead(Salesforce.statuses.noFinancing);
@@ -390,6 +395,7 @@ function FormCtrl_($scope, $window, $location, $element, Client, Session, User, 
       // LeadSource: 'Online',
       // LastName: 'flannelflywheel',
       // OwnerId: '005300000058ZEZAA2',//oda userId,
+      Session: Salesforce.session,
       Company: 'flannelflywheel',
       LeadId: vm.prospect().leadId,
       FirstName: vm.prospect().firstName,

@@ -150,14 +150,25 @@
   }
 }
 
-.calendar-links {
-  font-size: 0.75em;
-  letter-spacing: initial;
-  margin: 0 0 20px;
-
-  a {
-    font-weight: bold;
-    margin-left: 15px;
+.appointment-card {
+  @include apercu-medium;
+  border: 1px solid $grey-medium;
+  border-radius: 3px;
+  background-color: lighten($gold, 40%);
+  margin-bottom: 4em;
+  padding: 2em 0;
+  h1 {
+    font-size: 2.5em;
+    text-transform: uppercase;
+  }
+  .calendar-links {
+    @include apercu-regular;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    margin-top: 2em;
+    a {
+      margin-left: 15px;
+    }
   }
 }
 
@@ -184,13 +195,13 @@
     display: inline-block;
   }
   input[type="radio"] {
-    margin-right: .5em;
+    margin-right: 0.5em;
   }
   input[type="radio"] + label {
     position: relative;
     bottom: 0px;
     font-size: 0.9em;
-    margin-right: .5em;
+    margin-right: 0.5em;
   }
   .radio-options {
     margin-bottom: 0.3em;
@@ -199,7 +210,7 @@
 }
 
 .hoa {
-  margin-top: .5rem;
+  margin-top: 0.5rem;
   width: 100%;
 }
 
@@ -208,7 +219,7 @@
   width: 100%;
   font-weight: normal;
   text-transform: initial;
-  padding: 0 2.25em 0 .75em;
+  padding: 0 2.25em 0 0.75em;
   height: 2.25em;
   line-height: 2.25em;
   border-radius: 2px;

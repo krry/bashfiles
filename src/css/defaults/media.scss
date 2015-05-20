@@ -10,7 +10,7 @@ img, embed, object, video {
 // simple fluid media
 figure {
   position: relative;
-  margin: .5em 0;
+  margin: 0.5em 0;
 
   &:first-child {
     margin-top: 0;
@@ -36,8 +36,8 @@ figure video {
   padding-bottom: 56%;
   height: 0;
   overflow: hidden;
-  margin-top: .25em;
-  margin-bottom: .25em;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
   width: 100%;
 
   iframe {
@@ -47,7 +47,8 @@ figure video {
   }
 
   &.framed {
-    border: 1px solid #cccccc;
+    border: 1px solid #ddd;
+    border-radius: 3px;
   }
 }
 
@@ -75,9 +76,9 @@ img {
 
   li {
     display: inline;
-    padding-right: .5em;
+    padding-right: 0.5em;
     @include caps();
-    font-size: .75em;
+    font-size: 0.75em;
   }
 }
 

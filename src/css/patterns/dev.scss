@@ -41,14 +41,15 @@ section {
 }
 
 a.dev-trigger.dev-trigger,
+a.fes-trigger.fes-trigger,
 a.oda-trigger.oda-trigger {
   position: absolute;
   margin: auto;
   overflow: auto;
   right: 100%;
   border-radius: 8px 0 0 8px;
-  font-size: .875em;
-  padding: .75em;
+  font-size: 0.875em;
+  padding: 0.75em;
   text-align: center;
   color: $white;
   background: glass($black);
@@ -73,13 +74,23 @@ a.dev-trigger.dev-trigger {
 a.oda-trigger.oda-trigger {
   top: 6em;
   font-size: 1.25em;
-  box-shadow: 0px 0 6px -3px saturate($blue-bright, .2);
+  box-shadow: 0px 0 6px -3px saturate($blue-bright, 0.2);
   &.triggered {
     color: $white;
     background-color: $color-oda-tools;
   }
   &:hover.triggered {
     background: lighten($color-oda-tools, 10%);
+  }
+}
+
+a.fes-trigger.fes-trigger {
+  bottom: 1em;
+  box-shadow: 0px 0 6px -3px saturate($color-fes-tools, .2);
+  background-color: $color-fes-tools;
+  cursor: default;
+  &:hover {
+    background-color: $color-fes-tools;
   }
 }
 

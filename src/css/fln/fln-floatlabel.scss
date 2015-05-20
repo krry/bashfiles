@@ -20,7 +20,7 @@
   position: relative;
   border: 0;
   & > label {
-    transition: all $easing-quick .2s;
+    transition: all $easing-quick 0.2s;
     position: absolute;
     bottom: 0;
     transform: translateY(.25em);

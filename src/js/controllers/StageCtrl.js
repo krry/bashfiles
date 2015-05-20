@@ -13,9 +13,9 @@
 
 ================================================== */
 
-controllers.controller("StageCtrl", ["$scope", "$location", "$state", "$timeout", "$animate", "User", "TemplateConfig", "Session", "Clientstream", "ModalService", StageCtrl_]);
+controllers.controller("StageCtrl", ["$scope", "$location", "$state", "$timeout", "$animate", "User", "TemplateConfig", "Session", "Clientstream", "ModalService", "UrlService", StageCtrl_]);
 
-function StageCtrl_($scope, $location, $state, $timeout, $animate, User, Templates, Session, Client, Modal) {
+function StageCtrl_($scope, $location, $state, $timeout, $animate, User, Templates, Session, Client, Modal, UrlService) {
   var vm,
       session_ref,
       stage,
@@ -120,7 +120,7 @@ function StageCtrl_($scope, $location, $state, $timeout, $animate, User, Templat
 
   function bootstrapNewSession (session_data) {
     var hasAdvanced = !User.isNew,
-        zipParam = getParameterByName('zip'),
+        zipParam = UrlService.getParameterByName('zip'),
         isOnHome = $state.is('flannel.home.zip-nearme') || $state.is('flannel.home.address-roof');
 
     if (!isOnHome && hasAdvanced) {
@@ -361,7 +361,7 @@ function StageCtrl_($scope, $location, $state, $timeout, $animate, User, Templat
 
   function checkZipParam() {
     var hasAdvanced = !User.isNew,
-        zipParam = getParameterByName('zip'),
+        zipParam = UrlService.getParameterByName('zip'),
         zipState = 'flannel.home.zip-nearme',
         addressState = 'flannel.home.address-roof';
 
@@ -453,13 +453,6 @@ function StageCtrl_($scope, $location, $state, $timeout, $animate, User, Templat
     }
 
     return partials;
-  }
-
-  function getParameterByName(name) {
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-        results = regex.exec(location.search);
-    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
   }
 
   function unlockODAState() {
