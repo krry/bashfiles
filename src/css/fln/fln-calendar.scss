@@ -184,13 +184,13 @@
     display: inline-block;
   }
   input[type="radio"] {
-    margin-right: .5em;
+    margin-right: 0.5em;
   }
   input[type="radio"] + label {
     position: relative;
     bottom: 0px;
     font-size: 0.9em;
-    margin-right: .5em;
+    margin-right: 0.5em;
   }
   .radio-options {
     margin-bottom: 0.3em;
@@ -199,7 +199,7 @@
 }
 
 .hoa {
-  margin-top: .5rem;
+  margin-top: 0.5rem;
   width: 100%;
 }
 
@@ -208,7 +208,7 @@
   width: 100%;
   font-weight: normal;
   text-transform: initial;
-  padding: 0 2.25em 0 .75em;
+  padding: 0 2.25em 0 0.75em;
   height: 2.25em;
   line-height: 2.25em;
   border-radius: 2px;

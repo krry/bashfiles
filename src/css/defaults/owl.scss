@@ -2,7 +2,7 @@
 
    LOBOTOMIZED OWL
 
-   informed and inspired by Heydon Pickering's cry for 
+   informed and inspired by Heydon Pickering's cry for
    non-prescriptive, cascading stylesheets
 
    wrap flow areas in `.flow` to auto-add vertical rhythm
@@ -42,5 +42,5 @@
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
+  /* text-rendering: optimizeLegibility; */
 }

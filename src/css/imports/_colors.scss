@@ -5,11 +5,11 @@
   @return lighten(black, 100% - $light);
 }
 
-@function shade($opacity: .5) {
+@function shade($opacity: 0.5) {
   @return transparentize($black, 1 - $opacity);
 }
 
-@function tint($opacity: .5) {
+@function tint($opacity: 0.5) {
   @return transparentize($white, 1 - $opacity);
 }
 
