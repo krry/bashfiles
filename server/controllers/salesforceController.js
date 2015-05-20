@@ -77,8 +77,6 @@ module.exports = function(app) {
 
     // If we get passed a specific Salesforce session, use that for the connection
     if (req.body.Session) {
-      lead.Partner_Detail__c = req.body.Session.partnerId;
-
       conn = createConn({
         serverUrl: req.body.Session.serverUrl,
         sessionId: req.body.Session.sessionId
@@ -86,6 +84,11 @@ module.exports = function(app) {
     // Else, use the online selling API session
     } else {
       conn = onlineSellingConn;
+    }
+
+    // Can only pass in the lead source when we first create it
+    if (req.body.Session && !req.body.LeadId) {
+      lead.Partner_Detail__c = req.body.Session.partnerId;
     }
 
     if (req.body.LeadId) {
