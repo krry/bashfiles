@@ -145,20 +145,23 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
     });
   }
 
+  var tooltip = $('<span id="roofpeakTooltip" class="followtip">Click to select your roof peak</span>');
+  var tooltipOverlay = new ol.Overlay({
+    positioning: 'top-center',
+    element: tooltip,
+  })
+
+  tooltipOverlay.setOffset([-70, 0]);
+
   function showRoofpeakTooltip (evt) {
     if (maps.omap.hasFeatureAtPixel(evt.pixel)) {
       tooltipOverlay.setMap(maps.omap);
+      console.log(tooltipOverlay.getPositioning());
       tooltipOverlay.setPosition(evt.coordinate);
     } else {
       tooltipOverlay.setMap(null);
     }
   }
-
-  var tooltip = $('<div id="roofpeakTooltip"></div>');
-  var tooltipOverlay = new ol.Overlay({
-    element: tooltip,
-    html: 'true',
-  })
 
   /* Interaction handlers */
   // Configurator service is responsible for orchestrating the layers and interactions
@@ -253,6 +256,7 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
       Layers.collection.remove(Layers.roofpeak);
       // remove the map from the overlay... seems weird, but necessary
       Layers.roofpeak_overlay.setMap(null);
+      tooltipOverlay.setMap(null);
     })
   }
 }
