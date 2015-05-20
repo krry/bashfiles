@@ -1,14 +1,11 @@
-<input
-  type="text"
-  id="prospect_year"
+<select
   name="year"
-  class="birthdate ib year"
-  placeholder="YY"
-  minlength="2"
-  maxlength="2"
-  ng-change="form.updateNumberOfDays()"
-  ng-pattern="/1[5-9]|[0-8][0-9]|9[0-7]/"
-  ng-minlength="2"
+  id="prospect_year"
+  placeholder="YYYY"
   ng-model="form.prospect().year"
   ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
-  ng-required="true">
+  ng-change="form.updateNumberOfDays()"
+  ng-required="true"
+  ng-options="label for label in form.years">
+  <option value="" selected default>Year</option>
+</select>

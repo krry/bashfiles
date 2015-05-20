@@ -15,7 +15,7 @@
 }
 
 .instructions {
-  box-shadow: 0 0 .75em 0 shade(.6);
+  box-shadow: 0 0 0.75em 0 shade(.6);
   z-index: 4;
   padding: 1.5em 1.5em 1.3em 1.5em;
   margin: 0;
@@ -159,7 +159,7 @@
 
 @media screen and (min-width: $width-min-xlg) {
   .instructions {
-    box-shadow: 0 0 .75em -.25em shade(.6);
+    box-shadow: 0 0 0.75em -.25em shade(.6);
     margin-left: -2em;
     padding: 3em 1em 1.3em 2em;
     border-bottom-left-radius: 3px;

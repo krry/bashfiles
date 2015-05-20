@@ -4,7 +4,7 @@
 @mixin link($type: "default") {
   color: $color-link-main;
   text-decoration: none;
-  transition: all .15s $easing-quick;
+  transition: all 0.15s $easing-quick;
   cursor: pointer;
   border: 0;
   border-bottom: 1px hidden;

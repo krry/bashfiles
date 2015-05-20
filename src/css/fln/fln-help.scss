@@ -33,7 +33,7 @@ fln-help {
 
   .trigger-bar {
     @include apercu-bold;
-    font-size: .85rem;
+    font-size: 0.85rem;
     color: $white;
     height: 2.5rem;
     background-color: $color-chat-trigger;
@@ -41,7 +41,7 @@ fln-help {
     border-radius: 6px 6px 0 0;
     display: block !important;
     width: 100%;
-    padding: .25em 1em;
+    padding: 0.25em 1em;
     text-align: left;
     .icon.up,
     .icon.down {
@@ -50,7 +50,7 @@ fln-help {
     .icon.inactive,
     .icon.active {
       float: left;
-      margin-right: .5em;
+      margin-right: 0.5em;
     }
   }
 }
@@ -71,7 +71,7 @@ button.trigger-bar span.icon {
   li {
     text-align: left;
     padding: 0 0 0 0;
-    transition: background-color .15s $easing-quick;
+    transition: background-color 0.15s $easing-quick;
   }
 
   a {
@@ -79,13 +79,13 @@ button.trigger-bar span.icon {
     width: 100%;
     display: block;
     color: inherit;
-    font-size: .75em;
+    font-size: 0.75em;
     line-height: 2.5;
     text-transform: none;
     letter-spacing: 1;
     margin: 0;
     border: 0;
-    border-radius: .25em;
+    border-radius: 0.25em;
     background-position: 1em center;
     background-repeat: no-repeat;
     background-size: auto 70%;
