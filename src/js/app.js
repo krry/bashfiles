@@ -15,7 +15,7 @@ angular.module('flannel', [
   'flannel.constants',
   'nouislider',
   'ui.utils.masks'
-]).config(['$sceDelegateProvider', '$sceProvider', '$httpProvider', 'UserProvider', 'MailgunProvider', function($sceDelegateProvider, $sceProvider, $httpProvider, UserProvider, Mailgun) {
+]).config(['$sceDelegateProvider', '$sceProvider', '$httpProvider', 'UserProvider', 'MailgunProvider', 'SalesforceProvider', function($sceDelegateProvider, $sceProvider, $httpProvider, UserProvider, Mailgun, SalesforceProvider) {
   // hack: sorta hacky... but maybe not.
   // http://stackoverflow.com/questions/20588114/how-to-use-cookiesprovider-in-angular-config
   var $cookies, uid;
@@ -40,6 +40,14 @@ angular.module('flannel', [
   }
 
   UserProvider.setIsNew(!$cookies.user_id);
+
+  if ($cookies.sf_server_url) {
+    SalesforceProvider.setSession({
+      serverUrl: $cookies.sf_server_url,
+      sessionId: $cookies.sf_session_id,
+      partnerId: $cookies.sf_partner_id
+    });
+  }
 
   $sceDelegateProvider.resourceUrlWhitelist([
    // Allow same origin resource loads.

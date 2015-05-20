@@ -150,14 +150,25 @@
   }
 }
 
-.calendar-links {
-  font-size: 0.75em;
-  letter-spacing: initial;
-  margin: 0 0 20px;
-
-  a {
-    font-weight: bold;
-    margin-left: 15px;
+.appointment-card {
+  @include apercu-medium;
+  border: 1px solid $grey-medium;
+  border-radius: 3px;
+  background-color: lighten($gold, 40%);
+  margin-bottom: 4em;
+  padding: 2em 0;
+  h1 {
+    font-size: 2.5em;
+    text-transform: uppercase;
+  }
+  .calendar-links {
+    @include apercu-regular;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    margin-top: 2em;
+    a {
+      margin-left: 15px;
+    }
   }
 }
 
