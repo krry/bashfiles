@@ -29,7 +29,6 @@ function Layers_(Design, Styles, AreaService, Client) {
 
   l_modify = new ol.layer.Vector({
     source: modify_source,
-    // style:  Styles.modifyStyle,
   });
 
   l_roofpeak = new ol.layer.Vector({
@@ -59,26 +58,12 @@ function Layers_(Design, Styles, AreaService, Client) {
     draw_source.addFeature(feature);
     // clear & set the visible vectors
     modify_overlay.getFeatures().clear();
-
-
-
-    // modify_overlay.addFeature(m_feat);
     // clear & set the modifiable feature group
     Design.modify_collection.clear()
     Design.modify_collection.push(feature);
     // TODO: whatever is dependent on this should be watching Design.rx_areas instead
     Client.emit('areas in collection', feature)
   });
-
-  function convertPolygonToLineString(feature) {
-    var result,
-        coords,
-        geom;
-
-    coords = geom.getCoordinates();
-    result = new ol.geom.LineString(coords[0]);
-    return result;
-  }
 
   areas_collection.on('remove', function (e) {
     var ftr = e.element;

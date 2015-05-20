@@ -233,8 +233,6 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
   }
 
   this.roofpeakAdd = function() {
-
-
     $configurator.promise.then(function (viewport) {
       Client.emit('Configurator: update mapsize', viewport)
       omap.on('pointermove', handCursorInRoofpeak);
