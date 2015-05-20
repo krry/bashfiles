@@ -38,8 +38,8 @@
   vertical-align: middle;
   white-space: no-wrap;
 
-  transition: all .075s $easing-quick;
-  transition: background-color .1s $easing-quick;
+  transition: all 0.075s $easing-quick;
+  transition: background-color 0.1s $easing-quick;
 
   @if $color == $white {
     @include apercu-regular;

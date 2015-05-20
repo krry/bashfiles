@@ -10,7 +10,7 @@
   &:before,
   &:after {
     @include apercu-light;
-    font-size: .85em;
+    font-size: 0.85em;
     opacity: 0;
     visibility: hidden;
     position: absolute; // finds the nearest positioned parent
@@ -66,14 +66,14 @@
     &:before {
       bottom: -1em;
       left: 50%;
-      border-width: 0 .75em .75em; // omit the top border to form to an upward-facing point
+      border-width: 0 0.75em 0.75em; // omit the top border to form to an upward-facing point
     }
   }
 
   @if $position == "top" {
     &:before,
     &:after {
-      transform: translate3d(0, .25em, 0); // raise it up a bit
+      transform: translate3d(0, 0.25em, 0); // raise it up a bit
     }
     &:after {
       bottom: 100%; // hang it under the element
@@ -85,7 +85,7 @@
     &:before {
       top: -1em;
       left: 50%;
-      border-width: .75em .75em 0 .75em; // omit the top border to form to an upward-facing point
+      border-width: 0.75em 0.75em 0 0.75em; // omit the top border to form to an upward-facing point
     }
   }
 
@@ -97,14 +97,14 @@
     &:after {
       bottom: 25%;
       left: 100%; // hang it next to the element
-      margin-left: calc(.25em - .5px);
+      margin-left: calc(.25em - 0.5px);
     }
     &:before {
       bottom: 50%;
       left: 100%;
       border-color: transparent $grey-darkest; // fallback for anti-opacity browsers
       border-color: transparent shade(.8); // make top and bottom borders transparent to form a triangle
-      border-width: .25em .25em .25em 0; // put the point on the left
+      border-width: 0.25em 0.25em 0.25em 0; // put the point on the left
     }
   }
 
@@ -116,14 +116,14 @@
     &:after {
       bottom: 25%;
       right: 100%; // hang it next to the element
-      margin-right: calc(.25em - .5px);
+      margin-right: calc(.25em - 0.5px);
     }
     &:before {
       bottom: 50%;
       right: 100%;
       border-color: transparent $grey-darkest; // fallback for anti-opacity browsers
       border-color: transparent shade(.8); // make top and bottom borders transparent to form a triangle
-      border-width: .25em 0 .25em .25em; // put the point on the right
+      border-width: 0.25em 0 0.25em 0.25em; // put the point on the right
     }
   }
 }

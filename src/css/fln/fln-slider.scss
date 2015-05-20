@@ -73,7 +73,7 @@
   border: 1px solid $grey-darker;
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 0.15em .3em rgba(0,0,0,0.3);
+  box-shadow: 0 0.15em 0.3em rgba(0,0,0,0.3);
 }
 
 .noUi-handle:before {
@@ -104,7 +104,7 @@
 
 // custom framing and positioning for slider and the bill input
 .step-bill h3.slider-align {
-  margin-top: .5em;
+  margin-top: 0.5em;
 }
 
 .bill-slider {
@@ -123,15 +123,15 @@
   font-size: 1.25em;
   &:before {
     content: "\0024";
-    font-size: .85em;
+    font-size: 0.85em;
     position: absolute;
     top: 0;
-    left: .2em;
+    left: 0.2em;
   }
 }
 
 .field.bill {
-  margin: 0 0 0 .625em;
+  margin: 0 0 0 0.625em;
   padding: 0;
 }
 
@@ -157,7 +157,7 @@ input.bill-input {
     display: block;
     width: 80%;
     max-width: 12em;
-    margin: 1em auto .5em;
+    margin: 1em auto 0.5em;
   }
 
   .noUi-target {
@@ -239,7 +239,7 @@ input.bill-input {
 
 @media screen and (min-width: $width-min-sml) {
   .bill-box {
-    margin-left: .75em;
+    margin-left: 0.75em;
   }
 }
 @media screen and (min-width: $width-min-med) {
@@ -254,7 +254,7 @@ input.bill-input {
     }
   }
   .field.bill {
-    margin-left: .75em;
+    margin-left: 0.75em;
   }
 }
 @media screen and (min-width: $width-min-lrg) {
@@ -262,7 +262,7 @@ input.bill-input {
     max-width: 12em;
   }
   .step-bill .col.half {
-    padding: 0 .75em;
+    padding: 0 0.75em;
   }
 }
 @media screen and (min-width: $width-min-xlg) {
