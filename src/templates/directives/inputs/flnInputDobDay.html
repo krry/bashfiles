@@ -3,7 +3,7 @@
   id="prospect_day"
   placeholder="DD"
   ng-model="form.prospect().day"
-  ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"
+  ng-model-options="{ updateOn: 'default blur' }"
   ng-required="true"
   ng-options="label for label in form.days | limitTo:form.NumberOfDays">
   <option value="" selected default>Day</option>

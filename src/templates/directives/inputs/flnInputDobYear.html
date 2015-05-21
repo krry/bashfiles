@@ -3,7 +3,7 @@
   id="prospect_year"
   placeholder="YYYY"
   ng-model="form.prospect().year"
-  ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
+  ng-model-options="{ updateOn: 'default blur' }"
   ng-change="form.updateNumberOfDays()"
   ng-required="true"
   ng-options="label for label in form.years">

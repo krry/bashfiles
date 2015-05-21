@@ -3,7 +3,7 @@
   id="prospect_month"
   placeholder="MM"
   ng-model="form.prospect().month"
-  ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"
+  ng-model-options="{ updateOn: 'default blur' }"
   ng-change="form.updateNumberOfDays()"
   ng-required="true">
   <option value="" selected default>Month</option>
