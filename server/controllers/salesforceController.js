@@ -101,7 +101,8 @@ module.exports = function(app) {
     .then(function(result) {
       res.json(result);
     }, function(err) {
-      res.json(arguments);
+      res.status(500);
+      res.json(err);
     });
   }
 
