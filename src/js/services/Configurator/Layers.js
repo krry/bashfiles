@@ -33,7 +33,7 @@ function Layers_(Design, Styles, AreaService, Client) {
 
   l_roofpeak = new ol.layer.Vector({
     source: Design.roofpeak_source,
-    style:  Styles.remap,
+    style:  Styles.roofpeak,
     name: 'roof_area_layer',
   });
 
@@ -47,7 +47,7 @@ function Layers_(Design, Styles, AreaService, Client) {
 
   // highlighted segments get rendered by this FeatureOverlay
   roofpeak_overlay = new ol.FeatureOverlay({
-    style: Styles.remapHighlight,
+    style: Styles.roofpeakHighlight,
     features: h_coll,
   });
 

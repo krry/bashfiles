@@ -144,7 +144,8 @@ function StageCtrl_($scope, $location, $state, $timeout, $animate, User, Templat
       Client.emit('Stages: jump to step', 'zip-nearme');
     }
     // Only show the continue modal if the user is on the home page (zip or address page) and has advanced in the flow
-    else if (isOnHome && hasAdvanced) {
+    // Don't show the continue modal if the Salesforce login error modal is currently showing 
+    else if (isOnHome && hasAdvanced && !Modal.dialogShown('salesforce-login')) {
       Modal.set(true);
       return Modal.activate('continue');
     }

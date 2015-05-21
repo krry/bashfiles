@@ -26,7 +26,6 @@ function Interactions_(Design, Client, Styles, AreaService) {
   // configure the draw
   draw_options = {
     type: 'Polygon',
-    geometryName: 'area',
     snapTolerance: 15, // defaults to 12
     style: Styles.drawStyle,
   }
