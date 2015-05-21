@@ -18,14 +18,14 @@
   .dialog.no-close {
     transition: all 500ms $easing-quick 1000ms;
     min-height: 90%;
-    margin: 1em auto;
+    margin: 1em auto auto;
   }
 
   .dialog.dialog-shown.no-close {
     min-height: 0;
     height: auto;
     padding: 3em;
-    margin: 12em auto auto;
+    margin: 1em auto auto;
   }
 
   .dialog {
@@ -140,6 +140,9 @@
       /* height: 90%; */
       min-height: 90%;
       padding: 30vh 3em;
+    }
+    .dialog.dialog-shown.no-close {
+      margin: 12em auto auto;
     }
   }
 }

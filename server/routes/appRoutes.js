@@ -1,4 +1,3 @@
-var auth = require('../auth');
 var env  = process.env.NODE_ENV || 'development';
 var protected_envs = ['development', 'test', 'stage', 'train'];
 
