@@ -44,15 +44,15 @@ module.exports = function(app) {
       Consultation_Type__c : 'Online',
       Opportunity_Owner__c : sfOppOwnerId,
       RecordTypeId : sfRecordType,
-      Share_Proposal_Link__c: req.body.Share_Proposal_Link__c,
-      Panel_Count__c: req.body.PanelCount,
-      Average_Yield__c: req.body.AverageYield,
-      Estimated_Production__c: req.body.EstimatedProduction,
-      Average_Monthly_Bill__c: req.body.AverageMonthlyBill,
-      Utility_Rate__c: req.body.UtilityRate,
-      SolarCity_Rate__c: req.body.SolarCityRate,
-      Estimated_First_Year_Savings__c: req.body.EstimatedFirstYearSavings,
-      Estimated_Offset__c: req.body.EstimatedOffset
+      Share_Proposal_Link__c: req.body.Share_Proposal_Link__c
+      // Panel_Count__c: req.body.PanelCount,
+      // Average_Yield__c: req.body.AverageYield,
+      // Estimated_Production__c: req.body.EstimatedProduction,
+      // Average_Monthly_Bill__c: req.body.AverageMonthlyBill,
+      // Utility_Rate__c: req.body.UtilityRate,
+      // SolarCity_Rate__c: req.body.SolarCityRate,
+      // Estimated_First_Year_Savings__c: req.body.EstimatedFirstYearSavings,
+      // Estimated_Offset__c: req.body.EstimatedOffset
     };
   }
 
@@ -76,7 +76,7 @@ module.exports = function(app) {
         action;
 
     // If we get passed a specific Salesforce session, use that for the connection
-    if (req.body.Session) {
+    if (req.body.Session && !req.body.LeadId) {
       lead.Partner_Detail__c = req.body.Session.partnerId;
 
       conn = createConn({
@@ -101,7 +101,8 @@ module.exports = function(app) {
     .then(function(result) {
       res.json(result);
     }, function(err) {
-      res.json(arguments);
+      res.status(500);
+      res.json(err);
     });
   }
 
