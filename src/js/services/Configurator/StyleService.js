@@ -4,17 +4,17 @@ function StyleService_ ($q) {
   // this factory provides styles, etc for edlOlMap features
   /* jshint +W069 */  // ignore [bracket notation] through file
   var StyleService = {};
-  var colors = {};
-  var c = colors;
+
+  var c = {};
+  var s = {};
 
   StyleService.colors = c;
+  StyleService.styles = s;
 
   /*********************** size configs ***********************/
-  c.midpointRadius      = 10;
-  c.midpointOuterStroke = 8;
-  c.endpointRadius      = 8;
-  c.endpointOuterStroke = 2;
-  c.lineSegmentWidth = 5;
+  var endpointNodeRadius     = 8;
+  var nodeStrokeWidth        = 2;
+  var lineSegmentWidth       = 5;
 
   /*********************** common colors ***********************/
   c.$brand_fire                 = "rgba(240, 105, 083, 1.0)"; // $brand-fire
@@ -24,96 +24,103 @@ function StyleService_ ($q) {
   c.$brand_rain                 = "rgba(072, 135, 255, 1.0)"; // like blue, but more refined
   c.$brand_rain_thirty          = "rgba(072, 135, 255, 0.3)"; // like blue, 70% less refined
 
-  // fill
-  c.brandFireFill    = new ol.style.Fill({
+  /* vector fill */
+
+  s.fill_brand_fire = new ol.style.Fill({
     color: c.$brand_fire_thirty,
   });
 
-  c.whiteFill    = new ol.style.Fill({
+  s.fill_brand_rain_thirty  = new ol.style.Fill({
+         color: c.$brand_rain_thirty,
+       })
+
+  s.fill_brand_white  = new ol.style.Fill({
     color: c.$brand_white,
   });
 
-  c.brandRainFill    = new ol.style.Fill({
-    color: c.$brand_rain,
+  // line strokes
+  s.brandFireLineStroke    = new ol.style.Stroke({
+    color: c.$brand_fire,
+    width: lineSegmentWidth,
   });
 
-  // polygon line strokes
-  c.brandFireStroke_2px =  new ol.style.Stroke({
+  s.stroke_brand_fire_node =  new ol.style.Stroke({
     color: c.$brand_fire,
-    width: 2
+    width: nodeStrokeWidth,
   })
 
-  c.brandFireStroke_5px    = new ol.style.Stroke({
-    color: c.$brand_fire,
-    width: 5
-  });
-
-  c.blackStroke_5px    = new ol.style.Stroke({
-    color: c.$brand_black,
-    width: 5
-  });
+  s.stroke_dashed_brand_rain_2px = new ol.style.Stroke({
+        color: c.$brand_rain,
+    width: nodeStrokeWidth,
+    lineDash: [5,5],
+  })
 
   c.blackStroke_2px = new ol.style.Stroke({
     color: c.$brand_black,
-    width: 2
-  })
+    width: nodeStrokeWidth,
+  });
 
   c.whiteStroke_2px = new ol.style.Stroke({
     color: c.$brand_white,
-    width: 2
-  })
+    width: nodeStrokeWidth,
+  });
 
-  c.brandRainStroke_2px =  new ol.style.Stroke({
+  s.brandRainStroke_2px =  new ol.style.Stroke({
     color: c.$brand_rain,
-    width: 2
-  })
+    width: nodeStrokeWidth,
+  });
+
+  s.brandRainStroke_5px = new ol.style.Stroke({
+    color: c.$brand_rain,
+    width: lineSegmentWidth,
+  });
 
   /*********************** roofpeak***********************/
   c.roofpeakSegment      = new ol.style.Style({
     stroke: new ol.style.Stroke({
       color: c.$brand_black,
-      width: c.lineSegmentWidth
+      width: lineSegmentWidth
     })
   });
   c.roofpeakHighlightSegment = new ol.style.Style({
     stroke: new ol.style.Stroke({
       color: c.$brand_fire,
-      width: c.lineSegmentWidth
+      width: lineSegmentWidth
     })
   })
   c.roofpeakNode = new ol.style.Circle({
-    radius: c.endpointRadius,
-    fill: c.whiteFill,
+    radius: endpointNodeRadius,
+    fill: s.fill_brand_white,
     stroke: c.blackStroke_2px,
   })
   c.modifyMouseNode = new ol.style.Circle({
-    radius: c.endpointRadius,
+    radius: endpointNodeRadius,
     fill: c.blackFill,
     stroke: c.blackStroke_2px,
   })
   c.roofpeakHighlightNode = new ol.style.Circle({
-    radius: c.endpointRadius,
-    fill: c.whiteFill,
-    stroke: c.brandFireStroke_2px,
+    radius: endpointNodeRadius,
+    fill: s.fill_brand_white,
+    stroke: s.stroke_brand_fire_node,
   })
   c.modifyEndpoint = c.roofpeakHighlightSegment;
 
   /******************** custom styling functions *******/
-  function segmentEndpointCoords (feature) {
+  function getLineSegmentEndpoints (segmentFeature) {
     // return the coordinates of the endpoints
-    var coordinates = feature.getGeometry().getCoordinates();
+    var coordinates = segmentFeature.getGeometry().getCoordinates();
     return new ol.geom.MultiPoint(coordinates);
   }
 
-  function modifyEndpointCoords (feature) {
+  function getEndpointsFromPolygon (polygonFeature) {
     // return the coordinates of the endpoints
-    var coordinates = feature.getGeometry().getCoordinates()[0];
+    var coordinates = polygonFeature.getGeometry().getCoordinates()[0];
     return new ol.geom.MultiPoint(coordinates);
   }
 
-  function modifyMidpointCoords (feature) {
+  function getPolygonMidpoints (polygonFeature) {
     // return the coordinates of the first ring of the polygon
-    var corners = feature.getGeometry().getCoordinates()[0];
+    var corners = polygonFeature.getGeometry().getCoordinates()[0];
     var midpoints = [];
     var x, y;
     for (var i = 0, len = corners.length-1; i < len; i++) {
@@ -130,40 +137,95 @@ function StyleService_ ($q) {
   /** Draw
     a style for the user to see while drawing their polygon.
   */
-  StyleService.drawStyle = [
-    new ol.style.Style({
-      fill: new ol.style.Fill({
-        color: c.$brand_rain_thirty,
-      }),
-      stroke: new ol.style.Stroke({
-        color: c.$brand_rain,
-        width: 5
-      }),
-      image: new ol.style.Circle({
-        radius: 6,
-        fill: c.brandRainFill,
-        stroke: c.brandRainStroke_2px,
-      }),
-      zIndex: Infinity
+  StyleService.drawStyle = function drawStyleFunction (feat) {
+    style = {}
+
+
+    s.node_brand_rain = new ol.style.Circle({
+        radius: 5,
+        fill:   s.fill_brand_white,
+        stroke: s.brandRainStroke_2px,
+      })
+
+    s.traceDashedStroke = new ol.style.Style({
+        stroke: s.stroke_dashed_brand_rain_2px,
+      })
+
+    s.drawStrokeStyle = new ol.style.Style({
+         stroke: s.brandRainStroke_5px,
+      })
+
+
+
+    s.traceCursorStyle = new ol.style.Style({
+      image: s.node_brand_rain,
     })
-  ];
+
+
+    // style applied while tracing
+    style.geometry = [
+      // fill styling
+      new ol.style.Style({
+        fill:s.fill_brand_rain_thirty,
+      }),
+      // dashed line style
+      s.traceDashedStroke,
+      // trace cursor style
+      s.traceCursorStyle,
+      // style line segments solid
+      new ol.style.Style({
+        stroke: s.brandRainStroke_5px,
+        geometry:   function getLineSegmentsFromPolygon (feat) {
+          // return the coordinates of the endpoints
+          var coordinates = feat.getGeometry().getCoordinates();
+          if (feat.getGeometry() instanceof ol.geom.Point || feat.getGeometry() instanceof ol.geom.Polygon) {
+            return
+          }
+          // coordinates.shift();
+          console.log(coordinates.length)
+          console.log(feat.getGeometry())
+          return new ol.geom.LineString(coordinates);
+        }
+      })
+    ]
+
+    // style applied in static draw view
+    style.area = [
+      new ol.style.Style({
+        fill: new ol.style.Fill({
+          color: c.$brand_rain_thirty,
+        }),
+        stroke: new ol.style.Stroke({
+          color: c.$brand_rain,
+          width: 5,
+        }),
+      }),
+      new ol.style.Style({
+        image: s.node_brand_rain,
+        geometry: getEndpointsFromPolygon,
+        zIndex: Infinity
+      })
+    ];
+    console.log(feat.getGeometryName())
+    return style[feat.getGeometryName()];
+  }
 
   StyleService.remapHighlight = (function() {
 
     var styles = {};
 
-    styles['segment'] =  [
+    styles.segment =  [
       // segment styling
       c.roofpeakHighlightSegment,
       // segment endpoint styling
       new ol.style.Style({
         image: c.roofpeakHighlightNode,
         stroke: c.roofpeakHighlightSegment,
-        geometry: segmentEndpointCoords,
+        geometry: getLineSegmentEndpoints,
       })
     ];
 
-    styles['corner'] =  [
+    styles.corner =  [
       new ol.style.Style({
         image: c.roofpeakHighlightNode,
       })
@@ -198,7 +260,7 @@ function StyleService_ ($q) {
         fill: new ol.style.Fill({
           color: c.$brand_black
         }),
-        stroke: c.brandFireStroke_2px,
+        stroke: s.stroke_brand_fire_node,
       }),
       zIndex: Infinity
     })
@@ -215,22 +277,27 @@ function StyleService_ ($q) {
      */
     // segment styling
     c.roofpeakHighlightSegment,
+    // fill styling,
+    new ol.style.Style({
+      fill:    s.fill_brand_fire,
+    }),
+
     // segment endpoint styling
     new ol.style.Style({
       image: new ol.style.Circle({
         radius: 5,
-        fill: c.whiteFill,
-        stroke: c.brandFireStroke_2px,
+        fill: s.fill_brand_white,
+        stroke: s.stroke_brand_fire_node,
       }),
-      geometry: modifyEndpointCoords
+      geometry: getEndpointsFromPolygon
     }),
     // segment midpoints styling
     new ol.style.Style({
       image: new ol.style.Circle({
         radius: 3,
-        fill: c.whiteFill,
+        fill: s.fill_brand_white,
       }),
-      geometry: modifyMidpointCoords,
+      geometry: getPolygonMidpoints,
     })
   ]
 
