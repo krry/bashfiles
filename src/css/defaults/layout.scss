@@ -100,6 +100,10 @@ main.main.main-fixed {
   max-width: 70rem;
 }
 
+.step-qualify {
+  text-align: center;
+}
+
 .actionbar {
   &.top {
     padding-bottom: 1.3em;
@@ -209,7 +213,7 @@ main.main.main-fixed {
     min-height: 34em;
   }
   .step-qualify .secondary {
-    min-height: 56em;
+    min-height: 61em;
   }
 }
 
@@ -236,7 +240,7 @@ main.main.main-fixed {
     padding: 0;
   }
   .step-qualify .secondary {
-    min-height: 49em;
+    min-height: 54em;
   }
 }
 
@@ -246,6 +250,6 @@ main.main.main-fixed {
     width: 65%;
   }
   .step-qualify .secondary {
-    min-height: 48em;
+    min-height: 52em;
   }
 }
