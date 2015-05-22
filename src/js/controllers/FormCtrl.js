@@ -6,9 +6,9 @@
 
 ================================================== */
 
-controllers.controller("FormCtrl", ["$scope", "$window", "$location", "$element", "Clientstream", "Session", "User", "Geocoder", "Form", "Credit", "Contact", "Utility", "Rates", "Salesforce", "CREDIT_FAIL", "URL_ROOT", "defaultValues", FormCtrl_]);
+controllers.controller("FormCtrl", ["$scope", "$window", "$location", "$element", "Clientstream", "Session", "User", "Geocoder", "Form", "Credit", "Contact", "Installation", "Utility", "Rates", "Salesforce", "CREDIT_FAIL", "URL_ROOT", "defaultValues", FormCtrl_]);
 
-function FormCtrl_($scope, $window, $location, $element, Client, Session, User, Geocoder, Form, Credit, Contact, Utility, Rates, Salesforce, CREDIT_FAIL, URL_ROOT, defaultValues) {
+function FormCtrl_($scope, $window, $location, $element, Client, Session, User, Geocoder, Form, Credit, Contact, Installation, Utility, Rates, Salesforce, CREDIT_FAIL, URL_ROOT, defaultValues) {
 
   var vm = this;
   var form_stream;
@@ -122,6 +122,7 @@ function FormCtrl_($scope, $window, $location, $element, Client, Session, User, 
   vm.checkCredit = checkCredit;
   vm.createContact = createContact;
   vm.skipConfigurator = skipConfigurator;
+  vm.checkDuplicateInstallation = checkDuplicateInstallation;
   vm.checkUtility = checkUtility;
   vm.updateNumberOfDays = updateNumberOfDays;
 
@@ -367,7 +368,7 @@ function FormCtrl_($scope, $window, $location, $element, Client, Session, User, 
         email: vm.prospect().email
       });
 
-      if (vm.prospect().hasFinancingOptions) {
+      if (vm.prospect().hasFinancingOptions && !vm.prospect().hasDuplicateInstallation) {
         Client.emit('Stages: jump to step', 'credit-check')
       } else {
         vm.prospect().qualified = false;
@@ -466,6 +467,16 @@ function FormCtrl_($scope, $window, $location, $element, Client, Session, User, 
     vm.prospect().skipped = true;
     Client.emit('Form: valid data', { skipped: true });
     Client.emit('Stages: jump to stage', 'flannel.signup');
+  }
+
+  function checkDuplicateInstallation() {
+    return Installation.checkDuplicate({
+      address: vm.prospect().street,
+      zip: vm.prospect().zip
+    }).then(function(data) {
+      vm.prospect().hasDuplicateInstallation = data.IsDuplicate;
+      Client.emit('Form: valid data', { hasDuplicateInstallation: data.IsDuplicate });
+    });
   }
 
   function checkUtility() {

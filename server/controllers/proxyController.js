@@ -140,6 +140,18 @@ module.exports = function(app) {
     proxyPOST(url, req.body, res);
   }
 
+  function checkDuplicate(req, res) {
+    var url = [
+      conf.SOLAR_WORKS_API_ROOT,
+      conf.INSTALLATION_API,
+      '/checkduplicate',
+      '/' + req.query.address,
+      '/' + req.query.zip
+    ].join('');
+
+    proxyGET(url, res);
+  }
+
   function panelFill(req, res) {
     var url = [
       conf.PANEL_FILL_ROOT,
@@ -164,6 +176,7 @@ module.exports = function(app) {
     gsa: gsa,
     schedule: schedule,
     installation: installation,
+    checkDuplicate: checkDuplicate,
     panelFill: panelFill
   };
 };
