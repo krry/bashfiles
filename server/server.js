@@ -50,7 +50,15 @@ if (app.settings.nconf.get('SSL_ENABLED')) {
 }
 
 app.use(cookieParser(nconf.get('FLANNEL_SECRET')));
+
+// substitutes as a robots.txt
+app.get('/robots.txt', function (req, res) {
+    res.type('text/plain');
+    res.send("User-agent: *\nDisallow: /");
+});
+
 app.get('/', require('./controllers/appController.js')(app).index);
+
 app.use(compress({ threshold: 512 }));
 app.use(express.static(app.publicRoot, {maxAge: oneYear}));
 
