@@ -151,7 +151,7 @@ $color-header-text:          $white;
 $color-header-bkgd:          $grey-darker;
 $color-header-shadow:        transparentize($grey-darker, 0.5);
 
-$color-chat-trigger:         $blue-ash;
+$color-chat-trigger:         desaturate(darken($blue, 35%), 60%);
 
 $color-dev-tools:            glass($grey-darkest);
 $color-oda-tools:            glass($blue-dark);

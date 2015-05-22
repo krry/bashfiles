@@ -20,10 +20,10 @@ fln-help {
   width: 15rem;
   height: 17.5rem;
   background: hsl(0, 100%, 100%);
-  box-shadow: 0 0 12px -4px hsla(0, 0%, 0%, 0.8);
+  box-shadow: 0 0 20px 0px hsla(0, 0%, 0%, 0.5);
   border-style: none;
-  border-radius: 8px 8px 0 0;
-  border: 1px solid #a8b2c1;
+  border-radius: 10px 10px 0 0;
+  border: 1px solid #fff;
   transform: translate3d(0, 15rem, 0);
   transition: transform 250ms $easing-quick;
 
@@ -33,12 +33,12 @@ fln-help {
 
   .trigger-bar {
     @include apercu-bold;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: $white;
     height: 2.5rem;
     background-color: $color-chat-trigger;
     border: 0;
-    border-radius: 6px 6px 0 0;
+    border-radius: 10px 10px 0 0;
     display: block !important;
     width: 100%;
     padding: 0.25em 1em;
