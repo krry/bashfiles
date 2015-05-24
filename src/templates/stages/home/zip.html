@@ -4,7 +4,7 @@
     <h1 ng-hide="form.invalidZip">Every 3 minutes, someone switches to&nbsp;SolarCity.<br><small>Are we in your neighborhood?</small></h1>
     <h1 class="error" ng-show="form.invalidZip">We've never seen that zip.<br><small>Let's try it again.</small></h1>
     <fln-input-zip></fln-input-zip>
-    <p>If you prefer to speak with a sales representative, call <strong><a href="tel:18887652489">(888)&nbsp;765-2489</a></strong>.</p>
+    <p>If you prefer to speak with a sales representative, <br class="only-mobile">call <strong><a href="tel:18887652489">(888)&nbsp;765-2489</a></strong>.</p>
   </div>
 
   <div class="contain" ng-show="form.invalidTerritory">
@@ -16,7 +16,7 @@
       </div>
     </div>
     <div fln-alternav alternatives="true"></div fln-alternav>
-    <p>If you prefer to speak with a sales representative, call <strong><a href="tel:18887652489">(888)&nbsp;765-2489</a></strong>.</p>
+    <p>If you prefer to speak with a sales representative, <br class="only-mobile">call <strong><a href="tel:18887652489">(888)&nbsp;765-2489</a></strong>.</p>
   </div>
 
 </section>
