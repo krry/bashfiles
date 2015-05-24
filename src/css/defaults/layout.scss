@@ -162,7 +162,7 @@ main.main.main-fixed {
 
 @media screen and (min-width: $width-min-lrg) {
   .only-mobile {
-    display: none;
+    display: none !important;
   }
   .primary.primary {
     width: 75%;
