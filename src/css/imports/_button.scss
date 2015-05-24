@@ -45,7 +45,7 @@
     @include apercu-regular;
     color: $grey-medium;
     background-color: $color;
-    border: 1px solid $grey-lighter;
+    border: 1px solid $grey-light;
   }
 
   @if $color == tint(.8) {
