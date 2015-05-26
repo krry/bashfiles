@@ -1,15 +1,56 @@
-// only when page is printed
+//still not too sure about this technique, it seems to work sometimes
+// and not work sometimes, from here: http://davidwalsh.name/css-page-breaks
+//then this line makes a page break: <div class="page-break"></div>
+//for now I'm just using it as an expander div to take up some space and force the
+//text down to the next page.
+//
+
+@media all {
+  .page-break {
+    display: none;
+  }
+}
 
 @media print {
-  main {
-    font-size: 12pt;
-    padding: 1in;
-    line-height: 1.25em;
-    font-weight: 400;
+  .page-break {
+    position:relative;
+    display: block;
+    width:1px;
+    height:1px;
+    page-break-before: always;
+    // break-before: always;
+    // height:85px;
   }
 
-  h1 {
-    font-size: 36pt;
-    line-height: 1.25em;
+  .step-proposal {
+    #bill-slider {
+      display: none;
+    }
+    .actionbar {
+      display:none;
+    }
+    .proposal-redo {
+      display:none !important;
+    }
+    .col.third {
+      width: 49.9%;
+    }
+    label {
+      padding: 0 40px 0;
+    }
+    .down-blk {
+      display:none;
+    }
+    .overlay.only {
+      padding-bottom: 0px;
+    }
+    .fine-print {
+      margin-top: -30px;
+    }
+    span{
+      &.icon {
+        display:none;
+      }
+    }
   }
 }
