@@ -18,17 +18,12 @@
       <button class="tiny white" ng-show="tracing" fln-omap-reset-draw ng-click="app.notifyTrackerAboutClick('reset_draw')" >Redo</button>
     </div>
   </div>
+  <!-- TODO: make these dryer. Buttons only marked up one time -->
   <div class="mobile-buttons only-mobile">
     <div class="row">
       <div class="col full">
         <button class="white slab small" ng-disabled="!tracing" fln-omap-reset-draw ng-click="app.notifyTrackerAboutClick('reset_draw')">Redo</button>
       </div>
-      <!-- <div class="col sml-half">
-        <button class="white slab large" ng-disabled="!tracing" fln-omap-reset-draw ng-click="app.notifyTrackerAboutClick('reset_draw')">Redo</button>
-      </div>
-      <div class="col sml-half">
-        <button class="gold slab large" ng-disabled="!traced" ng-click="stages.animateInstructionsOut('edit-area')">Next</button>
-      </div> -->
     </div>
   </div>
 </fln-expander>
