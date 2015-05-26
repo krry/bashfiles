@@ -153,12 +153,22 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
 
   tooltipOverlay.setOffset([-70, 0]);
 
+  function mapIsMobileWidth (evt){
+    if (evt.map.getSize()[0] < 768) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   function showRoofpeakTooltip (evt) {
     if (maps.omap.hasFeatureAtPixel(evt.pixel)) {
-      tooltipOverlay.setMap(maps.omap);
-      tooltipOverlay.setPosition(evt.coordinate);
+      if (mapIsMobileWidth(evt)) {
+        tooltipOverlay.setPosition([0,0])
+      } else {
+        tooltipOverlay.setPosition(evt.coordinate);
+      }
     } else {
-      tooltipOverlay.setMap(null);
+      tooltipOverlay.setPosition(undefined);
     }
   }
 
@@ -185,7 +195,7 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
     $configurator.promise.then(function (viewport) {
       Interactions.modify_overlay.setMap(maps.omap);
       Client.emit('Configurator: update mapsize', viewport);
-      omap.on('pointermove', crossHairCursorInModify);
+      omap.on('pointermove', handCursorInRoofpeak);
     })
     // Layers.collection.remove(Layers.draw);
     Layers.collection.push(Layers.modify);
@@ -234,11 +244,14 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
 
   this.roofpeakAdd = function() {
     $configurator.promise.then(function (viewport) {
-      Client.emit('Configurator: update mapsize', viewport)
+      Client.emit('Configurator: update mapsize', viewport);
+
+      tooltipOverlay.setMap(maps.omap);
+
       omap.on('pointermove', handCursorInRoofpeak);
       omap.on('pointermove', showRoofpeakTooltip);
       // add the layer
-      Layers.collection.push(Layers.roofpeak)
+      Layers.collection.push(Layers.roofpeak);
       // add the overlay
       maps.omap.addOverlay(Layers.roofpeak_overlay);
     })
@@ -246,6 +259,7 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
   }
   this.roofpeakDel = function() {
     $configurator.promise.then(function (viewport) {
+      tooltipOverlay.setMap(null);
       omap.un('pointermove', handCursorInRoofpeak);
       omap.un('pointermove', showRoofpeakTooltip);
       // remove the layer
