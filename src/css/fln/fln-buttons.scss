@@ -37,6 +37,32 @@
   min-width: 13em;
 }
 
+
+
+.mobile-buttons {
+  position:absolute;
+  width:100%;
+  max-height:55px;
+  background-color:grey;
+  bottom:-700px;
+    &.in-mobile-buttons {
+      bottom:0;
+    }
+}
+
+// this adjusts for the change of the footer from relative to fixed
+@media screen and (min-width: $width-min-med) and (min-height: $width-min-lrg){
+  .mobile-buttons.in-mobile-buttons {
+    bottom:28px;
+  }
+}
+
+@media screen and (min-width: $width-min-lrg) {
+  .mobile-buttons {
+    display:none;
+  }
+}
+
 @media screen and (min-width: $width-min-med) {
   .button-set {
     button:not(:first-child) {
