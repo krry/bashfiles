@@ -9,8 +9,16 @@
     <p class="no-mobile">Locate the sunniest spot and trace that area for your panels in the next step.</p>
     <p class="no-mobile">Can't find your house? Chat with us for help below.</p>
     <!-- <figure><img src="../img/config_example_zoom.svg" alt="Make sure your roof is large and centered." loop="infinite"></figure> -->
-    <div class="actionbar">
+    <div class="actionbar no-mobile">
       <button class="gold" ng-click="stages.animateInstructionsOut('trace-area')">Next</button>
     </div>
   </div>
+  <div class="mobile-buttons only-mobile">
+    <div class="row">
+      <div class="col full">
+        <button class="gold slab small" ng-click="stages.animateInstructionsOut('trace-area')">Next</button>
+      </div>
+    </div>
+  </div>
 </fln-expander>
+

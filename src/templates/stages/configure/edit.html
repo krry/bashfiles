@@ -9,9 +9,19 @@
       <img src="../img/config_example_edit-01.svg" alt="Tweak the shape to fit your roof.">
     </figure>
     <p class="no-mobile">If you'd like to start over, click the redo button&nbsp;below.</p>
-    <div class="actionbar pair">
+    <div class="actionbar pair no-mobile">
       <button class="gold" ng-click="stages.animateInstructionsOut('detail-area')">Next</button>
       <button class="tiny white" fln-omap-clear-poly ng-click="app.notifyTrackerAboutClick('redoing_design')">Redo</button>
+    </div>
+  </div>
+  <div class="mobile-buttons only-mobile">
+    <div class="row">
+      <div class="col sml-half">
+        <button class="white slab small" fln-omap-clear-poly ng-click="app.notifyTrackerAboutClick('redoing_design')">Redo</button>
+      </div>
+      <div class="col sml-half">
+        <button class="gold slab small" ng-click="stages.animateInstructionsOut('detail-area')">Next</button>
+      </div>
     </div>
   </div>
 </fln-expander>

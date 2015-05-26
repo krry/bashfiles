@@ -401,8 +401,6 @@ function StageCtrl_($scope, $location, $state, $timeout, $animate, User, Templat
     }
   }
 
-  //animate in the intructions on the configurator stage on view load.
-  //todo, find a better place to put these animation functions.
   function animateInstructions(data) {
     if (stage === 1) {
 
@@ -410,6 +408,10 @@ function StageCtrl_($scope, $location, $state, $timeout, $animate, User, Templat
         var instructionsBar;
         instructionsBar = document.getElementsByClassName("instructions");
         $animate.addClass(instructionsBar, 'in');
+
+        var mobileButtons;
+        mobileButtons = document.getElementsByClassName("mobile-buttons");
+        $animate.addClass(mobileButtons, 'in-mobile-buttons');
       },100);
     }
   }
@@ -420,8 +422,11 @@ function StageCtrl_($scope, $location, $state, $timeout, $animate, User, Templat
 
       var instructionsBar;
       instructionsBar = document.getElementsByClassName("instructions");
-
       $animate.removeClass(instructionsBar, 'in');
+
+      var mobileButtons;
+      mobileButtons = document.getElementsByClassName("mobile-buttons");
+      $animate.removeClass(mobileButtons, 'in-mobile-buttons');
 
       $timeout(function() {
         jumpToStep(goToStep);

@@ -6,10 +6,20 @@
     <figure class="no-mobile">
       <img src="../img/config_example_peak-01.svg" alt="Indicate the highest point or side of the shape.">
     </figure>
-    <div class="actionbar pair">
+    <div class="actionbar pair no-mobile">
       <p class="no-mobile">This will help us determine what direction your panels will face. If your roof is flat, select the (top) northernmost&nbsp;line.</p>
       <button class="gold" ng-disabled="!roof_peak_chosen" ng-click="stages.next(); app.notifyTrackerAboutClick('roof_alignment_determined')" ng-hide="">Next</button>
       <button class="tiny white" fln-omap-redo-modify>Redo</button>
+    </div>
+  </div>
+  <div class="mobile-buttons only-mobile">
+    <div class="row">
+      <div class="col sml-half">
+        <button class="white slab small" fln-omap-redo-modify>Redo</button>
+      </div>
+      <div class="col sml-half">
+        <button class="gold slab small" ng-disabled="!roof_peak_chosen" ng-click="stages.next(); app.notifyTrackerAboutClick('roof_alignment_determined')" ng-hide="">Next</button>
+      </div>
     </div>
   </div>
 </fln-expander>
