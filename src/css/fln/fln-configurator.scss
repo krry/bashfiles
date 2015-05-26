@@ -5,8 +5,6 @@
   width: 100%;
   display: block;
   height: auto;
-  // I'd like to double check the ramificaations of commenting this line out
-  // position: absolute;
   top: 0;
   right: 0;
 }
@@ -25,8 +23,8 @@
   line-height: 120%;
   width: 100%;
   text-align: center;
-  overflow:hidden;
-  position:absolute;
+  overflow: hidden;
+  position: absolute;
   top:-700px;
     &.in {
       top:0;
