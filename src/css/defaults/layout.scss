@@ -223,6 +223,10 @@ main.main.main-fixed {
   }
   .only.only {
     width: auto;
+
+    &.full.primary {
+      width: 100%;
+    }
   }
   .secondary.secondary {
     width: calc(18em - 1px);

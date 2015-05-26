@@ -14,7 +14,7 @@
       <h3>Do you own your house?</h3>
     </div>
     <div class="col half baseline sml-center med-full lrg-left">
-      <button class="btn answer-yes gold ib tiny" ng-click="form.checkUtility()">Yes</button>
+      <button class="btn answer-yes gold ib tiny" ng-click="form.checkUtility(); form.checkDuplicateInstallation()">Yes</button>
       <button class="btn answer-no gold ib tiny" ng-click="modal.showDialog({dialog: 'alternatives', data: ''}); app.notifyTrackerAboutClick('not_a_homeowner')">No</button>
     </div>
   </div>
