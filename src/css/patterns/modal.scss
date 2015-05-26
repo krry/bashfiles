@@ -98,8 +98,10 @@
         border-radius: 4px;
         padding: 2px;
       }
-      .choice {
+      .choice, .unselectable {
         padding: 10px;
+      }
+      .choice {
         cursor: pointer;
         &:hover {
           background: $grey-lightest;

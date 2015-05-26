@@ -13,6 +13,7 @@
         ng-class="{ selected: isSelected(utility) }">
       {{ utility.UtilityName }}
     </li>
+    <li class="unselectable" ng-show="modal.dialogData.length < 3">&nbsp;</li>
   </ul>
 </div>
 <button class="btn gold" ng-click="continue()">Submit</button>
