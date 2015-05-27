@@ -213,7 +213,7 @@ function ScheduleCtrl_ ($q, Form, Client, Session, SiteSurvey, Installation, Sal
 
   function answeredQuestions() {
     /* jshint eqnull:true */
-    var hasAnsweredQuestions = (vm.prospect().hoa != null && vm.prospect().pets != null && vm.prospect().attic != null),
+    var hasAnsweredQuestions = (vm.prospect().hoa != null && vm.prospect().pets != null && vm.prospect().attic != null && vm.prospect().battery != null),
         hasSelectedHOA = vm.prospect().hoa ? (vm.prospect().ahjId != null || vm.prospect().hoaName != null) : true;
 
     return (hasAnsweredQuestions && hasSelectedHOA);

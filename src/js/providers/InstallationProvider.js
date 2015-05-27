@@ -9,7 +9,7 @@
 providers.provider('Installation', [InstallationProvider_ ]);
 
 function InstallationProvider_ () {
-  this.$get = ['$http', '$q', 'INSTALLATION_API', function($http, $q, INSTALLATION_API) {
+  this.$get = ['$http', '$q', 'INSTALLATION_API', 'CHECK_DUPLICATE_API', function($http, $q, INSTALLATION_API, CHECK_DUPLICATE_API) {
     function create(data) {
       var dfd = $q.defer();
       
@@ -29,8 +29,23 @@ function InstallationProvider_ () {
       return dfd.promise;
     }
 
+    function checkDuplicate(params) {
+      var dfd = $q.defer();
+
+      $http.get(CHECK_DUPLICATE_API, {
+        params: params
+      }).then(function(resp) {
+        dfd.resolve(resp.data);
+      }, function(resp) {
+        dfd.reject(resp);
+      });
+
+      return dfd.promise;
+    }
+
     return {
-      create: create
+      create: create,
+      checkDuplicate: checkDuplicate
     };
   }];
 }

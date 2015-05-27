@@ -38,5 +38,6 @@ module.exports = function(app) {
   app.get(conf.CLIENT.GSA_API, proxyController.gsa);
   app.post(conf.CLIENT.GSA_API, proxyController.schedule);
   app.post(conf.CLIENT.INSTALLATION_API, proxyController.installation);
+  app.get(conf.CLIENT.CHECK_DUPLICATE_API, proxyController.checkDuplicate);
   app.get(conf.CLIENT.PANEL_FILL_API, proxyController.panelFill);
 };

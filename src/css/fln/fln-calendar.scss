@@ -152,14 +152,18 @@
 
 .appointment-card {
   @include apercu-medium;
-  border: 1px solid $grey-medium;
+  border: 1px solid $grey-light;
   border-radius: 3px;
-  background-color: lighten($gold, 40%);
+  background-color: lighten($gold, 43%);
   margin-bottom: 4em;
-  padding: 2em 0;
+  padding: 2em 1em;
   h1 {
     font-size: 2.5em;
     text-transform: uppercase;
+  }
+  h2 {
+    font-size: 1.5em;
+    margin: 0;
   }
   .calendar-links {
     @include apercu-regular;
