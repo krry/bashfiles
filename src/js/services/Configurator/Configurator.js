@@ -26,7 +26,7 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
     mapTypeId: google.maps.MapTypeId.HYBRID,
     disableDoubleClickZoom: true,
     scrollwheel: false,
-    streetViewControl: false
+    streetViewControl: false,
   };
 
   omap_controls = ol.control.defaults({
@@ -144,6 +144,10 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
       }
     });
   }
+
+  /* Tooltip for roofpeak */
+  // TODO: move this tooltip code to a directive.
+  // TODO: replace the current mouseover tooltip on draw with a similar directive
 
   var tooltip = $('<span id="roofpeakTooltip" class="followtip">Click to select your roof peak</span>');
   var tooltipOverlay = new ol.Overlay({
