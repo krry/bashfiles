@@ -1,7 +1,7 @@
 @import "../imports/motion";
 @import "../imports/sizes";
 
-// slide in from the top for mobile
+// slide the instructions in from the top for mobile
 .in-add, .in-remove {
   transition-property: all;
   transition-duration: 400ms;
@@ -23,9 +23,39 @@
   pointer-events: none;
 }
 
-// slide in from the side for desktop
-@media screen and (min-width: $width-min-lrg) {
 
+//slide the buttons in from the bottom on mobile
+.in-mobile-buttons-add, .in-mobile-buttons-remove {
+  transition-property: all;
+  transition-duration: 400ms;
+  transition-timing-function: $easing-quick;
+}
+
+.in-mobile-buttons,
+.in-mobile-buttons-add.in-mobile-buttons-add-active {
+  bottom:0;
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+  display: inherit;
+}
+
+.in-mobile-buttons-remove.in-mobile-buttons-remove-active {
+  bottom:-700px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media screen and (min-width: $width-min-med) {
+  .in-mobile-buttons,
+  .in-mobile-buttons-add.in-mobile-buttons-add-active {
+    bottom:28px;
+  }
+}
+
+
+@media screen and (min-width: $width-min-lrg) {
+  // slide in from the side for desktop
   .in,
   .in-add.in-add-active {
     top:0;
@@ -42,4 +72,10 @@
     opacity: 0;
     pointer-events: none;
   }
+
+  //make mobile buttons invisible for desktop during the animation
+  .in-mobile-buttons,
+  .in-mobile-buttons-add.in-mobile-buttons-add-active {
+    display: none;
+}
 }
