@@ -17,7 +17,6 @@ var concat = require('gulp-concat');
 var ugilfy = require('gulp-uglify');
 var plumber = require('gulp-plumber');
 var rename = require('gulp-rename');
-var uglify = require('gulp-uglify');
 var minifyCss = require('gulp-minify-css');
 
 var handleErrors = require('../util/handleErrors');
