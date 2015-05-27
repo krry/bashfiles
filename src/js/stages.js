@@ -4,6 +4,7 @@ angular.module('stages',[
   'share_link',
   'overview_link',
   'session_link',
+  'session_reset',
   'home',
   'configure',
   'proposal',
@@ -43,6 +44,11 @@ angular.module('stages',[
       User.isNew = false;
       Client.emit('ODA: Request session', toParams.session_ref_key);
       Client.emit('Stages: set initial state', ['flannel', toParams.stage, toParams.step].join('.'));
+      return;
+    }
+    else if (toState.name === 'session_reset') {
+      Client.emit('Stages: restart session', true);
+      Client.emit('App: new session', true);
       return;
     }
 
