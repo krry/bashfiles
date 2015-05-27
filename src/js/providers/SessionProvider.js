@@ -35,7 +35,8 @@ function SessionProvider_ (Form, Design, FIREBASE_URL) {
       _ref_key,
       _user_key,
       fb_observable,
-      state_stream;
+      state_stream,
+      use_new_session;
 
   // later, this will resolve for dependent parts
   var rx_session = new Rx.BehaviorSubject();
@@ -62,8 +63,14 @@ function SessionProvider_ (Form, Design, FIREBASE_URL) {
     Client.listen('Form: Loaded', saveFormId);
     Client.listen('Design: Loaded', saveDesignId);
     Client.listen('center changed', storeGMapCenter);
+    Client.listen('App: new session', setNewSessionFlag);
 
     function bootstrapSession (user_data) {
+      if (use_new_session) {
+        use_new_session = false;
+        user_data = { user_id: user_data.user_id };
+      }
+
       /* jshint -W030 */
       user_data.session_id && (_ref_key = user_data.session_id); /* jshint +W030 */
       // make the ref
@@ -136,6 +143,10 @@ function SessionProvider_ (Form, Design, FIREBASE_URL) {
       } else {
         // console.error('unhandled center changed event');
       }
+    }
+
+    function setNewSessionFlag (bool) {
+      use_new_session = bool;
     }
 
     function awesome_session_builder_brah () {
