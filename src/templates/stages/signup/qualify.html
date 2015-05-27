@@ -9,16 +9,15 @@
     <div class="contain row" ng-if="schedule.prospect().hasDuplicateInstallation">
       <div class="col full center">
         <h1>It looks like you're already a customer of ours.
-          <br><small>Give us a call at <a href="tel:18776907652">877-690-7652</a> or chat with us below to speak with a solar consultant.</small>
+          <br><small>Please give us a call or click on chat below to speak with a solar consultant.</small>
         </h1>
         <div class="appointment-card contain narrow col full center">
           <div>{{schedule.prospect().firstName}} {{schedule.prospect().lastName}}</div>
-          <div>{{schedule.prospect().street}}, {{schedule.prospect().city}}, {{schedule.prospect().state}} {{schedule.prospect().zip}}</div>
+          <div>{{schedule.prospect().street}}, {{schedule.prospect().city}}, {{schedule.prospect().state}}&nbsp;{{schedule.prospect().zip}}</div>
           <br>
-          <div>Please give us a call at</div>
-          <div><strong><a href="tel:18776907652">877-690-7652</a></strong></div>
+          <h2><a href="tel:18776907652">1 (877) 690-7652</a></h2>
           <br>
-          <p class="caps"><small>M&mdash;F 8AM to 5PM</small></p>
+          <p class="caps"><small>Mon &#126; Fri 8AM to 5PM</small></p>
         </div>
       </div>
     </div>
