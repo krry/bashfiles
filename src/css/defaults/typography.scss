@@ -56,6 +56,9 @@ h1 small, h2 small {
   margin-top: 0.5em;
   margin-bottom: 2em;
 }
+h1 small a {
+  color: inherit;
+}
 
 h3 {
   font-size: 1.2em;
