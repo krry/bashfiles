@@ -114,6 +114,7 @@
 
   .questions-extended {
     display: none;
+    cursor: inherit;
   }
 
   .icon.question {
@@ -123,6 +124,7 @@
     border-radius: 50%;
     width: 1.65em;
     height: 1.65em;
+    cursor: inherit;
   }
 
   .header-detail {
