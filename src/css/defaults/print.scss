@@ -1,15 +1,33 @@
-// only when page is printed
-
 @media print {
-  main {
-    font-size: 12pt;
-    padding: 1in;
-    line-height: 1.25em;
-    font-weight: 400;
-  }
-
-  h1 {
-    font-size: 36pt;
-    line-height: 1.25em;
+  .step-proposal {
+    #bill-slider {
+      display: none;
+    }
+    .actionbar {
+      display:none;
+    }
+    .proposal-redo {
+      display:none !important;
+    }
+    .col.third {
+      width: 49.9%;
+    }
+    label {
+      padding: 0 40px 0;
+    }
+    .down-blk {
+      display:none;
+    }
+    .overlay.only {
+      padding-bottom: 0px;
+    }
+    .fine-print {
+      margin-top: -30px;
+    }
+    span{
+      &.icon {
+        display:none;
+      }
+    }
   }
 }
