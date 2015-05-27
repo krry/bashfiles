@@ -154,22 +154,24 @@ function GmapFactory_ () {
     function dropPin(opts) {
       loaded.then(function() {
         var pin = {};
-        var image = {
-          url: 'img/map_solar_house_4.svg',
-          scaledSize: new google.maps.Size(60, 30),
-          origin: new google.maps.Point(0, 0),
-          anchor: new google.maps.Point(30, 60)
-        };
-        var shape = {
-          type: "poly",
-          coords: [1, 1, 60, 1, 60, 60, 1, 60]
-        }
+
+        // var image = {
+        //   url: 'img/map_solar_house_4.svg',
+        //   scaledSize: new google.maps.Size(60, 30),
+        //   origin: new google.maps.Point(0, 0),
+        //   anchor: new google.maps.Point(30, 60)
+        // };
+        // var shape = {
+        //   type: "poly",
+        //   coords: [1, 1, 60, 1, 60, 60, 1, 60]
+        // }
 
         pin.marker = new google.maps.Marker({
           position: opts.location,
           map: map,
           draggable: false,
-          icon: image
+          icon: 'img/map-marker-house.png'
+          // icon: image
         });
 
         pin.infowindow = new google.maps.InfoWindow({

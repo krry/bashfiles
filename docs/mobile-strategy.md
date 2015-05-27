@@ -1,3 +1,3 @@
 # How Flannel different on mobile devices
 
-It's not!
+The configurator is deprioritized, easier to skip.
