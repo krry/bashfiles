@@ -108,7 +108,7 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
     // resize the target element
     maps.omap.on('change:size', function() {
       google.maps.event.trigger(gmap, 'resize');
-    })
+    });
     maps.omap.updateSize();
 
     Client.emit('Configurator: update mapsize', omap.getViewport());
@@ -116,7 +116,7 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
   }
 
   this.configurator = function() {
-    return $configurator.promise
+    return $configurator.promise;
   }
 
   this.resetPromiseObject = function resetPromiseObject() {
@@ -211,7 +211,7 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
     Interactions.modify_overlay.setMap(null)
 
     if (typeof maps !== 'undefined') { if ( maps.omap) {
-      maps.omap.updateSize()
+      maps.omap.updateSize();
     }}
     $configurator.promise.then(function (viewport) {
       omap.un('pointermove', crossHairCursorInModify);
@@ -248,7 +248,6 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
 
   this.roofpeakAdd = function() {
     $configurator.promise.then(function (viewport) {
-      Client.emit('Configurator: update mapsize', viewport);
 
       tooltipOverlay.setMap(maps.omap);
 
@@ -257,7 +256,9 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
       // add the layer
       Layers.collection.push(Layers.roofpeak);
       // add the overlay
-      maps.omap.addOverlay(Layers.roofpeak_overlay);
+      omap.addOverlay(Layers.roofpeak_overlay);
+      omap.updateSize();
+      Client.emit('Configurator: update mapsize', viewport);
     })
     if (typeof maps !== 'undefined') { if ( maps.omap) {maps.omap.updateSize()}}
   }
@@ -271,6 +272,7 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
       // remove the map from the overlay... seems weird, but necessary
       Layers.roofpeak_overlay.setMap(null);
       tooltipOverlay.setMap(null);
+      if (typeof maps !== 'undefined') { if ( maps.omap) {maps.omap.updateSize()}}
     })
   }
 }
