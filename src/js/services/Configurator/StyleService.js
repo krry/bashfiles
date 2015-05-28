@@ -140,6 +140,12 @@ function StyleService_ ($q) {
     return new ol.geom.LineString(coordinates);
   }
 
+  function getPointsFromLineString(feature){
+    if (feature.getGeometry() instanceof ol.geom.LineString) {
+      return new ol.geom.MultiPoint(feature.getGeometry().getCoordinates());
+    }
+  }
+
   /** Draw
     a style for the user to see while drawing their polygon.
   */
@@ -161,6 +167,10 @@ function StyleService_ ($q) {
       new ol.style.Style({ // style line segments solid
         stroke: s.stroke_brand_rain_thin,
         geometry:   getLineSegmentsFromPolygon,
+      }),
+      new ol.style.Style({ // style line segments solid
+        image: s.node_brand_rain,
+        geometry: getPointsFromLineString
       })
     ]
 
@@ -192,7 +202,7 @@ function StyleService_ ($q) {
       image: new ol.style.Circle({
         radius: node_radius_medium,
         fill: new ol.style.Fill({
-          color: c.$brand_black
+          color: c.$brand_white
         }),
         stroke: s.stroke_thin_brand_fire,
       }),
