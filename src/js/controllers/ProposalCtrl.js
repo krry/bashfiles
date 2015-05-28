@@ -88,7 +88,7 @@ function ProposalCtrl_ (URL_ROOT, $location, $scope, $window, $timeout, $state, 
     .child('areas')
     .set(null);
     // go to beginning of configurator.
-    Client.emit('Stages: stage', {stage: 1, step: 0});
+    Client.emit('Stages: stage', {stage: 1, step: 1});
   }
   // calculate annual production in $$ of electricity from panel fill API
   function subProposalToPanelCount (count) {
