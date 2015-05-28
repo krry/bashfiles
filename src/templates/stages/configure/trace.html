@@ -12,10 +12,18 @@
     </figure>
     <!-- <p class="no-mobile">Trace a single section of your roof for your panel placement. Start by clicking at one corner, then click another corner until you complete the&nbsp;shape.</p> -->
     <!-- TO DO: There should not be any button here. The user completes the trace and gets automatically taken to the edit step. -->
-    <div class="actionbar">
+    <div class="actionbar no-mobile">
       <p class="no-mobile">Trace a single section of your roof for your panel placement. Not sure what to do? Chat with us&nbsp;below.</p>
       <button class="gold" ng-disabled="!traced" ng-click="stages.animateInstructionsOut('edit-area')">Next</button>
       <button class="tiny white" ng-show="tracing" fln-omap-reset-draw ng-click="app.notifyTrackerAboutClick('reset_draw')" >Redo</button>
+    </div>
+  </div>
+  <!-- TODO: make these dryer. Buttons only marked up one time -->
+  <div class="mobile-buttons only-mobile">
+    <div class="row">
+      <div class="col full">
+        <button class="white slab small" ng-disabled="!tracing" fln-omap-reset-draw ng-click="app.notifyTrackerAboutClick('reset_draw')">Redo</button>
+      </div>
     </div>
   </div>
 </fln-expander>
