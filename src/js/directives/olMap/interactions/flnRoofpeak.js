@@ -49,18 +49,16 @@ function flnRoofpeak_ ($timeout, MapFactory, Design, Client, AreaService, Panelf
       });
 
       function subViewToHighlight (f) {
-        if (f === null) {
-          // clear any the highlighted features
-          h_coll.clear();
-          scope.roof_peak_chosen = false;
-        } else {
-          // add the feature to the collection
-          h_coll.clear();
-          h_coll.push(f);
-        }
-        // if (!scope.$$phase) scope.$apply();
         $timeout(function () {
-          return scope.$apply(); // HACK: preventing a $digest error. the phase check didn't work. how do we make this work
+          if (f === null) {
+            // clear any the highlighted features
+            h_coll.clear();
+            scope.roof_peak_chosen = false;
+          } else {
+            // add the feature to the collection
+            h_coll.clear();
+            h_coll.push(f);
+          }
         })
       }
 
