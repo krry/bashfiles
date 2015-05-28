@@ -25,7 +25,7 @@ function SalesforceProvider_ () {
       noCreditResult: 'Credit unknown',
       scheduledSiteSurvey: 'Scheduled site survey',
       networkError: 'Network error',
-      noFinancing: 'No TPO available',
+      noFinancing: 'Purchase Only',
       batteryLead: 'Battery lead'
     };
 
