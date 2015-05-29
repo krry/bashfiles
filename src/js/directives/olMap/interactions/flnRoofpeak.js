@@ -9,9 +9,9 @@ this directive enables opens a layer that:
 
 ================================================== */
 
-directives.directive('flnRoofpeak', ["MapFactory", "Design", "Clientstream", "AreaService", "Panelfill", "newConfigurator", "Layers", flnRoofpeak_]);
+directives.directive('flnRoofpeak', ["$timeout", "MapFactory", "Design", "Clientstream", "AreaService", "Panelfill", "newConfigurator", "Layers", flnRoofpeak_]);
 
-function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newConfigurator, Layers) {
+function flnRoofpeak_ ($timeout, MapFactory, Design, Client, AreaService, Panelfill, newConfigurator, Layers) {
   return {
     restrict: 'EA',
     priority: '10',
@@ -39,9 +39,9 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
       var view_highlight = rx_highlight.subscribe(subViewToHighlight);
 
       // when you have a configurator, use it like a big boy
-      newConfigurator.configurator().then(function(map){
+      newConfigurator.configurator().then(function(viewport){
         Layers.roofpeak_overlay.setMap(maps.omap)
-        newConfigurator.roofpeakAdd();
+        $timeout(function(){return newConfigurator.roofpeakAdd();}) // HACK: roofpeak was occasionally not centering correctly. this helps.
         // handle clicks and mouse movement to build the interaction on the map
         Client.emit('roofpeak', Design.areas_collection.item(0));
         $('div[fln-configurator]').on('mousemove', roofpeakMousemove);
@@ -49,17 +49,17 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
       });
 
       function subViewToHighlight (f) {
-        if (f === null) {
-          // clear any the highlighted features
-          h_coll.clear();
-          scope.roof_peak_chosen = false;
-        } else {
-          // add the feature to the collection
-          h_coll.clear();
-          h_coll.push(f);
-        }
-        // if (!scope.$$phase) scope.$apply();
-        scope.$apply(); // TODO: why does this cause a $digest error? & how do we make this work
+        $timeout(function () {
+          if (f === null) {
+            // clear any the highlighted features
+            h_coll.clear();
+            scope.roof_peak_chosen = false;
+          } else {
+            // add the feature to the collection
+            h_coll.clear();
+            h_coll.push(f);
+          }
+        })
       }
 
       function highlightFeature (f) {
@@ -68,14 +68,14 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
           return h_coll.getArray()[0];
         }
         // pass arg to set highlight feature
-        rx_highlight.onNext(f);
+        return rx_highlight.onNext(f);
       }
 
       function subToPeakSelected (ridgevalue) {
         var selected_wkt, selected_f, current_highlight;
         // if there's null, then you should not have highlight
         if (ridgevalue === null) {
-          rx_highlight.onNext(null);
+          return rx_highlight.onNext(null);
         }
         // if remote value exists, we should highlight.
         if (ridgevalue && ridgevalue.hasOwnProperty(0)) {
@@ -94,7 +94,7 @@ function flnRoofpeak_ (MapFactory, Design, Client, AreaService, Panelfill, newCo
           // send the feature to highlight the view
           if (selected_f) {
             // add new highlight
-            rx_highlight.onNext(selected_f);
+            return rx_highlight.onNext(selected_f);
           }
         }
       }
