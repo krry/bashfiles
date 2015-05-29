@@ -5,7 +5,6 @@ angular.module('flannel', [
   'ui.router',
   'firebase',
   'rx',
-  'ngTouch',
   'stages',
   'flannel.templates',
   'flannel.providers',

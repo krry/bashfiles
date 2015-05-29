@@ -25,12 +25,7 @@ gulp.task('templates', ['clearTemplates'], function(){
       module: 'flannel.templates',
       filename: 'templates-' + timestamp() + '.js',
       path: function (path, base) {
-        // path is the full file path in local filesystem
-        // base is './src/'
-        // we want the public path to mirror everything after 'src'
-        // so we isolate 'src', then take everything after it
-        return path.split(base.split('.')[1])[1];
-      }
+        return path.replace(/\\/g, '/').split(base.split('.')[1])[1];      }
     }))
     .pipe(plumber.stop())
     .pipe(gulp.dest('./src/js/'));
