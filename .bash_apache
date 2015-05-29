@@ -1,0 +1,15 @@
+# # apache helpers
+# echo "=> adding apache aliases: rsapache, ezapache, stapache, stpapache"
+# alias rsapache='sudo apachectl restart'
+# alias ezapache='sudo apachectl graceful'
+# alias stapache='sudo apachectl start'
+# alias stpapache='sudo apachectl stop'
+# # to enable apache web server on Mavericks and later
+# sudo launchctl load -w /System/Library/LaunchDaemons/org.apache.httpd.plist
+
+# function opache {
+    # take the PWD and grab the youngest directory
+    # pwd=$PWD
+    # this_dir=${pwd##*/}
+    # open http://ksnyder-mac/~ksnyder/$this_dir
+# }
