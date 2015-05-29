@@ -248,6 +248,7 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
 
   this.roofpeakAdd = function() {
     $configurator.promise.then(function (viewport) {
+      Client.emit('Configurator: update mapsize', viewport);
 
       tooltipOverlay.setMap(maps.omap);
 
@@ -258,7 +259,6 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
       // add the overlay
       omap.addOverlay(Layers.roofpeak_overlay);
       omap.updateSize();
-      Client.emit('Configurator: update mapsize', viewport);
     })
     if (typeof maps !== 'undefined') { if ( maps.omap) {maps.omap.updateSize()}}
   }
