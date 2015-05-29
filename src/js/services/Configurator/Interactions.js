@@ -12,11 +12,12 @@ function Interactions_(Design, Client, Styles, AreaService) {
   var interactions = {},
     // interactions
       draw,
-      draw_options,
       modify,
       zoom,
       dragpan,
-    // defaults
+    // options
+      draw_opt,
+      pointer_opt,
       dragpan_opt = { enableKinetic: true };
 
   // an interactions stream... obviously
@@ -24,7 +25,7 @@ function Interactions_(Design, Client, Styles, AreaService) {
   interactions.rx.subscribe(subInteractions);
 
   // configure the draw
-  draw_options = {
+  draw_opt = {
     type: 'Polygon',
     snapTolerance: 15, // defaults to 12
     style: Styles.drawStyle,
@@ -43,13 +44,31 @@ function Interactions_(Design, Client, Styles, AreaService) {
   interactions.collection = new ol.Collection();
   interactions.controls   = new ol.Collection();
 
+  // HACK: configure Pointer interaction to ignore `pointerdrag` events
+  // this is a problem with OL 3.5... i think (jfl) 27 march
+  pointer_opt = {
+    handleDragEvent: function (evt) {
+      // return true to start a drag sequence
+      if (interactions.draw.getActive() && evt.dragging) {
+        return false;
+      }
+    }
+  }
+  interactions.pointer = new ol.interaction.Pointer(pointer_opt);
   // dragpan
   interactions.dragpan = new ol.interaction.DragPan(dragpan_opt);
   // mousewheel zoom
   interactions.zoom    = new ol.interaction.MouseWheelZoom();
-
   // drawing areas on the map
-  interactions.draw = new ol.interaction.Draw(draw_options);
+  interactions.draw = new ol.interaction.Draw(draw_opt);
+  // HACK: override default handleEvent to make dragging impossible on draw event.
+  interactions.draw.handleEvent = function (mapBrowserEvent) {
+    if (interactions.draw.getActive() && mapBrowserEvent.dragging) {
+      return false;
+    }
+    // note that we've also overridden the Pointer handle code with pointer_opt above
+    return ol.interaction.Pointer.handleEvent.call(this, mapBrowserEvent);
+  }
 
   interactions.draw.on('drawend', function(e){
     // after user draws a shape, notify remote the feature is set.

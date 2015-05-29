@@ -14,7 +14,6 @@
 var gulp = require('gulp');
 var changed = require('gulp-changed');
 var concat = require('gulp-concat');
-var ugilfy = require('gulp-uglify');
 var plumber = require('gulp-plumber');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');

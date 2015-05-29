@@ -579,7 +579,7 @@ function FormCtrl_($scope, $window, $location, $element, Client, Session, User, 
     vm.prospect().utilityRate = data.MedianUtilityPrice;
     vm.prospect().sctyRate = data.FinancingKwhPrice;
     vm.prospect().averageYield = data.UtilityAverageSystemEfficiency;
-    vm.prospect().hasFinancingOptions = data.LeaseAvailable || data.PPAAvailable;
+    vm.prospect().hasFinancingOptions = data.LeaseAvailable || data.PPAAvailable || data.MyPowerAvailalable; 
 
     rateInfo = {
       utilityRate: vm.prospect().utilityRate,

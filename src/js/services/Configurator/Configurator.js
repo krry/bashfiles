@@ -26,7 +26,7 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
     mapTypeId: google.maps.MapTypeId.HYBRID,
     disableDoubleClickZoom: true,
     scrollwheel: false,
-    streetViewControl: false
+    streetViewControl: false,
   };
 
   omap_controls = ol.control.defaults({
@@ -108,7 +108,7 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
     // resize the target element
     maps.omap.on('change:size', function() {
       google.maps.event.trigger(gmap, 'resize');
-    })
+    });
     maps.omap.updateSize();
 
     Client.emit('Configurator: update mapsize', omap.getViewport());
@@ -116,7 +116,7 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
   }
 
   this.configurator = function() {
-    return $configurator.promise
+    return $configurator.promise;
   }
 
   this.resetPromiseObject = function resetPromiseObject() {
@@ -144,6 +144,10 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
       }
     });
   }
+
+  /* Tooltip for roofpeak */
+  // TODO: move this tooltip code to a directive.
+  // TODO: replace the current mouseover tooltip on draw with a similar directive
 
   var tooltip = $('<span id="roofpeakTooltip" class="followtip">Click to select your roof peak</span>');
   var tooltipOverlay = new ol.Overlay({
@@ -207,7 +211,7 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
     Interactions.modify_overlay.setMap(null)
 
     if (typeof maps !== 'undefined') { if ( maps.omap) {
-      maps.omap.updateSize()
+      maps.omap.updateSize();
     }}
     $configurator.promise.then(function (viewport) {
       omap.un('pointermove', crossHairCursorInModify);
@@ -253,7 +257,8 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
       // add the layer
       Layers.collection.push(Layers.roofpeak);
       // add the overlay
-      maps.omap.addOverlay(Layers.roofpeak_overlay);
+      omap.addOverlay(Layers.roofpeak_overlay);
+      omap.updateSize();
     })
     if (typeof maps !== 'undefined') { if ( maps.omap) {maps.omap.updateSize()}}
   }
@@ -267,6 +272,7 @@ function newConfigurator_($q, Client, Design, View, Interactions, Layers, MapFac
       // remove the map from the overlay... seems weird, but necessary
       Layers.roofpeak_overlay.setMap(null);
       tooltipOverlay.setMap(null);
+      if (typeof maps !== 'undefined') { if ( maps.omap) {maps.omap.updateSize()}}
     })
   }
 }
