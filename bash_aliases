@@ -1,5 +1,5 @@
 # general shell aliases for frequently used commands
-echo "|-- adding general shell aliases: .., h, j, ls, ll, la, rm, cp, mv, psef, mkdir"
+echo "|-- adding shell aliases: .., h, j, ls, ll, la, rm, cp, mv, psef, mkdir"
 alias ..='cd ..'
 alias h='history'
 alias j='jobs -l'
@@ -15,7 +15,8 @@ alias which='type -a'
 alias rsb='exec bash -l'
 
 # some helper aliases
-echo "|-- adding helper aliases: path, du, df, reloadrc, openrc, openhosts, flushcache"
+echo "|-- adding helper aliases: path, du, df, loadrc, openrc, openhosts"
+echo "                           flushcache, bashrc, filetree, flushdns"
 alias path='echo -e ${PATH//:/\\n}'
 alias du='du -kh'
 alias df='df -kTh'
@@ -34,7 +35,8 @@ alias flushdns='sudo killall -HUP mDNSResponder'
 alias filetree="ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/ /' -e 's/-/|/'"
 
 # some aliases to streamline git commands
-echo "|-- adding git aliases: gst, gd, gad, gch, gcb, gc, gcm, gcam, gl, gf, gp, gph, gpom, gphom, gphsm, gphhm, gphpm, gpre"
+echo "|-- adding git aliases: gst, gd, gad, gch, gcb, gc, gcm, gcam, gl, gf, "
+echo "                        gp, gph, gpom, gphom, gphsm, gphhm, gphpm, gpre"
 alias gst='git status'
 alias gad='git add -A'
 alias gco='git checkout'
@@ -57,6 +59,8 @@ alias gpre='git pull --rebase'
 alias grc='git rebase --continue'
 
 # git flow commands
+echo "|-- adding git flow shortcuts: gffs, gffp, gfff, gfrs, gfrp, gfrf"
+echo "                               gfhs, gfhp, gfhf"
 alias gffs='git flow feature start'
 alias gffp='git flow feature publish'
 alias gfff='git flow feature finish'

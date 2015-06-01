@@ -74,14 +74,14 @@ fi
 
 # import git auto-completion script
 # TODO: check if git-completion script is present, if not download it
-echo -e "\nenabling git command auto-completion"
+echo -e "enabling git command auto-completion"
 if [ -f ~/.git-completion.sh ]; then
   source ~/.git-completion.sh
 fi
 
 # import git auto-completion script
 # TODO: check if git-flow-completion script is present, if not download it
-echo -e "\nenabling git flow auto-completion"
+echo -e "enabling git flow auto-completion"
 if [ -f ~/.git-flow-completion.sh ]; then
   source ~/.git-flow-completion.sh
 fi
