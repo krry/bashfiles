@@ -54,15 +54,15 @@ git config --global core.mergeoptions --no-edit
 git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
 git config --global alias.s status
 git config --global alias.ch checkout
-git config --global alias.br branch
-git config --global alias.rem remote
-git config --global alias.unstage "reset HEAD --"
-git config --global alias.last "log -1 HEAD"
 git config --global alias.co checkout
 git config --global alias.st status
 git config --global alias.ci commit
 git config --global alias.sh stash
 git config --global alias.sha stash apply
+git config --global alias.br branch
+git config --global alias.rem remote
+git config --global alias.unstage "reset HEAD --"
+git config --global alias.last "log -1 HEAD"
 git config --global user.name Kerry Snyder
 git config --global user.email krry@me.com
 git config --global push.default simple
@@ -76,7 +76,6 @@ git config --global core.bare false
 git config --global core.logallrefupdates true
 git config --global core.ignorecase true
 git config --global core.precomposeunicode true
-git config --global remote.origin.url git@github.com:krry/dotfiles.git
 git config --global remote.origin.fetch +refs/heads/*:refs/remotes/origin/*
 git config --global branch.master.remote origin
 git config --global branch.master.merge "refs/heads/mastergit config --global"
@@ -90,7 +89,7 @@ if [ $OS=="Windows_NT" ]; then
   # Note: Don't bother checking SSH_AGENT_PID. It's not used by SSH itself, and it might even be incorrect (for example, when using agent-forwarding over SSH).
 
   agent_is_running() {
-      echo "... checking if agent is running"
+      echo "|-- checking if agent is running"
       if [ "$SSH_AUTH_SOCK" ]; then
           # ssh-add returns:
           #   0 = agent running, has keys
@@ -103,7 +102,7 @@ if [ $OS=="Windows_NT" ]; then
   }
 
   agent_has_keys() {
-      echo "... checking if agent has keys"
+      echo -n "|-- checking if agent has keys"
       ssh-add -l >/dev/null 2>&1
   }
 
@@ -112,7 +111,7 @@ if [ $OS=="Windows_NT" ]; then
   }
 
   agent_start() {
-      echo "starting ssh agent"
+      echo "|-- starting ssh agent"
       (umask 077; ssh-agent >"$env")
       . "$env" >/dev/null
   }

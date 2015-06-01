@@ -1,5 +1,6 @@
 # general shell aliases for frequently used commands
-echo "|-- project-specific aliases for quick directory navimagation: flnl, silk, leadgen, scnotes, raybot"
+echo "|-- project-specific aliases for quick directory navimagation:"
+echo "    => flnl, silk, leadgen, scnotes, raybot"
 
 alias flnl='cd ~/Sites/scty/flannel'
 alias flnldev='cd ~/Sites/scty/flannel && npm run dev'
