@@ -1,0 +1,10 @@
+# general shell aliases for frequently used commands
+echo "|-- project-specific aliases for quick directory navimagation: flnl, silk, leadgen, scnotes, raybot"
+
+alias flnl='cd ~/Sites/scty/flannel'
+alias flnldev='cd ~/Sites/scty/flannel && npm run dev'
+alias flnlgit='cd ~/Sites/scty/flannel && git status'
+alias silk='cd ~/Sites/scty/silkroad'
+alias leadgen='cd ~/Sites/scty/leadgen'
+alias scnotes='cd ~/Sites/scty/scty-krry'
+alias raybot='cd ~/Sites/krry/raybot'

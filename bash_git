@@ -1,5 +1,5 @@
 # get current branch in git repo
-echo "=> making current git branch available to shell prompt"
+echo "|-- making current git branch available to shell prompt"
 function parse_git_branch() {
         BRANCH=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
         if [ ! "${BRANCH}" == "" ]
@@ -12,7 +12,7 @@ function parse_git_branch() {
 }
 
 # get current status of git repo
-echo "=> adding git repo status indicators to shell prompt"
+echo "|-- adding git repo status indicators to shell prompt"
 function parse_git_dirty {
         status=$(git status 2>&1 | tee)
         dirty=$(echo -n "${status}" 2> /dev/null | grep "modified:" &> /dev/null; echo "=> $?")
@@ -51,13 +51,13 @@ function parse_git_dirty {
 git config --global core.editor atom
 git config --global core.excludesfile /Users/ksnyder/.gitignore_global
 git config --global core.mergeoptions --no-edit
-git config --global alias.lg log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
 git config --global alias.s status
 git config --global alias.ch checkout
 git config --global alias.br branch
 git config --global alias.rem remote
-git config --global alias.unstage reset HEAD --
-git config --global alias.last log -1 HEAD
+git config --global alias.unstage "reset HEAD --"
+git config --global alias.last "log -1 HEAD"
 git config --global alias.co checkout
 git config --global alias.st status
 git config --global alias.ci commit
@@ -67,8 +67,8 @@ git config --global user.name Kerry Snyder
 git config --global user.email krry@me.com
 git config --global push.default simple
 git config --global filter.media.required true
-git config --global filter.media.clean git media clean %f
-git config --global filter.media.smudge git media smudge %f
+git config --global filter.media.clean "git media clean %f"
+git config --global filter.media.smudge "git media smudge %f"
 git config --global merge.tool vi
 git config --global core.repositoryformatversion 0
 git config --global core.filemode true
@@ -79,4 +79,59 @@ git config --global core.precomposeunicode true
 git config --global remote.origin.url git@github.com:krry/dotfiles.git
 git config --global remote.origin.fetch +refs/heads/*:refs/remotes/origin/*
 git config --global branch.master.remote origin
-git config --global branch.master.merge refs/heads/mastergit config --global
+git config --global branch.master.merge "refs/heads/mastergit config --global"
+
+if [ $OS=="Windows_NT" ]; then
+  echo "|-- ensuring that ssh-agent is running to preserve git authentication"
+  # Note: ~/.ssh/environment should not be used, as it already has a different purpose in SSH.
+
+  env=~/.ssh/agent.env
+
+  # Note: Don't bother checking SSH_AGENT_PID. It's not used by SSH itself, and it might even be incorrect (for example, when using agent-forwarding over SSH).
+
+  agent_is_running() {
+      echo "... checking if agent is running"
+      if [ "$SSH_AUTH_SOCK" ]; then
+          # ssh-add returns:
+          #   0 = agent running, has keys
+          #   1 = agent running, no keys
+          #   2 = agent not running
+          ssh-add -l >/dev/null 2>&1 || [ $? -eq 1 ]
+      else
+          false
+      fi
+  }
+
+  agent_has_keys() {
+      echo "... checking if agent has keys"
+      ssh-add -l >/dev/null 2>&1
+  }
+
+  agent_load_env() {
+      . "$env" >/dev/null
+  }
+
+  agent_start() {
+      echo "starting ssh agent"
+      (umask 077; ssh-agent >"$env")
+      . "$env" >/dev/null
+  }
+
+  # if your keys are not stored in ~/.ssh/id_rsa or ~/.ssh/id_dsa, you'll need to paste the proper path after ssh-add
+
+  if ! agent_is_running; then
+      echo "... agent not running, loading env"
+      agent_load_env
+      agent_start
+      ssh-add
+  elif ! agent_has_keys; then
+      echo "... agent had no keys"
+      ssh-add
+  else
+      echo "... agent is running and has keys"
+  fi
+
+  unset env
+else
+  false
+fi

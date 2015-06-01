@@ -1,30 +1,30 @@
 # modify the PATH environment variable to enable a bunch of dev tools and package managers
-echo "=> exporting the PATH environment variable to include all the bins"
+echo "|-- exporting the PATH environment variable to include all the bins"
 export PATH="/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/heroku/bin:$HOME/Sites/lib:$HOME/local/node/bin:$HOME/.node/bin:./node_modules/.bin:/usr/local/go/bin:$HOME/npm/bin:$HOME/mongo/bin:$HOME/Sites/go/bin:$PATH"
 
 # set the Go path so the Go tool is happy
-echo "=> exporting the GOPATH"
 export GOPATH="$HOME/Sites/go"
+echo "|-- exporting the GOPATH to $GOPATH"
 
 # set development environment variable
 export NODE_ENV="development"
-echo "=> setting the NODE_ENV to $NODE_ENV"
+echo "|-- setting the NODE_ENV to $NODE_ENV"
 
 # set sublime text as your default editor
-echo "=> setting Atom as the default editor"
 export EDITOR='atom -w'
+echo "|-- setting the default editor to $EDITOR"
 
 # set Github creds on the command line processes can use the Github API
-echo "=> making Github account available to the environment"
+echo "|-- making Github account available to the environment"
 export GITHUB_USERNAME="krry"
 export GITHUB_PASSWORD="Git6kry222"
 
 # set ls colors
-echo "=> setting list colors"
+echo "|-- setting list colors"
 export LSCOLORS=ExFxBxDxCxegedabagacad
 
 # environment variables to set prompt format and color
-echo "=> setting env colors for use in custom shell prompt"
+echo "|-- setting env colors for use in custom shell prompt"
 export COLOR_BOLD="\[\e[1m\]"
 export COLOR_DEFAULT="\[\e[0m\]"
 export COLOR_BLUE="\[\e[34m\]"
@@ -35,7 +35,7 @@ export COLOR_RED="\[\e[31m\]"
 
 # some functions to intelligently color parts of the prompt
 # test if user is root and set user color appropriately
-echo "=> setting color of user in shell prompt"
+echo "|-- setting color of user in shell prompt"
 if [[ $(id -u) == 0 ]]
 then
     export PS1USERCOLOR="\[\033[31m\]"

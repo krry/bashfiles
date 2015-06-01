@@ -1,3 +1,3 @@
 # format prompt for clear I/O difference, current directory, current user, and current machine
-echo "=> setting up custom shell prompt"
+echo "|-- setting up custom shell prompt"
 export PS1="$COLOR_YELLOW___________________________________________________\n$COLOR_YELLOW\t $PS1USERCOLOR\u$COLOR_DEFAULT@$COLOR_GREEN\h$COLOR_DEFAULT: $COLOR_YELLOW\w\n$COLOR_MAGENTA\`if type parse_git_branch > /dev/null 2>&1; then parse_git_branch; fi\`\`if [ \$? = 0 ]; then echo -e '$COLOR_YELLOW:$'; else echo -e '$COLOR_RED:X'; fi\` \[\033[m\]"
