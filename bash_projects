@@ -3,6 +3,7 @@ echo "|-- project-specific aliases for quick directory navimagation: flnl, silk,
 
 alias flnl='cd ~/Sites/scty/flannel'
 alias flnldev='cd ~/Sites/scty/flannel && npm run dev'
+alias flnlpc='cd ~/Sites/scty/flannel && npm run pc'
 alias flnlgit='cd ~/Sites/scty/flannel && git status'
 alias silk='cd ~/Sites/scty/silkroad'
 alias leadgen='cd ~/Sites/scty/leadgen'
