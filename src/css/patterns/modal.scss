@@ -15,19 +15,6 @@
   background: shade(.8);
   overflow-y: scroll;
 
-  .dialog.no-close {
-    transition: all 500ms $easing-quick 1000ms;
-    min-height: 90%;
-    margin: 1em auto auto;
-  }
-
-  .dialog.dialog-shown.no-close {
-    min-height: 0;
-    height: auto;
-    padding: 3em;
-    margin: 1em auto auto;
-  }
-
   .dialog {
     background: tint(.9);
     background: $white;
@@ -136,15 +123,6 @@
     .dialog.small {
       margin: 12em auto auto;
       padding: 3em;
-    }
-    .dialog.no-close {
-      margin: 3em auto;
-      /* height: 90%; */
-      min-height: 90%;
-      padding: 30vh 3em;
-    }
-    .dialog.dialog-shown.no-close {
-      margin: 12em auto auto;
     }
   }
 }
