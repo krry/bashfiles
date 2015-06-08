@@ -65,7 +65,7 @@ git config --global alias.unstage "reset HEAD --"
 git config --global alias.last "log -1 HEAD"
 git config --global user.name Kerry Snyder
 git config --global user.email krry@me.com
-git config --global push.default matching
+git config --global push.default simple
 git config --global filter.media.required true
 git config --global filter.media.clean "git media clean %f"
 git config --global filter.media.smudge "git media smudge %f"
@@ -78,7 +78,7 @@ git config --global core.ignorecase true
 git config --global core.precomposeunicode true
 git config --global remote.origin.fetch +refs/heads/*:refs/remotes/origin/*
 git config --global branch.master.remote origin
-git config --global branch.master.merge "refs/heads/mastergit config --global"
+git config --global branch.master.merge refs/heads/master
 
 if [ $OS=="Windows_NT" ]; then
   echo "|-- ensuring that ssh-agent is running to preserve git authentication"
