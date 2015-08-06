@@ -85,3 +85,5 @@ echo -e "enabling git flow auto-completion"
 if [ -f ~/.git-flow-completion.sh ]; then
   source ~/.git-flow-completion.sh
 fi
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting

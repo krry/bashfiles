@@ -1,6 +1,6 @@
 # modify the PATH environment variable to enable a bunch of dev tools and package managers
 echo "|-- exporting the PATH environment variable to include all the bins"
-export PATH="/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/heroku/bin:$HOME/Sites/lib:$HOME/local/node/bin:$HOME/.node/bin:./node_modules/.bin:/usr/local/go/bin:$HOME/npm/bin:$HOME/mongo/bin:$HOME/Sites/go/bin:$PATH"
+export PATH="/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/heroku/bin:$HOME/Sites/lib:$HOME/local/node/bin:$HOME/.node/bin:./node_modules/.bin:/usr/local/go/bin:$HOME/npm/bin:$HOME/mongo/bin:$HOME/Sites/go/bin:/usr/local/opt/postgresql/bin:$PATH"
 
 # set the Go path so the Go tool is happy
 export GOPATH="$HOME/Sites/go"
