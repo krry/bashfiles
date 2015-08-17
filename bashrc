@@ -9,12 +9,12 @@
 #
 ###########################################################
 echo -e "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="
-echo "WELCOME TO CANSECO"
-echo "a world-series-class bash experience"
+echo "$(tput setaf 2)WELCOME TO CANSECO"
+echo "$(tput setaf 3)a world-series-class bash experience$(tput sgr0)"
 echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="
 
 if [ $EUID -ne 0 ]; then
-  echo -e "\nchecking for superuser privileges"
+  echo -e "$(tput setaf 3)\nchecking for superuser privileges$(tput sgr0)"
   sudo echo -n "|-- authenticated as "
   id -un
   # opens up number of concurrent processes that can run in terminal to allow high dependency installs like Roots
@@ -24,25 +24,25 @@ if [ $EUID -ne 0 ]; then
 fi
 
 # import shell variables
-echo -e "\nimporting shell variables"
+echo -e "$(tput setaf 3)\nimporting shell variables$(tput sgr0)"
 if [ -f ~/.bash_vars ]; then
   source ~/.bash_vars
 fi
 
 # import git-friendly shell functions
-echo -e "\nimporting git-friendly shell functions"
+echo -e "$(tput setaf 3)\nimporting git-friendly shell functions$(tput sgr0)"
 if [ -f ~/.bash_git ]; then
   source ~/.bash_git
 fi
 
 # import custom shell prompt
-echo -e "\nimporting custom shell prompt"
+echo -e "$(tput setaf 3)\nimporting custom shell prompt$(tput sgr0)"
 if [ -f ~/.bash_prompt ]; then
   source ~/.bash_prompt
 fi
 
 # make sure mongoDB is running
-# echo -e "\n => making sure mongoDB is running"
+# echo -e "$(tput setaf 3)\n => making sure mongoDB is running$(tput sgr0)"
 # if ! ps -ef | grep mongo[d]
   # then mongod --dbpath ~/mongo/db &
 # fi
@@ -54,34 +54,34 @@ fi
 # [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 # import project alias script
-echo -e "\nimporting project aliases"
+echo -e "$(tput setaf 3)\nimporting project aliases$(tput sgr0)"
 if [ -f ~/.bash_projects ]; then
   source ~/.bash_projects
 fi
 
 # import git auto-completion script
-echo -e "\nimporting bash aliases"
+echo -e "$(tput setaf 3)\nimporting bash aliases$(tput sgr0)"
 if [ -f ~/.bash_aliases ]; then
   source ~/.bash_aliases
 fi
 
 # import npm auto-completion script
 # TODO: check if npm-completion script is present, if not download it
-echo -e "\nenabling npm command auto-completion"
+echo -e "$(tput setaf 3)\nenabling npm command auto-completion$(tput sgr0)"
 if [ -f ~/.npm-completion.sh ]; then
   source ~/.npm-completion.sh
 fi
 
 # import git auto-completion script
 # TODO: check if git-completion script is present, if not download it
-echo -e "enabling git command auto-completion"
+echo -e "$(tput setaf 3)\nenabling git command auto-completion$(tput sgr0)"
 if [ -f ~/.git-completion.sh ]; then
   source ~/.git-completion.sh
 fi
 
 # import git auto-completion script
 # TODO: check if git-flow-completion script is present, if not download it
-echo -e "enabling git flow auto-completion"
+echo -e "$(tput setaf 3)\nenabling git flow auto-completion$(tput sgr0)"
 if [ -f ~/.git-flow-completion.sh ]; then
   source ~/.git-flow-completion.sh
 fi

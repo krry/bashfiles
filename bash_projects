@@ -16,3 +16,6 @@ alias silk='cd ~/Sites/scty/silkroad'
 alias leadgen='cd ~/Sites/scty/leadgen'
 alias scnotes='cd ~/Sites/scty/scty-krry'
 alias raybot='cd ~/Sites/krry/raybot'
+
+alias jek='cd ~/Sites/krry/krry.github.io'
+alias jekdev='cd ~/Sites/krry/krry.github.io && bundle exec jekyll serve'
