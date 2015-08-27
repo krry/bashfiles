@@ -76,9 +76,6 @@ git config --global core.bare false
 git config --global core.logallrefupdates true
 git config --global core.ignorecase true
 git config --global core.precomposeunicode true
-git config --global remote.origin.push HEAD
-git config --global branch.master.remote origin
-git config --global branch.master.merge refs/heads/master
 
 if [ $OS=="Windows_NT" ]; then
   echo "|-- ensuring that ssh-agent is running to preserve git authentication"
