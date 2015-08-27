@@ -43,6 +43,7 @@ echo "|-- adding git aliases:"
 echo "    => gst, gd, gad, gch, gcb, gc, gcm, gcam, gl, gf, "
 echo "    => gp, gph, gpom, gphom, gphsm, gphhm, gphpm, gpre"
 
+alias gu='git up'
 alias gst='git status'
 alias gad='git add -A'
 alias gco='git checkout'
@@ -51,6 +52,9 @@ alias gd='git diff'
 alias gc='git commit'
 alias gcm='git commit -m'
 alias gcam='git commit -am'
+alias gsh='git stash'
+alias gsha='git stash apply'
+alias gshp='git stash pop'
 alias gf='git fetch'
 alias gp='git pull'
 alias gph='git push'
@@ -63,6 +67,8 @@ alias gphpm='git push prod master'
 alias gphhm='git push heroku master'
 alias gpre='git pull --rebase'
 alias grc='git rebase --continue'
+alias grs='git rebase --skip'
+alias gra='git rebase --abort'
 
 # git flow commands
 echo "|-- adding git flow shortcuts:"
