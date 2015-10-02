@@ -49,7 +49,7 @@ function parse_git_dirty {
 
 # set global configs for git
 git config --global core.editor atom
-git config --global core.excludesfile /Users/ksnyder/.gitignore_global
+# git config --global core.excludesfile /Users/username/.gitignore_global
 git config --global core.mergeoptions --no-edit
 git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
 git config --global alias.s status
@@ -63,8 +63,8 @@ git config --global alias.br branch
 git config --global alias.rem remote
 git config --global alias.unstage "reset HEAD --"
 git config --global alias.last "log -1 HEAD"
-git config --global user.name "Kerry Snyder"
-git config --global user.email krry@me.com
+# git config --global user.name ""
+# git config --global user.email
 git config --global push.default simple
 git config --global filter.media.required true
 git config --global filter.media.clean "git media clean %f"

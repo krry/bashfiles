@@ -16,8 +16,8 @@ echo "|-- setting the default editor to $EDITOR"
 
 # set Github creds on the command line processes can use the Github API
 echo "|-- making Github account available to the environment"
-export GITHUB_USERNAME="krry"
-export GITHUB_PASSWORD="Git6kry222"
+# export GITHUB_USERNAME=""
+# export GITHUB_PASSWORD=""
 
 # set ls colors
 echo "|-- setting list colors"

@@ -1,21 +1,18 @@
 # general shell aliases for frequently used commands
-echo "|-- project-specific aliases for quick directory navimagation:"
-echo "    => flnl, silk, leadgen, scnotes, raybot"
+# echo "|-- project-specific aliases for quick directory navimagation:"
+# echo "    => flnl, silk, leadgen, scnotes, raybot"
 
-alias flnl='cd ~/Sites/scty/flannel'
-alias flnldev='cd ~/Sites/scty/flannel && npm run dev'
-alias flnlpc='cd ~/Sites/scty/flannel && npm run pc'
-alias flnlgit='cd ~/Sites/scty/flannel && git status'
-
-alias dyna='cd ~/Sites/scty/dynamo'
-alias dynadev='cd ~/Sites/scty/dynamo && npm run dev'
-alias dynapc='cd ~/Sites/scty/dynamo && npm run pc'
-alias dynagit='cd ~/Sites/scty/dynamo && git status'
-
-alias silk='cd ~/Sites/scty/silkroad'
-alias leadgen='cd ~/Sites/scty/leadgen'
-alias scnotes='cd ~/Sites/scty/scty-krry'
-alias raybot='cd ~/Sites/krry/raybot'
-
-alias jek='cd ~/Sites/krry/krry.github.io'
-alias jekdev='cd ~/Sites/krry/krry.github.io && gulp'
+# alias flnl='cd ~/Sites/scty/flannel'
+# alias flnldev='cd ~/Sites/scty/flannel && npm run dev'
+# alias flnlpc='cd ~/Sites/scty/flannel && npm run pc'
+# alias flnlgit='cd ~/Sites/scty/flannel && git status'
+# alias dyna='cd ~/Sites/scty/dynamo'
+# alias dynadev='cd ~/Sites/scty/dynamo && npm run dev'
+# alias dynapc='cd ~/Sites/scty/dynamo && npm run pc'
+# alias dynagit='cd ~/Sites/scty/dynamo && git status'
+# alias silk='cd ~/Sites/scty/silkroad'
+# alias leadgen='cd ~/Sites/scty/leadgen'
+# alias scnotes='cd ~/Sites/scty/scty-krry'
+# alias raybot='cd ~/Sites/krry/raybot'
+# alias jek='cd ~/Sites/krry/krry.github.io'
+# alias jekdev='cd ~/Sites/krry/krry.github.io && gulp'
