@@ -16,8 +16,8 @@ echo "|-- setting the default editor to $EDITOR"
 
 # set Github creds on the command line processes can use the Github API
 echo "|-- making Github account available to the environment"
-# export GITHUB_USERNAME=""
-# export GITHUB_PASSWORD=""
+# export GITHUB_USERNAME="krry"
+# export GITHUB_PASSWORD="Git6kry222"
 
 # set ls colors
 echo "|-- setting list colors"
@@ -43,8 +43,6 @@ export COLOR_RED="\[\033[1;31m\]"
 # Cyan         0;36     Light Cyan    1;36
 # Light Gray   0;37     White         1;37
 
-
-# some functions to intelligently color parts of the prompt
 # test if user is root and set user color appropriately
 echo "|-- setting color of user in shell prompt"
 if [[ $(id -u) == 0 ]]
@@ -53,3 +51,9 @@ then
 else
     export PS1USERCOLOR="\[\033[36m\]"
 fi
+
+# make sure node and npm can find the global packages
+echo "|-- set the path of the global node packages"
+export NODE_PACKAGES="$HOME/.node-packages"
+export NODE_PATH="$NODE_PACKAGES/lib/node_modules:$NODE_PATH"
+export PATH="$NODE_PACKAGES/bin:$PATH"
