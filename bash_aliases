@@ -24,6 +24,7 @@ echo "    => flushcache, bashrc, filetree, flushdns"
 alias path='echo -e ${PATH//:/\\n}'
 alias du='du -kh'
 alias df='df -kTh'
+alias dotty='cd ~/dotfiles; atom .'
 alias bashrc='atom ~/.bashrc'
 alias bashaliases='atom ~/.bash_aliases'
 alias bashgit='atom ~/.bash_git'
