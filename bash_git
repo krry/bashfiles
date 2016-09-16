@@ -1,58 +1,52 @@
 # get current status of git repo
 echo "|-- adding git repo status indicators to shell prompt"
+
 function parse_git_dirty() {
 
     status=$(git status 2>&1 | tee)
 
-    dirty=$(echo -n "${status}" 2> /dev/null | grep "modified:" &> /dev/null; echo "=> $?")
+    dirty=$(echo -n "${status}" 2> /dev/null | grep "modified:" &> /dev/null; echo "$?")
 
-    untracked=$(echo -n "${status}" 2> /dev/null | grep "untracked files:" &> /dev/null; echo "=> $?")
+    untracked=$(echo -n "${status}" 2> /dev/null | grep "untracked files:" &> /dev/null; echo "$?")
 
-    ahead=$(echo -n "${status}" 2> /dev/null | grep "Your branch is ahead of" &> /dev/null; echo "=> $?")
+    ahead=$(echo -n "${status}" 2> /dev/null | grep "Your branch is ahead of" &> /dev/null; echo "$?")
 
-    newfile=$(echo -n "${status}" 2> /dev/null | grep "new file:" &> /dev/null; echo "=> $?")
+    newfile=$(echo -n "${status}" 2> /dev/null | grep "new file:" &> /dev/null; echo "$?")
 
-    renamed=$(echo -n "${status}" 2> /dev/null | grep "renamed:" &> /dev/null; echo "=> $?")
+    renamed=$(echo -n "${status}" 2> /dev/null | grep "renamed:" &> /dev/null; echo "$?")
 
-    deleted=$(echo -n "${status}" 2> /dev/null | grep "deleted:" &> /dev/null; echo "=> $?")
+    deleted=$(echo -n "${status}" 2> /dev/null | grep "deleted:" &> /dev/null; echo "$?")
 
-    bits=''
+    bits=""
 
-    if [ "${renamed}" == "0" ];
-      then
-        bits=">${bits}"
+    if [ "$dirty" == "0" ]
+    then
+      bits="%$bits"
+    fi
+    if [ "$renamed" == "0" ]; then
+      bits=">$bits"
     fi
 
-    if [ "${ahead}" == "0" ];
-      then
-        bits="*${bits}"
+    if [ "$ahead" == "0" ]; then
+      bits="*$bits"
     fi
 
-    if [ "${newfile}" == "0" ];
-      then
-        bits="+${bits}"
+    if [ "$newfile" == "0" ]; then
+      bits="+$bits"
     fi
 
-    if [ "${untracked}" == "0" ];
-      then
-        bits="?${bits}"
+    if [ "$untracked" == "0" ]; then
+      bits="?$bits"
     fi
 
-    if [ "${deleted}" == "0" ];
-      then
-        bits="x${bits}"
+    if [ "$deleted" == "0" ]; then
+      bits="x$bits"
     fi
 
-    if [ "${dirty}" == "0" ];
-      then
-        bits="!${bits}"
-    fi
-    echo -n "${bits}"
-    if [ ! "${bits}" == "" ];
-      then
-        echo "=> ${bits}"
+    if [ "$bits" != "" ]; then
+      echo " $bits"
     else
-        echo "buts "
+      echo ""
     fi
 }
 
@@ -63,7 +57,7 @@ function parse_git_branch() {
     if [ ! "${BRANCH}" == "" ];
       then
         STAT=$(parse_git_dirty)
-        echo "=> [${BRANCH} ${STAT}]"
+        echo -e "=> [${BRANCH}$COLOR_YELLOW${STAT}$COLOR_MAGENTA]"
     else
         echo "=> "
     fi
@@ -73,7 +67,7 @@ function parse_git_branch() {
 git config --global core.editor atom
 # git config --global core.excludesfile /Users/username/.gitignore_global
 git config --global core.mergeoptions --no-edit
-git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
+git config --global alias.lg "log --graph --pretty=format:\'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset\' --abbrev-commit --date=relative"
 git config --global alias.s status
 git config --global alias.ch checkout
 git config --global alias.co checkout
@@ -123,7 +117,7 @@ if [ $OS=="Windows_NT" ];
   }
 
   agent_has_keys() {
-      echo -n "|-- checking if agent has keys"
+      echo "|-- checking if agent has keys"
       ssh-add -l >/dev/null 2>&1
   }
 

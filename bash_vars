@@ -25,14 +25,23 @@ export LSCOLORS=ExFxBxDxCxegedabagacad
 
 # environment variables to set prompt format and color
 echo "|-- setting env colors for use in custom shell prompt"
-export COLOR_BOLD="\[\033[1m\]"
-# export COLOR_DEFAULT="\[\033[m\]"
-export COLOR_NONE='\[\033[m\]'
-export COLOR_BLUE="\[\033[1;34m\]"
-export COLOR_GREEN="\[\033[1;32m\]"
-export COLOR_YELLOW="\[\033[1;33m\]"
-export COLOR_MAGENTA="\[\033[1;35m\]"
-export COLOR_RED="\[\033[1;31m\]"
+export PROMPT_COLOR_BOLD='\[\033[1m\]'
+export PROMPT_COLOR_DEFAULT='\[\033[0m\]'
+export PROMPT_COLOR_NONE='\[\033[0m\]'
+export PROMPT_COLOR_BLUE='\[\033[1;34m\]'
+export PROMPT_COLOR_GREEN='\[\033[1;32m\]'
+export PROMPT_COLOR_YELLOW='\[\033[1;33m\]'
+export PROMPT_COLOR_MAGENTA='\[\033[1;35m\]'
+export PROMPT_COLOR_RED='\[\033[1;31m\]'
+
+export COLOR_BOLD='\033[1m'
+export COLOR_DEFAULT='\033[m'
+export COLOR_NONE='\033[0m'
+export COLOR_BLUE='\033[1;34m'
+export COLOR_GREEN='\033[1;32m'
+export COLOR_YELLOW='\033[1;33m'
+export COLOR_MAGENTA='\033[1;35m'
+export COLOR_RED='\033[1;31m'
 
 # available colors in BASH
 # Black        0;30     Dark Gray     1;30
