@@ -15,7 +15,7 @@ echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="
 
 if [ $EUID -ne 0 ]; then
   echo -e "$(tput setaf 3)\nchecking for superuser privileges$(tput sgr0)"
-  sudo echo "|-- authenticated as "
+  sudo echo -n "|-- authenticated as "
   id -un
   # opens up number of concurrent processes that can run in terminal to allow high dependency installs like Roots
   echo "|-- increasing concurrent process limit"
