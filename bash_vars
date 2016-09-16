@@ -1,6 +1,6 @@
 # modify the PATH environment variable to enable a bunch of dev tools and package managers
 echo "|-- exporting the PATH environment variable to include all the bins"
-export PATH="/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/heroku/bin:$HOME/Sites/lib:$HOME/local/node/bin:$HOME/.node/bin:./node_modules/.bin:/usr/local/go/bin:$HOME/npm/bin:$HOME/mongo/bin:$HOME/Sites/go/bin:/usr/local/opt/postgresql/bin:$PATH"
+export PATH="/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/heroku/bin:$HOME/Sites/lib:$HOME/local/node/bin:$HOME/.node/bin:./node_modules/.bin:/usr/local/go/bin:$HOME/npm/bin:$HOME/mongo/bin:$HOME/Sites/go/bin:/usr/local/opt/postgresql/bin:$HOME/.rvm/bin:$PATH"
 
 # set the Go path so the Go tool is happy
 export GOPATH="$HOME/Sites/go"
@@ -26,7 +26,8 @@ export LSCOLORS=ExFxBxDxCxegedabagacad
 # environment variables to set prompt format and color
 echo "|-- setting env colors for use in custom shell prompt"
 export COLOR_BOLD="\[\033[1m\]"
-export COLOR_DEFAULT="\[\033[0m\]"
+# export COLOR_DEFAULT="\[\033[m\]"
+export COLOR_NONE='\[\033[m\]'
 export COLOR_BLUE="\[\033[1;34m\]"
 export COLOR_GREEN="\[\033[1;32m\]"
 export COLOR_YELLOW="\[\033[1;33m\]"

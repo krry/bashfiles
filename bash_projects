@@ -1,6 +1,6 @@
 # general shell aliases for frequently used commands
-# echo "|-- project-specific aliases for quick directory navimagation:"
-# echo "    => flnl, silk, leadgen, scnotes, raybot"
+echo "|-- project-specific aliases for quick directory navimagation:"
+echo "    => aeshme, aeshdev, raybot"
 
 # alias flnl='cd ~/Documents/scty/flannel'
 # alias flnldev='cd ~/Documents/scty/flannel && npm run dev'
@@ -13,6 +13,8 @@
 # alias silk='cd ~/Documents/scty/silkroad'
 # alias leadgen='cd ~/Documents/scty/leadgen'
 # alias scnotes='cd ~/Documents/scty/scty-krry'
-# alias raybot='cd ~/Documents/krry/raybot'
+alias raybot='cd ~/Sites/krry/raybot'
 # alias jek='cd ~/Documents/krry/krry.github.io'
 # alias jekdev='cd ~/Documents/krry/krry.github.io && gulp'
+alias aeshme='cd ~/Sites/aesh.me'
+alias aeshdev='cd ~/Sites/aesh.me && npm run dev'

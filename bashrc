@@ -85,5 +85,3 @@ echo -e "$(tput setaf 3)\nenabling git flow auto-completion$(tput sgr0)"
 if [ -f ~/.git-flow-completion.sh ]; then
   source ~/.git-flow-completion.sh
 fi
-
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
