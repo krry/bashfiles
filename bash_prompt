@@ -1,23 +1,3 @@
-# available colors in BASH
-# Black        0;30     Dark Gray     1;30
-# Red          0;31     Light Red     1;31
-# Green        0;32     Light Green   1;32
-# Brown/Orange 0;33     Yellow        1;33
-# Blue         0;34     Light Blue    1;34
-# Purple       0;35     Light Purple  1;35
-# Cyan         0;36     Light Cyan    1;36
-# Light Gray   0;37     White         1;37
-
-# environment variables to set prompt format and color
-echo "|-- setting env colors for use in custom shell prompt"
-export COLOR_BOLD="\[\033[1m\]"
-export COLOR_DEFAULT="\[\033[0m\]"
-export COLOR_BLUE="\[\033[1;34m\]"
-export COLOR_GREEN="\[\033[1;32m\]"
-export COLOR_YELLOW="\[\033[1;33m\]"
-export COLOR_MAGENTA="\[\033[1;35m\]"
-export COLOR_RED="\[\033[1;31m\]"
-
 # test if user is root and set user color appropriately
 echo "|-- setting color of user in shell prompt"
 if [[ $(id -u) == 0 ]]
@@ -29,4 +9,4 @@ fi
 
 # format prompt for clear I/O difference, current directory, current user, and current machine
 echo -e "|-- setting up custom shell prompt"
-export PS1="$COLOR_YELLOW___________________________________________________\n$COLOR_MAGENTA\t $PS1USERCOLOR\u$COLOR_DEFAULT@$COLOR_GREEN\h$COLOR_DEFAULT: $COLOR_YELLOW\w\n$COLOR_MAGENTA\`if type parse_git_branch > /dev/null 2>&1; then parse_git_branch; fi\`\`if [ \$? = 0 ]; then echo -e '$COLOR_YELLOW:$'; else echo -e '$COLOR_RED:X'; fi\`$COLOR_DEFAULT "
+export PS1="$PROMPT_COLOR_YELLOW___________________________________________________\n$PROMPT_COLOR_YELLOW\t $PS1USERCOLOR\u$PROMPT_COLOR_NONE@$PROMPT_COLOR_GREEN\h$PROMPT_COLOR_NONE: $PROMPT_COLOR_YELLOW\w\n$PROMPT_COLOR_MAGENTA\`if type parse_git_branch > /dev/null 2>&1; then parse_git_branch; fi\`\`if [ \$? = 0 ]; then echo -e '$PROMPT_COLOR_YELLOW:$'; else echo -e '$PROMPT_COLOR_RED:X'; fi\` $PROMPT_COLOR_NONE"

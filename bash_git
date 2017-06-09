@@ -1,57 +1,73 @@
+# get current status of git repo
+echo "|-- adding git repo status indicators to shell prompt"
+
+function parse_git_dirty() {
+
+    status=$(git status 2>&1 | tee)
+
+    dirty=$(echo -n "${status}" 2> /dev/null | grep "modified:" &> /dev/null; echo "$?")
+
+    untracked=$(echo -n "${status}" 2> /dev/null | grep "untracked files:" &> /dev/null; echo "$?")
+
+    ahead=$(echo -n "${status}" 2> /dev/null | grep "Your branch is ahead of" &> /dev/null; echo "$?")
+
+    newfile=$(echo -n "${status}" 2> /dev/null | grep "new file:" &> /dev/null; echo "$?")
+
+    renamed=$(echo -n "${status}" 2> /dev/null | grep "renamed:" &> /dev/null; echo "$?")
+
+    deleted=$(echo -n "${status}" 2> /dev/null | grep "deleted:" &> /dev/null; echo "$?")
+
+    bits=""
+
+    if [ "$dirty" == "0" ]
+    then
+      bits="%$bits"
+    fi
+    if [ "$renamed" == "0" ]; then
+      bits=">$bits"
+    fi
+
+    if [ "$ahead" == "0" ]; then
+      bits="*$bits"
+    fi
+
+    if [ "$newfile" == "0" ]; then
+      bits="+$bits"
+    fi
+
+    if [ "$untracked" == "0" ]; then
+      bits="?$bits"
+    fi
+
+    if [ "$deleted" == "0" ]; then
+      bits="x$bits"
+    fi
+
+    if [ "$bits" != "" ]; then
+      echo " $bits"
+    else
+      echo ""
+    fi
+}
+
 # get current branch in git repo
 echo "|-- making current git branch available to shell prompt"
 function parse_git_branch() {
-        BRANCH=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
-        if [ ! "${BRANCH}" == "" ]
-        then
-                STAT=$(parse_git_dirty)
-                echo "=> [${BRANCH}${STAT}]"
-        else
-                echo "=> "
-        fi
-}
-
-# get current status of git repo
-echo "|-- adding git repo status indicators to shell prompt"
-function parse_git_dirty {
-        status=$(git status 2>&1 | tee)
-        dirty=$(echo -n "${status}" 2> /dev/null | grep "modified:" &> /dev/null; echo "=> $?")
-        untracked=$(echo -n "${status}" 2> /dev/null | grep "untracked files:" &> /dev/null; echo "=> $?")
-        ahead=$(echo -n "${status}" 2> /dev/null | grep "Your branch is ahead of" &> /dev/null; echo "=> $?")
-        newfile=$(echo -n "${status}" 2> /dev/null | grep "new file:" &> /dev/null; echo "=> $?")
-        renamed=$(echo -n "${status}" 2> /dev/null | grep "renamed:" &> /dev/null; echo "=> $?")
-        deleted=$(echo -n "${status}" 2> /dev/null | grep "deleted:" &> /dev/null; echo "=> $?")
-        bits=''
-        if [ "${renamed}" == "0" ]; then
-                bits=">${bits}"
-        fi
-        if [ "${ahead}" == "0" ]; then
-                bits="*${bits}"
-        fi
-        if [ "${newfile}" == "0" ]; then
-                bits="+${bits}"
-        fi
-        if [ "${untracked}" == "0" ]; then
-                bits="?${bits}"
-        fi
-        if [ "${deleted}" == "0" ]; then
-                bits="x${bits}"
-        fi
-        if [ "${dirty}" == "0" ]; then
-                bits="!${bits}"
-        fi
-        if [ ! "${bits}" == "" ]; then
-                echo "=> ${bits}"
-        else
-                echo "=> "
-        fi
+    BRANCH=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+    if [ ! "${BRANCH}" == "" ];
+      then
+        STAT=$(parse_git_dirty)
+        echo -e "=> [${BRANCH}$COLOR_YELLOW${STAT}$COLOR_MAGENTA]"
+    else
+        echo "=> "
+    fi
 }
 
 # set global configs for git
 git config --global core.editor atom
 # git config --global core.excludesfile /Users/username/.gitignore_global
 git config --global core.mergeoptions --no-edit
-git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
+git config --global alias.lg "log --graph --pretty=format:\'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset\' --abbrev-commit --date=relative"
 git config --global alias.s status
 git config --global alias.ch checkout
 git config --global alias.co checkout
@@ -77,8 +93,9 @@ git config --global core.logallrefupdates true
 git config --global core.ignorecase true
 git config --global core.precomposeunicode true
 
-if [ $OS=="Windows_NT" ]; then
-  echo "|-- ensuring that ssh-agent is running to preserve git authentication"
+if [ $OS=="Windows_NT" ];
+  then
+    echo "|-- ensuring that ssh-agent is running to preserve git authentication"
   # Note: ~/.ssh/environment should not be used, as it already has a different purpose in SSH.
 
   env=~/.ssh/agent.env
@@ -87,7 +104,8 @@ if [ $OS=="Windows_NT" ]; then
 
   agent_is_running() {
       echo "|-- checking if agent is running"
-      if [ "$SSH_AUTH_SOCK" ]; then
+      if [ "$SSH_AUTH_SOCK" ];
+        then
           # ssh-add returns:
           #   0 = agent running, has keys
           #   1 = agent running, no keys
@@ -99,7 +117,7 @@ if [ $OS=="Windows_NT" ]; then
   }
 
   agent_has_keys() {
-      echo -n "|-- checking if agent has keys"
+      echo "|-- checking if agent has keys"
       ssh-add -l >/dev/null 2>&1
   }
 
@@ -115,12 +133,14 @@ if [ $OS=="Windows_NT" ]; then
 
   # if your keys are not stored in ~/.ssh/id_rsa or ~/.ssh/id_dsa, you'll need to paste the proper path after ssh-add
 
-  if ! agent_is_running; then
+  if ! agent_is_running;
+    then
       echo "... agent not running, loading env"
       agent_load_env
       agent_start
       ssh-add
-  elif ! agent_has_keys; then
+  elif ! agent_has_keys;
+    then
       echo "... agent had no keys"
       ssh-add
   else
