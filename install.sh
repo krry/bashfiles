@@ -2,7 +2,7 @@
 
 ###########################################################
 #
-# getdotty.sh
+# install.sh
 #
 # This script creates symlinks from the home directory
 # to any desired dotfiles in ~/dotfiles
@@ -10,8 +10,8 @@
 ###########################################################
 
 # it makes the variables
-dir=~/dotfiles          # dotfiles directory
-olddir=~/dotfiles_old   # old dotfiles backup directory
+dir=~/.dotfiles          # dotfiles directory
+olddir=~/.dotfiles/old   # old dotfiles backup directory
 bashfiles="bashrc bash_vars bash_aliases bash_git bash_profile bash_prompt bash_projects"
 
 # it makes a place to back up old dotfiles

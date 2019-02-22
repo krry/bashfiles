@@ -17,6 +17,10 @@ alias mkdir='mkdir -p'
 alias which='type -a'
 alias rsb='exec bash -l'
 
+cdir() {
+  mkdir $1 && cd $1
+}
+
 # some helper aliases
 echo "|-- adding helper aliases:"
 echo "    => path, du, df, loadrc, openrc, openhosts"
